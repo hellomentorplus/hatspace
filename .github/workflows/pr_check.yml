@@ -38,7 +38,14 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run test with coverage
         run: flutter test --coverage
-      
+        
+      # check code coverage using lcov
+      - name: Report LCOV
+        uses: zgosalvez/github-actions-report-lcov@v1.5.0
+        with:
+          coverage-files: coverage/lcov.info
+          minimum-coverage: 70
+
       # build apk in debug mode
       - name: build APK
         run: flutter build apk --debug
