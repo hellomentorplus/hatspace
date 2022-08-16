@@ -22,7 +22,7 @@ jobs:
   # This workflow contains a single job called "build"
   code_coverage_check:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -46,3 +46,17 @@ jobs:
       # Run lcov summary
       - name: Check lcov summary on main app
         run: lcov --summary coverage/lcov.info
+        
+      # install Java 11 to build Android app
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      # build android app
+      - name: Build Android app in debug mode
+        run: flutter build apk --debug
+        
+      # build iOS app
+      - name: Build iOS App in debug, no codesign
+        run: flutter build ios --debug --no-codesign
