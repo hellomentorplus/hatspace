@@ -1,0 +1,62 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request on all branches, except "main" branch
+  push:
+    branches: 
+    - '**'
+    - '!main'
+  pull_request:
+    branches: 
+    - '**'
+    - '!main'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  code_coverage_check:
+    # The type of runner that the job will run on
+    runs-on: macos-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # use flutter-action to start running flutter commands
+      - uses: subosito/flutter-action@v2.6.1
+        with:
+          flutter-version: '3.0.5'
+          channel: 'stable'
+
+      # Runs a set of commands using the runners shell
+      - name: Run test with coverage
+        run: flutter test --coverage
+        
+      # check code coverage using lcov
+      - name: Setup LCOV
+        uses: hrishikesh-kadam/setup-lcov@v1.0.0
+        
+      # Run lcov summary
+      - name: Check lcov summary on main app
+        run: lcov --summary coverage/lcov.info
+        
+      # install Java 11 to build Android app
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      # build android app
+      - name: Build Android app in debug mode
+        run: flutter build apk --debug
+        
+      # build iOS app
+      - name: Build iOS App in debug, no codesign
+        run: flutter build ios --debug --no-codesign
