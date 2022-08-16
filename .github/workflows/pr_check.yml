@@ -40,9 +40,8 @@ jobs:
         run: flutter test --coverage
         
       # check code coverage using lcov
-      - name: Report LCOV
-        uses: zgosalvez/github-actions-report-lcov@v1.5.0
+      - name: Check lcov
+        uses: Nef10/lcov-reporter-action@v0.3.0
         with:
-          coverage-files: coverage/lcov.info
-          minimum-coverage: 70
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          lcov-file: lcov.info
+          pr-number: ${{ env.pr_number }}
