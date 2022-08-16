@@ -45,3 +45,4 @@ jobs:
         with:
           coverage-files: coverage/lcov.info
           minimum-coverage: 70
+          github-token: ${{ secrets.GITHUB_TOKEN }}
