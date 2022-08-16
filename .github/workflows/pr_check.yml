@@ -41,6 +41,4 @@ jobs:
         
       # check code coverage using lcov
       - name: Check lcov
-        uses: Nef10/lcov-reporter-action@v0.3.0
-        with:
-          pr_number: ${{ env.pr_number }}
+        uses: romeovs/lcov-reporter-action@v0.2.16
