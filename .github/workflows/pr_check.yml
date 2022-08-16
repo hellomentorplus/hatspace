@@ -28,6 +28,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      
+      # use java 11 for Android build
+      - name: Update Java 11
+        uses: subosito/flutter-action@v2.6.1
+        with:
+          flutter-version: '3.0.5'
+          channel: 'stable'
 
       # use flutter-action to start running flutter commands
       - uses: subosito/flutter-action@v2.6.1
