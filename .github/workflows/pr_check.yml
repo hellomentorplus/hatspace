@@ -40,5 +40,9 @@ jobs:
         run: flutter test --coverage
         
       # check code coverage using lcov
-      - name: Check lcov
-        uses: romeovs/lcov-reporter-action@v0.2.16
+      - name: Setup LCOV
+        uses: hrishikesh-kadam/setup-lcov@v1.0.0
+        
+      # Run lcov summary
+      - name: Check lcov summary on main app
+        run: lcov --summary coverage/lcov.info --fail-under-lines 70
