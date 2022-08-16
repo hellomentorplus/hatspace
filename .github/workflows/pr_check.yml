@@ -35,6 +35,10 @@ jobs:
         with:
           flutter-version: '3.0.5'
           channel: 'stable'
+          
+      # Setup LCOV
+      - name: Setup LCOV
+        uses: hrishikesh-kadam/setup-lcov@v1.0.0
 
       # use flutter-action to start running flutter commands
       - uses: subosito/flutter-action@v2.6.1
