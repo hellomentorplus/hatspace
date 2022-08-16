@@ -43,5 +43,4 @@ jobs:
       - name: Check lcov
         uses: Nef10/lcov-reporter-action@v0.3.0
         with:
-          lcov-file: lcov.info
           pr_number: ${{ env.pr_number }}
