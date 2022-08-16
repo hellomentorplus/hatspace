@@ -45,4 +45,4 @@ jobs:
         
       # Run lcov summary
       - name: Check lcov summary on main app
-        run: lcov --summary coverage/lcov.info --fail-under-lines 70
+        run: lcov --summary coverage/lcov.info
