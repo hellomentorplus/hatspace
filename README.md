@@ -33,6 +33,9 @@ Suffix for class types:
 - bloc cubit: Cubit
 - common service: Service
 
+ File name:
+- Snake case (snake_case)
+
 ## Good practice:
 - Commit message: should be clear and meaningful of the purpose of each commit
 - PR: short, below 1000 LoC
