@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hat_space_project/second_screen.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,59 +6,28 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-<<<<<<< Updated upstream
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'HatSpace Application',
-      theme: ThemeData(
-        primaryColor: Color(0xff006606),
-        // buttonTheme: const ButtonThemeData(
-        //   buttonColor: Colors.white,
-        // ),
-        // textButtonTheme: TextButtonThemeData(
-        //     style: ButtonStyle(
-        //         textStyle: MaterialStateProperty.all(
-        //             const TextStyle(color: Colors.black)))),
-      ),
-      home: const MyHomePage(),
-=======
-
- @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
 
-          primaryColor: Color(0xff006606),
+        primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
->>>>>>> Stashed changes
     );
   }
 }
 
-<<<<<<< Updated upstream
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-=======
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-
   final String title;
 
->>>>>>> Stashed changes
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
-<<<<<<< Updated upstream
-class _MyHomePageState extends State<MyHomePage> {
-=======
- class _MyHomePageState extends State<MyHomePage> {
->>>>>>> Stashed changes
+  // This widget is the root of your application.
+  class _MyHomePageState extends State<MyHomePage> {
   bool _isButtonDisable = false;
 
   @override
@@ -76,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
               const Color.fromRGBO(255, 255, 255, 1)),
         ))),
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
+          // resizeToAvoidBottomInset: false,
           backgroundColor: Theme.of(context).primaryColor,
           body: Center(
             child: Column(
@@ -110,7 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             color: Colors.white,
                             fontSize: 65,
                             fontWeight: FontWeight.bold),
-<<<<<<< Updated upstream
                       ),
                       Container(
                         padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -123,20 +89,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                       Container(
-=======
-                      ),
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                        child: const Text(
-                          "Please enter your email address",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                      Container(
->>>>>>> Stashed changes
                         padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
                         child: TextField(
                           style: const TextStyle(
@@ -194,14 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     const Color.fromRGBO(255, 255, 255, 1)),
                           ),
                           onPressed: () => {
-<<<<<<< Updated upstream
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const MyWidget()))
-=======
-                              
->>>>>>> Stashed changes
+                                
                               },
                           child: const Text(
                             "Continue",
@@ -211,11 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         height: 20,
                       ),
                       ElevatedButton.icon(
-<<<<<<< Updated upstream
-                          icon: const Icon(FontAwesomeIcons.google,
-=======
                           icon: const Icon(Icons.add,
->>>>>>> Stashed changes
                               color: Colors.black, size: 30),
                           onPressed: () => {},
                           label: const Text(
@@ -228,13 +169,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           text: const TextSpan(
                               style:
                                   TextStyle(color: Colors.white, fontSize: 15),
-<<<<<<< Updated upstream
-                              children: [TextSpan(text: "Made with "),
-                              TextSpan(text:"Glide",style: TextStyle(fontWeight: FontWeight.bold))
-
-                              ])
-                              )
-=======
                               children: [
                                 TextSpan(text: "Made with "),
                                 TextSpan(
@@ -242,7 +176,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold))
                               ]))
->>>>>>> Stashed changes
                     ],
                   ),
                 )
