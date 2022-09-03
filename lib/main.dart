@@ -6,106 +6,182 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          textButtonTheme: TextButtonThemeData(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.white))),
-        ),
-        home: Scaffold(
-          backgroundColor: const Color(0xFF006607),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+
+        primarySwatch: Colors.blue,
+      ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+  // This widget is the root of your application.
+  class _MyHomePageState extends State<MyHomePage> {
+  bool _isButtonDisable = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+        data: ThemeData(
+            elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ButtonStyle(
+          fixedSize: MaterialStateProperty.all<Size>(
+            const Size.fromHeight(45),
+          ),
+          backgroundColor: MaterialStateProperty.all<Color>(
+              const Color.fromRGBO(255, 255, 255, 1)),
+        ))),
+        child: Scaffold(
+          // resizeToAvoidBottomInset: false,
+          backgroundColor: Theme.of(context).primaryColor,
           body: Center(
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
                     height: 100,
-                    child: Center(
-                      child: Text(
-                        'Space App',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge
-                            ?.copyWith(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  Column(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        Text(
+                          "Space App",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white),
+                        )
+                      ],
+                    )),
+
+                // color: Colors.orangeAccent,
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Space',
-                          style: Theme.of(context)
-                              .primaryTextTheme
-                              .displayMedium
-                              ?.copyWith(color: Colors.white)),
-                      Text(
-                        'Please enter your email address',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(color: Colors.white),
+                      const Text(
+                        "Space",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 65,
+                            fontWeight: FontWeight.bold),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                              fillColor: Colors.white.withOpacity(0.3),
-                              filled: true,
-                              hintText: 'Your Email address',
-                              hintStyle: const TextStyle(color: Colors.white),
-                              enabledBorder: const OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.white, width: 2),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)))),
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: const Text(
+                          "Please enter your email address",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
+                        child: TextField(
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20),
+                          decoration: const InputDecoration(
+                            isCollapsed: true,
+                            contentPadding: EdgeInsets.all(10),
+                            filled: true,
+                            fillColor: Color.fromRGBO(255, 255, 255, 0.4),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                                borderSide: BorderSide(
+                                    color: Colors.white, width: 2.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5)),
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2.0),
+                            ),
+                            hintText: "Email address",
+                            hintStyle: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20),
+                          ),
+                          onChanged: (value) => {
+                            setState(() {
+                              if (value.length == 0) {
+                                _isButtonDisable = false;
+                              } else {
+                                _isButtonDisable = true;
+                              }
+                            })
+                          },
+                        ),
+                      )
                     ],
                   ),
-                  Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            TextButton(
-                              onPressed: () => {},
-                              child: const Text(
-                                'Continue',
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                            TextButton(
-                                onPressed: () => {},
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 10.0),
-                                      child: Icon(
-                                        Icons.add_a_photo,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Sign in with Google',
-                                      style: TextStyle(color: Colors.black),
-                                    )
-                                  ],
-                                )),
-                          ],
-                        ),
-                      ))
-                ]),
-          ),
+                ),
+
+                Container(
+                  padding: EdgeInsets.fromLTRB(30, 0, 30, 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: !_isButtonDisable
+                                ? MaterialStateProperty.all<Color>(
+                                    const Color.fromRGBO(255, 255, 255, 0.5))
+                                : MaterialStateProperty.all<Color>(
+                                    const Color.fromRGBO(255, 255, 255, 1)),
+                          ),
+                          onPressed: () => {
+                                
+                              },
+                          child: const Text(
+                            "Continue",
+                            style: TextStyle(color: Colors.black, fontSize: 20),
+                          )),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      ElevatedButton.icon(
+                          icon: const Icon(Icons.add,
+                              color: Colors.black, size: 30),
+                          onPressed: () => {},
+                          label: const Text(
+                            "Sign in with Google",
+                            style: TextStyle(color: Colors.black, fontSize: 20),
+                          )),
+                      const SizedBox(height: 20),
+                      RichText(
+                          textAlign: TextAlign.center,
+                          text: const TextSpan(
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                              children: [
+                                TextSpan(text: "Made with "),
+                                TextSpan(
+                                    text: "Glide",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold))
+                              ]))
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ), // This trailing comma makes auto-formatting nicer for build methods.
         ));
   }
 }
