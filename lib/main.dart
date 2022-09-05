@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'verification_screen.dart';
+// import 'package:hatspace/verification_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -77,7 +80,15 @@ class MyApp extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             TextButton(
-                              onPressed: () => {},
+                              onPressed: () {
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //     builder: (context) => const SecondRoute()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const VerificationScreen()));
+                              },
                               child: const Text(
                                 'Continue',
                                 style: TextStyle(color: Colors.black),
@@ -109,3 +120,24 @@ class MyApp extends StatelessWidget {
         ));
   }
 }
+
+// class SecondRoute extends StatelessWidget {
+//   const SecondRoute({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Second Route'),
+//       ),
+//       body: Center(
+//         child: ElevatedButton(
+//           onPressed: () {
+//             Navigator.pop(context);
+//           },
+//           child: const Text('Go back!'),
+//         ),
+//       ),
+//     );
+//   }
+// }
