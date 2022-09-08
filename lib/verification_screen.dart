@@ -1,7 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class VerificationScreen extends StatelessWidget {
+class VerificationScreen extends StatefulWidget {
   const VerificationScreen({Key? key}) : super(key: key);
+
+  @override
+  _VerificationScreenState createState() => _VerificationScreenState();
+}
+
+class _VerificationScreenState extends State<VerificationScreen> {
+  final pinController = TextEditingController();
+
+  bool submit = false;
+
+  @override
+  void initState() {
+    super.initState();
+    pinController.addListener(() {
+      setState(() {
+        if (pinController.text.length > 5) {
+          submit = true;
+        } else {
+          submit = false;
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    pinController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,42 +54,49 @@ class VerificationScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              Column(
-                children: [
-                  Column(
-                    // crossAxisAlignment: CrossAxisAlignment.center,
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("We've send a pin to your email",
+              Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        Text("We've send a pin to your email \n",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(color: Colors.white)),
+                        Text(
+                          "Check you spam folder if you don't receive it.",
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge
-                              ?.copyWith(color: Colors.white)),
-                      Text(
-                        "Check you spam folder if you don't receive it.",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge
-                            ?.copyWith(color: Colors.white),
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          fillColor: Colors.white.withOpacity(0.3),
-                          filled: true,
-                          hintText: 'Enter pin',
-                          hintStyle: const TextStyle(color: Colors.white),
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.white, width: 2),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5)))),
+                              ?.copyWith(color: Colors.white),
+                          textAlign: TextAlign.center,
+                        )
+                      ],
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        controller: pinController,
+                        decoration: InputDecoration(
+                            fillColor: Colors.white.withOpacity(0.3),
+                            filled: true,
+                            hintText: 'Enter pin',
+                            hintStyle: const TextStyle(color: Colors.white),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.white, width: 2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)))),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Padding(
                   padding: const EdgeInsets.only(
@@ -69,20 +107,36 @@ class VerificationScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         TextButton(
-                          onPressed: () => {},
+                          onPressed: submit ? () => '' : null,
+                          style: ButtonStyle(backgroundColor:
+                              MaterialStateProperty.resolveWith(
+                            (states) {
+                              if (states.contains(MaterialState.disabled)) {
+                                return Colors.white.withOpacity(0.3);
+                              } else {
+                                return Colors.white;
+                              }
+                            },
+                          )),
                           child: const Text(
                             'Sign In',
                             style: TextStyle(color: Colors.black),
                           ),
                         ),
-                        Text(
-                          textAlign: TextAlign.center,
-                          'I need another pin',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(color: Colors.white),
-                        ),
+                        TextButton(
+                          onPressed: (() => {}),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Colors.transparent)),
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            'I need another pin',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(color: Colors.white),
+                          ),
+                        )
                       ],
                     ),
                   ))
