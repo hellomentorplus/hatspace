@@ -16,13 +16,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return Theme(
         data: ThemeData(
             elevatedButtonTheme: ElevatedButtonThemeData(
-                style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all<Size>(
+              
+                  style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          fixedSize: MaterialStateProperty.all<Size>(
             const Size.fromHeight(45),
           ),
           backgroundColor: MaterialStateProperty.all<Color>(
               const Color.fromRGBO(255, 255, 255, 1)),
-            ))),
+        ))),
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Theme.of(context).primaryColor,
@@ -33,73 +35,56 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                     // color:Colors.amberAccent,
                     margin: const EdgeInsets.only(top: 60.0, bottom: 20.0),
-                    child: const Text(
+                    child: Text(
                       "Space App",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white),
+                      style: Theme.of(context).textTheme.titleMedium
                     )),
-                Container(
-                    // color: Colors.amberAccent,
-                    // color:Colors.amberAccent,
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
                   children: [
-                    const Text(
+                    Text(
                       "Space",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 65,
-                          fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.displayMedium,
                     ),
                     Container(
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: const Text(
+                      child: Text(
                         "Please enter your email address",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500),
-                      ),
+                        style: Theme.of(context).textTheme.titleMedium
+                        ),
                     ),
                     Container(
                       padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
                       child: TextField(
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20),
-                        decoration: const InputDecoration(
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 20.0),
+                        decoration: InputDecoration(
                           isCollapsed: true,
-                          contentPadding: EdgeInsets.all(10),
+                          contentPadding: const EdgeInsets.all(10),
                           filled: true,
-                          fillColor: Color.fromRGBO(255, 255, 255, 0.4),
-                          enabledBorder: OutlineInputBorder(
+                          fillColor: const Color.fromRGBO(255, 255, 255, 0.4),
+                          enabledBorder:const OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(5)),
                               borderSide:
                                   BorderSide(color: Colors.white, width: 2.0)),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder:const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(5)),
                             borderSide:
                                 BorderSide(color: Colors.white, width: 2.0),
                           ),
                           hintText: "Email address",
-                          hintStyle: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 20),
+                          hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 20.0),
                         ),
                         onChanged: (value) {
-                          setState(() {
-                            if (value.length == 0) {
-                              _isButtonDisable = false;
-                            } else {
+                          if (value.length != 0){
+                            setState(() {
                               _isButtonDisable = true;
-                            }
-                          });
+                            });
+                          }else{
+                            setState(() {
+                               _isButtonDisable = false;
+                            });
+                          }
                           setState(() {
                             emailValue = value;
                           });
@@ -107,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     )
                   ],
-                )),
+                ),
                 Container(
                   padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                   // color:Colors.amberAccent,
@@ -116,43 +101,46 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: <Widget>[
                       ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: !_isButtonDisable
-                                ? MaterialStateProperty.all<Color>(
-                                    const Color.fromARGB(190, 255, 255, 255))
-                                : MaterialStateProperty.all<Color>(
-                                    const Color.fromRGBO(255, 255, 255, 1)),
+                            backgroundColor: MaterialStateProperty.resolveWith((states) {
+                                const Set<MaterialState> buttonState = <MaterialState>{
+                                  MaterialState.disabled
+                                };
+                                if (states.any(buttonState.contains)){
+                                    return const Color.fromARGB(190, 255, 255, 255);
+                                }
+                                return const Color.fromRGBO(255, 255, 255, 1);
+                            })
                           ),
-                          onPressed: () {
+                          onPressed: !_isButtonDisable? null : () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
                               return VerificationPage(emailValue: emailValue);
                             }));
                           },
-                          child: const Text(
+                          child: Text(
                             "Continue",
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black),
                           )),
                       const SizedBox(
                         height: 10,
                       ),
                       ElevatedButton(
-                        child: const Text.rich(
-                          TextSpan(children: [
+                        child: Text.rich(
+                          const TextSpan(children: [
                             WidgetSpan(
                                 child: Icon(Icons.add, color: Colors.black)),
                             TextSpan(text: "Sign in with Google"),
                           ]),
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black),
                         ),
                         onPressed: () {},
                       ),
                       const SizedBox(height: 10),
                       RichText(
                           textAlign: TextAlign.center,
-                          text: const TextSpan(
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                              children: [
+                          text:  TextSpan(
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 15,fontWeight: FontWeight.normal),
+                              children: const [
                                 TextSpan(text: "Made with "),
                                 TextSpan(
                                     text: "Glide",
