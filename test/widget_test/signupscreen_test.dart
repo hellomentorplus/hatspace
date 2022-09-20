@@ -9,27 +9,17 @@ import 'package:mockito/mockito.dart';
 import 'signupscreen_test.mocks.dart';
 @GenerateMocks([SignUpCubit])
 void main (){
-  testWidgets("Email error message", (WidgetTester tester)async{
-    await tester.wrapAndPumpWidget(const SigUpScreen());
+  testWidgets("Email error message", (widgetTester)async{
+    // await tester.wrapAndPumpWidget(const SigUpScreen());
+    Widget widget = const SigUpScreen();
 
     final MockSignUpCubit signUpCubit = MockSignUpCubit();
-    when(signUpCubit.state).thenAnswer((realInvocation) =>const SignUpState() );
-    when(signUpCubit.stream).thenAnswer((realInvocation) => Stream.value(const SignUpState(isEmailValid: true)));
-   expect(signUpCubit.state.emailError, "invalid email");
+    when(signUpCubit.state).thenAnswer((realInvocation) =>const SignUpState(isEmailValid:false,isPasswordValid: true,emailError:"Email is Invalid",passwordError: "") );
+    when(signUpCubit.stream).thenAnswer((realInvocation) => Stream.value(const SignUpState(isEmailValid:false,isPasswordValid: true,emailError:"Email is Invalid",passwordError: "")));
 
-  });
-
-}
-
-
-extension WidgetTesterExtension on WidgetTester{
-  Future<void> wrapAndPumpWidget(Widget widget)async{
-    await pumpWidget( 
-       BlocProvider<SignUpCubit>(
-        create: ((context) {
-          return SignUpCubit();
-        }),
-        child: MaterialApp(
+    final Widget blocWrapper = BlocProvider<SignUpCubit>(
+      create: (context)=> signUpCubit,
+      child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
               primaryColor: const Color(0xff006606),
@@ -41,8 +31,19 @@ extension WidgetTesterExtension on WidgetTester{
                     TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
               ),
               iconTheme: const IconThemeData(color: Colors.black, size: 15)),
-          home: widget,
-        )));
-    await pump();
-  }
+          home: Builder(builder: (context)=>widget,)
+        ),
+      );
+
+    await widgetTester.pumpWidget(blocWrapper);
+    // await widgetTester.pumpFrames(blocWrapper, const Duration(milliseconds: 160));
+    // await tester.pumpFrames(const SigUpScreen(),const Duration(milliseconds: 160));
+    Iterable <TextField> textFieldList = widgetTester.widgetList(find.byType(TextField));
+    TextField emailTextField = textFieldList.first;
+    expect(emailTextField.decoration?.errorText, "Email is Invalid");
+
+  });
+
 }
+
+
