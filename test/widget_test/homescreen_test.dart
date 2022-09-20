@@ -38,7 +38,7 @@ void main() {
 
     //=============
     expect(containerList.elementAt(2).padding,
-        const EdgeInsets.fromLTRB(30, 20, 30, 20));
+        const EdgeInsets.fromLTRB(30, 20, 30, 0));
     expect(containerList.elementAt(2).child, isA<TextField>());
     TextField textField = tester.widget(find.byType(TextField));
     TextStyle? textFieldStyle = textField.style;
@@ -85,6 +85,8 @@ void main() {
     Iterable<RichText> richText = tester.widgetList(find.byType(RichText));
     expect(richText.last.textAlign, TextAlign.center);
     expect(richText.last.text, isA<TextSpan>());
+
+ 
   });
 
 }
