@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hatspace/ui/login_screen.dart';
 
-import 'verification_screen.dart';
+import 'ui/verification_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,12 +25,14 @@ class MyApp extends StatelessWidget {
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.white))),
         ),
-        home: const HomePage());
+        home: LoginScreen());
   }
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+  final emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,12 +70,18 @@ class HomePage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: TextField(
+                      controller: emailController,
                       decoration: InputDecoration(
                           fillColor: Colors.white.withOpacity(0.3),
                           filled: true,
                           hintText: 'Your Email address',
                           hintStyle: const TextStyle(color: Colors.white),
                           enabledBorder: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5))),
+                          focusedBorder: const OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.white, width: 2),
                               borderRadius:
@@ -92,8 +101,8 @@ class HomePage extends StatelessWidget {
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const VerificationScreen()));
+                                builder: (context) => VerificationScreen(
+                                    value: emailController.text)));
                           },
                           child: const Text(
                             'Continue',

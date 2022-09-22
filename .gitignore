@@ -57,3 +57,5 @@ windows/flutter/generated_plugins.cmake
 genhtml.perl
 coverage
 runCoverage.txt
+pubspec.yaml
+pubspec.lock

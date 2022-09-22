@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hatspace/main.dart';
 
 class VerificationScreen extends StatefulWidget {
-  const VerificationScreen({Key? key}) : super(key: key);
+  final String value;
+
+  const VerificationScreen({Key? key, required this.value}) : super(key: key);
 
   @override
   _VerificationScreenState createState() => _VerificationScreenState();
@@ -30,7 +33,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
   @override
   void dispose() {
     pinController.dispose();
-
     super.dispose();
   }
 
@@ -60,7 +62,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   children: [
                     Column(
                       children: [
-                        Text("We've send a pin to your email \n",
+                        Text("We've send a pin to ${widget.value}\n",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge
@@ -89,6 +91,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
                             hintText: 'Enter pin',
                             hintStyle: const TextStyle(color: Colors.white),
                             enabledBorder: const OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.white, width: 2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5))),
+                            focusedBorder: const OutlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Colors.white, width: 2),
                                 borderRadius:
@@ -124,7 +131,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           ),
                         ),
                         TextButton(
-                          onPressed: (() => {}),
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => HomePage()));
+                          },
                           style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(
                                   Colors.transparent)),
