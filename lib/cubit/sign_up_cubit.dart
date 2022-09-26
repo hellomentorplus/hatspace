@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:validators/validators.dart';
 part 'sign_up_state.dart';
@@ -29,17 +30,46 @@ class SignUpCubit extends Cubit<SignUpState> {
     if (regex.hasMatch(password)) {
       emit(state.copyWith(isPasswordValid: true, passwordError: ""));
     } else {
-      if(!password.contains(RegExp(r'[A-Z]'))){
-        return emit(state.copyWith(isPasswordValid: false,passwordError:"Password needs at least 1 uppercase character" ));
+      if (!password.contains(RegExp(r'[A-Z]'))) {
+        return emit(state.copyWith(
+            isPasswordValid: false,
+            passwordError: "Password needs at least 1 uppercase character"));
       }
-      if (!password.contains(RegExp(r'[a-z]'))){
-        return emit(state.copyWith(isPasswordValid: false,passwordError:"Password needs at least 1 lowercase character" ));
+      if (!password.contains(RegExp(r'[a-z]'))) {
+        return emit(state.copyWith(
+            isPasswordValid: false,
+            passwordError: "Password needs at least 1 lowercase character"));
       }
-      if(!password.contains(RegExp(r'[0-9]'))){
-        return emit(state.copyWith(isPasswordValid: false,passwordError:"Password needs at least 1 number" ));
+      if (!password.contains(RegExp(r'[0-9]'))) {
+        return emit(state.copyWith(
+            isPasswordValid: false,
+            passwordError: "Password needs at least 1 number"));
       }
       emit(state.copyWith(
           isPasswordValid: false, passwordError: "Password Invalid"));
     }
+  }
+
+  void checkSignUpSuccess(String email, String password) {
+    if (email == "vinh@gmail.com" && password == "Vinh@123456789") {
+      emit(SignUpSuccessState());
+    }
+  }
+
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email, password: password);
+      final user = await FirebaseAuth.instance.currentUser;
+      if(user != null ){
+        emit(SignUpSuccessState());
+      }
+    } 
+    on FirebaseAuthException catch (e) {
+      emit(SignUpFailState(e.message));
+      print('Failed with error code: ${e.code}');
+      print(e.message);
+    }
+   
   }
 }

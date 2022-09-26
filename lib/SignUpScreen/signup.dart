@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hatspace/Screen/VerificationScreen.dart';
 import 'package:hatspace/cubit/sign_up_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class SigUpScreen extends StatefulWidget {
   const SigUpScreen({Key? key}) : super(key: key);
@@ -48,6 +50,28 @@ class SigUpScreenState extends State<SigUpScreen> {
               .validatePassword(_passwordController.text);
         }
       });
+      if (state is SigUpScreenState) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                    title: const Text(
+                      "Title",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    content: const Text("Description",
+                        style: TextStyle(color: Colors.black)),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ]));
+      }
+     
 
       return Theme(
           data: ThemeData(
@@ -94,7 +118,8 @@ class SigUpScreenState extends State<SigUpScreen> {
                                 .titleMedium
                                 ?.copyWith(fontSize: 20.0),
                             decoration: InputDecoration(
-                              errorText: state.isEmailValid? null: state.emailError,
+                              errorText:
+                                  state.isEmailValid ? null : state.emailError,
                               isCollapsed: true,
                               contentPadding: const EdgeInsets.all(10),
                               filled: true,
@@ -128,7 +153,9 @@ class SigUpScreenState extends State<SigUpScreen> {
                                 .titleMedium
                                 ?.copyWith(fontSize: 20.0),
                             decoration: InputDecoration(
-                              errorText: state.isPasswordValid? null : state.passwordError,
+                              errorText: state.isPasswordValid
+                                  ? null
+                                  : state.passwordError,
                               isCollapsed: true,
                               contentPadding: const EdgeInsets.all(10),
                               filled: true,
@@ -152,7 +179,6 @@ class SigUpScreenState extends State<SigUpScreen> {
                                   ?.copyWith(fontSize: 20.0),
                             ),
                           )),
-                  
                     ],
                   ),
                   Container(
@@ -171,16 +197,48 @@ class SigUpScreenState extends State<SigUpScreen> {
                               }
                               return const Color.fromRGBO(255, 255, 255, 1);
                             })),
-                            onPressed:state.isEmailValid && state.isPasswordValid 
-                                ? () {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return VerificationPage(
-                                          emailValue:
-                                              _emailController.value.text);
-                                    }));
-                                  }
-                                : null,
+                            // onPressed: state.isEmailValid &&
+                            //         state.isPasswordValid
+                            onPressed:
+                                state.isEmailValid && state.isPasswordValid
+                                    ? ()async {
+                                        await context
+                                            .read<SignUpCubit>()
+                                            .signInWithEmailAndPassword(
+                                                _emailController.text,
+                                                _passwordController.text);
+                                      
+                                      }
+                                    : null,
+
+                            // showDialog(
+                            //     context: context,
+                            //     builder: (BuildContext context) =>
+                            //         AlertDialog(
+                            //             title: const Text(
+                            //               "Title",
+                            //               style: TextStyle(
+                            //                   color: Colors.black),
+                            //             ),
+                            //             content: const Text("Description",
+                            //                 style: TextStyle(
+                            //                     color: Colors.black)),
+                            //             actions: <Widget>[
+                            //               TextButton(
+                            //                 onPressed: () => Navigator.pop(
+                            //                     context, 'Cancel'),
+                            //                 child: const Text('Cancel'),
+                            //               ),
+                            //               TextButton(
+                            //                 onPressed: () => Navigator.pop(
+                            //                     context, 'OK'),
+                            //                 child: const Text('OK'),
+                            //               ),
+                            //             ]))
+                            // return BlocBuilder<SignUpCubit, SignUpState>(builder: (context, state) {
+                            //      context.read<SignUpCubit>().checkSignUpSuccess(_emailController.text, _passwordController.text);
+                            // });
+
                             child: Text(
                               "Continue",
                               style: Theme.of(context)
