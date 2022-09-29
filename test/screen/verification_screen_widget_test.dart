@@ -1,7 +1,12 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/bloc/bloc/authentication_bloc.dart';
 
 import 'package:hatspace/ui/verification_screen.dart';
+
+class MockLoginBloc extends MockBloc<AuthenticationEvent, SignUpState>
+    implements AuthenticationBloc {}
 
 void main() {
   testWidgets('VerificationScreen smoke test', (WidgetTester tester) async {
