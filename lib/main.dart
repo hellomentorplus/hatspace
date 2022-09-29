@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/ui/login_screen.dart';
 
+import 'bloc/bloc/authentication_bloc.dart';
 import 'ui/verification_screen.dart';
 
 void main() async {
@@ -17,15 +19,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          textButtonTheme: TextButtonThemeData(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.white))),
-        ),
-        home: LoginScreen());
+    return BlocProvider<AuthenticationBloc>(
+        create: (context) => AuthenticationBloc(),
+        child: MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              textButtonTheme: TextButtonThemeData(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.white))),
+            ),
+            home: const LoginScreen()));
   }
 }
 
