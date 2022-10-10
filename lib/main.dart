@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/ui/login_screen.dart';
 
-import 'bloc/bloc/authentication_bloc.dart';
+import 'bloc/verification/authentication_bloc.dart';
 import 'ui/verification_screen.dart';
 
 void main() async {

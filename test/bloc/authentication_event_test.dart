@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/bloc/bloc/authentication_bloc.dart';
+import 'package:hatspace/bloc/verification/authentication_bloc.dart';
 
 void main() {
   const email = 'mock-email';
