@@ -10,6 +10,9 @@
 .svn/
 migrate_working_dir/
 
+
+
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -31,6 +34,10 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+
+coverage
+pubspec.yaml
+pubspec.doc
 
 # Web related
 lib/generated_plugin_registrant.dart
