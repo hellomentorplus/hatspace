@@ -31,6 +31,13 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
 
+      # Runs a set of commands using the runners shell
+      - name: Run test with coverage
+        run: flutter test --coverage
+        
+      # Run codecov summary
+      - uses: codecov/codecov-action@v3
+
       # use flutter-action to start running flutter commands
       - uses: subosito/flutter-action@v2.6.2
         with:
@@ -62,12 +69,7 @@ jobs:
           flutter pub run build_runner build
           flutter pub run intl_utils:generate
 
-      # Runs a set of commands using the runners shell
-      - name: Run test with coverage
-        run: flutter test --coverage
-        
-      # Run codecov summary
-      - uses: codecov/codecov-action@v3
+      
 
       - name: build Android and iOS
         run: |
