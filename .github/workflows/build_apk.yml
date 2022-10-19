@@ -31,13 +31,6 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
 
-      # Runs a set of commands using the runners shell
-      - name: Run test with coverage
-        run: flutter test --coverage
-        
-      # Run codecov summary
-      - uses: codecov/codecov-action@v3
-
       # use flutter-action to start running flutter commands
       - uses: subosito/flutter-action@v2.6.2
         with:
@@ -48,6 +41,15 @@ jobs:
           SIGNING_KEY_ALIAS: ${{ secrets.ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.ALIAS_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+
+      # Runs a set of commands using the runners shell
+      - name: Run test with coverage
+        run: flutter test --coverage
+        
+      # Run codecov summary
+      - uses: codecov/codecov-action@v3
+
+      
       
       - name: Setup environment secrets
         shell: bash
