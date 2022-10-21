@@ -75,5 +75,5 @@ jobs:
 
       - name: build Android and iOS
         run: |
-          flutter build apk
+          flutter build apk --delete-conflicting-outputs
           
