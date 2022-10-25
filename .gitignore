@@ -96,3 +96,6 @@ ios/firebase_app_id_file.b64
 lib/firebase_options.b64
 lib/firebase_options.dart
 ios/Runner/GoogleService-Info.plist
+ios/Podfile.lock
+ios/Runner.xcodeproj/project.pbxproj
+ios/Runner.xcworkspace/contents.xcworkspacedata
