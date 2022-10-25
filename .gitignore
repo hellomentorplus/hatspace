@@ -88,3 +88,11 @@ coverage/html/lib/Screen/VerificationScreen.dart.func-sort-c.html
 coverage/html/lib/Screen/VerificationScreen.dart.func.html
 coverage/html/lib/Screen/VerificationScreen.dart.gcov.html
 android/app/google-services.json
+ios/firebase_app_id_file.json
+android/key.b64
+android/keyproperties.b64
+android/app/google-services.b64
+ios/firebase_app_id_file.b64
+lib/firebase_options.b64
+lib/firebase_options.dart
+ios/Runner/GoogleService-Info.plist

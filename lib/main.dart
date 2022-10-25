@@ -15,11 +15,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: const FirebaseOptions(
-    apiKey: 'AIzaSyDDBEW5klgondSEp0kxwNOgTSBNWF4MFi8',
-    appId: '1:8474379889:android:183669eec897bccdbbfdd0',
-    messagingSenderId: '8474379889',
-    projectId: 'auth-flutter-test-d3a5a',
-    storageBucket: 'auth-flutter-test-d3a5a.appspot.com',
+    apiKey: 'AIzaSyDXle47ZhkyFFWNDQXeTZbHqlnO_hm4Tzw',
+    appId: '1:954705043647:android:de2219cd4710494a79a60a',
+    messagingSenderId: '954705043647',
+    projectId: 'registration-form-c8c90',
+    storageBucket: 'registration-form-c8c90.appspot.com',
   ));
   // try {
   //   await FirebaseAuth.instance.signInWithEmailAndPassword(

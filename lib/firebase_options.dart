@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -44,39 +47,33 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDE5F0QBXf8CGMDdDlBR2ekK0LtmuPoUX8',
-    appId: '1:8474379889:web:80f9d711dae0f661bbfdd0',
-    messagingSenderId: '8474379889',
-    projectId: 'auth-flutter-test-d3a5a',
-    authDomain: 'auth-flutter-test-d3a5a.firebaseapp.com',
-    storageBucket: 'auth-flutter-test-d3a5a.appspot.com',
+    apiKey: 'AIzaSyBMvucf5Ri7LwxJCV61jnSMG6P88BP8mE0',
+    appId: '1:954705043647:web:220ea6188740457179a60a',
+    messagingSenderId: '954705043647',
+    projectId: 'registration-form-c8c90',
+    authDomain: 'registration-form-c8c90.firebaseapp.com',
+    databaseURL: 'https://registration-form-c8c90-default-rtdb.firebaseio.com',
+    storageBucket: 'registration-form-c8c90.appspot.com',
+    measurementId: 'G-SGY65FLZK2',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDDBEW5klgondSEp0kxwNOgTSBNWF4MFi8',
-    appId: '1:8474379889:android:183669eec897bccdbbfdd0',
-    messagingSenderId: '8474379889',
-    projectId: 'auth-flutter-test-d3a5a',
-    storageBucket: 'auth-flutter-test-d3a5a.appspot.com',
+    apiKey: 'AIzaSyDXle47ZhkyFFWNDQXeTZbHqlnO_hm4Tzw',
+    appId: '1:954705043647:android:de2219cd4710494a79a60a',
+    messagingSenderId: '954705043647',
+    projectId: 'registration-form-c8c90',
+    databaseURL: 'https://registration-form-c8c90-default-rtdb.firebaseio.com',
+    storageBucket: 'registration-form-c8c90.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCOfy2psEJ_RI0DcvcAIa9scMgtex6cDKA',
-    appId: '1:8474379889:ios:5f85cdcd06a0becbbbfdd0',
-    messagingSenderId: '8474379889',
-    projectId: 'auth-flutter-test-d3a5a',
-    storageBucket: 'auth-flutter-test-d3a5a.appspot.com',
-    iosClientId: '8474379889-oh1chpvsl8p5fmqncqq5j1eaflb3f6ij.apps.googleusercontent.com',
+    apiKey: 'AIzaSyC8q2GajZsOh9kYvKMIuEL_1v7zj0PDgjU',
+    appId: '1:954705043647:ios:3dc2adda3acf125579a60a',
+    messagingSenderId: '954705043647',
+    projectId: 'registration-form-c8c90',
+    databaseURL: 'https://registration-form-c8c90-default-rtdb.firebaseio.com',
+    storageBucket: 'registration-form-c8c90.appspot.com',
+    iosClientId: '954705043647-jq2dj03skrgmdob7f6j470meffg63j58.apps.googleusercontent.com',
     iosBundleId: 'com.theseedsoft.hatspace',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCOfy2psEJ_RI0DcvcAIa9scMgtex6cDKA',
-    appId: '1:8474379889:ios:d84dccfa5549c659bbfdd0',
-    messagingSenderId: '8474379889',
-    projectId: 'auth-flutter-test-d3a5a',
-    storageBucket: 'auth-flutter-test-d3a5a.appspot.com',
-    iosClientId: '8474379889-qle57n0kcoqalqt7a0du0h9tuhdl2aaq.apps.googleusercontent.com',
-    iosBundleId: 'com.example.hatspace',
   );
 }

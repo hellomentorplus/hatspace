@@ -36,20 +36,11 @@ jobs:
         with:
           flutter-version: '3.3.2'
           channel: 'stable'
-        env:
-          KEY_JKS: ${{ secrets.RELEASE_KEYSTORE }}
-          SIGNING_KEY_ALIAS: ${{ secrets.ALIAS }}
-          SIGNING_KEY_PASSWORD: ${{ secrets.ALIAS_PASSWORD }}
-          SIGNING_STORE_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-
-      # Runs a set of commands using the runners shell
-      - name: Run test with coverage
-        run: flutter test --coverage
-        
-      # Run codecov summary
-      - uses: codecov/codecov-action@v3
-
-      
+       # env:
+        #  KEY_JKS: ${{ secrets.RELEASE_KEYSTORE }}
+        #  SIGNING_KEY_ALIAS: ${{ secrets.ALIAS }}
+        #  SIGNING_KEY_PASSWORD: ${{ secrets.ALIAS_PASSWORD }}
+        #  SIGNING_STORE_PASSWORD: ${{ secrets.KEY_PASSWORD }}
       
       - name: Setup environment secrets
         shell: bash
@@ -57,11 +48,17 @@ jobs:
           FIREBASE_OPTION: ${{ secrets.FIREBASE_OPTION }}
           ANDROID_GOOGLE_SERVICE: ${{ secrets.ANDROID_GOOGLE_SERVICE }}
           FIREBASE_APP_ID_FILE: ${{ secrets.FIREBASE_APP_ID_FILE }}
+          ANDROID_KEY_PROPERTIES: ${{ secrets.ANDROID_KEY_PROPERTIES }}
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
           
         run: |
-          echo "$FIREBASE_OPTION" > lib/firebase_options.dart
-          echo "$ANDROID_GOOGLE_SERVICE" > android/app/google-services.json
-          echo "$FIREBASE_APP_ID_FILE" > ios/firebase_app_id_file.json
+          echo -n "$FIREBASE_OPTION" | base64 --decode --output lib/firebase_options.dart
+          echo "$ANDROID_GOOGLE_SERVICE" | base64 --decode --output android/app/google-services.json
+          echo "$FIREBASE_APP_ID_FILE" | base64 --decode --output ios/firebase_app_id_file.json
+        # put keystore
+          echo -n "$ANDROID_KEYSTORE" | base64 --decode --output android/key.jks  
+        # put keyproperties
+          echo "$ANDROID_KEY_PROPERTIES" | base64 --decode --output android/key.properties
       
       - name: Install dependencies
         shell: bash
@@ -71,7 +68,12 @@ jobs:
           flutter pub run build_runner build
           flutter pub run intl_utils:generate
 
-      
+      # Runs a set of commands using the runners shell
+      - name: Run test with coverage
+        run: flutter test --coverage
+        
+      # Run codecov summary
+      - uses: codecov/codecov-action@v3
 
       - name: build Android and iOS
         run: |

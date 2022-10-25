@@ -50,26 +50,24 @@ class SignUpCubit extends Cubit<SignUpState> {
     }
   }
 
-  void checkSignUpSuccess(String email, String password) {
-    if (email == "vinh@gmail.com" && password == "Vinh@123456789") {
-      emit(SignUpSuccessState());
-    }
-  }
+  // void checkSignUpSuccess(String email, String password) {
+  //   if (email == "" && password == "") {
+  //     emit(SignUpSuccessState());
+  //   }
+  // }
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email, password: password);
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
       final user = await FirebaseAuth.instance.currentUser;
-      if(user != null ){
+      if (user != null) {
         emit(SignUpSuccessState());
       }
-    } 
-    on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       emit(SignUpFailState(e.message));
       print('Failed with error code: ${e.code}');
       print(e.message);
     }
-   
   }
 }
