@@ -36,6 +36,11 @@ jobs:
         with:
           flutter-version: '3.3.2'
           channel: 'stable'
+        env:
+          KEY_JKS: ${{ secrets.RELEASE_KEYSTORE }}
+          SIGNING_KEY_ALIAS: ${{ secrets.ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.ALIAS_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.KEY_PASSWORD }}
       
       - name: Setup environment secrets
         shell: bash
