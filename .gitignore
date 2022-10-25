@@ -97,3 +97,4 @@ lib/firebase_options.b64
 lib/firebase_options.dart
 ios/Runner/GoogleService-Info.plist
 ios/Podfile.lock
+pubspec.lock
