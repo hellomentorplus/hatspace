@@ -43,14 +43,14 @@ jobs:
           ANDROID_GOOGLE_SERVICE: ${{ secrets.ANDROID_GOOGLE_SERVICE }}
           FIREBASE_APP_ID_FILE: ${{ secrets.FIREBASE_APP_ID_FILE }}
           ANDROID_KEY_PROPERTIES: ${{ secrets.ANDROID_KEY_PROPERTIES }}
-          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}        
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
         run: |
           echo -n "$FIREBASE_OPTION" | base64 --decode --output lib/firebase_options.dart
           echo -n "$ANDROID_GOOGLE_SERVICE" | base64 --decode --output android/app/google-services.json
           echo -n "$FIREBASE_APP_ID_FILE" | base64 --decode --output ios/firebase_app_id_file.json
-        # put keystore
-          echo -n "$ANDROID_KEYSTORE" | base64 --decode --output android/key.jks  
-        # put keyproperties
+      # put keystore
+          echo -n "$ANDROID_KEYSTORE" | base64 --decode --output android/key.jks
+      # put keyproperties
           echo "$ANDROID_KEY_PROPERTIES" | base64 --decode --output android/key.properties
       
       - name: Install dependencies
