@@ -56,8 +56,9 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: |
+          flutter clean
           flutter pub get
-          flutter pub run build_runner build
+          flutter pub run build_runner build --delete-conflicting-outputs
           flutter pub run intl_utils:generate
 
       # Runs a set of commands using the runners shell
