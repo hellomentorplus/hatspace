@@ -49,7 +49,7 @@ jobs:
           echo -n "$ANDROID_GOOGLE_SERVICE" | base64 --decode --output android/app/google-services.json
           echo -n "$FIREBASE_APP_ID_FILE" | base64 --decode --output ios/firebase_app_id_file.json
     
-          echo -n "$ANDROID_KEYSTORE" | base64 --decode --output android/key.jks
+          echo "$ANDROID_KEYSTORE" | base64 --decode --output android/key.jks
       
           echo "$ANDROID_KEY_PROPERTIES" | base64 --decode --output android/key.properties
       
