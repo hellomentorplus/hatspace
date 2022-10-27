@@ -71,9 +71,18 @@ android {
         release {
             if (keystorePropertiesFile.exists()) {
                 keyAlias keystoreProperties['keyAlias']
+                println(keyAlias)
                 keyPassword keystoreProperties['keyPassword']
+                println(keyPassword)
                 storeFile file(keystoreProperties['storeFile'])
+                println(storeFile)
                 storePassword keystoreProperties['storePassword']
+
+
+
+
+
+
             }
         }
     }
