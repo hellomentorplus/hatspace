@@ -6,6 +6,7 @@ import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/firebase_options.dart';
 import 'package:hatspace/models/authentication/authentication_bloc.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:hatspace/strings/l10n.dart';
 
 void main() async {
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitDown]);
@@ -41,6 +42,10 @@ class MyApp extends StatelessWidget {
         ],
         child: const HomePageView(),
       ),
+      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+        HatSpaceStrings.delegate
+      ],
+      supportedLocales: HatSpaceStrings.delegate.supportedLocales,
     );
   }
 }
