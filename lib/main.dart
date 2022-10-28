@@ -9,13 +9,13 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/strings/l10n.dart';
 
 void main() async {
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitDown]);
-
   WidgetsFlutterBinding.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 
   HsSingleton.singleton.initialise();
 
-  Firebase.initializeApp(
+  await Firebase.initializeApp(
     name: 'Default-HatSpace',
     options: DefaultFirebaseOptions.currentPlatform
   );

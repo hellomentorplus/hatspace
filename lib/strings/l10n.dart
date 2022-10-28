@@ -49,6 +49,16 @@ class HatSpaceStrings {
   static HatSpaceStrings? maybeOf(BuildContext context) {
     return Localizations.of<HatSpaceStrings>(context, HatSpaceStrings);
   }
+
+  /// `HAT Space`
+  String get app_name {
+    return Intl.message(
+      'HAT Space',
+      name: 'app_name',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
