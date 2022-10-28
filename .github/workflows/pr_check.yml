@@ -45,9 +45,9 @@ jobs:
           ANDROID_GOOGLE_SERVICE: ${{ secrets.PR_ANDROID_GOOGLE_SERVICE }}
           FIREBASE_APP_ID_FILE: ${{ secrets.PR_FIREBASE_APP_ID_FILE }}
         run: |
-          echo $FIREBASE_OPTION >> lib/firebase_options.dart
-          echo $ANDROID_GOOGLE_SERVICE >> android/app/google-services.json
-          echo $FIREBASE_APP_ID_FILE >> ios/firebase_app_id_file.json
+          echo "$$FIREBASE_OPTION" >> lib/firebase_options.dart
+          echo "$ANDROID_GOOGLE_SERVICE" >> android/app/google-services.json
+          echo "$FIREBASE_APP_ID_FILE" >> ios/firebase_app_id_file.json
 
       # Runs a set of commands using the runners shell
       - name: Run test with coverage
