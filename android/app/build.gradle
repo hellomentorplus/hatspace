@@ -63,14 +63,10 @@ android {
 
 
     signingConfigs{
-        // debug {
-        //     applicationIdSuffix '.dev'
-        // }
-
-
         release {
             if (keystorePropertiesFile.exists()) {
                 keyAlias keystoreProperties['keyAlias']
+                
                 keyPassword keystoreProperties['keyPassword']
                 storeFile file(keystoreProperties['storeFile'])
                 storePassword keystoreProperties['storePassword']
