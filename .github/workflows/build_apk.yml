@@ -70,5 +70,12 @@ jobs:
 
       - name: build Android and iOS
         run: |
-          flutter build apk
-          
+          flutter build apk --build-number=$count
+      - name: generate release note
+        run: |
+          git log --pretty=oneline --abbrev-commit --no-merges $(git describe --tags --abbrev=0)..HEAD > release_note.txt
+      - name: Upload release note
+        uses: actions/upload-artifact@v2
+        with:
+          name: release_note.txt
+          path: release_note.txt          
