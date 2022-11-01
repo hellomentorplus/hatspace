@@ -13,14 +13,20 @@ Future<void> main() async {
   // Set default orientation with what we declare in [],
   // Also block landscape mode because it is not mentioned
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: const FirebaseOptions(
-    apiKey: 'AIzaSyDXle47ZhkyFFWNDQXeTZbHqlnO_hm4Tzw',
-    appId: '1:954705043647:android:de2219cd4710494a79a60a',
-    messagingSenderId: '954705043647',
-    projectId: 'registration-form-c8c90',
-    storageBucket: 'registration-form-c8c90.appspot.com',
-  ));
+  // if (Firebase.apps.isNotEmpty) {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform
+      //     const FirebaseOptions(
+      //   apiKey: 'AIzaSyC8q2GajZsOh9kYvKMIuEL_1v7zj0PDgjU',
+      //   appId: '1:954705043647:ios:3dc2adda3acf125579a60a',
+      //   messagingSenderId: '954705043647',
+      //   projectId: 'registration-form-c8c90',
+      //   storageBucket: 'registration-form-c8c90.appspot.com',
+      // )
+      );
+  // } else {
+  //   Firebase.app();
+  // }
+
   // try {
   //   await FirebaseAuth.instance.signInWithEmailAndPassword(
   //       email: "admin@gmail.com",

@@ -98,3 +98,6 @@ lib/firebase_options.dart
 ios/Runner/GoogleService-Info.plist
 ios/Podfile.lock
 pubspec.lock
+macos/firebase_app_id_file.json
+macos/Runner/GoogleService-Info.plist
+lib/firebase_options.dart
