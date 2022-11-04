@@ -1,10 +1,23 @@
 PODS:
+<<<<<<< Updated upstream
+=======
+  - AppAuth (1.6.0):
+    - AppAuth/Core (= 1.6.0)
+    - AppAuth/ExternalUserAgent (= 1.6.0)
+  - AppAuth/Core (1.6.0)
+  - AppAuth/ExternalUserAgent (1.6.0):
+    - AppAuth/Core
+>>>>>>> Stashed changes
   - Firebase/Auth (10.0.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 10.0.0)
   - Firebase/CoreOnly (10.0.0):
     - FirebaseCore (= 10.0.0)
+<<<<<<< Updated upstream
   - firebase_auth (4.1.0):
+=======
+  - firebase_auth (4.1.1):
+>>>>>>> Stashed changes
     - Firebase/Auth (= 10.0.0)
     - firebase_core
     - Flutter
@@ -23,6 +36,16 @@ PODS:
   - FirebaseCoreInternal (10.0.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
   - Flutter (1.0.0)
+<<<<<<< Updated upstream
+=======
+  - google_sign_in_ios (0.0.1):
+    - Flutter
+    - GoogleSignIn (~> 6.2)
+  - GoogleSignIn (6.2.4):
+    - AppAuth (~> 1.5)
+    - GTMAppAuth (~> 1.3)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.1)
+>>>>>>> Stashed changes
   - GoogleUtilities/AppDelegateSwizzler (7.8.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -38,6 +61,12 @@ PODS:
   - "GoogleUtilities/NSData+zlib (7.8.0)"
   - GoogleUtilities/Reachability (7.8.0):
     - GoogleUtilities/Logger
+<<<<<<< Updated upstream
+=======
+  - GTMAppAuth (1.3.1):
+    - AppAuth/Core (~> 1.6)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.5)
+>>>>>>> Stashed changes
   - GTMSessionFetcher/Core (2.1.0)
   - PromisesObjC (2.1.1)
 
@@ -45,14 +74,28 @@ DEPENDENCIES:
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
+<<<<<<< Updated upstream
 
 SPEC REPOS:
   trunk:
+=======
+  - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
+
+SPEC REPOS:
+  trunk:
+    - AppAuth
+>>>>>>> Stashed changes
     - Firebase
     - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreInternal
+<<<<<<< Updated upstream
     - GoogleUtilities
+=======
+    - GoogleSignIn
+    - GoogleUtilities
+    - GTMAppAuth
+>>>>>>> Stashed changes
     - GTMSessionFetcher
     - PromisesObjC
 
@@ -63,16 +106,33 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
+<<<<<<< Updated upstream
 
 SPEC CHECKSUMS:
   Firebase: 1b810f3d0c0532e27a48f1961f8c0400a668a2cf
   firebase_auth: e07b2260d936b7b20f45f9ddafc871f75778be66
+=======
+  google_sign_in_ios:
+    :path: ".symlinks/plugins/google_sign_in_ios/ios"
+
+SPEC CHECKSUMS:
+  AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
+  Firebase: 1b810f3d0c0532e27a48f1961f8c0400a668a2cf
+  firebase_auth: dd33e93fce72a1c72040f7380dacf06e89db5705
+>>>>>>> Stashed changes
   firebase_core: 5c0bb0ca7d0e70480a68a6e9ad9bf55d1edd5305
   FirebaseAuth: 493382cf533cc45e2862b00e9aa4cfe4c98daf71
   FirebaseCore: 97f48a3a567a72b8d4daa0f03c3aadb78df4e995
   FirebaseCoreInternal: 5eb3960335da5ea30115d57d39db6988c4ad06f3
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+<<<<<<< Updated upstream
   GoogleUtilities: 1d20a6ad97ef46f67bbdec158ce00563a671ebb7
+=======
+  google_sign_in_ios: 4f85eb9f937450765c8573bb85fd8cd6a5af675c
+  GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
+  GoogleUtilities: 1d20a6ad97ef46f67bbdec158ce00563a671ebb7
+  GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
+>>>>>>> Stashed changes
   GTMSessionFetcher: ffbb25ec00ebcb5201adab0a56d808f6f1902d9f
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
 
