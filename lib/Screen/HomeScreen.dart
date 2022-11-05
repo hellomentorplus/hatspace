@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hatspace/Screen/SignInScreen.dart';
 import 'package:hatspace/Screen/VerificationScreen.dart';
 import 'package:hatspace/SignUpScreen/signup.dart';
 import 'package:hatspace/main.dart';
@@ -109,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           onPressed: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return SigUpScreen();
+                              return const SignInScreen();
                             }));
                           },
                         )),
