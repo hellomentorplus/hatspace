@@ -10,7 +10,7 @@ class DefaultPrimaryTextOnlyButton extends ElevatedButton {
               onClick!();
             },
             child: child,
-            style: DefaultPrimaryTextOnlyButtonTheme.style);
+            style: defaultPrimaryTextOnlyButtonTheme.style);
 }
 
 class DefaultSecondaryTextOnlyButton extends OutlinedButton {
@@ -22,7 +22,7 @@ class DefaultSecondaryTextOnlyButton extends OutlinedButton {
               onClick!();
             },
             child: child,
-            style: DefaultSecondaryTextOnlyButtonTheme.style);
+            style: defaultSecondaryTextOnlyButtonTheme.style);
 }
 
 class DisablePrimaryTextOnlyButton extends OutlinedButton {
@@ -33,14 +33,14 @@ class DisablePrimaryTextOnlyButton extends OutlinedButton {
             key: key,
             onPressed: null,
             child: child,
-            style: DisablePrimaryTextOnlyButtonTheme.style);
+            style: disablePrimaryTextOnlyButtonTheme.style);
 }
 
 class DefaultTextOnlyButton extends TextButton {
   DefaultTextOnlyButton({
     Key? key,
     required Function onPressed,
-    required Widget child,
+    required String text,
     // FocusNode? focusNode,
     // bool autofocus = false,
     // Clip clipBehavior = Clip.none,
@@ -52,7 +52,8 @@ class DefaultTextOnlyButton extends TextButton {
           // focusNode: focusNode,
           // autofocus: autofocus,
           // clipBehavior: clipBehavior,
-          child: child,
+          child: Text(text, style: const TextStyle(color: Colors.black) ),
+          style: defaultTextOnlyButtonTheme.style
         );
 }
 
@@ -69,14 +70,14 @@ class DefaulSecondaryLeftIconButton extends OutlinedButton {
                 Image.asset(iconURL),
                 Container(
                   margin: const EdgeInsets.only(left: 44),
-                  child: Text(text,style:TextStyle(color: Colors.black,fontSize: 17)) 
+                  child: Text(text,style: const TextStyle(color: Colors.black,fontSize: 17)) 
                 )
               ],
             ),
             onPressed: () {
               onClick();
             },
-            style: DefaultSecondaryTextOnlyButtonTheme.style?.copyWith(side: MaterialStateProperty.resolveWith((_) {
+            style: defaultSecondaryTextOnlyButtonTheme.style?.copyWith(side: MaterialStateProperty.resolveWith((_) {
               return const BorderSide(color: Color(0xffAEAEB2));
             }))
             );

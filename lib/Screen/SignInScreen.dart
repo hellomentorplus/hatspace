@@ -45,72 +45,33 @@ class SignInScreen extends StatelessWidget {
                   ),
               Padding(
                   padding: const EdgeInsets.only(top: 16),
-                  child: ElevatedButton(
-                    child: Row(
-                      children: [
-                        Image.asset('assets/images/logo_facebook.png'),
-                        Container(
-                          margin: const EdgeInsets.only(left: 44),
-                          child: const Text("Sign in with Facebook"),
-                        )
-                      ],
-                    ),
-                    onPressed: () {
-                      // Do something here
+                  child: DefaulSecondaryLeftIconButton(
+                    text: "Sign in with Facebook",
+                    iconURL: "assets/images/logo_facebook.png",
+                    onClick: (){
+                      // Sign in with Facebook function is here
                     },
-                  )),
+                  ) 
+                  ),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
-                child: ElevatedButton(
-                  style: Theme.of(context).elevatedButtonTheme.style,
-                  child: 
-                  Container(
-                    width: 343,
-                    child: Row(
-                    children: [
-                      Image.asset(
-                        "assets/images/sms.png",
-                        width: 24,
-                        height: 24,
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 44),
-                        child: const Text("Sign in with Email"),
-                      ),
-                    ],
-                  ),),
-                 
-                  onPressed: () {
-                    // Do something here
+                child: DefaulSecondaryLeftIconButton(
+                  text: "Sign in with Email",
+                  iconURL: "assets/images/sms.png",
+                  onClick: (){
+                    // Sign in with Email here
                   },
-                ),
+                )
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 55),
-                child: TextButton(
-                  onPressed: () {
-                    // SKIP funtion
+                child: DefaultTextOnlyButton(
+                  text: "Skip",
+                  onPressed: (){
+                    // Skip to navigate to screen 3
                   },
-                  child: const Text(
-                    "Skip",
-                    style: TextStyle(
-                        color: Color(0xff282828),
-                        decoration: TextDecoration.underline),
-                  ),
-                ),
+                )
               ),
-              DefaultPrimaryTextOnlyButton(child: const Text("Child"), onClick: (){
-                print("object");
-              }),
-              DisablePrimaryTextOnlyButton(child: const Text("Disable")),
-              DefaultSecondaryTextOnlyButton(child: const Text("Outline"), onClick: (){
-                print("Outline Clicked");
-              }),
-              DefaultTextOnlyButton(child: Text("ABC"),onPressed: (){},),
-              DefaulSecondaryLeftIconButton(text: "Sign in with Google",iconURL:                             'assets/images/flat-color-icons_google.png',onClick: (){
-                print("Icon Click");
-              },)
-
             
             ],
           ),

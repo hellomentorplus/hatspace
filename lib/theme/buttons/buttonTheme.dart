@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-ElevatedButtonThemeData DefaultPrimaryTextOnlyButtonTheme =
+ElevatedButtonThemeData defaultPrimaryTextOnlyButtonTheme =
     ElevatedButtonThemeData(
         style: ButtonStyle(
   alignment: Alignment.center,
@@ -12,7 +12,7 @@ ElevatedButtonThemeData DefaultPrimaryTextOnlyButtonTheme =
   }),
 ));
 
-OutlinedButtonThemeData DefaultSecondaryTextOnlyButtonTheme =
+OutlinedButtonThemeData defaultSecondaryTextOnlyButtonTheme =
     OutlinedButtonThemeData(
         style: ButtonStyle(
   alignment: Alignment.center,
@@ -28,7 +28,7 @@ OutlinedButtonThemeData DefaultSecondaryTextOnlyButtonTheme =
   })
 ));
 
-ElevatedButtonThemeData DisablePrimaryTextOnlyButtonTheme =
+ElevatedButtonThemeData disablePrimaryTextOnlyButtonTheme =
     ElevatedButtonThemeData(
         style: ButtonStyle(
   alignment: Alignment.center,
@@ -42,5 +42,18 @@ ElevatedButtonThemeData DisablePrimaryTextOnlyButtonTheme =
 //           return const BorderSide(color: Colors.black87);
 // })
 ));
+
+TextButtonThemeData defaultTextOnlyButtonTheme = 
+    TextButtonThemeData(
+      style: ButtonStyle(
+        textStyle: MaterialStateProperty.all<TextStyle>(
+          const TextStyle(
+            color: Colors.white,
+            fontSize: 26,
+            decoration: TextDecoration.underline
+          )
+        )
+        )
+    );
 
 
