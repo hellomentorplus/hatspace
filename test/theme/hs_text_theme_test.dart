@@ -241,7 +241,7 @@ class _materialWrapWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        theme: theme,
+        theme: themeData,
         home: Scaffold(
           body: child,
         ),
