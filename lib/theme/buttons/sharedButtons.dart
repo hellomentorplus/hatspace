@@ -52,7 +52,7 @@ class DefaultTextOnlyButton extends TextButton {
           // focusNode: focusNode,
           // autofocus: autofocus,
           // clipBehavior: clipBehavior,
-          child: Text(text, style: const TextStyle(color: Colors.black) ),
+          child: Text(text ),
           style: defaultTextOnlyButtonTheme.style
         );
 }

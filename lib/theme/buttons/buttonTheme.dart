@@ -48,8 +48,9 @@ TextButtonThemeData defaultTextOnlyButtonTheme =
       style: ButtonStyle(
         textStyle: MaterialStateProperty.all<TextStyle>(
           const TextStyle(
-            color: Colors.white,
-            fontSize: 26,
+            color: Color(0xff3ACD64),
+            fontSize: 17,
+            fontWeight: FontWeight.w700,
             decoration: TextDecoration.underline
           )
         )
