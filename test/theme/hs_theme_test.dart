@@ -14,12 +14,7 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: testWidget,
-    );
-
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(testWidget, theme: lightThemeData);
 
     final Icon renderedIcon = tester.widget<Icon>(find.byType(Icon));
 
@@ -34,12 +29,7 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: testWidget,
-    );
-
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(testWidget, theme: lightThemeData);
 
     final Icon renderedIcon = tester.widget<Icon>(find.byType(Icon));
 
@@ -54,12 +44,7 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: testWidget,
-    );
-
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(testWidget, theme: lightThemeData);
 
     final Icon renderedIcon = tester.widget<Icon>(find.byType(Icon));
 
@@ -74,12 +59,7 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: testWidget,
-    );
-
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(testWidget, theme: lightThemeData);
 
     final Icon renderedIcon = tester.widget<Icon>(find.byType(Icon));
 
@@ -94,12 +74,7 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: testWidget,
-    );
-
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(testWidget, theme: lightThemeData);
 
     final Icon renderedIcon = tester.widget<Icon>(find.byType(Icon));
 
@@ -114,12 +89,7 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: testWidget,
-    );
-
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(testWidget, theme: lightThemeData);
 
     final Icon renderedIcon = tester.widget<Icon>(find.byType(Icon));
 
@@ -134,12 +104,7 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: testWidget,
-    );
-
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(testWidget, theme: lightThemeData);
 
     final Icon renderedIcon = tester.widget<Icon>(find.byType(Icon));
 
@@ -154,31 +119,10 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: testWidget,
-    );
-
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(testWidget, theme: lightThemeData);
 
     final Icon renderedIcon = tester.widget<Icon>(find.byType(Icon));
 
     expect(renderedIcon.color, const Color(0xFFFFFFFF));
   });
-}
-
-class _materialWrapWidget extends StatelessWidget {
-  final Widget child;
-  final ThemeData? theme;
-
-  const _materialWrapWidget({required this.child, Key? key, this.theme})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-        theme: themeData,
-        home: Scaffold(
-          body: child,
-        ),
-      );
 }

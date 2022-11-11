@@ -22,11 +22,7 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: displayTextGroup,
-    );
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(displayTextGroup, theme: lightThemeData);
 
     final Text renderedLargeT = tester.widget<Text>(find.byKey(largeK));
 
@@ -54,12 +50,7 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: displayTextGroup,
-    );
-
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(displayTextGroup, theme: lightThemeData);
 
     final Text renderedLargeT = tester.widget<Text>(find.byKey(largeK));
     final Text renderedMediumT = tester.widget<Text>(find.byKey(mediumK));
@@ -89,12 +80,7 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: displayTextGroup,
-    );
-
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(displayTextGroup, theme: lightThemeData);
 
     final Text renderedMediumT = tester.widget<Text>(find.byKey(mediumK));
 
@@ -122,12 +108,7 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: displayTextGroup,
-    );
-
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(displayTextGroup, theme: lightThemeData);
 
     final Text renderedLargeT = tester.widget<Text>(find.byKey(largeK));
     final Text renderedMediumT = tester.widget<Text>(find.byKey(mediumK));
@@ -158,12 +139,7 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: displayTextGroup,
-    );
-
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(displayTextGroup, theme: lightThemeData);
 
     final Text renderedLargeT = tester.widget<Text>(find.byKey(largeK));
 
@@ -187,12 +163,7 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: displayTextGroup,
-    );
-
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(displayTextGroup, theme: lightThemeData);
 
     final Text renderedSmallT = tester.widget<Text>(find.byKey(smallK));
 
@@ -216,12 +187,7 @@ void main() {
       );
     });
 
-    final Widget wrapper = _materialWrapWidget(
-      theme: themeData,
-      child: displayTextGroup,
-    );
-
-    await tester.wrapAndPump(wrapper);
+    await tester.wrapAndPump(displayTextGroup, theme: lightThemeData);
 
     final Text renderedSmallT = tester.widget<Text>(find.byKey(smallK));
 
@@ -232,18 +198,18 @@ void main() {
   });
 }
 
-class _materialWrapWidget extends StatelessWidget {
-  final Widget child;
-  final ThemeData? theme;
+// class _materialWrapWidget extends StatelessWidget {
+//   final Widget child;
+//   final ThemeData? theme;
 
-  const _materialWrapWidget({required this.child, Key? key, this.theme})
-      : super(key: key);
+//   const _materialWrapWidget({required this.child, Key? key, this.theme})
+//       : super(key: key);
 
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-        theme: themeData,
-        home: Scaffold(
-          body: child,
-        ),
-      );
-}
+//   @override
+//   Widget build(BuildContext context) => MaterialApp(
+//         theme: themeData,
+//         home: Scaffold(
+//           body: child,
+//         ),
+//       );
+// }

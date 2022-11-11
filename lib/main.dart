@@ -7,18 +7,19 @@ import 'package:hatspace/firebase_options.dart';
 import 'package:hatspace/models/authentication/authentication_bloc.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/hs_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+  await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 
   HsSingleton.singleton.initialise();
 
   await Firebase.initializeApp(
-    name: 'Default-HatSpace',
-    options: DefaultFirebaseOptions.currentPlatform
-  );
+      name: 'Default-HatSpace',
+      options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const MyApp());
 }
@@ -30,9 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: lightThemeData,
       home: MultiBlocProvider(
         providers: [
           BlocProvider<AuthenticationBloc>(
