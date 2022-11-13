@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:hatspace/theme/buttons/primary_button.dart';
 
 import 'package:hatspace/theme/buttons/sharedButtons.dart';
 
@@ -37,41 +38,44 @@ class SignInScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: DefaulSecondaryLeftIconButton(text: "Sign in with Google", onClick: (){
-                    signInWithGoogle();
-                  },iconURL: "assets/images/flat-color-icons_google.png",)
-                  ),
-              Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  child: DefaulSecondaryLeftIconButton(
-                    text: "Sign in with Facebook",
-                    iconURL: "assets/images/logo_facebook.png",
-                    onClick: (){
-                      // Sign in with Facebook function is here
-                    },
-                  ) 
-                  ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: DefaulSecondaryLeftIconButton(
-                  text: "Sign in with Email",
-                  iconURL: "assets/images/sms.png",
-                  onClick: (){
-                    // Sign in with Email here
-                  },
-                )
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 55),
-                child: DefaultTextOnlyButton(
-                  text: "Skip",
-                  onPressed: (){
-                    // Skip to navigate to screen 3
-                  },
-                )
-              ),
+              // Padding(
+              //     padding: const EdgeInsets.only(top: 16),
+              //     child: DefaulSecondaryLeftIconButton(text: "Sign in with Google", onClick: (){
+              //       signInWithGoogle();
+              //     },iconURL: "assets/images/flat-color-icons_google.png",)
+              //     ),
+              // Padding(
+              //     padding: const EdgeInsets.only(top: 16),
+              //     child: DefaulSecondaryLeftIconButton(
+              //       text: "Sign in with Facebook",
+              //       iconURL: "assets/images/logo_facebook.png",
+              //       onClick: (){
+              //         // Sign in with Facebook function is here
+              //       },
+              //     ) 
+              //     ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 16),
+              //   child: DefaulSecondaryLeftIconButton(
+              //     text: "Sign in with Email",
+              //     iconURL: "assets/images/sms.png",
+              //     onClick: (){
+              //       // Sign in with Email here
+              //     },
+              //   )
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 55),
+              //   child: DefaultTextOnlyButton(
+              //     text: "Skip",
+              //     onPressed: (){
+              //       // Skip to navigate to screen 3
+              //     },
+              //   )
+              // ),
+               DefaultPrimaryButton(label: "Test Button",onPressed: () {
+                 
+               },)
             
             ],
           ),

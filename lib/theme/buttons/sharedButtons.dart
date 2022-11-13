@@ -3,14 +3,12 @@ import 'package:hatspace/theme/buttons/buttonTheme.dart';
 
 class DefaultPrimaryTextOnlyButton extends ElevatedButton {
   DefaultPrimaryTextOnlyButton(
-      {Key? key, required Widget child, required Function onClick})
+      {Key? key, required Widget child, required Function? onClick})
       : super(
             key: key,
-            onPressed: () {
-              onClick!();
-            },
+            onPressed: onClick!(),
             child: child,
-            style: defaultPrimaryTextOnlyButtonTheme.style);
+            style: defaultPrimaryButtonTheme.style);
 }
 
 class DefaultSecondaryTextOnlyButton extends OutlinedButton {
@@ -22,19 +20,10 @@ class DefaultSecondaryTextOnlyButton extends OutlinedButton {
               onClick!();
             },
             child: child,
-            style: defaultSecondaryTextOnlyButtonTheme.style);
+            style: defaultSecondaryButtonTheme.style);
 }
 
-class DisablePrimaryTextOnlyButton extends OutlinedButton {
-  DisablePrimaryTextOnlyButton({
-    Key? key,
-    required Widget child,
-  }) : super(
-            key: key,
-            onPressed: null,
-            child: child,
-            style: disablePrimaryTextOnlyButtonTheme.style);
-}
+
 
 class DefaultTextOnlyButton extends TextButton {
   DefaultTextOnlyButton({
@@ -77,7 +66,7 @@ class DefaulSecondaryLeftIconButton extends OutlinedButton {
             onPressed: () {
               onClick();
             },
-            style: defaultSecondaryTextOnlyButtonTheme.style?.copyWith(side: MaterialStateProperty.resolveWith((_) {
+            style: defaultSecondaryButtonTheme.style?.copyWith(side: MaterialStateProperty.resolveWith((_) {
               return const BorderSide(color: Color(0xffAEAEB2));
             }))
             );
