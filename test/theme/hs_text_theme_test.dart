@@ -9,17 +9,12 @@ void main() {
     GlobalKey largeK = GlobalKey();
 
     final Builder displayTextGroup = Builder(builder: (BuildContext context) {
-      return SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Text(
-              'Text Large',
-              key: largeK,
-              style: Theme.of(context).textTheme.titleLarge,
-            )
-          ],
-        ),
-      );
+      return Center(
+          child: Text(
+        'Text Large',
+        key: largeK,
+        style: Theme.of(context).textTheme.titleLarge,
+      ));
     });
 
     await tester.wrapAndPump(displayTextGroup, theme: lightThemeData);
@@ -70,14 +65,9 @@ void main() {
     GlobalKey mediumK = GlobalKey();
 
     final Builder displayTextGroup = Builder(builder: (BuildContext context) {
-      return SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Text('Test Medium',
-                key: mediumK, style: Theme.of(context).textTheme.titleMedium)
-          ],
-        ),
-      );
+      return Center(
+          child: Text('Test Medium',
+              key: mediumK, style: Theme.of(context).textTheme.titleMedium));
     });
 
     await tester.wrapAndPump(displayTextGroup, theme: lightThemeData);
@@ -129,14 +119,9 @@ void main() {
     GlobalKey largeK = GlobalKey();
 
     final Builder displayTextGroup = Builder(builder: (BuildContext context) {
-      return SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Text('Test Large',
-                key: largeK, style: Theme.of(context).textTheme.labelLarge)
-          ],
-        ),
-      );
+      return Center(
+          child: Text('Test Large',
+              key: largeK, style: Theme.of(context).textTheme.labelLarge));
     });
 
     await tester.wrapAndPump(displayTextGroup, theme: lightThemeData);
@@ -153,13 +138,9 @@ void main() {
     GlobalKey smallK = GlobalKey();
 
     final Builder displayTextGroup = Builder(builder: (BuildContext context) {
-      return SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Text('Test Small',
-                key: smallK, style: Theme.of(context).textTheme.bodySmall),
-          ],
-        ),
+      return Center(
+        child: Text('Test Small',
+            key: smallK, style: Theme.of(context).textTheme.bodySmall),
       );
     });
 
@@ -177,13 +158,9 @@ void main() {
     GlobalKey smallK = GlobalKey();
 
     final Builder displayTextGroup = Builder(builder: (BuildContext context) {
-      return SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Text('Test Small',
-                key: smallK, style: Theme.of(context).textTheme.labelSmall),
-          ],
-        ),
+      return Center(
+        child: Text('Test Small',
+            key: smallK, style: Theme.of(context).textTheme.labelSmall),
       );
     });
 
@@ -197,19 +174,3 @@ void main() {
     expect(renderedSmallT.style?.height, FontStyleGuide.height);
   });
 }
-
-// class _materialWrapWidget extends StatelessWidget {
-//   final Widget child;
-//   final ThemeData? theme;
-
-//   const _materialWrapWidget({required this.child, Key? key, this.theme})
-//       : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) => MaterialApp(
-//         theme: themeData,
-//         home: Scaffold(
-//           body: child,
-//         ),
-//       );
-// }

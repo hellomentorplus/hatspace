@@ -21,10 +21,11 @@ extension WidgetExtension on WidgetTester {
 
   Future<void> blocWrapAndPump<B extends StateStreamableSource<Object?>>(
       B bloc, Widget widget,
-      {bool infiniteAnimationWidget = false}) async {
+      {bool infiniteAnimationWidget = false, ThemeData? theme}) async {
     final Widget wrapper = BlocProvider<B>(
       create: (_) => bloc,
       child: _MaterialWrapWidget(
+        theme: theme,
         child: widget,
       ),
     );
