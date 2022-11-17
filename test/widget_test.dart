@@ -21,4 +21,14 @@ void main() {
     // // Verify that our counter starts at 0.
     expect(find.text('HAT Space'), findsOneWidget);
   });
+
+  testWidgets('Check home screen title', (WidgetTester tester) async {
+    const widget = HomePageView();
+    await tester.wrapAndPump(widget);
+
+    // // Verify that our counter starts at 0.
+    expect(find.text('Explore'), findsOneWidget);
+    expect(find.text('Tracking'), findsOneWidget);
+    expect(find.text('Inbox'), findsOneWidget);
+  });
 }

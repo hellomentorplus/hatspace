@@ -10,11 +10,53 @@ class HomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => {},
+        ),
         title: Text(HatSpaceStrings.of(context).app_name),
+        centerTitle: true,
       ),
-      body: Center(
-        child: SvgPicture.asset(Assets.images.facebook, width: 40, height: 40, color: Colors.blue,),
+      body: const Center(
+        child: Text('Home Page'),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                Assets.images.searchNormal,
+                width: 24,
+                height: 24,
+              ),
+              label: HatSpaceStrings.of(context).explore.toString(),
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                Assets.images.calendar,
+                width: 24,
+                height: 24,
+              ),
+              label: HatSpaceStrings.of(context).tracking.toString(),
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                Assets.images.messages,
+                width: 24,
+                height: 24,
+              ),
+              label: HatSpaceStrings.of(context).inbox.toString(),
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                Assets.images.profileCircle,
+                width: 24,
+                height: 24,
+              ),
+              label: HatSpaceStrings.of(context).profile.toString(),
+            ),
+          ],
+          selectedItemColor: Colors.brown),
     );
   }
 }
