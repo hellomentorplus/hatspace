@@ -5,8 +5,11 @@ import 'package:hatspace/strings/l10n.dart';
 
 extension WidgetExtension on WidgetTester {
   Future<void> wrapAndPump(Widget widget,
-      {bool infiniteAnimationWidget = false}) async {
-    final Widget wrapper = _MaterialWrapWidget(child: widget);
+      {bool infiniteAnimationWidget = false, ThemeData? theme}) async {
+    final Widget wrapper = _MaterialWrapWidget(
+      theme: theme,
+      child: widget,
+    );
 
     await pumpWidget(wrapper);
     if (infiniteAnimationWidget) {
@@ -18,10 +21,11 @@ extension WidgetExtension on WidgetTester {
 
   Future<void> blocWrapAndPump<B extends StateStreamableSource<Object?>>(
       B bloc, Widget widget,
-      {bool infiniteAnimationWidget = false}) async {
+      {bool infiniteAnimationWidget = false, ThemeData? theme}) async {
     final Widget wrapper = BlocProvider<B>(
       create: (_) => bloc,
       child: _MaterialWrapWidget(
+        theme: theme,
         child: widget,
       ),
     );
@@ -39,12 +43,15 @@ extension WidgetExtension on WidgetTester {
 
 class _MaterialWrapWidget extends StatelessWidget {
   final Widget child;
+  final ThemeData? theme;
 
-  const _MaterialWrapWidget({required this.child, Key? key}) : super(key: key);
+  const _MaterialWrapWidget({required this.child, Key? key, this.theme})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: theme,
       home: Scaffold(
         body: child,
       ),

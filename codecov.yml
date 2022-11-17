@@ -14,3 +14,6 @@ coverage:
           - lib
         target: auto
         threshold: 60%
+        ignore:
+          - "lib/main.dart"
+          - "lib/gen"
