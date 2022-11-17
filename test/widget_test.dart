@@ -5,11 +5,12 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
 
-import 'package:hatspace/main.dart';
+import 'package:hatspace/initial_app.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 import 'widget_tester_extension.dart';
@@ -24,7 +25,7 @@ void main() {
     expect(find.text('HAT Space'), findsOneWidget);
   });
 
-  testWidgets('It should be in the landscape view', (tester) async {
+  testWidgets('It should have a widget', (tester) async {
     const widget = MyApp();
 
     await tester.wrapAndPump(widget, theme: lightThemeData);
