@@ -10,7 +10,7 @@ class PrimaryButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
   const PrimaryButton({Key? key, this.label, this.iconUrl, this.onPressed})
-      : assert(label != null || iconUrl == null, "label or icon is required"),
+      : assert(label != null || iconUrl != null, "label or icon is required"),
         super(key: key);
 
   @override
@@ -25,7 +25,17 @@ class PrimaryButton extends StatelessWidget {
     }
     // BUTTON WITH ICON ONLY
     if (iconUrl != null && label == null) {
-      // DESIGN BUTTON WITH ICON HERE
+      return ElevatedButton(
+        onPressed: onPressed,
+        style: buttonWithIconTheme.style,
+        child: SvgPicture.asset(
+                iconUrl!,
+                width: 24,
+                height: 24,
+                color: onPressed == null ? HSColor.onPrimary : null,
+                alignment: Alignment.center,
+              ),
+      );
     }
     // Button with icon
     return ElevatedButton(
@@ -73,8 +83,18 @@ class SecondaryButton extends StatelessWidget {
           style: secondaryButtonTheme.style,
           child: Text(label!));
     }
+    // WITH ICON ONLY
     if (iconURL != null && label == null) {
-      // IMPLEMENT ONLY ICON HERE
+      return OutlinedButton(
+          style: secondaryButtonWithIconTheme.style,
+          onPressed: onPressed,
+          child: SvgPicture.asset(
+                iconURL!,
+                width: 24,
+                height: 24,
+                color: onPressed == null ? HSColor.neutral3 : null,
+                alignment: Alignment.center,
+              ));
     }
 
     // BUTTON WITH ICON AND TEXT

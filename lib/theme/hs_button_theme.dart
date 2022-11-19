@@ -14,11 +14,8 @@ ElevatedButtonThemeData primaryButtonTheme = ElevatedButtonThemeData(
             return HSColor.primary;
           }
         }),
-        foregroundColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.disabled)) {
-            return HSColor.onPrimary;
-          }
-        }),
+        foregroundColor:
+            const MaterialStatePropertyAll<Color>(HSColor.onPrimary),
         padding: const MaterialStatePropertyAll<EdgeInsetsGeometry>(
             EdgeInsets.only(top: 17, bottom: 17)),
         shape: MaterialStatePropertyAll<OutlinedBorder>(
@@ -28,7 +25,6 @@ OutlinedButtonThemeData secondaryButtonTheme = OutlinedButtonThemeData(
   style: ButtonStyle(
       textStyle: MaterialStatePropertyAll(
           textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
-      fixedSize: const MaterialStatePropertyAll<Size>(Size.fromWidth(343)),
       alignment: Alignment.center,
       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
           const EdgeInsets.only(top: 17, bottom: 17)),
@@ -43,19 +39,17 @@ OutlinedButtonThemeData secondaryButtonTheme = OutlinedButtonThemeData(
             return const BorderSide(color: HSColor.primary);
           }
         },
-        // TODO: TextStyle - as soon as Tai push text theme
       )),
 );
 
 TextButtonThemeData textOnlyButtonTheme = TextButtonThemeData(
     style: ButtonStyle(
-  textStyle: MaterialStatePropertyAll(
-      textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+  textStyle: MaterialStatePropertyAll(textTheme.titleMedium?.copyWith(
+      fontWeight: FontWeight.w700, decoration: TextDecoration.underline)),
 ));
 
 ElevatedButtonThemeData buttonWithIconTheme = ElevatedButtonThemeData(
     style: ButtonStyle(
-        fixedSize: const MaterialStatePropertyAll<Size>(Size.fromWidth(343)),
         alignment: Alignment.center,
         textStyle: MaterialStatePropertyAll(
             textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
@@ -64,7 +58,7 @@ ElevatedButtonThemeData buttonWithIconTheme = ElevatedButtonThemeData(
           if (states.contains(MaterialState.disabled)) {
             return HSColor.neutral3;
           } else {
-            return HSColor.neutral3;
+            return HSColor.neutral4;
           }
         }),
         foregroundColor: MaterialStateProperty.resolveWith((states) {
@@ -87,9 +81,10 @@ OutlinedButtonThemeData secondaryButtonWithIconTheme = OutlinedButtonThemeData(
   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
       const EdgeInsets.only(top: 17, bottom: 17)),
   shape: MaterialStatePropertyAll<OutlinedBorder>(
-      RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16))),
   side: const MaterialStatePropertyAll<BorderSide>(
-      BorderSide(color: HSColor.neutral5)),
+      BorderSide(color: HSColor.neutral3)),
   foregroundColor: MaterialStateProperty.resolveWith((states) {
     if (states.contains(MaterialState.disabled)) {
       return HSColor.neutral3;
