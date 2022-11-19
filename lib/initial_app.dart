@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
+import 'package:hatspace/features/sign_up/view/sign_up_view.dart';
 import 'package:hatspace/models/authentication/authentication_bloc.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
