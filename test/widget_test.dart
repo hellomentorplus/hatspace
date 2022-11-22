@@ -17,7 +17,7 @@ import 'widget_tester_extension.dart';
 
 void main() {
   testWidgets('Check home screen title', (WidgetTester tester) async {
-    const widget = HomePageView();
+    final widget = HomePageView();
 
     await tester.wrapAndPump(widget);
 
@@ -25,8 +25,8 @@ void main() {
     expect(find.text('HAT Space'), findsOneWidget);
   });
 
-  testWidgets('Check home screen title', (WidgetTester tester) async {
-    const widget = HomePageView();
+  testWidgets('Check button navigation bar', (WidgetTester tester) async {
+    final widget = HomePageView();
     await tester.wrapAndPump(widget);
 
     // // Verify that our counter starts at 0.
@@ -35,7 +35,7 @@ void main() {
     expect(find.text('Inbox'), findsOneWidget);
   });
   testWidgets('It should have a widget', (tester) async {
-    const widget = MyApp();
+    final widget = MyApp();
 
     await tester.wrapAndPump(widget, theme: lightThemeData);
 
