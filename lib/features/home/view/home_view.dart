@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/hs_theme.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({Key? key}) : super(key: key);
@@ -21,42 +22,44 @@ class HomePageView extends StatelessWidget {
         child: Text('Home Page'),
       ),
       bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                Assets.images.searchNormal,
-                width: 24,
-                height: 24,
-              ),
-              label: HatSpaceStrings.of(context).explore.toString(),
+        type: BottomNavigationBarType.fixed,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              Assets.images.calendar,
+              width: 24,
+              height: 24,
             ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                Assets.images.calendar,
-                width: 24,
-                height: 24,
-              ),
-              label: HatSpaceStrings.of(context).tracking.toString(),
+            label: HatSpaceStrings.of(context).tracking.toString(),
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              Assets.images.searchNormal,
+              width: 24,
+              height: 24,
             ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                Assets.images.messages,
-                width: 24,
-                height: 24,
-              ),
-              label: HatSpaceStrings.of(context).inbox.toString(),
+            label: HatSpaceStrings.of(context).explore.toString(),
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              Assets.images.messages,
+              width: 24,
+              height: 24,
             ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                Assets.images.profileCircle,
-                width: 24,
-                height: 24,
-              ),
-              label: HatSpaceStrings.of(context).profile.toString(),
+            label: HatSpaceStrings.of(context).inbox.toString(),
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              Assets.images.profileCircle,
+              width: 24,
+              height: 24,
             ),
-          ],
-          selectedItemColor: Colors.brown),
+            label: HatSpaceStrings.of(context).profile.toString(),
+          ),
+        ],
+        selectedItemColor: HSColor.secondary,
+        currentIndex: 0,
+      ),
     );
   }
 }
