@@ -109,10 +109,11 @@ void main() {
     TextButton btn = tester.widget(find.widgetWithText(TextButton, "Continue"));
     // ====== DEFAULT ========
     final state = <MaterialState>{};
+  
     expect(
         reason: "Testing underline",
-        btn.style?.textStyle?.resolve(state),
-        const TextStyle(decoration: TextDecoration.underline));
+        btn.style?.textStyle?.resolve(state)?.decoration,
+         TextDecoration.underline);
 
     await tester.tap(find.widgetWithText(TextButton, "Continue"));
     expect(reason: "Testing onPressed button", count, 1);
