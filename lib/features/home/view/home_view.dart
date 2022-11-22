@@ -13,7 +13,12 @@ class HomePageView extends StatelessWidget {
         title: Text(HatSpaceStrings.of(context).app_name),
       ),
       body: Center(
-        child: SvgPicture.asset(Assets.images.facebook, width: 40, height: 40, color: Colors.blue,),
+        child: SvgPicture.asset(
+          Assets.images.facebook,
+          width: 40,
+          height: 40,
+          color: Colors.blue,
+        ),
       ),
     );
   }

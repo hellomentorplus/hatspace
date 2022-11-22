@@ -18,8 +18,7 @@ class _HsSingletonImpl implements HsSingleton {
     _singleton.registerSingleton<T>(instance);
   }
 
-  void registerLazySingleton<T extends Object>(
-      T instance) {
+  void registerLazySingleton<T extends Object>(T instance) {
     _singleton.registerLazySingleton(() => instance);
   }
 
