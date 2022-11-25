@@ -15,10 +15,10 @@ class HomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () => {},
-          ),
+          // leading: IconButton(
+          //   icon: const Icon(Icons.arrow_back, color: Colors.black),
+          //   onPressed: () => {},
+          // ),
           title: Text(HatSpaceStrings.of(context).app_name),
           centerTitle: true,
         ),
