@@ -1,7 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/gen/assets.gen.dart';
-import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
@@ -10,16 +10,24 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+            elevation: 0, // Remove shadow from app bar background
+            backgroundColor: HSColor.background,
+            leading: Padding(
+              padding: const EdgeInsets.only(top: 0, left: 10, right: 0),
+              child: IconButton(
+                icon: SvgPicture.asset(Assets.images.closeIcon),
+                onPressed: () {
+                  // ON PRESSED EVENT HERE
+                },
+              ),
+            )),
         body: Padding(
             padding: const EdgeInsets.only(top: 60, left: 16, right: 16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                IconButton(
-                    onPressed: () {},
-                    icon: SvgPicture.asset(Assets.images.closeIcon),
-                    alignment: Alignment.centerLeft),
                 Expanded(
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -46,25 +54,23 @@ class SignUpScreen extends StatelessWidget {
                             onPressed: () {},
                           )),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 52),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Already have account ?",
-                                style: textTheme.bodyMedium
-                                    ?.copyWith(fontSize: 12)),
-                            TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  "Sign in",
-                                  style: TextStyle(
-                                      color: HSColor.onSurface,
-                                      decoration: TextDecoration.underline,
-                                      fontWeight: FontWeight.w600),
-                                ))
-                          ],
-                        ),
-                      ),
+                          padding: const EdgeInsets.only(bottom: 52),
+                          child: RichText(
+                              text: TextSpan(
+                                  style: textTheme.bodyMedium?.copyWith(
+                                      fontSize: 12, color: HSColor.onSurface),
+                                  text: "Already have account ? ",
+                                  children: [
+                                TextSpan(
+                                    style:const  TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        decoration: TextDecoration.underline),
+                                    text: "Sign in",
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTapDown = (details) {
+                                        print("Tap down event");
+                                      })
+                              ]))),
                       TextOnlyButton(
                         label: "Skip",
                         onPressed: () {},
