@@ -1,3 +1,9 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
