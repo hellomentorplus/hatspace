@@ -9,6 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
+import 'package:hatspace/features/sign_up/view/sign_up_view.dart';
 
 import 'package:hatspace/initial_app.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -38,9 +39,9 @@ void main() {
     final widget = MyApp();
 
     await tester.wrapAndPump(widget, theme: lightThemeData);
-
-    final renderingWidget = tester.widget(find.byType(HomePageView));
-
+    // Whenever app opened => it will lead to SignUpPage first
+    // final renderingWidget = tester.widget(find.byType(HomePageView));
+    final renderingWidget = tester.widget(find.byType(SignUpScreen));
     expect(renderingWidget, isA<Widget>());
   });
 }

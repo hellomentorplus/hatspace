@@ -31,8 +31,9 @@ void main() {
     TextOnlyButton skipButton = tester.widget(find.ancestor(
         of: find.text("Skip"), matching: find.byType(TextOnlyButton)));
     await tester.tap(find.byWidget(skipButton));
-    Widget signInBtn = tester.widget(find.ancestor(
-        of: find.text("Sign in"), matching: find.byType(TextButton)));
-    await tester.tap(find.byWidget(signInBtn));
+    RichText richText =
+        tester.widget(find.textContaining("Sign in", findRichText: true));
+    final span = richText.text as TextSpan;
+    expect(span.children?.elementAt(1).toPlainText(), "Sign in");
   });
 }

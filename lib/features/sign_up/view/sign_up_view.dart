@@ -5,6 +5,10 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
+/**
+ *  TODO: - Add function to navigate to DUMY HOME PAGE / BLOCK: Waiting for Tai
+ * 
+ */
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
   @override
@@ -19,6 +23,7 @@ class SignUpScreen extends StatelessWidget {
                 icon: SvgPicture.asset(Assets.images.closeIcon),
                 onPressed: () {
                   // ON PRESSED EVENT HERE
+                  // NAVIGATE TO Home
                 },
               ),
             )),
@@ -59,10 +64,13 @@ class SignUpScreen extends StatelessWidget {
                               text: TextSpan(
                                   style: textTheme.bodyMedium?.copyWith(
                                       fontSize: 12, color: HSColor.onSurface),
-                                  text: "Already have account ? ",
                                   children: [
                                 TextSpan(
-                                    style:const  TextStyle(
+                                    style: textTheme.bodyMedium?.copyWith(
+                                        fontSize: 12, color: HSColor.onSurface),
+                                    text: "Already have account ? "),
+                                TextSpan(
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w600,
                                         decoration: TextDecoration.underline),
                                     text: "Sign in",
@@ -73,7 +81,9 @@ class SignUpScreen extends StatelessWidget {
                               ]))),
                       TextOnlyButton(
                         label: "Skip",
-                        onPressed: () {},
+                        onPressed: () {
+                          // NAVIGATE TO HOME
+                        },
                       ),
                       const SizedBox(
                         height: 71,
