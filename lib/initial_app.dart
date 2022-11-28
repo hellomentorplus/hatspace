@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           )
           // TODO add your bloc creation here
         ],
-        child: const HomePageView(),
+        child: HomePageView(),
       ),
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         HatSpaceStrings.delegate

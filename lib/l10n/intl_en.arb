@@ -1,4 +1,8 @@
 {
   "@@locale": "en",
-  "app_name": "HAT Space"
+  "app_name": "HAT Space",
+  "explore":"Explore",
+  "tracking": "Tracking",
+  "inbox": "Inbox",
+  "profile": "Profile"
 }
