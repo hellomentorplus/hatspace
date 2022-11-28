@@ -5,6 +5,10 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
+/**
+ *  TODO: - Add function to navigate to DUMY HOME PAGE / BLOCK: Waiting for Tai
+ * 
+ */
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
   @override
