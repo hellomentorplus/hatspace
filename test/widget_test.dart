@@ -39,9 +39,7 @@ void main() {
     final widget = MyApp();
 
     await tester.wrapAndPump(widget, theme: lightThemeData);
-    // Whenever app opened => it will lead to SignUpPage first
-    // final renderingWidget = tester.widget(find.byType(HomePageView));
-    final renderingWidget = tester.widget(find.byType(SignUpScreen));
+    final renderingWidget = tester.widget(find.byType(HomePageView));
     expect(renderingWidget, isA<Widget>());
   });
 }
