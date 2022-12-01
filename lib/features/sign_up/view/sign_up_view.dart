@@ -1,9 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 /**
  *  TODO: - Add function to navigate to DUMY HOME PAGE / BLOCK: Waiting for Tai

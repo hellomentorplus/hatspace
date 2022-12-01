@@ -12,6 +12,9 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/calendar.svg
+  String get calendar => 'assets/images/calendar.svg';
+
   /// File path: assets/images/close_icon.svg
   String get closeIcon => 'assets/images/close_icon.svg';
 
@@ -44,6 +47,15 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/google.svg
   String get google => 'assets/images/google.svg';
+
+  /// File path: assets/images/messages.svg
+  String get messages => 'assets/images/messages.svg';
+
+  /// File path: assets/images/profile-circle.svg
+  String get profileCircle => 'assets/images/profile-circle.svg';
+
+  /// File path: assets/images/search-normal.svg
+  String get searchNormal => 'assets/images/search-normal.svg';
 
   /// List of all assets
   List<String> get values => [
