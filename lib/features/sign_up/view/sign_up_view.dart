@@ -6,7 +6,6 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 /**
  *  TODO: - Add function to navigate to DUMY HOME PAGE / BLOCK: Waiting for Tai
@@ -26,77 +25,69 @@ class SignUpScreen extends StatelessWidget {
                 icon: SvgPicture.asset(Assets.images.closeIcon),
                 onPressed: () {
                   // ON PRESSED EVENT HERE
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePageView()));
+                  Navigator.of(context).pop(HomePageView());
                 },
               ),
             )),
         body: Padding(
-            padding: const EdgeInsets.only(top: 60, left: 16, right: 16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 71),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                      Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: SecondaryButton(
-                            label: HatSpaceStrings.of(context)!.googleSignUp,
-                            iconURL: Assets.images.google,
-                            onPressed: () {},
-                          )),
-                      Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: SecondaryButton(
-                            label: HatSpaceStrings.of(context)!.facebookSignUp,
-                            iconURL: Assets.images.facebookround,
-                            onPressed: () {},
-                          )),
-                      Padding(
-                          padding: const EdgeInsets.only(bottom: 18),
-                          child: SecondaryButton(
-                            label: HatSpaceStrings.of(context)!.emailSignUp,
-                            iconURL: Assets.images.envelope,
-                            onPressed: () {},
-                          )),
-                      Padding(
-                          padding: const EdgeInsets.only(bottom: 52),
-                          child: RichText(
-                              text: TextSpan(
+                Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: SecondaryButton(
+                      label: HatSpaceStrings.of(context).googleSignUp,
+                      iconURL: Assets.images.google,
+                      onPressed: () {},
+                    )),
+                Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: SecondaryButton(
+                      label: HatSpaceStrings.of(context).facebookSignUp,
+                      iconURL: Assets.images.facebookround,
+                      onPressed: () {},
+                    )),
+                Padding(
+                    padding: const EdgeInsets.only(bottom: 18),
+                    child: SecondaryButton(
+                      label: HatSpaceStrings.of(context).emailSignUp,
+                      iconURL: Assets.images.envelope,
+                      onPressed: () {},
+                    )),
+                Padding(
+                    padding: const EdgeInsets.only(bottom: 52),
+                    child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                            style: textTheme.bodyMedium?.copyWith(
+                              fontSize: 12,
+                              color: HSColor.onSurface,
+                            ),
+                            children: [
+                              TextSpan(
                                   style: textTheme.bodyMedium?.copyWith(
                                       fontSize: 12, color: HSColor.onSurface),
-                                  children: [
-                                TextSpan(
-                                    style: textTheme.bodyMedium?.copyWith(
-                                        fontSize: 12, color: HSColor.onSurface),
-                                    text: "Already have account ? "),
-                                TextSpan(
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        decoration: TextDecoration.underline),
-                                    text: "Sign in",
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTapDown = (details) {
-                                        print("Tap down event");
-                                      })
-                              ]))),
-                      TextOnlyButton(
-                        label: "Skip",
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => HomePageView())));
-                        },
-                      ),
-                      const SizedBox(
-                        height: 71,
-                      )
-                    ]))
-              ],
-            )));
+                                  text: HatSpaceStrings.of(context)
+                                      .alreadyHaveAccount),
+                              TextSpan(
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      decoration: TextDecoration.underline),
+                                  text: HatSpaceStrings.of(context).signIn,
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTapDown = (details) {
+                                      // On tab down event here
+                                    })
+                            ]))),
+                TextOnlyButton(
+                  label: HatSpaceStrings.of(context).skip,
+                  onPressed: () {
+                    Navigator.of(context).pop(HomePageView());
+                  },
+                ),
+              ]),
+        ));
   }
 }
