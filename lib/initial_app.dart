@@ -11,21 +11,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiBlocProvider(providers: [
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => AuthenticationBloc(),
+      )
+      // TODO add your bloc creation here
+    ], child: MaterialApp(
       theme: lightThemeData,
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider<AuthenticationBloc>(
-            create: (context) => AuthenticationBloc(),
-          )
-          // TODO add your bloc creation here
-        ],
-        child: HomePageView(),
-      ),
+      home: HomePageView(),
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         HatSpaceStrings.delegate
       ],
       supportedLocales: HatSpaceStrings.delegate.supportedLocales,
-    );
+    ));
   }
 }
