@@ -18,6 +18,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/facebook.svg
   String get facebook => 'assets/images/facebook.svg';
 
+  /// File path: assets/images/facebookround.svg
+  String get facebookround => 'assets/images/facebookround.svg';
+
   /// File path: assets/images/messages.svg
   String get messages => 'assets/images/messages.svg';
 
@@ -28,8 +31,14 @@ class $AssetsImagesGen {
   String get searchNormal => 'assets/images/search-normal.svg';
 
   /// List of all assets
-  List<String> get values =>
-      [calendar, facebook, messages, profileCircle, searchNormal];
+  List<String> get values => [
+        calendar,
+        facebook,
+        facebookround,
+        messages,
+        profileCircle,
+        searchNormal
+      ];
 }
 
 class Assets {
