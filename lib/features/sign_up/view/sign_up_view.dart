@@ -6,11 +6,8 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-/**
- *  TODO: - Add function to navigate to DUMY HOME PAGE / BLOCK: Waiting for Tai
- * 
- */
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
   @override
@@ -23,9 +20,15 @@ class SignUpScreen extends StatelessWidget {
               padding: const EdgeInsets.only(top: 0, left: 10, right: 0),
               child: IconButton(
                 icon: SvgPicture.asset(Assets.images.closeIcon),
-                onPressed: () {
+                onPressed: ()async {
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                  prefs.setBool("showFirstSignUp", false);
                   // ON PRESSED EVENT HERE
-                  Navigator.of(context).pop(HomePageView());
+                   // ignore: use_build_context_synchronously
+                   Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePageView()),
+                  );
                 },
               ),
             )),
@@ -83,8 +86,14 @@ class SignUpScreen extends StatelessWidget {
                             ]))),
                 TextOnlyButton(
                   label: HatSpaceStrings.of(context).skip,
-                  onPressed: () {
-                    Navigator.of(context).pop(HomePageView());
+                  onPressed: () async {
+                     SharedPreferences prefs = await SharedPreferences.getInstance();
+                  prefs.setBool("showFirstSignUp", false);
+                    // ignore: use_build_context_synchronously
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePageView()),
+                    );
                   },
                 ),
               ]),
