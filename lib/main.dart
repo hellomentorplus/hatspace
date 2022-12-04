@@ -4,7 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:hatspace/firebase_options.dart';
 import 'package:hatspace/initial_app.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+bool? showFirstSignUp;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations(
