@@ -4,5 +4,13 @@
   "explore":"Explore",
   "tracking": "Tracking",
   "inbox": "Inbox",
-  "profile": "Profile"
+  "profile": "Profile",
+  "chooseUserRole":"Choose your role",
+  "chooseUserRoleDescription":"You can be tenant or homeowner, OR you can be both.",
+  "tenant":"Tenant",
+  "homeowner":"Homeowner",
+  "tenantRoleDescription":"You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.",
+  "homeownerRoleDescription":"You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.",
+  "continueBtn":"Continue",
+  "cancelBtn":"Cancel"
 }

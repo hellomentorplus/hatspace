@@ -99,6 +99,86 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Choose your role`
+  String get chooseUserRole {
+    return Intl.message(
+      'Choose your role',
+      name: 'chooseUserRole',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can be tenant or homeowner, OR you can be both.`
+  String get chooseUserRoleDescription {
+    return Intl.message(
+      'You can be tenant or homeowner, OR you can be both.',
+      name: 'chooseUserRoleDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tenant`
+  String get tenant {
+    return Intl.message(
+      'Tenant',
+      name: 'tenant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Homeowner`
+  String get homeowner {
+    return Intl.message(
+      'Homeowner',
+      name: 'homeowner',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.`
+  String get tenantRoleDescription {
+    return Intl.message(
+      'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
+      name: 'tenantRoleDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.`
+  String get homeownerRoleDescription {
+    return Intl.message(
+      'You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.',
+      name: 'homeownerRoleDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue`
+  String get continueBtn {
+    return Intl.message(
+      'Continue',
+      name: 'continueBtn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancelBtn {
+    return Intl.message(
+      'Cancel',
+      name: 'cancelBtn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
