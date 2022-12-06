@@ -5,7 +5,6 @@ import 'package:hatspace/firebase_options.dart';
 import 'package:hatspace/initial_app.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 
-bool? showFirstSignUp;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations(
