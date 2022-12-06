@@ -27,9 +27,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/facebookround.svg
   String get facebookround => 'assets/images/facebookround.svg';
 
+
   /// File path: assets/images/google.svg
   String get google => 'assets/images/google.svg';
-
   /// File path: assets/images/messages.svg
   String get messages => 'assets/images/messages.svg';
 
