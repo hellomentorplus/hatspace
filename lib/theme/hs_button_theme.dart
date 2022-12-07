@@ -44,6 +44,12 @@ OutlinedButtonThemeData secondaryButtonTheme = OutlinedButtonThemeData(
 
 TextButtonThemeData textOnlyButtonTheme = TextButtonThemeData(
     style: ButtonStyle(
+  foregroundColor: MaterialStateProperty.resolveWith((states) {
+    if (states.contains(MaterialState.disabled)) {
+      return HSColor.neutral3;
+    }
+    return HSColor.onSurface;
+  }),
   textStyle: MaterialStatePropertyAll(textTheme.titleMedium?.copyWith(
       fontWeight: FontWeight.w700, decoration: TextDecoration.underline)),
 ));
@@ -81,8 +87,7 @@ OutlinedButtonThemeData secondaryButtonWithIconTheme = OutlinedButtonThemeData(
   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
       const EdgeInsets.only(top: 17, bottom: 17)),
   shape: MaterialStatePropertyAll<OutlinedBorder>(
-      RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16))),
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
   side: const MaterialStatePropertyAll<BorderSide>(
       BorderSide(color: HSColor.neutral3)),
   foregroundColor: MaterialStateProperty.resolveWith((states) {

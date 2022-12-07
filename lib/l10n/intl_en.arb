@@ -4,5 +4,13 @@
   "explore":"Explore",
   "tracking": "Tracking",
   "inbox": "Inbox",
-  "profile": "Profile"
+  "profile": "Profile",
+  
+  "googleSignUp": "Sign up with Google",
+  "facebookSignUp": "Sign up with Facebook",
+  "emailSignUp": "Sign up with email",
+  "skip": "Skip",
+  "signIn": "Sign in",
+  "alreadyHaveAccount": "Already have account ?"
+
 }

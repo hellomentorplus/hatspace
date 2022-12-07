@@ -99,6 +99,66 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Sign up with Google`
+  String get googleSignUp {
+    return Intl.message(
+      'Sign up with Google',
+      name: 'googleSignUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up with Facebook`
+  String get facebookSignUp {
+    return Intl.message(
+      'Sign up with Facebook',
+      name: 'facebookSignUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up with email`
+  String get emailSignUp {
+    return Intl.message(
+      'Sign up with email',
+      name: 'emailSignUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get skip {
+    return Intl.message(
+      'Skip',
+      name: 'skip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in`
+  String get signIn {
+    return Intl.message(
+      'Sign in',
+      name: 'signIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Already have account ?`
+  String get alreadyHaveAccount {
+    return Intl.message(
+      'Already have account ?',
+      name: 'alreadyHaveAccount',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

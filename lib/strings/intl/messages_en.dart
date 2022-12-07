@@ -22,10 +22,20 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "alreadyHaveAccount":
+            MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
+        "emailSignUp":
+            MessageLookupByLibrary.simpleMessage("Sign up with email"),
         "explore": MessageLookupByLibrary.simpleMessage("Explore"),
+        "facebookSignUp":
+            MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
+        "googleSignUp":
+            MessageLookupByLibrary.simpleMessage("Sign up with Google"),
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
+        "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking")
       };
 }
