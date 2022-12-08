@@ -22,7 +22,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     on<CloseSignUpScreen>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool('launchFirstTime', true);
+      prefs.setBool('launchFirstTime', false);
       emit(const FirstLaunchScreen(false));
     });
   }

@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/sign_up/view/sign_up_view.dart';
+import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import "../widget_tester_extension.dart";
 
 void main() {
+  Widget widget = BlocProvider<SignUpBloc>(
+    create: (context) {
+      return SignUpBloc();
+    },
+    child: const SignUpScreen(),
+  );
+  setUpAll(() {
+    const MethodChannel('plugins.flutter.io/shared_preferences')
+        .setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == 'getAll') {
+        return <String, dynamic>{}; // set initial values here if desired
+      }
+      return null;
+    });
+  });
   testWidgets('Check close icon button', (WidgetTester tester) async {
-    const widget = SignUpScreen();
-
     await tester.wrapAndPump(widget);
     Padding wrapContainer = tester.firstWidget(find.byType(Padding));
     expect(wrapContainer.padding,
@@ -35,36 +50,26 @@ void main() {
     final span = richText.text as TextSpan;
     expect(span.children?.elementAt(1).toPlainText(), "Sign in");
   });
-  setUpAll(() {
-    const MethodChannel('plugins.flutter.io/shared_preferences')
-        .setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'getAll') {
-        return <String, dynamic>{}; // set initial values here if desired
-      }
-      return null;
-    });
-  });
+
   testWidgets("Skip event - detect first launch app",
       (WidgetTester tester) async {
-    const widget = SignUpScreen();
-    SharedPreferences.setMockInitialValues({"isFirstLaunch": true});
     await tester.wrapAndPump(widget);
+    SharedPreferences.setMockInitialValues({});
     TextOnlyButton skipButton = tester.widget(find.ancestor(
         of: find.text("Skip"), matching: find.byType(TextOnlyButton)));
     await tester.tap(find.byWidget(skipButton));
     await tester.pumpAndSettle();
     SharedPreferences pref = await SharedPreferences.getInstance();
-    expect(pref.getBool("isFirstLaunch"), false);
+    expect(pref.getBool("launchFirstTime"), false);
   });
   testWidgets("Close button event - detect first launch app",
       (WidgetTester tester) async {
-    const widget = SignUpScreen();
-    SharedPreferences.setMockInitialValues({"isFirstLaunch": true});
     await tester.wrapAndPump(widget);
+    SharedPreferences.setMockInitialValues({"launchFirstTime": true});
     IconButton closeButton = tester.widget(find.byType(IconButton));
     await tester.tap(find.byWidget(closeButton));
     await tester.pumpAndSettle();
     SharedPreferences pref = await SharedPreferences.getInstance();
-    expect(pref.getBool("isFirstLaunch"), false);
+    expectLater(pref.getBool("launchFirstTime"), false);
   });
 }
