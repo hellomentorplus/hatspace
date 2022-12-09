@@ -120,6 +120,20 @@ class HatSpaceStrings {
     );
   }
 
+  /// `{role,select,tenant{Tenant} homeowner{Homeowner}}`
+  String userRoles(Object role) {
+    return Intl.select(
+      role,
+      {
+        'tenant': 'Tenant',
+        'homeowner': 'Homeowner',
+      },
+      name: 'userRoles',
+      desc: '',
+      args: [role],
+    );
+  }
+
   /// `Tenant`
   String get tenant {
     return Intl.message(

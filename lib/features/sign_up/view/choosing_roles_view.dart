@@ -3,11 +3,17 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
+import 'user_role_card_view.dart';
+
 class UserRoleDetail {
   String roleName;
   String description;
+  bool isSelected;
 
-  UserRoleDetail({required this.roleName, required this.description});
+  UserRoleDetail(
+      {required this.roleName,
+      required this.description,
+      required this.isSelected});
 }
 
 class ChoosingRolesView extends StatelessWidget {
@@ -17,16 +23,20 @@ class ChoosingRolesView extends StatelessWidget {
   Widget build(BuildContext context) {
     List<UserRoleDetail> userRoles = [
       UserRoleDetail(
-          roleName: HatSpaceStrings.of(context).tenant.toString(),
+          roleName: HatSpaceStrings.of(context).userRoles('tenant').toString(),
           description:
-              HatSpaceStrings.of(context).tenantRoleDescription.toString()),
+              HatSpaceStrings.of(context).tenantRoleDescription.toString(),
+          isSelected: false),
       UserRoleDetail(
-          roleName: HatSpaceStrings.of(context).homeowner.toString(),
+          roleName:
+              HatSpaceStrings.of(context).userRoles('homeowner').toString(),
           description:
-              HatSpaceStrings.of(context).homeownerRoleDescription.toString()),
+              HatSpaceStrings.of(context).homeownerRoleDescription.toString(),
+          isSelected: false),
     ];
     final Size size = MediaQuery.of(context).size;
-    int selectedIndex = -1;
+    final ValueNotifier<int> selectedIndex = ValueNotifier<int>(0);
+    // int selectedIndex = -1;
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -76,35 +86,9 @@ class ChoosingRolesView extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: 2,
                         itemBuilder: (BuildContext context, int position) {
-                          return Card(
-                              margin: const EdgeInsets.only(top: 16),
-                              elevation: 6,
-                              shape: const RoundedRectangleBorder(
-                                side: BorderSide(
-                                  color: HSColor.neutral5,
-                                ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12)),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      userRoles[position].roleName,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium,
-                                    ),
-                                    Text(userRoles[position].description,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelSmall)
-                                  ],
-                                ),
-                              ));
+                          return UserRoleCardView(
+                            position: position,
+                          );
                         }),
                   ],
                 ),
