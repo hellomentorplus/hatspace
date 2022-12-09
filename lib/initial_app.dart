@@ -13,9 +13,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: lightThemeData,
-      home: MultiBlocProvider(
+    return MultiBlocProvider(
         providers: [
           BlocProvider<AuthenticationBloc>(
             create: (context) => AuthenticationBloc(),
@@ -25,19 +23,22 @@ class MyApp extends StatelessWidget {
           })
           // TODO add your bloc creation here
         ],
-        child: BlocBuilder<SignUpBloc, SignUpState>(builder: ((context, state) {
-          if (state is FirstLaunchScreen && state.isFirstLaunch == true) {
-            return const SignUpScreen();
-          } else {
-            return HomePageView();
-          }
-        })),
-      ),
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-        HatSpaceStrings.delegate
-      ],
-      supportedLocales: HatSpaceStrings.delegate.supportedLocales,
-    );
+        child: MaterialApp(
+          theme: lightThemeData,
+          home: BlocBuilder<SignUpBloc, SignUpState>(
+            builder: ((context, state) {
+              if (state is FirstLaunchScreen && state.isFirstLaunch == true) {
+                return const SignUpScreen();
+              } else {
+                return HomePageView();
+              }
+            }),
+          ),
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+            HatSpaceStrings.delegate
+          ],
+          supportedLocales: HatSpaceStrings.delegate.supportedLocales,
+        ));
   }
 }
