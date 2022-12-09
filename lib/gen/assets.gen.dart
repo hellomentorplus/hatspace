@@ -21,18 +21,6 @@ class $AssetsImagesGen {
   /// File path: assets/images/envelope.svg
   String get envelope => 'assets/images/envelope.svg';
 
-  /// File path: assets/images/close_icon.svg
-  String get closeIcon => 'assets/images/close_icon.svg';
-
-  /// File path: assets/images/envelope.svg
-  String get envelope => 'assets/images/envelope.svg';
-
-  /// File path: assets/images/close_icon.svg
-  String get closeIcon => 'assets/images/close_icon.svg';
-
-  /// File path: assets/images/envelope.svg
-  String get envelope => 'assets/images/envelope.svg';
-
   /// File path: assets/images/facebook.svg
   String get facebook => 'assets/images/facebook.svg';
 
@@ -42,12 +30,6 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/google.svg
   String get google => 'assets/images/google.svg';
-  /// File path: assets/images/messages.svg
-  String get messages => 'assets/images/messages.svg';
-
-  /// File path: assets/images/google.svg
-  String get google => 'assets/images/google.svg';
-
   /// File path: assets/images/messages.svg
   String get messages => 'assets/images/messages.svg';
 
