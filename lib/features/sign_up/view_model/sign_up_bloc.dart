@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 
+const isFirstLaunchConst = "isFirstLaunch";
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc() : super(const SignUpInitial()) {
     on<SignUpEvent>((event, emit) {
@@ -14,7 +15,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     on<CheckFirstLaunchSignUp>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool? isLaunchFirstTime = prefs.getBool("launchFirstTime");
+      bool? isLaunchFirstTime = prefs.getBool(isFirstLaunchConst);
       if (isLaunchFirstTime == null) {
         emit(const FirstLaunchScreen(true));
       }
@@ -22,7 +23,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     on<CloseSignUpScreen>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool('launchFirstTime', false);
+      prefs.setBool(isFirstLaunchConst, false);
       emit(const FirstLaunchScreen(false));
     });
   }
