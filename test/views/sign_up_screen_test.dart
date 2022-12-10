@@ -60,16 +60,16 @@ void main() {
     await tester.tap(find.byWidget(skipButton));
     await tester.pumpAndSettle();
     SharedPreferences pref = await SharedPreferences.getInstance();
-    expect(pref.getBool("launchFirstTime"), false);
+    expect(pref.getBool(isFirstLaunchConst), false);
   });
   testWidgets("Close button event - detect first launch app",
       (WidgetTester tester) async {
     await tester.wrapAndPump(widget);
-    SharedPreferences.setMockInitialValues({"launchFirstTime": true});
+    SharedPreferences.setMockInitialValues({});
     IconButton closeButton = tester.widget(find.byType(IconButton));
     await tester.tap(find.byWidget(closeButton));
     await tester.pumpAndSettle();
     SharedPreferences pref = await SharedPreferences.getInstance();
-    expectLater(pref.getBool("launchFirstTime"), false);
+    expectLater(pref.getBool(isFirstLaunchConst), false);
   });
 }
