@@ -3,9 +3,11 @@
    <application
         android:label="hatspace"
         android:name="${applicationName}"
+         android:resizeableActivity="false"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
