@@ -7,11 +7,8 @@
   "profile": "Profile",
   "chooseUserRole":"Choose your role",
   "chooseUserRoleDescription":"You can be tenant or homeowner, OR you can be both.",
-  "userRoles":"{role,select,tenant{Tenant} homeowner{Homeowner}}",
-  "tenant":"Tenant",
-  "homeowner":"Homeowner",
-  "tenantRoleDescription":"You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.",
-  "homeownerRoleDescription":"You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.",
+  "userTitleRoles":"{role,select,tenant{Tenant} homeowner{Homeowner} other{}}",
+  "userRoleDescription":"{description, select, tenant{You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.} homeowner{You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.} other{}}",
   "continueBtn":"Continue",
   "cancelBtn":"Cancel"
 }

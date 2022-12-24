@@ -1,42 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 import 'user_role_card_view.dart';
 
-class UserRoleDetail {
-  String roleName;
-  String description;
-  bool isSelected;
+// class UserRoleDetail {
+//   String roleName;
+//   String description;
+//   bool isSelected;
+//
+//   UserRoleDetail(
+//       {required this.roleName,
+//       required this.description,
+//       required this.isSelected});
+// }
 
-  UserRoleDetail(
-      {required this.roleName,
-      required this.description,
-      required this.isSelected});
-}
-
-class ChoosingRolesView extends StatelessWidget {
+class ChoosingRolesView extends StatefulWidget {
   const ChoosingRolesView({Key? key}) : super(key: key);
 
   @override
+  State<ChoosingRolesView> createState() => _ChoosingRolesState();
+}
+
+class _ChoosingRolesState extends State<ChoosingRolesView> {
+  int totalNumberOfCheckedTextBoxes = 0;
   Widget build(BuildContext context) {
-    List<UserRoleDetail> userRoles = [
-      UserRoleDetail(
-          roleName: HatSpaceStrings.of(context).userRoles('tenant').toString(),
-          description:
-              HatSpaceStrings.of(context).tenantRoleDescription.toString(),
-          isSelected: false),
-      UserRoleDetail(
-          roleName:
-              HatSpaceStrings.of(context).userRoles('homeowner').toString(),
-          description:
-              HatSpaceStrings.of(context).homeownerRoleDescription.toString(),
-          isSelected: false),
-    ];
     final Size size = MediaQuery.of(context).size;
-    final ValueNotifier<int> selectedIndex = ValueNotifier<int>(0);
-    // int selectedIndex = -1;
+
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -82,12 +74,20 @@ class ChoosingRolesView extends StatelessWidget {
                       ),
                     ),
                     ListView.builder(
+                        key: Key('listViewKey'),
                         padding: const EdgeInsets.only(top: 32),
                         shrinkWrap: true,
                         itemCount: 2,
                         itemBuilder: (BuildContext context, int position) {
                           return UserRoleCardView(
                             position: position,
+                            onChanged: (state) {
+                              setState(() {
+                                state
+                                    ? totalNumberOfCheckedTextBoxes++
+                                    : totalNumberOfCheckedTextBoxes--;
+                              });
+                            },
                           );
                         }),
                   ],
@@ -101,6 +101,8 @@ class ChoosingRolesView extends StatelessWidget {
                           label: HatSpaceStrings.of(context)
                               .continueBtn
                               .toString(),
+                          onPressed:
+                              totalNumberOfCheckedTextBoxes > 0 ? () {} : null,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 33),
@@ -108,7 +110,10 @@ class ChoosingRolesView extends StatelessWidget {
                             label: HatSpaceStrings.of(context)
                                 .cancelBtn
                                 .toString(),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => HomePageView()));
+                            },
                           ),
                         )
                       ],
