@@ -29,12 +29,12 @@ class PrimaryButton extends StatelessWidget {
         onPressed: onPressed,
         style: buttonWithIconTheme.style,
         child: SvgPicture.asset(
-                iconUrl!,
-                width: 24,
-                height: 24,
-                color: onPressed == null ? HSColor.onPrimary : null,
-                alignment: Alignment.center,
-              ),
+          iconUrl!,
+          width: 24,
+          height: 24,
+          color: onPressed == null ? HSColor.onPrimary : null,
+          alignment: Alignment.center,
+        ),
       );
     }
     // Button with icon
@@ -89,12 +89,12 @@ class SecondaryButton extends StatelessWidget {
           style: secondaryButtonWithIconTheme.style,
           onPressed: onPressed,
           child: SvgPicture.asset(
-                iconURL!,
-                width: 24,
-                height: 24,
-                color: onPressed == null ? HSColor.neutral3 : null,
-                alignment: Alignment.center,
-              ));
+            iconURL!,
+            width: 24,
+            height: 24,
+            color: onPressed == null ? HSColor.neutral3 : null,
+            alignment: Alignment.center,
+          ));
     }
 
     // BUTTON WITH ICON AND TEXT
@@ -127,7 +127,9 @@ class SecondaryButton extends StatelessWidget {
 class TextOnlyButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
-  const TextOnlyButton({Key? key, required this.label, required this.onPressed})
+  final Color? textColor;
+  const TextOnlyButton(
+      {Key? key, required this.label, required this.onPressed, this.textColor})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

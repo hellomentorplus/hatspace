@@ -100,95 +100,61 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Choose your role`
-  String get chooseUserRole {
+  /// `Sign up with Google`
+  String get googleSignUp {
     return Intl.message(
-      'Choose your role',
-      name: 'chooseUserRole',
+      'Sign up with Google',
+      name: 'googleSignUp',
       desc: '',
       args: [],
     );
   }
 
-  /// `You can be tenant or homeowner, OR you can be both.`
-  String get chooseUserRoleDescription {
+  /// `Sign up with Facebook`
+  String get facebookSignUp {
     return Intl.message(
-      'You can be tenant or homeowner, OR you can be both.',
-      name: 'chooseUserRoleDescription',
+      'Sign up with Facebook',
+      name: 'facebookSignUp',
       desc: '',
       args: [],
     );
   }
 
-  /// `{role,select,tenant{Tenant} homeowner{Homeowner}}`
-  String userRoles(Object role) {
-    return Intl.select(
-      role,
-      {
-        'tenant': 'Tenant',
-        'homeowner': 'Homeowner',
-      },
-      name: 'userRoles',
-      desc: '',
-      args: [role],
-    );
-  }
-
-  /// `Tenant`
-  String get tenant {
+  /// `Sign up with email`
+  String get emailSignUp {
     return Intl.message(
-      'Tenant',
-      name: 'tenant',
+      'Sign up with email',
+      name: 'emailSignUp',
       desc: '',
       args: [],
     );
   }
 
-  /// `Homeowner`
-  String get homeowner {
+  /// `Skip`
+  String get skip {
     return Intl.message(
-      'Homeowner',
-      name: 'homeowner',
+      'Skip',
+      name: 'skip',
       desc: '',
       args: [],
     );
   }
 
-  /// `You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.`
-  String get tenantRoleDescription {
+  /// `Sign in`
+  String get signIn {
     return Intl.message(
-      'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
-      name: 'tenantRoleDescription',
+      'Sign in',
+      name: 'signIn',
       desc: '',
       args: [],
     );
   }
 
-  /// `You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.`
-  String get homeownerRoleDescription {
+  /// `Already have account ?`
+  String get alreadyHaveAccount {
     return Intl.message(
-      'You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.',
-      name: 'homeownerRoleDescription',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Continue`
-  String get continueBtn {
-    return Intl.message(
-      'Continue',
-      name: 'continueBtn',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Cancel`
-  String get cancelBtn {
-    return Intl.message(
-      'Cancel',
-      name: 'cancelBtn',
+      'Already have account ?',
+      name: 'alreadyHaveAccount',
       desc: '',
       args: [],
     );

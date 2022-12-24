@@ -22,22 +22,20 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "alreadyHaveAccount":
+            MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
-        "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
-        "chooseUserRole":
-            MessageLookupByLibrary.simpleMessage("Choose your role"),
-        "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
-            "You can be tenant or homeowner, OR you can be both."),
-        "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
+        "emailSignUp":
+            MessageLookupByLibrary.simpleMessage("Sign up with email"),
         "explore": MessageLookupByLibrary.simpleMessage("Explore"),
-        "homeowner": MessageLookupByLibrary.simpleMessage("Homeowner"),
-        "homeownerRoleDescription": MessageLookupByLibrary.simpleMessage(
-            "You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process."),
+        "facebookSignUp":
+            MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
+        "googleSignUp":
+            MessageLookupByLibrary.simpleMessage("Sign up with Google"),
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
-        "tenant": MessageLookupByLibrary.simpleMessage("Tenant"),
-        "tenantRoleDescription": MessageLookupByLibrary.simpleMessage(
-            "You can start browsing properties, connect directly to home owner/ agencies, upload your rental application."),
+        "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
+        "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking")
       };
 }
