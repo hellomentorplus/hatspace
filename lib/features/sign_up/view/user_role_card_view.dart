@@ -43,17 +43,17 @@ class _UserRoleCardState extends State<UserRoleCardView> {
 
     return InkWell(
         onTap: () {
-          final bool state;
+          final bool selectRoleState;
           Set<int> cur = Set.of(listenValue.value);
           if (cur.contains(widget.position)) {
             cur.remove(widget.position);
-            state = false;
+            selectRoleState = false;
           } else {
             cur.add(widget.position);
-            state = true;
+            selectRoleState = true;
           }
           listenValue.value = cur;
-          widget.onChanged(state);
+          widget.onChanged(selectRoleState);
         },
         child: ValueListenableBuilder<Set<int>>(
           builder: (BuildContext context, Set<int> value, Widget? child) {

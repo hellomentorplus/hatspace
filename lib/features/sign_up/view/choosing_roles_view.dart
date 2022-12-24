@@ -6,17 +6,6 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 import 'user_role_card_view.dart';
 
-// class UserRoleDetail {
-//   String roleName;
-//   String description;
-//   bool isSelected;
-//
-//   UserRoleDetail(
-//       {required this.roleName,
-//       required this.description,
-//       required this.isSelected});
-// }
-
 class ChoosingRolesView extends StatefulWidget {
   const ChoosingRolesView({Key? key}) : super(key: key);
 
@@ -28,17 +17,14 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
   int totalNumberOfCheckedTextBoxes = 0;
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          // Remove shadow from app bar background
           backgroundColor: HSColor.background,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () => {},
           ),
-
           bottom: PreferredSize(
             preferredSize: Size(size.width, 0),
             child: const LinearProgressIndicator(
@@ -51,7 +37,8 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
           title: Text(HatSpaceStrings.of(context).app_name),
         ),
         body: Padding(
-          padding: const EdgeInsets.only(top: 33, left: 16, right: 16),
+          padding:
+              const EdgeInsets.only(top: 33, left: 16, right: 16, bottom: 33),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,16 +61,15 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
                       ),
                     ),
                     ListView.builder(
-                        key: Key('listViewKey'),
                         padding: const EdgeInsets.only(top: 32),
                         shrinkWrap: true,
                         itemCount: 2,
                         itemBuilder: (BuildContext context, int position) {
                           return UserRoleCardView(
                             position: position,
-                            onChanged: (state) {
+                            onChanged: (selectRoleState) {
                               setState(() {
-                                state
+                                selectRoleState
                                     ? totalNumberOfCheckedTextBoxes++
                                     : totalNumberOfCheckedTextBoxes--;
                               });
@@ -92,32 +78,21 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
                         }),
                   ],
                 ),
+                Expanded(child: Container()),
+                PrimaryButton(
+                  label: HatSpaceStrings.of(context).continueBtn.toString(),
+                  onPressed: totalNumberOfCheckedTextBoxes > 0 ? () {} : null,
+                ),
                 Padding(
-                    padding: const EdgeInsets.only(bottom: 33),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        PrimaryButton(
-                          label: HatSpaceStrings.of(context)
-                              .continueBtn
-                              .toString(),
-                          onPressed:
-                              totalNumberOfCheckedTextBoxes > 0 ? () {} : null,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 33),
-                          child: TextOnlyButton(
-                            label: HatSpaceStrings.of(context)
-                                .cancelBtn
-                                .toString(),
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => HomePageView()));
-                            },
-                          ),
-                        )
-                      ],
-                    ))
+                  padding: const EdgeInsets.only(top: 33),
+                  child: TextOnlyButton(
+                    label: HatSpaceStrings.of(context).cancelBtn.toString(),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => HomePageView()));
+                    },
+                  ),
+                ),
               ]),
         ));
   }
