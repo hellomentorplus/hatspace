@@ -159,6 +159,78 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Choose your role`
+  String get chooseUserRole {
+    return Intl.message(
+      'Choose your role',
+      name: 'chooseUserRole',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can be tenant or homeowner, OR you can be both.`
+  String get chooseUserRoleDescription {
+    return Intl.message(
+      'You can be tenant or homeowner, OR you can be both.',
+      name: 'chooseUserRoleDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{role,select,tenant{Tenant} homeowner{Homeowner} other{}}`
+  String userTitleRoles(Object role) {
+    return Intl.select(
+      role,
+      {
+        'tenant': 'Tenant',
+        'homeowner': 'Homeowner',
+        'other': '',
+      },
+      name: 'userTitleRoles',
+      desc: '',
+      args: [role],
+    );
+  }
+
+  /// `{description, select, tenant{You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.} homeowner{You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.} other{}}`
+  String userRoleDescription(Object description) {
+    return Intl.select(
+      description,
+      {
+        'tenant':
+            'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
+        'homeowner':
+            'You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.',
+        'other': '',
+      },
+      name: 'userRoleDescription',
+      desc: '',
+      args: [description],
+    );
+  }
+
+  /// `Continue`
+  String get continueBtn {
+    return Intl.message(
+      'Continue',
+      name: 'continueBtn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancelBtn {
+    return Intl.message(
+      'Cancel',
+      name: 'cancelBtn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
