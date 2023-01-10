@@ -38,7 +38,7 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
         ),
         body: Padding(
           padding:
-              const EdgeInsets.only(top: 33, left: 16, right: 16, bottom: 33),
+              const EdgeInsets.only(top: 33, left: 16, right: 16, bottom: 30),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

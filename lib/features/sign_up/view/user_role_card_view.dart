@@ -25,12 +25,14 @@ enum Roles {
 
 class UserRoleCardView extends StatefulWidget {
   final ValueChanged<bool> onChanged;
-  UserRoleCardView({Key? key, required this.position, required this.onChanged})
+  const UserRoleCardView(
+      {Key? key, required this.position, required this.onChanged})
       : super(key: key);
 
   final int position;
 
   @override
+  // ignore: library_private_types_in_public_api
   _UserRoleCardState createState() => _UserRoleCardState();
 }
 

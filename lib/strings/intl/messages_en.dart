@@ -20,11 +20,31 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(description) => "${Intl.select(description, {
+            'tenant':
+                'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
+            'homeowner':
+                'You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.',
+            'other': '',
+          })}";
+
+  static String m1(role) => "${Intl.select(role, {
+            'tenant': 'Tenant',
+            'homeowner': 'Homeowner',
+            'other': '',
+          })}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
+        "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "chooseUserRole":
+            MessageLookupByLibrary.simpleMessage("Choose your role"),
+        "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
+            "You can be tenant or homeowner, OR you can be both."),
+        "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
         "emailSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with email"),
         "explore": MessageLookupByLibrary.simpleMessage("Explore"),
@@ -36,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
-        "tracking": MessageLookupByLibrary.simpleMessage("Tracking")
+        "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
+        "userRoleDescription": m0,
+        "userTitleRoles": m1
       };
 }
