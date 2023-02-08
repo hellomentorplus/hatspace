@@ -67,6 +67,7 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
                         itemBuilder: (BuildContext context, int position) {
                           return UserRoleCardView(
                             position: position,
+                            //TO DO: need to change to bloc when work with data 
                             onChanged: (selectRoleState) {
                               setState(() {
                                 selectRoleState
