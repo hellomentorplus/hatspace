@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
+import 'package:hatspace/features/home/view_model/bloc/home_bloc.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -20,7 +21,10 @@ class SignUpScreen extends StatelessWidget {
         listener: (context, state) {
           Navigator.of(context)
               .pushReplacement(MaterialPageRoute(builder: (context) {
-            return HomePageView();
+            return BlocProvider<HomeBloc>(
+              create: (context) => HomeBloc(),
+              child: HomePageView(),
+            );
           }));
         },
         child: Scaffold(

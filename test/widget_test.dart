@@ -5,10 +5,10 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
+import 'package:hatspace/features/home/view_model/bloc/home_bloc.dart';
 import 'package:hatspace/features/sign_up/view/sign_up_view.dart';
 
 import 'package:hatspace/initial_app.dart';
@@ -20,7 +20,7 @@ void main() {
   testWidgets('Check home screen title', (WidgetTester tester) async {
     final widget = HomePageView();
 
-    await tester.wrapAndPump(widget);
+    await tester.blocWrapAndPump(HomeBloc(), widget);
 
     // // Verify that our counter starts at 0.
     expect(find.text('HAT Space'), findsOneWidget);
@@ -28,7 +28,7 @@ void main() {
 
   testWidgets('Check button navigation bar', (WidgetTester tester) async {
     final widget = HomePageView();
-    await tester.wrapAndPump(widget);
+    await tester.blocWrapAndPump(HomeBloc(), widget);
 
     // // Verify that our counter starts at 0.
     expect(find.text('Explore'), findsOneWidget);
@@ -39,7 +39,7 @@ void main() {
     final widget = MyApp();
 
     await tester.wrapAndPump(widget, theme: lightThemeData);
-    final renderingWidget = tester.widget(find.byType(HomePageView));
+    final renderingWidget = tester.widget(find.byType(SignUpScreen));
     expect(renderingWidget, isA<Widget>());
   });
 }

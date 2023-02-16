@@ -15,8 +15,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/calendar.svg
   String get calendar => 'assets/images/calendar.svg';
 
+  /// File path: assets/images/close-circle.svg
+  String get closeCircle => 'assets/images/close-circle.svg';
+
   /// File path: assets/images/close_icon.svg
   String get closeIcon => 'assets/images/close_icon.svg';
+
+  /// File path: assets/images/danger.svg
+  String get danger => 'assets/images/danger.svg';
 
   /// File path: assets/images/envelope.svg
   String get envelope => 'assets/images/envelope.svg';
@@ -30,6 +36,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/google.svg
   String get google => 'assets/images/google.svg';
 
+  /// File path: assets/images/info-circle.svg
+  String get infoCircle => 'assets/images/info-circle.svg';
+
   /// File path: assets/images/messages.svg
   String get messages => 'assets/images/messages.svg';
 
@@ -39,17 +48,24 @@ class $AssetsImagesGen {
   /// File path: assets/images/search-normal.svg
   String get searchNormal => 'assets/images/search-normal.svg';
 
+  /// File path: assets/images/tick-circle.svg
+  String get tickCircle => 'assets/images/tick-circle.svg';
+
   /// List of all assets
   List<String> get values => [
         calendar,
+        closeCircle,
         closeIcon,
+        danger,
         envelope,
         facebook,
         facebookround,
         google,
+        infoCircle,
         messages,
         profileCircle,
-        searchNormal
+        searchNormal,
+        tickCircle
       ];
 }
 

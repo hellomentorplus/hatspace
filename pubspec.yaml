@@ -40,7 +40,8 @@ dependencies:
   flutter_svg: ^1.1.6
   intl_utils: ^2.7.0
   shared_preferences: ^2.0.15
- 
+  shake: ^2.1.0
+  # sensors_plus: ^2.0.1
 
 dev_dependencies:
   flutter_test:
