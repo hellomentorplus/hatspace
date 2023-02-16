@@ -27,11 +27,11 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
           ),
           bottom: PreferredSize(
             preferredSize: Size(size.width, 0),
-            child: const LinearProgressIndicator(
+            child: LinearProgressIndicator(
               backgroundColor: HSColor.neutral2,
               color: HSColor.neutral6,
               value: 0.75,
-              semanticsLabel: 'Linear progress indicator',
+              semanticsLabel: HatSpaceStrings.of(context).linearProgressIndicator,
             ),
           ),
           title: Text(HatSpaceStrings.of(context).app_name),
@@ -48,7 +48,7 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      HatSpaceStrings.of(context).chooseUserRole.toString(),
+                      HatSpaceStrings.of(context).chooseUserRole,
                       style: Theme.of(context).textTheme.displayMedium,
                     ),
                     Padding(
@@ -56,7 +56,7 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
                       child: Text(
                         HatSpaceStrings.of(context)
                             .chooseUserRoleDescription
-                            .toString(),
+                            ,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
@@ -81,13 +81,13 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
                 ),
                 Expanded(child: Container()),
                 PrimaryButton(
-                  label: HatSpaceStrings.of(context).continueBtn.toString(),
+                  label: HatSpaceStrings.of(context).continueBtn,
                   onPressed: totalNumberOfCheckedTextBoxes > 0 ? () {} : null,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 33),
                   child: TextOnlyButton(
-                    label: HatSpaceStrings.of(context).cancelBtn.toString(),
+                    label: HatSpaceStrings.of(context).cancelBtn,
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => HomePageView()));

@@ -231,6 +231,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Home Page`
+  String get homePageViewTitle {
+    return Intl.message(
+      'Home Page',
+      name: 'homePageViewTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Linear progress indicator`
+  String get linearProgressIndicator {
+    return Intl.message(
+      'Linear progress indicator',
+      name: 'linearProgressIndicator',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

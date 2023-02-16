@@ -52,7 +52,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
         "googleSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with Google"),
+        "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
+        "linearProgressIndicator":
+            MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
