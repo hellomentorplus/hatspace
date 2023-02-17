@@ -22,8 +22,8 @@ class HomePageView extends StatelessWidget {
           title: Text(HatSpaceStrings.of(context).app_name),
           centerTitle: true,
         ),
-        body: const Center(
-          child: Text('Home Page'),
+        body: Center(
+          child: Text(HatSpaceStrings.of(context).homePageViewTitle),
         ),
         bottomNavigationBar: ValueListenableBuilder<int>(
           builder: (BuildContext context, int value, Widget? child) {
