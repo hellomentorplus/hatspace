@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
+EdgeInsets padding = const EdgeInsets.only(top: 17, bottom: 17);
+
+BorderRadius borderRadius = BorderRadius.circular(8);
 ElevatedButtonThemeData primaryButtonTheme = ElevatedButtonThemeData(
     style: ButtonStyle(
         alignment: Alignment.center,
@@ -16,20 +19,18 @@ ElevatedButtonThemeData primaryButtonTheme = ElevatedButtonThemeData(
         }),
         foregroundColor:
             const MaterialStatePropertyAll<Color>(HSColor.onPrimary),
-        padding: const MaterialStatePropertyAll<EdgeInsetsGeometry>(
-            EdgeInsets.only(top: 17, bottom: 17)),
+        padding: MaterialStatePropertyAll<EdgeInsetsGeometry>(padding),
         shape: MaterialStatePropertyAll<OutlinedBorder>(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)))));
+            RoundedRectangleBorder(borderRadius: borderRadius))));
 
 OutlinedButtonThemeData secondaryButtonTheme = OutlinedButtonThemeData(
   style: ButtonStyle(
       textStyle: MaterialStatePropertyAll(
           textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
       alignment: Alignment.center,
-      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-          const EdgeInsets.only(top: 17, bottom: 17)),
+      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(padding),
       shape: MaterialStatePropertyAll<OutlinedBorder>(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+          RoundedRectangleBorder(borderRadius: borderRadius)),
       side: MaterialStateBorderSide.resolveWith(
         (states) {
           // Disabled EVENT
@@ -74,20 +75,18 @@ ElevatedButtonThemeData buttonWithIconTheme = ElevatedButtonThemeData(
             return HSColor.onSurface;
           }
         }),
-        padding: const MaterialStatePropertyAll<EdgeInsetsGeometry>(
-            EdgeInsets.only(top: 17, bottom: 17)),
+        padding: MaterialStatePropertyAll<EdgeInsetsGeometry>(padding),
         shape: MaterialStatePropertyAll<OutlinedBorder>(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)))));
+            RoundedRectangleBorder(borderRadius: borderRadius))));
 
 OutlinedButtonThemeData secondaryButtonWithIconTheme = OutlinedButtonThemeData(
     style: ButtonStyle(
   textStyle: MaterialStatePropertyAll(
       textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
   alignment: Alignment.center,
-  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-      const EdgeInsets.only(top: 17, bottom: 17)),
+  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(padding),
   shape: MaterialStatePropertyAll<OutlinedBorder>(
-      RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+      RoundedRectangleBorder(borderRadius: borderRadius)),
   side: const MaterialStatePropertyAll<BorderSide>(
       BorderSide(color: HSColor.neutral3)),
   foregroundColor: MaterialStateProperty.resolveWith((states) {

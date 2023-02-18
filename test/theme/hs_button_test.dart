@@ -8,6 +8,7 @@ import 'package:hatspace/main.dart';
 
 import '../widget_tester_extension.dart';
 
+BorderRadius borderRadius = BorderRadius.circular(8);
 void main() {
   testWidgets(
       "Test PrimaryButtonTheme with ONLY TEXT with Default-Disabled-Hovered ",
@@ -34,7 +35,7 @@ void main() {
     expect(
         reason: "Testing borderRadius of button",
         btn.style?.shape?.resolve(state),
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)));
+        RoundedRectangleBorder(borderRadius: borderRadius));
     expect(
         reason: "Check Default Background",
         btn.style?.backgroundColor?.resolve(state),
@@ -81,7 +82,7 @@ void main() {
     expect(
         reason: "Testing borderRadius of button",
         btn.style?.shape?.resolve(state),
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)));
+        RoundedRectangleBorder(borderRadius: borderRadius));
     expect(
         reason: "Check Default border color with default state",
         btn.style?.side?.resolve(state),

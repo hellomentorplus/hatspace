@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
+EdgeInsets paddingIcon = EdgeInsets.only(right: 17, left: 17);
+
 class PrimaryButton extends StatelessWidget {
   final String? label;
   final String? iconUrl;
   final VoidCallback? onPressed;
 
-  const PrimaryButton({Key? key, this.label, this.iconUrl, this.onPressed})
+  PrimaryButton({Key? key, this.label, this.iconUrl, this.onPressed})
       : assert(label != null || iconUrl != null, "label or icon is required"),
         super(key: key);
 
@@ -47,7 +49,7 @@ class PrimaryButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
+              padding: paddingIcon,
               child: SvgPicture.asset(
                 iconUrl!,
                 width: 24,
@@ -60,7 +62,7 @@ class PrimaryButton extends StatelessWidget {
                 flex: 4,
                 child: Text(
                   label!,
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                 )),
           ],
         ));
@@ -105,7 +107,7 @@ class SecondaryButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
+                padding: paddingIcon,
                 child: SvgPicture.asset(
                   iconURL!,
                   width: 24,
@@ -117,7 +119,7 @@ class SecondaryButton extends StatelessWidget {
                 flex: 4,
                 child: Text(
                   label!,
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                 )),
           ],
         ));

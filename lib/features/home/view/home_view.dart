@@ -19,10 +19,12 @@ class HomePageView extends StatelessWidget {
   final ValueNotifier<int> _counter = ValueNotifier<int>(0);
   @override
   Widget build(BuildContext context) {
-    detector = ShakeDetector.autoStart(onPhoneShake: () {
-      print("Phone is shaking");
+    detector = ShakeDetector.waitForStart(onPhoneShake: () {
+      // print("Phone is shaking");
       context.read<HomeBloc>().add(const ShowWidgetCatalogEvent());
+      detector.stopListening();
     });
+    detector.startListening();
     return BlocListener<HomeBloc, HomeState>(
       listenWhen: (previous, current) {
         return current is ShowWidgetCatalogState &&
@@ -31,7 +33,7 @@ class HomePageView extends StatelessWidget {
       listener: ((context, state) {
         if (state is ShowWidgetCatalogState && state.isShowCatalog == true) {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return const WidgetCatalogScreen();
+            return WidgetCatalogScreen();
           }));
         }
       }),

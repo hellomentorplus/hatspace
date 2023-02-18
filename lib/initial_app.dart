@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
+import 'package:hatspace/features/home/view_model/bloc/home_bloc.dart';
 
 import 'package:hatspace/features/sign_up/view/sign_up_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
@@ -33,7 +34,11 @@ class MyApp extends StatelessWidget {
           home: BlocBuilder<SignUpBloc, SignUpState>(
             builder: ((context, state) {
               if (state is FirstLaunchScreen && state.isFirstLaunch != true) {
-                return HomePageView();
+                return BlocProvider<HomeBloc>(
+                    create: (context) {
+                      return HomeBloc();
+                    },
+                    child: HomePageView());
               } else {
                 return const SignUpScreen();
               }
