@@ -32,7 +32,7 @@ class CoreButtonView extends StatelessWidget {
           title: const Text("Core button UI"),
         ),
         body: ListView.separated(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           itemCount: buttonsList.length,
           itemBuilder: (context, index) {
             return Container(
