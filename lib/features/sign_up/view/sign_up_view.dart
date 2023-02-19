@@ -1,3 +1,4 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,12 +7,13 @@ import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/sign_up/view/choosing_roles_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/services/remote_config_service.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  SignUpScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
@@ -50,7 +52,8 @@ class SignUpScreen extends StatelessWidget {
                           iconURL: Assets.images.google,
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const ChoosingRolesView()));
+                                builder: (context) =>
+                                    const ChoosingRolesView()));
                           },
                         )),
                     Padding(
@@ -58,7 +61,13 @@ class SignUpScreen extends StatelessWidget {
                         child: SecondaryButton(
                           label: HatSpaceStrings.of(context).facebookSignUp,
                           iconURL: Assets.images.facebookround,
-                          onPressed: () {},
+                          onPressed: () {
+                            // TESTING SERVICE
+                            // FOR TESTING PURPOSE - only for this branch
+                            // NOTE: MUST REMOVE IT WHEN MERGE BRANCH
+                            // var message = remoteConfigService.getDebugOption();
+                            // print(message);
+                          },
                         )),
                     Padding(
                         padding: const EdgeInsets.only(bottom: 18),

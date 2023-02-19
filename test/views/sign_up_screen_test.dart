@@ -9,13 +9,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import "../widget_tester_extension.dart";
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   Widget widget = BlocProvider<SignUpBloc>(
     create: (context) {
       return SignUpBloc();
     },
-    child: const SignUpScreen(),
+    child: SignUpScreen(),
   );
-  setUpAll(() {
+  setUpAll(() async {
     const MethodChannel('plugins.flutter.io/shared_preferences')
         .setMockMethodCallHandler((MethodCall methodCall) async {
       if (methodCall.method == 'getAll') {

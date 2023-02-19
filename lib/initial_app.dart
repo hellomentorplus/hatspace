@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           home: BlocBuilder<SignUpBloc, SignUpState>(
             builder: ((context, state) {
               if (state is FirstLaunchScreen && state.isFirstLaunch == true) {
-                return const SignUpScreen();
+                return SignUpScreen();
               } else {
                 return HomePageView();
               }
