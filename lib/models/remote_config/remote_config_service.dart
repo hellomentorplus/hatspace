@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
 
@@ -10,23 +11,22 @@ class RemoteConfigService {
   static RemoteConfigService? _intance;
   final defauls = <String, dynamic>{_DEBUG_OPTION_ENABLED: true};
 
-  RemoteConfigService({required FirebaseRemoteConfig firebaseRemoteConfig})
-      : _remoteConfig = firebaseRemoteConfig;
+  RemoteConfigService({FirebaseRemoteConfig? firebaseRemoteConfig})
+      : _remoteConfig = firebaseRemoteConfig ?? FirebaseRemoteConfig.instance;
 
   Future initialise() async {
     try {
-      await _remoteConfig.setDefaults(defauls);
       await _remoteConfig.setConfigSettings(RemoteConfigSettings(
           // fetchTimeout:  If the server does not respond within the time specified by the fetchTimeout property => fetch() will return a Exception.
           // can be useful if you want to reduce the amount of time your app spends waiting for a fetch request to complete, or if you are experiencing frequent timeouts and want to increase the timeout value.
 
           // minimumFetchInterval: It represents the minimum amount of time that must elapse between fetch requests
           // by defaut the setting will be 12 hours which mean firebase Remote Config SDK will not allow you to make more than one fetch request every 12 hours.
-          fetchTimeout: const Duration(seconds: 30),
-          minimumFetchInterval: const Duration(hours: 1)));
-
+          fetchTimeout: const Duration(seconds: 0),
+          minimumFetchInterval: const Duration(seconds: 0)));
+      _remoteConfig.ensureInitialized();
       await _remoteConfig.fetchAndActivate();
-    } on PlatformException catch (e) {
+    } on FirebaseException catch (e) {
       print("Remote config fetch throttled:$e");
     } catch (exception) {
       print('Unable to fetch remote config. Cached or default values will be '
