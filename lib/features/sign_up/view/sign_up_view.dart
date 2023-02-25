@@ -6,6 +6,7 @@ import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/sign_up/view/choosing_roles_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/models/authentication/authentication_bloc.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
@@ -37,7 +38,13 @@ class SignUpScreen extends StatelessWidget {
                     },
                   ),
                 )),
-            body: Padding(
+            body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+  builder: (context, state) {
+    if(state is AuthenticateSuccess) {
+
+      return const ChoosingRolesView();
+    } else {
+      return Padding(
               padding: const EdgeInsets.only(left: 16, right: 16, bottom: 71),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -49,8 +56,9 @@ class SignUpScreen extends StatelessWidget {
                           label: HatSpaceStrings.of(context).googleSignUp,
                           iconURL: Assets.images.google,
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const ChoosingRolesView()));
+                            context
+                                .read<AuthenticationBloc>()
+                                .add(const SignUpWithGoolge());
                           },
                         )),
                     Padding(
@@ -102,6 +110,9 @@ class SignUpScreen extends StatelessWidget {
                       },
                     ),
                   ]),
-            )));
+            );
+    }
+  },
+)));
   }
 }
