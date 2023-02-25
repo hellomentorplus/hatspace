@@ -7,7 +7,6 @@ import 'package:hatspace/features/home/view_model/bloc/home_bloc.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'home_bloc_test.mocks.dart';
 import '../widget_tester_extension.dart';
 
 @GenerateMocks([HomePageView, HomeBloc])

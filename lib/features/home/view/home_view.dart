@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/features/debug/view/widget_catalog_wrapper.dart';
 import 'package:hatspace/features/home/view_model/bloc/home_bloc.dart';
-import 'package:hatspace/features/widget_catalog/view/widget_catalog.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -33,7 +33,7 @@ class HomePageView extends StatelessWidget {
       listener: ((context, state) {
         if (state is ShowWidgetCatalogState && state.isShowCatalog == true) {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return WidgetCatalogScreen();
+            return const WidgetCatalogWrapper();
           }));
         }
       }),

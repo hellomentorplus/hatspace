@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hatspace/features/widget_catalog/view/widget_list/core_buttons_view.dart';
-import 'package:hatspace/features/widget_catalog/view/widget_list/toast_message_view.dart';
+
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
+
+import 'widget_list/core_buttons_view.dart';
+import 'widget_list/toast_message_view.dart';
 
 class WidgetCatalogScreen extends StatelessWidget {
   WidgetCatalogScreen({super.key});
