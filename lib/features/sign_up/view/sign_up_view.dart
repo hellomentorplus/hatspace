@@ -7,13 +7,13 @@ import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/sign_up/view/choosing_roles_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
-import 'package:hatspace/services/remote_config_service.dart';
+import 'package:hatspace/models/remote_config/remote_config_service.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 class SignUpScreen extends StatelessWidget {
-  SignUpScreen({Key? key}) : super(key: key);
+  const SignUpScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
@@ -62,11 +62,6 @@ class SignUpScreen extends StatelessWidget {
                           label: HatSpaceStrings.of(context).facebookSignUp,
                           iconURL: Assets.images.facebookround,
                           onPressed: () {
-                            // TESTING SERVICE
-                            // FOR TESTING PURPOSE - only for this branch
-                            // NOTE: MUST REMOVE IT WHEN MERGE BRANCH
-                            // var message = remoteConfigService.getDebugOption();
-                            // print(message);
                           },
                         )),
                     Padding(

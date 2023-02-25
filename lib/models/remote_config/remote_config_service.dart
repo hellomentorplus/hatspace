@@ -24,7 +24,7 @@ class RemoteConfigService {
           // by defaut the setting will be 12 hours which mean firebase Remote Config SDK will not allow you to make more than one fetch request every 12 hours.
           fetchTimeout: const Duration(seconds: 0),
           minimumFetchInterval: const Duration(seconds: 0)));
-      _remoteConfig.ensureInitialized();
+      // _remoteConfig.ensureInitialized();
       await _remoteConfig.fetchAndActivate();
     } on FirebaseException catch (e) {
       print("Remote config fetch throttled:$e");

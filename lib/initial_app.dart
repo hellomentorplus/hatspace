@@ -28,7 +28,17 @@ class MyApp extends StatelessWidget {
           }),
           // TODO add your bloc creation here
         ],
-        child: MaterialApp(
+        child:const MyAppBody()
+        );
+  }
+}
+
+class MyAppBody extends StatelessWidget{
+  const MyAppBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
           theme: lightThemeData,
           home: BlocBuilder<SignUpBloc, SignUpState>(
             builder: ((context, state) {
@@ -44,6 +54,7 @@ class MyApp extends StatelessWidget {
             HatSpaceStrings.delegate
           ],
           supportedLocales: HatSpaceStrings.delegate.supportedLocales,
-        ));
+        );
   }
+
 }

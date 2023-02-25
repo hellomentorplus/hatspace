@@ -22,4 +22,6 @@ class DebugOptionEnabledState extends AppConfigState {
   bool debugOptionEnabled;
   DebugOptionEnabledState({bool? debugOptionEnabled})
       : debugOptionEnabled = debugOptionEnabled ?? false;
+  @override
+  List<Object> get props => [debugOptionEnabled];
 }
