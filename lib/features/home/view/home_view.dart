@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
+import 'package:hatspace/view_models/app_config/bloc/app_config_state.dart';
 
 class HomePageView extends StatelessWidget {
   HomePageView({Key? key}) : super(key: key);
@@ -13,7 +16,14 @@ class HomePageView extends StatelessWidget {
   final ValueNotifier<int> _counter = ValueNotifier<int>(0);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocBuilder<AppConfigBloc,AppConfigState>(
+      builder: ((context, state) {
+        // TODO: REMOVE AT THE END
+        bool debugDefault = false;
+        if(state is DebugOptionEnabledState && state.debugOptionEnabled == true){
+          debugDefault = state.debugOptionEnabled;
+        }
+        return  Scaffold(
         appBar: AppBar(
           // leading: IconButton(
           //   icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -23,7 +33,8 @@ class HomePageView extends StatelessWidget {
           centerTitle: true,
         ),
         body: Center(
-          child: Text(HatSpaceStrings.of(context).homePageViewTitle),
+          // TODO: NEED TO REMOVE
+          child: !debugDefault? Text(HatSpaceStrings.of(context).homePageViewTitle): const Text("Debug Option Is Enabled"),
         ),
         bottomNavigationBar: ValueListenableBuilder<int>(
           builder: (BuildContext context, int value, Widget? child) {
@@ -82,5 +93,8 @@ class HomePageView extends StatelessWidget {
           },
           valueListenable: _counter,
         ));
+      })
+      );
+    
   }
 }
