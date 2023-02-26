@@ -19,9 +19,5 @@ void main() async {
   await Firebase.initializeApp(
       name: 'Default-HatSpace',
       options: DefaultFirebaseOptions.currentPlatform);
-  final remoteConfigInstance = FirebaseRemoteConfig.instance;
-  RemoteConfigService remoteConfigService =
-      RemoteConfigService(firebaseRemoteConfig: remoteConfigInstance);
-  await remoteConfigService.initialise();
   runApp(const MyApp());
 }
