@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
+import 'package:shake/shake.dart';
 
 import 'widget_list/core_buttons_view.dart';
 import 'widget_list/toast_message_view.dart';
@@ -16,6 +17,7 @@ class WidgetCatalogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key("widget-for-debug"),
       appBar: AppBar(
         title: const Text("Widget Catalog"),
       ),

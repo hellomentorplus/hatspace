@@ -10,6 +10,4 @@ class WidgetCatalogBloc extends Bloc<WidgetCatalogEvent, WidgetCatalogState> {
       // TODO: implement event handler
     });
   }
-
-  
 }

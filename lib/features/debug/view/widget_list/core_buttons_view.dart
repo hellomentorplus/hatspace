@@ -45,35 +45,3 @@ class CoreButtonView extends StatelessWidget {
         ));
   }
 }
-
-//  crossAxisAlignment: CrossAxisAlignment.stretch,
-//         children: [
-//           const Text("Primary Buttons Theme", textAlign: TextAlign.center, style: TextStyle(
-//             fontSize: 25,
-//             fontWeight: FontWeight.bold
-//           ),),
-//           sizedBox,
-//           PrimaryButton(
-//             label: "Primary Button",
-//             iconUrl: Assets.images.facebook,
-//             onPressed: (() {
-//               // For Testing only - will not perform any actions
-//             }),
-//           ),
-//           sizedBox,
-//           PrimaryButton(
-//             label: "No icon",
-//             onPressed: ((){
-//               // Do nothing
-//             }),
-//           ),
-//           sizedBox,
-//           SecondaryButton(
-//             label: "Secondary Button",
-//             iconURL: Assets.images.google,
-//             onPressed: ((() {
-//               // Doing nothing
-//             })),
-//           ),
-
-//         ],

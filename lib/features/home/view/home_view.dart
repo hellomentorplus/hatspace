@@ -1,54 +1,75 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hatspace/features/debug/view/widget_catalog_wrapper.dart';
-import 'package:hatspace/features/home/view_model/bloc/home_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:hatspace/features/debug/view/widget_catalog.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/view_models/app_config/app_config_bloc.dart';
+import 'package:hatspace/view_models/app_config/app_config_state.dart';
 import 'package:shake/shake.dart';
 
-class HomePageView extends StatelessWidget {
-  HomePageView({Key? key}) : super(key: key);
+class HomePageView extends StatefulWidget {
+  const HomePageView({super.key});
+
+  @override
+  State<HomePageView> createState() => HomePageViewState();
+}
+
+class HomePageViewState extends State<HomePageView> {
+  late ShakeDetector detector;
   void _onItemTapped(int index) {
     _counter.value = index;
   }
 
-  late ShakeDetector detector;
+  @override
+  void dispose() {
+    try {
+      detector.stopListening;
+    } catch (e) {}
+    super.dispose();
+  }
+
+  void onShakeToAction(BuildContext context, AppConfigState state) {
+    if (state is DebugOptionEnabledState && state.debugOptionEnabled == true) {
+      // Only listen ShakeDetector when debugOptionTrue
+      detector = ShakeDetector.waitForStart(
+          onPhoneShake: () {
+            // To limit that shaking will happend more than one so there will be muliple push happened
+            if (detector.mShakeCount == 1) {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                // detector.stopListening();
+                return WidgetCatalogScreen();
+              }));
+              // Stop listening when navigate to Catalog Screen
+              detector.stopListening();
+            }
+          },
+          shakeSlopTimeMS: 1000);
+      detector.startListening();
+    } else if (state is DebugOptionEnabledState &&
+        state.debugOptionEnabled == false) {
+      // Stop listening when turn of debugOption
+      detector.stopListening();
+    }
+  }
 
   final ValueNotifier<int> _counter = ValueNotifier<int>(0);
   @override
   Widget build(BuildContext context) {
-    detector = ShakeDetector.waitForStart(onPhoneShake: () {
-      // print("Phone is shaking");
-      context.read<HomeBloc>().add(const ShowWidgetCatalogEvent());
-      detector.stopListening();
-    });
-    detector.startListening();
-    return BlocListener<HomeBloc, HomeState>(
-      listenWhen: (previous, current) {
-        return current is ShowWidgetCatalogState &&
-            current.isShowCatalog == true;
-      },
-      listener: ((context, state) {
-        if (state is ShowWidgetCatalogState && state.isShowCatalog == true) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return const WidgetCatalogWrapper();
-          }));
-        }
-      }),
-      child: Scaffold(
+    return BlocBuilder<AppConfigBloc, AppConfigState>(
+        // Phần này em cần phải đem nó ra nếu có thể
+        builder: ((context, state) {
+      onShakeToAction(context, state);
+      return Scaffold(
           appBar: AppBar(
-            // leading: IconButton(
-            //   icon: const Icon(Icons.arrow_back, color: Colors.black),
-            //   onPressed: () => {},
-            // ),
             title: Text(HatSpaceStrings.of(context).app_name),
             centerTitle: true,
           ),
-          body: const Center(
-            child: Text('Home Page'),
-          ),
+          body: Center(
+              child: Text(
+            HatSpaceStrings.of(context).homePageViewTitle,
+          )),
           bottomNavigationBar: ValueListenableBuilder<int>(
             builder: (BuildContext context, int value, Widget? child) {
               return BottomNavigationBar(
@@ -105,7 +126,7 @@ class HomePageView extends StatelessWidget {
               );
             },
             valueListenable: _counter,
-          )),
-    );
+          ));
+    }));
   }
 }
