@@ -16,10 +16,12 @@ class AppConfigBloc extends Bloc<AppConfigEvent, AppConfigState> {
           minimumFetchInterval: const Duration(seconds: 0)));
       _firebaseRemoteConfig.ensureInitialized();
       await _firebaseRemoteConfig.fetchAndActivate();
-
-      bool debugOptionEnable =
-          _firebaseRemoteConfig.getBool("debug_option_enabled");
-      emit(DebugOptionEnabledState(debugOptionEnabled: debugOptionEnable));
+      if (_firebaseRemoteConfig.lastFetchStatus ==
+          RemoteConfigFetchStatus.success) {
+        bool debugOptionEnable =
+            _firebaseRemoteConfig.getBool("debug_option_enabled");
+        emit(DebugOptionEnabledState(debugOptionEnabled: debugOptionEnable));
+      }
     });
   }
 }

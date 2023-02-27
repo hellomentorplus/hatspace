@@ -12,10 +12,6 @@ class AppConfigInitialState extends AppConfigState {
   List<Object> get props => [];
 }
 
-class RemoteConfigInitialised extends AppConfigState {
-  const RemoteConfigInitialised();
-}
-
 class DebugOptionEnabledState extends AppConfigState {
   bool debugOptionEnabled;
   DebugOptionEnabledState({bool? debugOptionEnabled})

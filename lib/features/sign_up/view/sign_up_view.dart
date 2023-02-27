@@ -21,7 +21,7 @@ class SignUpScreen extends StatelessWidget {
         listener: (context, state) {
           Navigator.of(context)
               .pushReplacement(MaterialPageRoute(builder: (context) {
-            return HomePageView();
+            return const HomePageView();
           }));
         },
         child: Scaffold(
@@ -50,7 +50,8 @@ class SignUpScreen extends StatelessWidget {
                           iconURL: Assets.images.google,
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const ChoosingRolesView()));
+                                builder: (context) =>
+                                    const ChoosingRolesView()));
                           },
                         )),
                     Padding(

@@ -10,7 +10,3 @@ abstract class AppConfigEvent extends Equatable {
 class OnInitialRemoteConfig extends AppConfigEvent {
   const OnInitialRemoteConfig();
 }
-
-class DebugOptionEnabled extends AppConfigEvent {
-  const DebugOptionEnabled();
-}

@@ -42,7 +42,7 @@ class MyAppBody extends StatelessWidget {
           if (state is FirstLaunchScreen && state.isFirstLaunch == true) {
             return const SignUpScreen();
           } else {
-            return HomePageView();
+            return const HomePageView();
           }
         }),
       ),

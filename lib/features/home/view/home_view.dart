@@ -37,12 +37,12 @@ class HomePageViewState extends State<HomePageView> {
           onPhoneShake: () async {
             // To limit that shaking will happend more than one so there will be muliple push happened
             if (detector.mShakeCount == 1) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
                 // detector.stopListening();
                 return WidgetCatalogScreen();
               }));
               // Stop listening when navigate to Catalog Screen
-             detector.stopListening();
+              detector.stopListening();
             }
           },
           shakeSlopTimeMS: 1000);
@@ -50,12 +50,9 @@ class HomePageViewState extends State<HomePageView> {
     } else if (state is DebugOptionEnabledState &&
         state.debugOptionEnabled == false) {
       // Stop listening when turn of debugOption
-      try{
+      try {
         detector.stopListening();
-      }catch(e){
-        
-      }
-   
+      } catch (e) {}
     }
   }
 
@@ -63,12 +60,7 @@ class HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppConfigBloc, AppConfigState>(
-      //  TODO: variable just for testing - remove it when merge branch
         builder: ((context, state) {
-          bool enableDebug = false;
-          if (state is DebugOptionEnabledState && state.debugOptionEnabled == true){
-            enableDebug = true;
-          }
       onShakeToAction(context, state);
       return Scaffold(
           appBar: AppBar(
@@ -76,9 +68,9 @@ class HomePageViewState extends State<HomePageView> {
             centerTitle: true,
           ),
           body: Center(
-              child: !enableDebug? Text(
-            HatSpaceStrings.of(context).homePageViewTitle,) : const Text("Debug Option Enabled")
-          ),
+              child: Text(
+            HatSpaceStrings.of(context).homePageViewTitle,
+          )),
           bottomNavigationBar: ValueListenableBuilder<int>(
             builder: (BuildContext context, int value, Widget? child) {
               return BottomNavigationBar(

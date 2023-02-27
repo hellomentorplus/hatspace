@@ -4,8 +4,6 @@
 // utility in the flutter_test package. For example, you can send tap and scroll
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
@@ -20,11 +18,11 @@ import 'bloc/app_confilg_bloc/app_config_bloc_test.mocks.dart';
 import 'widget_test.mocks.dart';
 import 'widget_tester_extension.dart';
 
-@GenerateMocks([AppConfigBloc,SignUpBloc,ShakeDetector, NavigatorObserver])
+@GenerateMocks([AppConfigBloc, SignUpBloc, ShakeDetector, NavigatorObserver])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   MockFirebaseRemoteConfig mockFirebaseRemoteConfig =
-  MockFirebaseRemoteConfig();
+      MockFirebaseRemoteConfig();
   MockAppConfigBloc mockAppConfigBloc = MockAppConfigBloc();
   MockSignUpBloc mockSignUpBloc = MockSignUpBloc();
   MockShakeDetector shakeDetector = MockShakeDetector();

@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/features/debug/view/widget_list/core_button_view.dart';
-import 'package:hatspace/features/debug/view/widget_list/toast_message_view.dart';
-
-import 'package:hatspace/theme/hs_theme.dart';
-import 'package:hatspace/theme/widgets/hs_buttons.dart';
-import 'package:shake/shake.dart';
 
 class WidgetCatalogScreen extends StatelessWidget {
   WidgetCatalogScreen({super.key});
   // Add new item into ItemList
   List<ItemList> itemList = [
     ItemList("Core Button", CoreButtonView()),
-    ItemList("Toast Message", ToastMessageView())
+    // TODO: ADD Toast Message View to show all toast message
+    // ItemList("Toast Message", ToastMessageView())
   ];
   @override
   Widget build(BuildContext context) {

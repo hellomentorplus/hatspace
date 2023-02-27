@@ -10,8 +10,6 @@ import 'package:mockito/mockito.dart';
 
 import 'app_config_bloc_test.mocks.dart';
 
-
-
 @GenerateMocks([FirebaseRemoteConfig])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +22,8 @@ void main() {
       },
       setUp: () async {
         await firebaseRemoteMock.ensureInitialized();
+        when(firebaseRemoteMock.lastFetchStatus)
+            .thenReturn(RemoteConfigFetchStatus.success);
         when(firebaseRemoteMock.fetchAndActivate()).thenAnswer((_) {
           return Future.value(true);
         });
