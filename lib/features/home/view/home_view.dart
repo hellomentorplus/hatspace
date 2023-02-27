@@ -50,7 +50,12 @@ class HomePageViewState extends State<HomePageView> {
     } else if (state is DebugOptionEnabledState &&
         state.debugOptionEnabled == false) {
       // Stop listening when turn of debugOption
-      detector.stopListening();
+      try{
+        detector.stopListening();
+      }catch(e){
+        
+      }
+   
     }
   }
 

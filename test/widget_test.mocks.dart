@@ -5,6 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
+import 'package:flutter/material.dart' as _i9;
 import 'package:flutter_bloc/flutter_bloc.dart' as _i7;
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart' as _i3;
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart'
@@ -14,6 +15,7 @@ import 'package:hatspace/view_models/app_config/bloc/app_config_event.dart'
 import 'package:hatspace/view_models/app_config/bloc/app_config_state.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:shake/shake.dart' as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -286,6 +288,187 @@ class MockSignUpBloc extends _i1.Mock implements _i3.SignUpBloc {
             error,
             stackTrace,
           ],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [ShakeDetector].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockShakeDetector extends _i1.Mock implements _i8.ShakeDetector {
+  MockShakeDetector() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i8.PhoneShakeCallback get onPhoneShake => (super.noSuchMethod(
+        Invocation.getter(#onPhoneShake),
+        returnValue: () {},
+      ) as _i8.PhoneShakeCallback);
+  @override
+  double get shakeThresholdGravity => (super.noSuchMethod(
+        Invocation.getter(#shakeThresholdGravity),
+        returnValue: 0.0,
+      ) as double);
+  @override
+  int get shakeSlopTimeMS => (super.noSuchMethod(
+        Invocation.getter(#shakeSlopTimeMS),
+        returnValue: 0,
+      ) as int);
+  @override
+  int get shakeCountResetTime => (super.noSuchMethod(
+        Invocation.getter(#shakeCountResetTime),
+        returnValue: 0,
+      ) as int);
+  @override
+  int get minimumShakeCount => (super.noSuchMethod(
+        Invocation.getter(#minimumShakeCount),
+        returnValue: 0,
+      ) as int);
+  @override
+  int get mShakeTimestamp => (super.noSuchMethod(
+        Invocation.getter(#mShakeTimestamp),
+        returnValue: 0,
+      ) as int);
+  @override
+  set mShakeTimestamp(int? _mShakeTimestamp) => super.noSuchMethod(
+        Invocation.setter(
+          #mShakeTimestamp,
+          _mShakeTimestamp,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  int get mShakeCount => (super.noSuchMethod(
+        Invocation.getter(#mShakeCount),
+        returnValue: 0,
+      ) as int);
+  @override
+  set mShakeCount(int? _mShakeCount) => super.noSuchMethod(
+        Invocation.setter(
+          #mShakeCount,
+          _mShakeCount,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  set streamSubscription(
+          _i5.StreamSubscription<dynamic>? _streamSubscription) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #streamSubscription,
+          _streamSubscription,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void startListening() => super.noSuchMethod(
+        Invocation.method(
+          #startListening,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void stopListening() => super.noSuchMethod(
+        Invocation.method(
+          #stopListening,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [NavigatorObserver].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockNavigatorObserver extends _i1.Mock implements _i9.NavigatorObserver {
+  MockNavigatorObserver() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  void didPush(
+    _i9.Route<dynamic>? route,
+    _i9.Route<dynamic>? previousRoute,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #didPush,
+          [
+            route,
+            previousRoute,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void didPop(
+    _i9.Route<dynamic>? route,
+    _i9.Route<dynamic>? previousRoute,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #didPop,
+          [
+            route,
+            previousRoute,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void didRemove(
+    _i9.Route<dynamic>? route,
+    _i9.Route<dynamic>? previousRoute,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #didRemove,
+          [
+            route,
+            previousRoute,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void didReplace({
+    _i9.Route<dynamic>? newRoute,
+    _i9.Route<dynamic>? oldRoute,
+  }) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #didReplace,
+          [],
+          {
+            #newRoute: newRoute,
+            #oldRoute: oldRoute,
+          },
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void didStartUserGesture(
+    _i9.Route<dynamic>? route,
+    _i9.Route<dynamic>? previousRoute,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #didStartUserGesture,
+          [
+            route,
+            previousRoute,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void didStopUserGesture() => super.noSuchMethod(
+        Invocation.method(
+          #didStopUserGesture,
+          [],
         ),
         returnValueForMissingStub: null,
       );

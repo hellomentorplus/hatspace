@@ -15,17 +15,20 @@ import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:shake/shake.dart';
 import 'bloc/app_confilg_bloc/app_config_bloc_test.mocks.dart';
 import 'widget_test.mocks.dart';
 import 'widget_tester_extension.dart';
 
-@GenerateMocks([AppConfigBloc,SignUpBloc])
+@GenerateMocks([AppConfigBloc,SignUpBloc,ShakeDetector, NavigatorObserver])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   MockFirebaseRemoteConfig mockFirebaseRemoteConfig =
   MockFirebaseRemoteConfig();
   MockAppConfigBloc mockAppConfigBloc = MockAppConfigBloc();
   MockSignUpBloc mockSignUpBloc = MockSignUpBloc();
+  MockShakeDetector shakeDetector = MockShakeDetector();
+  MockNavigatorObserver mockNavObser = MockNavigatorObserver();
   setUpAll(() async {
     when(mockFirebaseRemoteConfig.fetchAndActivate()).thenAnswer((_) {
       return Future.value(true);
@@ -63,7 +66,6 @@ void main() {
   testWidgets('Check button navigation bar', (WidgetTester tester) async {
     final widget = HomePageView();
     await tester.blocWrapAndPump<AppConfigBloc>(mockAppConfigBloc, widget);
-
     // // Verify that our counter starts at 0.
     expect(find.text('Explore'), findsOneWidget);
     expect(find.text('Tracking'), findsOneWidget);
