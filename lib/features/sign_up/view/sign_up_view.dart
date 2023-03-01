@@ -19,8 +19,7 @@ class SignUpScreen extends StatelessWidget {
           return state is FirstLaunchScreen && state.isFirstLaunch == false;
         },
         listener: (context, state) {
-          Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (context) {
+          Navigator.of(context).pop(MaterialPageRoute(builder: (context) {
             return const HomePageView();
           }));
         },

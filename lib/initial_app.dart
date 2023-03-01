@@ -37,15 +37,19 @@ class MyAppBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: lightThemeData,
-      home: BlocBuilder<SignUpBloc, SignUpState>(
-        builder: ((context, state) {
-          if (state is FirstLaunchScreen && state.isFirstLaunch == true) {
-            return const SignUpScreen();
-          } else {
-            return const HomePageView();
-          }
-        }),
-      ),
+      home: BlocListener<SignUpBloc, SignUpState>(
+          // Listen when FirstLauch will be navigate to Home Screen.
+          listenWhen: (previous, current) {
+            return current is FirstLaunchScreen &&
+                current.isFirstLaunch == true;
+          },
+          listener: (context, state) {
+            Navigator.of(context).push(MaterialPageRoute(builder: ((context) {
+              return const SignUpScreen();
+            })));
+          },
+          // Always initialise HomePageView
+          child: const HomePageView()),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         HatSpaceStrings.delegate

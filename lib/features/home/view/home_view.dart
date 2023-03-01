@@ -24,9 +24,6 @@ class HomePageViewState extends State<HomePageView> {
 
   @override
   void dispose() {
-    try {
-      detector.stopListening;
-    } catch (e) {}
     super.dispose();
   }
 
@@ -41,8 +38,6 @@ class HomePageViewState extends State<HomePageView> {
                 // detector.stopListening();
                 return WidgetCatalogScreen();
               }));
-              // Stop listening when navigate to Catalog Screen
-              detector.stopListening();
             }
           },
           shakeSlopTimeMS: 1000);
@@ -59,75 +54,79 @@ class HomePageViewState extends State<HomePageView> {
   final ValueNotifier<int> _counter = ValueNotifier<int>(0);
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppConfigBloc, AppConfigState>(
-        builder: ((context, state) {
-      onShakeToAction(context, state);
-      return Scaffold(
-          appBar: AppBar(
-            title: Text(HatSpaceStrings.of(context).app_name),
-            centerTitle: true,
-          ),
-          body: Center(
-              child: Text(
-            HatSpaceStrings.of(context).homePageViewTitle,
-          )),
-          bottomNavigationBar: ValueListenableBuilder<int>(
-            builder: (BuildContext context, int value, Widget? child) {
-              return BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                items: <BottomNavigationBarItem>[
-                  BottomNavigationBarItem(
-                    icon: SvgPicture.asset(
-                      Assets.images.searchNormal,
-                      width: 24,
-                      height: 24,
-                      color: _counter.value == 0
-                          ? HSColor.secondary
-                          : HSColor.neutral4,
+    return BlocListener<AppConfigBloc, AppConfigState>(
+        listenWhen: (previous, current) {
+          return current is DebugOptionEnabledState &&
+              current.debugOptionEnabled == true;
+        },
+        listener: (context, state) {
+          onShakeToAction(context, state);
+        },
+        child: Scaffold(
+            appBar: AppBar(
+              title: Text(HatSpaceStrings.of(context).app_name),
+              centerTitle: true,
+            ),
+            body: Center(
+                child: Text(
+              HatSpaceStrings.of(context).homePageViewTitle,
+            )),
+            bottomNavigationBar: ValueListenableBuilder<int>(
+              builder: (BuildContext context, int value, Widget? child) {
+                return BottomNavigationBar(
+                  type: BottomNavigationBarType.fixed,
+                  items: <BottomNavigationBarItem>[
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        Assets.images.searchNormal,
+                        width: 24,
+                        height: 24,
+                        color: _counter.value == 0
+                            ? HSColor.secondary
+                            : HSColor.neutral4,
+                      ),
+                      label: HatSpaceStrings.of(context).explore.toString(),
                     ),
-                    label: HatSpaceStrings.of(context).explore.toString(),
-                  ),
-                  BottomNavigationBarItem(
-                    icon: SvgPicture.asset(
-                      Assets.images.calendar,
-                      width: 24,
-                      height: 24,
-                      color: _counter.value == 1
-                          ? HSColor.secondary
-                          : HSColor.neutral4,
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        Assets.images.calendar,
+                        width: 24,
+                        height: 24,
+                        color: _counter.value == 1
+                            ? HSColor.secondary
+                            : HSColor.neutral4,
+                      ),
+                      label: HatSpaceStrings.of(context).tracking.toString(),
                     ),
-                    label: HatSpaceStrings.of(context).tracking.toString(),
-                  ),
-                  BottomNavigationBarItem(
-                    icon: SvgPicture.asset(
-                      Assets.images.messages,
-                      width: 24,
-                      height: 24,
-                      color: _counter.value == 2
-                          ? HSColor.secondary
-                          : HSColor.neutral4,
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        Assets.images.messages,
+                        width: 24,
+                        height: 24,
+                        color: _counter.value == 2
+                            ? HSColor.secondary
+                            : HSColor.neutral4,
+                      ),
+                      label: HatSpaceStrings.of(context).inbox.toString(),
                     ),
-                    label: HatSpaceStrings.of(context).inbox.toString(),
-                  ),
-                  BottomNavigationBarItem(
-                    icon: SvgPicture.asset(
-                      Assets.images.profileCircle,
-                      width: 24,
-                      height: 24,
-                      color: _counter.value == 3
-                          ? HSColor.secondary
-                          : HSColor.neutral4,
+                    BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        Assets.images.profileCircle,
+                        width: 24,
+                        height: 24,
+                        color: _counter.value == 3
+                            ? HSColor.secondary
+                            : HSColor.neutral4,
+                      ),
+                      label: HatSpaceStrings.of(context).profile.toString(),
                     ),
-                    label: HatSpaceStrings.of(context).profile.toString(),
-                  ),
-                ],
-                selectedItemColor: HSColor.secondary,
-                currentIndex: _counter.value,
-                onTap: _onItemTapped,
-              );
-            },
-            valueListenable: _counter,
-          ));
-    }));
+                  ],
+                  selectedItemColor: HSColor.secondary,
+                  currentIndex: _counter.value,
+                  onTap: _onItemTapped,
+                );
+              },
+              valueListenable: _counter,
+            )));
   }
 }

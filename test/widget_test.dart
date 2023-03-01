@@ -13,20 +13,20 @@ import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:shake/shake.dart';
 import 'bloc/app_confilg_bloc/app_config_bloc_test.mocks.dart';
 import 'widget_test.mocks.dart';
 import 'widget_tester_extension.dart';
 
-@GenerateMocks([AppConfigBloc, SignUpBloc, ShakeDetector, NavigatorObserver])
+@GenerateMocks([
+  AppConfigBloc,
+  SignUpBloc,
+])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   MockFirebaseRemoteConfig mockFirebaseRemoteConfig =
       MockFirebaseRemoteConfig();
   MockAppConfigBloc mockAppConfigBloc = MockAppConfigBloc();
   MockSignUpBloc mockSignUpBloc = MockSignUpBloc();
-  MockShakeDetector shakeDetector = MockShakeDetector();
-  MockNavigatorObserver mockNavObser = MockNavigatorObserver();
   setUpAll(() async {
     when(mockFirebaseRemoteConfig.fetchAndActivate()).thenAnswer((_) {
       return Future.value(true);
@@ -47,9 +47,12 @@ void main() {
       // Bloc's using stream to return states
       return Stream.value(FirstLaunchScreen(true));
     });
+    // whenListen(mockSignUpBloc, Stream.fromIterable([const FirstLaunchScreen(true)]));
     when(mockSignUpBloc.state).thenAnswer((realInvocation) {
       return FirstLaunchScreen(true);
     });
+
+    // SET UP FOR BLOC LISTENER
 
     // await FirebaseRemoteConfig.instance.ensureInitialized();
   });
@@ -72,7 +75,7 @@ void main() {
 
   testWidgets('It should have a widget', (tester) async {
     const widget = MyAppBody();
-    await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
+    await tester.pumpWidget(const MyAppBody());
     final renderingWidget = tester.widget(find.byType(MyAppBody));
     expect(renderingWidget, isA<Widget>());
   });
