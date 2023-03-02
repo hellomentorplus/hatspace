@@ -1,7 +1,5 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 const signUpSuccess = "SIGN_UP_SUCCESS";
@@ -39,8 +37,8 @@ class AuthenticationService {
   Future<void> signUpFirebase(OAuthCredential credential) async {
     try {
       UserCredential user =
-      await _firebaseAuth.signInWithCredential(credential);
-      if (user.additionalUserInfo?.isNewUser == true) {
+          await _firebaseAuth.signInWithCredential(credential);
+      if (user.additionalUserInfo?.isNewUser == false) {
         throw PlatformException(
             code: "AUTH_CANCELED", message: "Account already create");
       }
