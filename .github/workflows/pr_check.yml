@@ -51,7 +51,7 @@ jobs:
           echo "$ANDROID_GOOGLE_SERVICE" >> android/app/google-services.json
           echo "$FIREBASE_APP_ID_FILE" >> ios/firebase_app_id_file.json
           echo "$IOS_GOOGLE_SERVICE" >> ios/Runner/GoogleService-Info.plist
-          echo "$IOS_APP_CONFIG" >> ios/ios/Flutter/AppConfig.xcconfig
+          echo "$IOS_APP_CONFIG" >> ios/Flutter/AppConfig.xcconfig
           # generate all auto-generated contents
           flutter pub get
           flutter pub run build_runner build --delete-conflicting-outputs
