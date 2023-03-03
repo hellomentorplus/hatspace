@@ -45,11 +45,17 @@ jobs:
           ANDROID_GOOGLE_SERVICE: ${{ secrets.PR_ANDROID_GOOGLE_SERVICE }}
           FIREBASE_APP_ID_FILE: ${{ secrets.PR_FIREBASE_APP_ID_FILE }}
           IOS_GOOGLE_SERVICE: ${{ secrets.PR_IOS_GOOGLE_SERVICE }}
+          IOS_APP_CONFIG: ${{ secrets.PR_IOS_APP_CONFIG }}
         run: |
           echo "$FIREBASE_OPTION" >> lib/firebase_options.dart
           echo "$ANDROID_GOOGLE_SERVICE" >> android/app/google-services.json
           echo "$FIREBASE_APP_ID_FILE" >> ios/firebase_app_id_file.json
           echo "$IOS_GOOGLE_SERVICE" >> ios/Runner/GoogleService-Info.plist
+          echo "$IOS_APP_CONFIG" >> ios/Flutter/AppConfig.xcconfig
+          # generate all auto-generated contents
+          flutter pub get
+          flutter pub run build_runner build --delete-conflicting-outputs
+
 
       # Runs a set of commands using the runners shell
       - name: Run test with coverage
