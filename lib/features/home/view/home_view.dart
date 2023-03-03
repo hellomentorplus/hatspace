@@ -24,43 +24,37 @@ class HomePageViewState extends State<HomePageView> {
 
   @override
   void dispose() {
+    try {
+      detector.stopListening();
+    } catch (e) {}
     super.dispose();
   }
 
   void onShakeToAction(BuildContext context, AppConfigState state) {
-    if (state is DebugOptionEnabledState && state.debugOptionEnabled == true) {
-      // Only listen ShakeDetector when debugOptionTrue
-      detector = ShakeDetector.waitForStart(
-          onPhoneShake: () async {
-            // To limit that shaking will happend more than one so there will be muliple push happened
-            if (detector.mShakeCount == 1) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                // detector.stopListening();
-                return WidgetCatalogScreen();
-              }));
-            }
-          },
-          shakeSlopTimeMS: 1000);
-      detector.startListening();
-    } else if (state is DebugOptionEnabledState &&
-        state.debugOptionEnabled == false) {
-      // Stop listening when turn of debugOption
-      try {
-        detector.stopListening();
-      } catch (e) {}
-    }
+    // Only listen ShakeDetector when debugOptionTrue
+    detector = ShakeDetector.waitForStart(
+        onPhoneShake: () async {
+          // To limit that shaking will happend more than one so there will be muliple push happened
+          if (detector.mShakeCount == 1) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              // detector.stopListening();
+              return WidgetCatalogScreen();
+            }));
+          }
+        },
+        shakeSlopTimeMS: 1000);
+    detector.startListening();
   }
 
   final ValueNotifier<int> _counter = ValueNotifier<int>(0);
   @override
   Widget build(BuildContext context) {
     return BlocListener<AppConfigBloc, AppConfigState>(
-        listenWhen: (previous, current) {
-          return current is DebugOptionEnabledState &&
-              current.debugOptionEnabled == true;
-        },
         listener: (context, state) {
-          onShakeToAction(context, state);
+          if (state is DebugOptionEnabledState &&
+              state.debugOptionEnabled == true) {
+            onShakeToAction(context, state);
+          }
         },
         child: Scaffold(
             appBar: AppBar(

@@ -12,6 +12,8 @@ import 'package:hatspace/view_models/app_config/bloc/app_config_event.dart';
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  void listenerEvents(BuildContext context, SignUpState state) {}
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -39,14 +41,12 @@ class MyAppBody extends StatelessWidget {
       theme: lightThemeData,
       home: BlocListener<SignUpBloc, SignUpState>(
           // Listen when FirstLauch will be navigate to Home Screen.
-          listenWhen: (previous, current) {
-            return current is FirstLaunchScreen &&
-                current.isFirstLaunch == true;
-          },
           listener: (context, state) {
-            Navigator.of(context).push(MaterialPageRoute(builder: ((context) {
-              return const SignUpScreen();
-            })));
+            if (state is FirstLaunchScreen && state.isFirstLaunch == true) {
+              Navigator.of(context).push(MaterialPageRoute(builder: ((context) {
+                return const SignUpScreen();
+              })));
+            }
           },
           // Always initialise HomePageView
           child: const HomePageView()),
