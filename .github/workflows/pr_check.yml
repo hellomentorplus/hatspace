@@ -53,6 +53,7 @@ jobs:
           echo "$IOS_GOOGLE_SERVICE" >> ios/Runner/GoogleService-Info.plist
           echo "$IOS_APP_CONFIG" >> ios/ios/Flutter/AppConfig.xcconfig
           # generate all auto-generated contents
+          flutter pub get
           flutter pub run build_runner build --delete-conflicting-outputs
 
 
