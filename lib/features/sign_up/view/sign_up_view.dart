@@ -19,9 +19,8 @@ class SignUpScreen extends StatelessWidget {
           return state is FirstLaunchScreen && state.isFirstLaunch == false;
         },
         listener: (context, state) {
-          Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (context) {
-            return HomePageView();
+          Navigator.of(context).pop(MaterialPageRoute(builder: (context) {
+            return const HomePageView();
           }));
         },
         child: Scaffold(
@@ -50,7 +49,8 @@ class SignUpScreen extends StatelessWidget {
                           iconURL: Assets.images.google,
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const ChoosingRolesView()));
+                                builder: (context) =>
+                                    const ChoosingRolesView()));
                           },
                         )),
                     Padding(

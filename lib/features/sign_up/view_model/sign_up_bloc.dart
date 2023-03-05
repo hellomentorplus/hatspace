@@ -10,10 +10,6 @@ const isFirstLaunchConst = "isFirstLaunch";
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc() : super(const SignUpInitial()) {
-    on<SignUpEvent>((event, emit) {
-      // TODO: implement event handler
-    });
-
     on<CheckFirstLaunchSignUp>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool? isLaunchFirstTime = prefs.getBool(isFirstLaunchConst);
