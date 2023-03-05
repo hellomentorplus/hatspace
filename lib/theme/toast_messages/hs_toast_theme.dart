@@ -20,8 +20,8 @@ class ToastMessageError extends StatelessWidget {
 }
 
 class ToastMessageContainer extends StatelessWidget {
- final Color backgroundColor;
- final SvgPicture icon;
+  final Color backgroundColor;
+  final SvgPicture icon;
   SvgPicture? closeIcon;
   Key? key;
   String toastTitle;
