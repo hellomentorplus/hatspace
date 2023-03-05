@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/theme/toast_messages/toast_messages.dart';
 
 class ToastMessageError extends StatelessWidget {
   final String message;
@@ -68,7 +69,13 @@ class ToastMessageContainer extends StatelessWidget {
                           ),
                         ),
                       ),
-                      closeIcon ??= SvgPicture.asset(Assets.images.closeClear)
+                      GestureDetector(
+                        onTap: () {
+                          ToastMessages().closeToast(context);
+                        },
+                        child: closeIcon ??=
+                            SvgPicture.asset(Assets.images.closeClear),
+                      )
                     ],
                   ),
                   Text(toastContent,

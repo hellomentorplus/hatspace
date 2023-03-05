@@ -21,6 +21,11 @@ class ToastMessages {
       width: MediaQuery.of(context).size.width,
       behavior: SnackBarBehavior.floating,
       elevation: 0,
+      duration: const Duration(seconds: 6),
     ));
+  }
+
+  void closeToast(BuildContext context) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
   }
 }
