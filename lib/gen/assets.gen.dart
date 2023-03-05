@@ -15,11 +15,23 @@ class $AssetsImagesGen {
   /// File path: assets/images/calendar.svg
   String get calendar => 'assets/images/calendar.svg';
 
+  /// File path: assets/images/close-clear.svg
+  String get closeClear => 'assets/images/close-clear.svg';
+
+  /// File path: assets/images/close-dark.svg
+  String get closeDark => 'assets/images/close-dark.svg';
+
   /// File path: assets/images/close_icon.svg
   String get closeIcon => 'assets/images/close_icon.svg';
 
+  /// File path: assets/images/email.svg
+  String get email => 'assets/images/email.svg';
+
   /// File path: assets/images/envelope.svg
   String get envelope => 'assets/images/envelope.svg';
+
+  /// File path: assets/images/error.svg
+  String get error => 'assets/images/error.svg';
 
   /// File path: assets/images/facebook.svg
   String get facebook => 'assets/images/facebook.svg';
@@ -42,8 +54,12 @@ class $AssetsImagesGen {
   /// List of all assets
   List<String> get values => [
         calendar,
+        closeClear,
+        closeDark,
         closeIcon,
+        email,
         envelope,
+        error,
         facebook,
         facebookround,
         google,
