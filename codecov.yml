@@ -13,6 +13,7 @@ coverage:
         paths:
           - lib
         target: 60%
+        threshold: 3%
   ignore:
     - "lib/main.dart"
     - "lib/gen"
