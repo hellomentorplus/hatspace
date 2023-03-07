@@ -176,6 +176,8 @@ void main() {
       iconURL: Assets.images.facebook,
     );
 
+    await widgetTester.wrapAndPump(outlinedButton);
+
     expect(find.byType(OutlinedButton), findsOneWidget);
     expect(find.byType(SvgPicture), findsOneWidget);
     expect(find.byType(Text), findsNothing);
