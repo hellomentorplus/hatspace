@@ -1,0 +1,4 @@
+enum SignUpMessageType {
+  AlreadyHaveAccount,
+  SignUpFalse
+}

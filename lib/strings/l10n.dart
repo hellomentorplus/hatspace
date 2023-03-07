@@ -251,6 +251,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Already have account`
+  String get AlreadyHaveAccount {
+    return Intl.message(
+      'Already have account',
+      name: 'AlreadyHaveAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up false`
+  String get SignUpFalse {
+    return Intl.message(
+      'Sign up false',
+      name: 'SignUpFalse',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

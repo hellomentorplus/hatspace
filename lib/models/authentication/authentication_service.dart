@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hatspace/types/sign_up_message_type.dart';
 
 const signUpSuccess = "SIGN_UP_SUCCESS";
 const signUpFailed = "SIGN_UP_FAILED";
@@ -38,10 +39,10 @@ class AuthenticationService {
     try {
       UserCredential user =
           await _firebaseAuth.signInWithCredential(credential);
-      if (user.additionalUserInfo?.isNewUser == false) {
-        throw PlatformException(
-            code: "AUTH_CANCELED", message: "Account already create");
-      }
+      // if (user.additionalUserInfo?.isNewUser == false) {
+      //   throw PlatformException(
+      //       code: "AUTH_CANCELED", message: "Account already create");
+      // }
     } on FirebaseAuthException catch (e) {
       throw {e.code, e.message};
     }
@@ -56,7 +57,7 @@ class AuthenticationService {
     return UserDetail(
         uid: firebaseUser.uid,
         phone: firebaseUser.phoneNumber,
-        email: firebaseUser.displayName);
+        email: firebaseUser.email);
   }
 }
 
@@ -69,7 +70,6 @@ class UserDetail {
 }
 
 class SignUpStatusMessage {
-  static const alreadyHaveAccount = "Already have account";
-  static const authenticationFaildMessage = "Sign up false";
-  static const authenticationSuccessMessage = "Sign up success";
+  static const alreadyHaveAccount = SignUpMessageType.AlreadyHaveAccount ;
+  static const authenticationFaildMessage = SignUpMessageType.SignUpFalse;
 }

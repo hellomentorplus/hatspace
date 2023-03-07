@@ -23,5 +23,7 @@
   "continueBtn":"Continue",
   "cancelBtn":"Cancel",
   "homePageViewTitle":"Home Page",
-  "linearProgressIndicator":"Linear progress indicator"
+  "linearProgressIndicator":"Linear progress indicator",
+  "AlreadyHaveAccount":"Already have account",
+  "SignUpFalse":"Sign up false"
 }
