@@ -39,7 +39,7 @@ jobs:
           channel: 'stable'
 
       - name: format code
-        run: dart format .
+        run: dart format . --set-exit-if-changed
 
       - name: Install dependencies
         shell: bash
