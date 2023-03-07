@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -39,6 +38,7 @@ class UserRoleCardView extends StatefulWidget {
 class _UserRoleCardState extends State<UserRoleCardView> {
   ValueNotifier<Set<int>> listenValue = ValueNotifier({});
 
+  @override
   Widget build(BuildContext context) {
     UserRoleDetail userRoleDetail =
         Roles.values[widget.position].toUserRoleDetail(context);

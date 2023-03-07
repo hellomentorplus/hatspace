@@ -15,6 +15,8 @@ class ChoosingRolesView extends StatefulWidget {
 
 class _ChoosingRolesState extends State<ChoosingRolesView> {
   int totalNumberOfCheckedTextBoxes = 0;
+
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -90,7 +92,7 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
                     label: HatSpaceStrings.of(context).cancelBtn,
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => HomePageView()));
+                          builder: (context) => const HomePageView()));
                     },
                   ),
                 ),

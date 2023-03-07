@@ -117,7 +117,7 @@ void main() {
     await tester.tap(find.widgetWithText(TextButton, "Continue"));
     expect(reason: "Testing onPressed button", count, 1);
     //===== DISABLED ========
-    final disabelState = <MaterialState>{MaterialState.disabled};
+    // final disabelState = <MaterialState>{MaterialState.disabled};
   });
 
   testWidgets("Test Button with Icon With DEFAULT-DISABLE-HOVER",
@@ -132,7 +132,7 @@ void main() {
     SvgPicture innerIcon = tester.firstWidget(find.byType(SvgPicture));
 
     // ====== DEFAULT ========
-    final state = <MaterialState>{};
+    // final state = <MaterialState>{};
     expect(
         reason: "Show True if alignemnt is center",
         btn.style?.alignment,
