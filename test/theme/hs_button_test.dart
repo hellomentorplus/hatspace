@@ -153,4 +153,36 @@ void main() {
     // expect (reason: "Check Default Background", btn.style?.backgroundColor?.resolve(disabelState), const Color(0xffD1D1D6));
     //  expect (reason: "Testing color of Text", btn.style?.foregroundColor?.resolve(disabelState),HSColor.onPrimary);
   });
+
+  testWidgets('test primary button with icon only', (widgetTester) async {
+    PrimaryButton primaryButton = PrimaryButton(
+      iconUrl: Assets.images.facebook,
+    );
+
+    await widgetTester.wrapAndPump(primaryButton);
+
+    expect(find.byType(ElevatedButton), findsOneWidget);
+    expect(find.byType(SvgPicture), findsOneWidget);
+    expect(find.byType(Text), findsNothing);
+
+    // verify Svg icon size
+    SvgPicture svgPicture = widgetTester.widget(find.byType(SvgPicture));
+    expect(svgPicture.width, 24);
+    expect(svgPicture.height, 24);
+  });
+
+  testWidgets('test secondary button with icon only', (widgetTester) async {
+    SecondaryButton outlinedButton = SecondaryButton(
+      iconURL: Assets.images.facebook,
+    );
+
+    expect(find.byType(OutlinedButton), findsOneWidget);
+    expect(find.byType(SvgPicture), findsOneWidget);
+    expect(find.byType(Text), findsNothing);
+
+    // verify Svg icon size
+    SvgPicture svgPicture = widgetTester.widget(find.byType(SvgPicture));
+    expect(svgPicture.width, 24);
+    expect(svgPicture.height, 24);
+  });
 }

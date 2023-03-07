@@ -48,4 +48,24 @@ void main() {
       signUpBloc.close();
     });
   });
+
+  test('test state and event', () {
+    CheckFirstLaunchSignUp firstLaunchSignUp = const CheckFirstLaunchSignUp();
+
+    expect(firstLaunchSignUp.props.length, 0);
+
+    CloseSignUpScreen closeSignUpScreen = const CloseSignUpScreen();
+    expect(closeSignUpScreen.props.length, 0);
+
+    SignUpInitial signUpInitial = const SignUpInitial();
+    expect(signUpInitial.props.length, 0);
+
+    FirstLaunchScreen firstLaunchScreenTrue = const FirstLaunchScreen(true);
+    expect(firstLaunchScreenTrue.props.length, 1);
+    expect(firstLaunchScreenTrue.props.first, true);
+
+    FirstLaunchScreen firstLaunchScreenFalse = const FirstLaunchScreen(false);
+    expect(firstLaunchScreenFalse.props.length, 1);
+    expect(firstLaunchScreenFalse.props.first, false);
+  });
 }

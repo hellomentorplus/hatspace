@@ -37,4 +37,13 @@ void main() {
       },
     );
   });
+
+  test('test state and event', () {
+    OnInitialRemoteConfig event = const OnInitialRemoteConfig();
+
+    expect(event.props.length, 0);
+
+    AppConfigInitialState initialState = const AppConfigInitialState();
+    expect(initialState.props.length, 0);
+  });
 }
