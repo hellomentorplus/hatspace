@@ -16,4 +16,5 @@ coverage:
   ignore:
     - "lib/main.dart"
     - "lib/gen"
-    - 'lib/debug'
+    - "lib/features/debug"
+    - "lib/initial_app.dart"
