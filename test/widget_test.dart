@@ -35,7 +35,8 @@ void main() {
         .thenReturn(true);
     when(mockAppConfigBloc.stream).thenAnswer((realInvocation) {
       // Bloc's using stream to return states
-      return Stream.value(const DebugOptionEnabledState(debugOptionEnabled: true));
+      return Stream.value(
+          const DebugOptionEnabledState(debugOptionEnabled: true));
     });
     when(mockAppConfigBloc.state).thenAnswer((realInvocation) {
       return const DebugOptionEnabledState(debugOptionEnabled: true);

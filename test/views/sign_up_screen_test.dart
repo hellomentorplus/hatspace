@@ -30,7 +30,8 @@ void main() {
     when(mockSignUpBloc.state).thenAnswer((realInvocation) {
       return const FirstLaunchScreen(true);
     });
-    when(mockSignUpBloc.add(const CloseSignUpScreen())).thenAnswer((realInvocation) {
+    when(mockSignUpBloc.add(const CloseSignUpScreen()))
+        .thenAnswer((realInvocation) {
       return SharedPreferences.setMockInitialValues({"isFirstLaunch": false});
     });
   });
@@ -41,21 +42,29 @@ void main() {
         const EdgeInsets.only(left: 16, right: 16, bottom: 71));
     // icon button
     expect(find.byType(IconButton), findsOneWidget);
-    
-    expect(find.ancestor(
-        of: find.text("Sign up with Google"),
-        matching: find.byType(SecondaryButton)), findsOneWidget);
 
-    expect(find.ancestor(
-        of: find.text("Sign up with Facebook"),
-        matching: find.byType(SecondaryButton)), findsOneWidget);
+    expect(
+        find.ancestor(
+            of: find.text("Sign up with Google"),
+            matching: find.byType(SecondaryButton)),
+        findsOneWidget);
 
-    expect(find.ancestor(
-        of: find.text("Sign up with email"),
-        matching: find.byType(SecondaryButton)), findsOneWidget);
+    expect(
+        find.ancestor(
+            of: find.text("Sign up with Facebook"),
+            matching: find.byType(SecondaryButton)),
+        findsOneWidget);
 
-    expect(find.ancestor(
-        of: find.text("Skip"), matching: find.byType(TextOnlyButton)), findsOneWidget);
+    expect(
+        find.ancestor(
+            of: find.text("Sign up with email"),
+            matching: find.byType(SecondaryButton)),
+        findsOneWidget);
+
+    expect(
+        find.ancestor(
+            of: find.text("Skip"), matching: find.byType(TextOnlyButton)),
+        findsOneWidget);
 
     expect(find.textContaining("Sign in", findRichText: true), findsOneWidget);
 

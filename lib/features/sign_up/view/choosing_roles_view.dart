@@ -33,7 +33,8 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
               backgroundColor: HSColor.neutral2,
               color: HSColor.neutral6,
               value: 0.75,
-              semanticsLabel: HatSpaceStrings.of(context).linearProgressIndicator,
+              semanticsLabel:
+                  HatSpaceStrings.of(context).linearProgressIndicator,
             ),
           ),
           title: Text(HatSpaceStrings.of(context).app_name),
@@ -56,9 +57,7 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
                       child: Text(
-                        HatSpaceStrings.of(context)
-                            .chooseUserRoleDescription
-                            ,
+                        HatSpaceStrings.of(context).chooseUserRoleDescription,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
@@ -69,7 +68,7 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
                         itemBuilder: (BuildContext context, int position) {
                           return UserRoleCardView(
                             position: position,
-                            //TO DO: need to change to bloc when work with data 
+                            //TO DO: need to change to bloc when work with data
                             onChanged: (selectRoleState) {
                               setState(() {
                                 selectRoleState
