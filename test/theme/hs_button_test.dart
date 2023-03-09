@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
-import 'package:hatspace/main.dart';
 
 import '../widget_tester_extension.dart';
 
