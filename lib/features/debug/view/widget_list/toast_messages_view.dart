@@ -3,6 +3,7 @@ import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
 import 'package:hatspace/theme/toast_messages/toast_messages.dart';
 
 class ToastMessageViews extends StatelessWidget {
+  const ToastMessageViews({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,8 +18,8 @@ class ToastMessageViews extends StatelessWidget {
             ElevatedButton(
               child: const Text("Error Toast Mesasge Demo"),
               onPressed: () {
-                ToastMessages().showToast(context, ToastType.error,
-                    "Login Fail", "Login fail message");
+                context.showToast(
+                    ToastType.errorToast, "Login Fail", "Login fail message");
               },
             ),
           ],

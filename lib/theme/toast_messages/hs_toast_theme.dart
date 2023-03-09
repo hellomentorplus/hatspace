@@ -6,51 +6,34 @@ import 'package:hatspace/theme/toast_messages/toast_messages.dart';
 const _MAX_LENGTH = 160;
 const _MAX_LINES = 2;
 
-// enum ToastTypeTest {
-//   errorToast(
-//     backgroundColor: Color.fromARGB(242, 2, 4, 5),
-//     assetPath: "asset/icon" );
-//   final Color backgroundColor;
-//   final String assetPath;
-//   const ToastTypeTest({
-//     required this.backgroundColor,
-//     required this.assetPath
-//   });
-//   // Declare cases
-// }
+enum ToastType {
+  errorToast(
+      //TODO: Replace fixed icon path
+      backgroundColor: Color.fromARGB(255, 255, 241, 241),
+      icon: "assets/images/error.svg",
+      closeIcon: "assets/images/close-clear.svg");
 
-class ToastMessageError extends StatelessWidget {
-  final String message;
-  final String title;
-  const ToastMessageError(
-      {super.key, required this.message, required this.title});
-  @override
-  Widget build(BuildContext context) {
-    return ToastMessageContainer(
-        key: key,
-        backgroundColor: const Color.fromARGB(255, 255, 241, 241),
-        iconPath: Assets.images.error.toString(),
-        toastTitle: title,
-        toastContent: message);
-  }
+  final Color backgroundColor;
+  final String icon;
+  final String closeIcon;
+  const ToastType(
+      {required this.backgroundColor,
+      required this.icon,
+      required this.closeIcon});
 }
 
 class ToastMessageContainer extends StatelessWidget {
-  final Color backgroundColor;
-  final String iconPath;
-  final String? closeIconPath;
+  final ToastType toastType;
   final String toastTitle;
   final String toastContent;
   // final ToastTypeTest toastTypeTest;
-  const ToastMessageContainer(
-      {super.key,
-      required this.backgroundColor,
-      required this.iconPath,
-      required this.toastTitle,
-      required this.toastContent,
-      // required this.toastTypeTest,
-      this.closeIconPath})
-      : assert(toastContent.length < _MAX_LENGTH,
+  const ToastMessageContainer({
+    super.key,
+    required this.toastType,
+    required this.toastTitle,
+    required this.toastContent,
+    // required this.toastTypeTest,
+  })  : assert(toastContent.length < _MAX_LENGTH,
             "Toast content from `$toastContent` must not over 160 characters"),
         assert(toastTitle.length < _MAX_LENGTH,
             "Toast title `$toastTitle must not over 160 charaters ");
@@ -59,14 +42,14 @@ class ToastMessageContainer extends StatelessWidget {
     return Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6), color: backgroundColor),
+            borderRadius: BorderRadius.circular(6),
+            color: toastType.backgroundColor),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // toastTypeTest == ToastTypeTest.errorToast?
             SvgPicture.asset(
-              iconPath,
+              toastType.icon,
               width: 24,
               height: 24,
             ),
@@ -86,16 +69,16 @@ class ToastMessageContainer extends StatelessWidget {
                           style: const TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 14,
-                            color: Color(0xfff141414),
+                            color: Color(0xff141414),
                           ),
                         ),
                       ),
                       GestureDetector(
                           onTap: () {
-                            ToastMessages().closeToast(context);
+                            context.closeToast();
                           },
                           child: SvgPicture.asset(
-                            closeIconPath ?? Assets.images.closeClear,
+                            toastType.closeIcon,
                             width: 24,
                             height: 24,
                           ))
@@ -107,7 +90,7 @@ class ToastMessageContainer extends StatelessWidget {
                       style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
-                          color: Color(0xfff383838))),
+                          color: Color(0xff383838))),
                 ],
               ),
             )),
