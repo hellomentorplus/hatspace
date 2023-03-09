@@ -104,9 +104,7 @@ class SignUpScreen extends StatelessWidget {
                                           text: HatSpaceStrings.of(context)
                                               .signIn,
                                           recognizer: TapGestureRecognizer()
-                                            ..onTapDown = (details) {
-                                              // On tab down event here
-                                            })
+                                            ..onTapDown = (details) {})
                                     ]))),
                         TextOnlyButton(
                           label: HatSpaceStrings.of(context).skip,

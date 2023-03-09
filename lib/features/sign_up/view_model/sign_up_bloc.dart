@@ -17,9 +17,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       : _authenticationService =
             authenticationService ?? AuthenticationService(),
         super(const SignUpInitial()) {
-    on<SignUpEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<SignUpEvent>((event, emit) {});
 
     on<CheckFirstLaunchSignUp>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -42,8 +40,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           return emit(const SignUpSuccess());
         }
       } on PlatformException {
-        // TODO: SHOW TOAST
-        emit(SignUpFailed(SignUpStatusMessage.authenticationFaildMessage));
+        emit(SignUpFailed(
+            SignUpStatusMessage.authenticationFaildMessage.toString()));
       }
     });
   }

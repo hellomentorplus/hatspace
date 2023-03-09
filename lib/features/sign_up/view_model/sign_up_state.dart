@@ -2,9 +2,6 @@ part of 'sign_up_bloc.dart';
 
 abstract class SignUpState extends Equatable {
   const SignUpState();
-
-  // @override
-  // List<Object> get props => [];
 }
 
 @immutable
@@ -24,14 +21,12 @@ class FirstLaunchScreen extends SignUpState {
 class SignUpSuccess extends SignUpState {
   const SignUpSuccess();
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
 class SignUpFailed extends SignUpState {
-  String message;
-  SignUpFailed(this.message);
+  String errorCode;
+  SignUpFailed(this.errorCode);
   @override
-  // TODO: implement props
-  List<Object?> get props => [message];
+  List<Object?> get props => [errorCode];
 }

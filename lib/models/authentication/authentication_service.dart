@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hatspace/exception/authentication_exception.dart';
 import 'package:hatspace/types/sign_up_message_type.dart';
 
 const signUpSuccess = "SIGN_UP_SUCCESS";
@@ -18,7 +18,7 @@ class AuthenticationService {
     try {
       googleUser = await _googleSignIn.signIn();
     } catch (e) {
-      throw PlatformException(code: "sign_in_failed", message: "user canceled");
+      throw AuthenticationException("sign_in_failed", "user canceled");
     }
 
     if (googleUser != null) {
@@ -30,8 +30,8 @@ class AuthenticationService {
       await signUpFirebase(credential);
       return getCurrentUser();
     } else {
-      throw PlatformException(
-          code: "AUTH_CANCELED", message: "Authentication canceled by user");
+      throw AuthenticationException(
+          "AUTH_CANCELED", "Authentication canceled by user");
     }
   }
 
@@ -39,10 +39,6 @@ class AuthenticationService {
     try {
       UserCredential user =
           await _firebaseAuth.signInWithCredential(credential);
-      // if (user.additionalUserInfo?.isNewUser == false) {
-      //   throw PlatformException(
-      //       code: "AUTH_CANCELED", message: "Account already create");
-      // }
     } on FirebaseAuthException catch (e) {
       throw {e.code, e.message};
     }
@@ -70,6 +66,6 @@ class UserDetail {
 }
 
 class SignUpStatusMessage {
-  static const alreadyHaveAccount = SignUpMessageType.AlreadyHaveAccount ;
+  static const alreadyHaveAccount = SignUpMessageType.AlreadyHaveAccount;
   static const authenticationFaildMessage = SignUpMessageType.SignUpFalse;
 }
