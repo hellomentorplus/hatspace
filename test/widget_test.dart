@@ -35,21 +35,22 @@ void main() {
         .thenReturn(true);
     when(mockAppConfigBloc.stream).thenAnswer((realInvocation) {
       // Bloc's using stream to return states
-      return Stream.value(DebugOptionEnabledState(debugOptionEnabled: true));
+      return Stream.value(
+          const DebugOptionEnabledState(debugOptionEnabled: true));
     });
     when(mockAppConfigBloc.state).thenAnswer((realInvocation) {
-      return DebugOptionEnabledState(debugOptionEnabled: true);
+      return const DebugOptionEnabledState(debugOptionEnabled: true);
     });
 
     // SET UP SIGN UP BLOC
 
     when(mockSignUpBloc.stream).thenAnswer((realInvocation) {
       // Bloc's using stream to return states
-      return Stream.value(FirstLaunchScreen(true));
+      return Stream.value(const FirstLaunchScreen(true));
     });
     // whenListen(mockSignUpBloc, Stream.fromIterable([const FirstLaunchScreen(true)]));
     when(mockSignUpBloc.state).thenAnswer((realInvocation) {
-      return FirstLaunchScreen(true);
+      return const FirstLaunchScreen(true);
     });
 
     // SET UP FOR BLOC LISTENER
@@ -57,7 +58,7 @@ void main() {
     // await FirebaseRemoteConfig.instance.ensureInitialized();
   });
   testWidgets('Check home screen title', (WidgetTester tester) async {
-    final widget = HomePageView();
+    const widget = HomePageView();
     await tester.blocWrapAndPump<AppConfigBloc>(mockAppConfigBloc, widget);
 
     // // Verify that our counter starts at 0.
@@ -65,7 +66,7 @@ void main() {
   });
 
   testWidgets('Check button navigation bar', (WidgetTester tester) async {
-    final widget = HomePageView();
+    const widget = HomePageView();
     await tester.blocWrapAndPump<AppConfigBloc>(mockAppConfigBloc, widget);
     // // Verify that our counter starts at 0.
     expect(find.text('Explore'), findsOneWidget);
@@ -75,7 +76,7 @@ void main() {
 
   testWidgets('It should have a widget', (tester) async {
     const widget = MyAppBody();
-    await tester.pumpWidget(const MyAppBody());
+    await tester.pumpWidget(widget);
     final renderingWidget = tester.widget(find.byType(MyAppBody));
     expect(renderingWidget, isA<Widget>());
   });
