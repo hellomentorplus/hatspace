@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
 
-// CHANGE file name and class name to make class more relative to its function
-extension ToastMessages on BuildContext {
+extension ToastMessagesExtension on BuildContext {
   void showToast(ToastType type, String title, String message) {
     ScaffoldMessenger.of(this).showSnackBar(SnackBar(
       content: Column(

@@ -1,46 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/gen/assets.gen.dart';
-import 'package:hatspace/theme/toast_messages/toast_messages.dart';
+import 'package:hatspace/theme/toast_messages/toast_messages_extension.dart';
 
-const _MAX_LENGTH = 160;
-const _MAX_LINES = 2;
+const maxLength = 160;
+const maxLines = 2;
+// TODO: Need to update when having update new theme
+double containerPadding = 12.0;
+double iconWidth = 24.0;
+double iconHeight = 24.0;
 
 enum ToastType {
-  errorToast(
-      //TODO: Replace fixed icon path
-      backgroundColor: Color.fromARGB(255, 255, 241, 241),
-      icon: "assets/images/error.svg",
-      closeIcon: "assets/images/close-clear.svg");
+  errorToast(backgroundColor: Color.fromARGB(255, 255, 241, 241));
 
   final Color backgroundColor;
-  final String icon;
-  final String closeIcon;
-  const ToastType(
-      {required this.backgroundColor,
-      required this.icon,
-      required this.closeIcon});
+  String get icon => _getIcon();
+  String get closeIcon => _getCloseIcon();
+
+  const ToastType({required this.backgroundColor});
+
+  String _getIcon() {
+    switch (this) {
+      case ToastType.errorToast:
+        return Assets.images.error;
+    }
+  }
+
+  String _getCloseIcon() {
+    switch (this) {
+      case ToastType.errorToast:
+        return Assets.images.closeIcon;
+    }
+  }
 }
 
 class ToastMessageContainer extends StatelessWidget {
   final ToastType toastType;
   final String toastTitle;
   final String toastContent;
-  // final ToastTypeTest toastTypeTest;
   const ToastMessageContainer({
     super.key,
     required this.toastType,
     required this.toastTitle,
     required this.toastContent,
-    // required this.toastTypeTest,
-  })  : assert(toastContent.length < _MAX_LENGTH,
+  })  : assert(toastContent.length <= maxLength,
             "Toast content from `$toastContent` must not over 160 characters"),
-        assert(toastTitle.length < _MAX_LENGTH,
+        assert(toastTitle.length <= maxLength,
             "Toast title `$toastTitle must not over 160 charaters ");
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.all(12),
+        padding: EdgeInsets.all(containerPadding),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
             color: toastType.backgroundColor),
@@ -50,12 +60,12 @@ class ToastMessageContainer extends StatelessWidget {
           children: [
             SvgPicture.asset(
               toastType.icon,
-              width: 24,
-              height: 24,
+              width: iconWidth,
+              height: iconHeight,
             ),
             Flexible(
                 child: Padding(
-              padding: const EdgeInsets.only(left: 12),
+              padding: EdgeInsets.only(left: containerPadding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -64,8 +74,9 @@ class ToastMessageContainer extends StatelessWidget {
                       Expanded(
                         child: Text(
                           toastTitle,
-                          maxLines: _MAX_LINES,
+                          maxLines: maxLines,
                           overflow: TextOverflow.ellipsis,
+                          // TODO: TextStyle-Color need to be updated when new theme released
                           style: const TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 14,
@@ -79,14 +90,15 @@ class ToastMessageContainer extends StatelessWidget {
                           },
                           child: SvgPicture.asset(
                             toastType.closeIcon,
-                            width: 24,
-                            height: 24,
+                            width: iconWidth,
+                            height: iconHeight,
                           ))
                     ],
                   ),
                   Text(toastContent,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: _MAX_LINES,
+                      maxLines: maxLines,
+                      // TODO: TextStyle-Color need to be updated when new theme released
                       style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,

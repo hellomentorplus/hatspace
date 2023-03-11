@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
-import 'package:hatspace/theme/toast_messages/toast_messages.dart';
+import 'package:hatspace/theme/toast_messages/toast_messages_extension.dart';
 
 class ToastMessageViews extends StatelessWidget {
   const ToastMessageViews({super.key});
