@@ -7,8 +7,7 @@ const maxLength = 160;
 const maxLines = 2;
 // TODO: Need to update when having update new theme
 double containerPadding = 12.0;
-double iconWidth = 24.0;
-double iconHeight = 24.0;
+double iconSize = 24.0;
 
 enum ToastType {
   errorToast(backgroundColor: Color.fromARGB(255, 255, 241, 241));
@@ -60,8 +59,8 @@ class ToastMessageContainer extends StatelessWidget {
           children: [
             SvgPicture.asset(
               toastType.icon,
-              width: iconWidth,
-              height: iconHeight,
+              width: iconSize,
+              height: iconSize,
             ),
             Flexible(
                 child: Padding(
@@ -85,13 +84,14 @@ class ToastMessageContainer extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
+                          key: const Key("closeTap"),
                           onTap: () {
                             context.closeToast();
                           },
                           child: SvgPicture.asset(
                             toastType.closeIcon,
-                            width: iconWidth,
-                            height: iconHeight,
+                            width: iconSize,
+                            height: iconSize,
                           ))
                     ],
                   ),
