@@ -55,7 +55,6 @@ void main() {
           const EdgeInsets.all(12));
       Row row = tester.firstWidget(find.descendant(
           of: find.byType(Container), matching: find.byType(Row)));
-      print(row);
       expect(
           reason: "Check main and cross axis",
           row.crossAxisAlignment,
@@ -74,29 +73,26 @@ void main() {
     });
 
     group("Test toast functions", () {
-      testWidgets("Test show toast and close toast function", ((WidgetTester tester) async {
-        Widget testWidget = Builder(
-          builder: (context) {
-            return Center(
-                    child: ElevatedButton(
-                      key: const Key("tap-show-toast"),
-                      onPressed: () {
-                        context.showToast(
-                            ToastType.errorToast, "test title", "message");
-                      },
-                      child: const Text("show toast"),
-                    )
-                );
+      testWidgets("Test show toast and close toast function",
+          ((WidgetTester tester) async {
+        Widget testWidget = Builder(builder: (context) {
+          return Center(
+              child: ElevatedButton(
+            key: const Key("tap-show-toast"),
+            onPressed: () {
+              context.showToast(ToastType.errorToast, "test title", "message");
+            },
+            child: const Text("show toast"),
+          ));
         });
-    
+
         await tester.wrapAndPump(testWidget);
         // First: Ensure no toast rendered
         expect(find.text("test title"), findsNothing);
         await tester.tap(find.byKey(const Key("tap-show-toast")));
         // Even after tap, toast has not been displayed at this time
         expect(find.text("test title"), findsNothing);
-        await tester
-            .pump(); // schedule animation => Toast should be shown after this time
+        await tester.pump(); // schedule animation => Toast should be shown after this time
         expect(find.text("test title"), findsOneWidget);
         await tester.pump(const Duration(milliseconds: 750));
         expect(find.text("test title"), findsOneWidget);
@@ -117,8 +113,7 @@ void main() {
         expect(find.text("test title"), findsOneWidget);
         await tester.pump(const Duration(milliseconds: 750));
         expect(find.text("test title"), findsOneWidget);
-        GestureDetector closeToast =
-            tester.firstWidget(find.byKey(const Key("closeTap")));
+        GestureDetector closeToast = tester.firstWidget(find.byKey(const Key("closeTap")));
         await tester.tap(find.byKey(const Key("closeTap")));
         // after closeTap get tapped => widget should not be shown now
         expect(find.text("test title"), findsOneWidget);
