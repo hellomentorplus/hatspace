@@ -86,7 +86,7 @@ class ToastMessageContainer extends StatelessWidget {
                       GestureDetector(
                           key: const Key("closeTap"),
                           onTap: () {
-                            context.closeToast();
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
                           },
                           child: SvgPicture.asset(
                             toastType.closeIcon,

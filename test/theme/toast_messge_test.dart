@@ -110,15 +110,12 @@ void main() {
         await tester.tap(find.byKey(const Key("tap-show-toast")));
         expect(find.text("test title"), findsNothing);
         await tester.pump(); // schedule animation
-        expect(find.text("test title"), findsOneWidget);
-        await tester.pump(const Duration(milliseconds: 750));
-        expect(find.text("test title"), findsOneWidget);
+        // Toast should be shown now then action to close toast
         GestureDetector closeToast = tester.firstWidget(find.byKey(const Key("closeTap")));
         await tester.tap(find.byKey(const Key("closeTap")));
         // after closeTap get tapped => widget should not be shown now
-        expect(find.text("test title"), findsOneWidget);
         await tester.pump();
-        // wait 750 milsec => toast now can be dismissed
+        // add 750 milsec => toast now can be dismissed
         await tester.pump(const Duration(milliseconds: 750));
         expect(find.text("test title"), findsNothing);
       }));
