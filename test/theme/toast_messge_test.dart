@@ -112,8 +112,6 @@ void main() {
         expect(find.text("test title"), findsNothing);
         await tester.pump(); // schedule animation
         // Toast should be shown now then action to close toast
-        GestureDetector closeToast =
-            tester.firstWidget(find.byKey(const Key("closeTap")));
         await tester.tap(find.byKey(const Key("closeTap")));
         // after closeTap get tapped => widget should not be shown now
         await tester.pump();
