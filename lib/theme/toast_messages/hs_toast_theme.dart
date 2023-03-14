@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/gen/assets.gen.dart';
-import 'package:hatspace/theme/toast_messages/toast_messages_extension.dart';
 
 const maxLength = 160;
 const maxLines = 2;
