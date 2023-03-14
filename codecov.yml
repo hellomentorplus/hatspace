@@ -12,9 +12,10 @@ coverage:
         only_pulls: false
         paths:
           - lib
-        target: auto
-        threshold: 60%
+        target: 60%
+        threshold: 3%
   ignore:
     - "lib/main.dart"
     - "lib/gen"
-    - 'lib/debug'
+    - "lib/features/debug"
+    - "lib/initial_app.dart"

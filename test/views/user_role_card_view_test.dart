@@ -7,7 +7,7 @@ import '../widget_tester_extension.dart';
 
 void main() {
   testWidgets('Check widgets on screen', (WidgetTester tester) async {
-    final widget = UserRoleCardView(position: 1, onChanged: (bool) => {true});
+    final widget = UserRoleCardView(position: 1, onChanged: (_) => {true});
 
     await tester.wrapAndPump(widget);
 

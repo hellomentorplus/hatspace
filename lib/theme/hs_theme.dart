@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/gen/fonts.gen.dart';
 
 part 'hs_color.dart';

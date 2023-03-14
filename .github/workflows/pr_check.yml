@@ -35,8 +35,11 @@ jobs:
       # use flutter-action to start running flutter commands
       - uses: subosito/flutter-action@v2.6.1
         with:
-          flutter-version: '3.3.0'
+          flutter-version: '3.7.1'
           channel: 'stable'
+
+      - name: format code
+        run: dart format . --set-exit-if-changed
 
       - name: Install dependencies
         shell: bash
@@ -56,6 +59,9 @@ jobs:
           flutter pub get
           flutter pub run build_runner build --delete-conflicting-outputs
 
+      # lint check
+      - name: Run dart analysis
+        run: flutter analyze
 
       # Runs a set of commands using the runners shell
       - name: Run test with coverage
