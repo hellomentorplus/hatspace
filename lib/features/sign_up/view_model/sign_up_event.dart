@@ -14,3 +14,7 @@ class CheckFirstLaunchSignUp extends SignUpEvent {
 class CloseSignUpScreen extends SignUpEvent {
   const CloseSignUpScreen();
 }
+
+class SignUpWithFacebook extends SignUpEvent{
+  const SignUpWithFacebook();
+}

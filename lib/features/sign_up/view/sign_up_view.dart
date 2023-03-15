@@ -15,13 +15,17 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
-        listenWhen: (context, state) {
-          return state is FirstLaunchScreen && state.isFirstLaunch == false;
-        },
         listener: (context, state) {
-          Navigator.of(context).pop(MaterialPageRoute(builder: (context) {
-            return const HomePageView();
-          }));
+          if (state is FirstLaunchScreen && state.isFirstLaunch == false) {
+            Navigator.of(context).pop(MaterialPageRoute(builder: (context) {
+              return const HomePageView();
+            }));
+          }
+          if (state is SignUpSuccess) {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return const HomePageView();
+            }));
+          }
         },
         child: Scaffold(
             appBar: AppBar(
@@ -58,7 +62,11 @@ class SignUpScreen extends StatelessWidget {
                         child: SecondaryButton(
                           label: HatSpaceStrings.of(context).facebookSignUp,
                           iconURL: Assets.images.facebookround,
-                          onPressed: () {},
+                          onPressed: () {
+                            context
+                                .read<SignUpBloc>()
+                                .add(const SignUpWithFacebook());
+                          },
                         )),
                     Padding(
                         padding: const EdgeInsets.only(bottom: 18),

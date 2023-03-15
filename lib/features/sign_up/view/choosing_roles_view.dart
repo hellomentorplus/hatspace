@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
+import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 import 'user_role_card_view.dart';
+
+
+
+// class ChoosingRolesView extends StatelessWidget{
+//   const ChoosingRolesView({super.key});
+  
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocProvider<SignUpBloc>(
+//       create: (context) {
+      
+//       },
+//     );
+//   }
+  
+// }
 
 class ChoosingRolesView extends StatefulWidget {
   const ChoosingRolesView({Key? key}) : super(key: key);
@@ -15,7 +33,6 @@ class ChoosingRolesView extends StatefulWidget {
 
 class _ChoosingRolesState extends State<ChoosingRolesView> {
   int totalNumberOfCheckedTextBoxes = 0;
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -97,5 +114,8 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
                 ),
               ]),
         ));
+
+    
+   
   }
 }
