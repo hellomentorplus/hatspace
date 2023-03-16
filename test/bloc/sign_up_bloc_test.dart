@@ -3,12 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
+void main(){
   TestWidgetsFlutterBinding.ensureInitialized();
+  setupFirebaseCoreMocks(); // Not relate to HS 51 - Need to add to perform test coverage
   group("Sign_up_bloc test state", () {
     late SignUpBloc signUpBloc;
-    setUpAll(() {
+    setUpAll(() async{
+      // Unexpected bugs - happended when running test coverage
+      await Firebase.initializeApp();
       signUpBloc = SignUpBloc();
       const MethodChannel('plugins.flutter.io/shared_preferences')
           .setMockMethodCallHandler((MethodCall methodCall) async {

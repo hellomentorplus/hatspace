@@ -15,6 +15,6 @@ class CloseSignUpScreen extends SignUpEvent {
   const CloseSignUpScreen();
 }
 
-class SignUpWithFacebook extends SignUpEvent{
+class SignUpWithFacebook extends SignUpEvent {
   const SignUpWithFacebook();
 }

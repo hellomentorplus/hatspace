@@ -12,10 +12,10 @@ const isFirstLaunchConst = "isFirstLaunch";
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;
-  SignUpBloc({
-    AuthenticationService? authenticationService
-  }) : _authenticationService = authenticationService ?? AuthenticationService(),
-  super(const SignUpInitial()) {
+  SignUpBloc({AuthenticationService? authenticationService})
+      : _authenticationService =
+            authenticationService ?? AuthenticationService(),
+        super(const SignUpInitial()) {
     on<CheckFirstLaunchSignUp>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool? isLaunchFirstTime = prefs.getBool(isFirstLaunchConst);
@@ -29,17 +29,16 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       prefs.setBool(isFirstLaunchConst, false);
       emit(const FirstLaunchScreen(false));
     });
-    
-    on<SignUpWithFacebook>((event, emit) async{
-        final UserDetail? userDetail = await _authenticationService.signUpWithFacebook();
-        if (userDetail != null){
-          emit(const SignUpSuccess());
-        }
-        else{
-            // TODO: Implement failed scenario
-            // Scenario 1: user canceled (by press canceled and press X icon) - result.status == LoginStatus.cancelled
-        }
+
+    on<SignUpWithFacebook>((event, emit) async {
+      final UserDetail? userDetail =
+          await _authenticationService.signUpWithFacebook();
+      if (userDetail != null) {
+        emit(const SignUpSuccess());
+      } else {
+        // TODO: Implement failed scenario
+        // Scenario 1: user canceled (by press canceled and press X icon) - result.status == LoginStatus.cancelled
+      }
     });
-    
   }
 }
