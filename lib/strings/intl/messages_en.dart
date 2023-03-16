@@ -36,9 +36,6 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "AlreadyHaveAccount":
-            MessageLookupByLibrary.simpleMessage("Already have account"),
-        "SignUpFalse": MessageLookupByLibrary.simpleMessage("Sign up false"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),

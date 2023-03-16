@@ -1,5 +1,4 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
@@ -34,8 +33,17 @@ void main() {
         return bloc.add(const OnInitialRemoteConfig());
       }),
       expect: () {
-        return [DebugOptionEnabledState(debugOptionEnabled: true)];
+        return [const DebugOptionEnabledState(debugOptionEnabled: true)];
       },
     );
+  });
+
+  test('test state and event', () {
+    OnInitialRemoteConfig event = const OnInitialRemoteConfig();
+
+    expect(event.props.length, 0);
+
+    AppConfigInitialState initialState = const AppConfigInitialState();
+    expect(initialState.props.length, 0);
   });
 }

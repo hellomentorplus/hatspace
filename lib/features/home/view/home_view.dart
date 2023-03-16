@@ -26,7 +26,9 @@ class HomePageViewState extends State<HomePageView> {
   void dispose() {
     try {
       detector.stopListening();
-    } catch (e) {}
+    } catch (e) {
+      // do nothing
+    }
     super.dispose();
   }
 

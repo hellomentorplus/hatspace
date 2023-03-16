@@ -12,10 +12,11 @@ void main() async {
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 
-  HsSingleton.singleton.initialise();
-
   await Firebase.initializeApp(
       name: 'Default-HatSpace',
       options: DefaultFirebaseOptions.currentPlatform);
+
+  HsSingleton.singleton.initialise();
+
   runApp(const MyApp());
 }

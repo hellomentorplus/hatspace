@@ -16,8 +16,8 @@ class CloseSignUpScreen extends SignUpEvent {
   List<Object?> get props => [];
 }
 
-class SignUpWithGoolge extends SignUpEvent {
-  const SignUpWithGoolge();
+class SignUpWithGoogle extends SignUpEvent {
+  const SignUpWithGoogle();
 
   @override
   List<Object?> get props => [];

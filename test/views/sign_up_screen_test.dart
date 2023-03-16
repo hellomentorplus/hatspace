@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/sign_up/view/sign_up_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
@@ -26,12 +25,13 @@ void main() {
     });
     when(mockSignUpBloc.stream).thenAnswer((realInvocation) {
       // Bloc's using stream to return states
-      return Stream.value(FirstLaunchScreen(true));
+      return Stream.value(const FirstLaunchScreen(true));
     });
     when(mockSignUpBloc.state).thenAnswer((realInvocation) {
-      return FirstLaunchScreen(true);
+      return const FirstLaunchScreen(true);
     });
-    when(mockSignUpBloc.add(CloseSignUpScreen())).thenAnswer((realInvocation) {
+    when(mockSignUpBloc.add(const CloseSignUpScreen()))
+        .thenAnswer((realInvocation) {
       return SharedPreferences.setMockInitialValues({"isFirstLaunch": false});
     });
   });
@@ -40,21 +40,48 @@ void main() {
     Padding wrapContainer = tester.firstWidget(find.byType(Padding));
     expect(wrapContainer.padding,
         const EdgeInsets.only(left: 16, right: 16, bottom: 71));
-    IconButton button = tester.widget(find.byType(IconButton));
-    SecondaryButton signUpWithGoogleButton = tester.widget(find.ancestor(
-        of: find.text("Sign up with Google"),
-        matching: find.byType(SecondaryButton)));
+    // icon button
+    expect(find.byType(IconButton), findsOneWidget);
+
+    expect(
+        find.ancestor(
+            of: find.text("Sign up with Google"),
+            matching: find.byType(SecondaryButton)),
+        findsOneWidget);
+
+    expect(
+        find.ancestor(
+            of: find.text("Sign up with Facebook"),
+            matching: find.byType(SecondaryButton)),
+        findsOneWidget);
+
+    expect(
+        find.ancestor(
+            of: find.text("Sign up with email"),
+            matching: find.byType(SecondaryButton)),
+        findsOneWidget);
+
+    expect(
+        find.ancestor(
+            of: find.text("Skip"), matching: find.byType(TextOnlyButton)),
+        findsOneWidget);
+
+    expect(find.textContaining("Sign in", findRichText: true), findsOneWidget);
+
+    // SecondaryButton signUpWithGoogleButton = tester.widget(find.ancestor(
+    //     of: find.text("Sign up with Google"),
+    //     matching: find.byType(SecondaryButton)));
     // await tester.tap(find.byWidget(signUpWithGoogleButton));
-    SecondaryButton signUpWithFacebookButton = tester.widget(find.ancestor(
-        of: find.text("Sign up with Facebook"),
-        matching: find.byType(SecondaryButton)));
+    // SecondaryButton signUpWithFacebookButton = tester.widget(find.ancestor(
+    //     of: find.text("Sign up with Facebook"),
+    //     matching: find.byType(SecondaryButton)));
     //await tester.tap(find.byWidget(signUpWithFacebookButton));
-    SecondaryButton signUpWithEmailButton = tester.widget(find.ancestor(
-        of: find.text("Sign up with email"),
-        matching: find.byType(SecondaryButton)));
+    // SecondaryButton signUpWithEmailButton = tester.widget(find.ancestor(
+    //     of: find.text("Sign up with email"),
+    //     matching: find.byType(SecondaryButton)));
     // await tester.tap(find.byWidget(signUpWithEmailButton));
-    TextOnlyButton skipButton = tester.widget(find.ancestor(
-        of: find.text("Skip"), matching: find.byType(TextOnlyButton)));
+    // TextOnlyButton skipButton = tester.widget(find.ancestor(
+    //     of: find.text("Skip"), matching: find.byType(TextOnlyButton)));
     // await tester.tap(find.byWidget(skipButton));
     RichText richText =
         tester.widget(find.textContaining("Sign in", findRichText: true));

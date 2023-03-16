@@ -50,8 +50,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                 )),
             body: Padding(
-              padding:
-                  const EdgeInsets.only(left: 16, right: 16, bottom: 71),
+              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 71),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -64,7 +63,7 @@ class SignUpScreen extends StatelessWidget {
                           onPressed: () {
                             context
                                 .read<SignUpBloc>()
-                                .add(const SignUpWithGoolge());
+                                .add(const SignUpWithGoogle());
                           },
                         )),
                     Padding(

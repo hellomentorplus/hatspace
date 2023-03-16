@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hatspace/exception/authentication_exception.dart';
 
-const signUpSuccess = "SIGN_UP_SUCCESS";
-const signUpFailed = "SIGN_UP_FAILED";
+import 'authentication_exception.dart';
 
 class AuthenticationService {
   final GoogleSignIn _googleSignIn;

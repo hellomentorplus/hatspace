@@ -3,11 +3,11 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 class CoreButtonView extends StatelessWidget {
-  SizedBox sizedBox = const SizedBox(
+  final SizedBox sizedBox = const SizedBox(
     height: 10,
   );
 
-  List<Widget> buttonsList = [
+  final List<Widget> buttonsList = [
     PrimaryButton(
       label: "Sign up with Google",
       iconUrl: Assets.images.google,
@@ -25,6 +25,8 @@ class CoreButtonView extends StatelessWidget {
     SecondaryButton(label: "Sign up", onPressed: (() {})),
     TextOnlyButton(label: "Skip", onPressed: (() {}))
   ];
+
+  CoreButtonView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
