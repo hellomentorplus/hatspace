@@ -22,7 +22,8 @@ class AuthenticationService {
       }
       GoogleSignInAuthentication gsa = await account.authentication;
 
-      AuthCredential credential = authCredential ?? GoogleAuthProvider.credential(
+      AuthCredential credential = authCredential ??
+          GoogleAuthProvider.credential(
             accessToken: gsa.accessToken,
             idToken: gsa.idToken,
           );
@@ -34,7 +35,8 @@ class AuthenticationService {
         throw UserNotFoundException();
       }
 
-      return UserDetail(uid: user.uid, email: user.email, phone: user.phoneNumber);
+      return UserDetail(
+          uid: user.uid, email: user.email, phone: user.phoneNumber);
     } on PlatformException catch (e) {
       throw AuthenticationException(e.code, e.message);
     } on UserNotFoundException catch (_) {

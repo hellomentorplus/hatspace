@@ -71,8 +71,9 @@ void main() {
       'when signup with google success, then return success state',
       build: () => SignUpBloc(),
       setUp: () {
-        when(authenticationService.signUpWithGoogle())
-            .thenAnswer((realInvocation) => Future.value(UserDetail(uid: 'uid', phone: 'phone', email: 'email')));
+        when(authenticationService.signUpWithGoogle()).thenAnswer(
+            (realInvocation) => Future.value(
+                UserDetail(uid: 'uid', phone: 'phone', email: 'email')));
       },
       act: (bloc) => bloc.add(const SignUpWithGoogle()),
       expect: () => [isA<SignUpSuccess>()],

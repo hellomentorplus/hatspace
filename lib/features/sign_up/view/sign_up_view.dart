@@ -28,8 +28,7 @@ class SignUpScreen extends StatelessWidget {
                 builder: (context) => const ChoosingRolesView()));
           }
 
-          if (state is UserCancelled
-          || state is AuthenticationFailed) {
+          if (state is UserCancelled || state is AuthenticationFailed) {
             // TODO handle error scenario
           }
         },
@@ -38,14 +37,11 @@ class SignUpScreen extends StatelessWidget {
                 elevation: 0, // Remove shadow from app bar background
                 backgroundColor: HSColor.background,
                 leading: Padding(
-                  padding:
-                      const EdgeInsets.only(top: 0, left: 10, right: 0),
+                  padding: const EdgeInsets.only(top: 0, left: 10, right: 0),
                   child: IconButton(
                     icon: SvgPicture.asset(Assets.images.closeIcon),
                     onPressed: () {
-                      context
-                          .read<SignUpBloc>()
-                          .add(const CloseSignUpScreen());
+                      context.read<SignUpBloc>().add(const CloseSignUpScreen());
                     },
                   ),
                 )),
@@ -99,10 +95,8 @@ class SignUpScreen extends StatelessWidget {
                                   TextSpan(
                                       style: const TextStyle(
                                           fontWeight: FontWeight.w600,
-                                          decoration:
-                                              TextDecoration.underline),
-                                      text: HatSpaceStrings.of(context)
-                                          .signIn,
+                                          decoration: TextDecoration.underline),
+                                      text: HatSpaceStrings.of(context).signIn,
                                       recognizer: TapGestureRecognizer()
                                         ..onTapDown = (details) {})
                                 ]))),

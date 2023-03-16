@@ -10,23 +10,34 @@ import 'package:mockito/mockito.dart';
 
 import 'authentication_service_test.mocks.dart';
 
-@GenerateMocks([GoogleSignIn, FirebaseAuth, GoogleSignInAccount, GoogleSignInAuthentication, AuthCredential, UserCredential, User])
+@GenerateMocks([
+  GoogleSignIn,
+  FirebaseAuth,
+  GoogleSignInAccount,
+  GoogleSignInAuthentication,
+  AuthCredential,
+  UserCredential,
+  User
+])
 void main() {
-
   final MockGoogleSignIn googleSignIn = MockGoogleSignIn();
   final MockFirebaseAuth firebaseAuth = MockFirebaseAuth();
   final MockGoogleSignInAccount account = MockGoogleSignInAccount();
-  final MockGoogleSignInAuthentication authentication = MockGoogleSignInAuthentication();
+  final MockGoogleSignInAuthentication authentication =
+      MockGoogleSignInAuthentication();
   final MockAuthCredential credential = MockAuthCredential();
   final MockUserCredential userCredential = MockUserCredential();
   final MockUser user = MockUser();
 
   setUp(() {
-    when(googleSignIn.signIn()).thenAnswer((realInvocation) => Future.value(account));
-    when(account.authentication).thenAnswer((realInvocation) => Future.value(authentication));
+    when(googleSignIn.signIn())
+        .thenAnswer((realInvocation) => Future.value(account));
+    when(account.authentication)
+        .thenAnswer((realInvocation) => Future.value(authentication));
     when(authentication.accessToken).thenReturn('accessToken');
     when(authentication.idToken).thenReturn('idToken');
-    when(firebaseAuth.signInWithCredential(credential)).thenAnswer((realInvocation) => Future.value(userCredential));
+    when(firebaseAuth.signInWithCredential(credential))
+        .thenAnswer((realInvocation) => Future.value(userCredential));
     when(userCredential.user).thenReturn(user);
 
     when(user.uid).thenReturn('uid');
@@ -34,83 +45,116 @@ void main() {
     when(user.phoneNumber).thenReturn('123456');
   });
 
-  test('given google sign in fails, when sign in with google, then throw UserCancelException', () {
+  test(
+      'given google sign in fails, when sign in with google, then throw UserCancelException',
+      () {
     // given
-    when(googleSignIn.signIn()).thenAnswer((realInvocation) => Future.value(null));
+    when(googleSignIn.signIn())
+        .thenAnswer((realInvocation) => Future.value(null));
 
     // when
-    AuthenticationService service = AuthenticationService(googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
+    AuthenticationService service = AuthenticationService(
+        googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
 
     // then
     expect(service.signUpWithGoogle(), throwsA(isA<UserCancelException>()));
   });
 
-  test('given Firebase Auth fails to validate google credential, when sign in with google, then throw UserNotFoundException', () {
+  test(
+      'given Firebase Auth fails to validate google credential, when sign in with google, then throw UserNotFoundException',
+      () {
     // given
     when(userCredential.user).thenReturn(null);
 
     // when
-    AuthenticationService service = AuthenticationService(googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
+    AuthenticationService service = AuthenticationService(
+        googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
 
     // then
-    expect(service.signUpWithGoogle(authCredential: credential), throwsA(isA<UserNotFoundException>()));
+    expect(service.signUpWithGoogle(authCredential: credential),
+        throwsA(isA<UserNotFoundException>()));
   });
 
-  test('given Firebase Auth throws PlatformException, when sign in with google, then throw AuthenticationException', () {
-    // given
-    when(firebaseAuth.signInWithCredential(credential)).thenThrow(PlatformException(code: 'code', message: 'message'));
+  test(
+    'given Firebase Auth throws PlatformException, when sign in with google, then throw AuthenticationException',
+    () {
+      // given
+      when(firebaseAuth.signInWithCredential(credential))
+          .thenThrow(PlatformException(code: 'code', message: 'message'));
 
-    // when
-    AuthenticationService service = AuthenticationService(googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
+      // when
+      AuthenticationService service = AuthenticationService(
+          googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
 
-    // then
-    expect(service.signUpWithGoogle(authCredential: credential), throwsA(isA<AuthenticationException>()));
-  },);
+      // then
+      expect(service.signUpWithGoogle(authCredential: credential),
+          throwsA(isA<AuthenticationException>()));
+    },
+  );
 
-  test('given Firebase Auth throws unknown exception, when sign in with google, then throw UnknownException', () {
-    // given
-    when(firebaseAuth.signInWithCredential(credential)).thenThrow(Exception());
+  test(
+    'given Firebase Auth throws unknown exception, when sign in with google, then throw UnknownException',
+    () {
+      // given
+      when(firebaseAuth.signInWithCredential(credential))
+          .thenThrow(Exception());
 
-    // when
-    AuthenticationService service = AuthenticationService(googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
+      // when
+      AuthenticationService service = AuthenticationService(
+          googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
 
-    // then
-    expect(service.signUpWithGoogle(authCredential: credential), throwsA(isA<UnknownException>()));
-  },);
+      // then
+      expect(service.signUpWithGoogle(authCredential: credential),
+          throwsA(isA<UnknownException>()));
+    },
+  );
 
-  test('given all validation success, when sign in with google, then return user detail', () async {
-    // when
-    AuthenticationService service = AuthenticationService(googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
+  test(
+    'given all validation success, when sign in with google, then return user detail',
+    () async {
+      // when
+      AuthenticationService service = AuthenticationService(
+          googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
 
-    // then
-    final UserDetail userDetail = await service.signUpWithGoogle(authCredential: credential);
+      // then
+      final UserDetail userDetail =
+          await service.signUpWithGoogle(authCredential: credential);
 
-    expect(userDetail.uid, user.uid);
-    expect(userDetail.email, user.email);
-    expect(userDetail.phone, user.phoneNumber);
-  },);
+      expect(userDetail.uid, user.uid);
+      expect(userDetail.email, user.email);
+      expect(userDetail.phone, user.phoneNumber);
+    },
+  );
 
-  test('given Firebase Auth return null user, when get current user, then throw UserNotFoundException', () {
-    // given
-    when(firebaseAuth.currentUser).thenReturn(null);
-    AuthenticationService service = AuthenticationService(googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
+  test(
+    'given Firebase Auth return null user, when get current user, then throw UserNotFoundException',
+    () {
+      // given
+      when(firebaseAuth.currentUser).thenReturn(null);
+      AuthenticationService service = AuthenticationService(
+          googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
 
-    // when
-    expect(service.getCurrentUser(), throwsA(isA<UserNotFoundException>()));
-  },);
+      // when
+      expect(service.getCurrentUser(), throwsA(isA<UserNotFoundException>()));
+    },
+  );
 
-  test('given Firebase Auth return user detail, when get current user, then return UserDetail', () async {
-    // given
-    when(firebaseAuth.currentUser).thenReturn(user);
+  test(
+    'given Firebase Auth return user detail, when get current user, then return UserDetail',
+    () async {
+      // given
+      when(firebaseAuth.currentUser).thenReturn(user);
 
-    // when
-    AuthenticationService service = AuthenticationService(googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
+      // when
+      AuthenticationService service = AuthenticationService(
+          googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
 
-    // then
-    final UserDetail userDetail = await service.getCurrentUser();
+      // then
+      final UserDetail userDetail = await service.getCurrentUser();
 
-    expect(userDetail.email, user.email);
-    expect(userDetail.uid, user.uid);
-    expect(userDetail.phone, user.phoneNumber);
-  },);
+      expect(userDetail.email, user.email);
+      expect(userDetail.uid, user.uid);
+      expect(userDetail.phone, user.phoneNumber);
+    },
+  );
 }

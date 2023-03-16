@@ -16,7 +16,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;
 
   SignUpBloc()
-      : _authenticationService = HsSingleton.singleton.get<AuthenticationService>(),
+      : _authenticationService =
+            HsSingleton.singleton.get<AuthenticationService>(),
         super(const SignUpInitial()) {
     on<CheckFirstLaunchSignUp>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
