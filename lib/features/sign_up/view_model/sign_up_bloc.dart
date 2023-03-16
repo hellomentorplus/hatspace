@@ -17,8 +17,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       : _authenticationService =
             authenticationService ?? AuthenticationService(),
         super(const SignUpInitial()) {
-    on<SignUpEvent>((event, emit) {});
-
     on<CheckFirstLaunchSignUp>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool? isLaunchFirstTime = prefs.getBool(isFirstLaunchConst);
