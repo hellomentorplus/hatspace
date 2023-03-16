@@ -1,6 +1,3 @@
-class AuthenticationException implements Exception {
-  final String errorCode;
-  final String errorMessage;
+class UserNotFoundException implements Exception {}
 
-  AuthenticationException(this.errorCode, this.errorMessage);
-}
+class UserCancelException implements Exception {}

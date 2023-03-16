@@ -24,9 +24,12 @@ class SignUpSuccess extends SignUpState {
   List<Object?> get props => [];
 }
 
-class SignUpFailed extends SignUpState {
-  String errorCode;
-  SignUpFailed(this.errorCode);
+class UserCancelled extends SignUpState {
   @override
-  List<Object?> get props => [errorCode];
+  List<Object?> get props => [];
+}
+
+class AuthenticationFailed extends SignUpState {
+  @override
+  List<Object?> get props => [];
 }

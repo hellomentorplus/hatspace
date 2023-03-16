@@ -27,6 +27,11 @@ class SignUpScreen extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const ChoosingRolesView()));
           }
+
+          if (state is UserCancelled
+          || state is AuthenticationFailed) {
+            // TODO handle error scenario
+          }
         },
         child: Scaffold(
             appBar: AppBar(

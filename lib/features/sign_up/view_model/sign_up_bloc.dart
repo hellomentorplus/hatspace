@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../exception/authentication_exception.dart';
+
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 
@@ -33,13 +35,12 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     on<SignUpWithGoolge>((event, emit) async {
       try {
-        UserDetail? user = await _authenticationService.signUpWithGoogle();
-        if (user != null) {
-          return emit(const SignUpSuccess());
-        }
-      } on PlatformException {
-        emit(SignUpFailed(
-            SignUpStatusMessage.authenticationFaildMessage.toString()));
+        await _authenticationService.signUpWithGoogle();
+        emit(const SignUpSuccess());
+      } on UserCancelException {
+        emit(UserCancelled());
+      } on UserNotFoundException {
+        emit(AuthenticationFailed());
       }
     });
   }

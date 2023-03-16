@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hatspace/exception/authentication_exception.dart';
-import 'package:hatspace/types/sign_up_message_type.dart';
 
 const signUpSuccess = "SIGN_UP_SUCCESS";
 const signUpFailed = "SIGN_UP_FAILED";
@@ -13,40 +13,38 @@ class AuthenticationService {
       {GoogleSignIn? googleSignIn, FirebaseAuth? firebaseAuth})
       : _googleSignIn = googleSignIn ?? GoogleSignIn(),
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
-  Future<UserDetail> signUpWithGoogle() async {
-    GoogleSignInAccount? googleUser;
+  Future<void> signUpWithGoogle() async {
+    // no login yet, sign in with google now
     try {
-      googleUser = await _googleSignIn.signIn();
-    } catch (e) {
-      throw AuthenticationException("sign_in_failed", "user canceled");
-    }
+      GoogleSignInAccount? account = await _googleSignIn.signIn();
 
-    if (googleUser != null) {
-      GoogleSignInAuthentication? googleAuth;
-      OAuthCredential credential;
-      googleAuth = await googleUser.authentication;
-      credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-      await signUpFirebase(credential);
-      return getCurrentUser();
-    } else {
-      throw AuthenticationException(
-          "AUTH_CANCELED", "Authentication canceled by user");
-    }
-  }
+      if (account == null) {
+        throw UserCancelException();
+      }
+      GoogleSignInAuthentication gsa = await account.authentication;
 
-  Future<void> signUpFirebase(OAuthCredential credential) async {
-    try {
-      UserCredential user =
-          await _firebaseAuth.signInWithCredential(credential);
-    } on FirebaseAuthException catch (e) {
-      throw {e.code, e.message};
+      AuthCredential credential = GoogleAuthProvider.credential(
+            accessToken: gsa.accessToken,
+            idToken: gsa.idToken,
+          );
+
+      final result = await _firebaseAuth.signInWithCredential(credential);
+
+      final User? user = result.user;
+      if (user == null) {
+        throw UserNotFoundException();
+      }
+    } on PlatformException catch (_) {
+      rethrow;
+    } catch (e, _) {
+      rethrow;
     }
   }
 
   Future<UserDetail> getCurrentUser() async {
     final User? firebaseUser = _firebaseAuth.currentUser;
     if (firebaseUser == null) {
+      print('SUESI: error user not found');
       throw FirebaseAuthException(
           code: "USER_NOT_FOUND", message: "User not found");
     }
@@ -63,9 +61,4 @@ class UserDetail {
   final String? email;
 
   UserDetail({required this.uid, this.phone, this.email});
-}
-
-class SignUpStatusMessage {
-  static const alreadyHaveAccount = SignUpMessageType.AlreadyHaveAccount;
-  static const authenticationFaildMessage = SignUpMessageType.SignUpFalse;
 }
