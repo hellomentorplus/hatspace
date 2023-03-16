@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
@@ -71,7 +72,7 @@ void main() {
       build: () => SignUpBloc(),
       setUp: () {
         when(authenticationService.signUpWithGoogle())
-            .thenAnswer((realInvocation) => Future.value());
+            .thenAnswer((realInvocation) => Future.value(UserDetail(uid: 'uid', phone: 'phone', email: 'email')));
       },
       act: (bloc) => bloc.add(const SignUpWithGoogle()),
       expect: () => [isA<SignUpSuccess>()],

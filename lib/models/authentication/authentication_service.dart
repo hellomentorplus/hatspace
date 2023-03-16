@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../data/data.dart';
 import 'authentication_exception.dart';
 
 class AuthenticationService {
@@ -11,7 +12,7 @@ class AuthenticationService {
       {GoogleSignIn? googleSignIn, FirebaseAuth? firebaseAuth})
       : _googleSignIn = googleSignIn ?? GoogleSignIn(),
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
-  Future<void> signUpWithGoogle() async {
+  Future<UserDetail> signUpWithGoogle({AuthCredential? authCredential}) async {
     // no login yet, sign in with google now
     try {
       GoogleSignInAccount? account = await _googleSignIn.signIn();
@@ -21,7 +22,7 @@ class AuthenticationService {
       }
       GoogleSignInAuthentication gsa = await account.authentication;
 
-      AuthCredential credential = GoogleAuthProvider.credential(
+      AuthCredential credential = authCredential ?? GoogleAuthProvider.credential(
             accessToken: gsa.accessToken,
             idToken: gsa.idToken,
           );
@@ -32,31 +33,27 @@ class AuthenticationService {
       if (user == null) {
         throw UserNotFoundException();
       }
-    } on PlatformException catch (_) {
+
+      return UserDetail(uid: user.uid, email: user.email, phone: user.phoneNumber);
+    } on PlatformException catch (e) {
+      throw AuthenticationException(e.code, e.message);
+    } on UserNotFoundException catch (_) {
       rethrow;
-    } catch (e, _) {
+    } on UserCancelException catch (_) {
       rethrow;
+    } catch (e, stacktrace) {
+      throw UnknownException(stacktrace);
     }
   }
 
   Future<UserDetail> getCurrentUser() async {
     final User? firebaseUser = _firebaseAuth.currentUser;
     if (firebaseUser == null) {
-      print('SUESI: error user not found');
-      throw FirebaseAuthException(
-          code: "USER_NOT_FOUND", message: "User not found");
+      throw UserNotFoundException();
     }
     return UserDetail(
         uid: firebaseUser.uid,
         phone: firebaseUser.phoneNumber,
         email: firebaseUser.email);
   }
-}
-
-class UserDetail {
-  final String? uid;
-  final String? phone;
-  final String? email;
-
-  UserDetail({required this.uid, this.phone, this.email});
 }
