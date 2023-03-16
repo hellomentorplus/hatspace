@@ -2,9 +2,21 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:mockito/annotations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'sign_up_bloc_test.mocks.dart';
+
+@GenerateMocks([AuthenticationService])
 void main() {
+  final MockAuthenticationService authenticationService = MockAuthenticationService();
+
+  setUpAll(() {
+    HsSingleton.singleton.registerSingleton<AuthenticationService>(authenticationService);
+  });
+
   TestWidgetsFlutterBinding.ensureInitialized();
   group("Sign_up_bloc test state", () {
     late SignUpBloc signUpBloc;

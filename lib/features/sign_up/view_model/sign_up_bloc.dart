@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/types/sign_up_message_type.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,9 +17,8 @@ const isFirstLaunchConst = "isFirstLaunch";
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;
 
-  SignUpBloc({AuthenticationService? authenticationService})
-      : _authenticationService =
-            authenticationService ?? AuthenticationService(),
+  SignUpBloc()
+      : _authenticationService = HsSingleton.singleton.get<AuthenticationService>(),
         super(const SignUpInitial()) {
     on<CheckFirstLaunchSignUp>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
