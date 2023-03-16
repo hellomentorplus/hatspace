@@ -25,8 +25,8 @@ class SignUpSuccess extends SignUpState {
 }
 
 class SignUpFailed extends SignUpState {
-  String errorCode;
-  SignUpFailed(this.errorCode);
+  final SignUpMessageType errorCode;
+  const SignUpFailed(this.errorCode);
   @override
   List<Object?> get props => [errorCode];
 }

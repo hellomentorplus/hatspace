@@ -1,10 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hatspace/exception/authentication_exception.dart';
+import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/types/sign_up_message_type.dart';
-
-const signUpSuccess = "SIGN_UP_SUCCESS";
-const signUpFailed = "SIGN_UP_FAILED";
 
 class AuthenticationService {
   final GoogleSignIn _googleSignIn;
@@ -18,7 +15,9 @@ class AuthenticationService {
     try {
       googleUser = await _googleSignIn.signIn();
     } catch (e) {
-      throw AuthenticationException("sign_in_failed", "user canceled");
+      if (e.toString() == "sign_in_failed") {
+        throw AuthenticationCancelException();
+      }
     }
 
     if (googleUser != null) {
@@ -30,8 +29,8 @@ class AuthenticationService {
       await signUpFirebase(credential);
       return getCurrentUser();
     } else {
-      throw AuthenticationException(
-          "AUTH_CANCELED", "Authentication canceled by user");
+      //Cancel by User
+      throw AuthenticationCancelException();
     }
   }
 

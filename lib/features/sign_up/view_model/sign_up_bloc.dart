@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/types/sign_up_message_type.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'sign_up_event.dart';
@@ -17,8 +18,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       : _authenticationService =
             authenticationService ?? AuthenticationService(),
         super(const SignUpInitial()) {
-    on<SignUpEvent>((event, emit) {});
-
     on<CheckFirstLaunchSignUp>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool? isLaunchFirstTime = prefs.getBool(isFirstLaunchConst);
@@ -34,15 +33,13 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       emit(const FirstLaunchScreen(false));
     });
 
-    on<SignUpWithGoolge>((event, emit) async {
+    on<SignUpWithGoogle>((event, emit) async {
       try {
-        UserDetail? user = await _authenticationService.signUpWithGoogle();
-        if (user != null) {
-          return emit(const SignUpSuccess());
-        }
+        UserDetail user = await _authenticationService.signUpWithGoogle();
+        return emit(const SignUpSuccess());
       } on PlatformException {
-        emit(SignUpFailed(
-            SignUpStatusMessage.authenticationFaildMessage.toString()));
+        emit(
+            const SignUpFailed(SignUpStatusMessage.authenticationFaildMessage));
       }
     });
   }
