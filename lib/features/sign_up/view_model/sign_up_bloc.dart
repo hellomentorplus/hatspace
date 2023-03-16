@@ -1,10 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
-import 'package:hatspace/types/sign_up_message_type.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/authentication/authentication_exception.dart';
