@@ -1,5 +1,7 @@
 import 'package:get_it/get_it.dart';
 
+import '../models/authentication/authentication_service.dart';
+
 abstract class HsSingleton {
   static final singleton = _HsSingletonImpl();
 
@@ -12,6 +14,10 @@ class _HsSingletonImpl implements HsSingleton {
   @override
   void initialise() {
     _singleton.registerSingleton<HsSingleton>(HsSingleton.singleton);
+
+    if (!_singleton.isRegistered<AuthenticationService>()) {
+      _singleton.registerSingleton(AuthenticationService());
+    }
   }
 
   void registerSingleton<T extends Object>(T instance) {

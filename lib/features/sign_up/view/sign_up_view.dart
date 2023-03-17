@@ -15,13 +15,22 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
-        listenWhen: (context, state) {
-          return state is FirstLaunchScreen && state.isFirstLaunch == false;
-        },
         listener: (context, state) {
-          Navigator.of(context).pop(MaterialPageRoute(builder: (context) {
-            return const HomePageView();
-          }));
+          if (state is FirstLaunchScreen && state.isFirstLaunch == false) {
+            Navigator.of(context).pop(MaterialPageRoute(builder: (context) {
+              return const HomePageView();
+            }));
+          }
+
+          if (state is SignUpSuccess) {
+            // Navigating to the dashboard screen if the user is authenticated
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const ChoosingRolesView()));
+          }
+
+          if (state is UserCancelled || state is AuthenticationFailed) {
+            // TODO handle error scenario
+          }
         },
         child: Scaffold(
             appBar: AppBar(
@@ -48,9 +57,9 @@ class SignUpScreen extends StatelessWidget {
                           label: HatSpaceStrings.of(context).googleSignUp,
                           iconURL: Assets.images.google,
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const ChoosingRolesView()));
+                            context
+                                .read<SignUpBloc>()
+                                .add(const SignUpWithGoogle());
                           },
                         )),
                     Padding(
@@ -89,9 +98,7 @@ class SignUpScreen extends StatelessWidget {
                                           decoration: TextDecoration.underline),
                                       text: HatSpaceStrings.of(context).signIn,
                                       recognizer: TapGestureRecognizer()
-                                        ..onTapDown = (details) {
-                                          // On tab down event here
-                                        })
+                                        ..onTapDown = (details) {})
                                 ]))),
                     TextOnlyButton(
                       label: HatSpaceStrings.of(context).skip,
