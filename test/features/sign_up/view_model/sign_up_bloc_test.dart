@@ -12,6 +12,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
 
+import '../../../bloc/model/authentication_services_test.mocks.dart';
+
 @GenerateMocks([AuthenticationService])
 void main() {
   final MockAuthenticationService authenticationService =
@@ -26,7 +28,7 @@ void main() {
   setupFirebaseCoreMocks(); // Not relate to HS 51 - Need to add to perform test coverage
   group("Sign_up_bloc test state", () {
     late SignUpBloc signUpBloc;
-    setUpAll(() async{
+    setUpAll(() async {
       // Unexpected bugs - happended when running test coverage
       await Firebase.initializeApp();
       signUpBloc = SignUpBloc();

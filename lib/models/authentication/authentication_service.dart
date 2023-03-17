@@ -55,18 +55,19 @@ class AuthenticationService {
   Future<UserDetail> signUpWithFacebook() async {
     // Check Already Login
     try {
-     User? user;
+      User? user;
       final loginResult = await _facebookAuth.login();
       switch (loginResult.status) {
         case LoginStatus.success:
-         user = await onFacebookLoginSuccess(loginResult);
+          user = await onFacebookLoginSuccess(loginResult);
           break;
         case LoginStatus.cancelled:
           // TODO: SHOW TOAST MESSAGE
-          throw(UserCancelException); 
-        default: throw (PlatformException); 
+          throw (UserCancelException);
+        default:
+          throw (PlatformException);
       }
-        if (user == null) {
+      if (user == null) {
         throw UserNotFoundException();
       }
       return UserDetail(
@@ -76,12 +77,12 @@ class AuthenticationService {
     }
   }
 
-  Future<User?> onFacebookLoginSuccess (LoginResult loginResult) async {
+  Future<User?> onFacebookLoginSuccess(LoginResult loginResult) async {
     final OAuthCredential credential =
-            FacebookAuthProvider.credential(loginResult.accessToken!.token);
-        final result = await _firebaseAuth.signInWithCredential(credential);
-        User? user = result.user;
-      return user;
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    final result = await _firebaseAuth.signInWithCredential(credential);
+    User? user = result.user;
+    return user;
   }
 
   Future<UserDetail> getCurrentUser() async {

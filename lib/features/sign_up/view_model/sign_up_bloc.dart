@@ -11,6 +11,7 @@ part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 
 const isFirstLaunchConst = "isFirstLaunch";
+
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;
 
@@ -46,13 +47,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     });
 
     on<SignUpWithFacebook>((event, emit) async {
-      final UserDetail? userDetail =
-          await _authenticationService.signUpWithFacebook();
-      if (userDetail != null) {
+      try {
+        await _authenticationService.signUpWithFacebook();
         emit(const SignUpSuccess());
-      } else {
-        // TODO: Implement failed scenario
-        // Scenario 1: user canceled (by press canceled and press X icon) - result.status == LoginStatus.cancelled
+      } on UserCancelException {
+        emit(UserCancelled());
+      } on UserNotFoundException {
+        emit(UserCancelled());
+      } on AuthenticationFailed {
+        emit(UserCancelled());
       }
     });
   }
