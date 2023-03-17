@@ -1,11 +1,27 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
+import 'package:hatspace/models/authentication/authentication_exception.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
-void main(){
+
+@GenerateMocks([AuthenticationService])
+void main() {
+  final MockAuthenticationService authenticationService =
+      MockAuthenticationService();
+
+  setUpAll(() {
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
+  });
+
   TestWidgetsFlutterBinding.ensureInitialized();
   setupFirebaseCoreMocks(); // Not relate to HS 51 - Need to add to perform test coverage
   group("Sign_up_bloc test state", () {
@@ -51,6 +67,46 @@ void main(){
     tearDown(() {
       signUpBloc.close();
     });
+  });
+
+  group('test sign up with google', () {
+    blocTest<SignUpBloc, SignUpState>(
+      'when signup with google success, then return success state',
+      build: () => SignUpBloc(),
+      setUp: () {
+        when(authenticationService.signUpWithGoogle()).thenAnswer(
+            (realInvocation) => Future.value(
+                UserDetail(uid: 'uid', phone: 'phone', email: 'email')));
+      },
+      act: (bloc) => bloc.add(const SignUpWithGoogle()),
+      expect: () => [isA<SignUpSuccess>()],
+    );
+
+    blocTest(
+      'when sign up with google failed with UserCancelException, then return UserCancelled',
+      build: () => SignUpBloc(),
+      setUp: () => when(authenticationService.signUpWithGoogle())
+          .thenThrow(UserCancelException()),
+      act: (bloc) => bloc.add(const SignUpWithGoogle()),
+      expect: () => [isA<UserCancelled>()],
+    );
+
+    blocTest(
+        'when signup with google failed with UserNotFoundException, then return AuthenticationFailed',
+        build: () => SignUpBloc(),
+        setUp: () => when(authenticationService.signUpWithGoogle())
+            .thenThrow(UserNotFoundException()),
+        act: (bloc) => bloc.add(const SignUpWithGoogle()),
+        expect: () => [isA<AuthenticationFailed>()]);
+
+    blocTest(
+      'when signup with google failed with unknown error, then return AuthenticationFailed',
+      build: () => SignUpBloc(),
+      setUp: () => when(authenticationService.signUpWithGoogle())
+          .thenThrow(PlatformException(code: '1234')),
+      act: (bloc) => bloc.add(const SignUpWithGoogle()),
+      expect: () => [isA<AuthenticationFailed>()],
+    );
   });
 
   test('test state and event', () {

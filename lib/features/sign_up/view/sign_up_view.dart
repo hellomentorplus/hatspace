@@ -21,10 +21,15 @@ class SignUpScreen extends StatelessWidget {
               return const HomePageView();
             }));
           }
+
           if (state is SignUpSuccess) {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return const HomePageView();
-            }));
+            // Navigating to the dashboard screen if the user is authenticated
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const ChoosingRolesView()));
+          }
+
+          if (state is UserCancelled || state is AuthenticationFailed) {
+            // TODO handle error scenario
           }
         },
         child: Scaffold(
@@ -52,9 +57,9 @@ class SignUpScreen extends StatelessWidget {
                           label: HatSpaceStrings.of(context).googleSignUp,
                           iconURL: Assets.images.google,
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const ChoosingRolesView()));
+                            context
+                                .read<SignUpBloc>()
+                                .add(const SignUpWithGoogle());
                           },
                         )),
                     Padding(
@@ -97,9 +102,7 @@ class SignUpScreen extends StatelessWidget {
                                           decoration: TextDecoration.underline),
                                       text: HatSpaceStrings.of(context).signIn,
                                       recognizer: TapGestureRecognizer()
-                                        ..onTapDown = (details) {
-                                          // On tab down event here
-                                        })
+                                        ..onTapDown = (details) {})
                                 ]))),
                     TextOnlyButton(
                       label: HatSpaceStrings.of(context).skip,

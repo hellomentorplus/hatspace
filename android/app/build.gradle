@@ -78,6 +78,7 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
         // facebook configuration: 
         // source https://facebook.meedu.app/docs/5.x.x/android/
         minSdkVersion 21

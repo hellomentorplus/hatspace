@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/sign_up/view/sign_up_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
-import 'package:hatspace/models/authentication/authentication_bloc.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_event.dart';
+import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

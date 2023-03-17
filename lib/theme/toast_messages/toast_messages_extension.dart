@@ -3,8 +3,7 @@ import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
 
 extension ToastMessagesExtension on BuildContext {
   void showToast(ToastType type, String title, String message) {
-    ScaffoldMessenger.of(this).showSnackBar(
-      SnackBar(
+    ScaffoldMessenger.of(this).showSnackBar(SnackBar(
       content: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

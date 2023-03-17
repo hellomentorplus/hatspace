@@ -23,3 +23,13 @@ class SignUpSuccess extends SignUpState {
   @override
   List<Object?> get props => [];
 }
+
+class UserCancelled extends SignUpState {
+  @override
+  List<Object?> get props => [];
+}
+
+class AuthenticationFailed extends SignUpState {
+  @override
+  List<Object?> get props => [];
+}
