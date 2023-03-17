@@ -2,8 +2,6 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
-import 'package:hatspace/view_models/app_config/bloc/app_config_event.dart';
-import 'package:hatspace/view_models/app_config/bloc/app_config_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

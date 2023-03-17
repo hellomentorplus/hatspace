@@ -16,8 +16,8 @@ void main() {
   final MockSignUpBloc signUpBloc = MockSignUpBloc();
 
   setUp(() {
-    when(signUpBloc.state).thenAnswer((realInvocation) => SignUpInitial());
-    when(signUpBloc.stream).thenAnswer((realInvocation) => Stream.value(SignUpInitial()));
+    when(signUpBloc.state).thenAnswer((realInvocation) => const SignUpInitial());
+    when(signUpBloc.stream).thenAnswer((realInvocation) => Stream.value(const SignUpInitial()));
   });
 
   testWidgets('verify that SignUpView listen to changes from SignUpBloc', (widgetTester) async {
