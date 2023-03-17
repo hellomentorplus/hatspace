@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
+import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
@@ -90,8 +91,7 @@ class _ChoosingRolesState extends State<ChoosingRolesView> {
                   child: TextOnlyButton(
                     label: HatSpaceStrings.of(context).cancelBtn,
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const HomePageView()));
+                      context.goToHome();
                     },
                   ),
                 ),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/features/debug/view/widget_list/widget_catalog_screen.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
@@ -38,10 +39,7 @@ class HomePageViewState extends State<HomePageView> {
         onPhoneShake: () async {
           // To limit that shaking will happend more than one so there will be muliple push happened
           if (detector.mShakeCount == 1) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              // detector.stopListening();
-              return WidgetCatalogScreen();
-            }));
+            context.goToWidgetCatalog();
           }
         },
         shakeSlopTimeMS: 1000);

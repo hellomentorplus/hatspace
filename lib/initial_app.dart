@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/sign_up/view/sign_up_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
+import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
@@ -43,9 +44,7 @@ class MyAppBody extends StatelessWidget {
           // Listen when FirstLauch will be navigate to Home Screen.
           listener: (context, state) {
             if (state is FirstLaunchScreen && state.isFirstLaunch == true) {
-              Navigator.of(context).push(MaterialPageRoute(builder: ((context) {
-                return const SignUpScreen();
-              })));
+              context.goToSignup();
             }
           },
           // Always initialise HomePageView
