@@ -19,3 +19,4 @@ coverage:
     - "lib/gen"
     - "lib/features/debug"
     - "lib/initial_app.dart"
+    - "lib/route/**"
