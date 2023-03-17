@@ -1,7 +1,9 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/view_models/app_config/bloc/app_config_event.dart';
-import 'package:hatspace/view_models/app_config/bloc/app_config_state.dart';
+import 'package:equatable/equatable.dart';
+
+part 'app_config_state.dart';
+part 'app_config_event.dart';
 
 class AppConfigBloc extends Bloc<AppConfigEvent, AppConfigState> {
   final FirebaseRemoteConfig _firebaseRemoteConfig;

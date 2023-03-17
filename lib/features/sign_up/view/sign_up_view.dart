@@ -2,10 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hatspace/features/home/view/home_view.dart';
-import 'package:hatspace/features/sign_up/view/choosing_roles_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
@@ -17,15 +16,13 @@ class SignUpScreen extends StatelessWidget {
     return BlocListener<SignUpBloc, SignUpState>(
         listener: (context, state) {
           if (state is FirstLaunchScreen && state.isFirstLaunch == false) {
-            Navigator.of(context).pop(MaterialPageRoute(builder: (context) {
-              return const HomePageView();
-            }));
+            // dismiss this page and return to home
+            context.pop();
           }
 
           if (state is SignUpSuccess) {
-            // Navigating to the dashboard screen if the user is authenticated
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const ChoosingRolesView()));
+            // dismiss this page and return to home
+            context.pop();
           }
 
           if (state is UserCancelled || state is AuthenticationFailed) {
