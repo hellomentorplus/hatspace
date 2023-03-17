@@ -9,9 +9,11 @@ class AuthenticationService {
   final GoogleSignIn _googleSignIn;
   final FirebaseAuth _firebaseAuth;
   final FacebookAuth _facebookAuth;
-  AuthenticationService(
-      {GoogleSignIn? googleSignIn, FirebaseAuth? firebaseAuth, FacebookAuth? facebookAuth,})
-      : _googleSignIn = googleSignIn ?? GoogleSignIn(),
+  AuthenticationService({
+    GoogleSignIn? googleSignIn,
+    FirebaseAuth? firebaseAuth,
+    FacebookAuth? facebookAuth,
+  })  : _googleSignIn = googleSignIn ?? GoogleSignIn(),
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
         _facebookAuth = facebookAuth ?? FacebookAuth.instance;
   Future<UserDetail> signUpWithGoogle({AuthCredential? authCredential}) async {
@@ -50,52 +52,47 @@ class AuthenticationService {
     }
   }
 
+  Future<UserDetail> signUpWithFacebook() async {
+    // Check Already Login
+    try {
+     User? user;
+      final loginResult = await _facebookAuth.login();
+      switch (loginResult.status) {
+        case LoginStatus.success:
+         user = await onFacebookLoginSuccess(loginResult);
+          break;
+        case LoginStatus.cancelled:
+          // TODO: SHOW TOAST MESSAGE
+          throw(UserCancelException); 
+        default: throw (PlatformException); 
+      }
+        if (user == null) {
+        throw UserNotFoundException();
+      }
+      return UserDetail(
+          uid: user.uid, email: user.email, phone: user.phoneNumber);
+    } on PlatformException catch (e) {
+      throw AuthenticationException(e.code, e.message);
+    }
+  }
+
+  Future<User?> onFacebookLoginSuccess (LoginResult loginResult) async {
+    final OAuthCredential credential =
+            FacebookAuthProvider.credential(loginResult.accessToken!.token);
+        final result = await _firebaseAuth.signInWithCredential(credential);
+        User? user = result.user;
+      return user;
+  }
+
   Future<UserDetail> getCurrentUser() async {
     final User? firebaseUser = _firebaseAuth.currentUser;
     if (firebaseUser == null) {
       throw UserNotFoundException();
     }
+
     return UserDetail(
         uid: firebaseUser.uid,
         phone: firebaseUser.phoneNumber,
         email: firebaseUser.email);
   }
-
-    Future<void> signUpFirebase(OAuthCredential credential) async {
-    try {
-      UserCredential user =
-          await _firebaseAuth.signInWithCredential(credential);
-      //Check old user with userCredential.additionalUSer.isNewUser
-    } on FirebaseAuthException catch (e) {
-      throw {e.code, e.message};
-    }
-  }
-
-   Future<UserDetail?> signUpWithFacebook() async {
-    // Check Already Login
-    final accessToken = await _facebookAuth.accessToken;
-    if (accessToken != null) {
-      // Check already login with facebook
-      // UserDetail user =await getUserDetail();
-      // return user;
-      // TODO: Check choose role logic
-      await _facebookAuth.logOut(); // Need to remove after merge
-    } else {
-      try {
-        final loginResult = await _facebookAuth.login();
-        if (loginResult.status == LoginStatus.success) {
-          final OAuthCredential credential =
-              FacebookAuthProvider.credential(loginResult.accessToken!.token);
-          signUpFirebase(credential);
-          UserDetail user = await getCurrentUser();
-          return user;
-        } else {
-          // TODO: Show toast error toast message
-        }
-      } on PlatformException catch (e) {
-        print(e);
-      }
-    }
-  }
-
 }

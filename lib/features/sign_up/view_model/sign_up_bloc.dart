@@ -1,18 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/authentication/authentication_exception.dart';
-
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 
 const isFirstLaunchConst = "isFirstLaunch";
-
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;
 
