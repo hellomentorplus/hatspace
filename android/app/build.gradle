@@ -27,6 +27,23 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def facebookProperties = new Properties()
+def facebookPropertiesFile = rootProject.file('appconfig.properties')
+if (facebookPropertiesFile.exists()) {
+    facebookPropertiesFile.withReader('UTF-8') { reader ->
+        facebookProperties.load(reader)
+    }
+}
+def facebookAppId = facebookProperties.getProperty('FACEBOOK_APP_ID')
+if(facebookAppId == null){
+    throw new GradleException("Facebook App Id not found")
+}
+
+def facebookClientToken = facebookProperties.getProperty('FACEBOOK_CLIENT_TOKEN')
+if(facebookClientToken == null){
+    throw new GradleException("Facebook Client Token not found")
+}
+
 apply plugin: 'com.android.application'
 // START: FlutterFire Configuration
 apply plugin: 'com.google.gms.google-services'
@@ -60,6 +77,12 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+
+        // facebook configuration: 
+        // source https://facebook.meedu.app/docs/5.x.x/android/
+        minSdkVersion 21
+        targetSdkVersion 33
+        manifestPlaceholders += [facebook_app_id:facebookAppId, facebook_client_token: facebookClientToken]
     }
 
     signingConfigs {
@@ -92,4 +115,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
 }
