@@ -9,10 +9,7 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
-
-import '../../../bloc/model/authentication_services_test.mocks.dart';
+import './sign_up_bloc_test.mocks.dart';
 
 @GenerateMocks([AuthenticationService])
 void main() {
@@ -25,12 +22,11 @@ void main() {
   });
 
   TestWidgetsFlutterBinding.ensureInitialized();
-  setupFirebaseCoreMocks(); // Not relate to HS 51 - Need to add to perform test coverage
+  // setupFirebaseCoreMocks(); // Not relate to HS 51 - Need to add to perform test coverage
   group("Sign_up_bloc test state", () {
     late SignUpBloc signUpBloc;
     setUpAll(() async {
       // Unexpected bugs - happended when running test coverage
-      await Firebase.initializeApp();
       signUpBloc = SignUpBloc();
       const MethodChannel('plugins.flutter.io/shared_preferences')
           .setMockMethodCallHandler((MethodCall methodCall) async {
@@ -109,7 +105,40 @@ void main() {
       act: (bloc) => bloc.add(const SignUpWithGoogle()),
       expect: () => [isA<AuthenticationFailed>()],
     );
+
+    //Facebook bloc test
+    blocTest('when sign up with facebook success, then return SignUpSuccess',
+        build: () => SignUpBloc(),
+        setUp: () {
+          when(authenticationService.signUpWithFacebook())
+              .thenAnswer((realInvocation) {
+            return Future.value(
+                UserDetail(uid: 'uid', phone: 'phone', email: 'email'));
+          });
+        },
+        act: (bloc) => bloc.add(const SignUpWithFacebook()),
+        expect: () => [isA<SignUpSuccess>()]);
   });
+
+  blocTest("when sign up with facebook with canceled response",
+      build: () => SignUpBloc(),
+      setUp: () => when(authenticationService.signUpWithFacebook())
+          .thenThrow(UserCancelException()),
+      act: (bloc) => bloc.add(const SignUpWithFacebook()),
+      expect: () => [isA<UserCancelled>()]);
+
+  blocTest("when sign up with facebook with canceled response",
+      build: () => SignUpBloc(),
+      setUp: () => when(authenticationService.signUpWithFacebook())
+          .thenThrow(UserNotFoundException()),
+      act: (bloc) => bloc.add(const SignUpWithFacebook()),
+      expect: () => [isA<UserCancelled>()]);
+  blocTest("when sign up with facebook with canceled response",
+      build: () => SignUpBloc(),
+      setUp: () => when(authenticationService.signUpWithFacebook())
+          .thenThrow(AuthenticationFailed()),
+      act: (bloc) => bloc.add(const SignUpWithFacebook()),
+      expect: () => [isA<UserCancelled>()]);
 
   test('test state and event', () {
     CheckFirstLaunchSignUp firstLaunchSignUp = const CheckFirstLaunchSignUp();

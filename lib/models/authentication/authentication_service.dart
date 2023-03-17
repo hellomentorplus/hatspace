@@ -63,25 +63,27 @@ class AuthenticationService {
           break;
         case LoginStatus.cancelled:
           // TODO: SHOW TOAST MESSAGE
-          throw (UserCancelException);
+          throw UserCancelException();
         default:
           throw (PlatformException);
       }
-      if (user == null) {
-        throw UserNotFoundException();
-      }
       return UserDetail(
-          uid: user.uid, email: user.email, phone: user.phoneNumber);
+          uid: user!.uid, email: user.email, phone: user.phoneNumber);
     } on PlatformException catch (e) {
       throw AuthenticationException(e.code, e.message);
     }
   }
 
   Future<User?> onFacebookLoginSuccess(LoginResult loginResult) async {
-    final OAuthCredential credential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.token);
-    final result = await _firebaseAuth.signInWithCredential(credential);
-    User? user = result.user;
+    User? user;
+    try {
+      final OAuthCredential credential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
+      final result = await _firebaseAuth.signInWithCredential(credential);
+      user = result.user;
+    } on Exception catch (_) {
+      throw UserNotFoundException();
+    }
     return user;
   }
 
