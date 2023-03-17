@@ -14,16 +14,19 @@ void main() {
   final MockAppConfigBloc appConfigBloc = MockAppConfigBloc();
 
   setUp(() {
-    when(appConfigBloc.stream).thenAnswer((realInvocation) => Stream.value(const AppConfigInitialState()));
+    when(appConfigBloc.stream).thenAnswer(
+        (realInvocation) => Stream.value(const AppConfigInitialState()));
     when(appConfigBloc.state).thenReturn(const AppConfigInitialState());
   });
 
-  testWidgets('verify home view listen to changes on BlocListener', (widgetTester) async {
+  testWidgets('verify home view listen to changes on BlocListener',
+      (widgetTester) async {
     const Widget widget = HomePageView();
 
     await widgetTester.blocWrapAndPump<AppConfigBloc>(appConfigBloc, widget);
 
-    expect(find.byType(BlocListener<AppConfigBloc, AppConfigState>), findsOneWidget);
+    expect(find.byType(BlocListener<AppConfigBloc, AppConfigState>),
+        findsOneWidget);
   });
 
   testWidgets('verify UI components', (widgetTester) async {

@@ -13,13 +13,13 @@ extension RouteExtension on BuildContext {
   }
 
   void goToHome() {
-    Navigator.of(this).pushReplacement(MaterialPageRoute(
-        builder: (context) => const HomePageView()));
+    Navigator.of(this).pushReplacement(
+        MaterialPageRoute(builder: (context) => const HomePageView()));
   }
 
   void goToChooseRole() {
-    Navigator.of(this).push(MaterialPageRoute(
-        builder: (context) => const ChoosingRolesView()));
+    Navigator.of(this).push(
+        MaterialPageRoute(builder: (context) => const ChoosingRolesView()));
   }
 
   void goToWidgetCatalog() {
