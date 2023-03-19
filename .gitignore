@@ -68,3 +68,4 @@ ios/Flutter/AppConfig.xcconfig
 
 android/appconfig.properties
 
+ios/Podfile.lock

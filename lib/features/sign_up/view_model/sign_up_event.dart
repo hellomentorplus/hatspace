@@ -22,3 +22,11 @@ class SignUpWithGoogle extends SignUpEvent {
   @override
   List<Object?> get props => [];
 }
+
+class SignUpWithFacebook extends SignUpEvent {
+  const SignUpWithFacebook();
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}

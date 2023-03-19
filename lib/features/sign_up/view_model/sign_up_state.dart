@@ -4,7 +4,6 @@ abstract class SignUpState extends Equatable {
   const SignUpState();
 }
 
-@immutable
 class SignUpInitial extends SignUpState {
   const SignUpInitial();
   @override
