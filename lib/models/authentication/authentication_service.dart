@@ -69,8 +69,10 @@ class AuthenticationService {
       }
       return UserDetail(
           uid: user!.uid, email: user.email, phone: user.phoneNumber);
-    } on Exception catch (_) {
-      throw UserNotFoundException();
+    } on UserCancelException catch (_) {
+      rethrow;
+    } catch (e, stackTrace) {
+      throw UnknownException(stackTrace);
     }
   }
 
