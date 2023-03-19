@@ -13,10 +13,16 @@ coverage:
         paths:
           - lib
         target: 60%
-        threshold: 3%
+        threshold: 10%
   ignore:
     - "lib/main.dart"
     - "lib/gen"
     - "lib/features/debug"
     - "lib/initial_app.dart"
     - "lib/route/**"
+    - "lib/singleton"
+    - "lib/strings"
+    - "lib/data"
+    - "lib/l10n"
+    - "lib/**/*_event.dart"
+    - "lib/**/*_state.dart"

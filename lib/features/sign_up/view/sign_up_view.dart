@@ -64,7 +64,11 @@ class SignUpScreen extends StatelessWidget {
                         child: SecondaryButton(
                           label: HatSpaceStrings.of(context).facebookSignUp,
                           iconURL: Assets.images.facebookround,
-                          onPressed: () {},
+                          onPressed: () {
+                            context
+                                .read<SignUpBloc>()
+                                .add(const SignUpWithFacebook());
+                          },
                         )),
                     Padding(
                         padding: const EdgeInsets.only(bottom: 18),

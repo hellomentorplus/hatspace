@@ -60,4 +60,20 @@ void main() {
         findsOneWidget);
     expect(find.widgetWithText(TextOnlyButton, 'Skip'), findsOneWidget);
   });
+
+  testWidgets("Verify button interaction", (WidgetTester widgetTester) async {
+    const Widget widget = SignUpScreen();
+    await widgetTester.blocWrapAndPump<SignUpBloc>(signUpBloc, widget);
+    // Test interaction with google Sign in
+    await widgetTester
+        .tap(find.widgetWithText(SecondaryButton, "Sign up with Google"));
+    await widgetTester.pumpAndSettle();
+    verify(signUpBloc.add(const SignUpWithGoogle()));
+
+    // Test interaction with facebook Sign in
+    await widgetTester
+        .tap(find.widgetWithText(SecondaryButton, "Sign up with Facebook"));
+    await widgetTester.pumpAndSettle();
+    verify(signUpBloc.add(const SignUpWithFacebook()));
+  });
 }
