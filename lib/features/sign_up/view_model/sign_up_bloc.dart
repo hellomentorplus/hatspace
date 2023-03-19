@@ -53,6 +53,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         emit(UserCancelled());
       } on AuthenticationFailed {
         emit(UserCancelled());
+      } catch (_) {
+        emit(AuthenticationFailed());
       }
     });
   }

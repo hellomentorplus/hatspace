@@ -107,7 +107,7 @@ void main() {
       expect: () => [isA<AuthenticationFailed>()],
     );
 
-    //Facebook bloc test
+    //FACEBOOK bloc test
     blocTest('when sign up with facebook success, then return SignUpSuccess',
         build: () => SignUpBloc(),
         setUp: () {
