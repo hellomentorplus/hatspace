@@ -7,6 +7,8 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
+import 'package:hatspace/theme/toast_messages/toast_messages_extension.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -26,7 +28,10 @@ class SignUpScreen extends StatelessWidget {
           }
 
           if (state is UserCancelled || state is AuthenticationFailed) {
-            // TODO handle error scenario
+            context.showToast(ToastType.errorToast, "Sign In Failed",
+                "Sign In With Facebook failed");
+            //Refactor bloc so that toast message can be shown next time
+            context.read<SignUpBloc>().add(const InitialiseState());
           }
         },
         child: Scaffold(

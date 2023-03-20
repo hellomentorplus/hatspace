@@ -141,6 +141,10 @@ void main() {
       act: (bloc) => bloc.add(const SignUpWithFacebook()),
       expect: () => [isA<UserCancelled>()]);
 
+  blocTest("when login failed, then refactor sign up state ",
+      build: () => SignUpBloc(),
+      act: (bloc) => bloc.add(const InitialiseState()),
+      expect: () => [isA<SignUpInitial>()]);
   test('test state and event', () {
     CheckFirstLaunchSignUp firstLaunchSignUp = const CheckFirstLaunchSignUp();
 
@@ -159,5 +163,8 @@ void main() {
     FirstLaunchScreen firstLaunchScreenFalse = const FirstLaunchScreen(false);
     expect(firstLaunchScreenFalse.props.length, 1);
     expect(firstLaunchScreenFalse.props.first, false);
+
+    InitialiseState initialiseState = const InitialiseState();
+    expect(initialiseState.props.length, 0);
   });
 }

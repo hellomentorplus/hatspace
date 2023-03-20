@@ -57,5 +57,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         emit(AuthenticationFailed());
       }
     });
+    on<InitialiseState>((event, emit) {
+      emit(const SignUpInitial());
+    });
   }
 }

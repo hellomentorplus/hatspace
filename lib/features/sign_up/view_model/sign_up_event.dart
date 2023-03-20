@@ -30,3 +30,10 @@ class SignUpWithFacebook extends SignUpEvent {
   // TODO: implement props
   List<Object?> get props => [];
 }
+
+class InitialiseState extends SignUpEvent {
+  const InitialiseState();
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
