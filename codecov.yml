@@ -32,3 +32,4 @@ coverage:
     - "lib/l10n"
     - "lib/**/*_event.dart"
     - "lib/**/*_state.dart"
+    - "lib/singleton"
