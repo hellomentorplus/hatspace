@@ -15,10 +15,11 @@ coverage:
         target: 60%
         threshold: 10%
     patch:
-      target: 60%
-      threshold: 5%
-      paths:
-        - lib
+      default:
+        target: 60%
+        threshold: 5%
+        paths:
+          - lib
   ignore:
     - "lib/main.dart"
     - "lib/gen"
