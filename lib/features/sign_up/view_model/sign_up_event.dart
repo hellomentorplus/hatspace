@@ -30,10 +30,3 @@ class SignUpWithFacebook extends SignUpEvent {
   // TODO: implement props
   List<Object?> get props => [];
 }
-
-class RetrySignUp extends SignUpEvent {
-  const RetrySignUp();
-  @override
-  // TODO: implement props
-  List<Object?> get props => [];
-}

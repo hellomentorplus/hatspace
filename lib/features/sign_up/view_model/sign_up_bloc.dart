@@ -45,6 +45,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     on<SignUpWithFacebook>((event, emit) async {
       try {
+        emit(LoadingState());
         await _authenticationService.signUpWithFacebook();
         emit(const SignUpSuccess());
       } on UserCancelException {
@@ -56,9 +57,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       } catch (_) {
         emit(AuthenticationFailed());
       }
-    });
-    on<RetrySignUp>((event, emit) {
-      emit(RetryingSignUpState());
     });
   }
 }

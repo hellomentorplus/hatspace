@@ -118,7 +118,7 @@ void main() {
           });
         },
         act: (bloc) => bloc.add(const SignUpWithFacebook()),
-        expect: () => [isA<SignUpSuccess>()]);
+        expect: () => [isA<LoadingState>(), isA<SignUpSuccess>()]);
   });
 
   blocTest("when sign up with facebook with canceled response",
@@ -126,25 +126,25 @@ void main() {
       setUp: () => when(authenticationService.signUpWithFacebook())
           .thenThrow(UserCancelException()),
       act: (bloc) => bloc.add(const SignUpWithFacebook()),
-      expect: () => [isA<UserCancelled>()]);
+      expect: () => [isA<LoadingState>(), isA<UserCancelled>()]);
 
   blocTest("when sign up with facebook with canceled response",
       build: () => SignUpBloc(),
       setUp: () => when(authenticationService.signUpWithFacebook())
           .thenThrow(UserNotFoundException()),
       act: (bloc) => bloc.add(const SignUpWithFacebook()),
-      expect: () => [isA<UserCancelled>()]);
+      expect: () => [isA<LoadingState>(), isA<UserCancelled>()]);
   blocTest("when sign up with facebook with canceled response",
       build: () => SignUpBloc(),
       setUp: () => when(authenticationService.signUpWithFacebook())
           .thenThrow(AuthenticationFailed()),
       act: (bloc) => bloc.add(const SignUpWithFacebook()),
-      expect: () => [isA<UserCancelled>()]);
+      expect: () => [isA<LoadingState>(), isA<UserCancelled>()]);
 
-  blocTest("when login failed, then refactor sign up state ",
-      build: () => SignUpBloc(),
-      act: (bloc) => bloc.add(const RetrySignUp()),
-      expect: () => [isA<RetryingSignUpState>()]);
+  // blocTest("when login failed, then refactor sign up state ",
+  //     build: () => SignUpBloc(),
+  //     act: (bloc) => bloc.add(const RetrySignUp()),
+  //     expect: () => [isA<RetryingSignUpState>()]);
   test('test state and event', () {
     CheckFirstLaunchSignUp firstLaunchSignUp = const CheckFirstLaunchSignUp();
 
@@ -169,8 +169,5 @@ void main() {
 
     SignUpWithFacebook signUpWithFacebook = const SignUpWithFacebook();
     expect(signUpWithFacebook.props.length, 0);
-
-    RetryingSignUpState retryingSignUpState = RetryingSignUpState();
-    expect(retryingSignUpState.props.length, 0);
   });
 }

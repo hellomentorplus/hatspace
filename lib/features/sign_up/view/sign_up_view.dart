@@ -17,6 +17,10 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
         listener: (context, state) {
+          if (state is LoadingState) {
+            // TODO: Implement Popup display
+          }
+
           if (state is FirstLaunchScreen && state.isFirstLaunch == false) {
             // dismiss this page and return to home
             context.pop();
@@ -34,8 +38,8 @@ class SignUpScreen extends StatelessWidget {
                 HatSpaceStrings.of(context).snackbarTitle("Sign in failed"),
                 HatSpaceStrings.of(context)
                     .snackbarMessage("Facebook Sign in failed"));
-            //Refactor bloc so that toast message can be shown next time
-            context.read<SignUpBloc>().add(const RetrySignUp());
+            // //Refactor bloc so that toast message can be shown next time
+            // context.read<SignUpBloc>().add(const RetrySignUp());
           }
         },
         child: Scaffold(
