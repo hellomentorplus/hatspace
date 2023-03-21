@@ -51,9 +51,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebookSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
         "facebookSigninErrorMessage": MessageLookupByLibrary.simpleMessage(
-            "Facebook Login Error Message"),
+            "Unable to sign you in at the moment. Please try again later"),
         "facebookSigninErrorTitle":
-            MessageLookupByLibrary.simpleMessage("Facebook Login Title"),
+            MessageLookupByLibrary.simpleMessage("Login Failed"),
         "googleSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with Google"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),

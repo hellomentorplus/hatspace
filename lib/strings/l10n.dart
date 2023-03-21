@@ -252,20 +252,20 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Facebook Login Error Message`
+  /// `Unable to sign you in at the moment. Please try again later`
   String get facebookSigninErrorMessage {
     return Intl.message(
-      'Facebook Login Error Message',
+      'Unable to sign you in at the moment. Please try again later',
       name: 'facebookSigninErrorMessage',
       desc: '',
       args: [],
     );
   }
 
-  /// `Facebook Login Title`
+  /// `Login Failed`
   String get facebookSigninErrorTitle {
     return Intl.message(
-      'Facebook Login Title',
+      'Login Failed',
       name: 'facebookSigninErrorTitle',
       desc: '',
       args: [],

@@ -24,7 +24,6 @@
   "cancelBtn":"Cancel",
   "homePageViewTitle":"Home Page",
   "linearProgressIndicator":"Linear progress indicator",
-  "facebookSigninErrorMessage": "Facebook Login Error Message",
-  "facebookSigninErrorTitle":"Facebook Login Title"
-
+  "facebookSigninErrorMessage": "Unable to sign you in at the moment. Please try again later",
+  "facebookSigninErrorTitle":"Login Failed"
 }

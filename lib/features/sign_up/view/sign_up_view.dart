@@ -32,7 +32,6 @@ class SignUpScreen extends StatelessWidget {
           }
 
           if (state is UserCancelled || state is AuthenticationFailed) {
-            // TODO: Toast title and toast message content will be updated with BA team.
             context.showToast(
                 ToastType.errorToast,
                 HatSpaceStrings.of(context).facebookSigninErrorTitle,
