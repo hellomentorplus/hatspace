@@ -164,6 +164,12 @@ void main() {
     expect(firstLaunchScreenFalse.props.length, 1);
     expect(firstLaunchScreenFalse.props.first, false);
 
+    SignUpWithGoogle signUpWithGoogle = const SignUpWithGoogle();
+    expect(signUpWithGoogle.props.length,0);
+
+    SignUpWithFacebook signUpWithFacebook = const SignUpWithFacebook();
+    expect(signUpWithFacebook.props.length,0);
+
     RetryingSignUpState retryingSignUpState = RetryingSignUpState();
     expect(retryingSignUpState.props.length, 0);
   });
