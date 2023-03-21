@@ -251,6 +251,36 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Facebook Login Error Message`
+  String get facebookSigninErrorMessage {
+    return Intl.message(
+      'Facebook Login Error Message',
+      name: 'facebookSigninErrorMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{title}`
+  String snackbarTitle(Object title) {
+    return Intl.message(
+      '$title',
+      name: 'snackbarTitle',
+      desc: '',
+      args: [title],
+    );
+  }
+
+  /// `{message}`
+  String snackbarMessage(Object message) {
+    return Intl.message(
+      '$message',
+      name: 'snackbarMessage',
+      desc: '',
+      args: [message],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

@@ -31,8 +31,8 @@ class SignUpWithFacebook extends SignUpEvent {
   List<Object?> get props => [];
 }
 
-class InitialiseState extends SignUpEvent {
-  const InitialiseState();
+class RetrySignUp extends SignUpEvent {
+  const RetrySignUp();
   @override
   // TODO: implement props
   List<Object?> get props => [];

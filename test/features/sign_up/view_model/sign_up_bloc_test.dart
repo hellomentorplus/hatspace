@@ -143,8 +143,8 @@ void main() {
 
   blocTest("when login failed, then refactor sign up state ",
       build: () => SignUpBloc(),
-      act: (bloc) => bloc.add(const InitialiseState()),
-      expect: () => [isA<SignUpInitial>()]);
+      act: (bloc) => bloc.add(const RetrySignUp()),
+      expect: () => [isA<RetryingSignUpState>()]);
   test('test state and event', () {
     CheckFirstLaunchSignUp firstLaunchSignUp = const CheckFirstLaunchSignUp();
 
@@ -164,7 +164,7 @@ void main() {
     expect(firstLaunchScreenFalse.props.length, 1);
     expect(firstLaunchScreenFalse.props.first, false);
 
-    InitialiseState initialiseState = const InitialiseState();
-    expect(initialiseState.props.length, 0);
+    RetryingSignUpState retryingSignUpState = RetryingSignUpState();
+    expect(retryingSignUpState.props.length, 0);
   });
 }

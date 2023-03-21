@@ -28,10 +28,14 @@ class SignUpScreen extends StatelessWidget {
           }
 
           if (state is UserCancelled || state is AuthenticationFailed) {
-            context.showToast(ToastType.errorToast, "Sign In Failed",
-                "Sign In With Facebook failed");
+            // TODO: Toast title and toast message content will be updated with BA team.
+            context.showToast(
+                ToastType.errorToast,
+                HatSpaceStrings.of(context).snackbarTitle("Sign in failed"),
+                HatSpaceStrings.of(context)
+                    .snackbarMessage("Facebook Sign in failed"));
             //Refactor bloc so that toast message can be shown next time
-            context.read<SignUpBloc>().add(const InitialiseState());
+            context.read<SignUpBloc>().add(const RetrySignUp());
           }
         },
         child: Scaffold(
