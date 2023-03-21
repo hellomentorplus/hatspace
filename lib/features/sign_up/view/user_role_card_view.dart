@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
+import '../../../data/data.dart';
+
 class UserRoleDetail {
   String title;
   String description;
@@ -9,10 +11,7 @@ class UserRoleDetail {
   UserRoleDetail(this.title, this.description);
 }
 
-enum Roles {
-  tenant,
-  homeowner;
-
+extension RoleToDetail on Roles {
   UserRoleDetail toUserRoleDetail(BuildContext context) {
     final String title = HatSpaceStrings.of(context).userTitleRoles(name);
     final String description =
