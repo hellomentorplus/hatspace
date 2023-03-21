@@ -25,13 +25,6 @@
   "homePageViewTitle":"Home Page",
   "linearProgressIndicator":"Linear progress indicator",
   "facebookSigninErrorMessage": "Facebook Login Error Message",
-  "snackbarTitle":"{title}",
-  "@snackbarTitle":{
-    "title":"Snackbar Title"
-  },
-  "snackbarMessage":"{message}",
-  "@snackbarMessage":{
-    "message":"Snack bar message"
-  }
+  "facebookSigninErrorTitle":"Facebook Login Title"
 
 }

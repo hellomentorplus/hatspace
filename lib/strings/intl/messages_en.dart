@@ -20,11 +20,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(message) => "${message}";
-
-  static String m1(title) => "${title}";
-
-  static String m2(description) => "${Intl.select(description, {
+  static String m0(description) => "${Intl.select(description, {
             'tenant':
                 'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
             'homeowner':
@@ -32,7 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': '',
           })}";
 
-  static String m3(role) => "${Intl.select(role, {
+  static String m1(role) => "${Intl.select(role, {
             'tenant': 'Tenant',
             'homeowner': 'Homeowner',
             'other': '',
@@ -56,6 +52,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
         "facebookSigninErrorMessage": MessageLookupByLibrary.simpleMessage(
             "Facebook Login Error Message"),
+        "facebookSigninErrorTitle":
+            MessageLookupByLibrary.simpleMessage("Facebook Login Title"),
         "googleSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with Google"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
@@ -65,10 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
-        "snackbarMessage": m0,
-        "snackbarTitle": m1,
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
-        "userRoleDescription": m2,
-        "userTitleRoles": m3
+        "userRoleDescription": m0,
+        "userTitleRoles": m1
       };
 }

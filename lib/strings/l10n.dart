@@ -262,23 +262,13 @@ class HatSpaceStrings {
     );
   }
 
-  /// `{title}`
-  String snackbarTitle(Object title) {
+  /// `Facebook Login Title`
+  String get facebookSigninErrorTitle {
     return Intl.message(
-      '$title',
-      name: 'snackbarTitle',
+      'Facebook Login Title',
+      name: 'facebookSigninErrorTitle',
       desc: '',
-      args: [title],
-    );
-  }
-
-  /// `{message}`
-  String snackbarMessage(Object message) {
-    return Intl.message(
-      '$message',
-      name: 'snackbarMessage',
-      desc: '',
-      args: [message],
+      args: [],
     );
   }
 }
