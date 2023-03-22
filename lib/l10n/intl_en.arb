@@ -23,5 +23,7 @@
   "continueBtn":"Continue",
   "cancelBtn":"Cancel",
   "homePageViewTitle":"Home Page",
-  "linearProgressIndicator":"Linear progress indicator"
+  "linearProgressIndicator":"Linear progress indicator",
+  "facebookSigninErrorMessage": "Unable to sign you in at the moment. Please try again later",
+  "facebookSigninErrorTitle":"Login Failed"
 }

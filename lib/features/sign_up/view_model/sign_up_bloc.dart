@@ -45,6 +45,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     on<SignUpWithFacebook>((event, emit) async {
       try {
+        emit(SignUpStart());
         await _authenticationService.signUpWithFacebook();
         emit(const SignUpSuccess());
       } on UserCancelException {

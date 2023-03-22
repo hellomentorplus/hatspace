@@ -251,6 +251,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Unable to sign you in at the moment. Please try again later`
+  String get facebookSigninErrorMessage {
+    return Intl.message(
+      'Unable to sign you in at the moment. Please try again later',
+      name: 'facebookSigninErrorMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login Failed`
+  String get facebookSigninErrorTitle {
+    return Intl.message(
+      'Login Failed',
+      name: 'facebookSigninErrorTitle',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
