@@ -14,6 +14,12 @@ coverage:
           - lib
         target: 60%
         threshold: 10%
+    patch:
+      default:
+        target: 60%
+        threshold: 5%
+        paths:
+          - lib
   ignore:
     - "lib/main.dart"
     - "lib/gen"
@@ -26,3 +32,4 @@ coverage:
     - "lib/l10n"
     - "lib/**/*_event.dart"
     - "lib/**/*_state.dart"
+    - "lib/singleton"

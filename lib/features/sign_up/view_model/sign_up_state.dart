@@ -32,3 +32,8 @@ class AuthenticationFailed extends SignUpState {
   @override
   List<Object?> get props => [];
 }
+
+class SignUpStart extends SignUpState {
+  @override
+  List<Object?> get props => [];
+}

@@ -7,6 +7,8 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
+import 'package:hatspace/theme/toast_messages/toast_messages_extension.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -15,6 +17,10 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
         listener: (context, state) {
+          if (state is SignUpStart) {
+            // TODO: Implement Popup display
+          }
+
           if (state is FirstLaunchScreen && state.isFirstLaunch == false) {
             // dismiss this page and return to home
             context.pop();
@@ -26,7 +32,10 @@ class SignUpScreen extends StatelessWidget {
           }
 
           if (state is UserCancelled || state is AuthenticationFailed) {
-            // TODO handle error scenario
+            context.showToast(
+                ToastType.errorToast,
+                HatSpaceStrings.of(context).facebookSigninErrorTitle,
+                HatSpaceStrings.of(context).facebookSigninErrorMessage);
           }
         },
         child: Scaffold(
