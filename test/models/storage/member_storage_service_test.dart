@@ -8,21 +8,32 @@ import 'package:mockito/mockito.dart';
 
 import 'member_storage_service_test.mocks.dart';
 
-@GenerateMocks([FirebaseFirestore, CollectionReference, DocumentReference, DocumentSnapshot])
+@GenerateMocks([
+  FirebaseFirestore,
+  CollectionReference,
+  DocumentReference,
+  DocumentSnapshot
+])
 void main() {
   final MockFirebaseFirestore firestore = MockFirebaseFirestore();
-  final MockCollectionReference<Map<String, dynamic>> collectionReference = MockCollectionReference();
-  final MockDocumentReference<Map<String, dynamic>> documentReference = MockDocumentReference();
-  final MockDocumentSnapshot<Map<String, dynamic>> documentSnapshot = MockDocumentSnapshot();
+  final MockCollectionReference<Map<String, dynamic>> collectionReference =
+      MockCollectionReference();
+  final MockDocumentReference<Map<String, dynamic>> documentReference =
+      MockDocumentReference();
+  final MockDocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+      MockDocumentSnapshot();
 
   setUpAll(() {
     StorageService.firestore = firestore;
   });
 
   setUp(() {
-    when(firestore.collection(any)).thenAnswer((realInvocation) => collectionReference);
-    when(collectionReference.doc(any)).thenAnswer((realInvocation) => documentReference);
-    when(documentReference.get(any)).thenAnswer((realInvocation) => Future.value(documentSnapshot));
+    when(firestore.collection(any))
+        .thenAnswer((realInvocation) => collectionReference);
+    when(collectionReference.doc(any))
+        .thenAnswer((realInvocation) => documentReference);
+    when(documentReference.get(any))
+        .thenAnswer((realInvocation) => Future.value(documentSnapshot));
   });
 
   tearDown(() {
@@ -32,7 +43,9 @@ void main() {
     reset(documentSnapshot);
   });
 
-  test('given user roles does not exist, when getUserRoles, then return empty list', () async {
+  test(
+      'given user roles does not exist, when getUserRoles, then return empty list',
+      () async {
     when(documentSnapshot.exists).thenAnswer((realInvocation) => false);
 
     StorageService storageService = StorageService();
@@ -42,7 +55,9 @@ void main() {
     expect(result.isEmpty, isTrue);
   });
 
-  test('given user roles data is null, when getUserRoles, then return empty list', () async {
+  test(
+      'given user roles data is null, when getUserRoles, then return empty list',
+      () async {
     when(documentSnapshot.exists).thenAnswer((realInvocation) => true);
     when(documentSnapshot.data()).thenAnswer((realInvocation) => null);
 
@@ -53,7 +68,9 @@ void main() {
     expect(result.isEmpty, isTrue);
   });
 
-  test('given user roles data does not contain roles, when getUserRoles, then return empty list', () async {
+  test(
+      'given user roles data does not contain roles, when getUserRoles, then return empty list',
+      () async {
     when(documentSnapshot.exists).thenAnswer((realInvocation) => true);
     when(documentSnapshot.data()).thenAnswer((realInvocation) => {});
 
@@ -64,11 +81,12 @@ void main() {
     expect(result.isEmpty, isTrue);
   });
 
-  test('given user roles data is invalid, when getUserRoles, then return empty list', () async {
+  test(
+      'given user roles data is invalid, when getUserRoles, then return empty list',
+      () async {
     when(documentSnapshot.exists).thenAnswer((realInvocation) => true);
-    when(documentSnapshot.data()).thenAnswer((realInvocation) => {
-      'roles' : 'this is invalid data'
-    });
+    when(documentSnapshot.data())
+        .thenAnswer((realInvocation) => {'roles': 'this is invalid data'});
 
     StorageService storageService = StorageService();
 
@@ -77,11 +95,13 @@ void main() {
     expect(result.isEmpty, isTrue);
   });
 
-  test('given user roles data is valie, when getUserRoles, then return list of Roles', () async {
+  test(
+      'given user roles data is valie, when getUserRoles, then return list of Roles',
+      () async {
     when(documentSnapshot.exists).thenAnswer((realInvocation) => true);
     when(documentSnapshot.data()).thenAnswer((realInvocation) => {
-      'roles' : ['tenant', 'homeowner']
-    });
+          'roles': ['tenant', 'homeowner']
+        });
 
     StorageService storageService = StorageService();
 
@@ -101,7 +121,7 @@ void main() {
     verify(firestore.collection('members')).called(1);
     verify(collectionReference.doc('uid')).called(1);
     verify(documentReference.set({
-      'roles' : ['tenant', 'homeowner']
+      'roles': ['tenant', 'homeowner']
     })).called(1);
   });
 }
