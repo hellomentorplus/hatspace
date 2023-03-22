@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class StorageService {
   static FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  MemberService _member = MemberService(_firestore);
+  final MemberService _member = MemberService(_firestore);
 
   MemberService get member => _member;
 
