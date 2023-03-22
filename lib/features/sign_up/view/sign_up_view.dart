@@ -17,7 +17,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
         listener: (context, state) {
-          if (state is LoadingState) {
+          if (state is SignUpStart) {
             // TODO: Implement Popup display
           }
 

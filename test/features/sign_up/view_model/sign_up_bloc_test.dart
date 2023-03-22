@@ -118,7 +118,7 @@ void main() {
           });
         },
         act: (bloc) => bloc.add(const SignUpWithFacebook()),
-        expect: () => [isA<LoadingState>(), isA<SignUpSuccess>()]);
+        expect: () => [isA<SignUpStart>(), isA<SignUpSuccess>()]);
   });
 
   blocTest("when sign up with facebook with canceled response",
@@ -126,20 +126,20 @@ void main() {
       setUp: () => when(authenticationService.signUpWithFacebook())
           .thenThrow(UserCancelException()),
       act: (bloc) => bloc.add(const SignUpWithFacebook()),
-      expect: () => [isA<LoadingState>(), isA<UserCancelled>()]);
+      expect: () => [isA<SignUpStart>(), isA<UserCancelled>()]);
 
   blocTest("when sign up with facebook with canceled response",
       build: () => SignUpBloc(),
       setUp: () => when(authenticationService.signUpWithFacebook())
           .thenThrow(UserNotFoundException()),
       act: (bloc) => bloc.add(const SignUpWithFacebook()),
-      expect: () => [isA<LoadingState>(), isA<UserCancelled>()]);
+      expect: () => [isA<SignUpStart>(), isA<UserCancelled>()]);
   blocTest("when sign up with facebook with canceled response",
       build: () => SignUpBloc(),
       setUp: () => when(authenticationService.signUpWithFacebook())
           .thenThrow(AuthenticationFailed()),
       act: (bloc) => bloc.add(const SignUpWithFacebook()),
-      expect: () => [isA<LoadingState>(), isA<UserCancelled>()]);
+      expect: () => [isA<SignUpStart>(), isA<UserCancelled>()]);
 
   // blocTest("when login failed, then refactor sign up state ",
   //     build: () => SignUpBloc(),
