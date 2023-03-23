@@ -78,7 +78,7 @@ void main() {
                 UserDetail(uid: 'uid', phone: 'phone', email: 'email')));
       },
       act: (bloc) => bloc.add(const SignUpWithGoogle()),
-      expect: () => [isA<SignUpSuccess>()],
+      expect: () => [isA<SignUpStart>(), isA<SignUpSuccess>()],
     );
 
     blocTest(
@@ -87,7 +87,7 @@ void main() {
       setUp: () => when(authenticationService.signUpWithGoogle())
           .thenThrow(UserCancelException()),
       act: (bloc) => bloc.add(const SignUpWithGoogle()),
-      expect: () => [isA<UserCancelled>()],
+      expect: () => [isA<SignUpStart>(), isA<UserCancelled>()],
     );
 
     blocTest(
@@ -96,7 +96,7 @@ void main() {
         setUp: () => when(authenticationService.signUpWithGoogle())
             .thenThrow(UserNotFoundException()),
         act: (bloc) => bloc.add(const SignUpWithGoogle()),
-        expect: () => [isA<AuthenticationFailed>()]);
+        expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()]);
 
     blocTest(
       'when signup with google failed with unknown error, then return AuthenticationFailed',
@@ -104,7 +104,7 @@ void main() {
       setUp: () => when(authenticationService.signUpWithGoogle())
           .thenThrow(PlatformException(code: '1234')),
       act: (bloc) => bloc.add(const SignUpWithGoogle()),
-      expect: () => [isA<AuthenticationFailed>()],
+      expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()],
     );
 
     //FACEBOOK bloc test

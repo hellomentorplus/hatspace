@@ -50,10 +50,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "explore": MessageLookupByLibrary.simpleMessage("Explore"),
         "facebookSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
-        "facebookSigninErrorMessage": MessageLookupByLibrary.simpleMessage(
-            "Unable to sign you in at the moment. Please try again later"),
-        "facebookSigninErrorTitle":
-            MessageLookupByLibrary.simpleMessage("Login Failed"),
         "googleSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with Google"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
@@ -62,6 +58,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
+        "signinErrorToastMessage": MessageLookupByLibrary.simpleMessage(
+            "Unable to sign you in at the moment. Please try again later"),
+        "signinErrorToastTitle":
+            MessageLookupByLibrary.simpleMessage("Login Failed"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
         "userRoleDescription": m0,

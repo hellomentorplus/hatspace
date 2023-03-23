@@ -34,8 +34,8 @@ class SignUpScreen extends StatelessWidget {
           if (state is UserCancelled || state is AuthenticationFailed) {
             context.showToast(
                 ToastType.errorToast,
-                HatSpaceStrings.of(context).facebookSigninErrorTitle,
-                HatSpaceStrings.of(context).facebookSigninErrorMessage);
+                HatSpaceStrings.of(context).signinErrorToastTitle,
+                HatSpaceStrings.of(context).signinErrorToastMessage);
           }
         },
         child: Scaffold(
