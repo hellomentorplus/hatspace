@@ -36,14 +36,14 @@ class ToastMessageContainer extends StatelessWidget {
   final ToastType toastType;
   final String toastTitle;
   final String toastContent;
-  late OverlayEntry? _overlayEntry;
-  ToastMessageContainer({
+  final VoidCallback? onCloseTap;
+  const ToastMessageContainer({
     super.key,
     required this.toastType,
     required this.toastTitle,
     required this.toastContent,
-    OverlayEntry? overlayEntry,
-  }) : _overlayEntry = overlayEntry,  assert(toastContent.length <= maxLength,
+    this.onCloseTap
+  }) : assert(toastContent.length <= maxLength,
             "Toast content from `$toastContent` must not over 160 characters"),
         assert(toastTitle.length <= maxLength,
             "Toast title `$toastTitle must not over 160 charaters ");
@@ -86,10 +86,7 @@ class ToastMessageContainer extends StatelessWidget {
                       ),
                       GestureDetector(
                           key: const Key("closeTap"),
-                          onTap: () {
-                            // ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                            _overlayEntry?.remove();
-                          },
+                          onTap: onCloseTap,
                           child: SvgPicture.asset(
                             toastType.closeIcon,
                             width: iconSize,

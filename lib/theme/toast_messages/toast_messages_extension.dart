@@ -3,13 +3,14 @@ import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
 import 'package:async/async.dart';
 
 extension ToastMessagesExtension on BuildContext {
-  OverlayEntry showToast({
+  static OverlayEntry? overlayEntry;
+  void showToast({
       required ToastType type,
       required String title,
       required String message,
       VoidCallback? onDissmiss
   }) {
-  final overlayEntry = OverlayEntry(
+    overlayEntry = OverlayEntry(
     builder: (context) {
       return Positioned(
           child: SafeArea(
@@ -19,24 +20,27 @@ extension ToastMessagesExtension on BuildContext {
             child: ToastMessageContainer(
                 toastType: type,
                 toastTitle: title,
-                toastContent: message))
+                toastContent: message,
+                onCloseTap: () {
+                  removeToast(overlayEntry);
+                },
+                ))
       ])));
     })
     ..removeListener(() {
       onDissmiss?.call();
     });
-    WidgetsBinding.instance.addPersistentFrameCallback((timeStamp) {
-       Overlay.of(this).insert(overlayEntry);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+       Overlay.of(this).insert(overlayEntry!);
       Future.delayed(
         const Duration(seconds: 6),
         (){
-          if(overlayEntry.mounted == true){
-            overlayEntry.remove();
+          if(overlayEntry?.mounted == true){
+            overlayEntry?.remove();
           }
         }
       );
     });
-    return overlayEntry;
   }
 
   void removeToast(OverlayEntry? overlayEntry) {
