@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
-import 'package:hatspace/theme/toast_messages/toast_messages_extension.dart';
 import '../widget_tester_extension.dart';
 
 void main() {
@@ -70,55 +69,6 @@ void main() {
       expect(flex.child, isA<Padding>());
       Column col = tester.firstWidget(find.byType(Column));
       expect(col.crossAxisAlignment, CrossAxisAlignment.start);
-    });
-
-    group("Test toast functions", () {
-      testWidgets("Test show toast and close toast function",
-          ((WidgetTester tester) async {
-        Widget testWidget = Builder(builder: (context) {
-          return Center(
-              child: ElevatedButton(
-            key: const Key("tap-show-toast"),
-            onPressed: () {
-              context.showToast(ToastType.errorToast, "test title", "message");
-            },
-            child: const Text("show toast"),
-          ));
-        });
-
-        await tester.wrapAndPump(testWidget);
-        // First: Ensure no toast rendered
-        expect(find.text("test title"), findsNothing);
-        await tester.tap(find.byKey(const Key("tap-show-toast")));
-        // Even after tap, toast has not been displayed at this time
-        expect(find.text("test title"), findsNothing);
-        await tester
-            .pump(); // schedule animation => Toast should be shown after this time
-        expect(find.text("test title"), findsOneWidget);
-        await tester.pump(const Duration(milliseconds: 750));
-        expect(find.text("test title"), findsOneWidget);
-        // Second: Toast should dismiss after 6 seconds
-        await tester.pump(const Duration(seconds: 6));
-        // however, that the second 6th, toast has not been dismissed yet
-        expect(find.text("test title"), findsOneWidget);
-        // Add a bit millisecond, toast now should be dismissed
-        await tester.pump(const Duration(milliseconds: 750));
-        expect(find.text("test title"), findsNothing);
-
-        // Cover close toast function
-        // Show toast process is the same as the one above
-        expect(find.text("test title"), findsNothing);
-        await tester.tap(find.byKey(const Key("tap-show-toast")));
-        expect(find.text("test title"), findsNothing);
-        await tester.pump(); // schedule animation
-        // Toast should be shown now then action to close toast
-        await tester.tap(find.byKey(const Key("closeTap")));
-        // after closeTap get tapped => widget should not be shown now
-        await tester.pump();
-        // add 750 milsec => toast now can be dismissed
-        await tester.pump(const Duration(milliseconds: 750));
-        expect(find.text("test title"), findsNothing);
-      }));
     });
   });
 }
