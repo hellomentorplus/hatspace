@@ -27,7 +27,7 @@ enum ToastType {
   String _getCloseIcon() {
     switch (this) {
       case ToastType.errorToast:
-        return Assets.images.closeIcon;
+        return Assets.images.closeDark;
     }
   }
 }
