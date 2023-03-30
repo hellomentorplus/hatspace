@@ -26,9 +26,8 @@ void main() {
           const UserRoleSelectedListState([]);
       expect(userRoleSelectedChange.props.length, 0);
 
-      OnChangeUserRoleEvent onChangeUserRoleEvent =  OnChangeUserRoleEvent(0);
+      OnChangeUserRoleEvent onChangeUserRoleEvent = OnChangeUserRoleEvent(0);
       expect(onChangeUserRoleEvent.props.length, 0);
-      
     });
   });
 }

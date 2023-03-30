@@ -22,6 +22,7 @@ extension RoleToDetail on Roles {
     return UserRoleDetail(title, description);
   }
 }
+
 class UserRoleCardView extends StatelessWidget {
   final int position;
   const UserRoleCardView({super.key, required this.position});
@@ -32,7 +33,6 @@ class UserRoleCardView extends StatelessWidget {
 
     return BlocBuilder<ChoosingRoleViewBloc, ChoosingRoleViewState>(
         builder: (context, state) {
-      // print(state); ask Sue
       return InkWell(
           onTap: () {
             context
