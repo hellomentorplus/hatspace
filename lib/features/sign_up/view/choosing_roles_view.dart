@@ -26,7 +26,7 @@ class ChoosingRoleViewBody extends StatelessWidget {
   final bool continueBtnEnabled = false;
   ChoosingRoleViewBody({super.key});
   void _submitRoles(List<Roles> listRoles, BuildContext context) {
-    print(listRoles);
+    //Todo: Submit to create user role in database
   }
 
   @override
