@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/features/sign_up/view_model/choosing_role_view/bloc/choosing_role_view_bloc.dart';
+import 'package:hatspace/features/sign_up/view_model/choosing_role_view/choosing_role_view_bloc.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 

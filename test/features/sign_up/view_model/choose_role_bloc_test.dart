@@ -1,9 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/sign_up/view_model/choosing_role_view/bloc/choosing_role_view_bloc.dart';
+import 'package:hatspace/features/sign_up/view_model/choosing_role_view/choosing_role_view_bloc.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
   group("Test choose role bloc", () {
     setUpAll(() {});
 
@@ -26,7 +25,7 @@ void main() {
           const UserRoleSelectedListState([]);
       expect(userRoleSelectedChange.props.length, 0);
 
-      OnChangeUserRoleEvent onChangeUserRoleEvent = OnChangeUserRoleEvent(0);
+      OnChangeUserRoleEvent onChangeUserRoleEvent = const OnChangeUserRoleEvent(0);
       expect(onChangeUserRoleEvent.props.length, 0);
     });
   });

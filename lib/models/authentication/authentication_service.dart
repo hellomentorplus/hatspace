@@ -10,7 +10,6 @@ class AuthenticationService {
   final GoogleSignIn _googleSignIn;
   final FirebaseAuth _firebaseAuth;
   final FacebookAuth _facebookAuth;
-  final StorageService _storageService;
   AuthenticationService({
     GoogleSignIn? googleSignIn,
     FirebaseAuth? firebaseAuth,
@@ -18,8 +17,7 @@ class AuthenticationService {
     StorageService? storageService,
   })  : _googleSignIn = googleSignIn ?? GoogleSignIn(),
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _facebookAuth = facebookAuth ?? FacebookAuth.instance,
-        _storageService = storageService ?? StorageService();
+        _facebookAuth = facebookAuth ?? FacebookAuth.instance;
   Future<UserDetail> signUpWithGoogle({AuthCredential? authCredential}) async {
     // no login yet, sign in with google now
     try {

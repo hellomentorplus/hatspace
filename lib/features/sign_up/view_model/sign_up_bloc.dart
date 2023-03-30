@@ -66,17 +66,19 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     });
 
     on<CheckUserRolesEvent>((event, emit) async {
-          List<Roles> listRole = [];
-        emit(SignUpStart());
-        // for testing perpurse => delete it when merge
-        listRole = await _storageService.member
-            .getUserRoles(user.uid);
+      // for testing perpurse => delete it when merge
+      try {
+        List<Roles> listRole = [];
+        listRole = await _storageService.member.getUserRoles(user.uid);
         if (listRole.isEmpty) {
           emit(const UserRolesUnavailable());
         } else {
           // Assumption: user already has roles
           emit(const FinishSignUpState());
         }
+      } catch (e) {
+        emit(AuthenticationFailed());
+      }
     });
   }
 }
