@@ -49,7 +49,9 @@ class ToastMessageContainer extends StatelessWidget {
             "Toast title `$toastTitle must not over 160 charaters ");
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Material(
+      type: MaterialType.transparency,
+      child: Container(
         padding: EdgeInsets.all(containerPadding),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
@@ -106,6 +108,8 @@ class ToastMessageContainer extends StatelessWidget {
               ),
             )),
           ],
-        ));
+        ))
+    ) ;
+    
   }
 }
