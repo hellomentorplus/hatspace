@@ -50,66 +50,64 @@ class ToastMessageContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      type: MaterialType.transparency,
-      child: Container(
-        padding: EdgeInsets.all(containerPadding),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-            color: toastType.backgroundColor),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SvgPicture.asset(
-              toastType.icon,
-              width: iconSize,
-              height: iconSize,
-            ),
-            Flexible(
-                child: Padding(
-              padding: EdgeInsets.only(left: containerPadding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+        type: MaterialType.transparency,
+        child: Container(
+            padding: EdgeInsets.all(containerPadding),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: toastType.backgroundColor),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SvgPicture.asset(
+                  toastType.icon,
+                  width: iconSize,
+                  height: iconSize,
+                ),
+                Flexible(
+                    child: Padding(
+                  padding: EdgeInsets.only(left: containerPadding),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Text(
-                          toastTitle,
-                          maxLines: maxLines,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              toastTitle,
+                              maxLines: maxLines,
+                              overflow: TextOverflow.ellipsis,
+                              // TODO: TextStyle-Color need to be updated when new theme released
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14,
+                                color: Color(0xff141414),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                              key: const Key("closeTap"),
+                              onTap: onCloseTap,
+                              child: SvgPicture.asset(
+                                toastType.closeIcon,
+                                width: iconSize,
+                                height: iconSize,
+                              ))
+                        ],
+                      ),
+                      Text(toastContent,
                           overflow: TextOverflow.ellipsis,
+                          maxLines: maxLines,
                           // TODO: TextStyle-Color need to be updated when new theme released
                           style: const TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14,
-                            color: Color(0xff141414),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                          key: const Key("closeTap"),
-                          onTap: onCloseTap,
-                          child: SvgPicture.asset(
-                            toastType.closeIcon,
-                            width: iconSize,
-                            height: iconSize,
-                          ))
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: Color(0xff383838))),
                     ],
                   ),
-                  Text(toastContent,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: maxLines,
-                      // TODO: TextStyle-Color need to be updated when new theme released
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: Color(0xff383838))),
-                ],
-              ),
-            )),
-          ],
-        ))
-    ) ;
-    
+                )),
+              ],
+            )));
   }
 }
