@@ -14,11 +14,11 @@ const isFirstLaunchConst = "isFirstLaunch";
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;
-  //  final StorageService _storageService;
+  final StorageService _storageService;
   SignUpBloc()
       : _authenticationService =
             HsSingleton.singleton.get<AuthenticationService>(),
-          // _storageService = HsSingleton.singleton.get<StorageService>(),
+        _storageService = HsSingleton.singleton.get<StorageService>(),
         super(const SignUpInitial()) {
     on<CheckFirstLaunchSignUp>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -49,23 +49,32 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     on<SignUpWithFacebook>((event, emit) async {
       try {
+        emit(SignUpStart());
+        //user = await _authenticationService.signUpWithFacebook();
+        // for testing perpurse => delete it when merge
+        List<Roles> listRole = [];
+        listRole = await _storageService.member
+            .getUserRoles("VIzX1mqjk8XEZW9yH38pYtxGiP93");
+        if (listRole.isEmpty) {
+          emit(const UserRolesUnavailable());
+        } else {
+          // Assumption: user already has roles
+          emit(const SignUpSuccess());
+        }
+
+        //  emit(SignUpStart());
+        // await _authenticationService.signUpWithFacebook();
+        // emit(const SignUpSuccess());
+
+        // final List<Roles> listRoles;
         // emit(SignUpStart());
-        // //user = await _authenticationService.signUpWithFacebook();
-        // // for testing perpurse => delete it when merge
-        // List<Roles>  listRole= [];
-        // // final List<Roles> listRole = await _storageService.member
-        // //     .getUserRoles("VIzX1mqjk8XEZW9yH38pYtxGiP93");
-        // if (listRole.isEmpty) {
-        //   emit( const UserRolesUnavailable());
-        // } else {
-        //   // Assumption: user already has roles
+        // UserDetail user  = await _authenticationService.signUpWithFacebook();
+        // listRoles = await _storageService.member.getUserRoles(user.uid);
+        // if(listRoles.isNotEmpty){
         //   emit(const SignUpSuccess());
+        // }else{
+        //   emit(const UserRolesUnavailable());
         // }
-
-         emit(SignUpStart());
-        await _authenticationService.signUpWithFacebook();
-        emit(const SignUpSuccess());
-
       } on UserCancelException {
         emit(UserCancelled());
       } on UserNotFoundException {
@@ -76,5 +85,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         emit(AuthenticationFailed());
       }
     });
+
+    on<CheckUserRolesEvent>((event, emit) {});
   }
 }

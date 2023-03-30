@@ -5,6 +5,7 @@ import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -12,14 +13,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'sign_up_bloc_test.mocks.dart';
 
-@GenerateMocks([AuthenticationService])
+@GenerateMocks([AuthenticationService, StorageService])
 void main() {
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
-
+  final MockStorageService storageService = MockStorageService();
   setUpAll(() {
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationService);
+    HsSingleton.singleton.registerSingleton<StorageService>(storageService);
   });
 
   TestWidgetsFlutterBinding.ensureInitialized();

@@ -15,25 +15,24 @@ class ChoosingRolesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChoosingRoleViewBloc>(
-       create: (context) => ChoosingRoleViewBloc(),
-       child: ChoosingRoleViewBody(),
-      );
+      create: (context) => ChoosingRoleViewBloc(),
+      child: ChoosingRoleViewBody(),
+    );
   }
 }
 
 class ChoosingRoleViewBody extends StatelessWidget {
   final List<Roles> listRole = [];
   final bool continueBtnEnabled = false;
-
   ChoosingRoleViewBody({super.key});
-  void _submitRoles() {
-    //print("abc");
+  void _submitRoles(List<Roles> listRoles, BuildContext context) {
+    print(listRoles);
   }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return BlocBuilder<ChoosingRoleViewBloc,ChoosingRoleViewState>(
+    return BlocBuilder<ChoosingRoleViewBloc, ChoosingRoleViewState>(
         builder: (context, state) {
       return Scaffold(
           appBar: AppBar(
@@ -94,7 +93,7 @@ class ChoosingRoleViewBody extends StatelessWidget {
                     onPressed: state is UserRoleSelectedListState
                         ? state.listRole.isNotEmpty
                             ? () {
-                                _submitRoles();
+                                _submitRoles(state.props, context);
                               }
                             : null
                         : null,

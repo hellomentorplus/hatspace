@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:hatspace/models/storage/storage_service.dart';
 import '../../data/data.dart';
 import 'authentication_exception.dart';
 
@@ -9,13 +10,16 @@ class AuthenticationService {
   final GoogleSignIn _googleSignIn;
   final FirebaseAuth _firebaseAuth;
   final FacebookAuth _facebookAuth;
+  final StorageService _storageService;
   AuthenticationService({
     GoogleSignIn? googleSignIn,
     FirebaseAuth? firebaseAuth,
     FacebookAuth? facebookAuth,
+    StorageService? storageService,
   })  : _googleSignIn = googleSignIn ?? GoogleSignIn(),
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _facebookAuth = facebookAuth ?? FacebookAuth.instance;
+        _facebookAuth = facebookAuth ?? FacebookAuth.instance,
+        _storageService = storageService ?? StorageService();
   Future<UserDetail> signUpWithGoogle({AuthCredential? authCredential}) async {
     // no login yet, sign in with google now
     try {
@@ -67,6 +71,7 @@ class AuthenticationService {
         default:
           throw (Exception);
       }
+      if (user != null) {}
       return UserDetail(
           uid: user!.uid, email: user.email, phone: user.phoneNumber);
     } on UserCancelException catch (_) {
