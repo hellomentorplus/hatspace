@@ -1,10 +1,12 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
@@ -13,15 +15,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'sign_up_bloc_test.mocks.dart';
 
-@GenerateMocks([AuthenticationService, StorageService])
+@GenerateMocks([AuthenticationService,
+StorageService,
+MemberService,
+FirebaseFirestore
+])
 void main() {
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
   final MockStorageService storageService = MockStorageService();
+  // final MockFirebaseFirestore firebaseFirestoreMock =MockFirebaseFirestore();
+  final MockMemberService memberServiceMock = MockMemberService();
   setUpAll(() {
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationService);
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
+
   });
 
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -122,6 +131,22 @@ void main() {
         act: (bloc) => bloc.add(const SignUpWithFacebook()),
         expect: () => [isA<SignUpStart>(), isA<SignUpSuccess>()]);
   });
+
+  blocTest('when gign up with facebook auth success and alread have user role, then return SignUpSuccess',
+    build: ()=> SignUpBloc(),
+    setUp: (){
+        when(authenticationService.signUpWithFacebook())
+              .thenAnswer((realInvocation) {
+            return Future.value(
+                UserDetail(uid: 'uid', phone: 'phone', email: 'email'));
+          });
+        when(storageService.member.getUserRoles("uid")).thenAnswer((realInvocation) => 
+            Future(() => [Roles.tenant])       
+          );
+    },
+    act: (bloc) => bloc.add(const SignUpWithFacebook()),
+    expect: () => [isA<SignUpStart>(), isA<SignUpSuccess>()]
+  );
 
   blocTest("when sign up with facebook with canceled response",
       build: () => SignUpBloc(),

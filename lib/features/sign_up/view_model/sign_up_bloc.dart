@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hatspace/data/data.dart';
@@ -15,6 +16,7 @@ const isFirstLaunchConst = "isFirstLaunch";
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;
   final StorageService _storageService;
+  late UserDetail user;
   SignUpBloc()
       : _authenticationService =
             HsSingleton.singleton.get<AuthenticationService>(),
@@ -49,32 +51,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     on<SignUpWithFacebook>((event, emit) async {
       try {
-        List<Roles> listRole = [];
         emit(SignUpStart());
-        UserDetail user = await _authenticationService.signUpWithFacebook();
-        // for testing perpurse => delete it when merge
-        listRole = await _storageService.member
-            .getUserRoles(user.uid);
-        if (listRole.isEmpty) {
-          emit(const UserRolesUnavailable());
-        } else {
-          // Assumption: user already has roles
-          emit(const SignUpSuccess());
-        }
-
-        //  emit(SignUpStart());
-        // await _authenticationService.signUpWithFacebook();
-        // emit(const SignUpSuccess());
-
-        // final List<Roles> listRoles;
-        // emit(SignUpStart());
-        // UserDetail user  = await _authenticationService.signUpWithFacebook();
-        // listRoles = await _storageService.member.getUserRoles(user.uid);
-        // if(listRoles.isNotEmpty){
-        //   emit(const SignUpSuccess());
-        // }else{
-        //   emit(const UserRolesUnavailable());
-        // }
+        user = await _authenticationService.signUpWithFacebook();
+        emit(const SignUpSuccess());
       } on UserCancelException {
         emit(UserCancelled());
       } on UserNotFoundException {
@@ -86,6 +65,18 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       }
     });
 
-    on<CheckUserRolesEvent>((event, emit) {});
+    on<CheckUserRolesEvent>((event, emit) async {
+          List<Roles> listRole = [];
+        emit(SignUpStart());
+        // for testing perpurse => delete it when merge
+        listRole = await _storageService.member
+            .getUserRoles(user.uid);
+        if (listRole.isEmpty) {
+          emit(const UserRolesUnavailable());
+        } else {
+          // Assumption: user already has roles
+          emit(const FinishSignUpState());
+        }
+    });
   }
 }

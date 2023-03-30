@@ -28,7 +28,7 @@ class SignUpScreen extends StatelessWidget {
 
           if (state is SignUpSuccess) {
             // dismiss this page and return to home
-            context.pop();
+            context.read<SignUpBloc>().add(const CheckUserRolesEvent());
           }
 
           if (state is UserCancelled || state is AuthenticationFailed) {
@@ -39,6 +39,9 @@ class SignUpScreen extends StatelessWidget {
           }
           if (state is UserRolesUnavailable) {
             context.goToChooseRole();
+          }
+          if(state is FinishSignUpState){
+            context.pop();
           }
         },
         child: Scaffold(
