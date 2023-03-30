@@ -49,12 +49,12 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     on<SignUpWithFacebook>((event, emit) async {
       try {
-        emit(SignUpStart());
-        //user = await _authenticationService.signUpWithFacebook();
-        // for testing perpurse => delete it when merge
         List<Roles> listRole = [];
+        emit(SignUpStart());
+        UserDetail user = await _authenticationService.signUpWithFacebook();
+        // for testing perpurse => delete it when merge
         listRole = await _storageService.member
-            .getUserRoles("VIzX1mqjk8XEZW9yH38pYtxGiP93");
+            .getUserRoles(user.uid);
         if (listRole.isEmpty) {
           emit(const UserRolesUnavailable());
         } else {
