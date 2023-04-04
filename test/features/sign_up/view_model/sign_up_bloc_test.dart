@@ -6,28 +6,33 @@ import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
-import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'sign_up_bloc_test.mocks.dart';
-@GenerateMocks(
-    [AuthenticationService, StorageService, MemberService, FirebaseFirestore])
-void main() {
+
+@GenerateMocks([
+  AuthenticationService,
+  StorageService,
+  FirebaseFirestore,
+  CollectionReference,
+  DocumentReference,
+  DocumentSnapshot
+])
+void main() async {
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
-  final MockStorageService storageService = MockStorageService();
-  setUpAll(() {
+  final MockStorageService storageServiceMock = MockStorageService();
+  final MockMemberService memberService = MockMemberService();
+  setUpAll(() async {
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationService);
-    HsSingleton.singleton.registerSingleton<StorageService>(storageService);
+    HsSingleton.singleton.registerSingleton<StorageService>(storageServiceMock);
   });
-
   TestWidgetsFlutterBinding.ensureInitialized();
-  // setupFirebaseCoreMocks(); // Not relate to HS 51 - Need to add to perform test coverage
+  //setupFirebaseAuthMocks(); // Not relate to HS 51 - Need to add to perform test coverage
   group("Sign_up_bloc test state", () {
     late SignUpBloc signUpBloc;
     setUpAll(() async {
@@ -110,7 +115,9 @@ void main() {
       act: (bloc) => bloc.add(const SignUpWithGoogle()),
       expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()],
     );
+  });
 
+  group('test sign up with facebook', () {
     //FACEBOOK bloc test
     blocTest('when sign up with facebook success, then return SignUpSuccess',
         build: () => SignUpBloc(),
@@ -123,33 +130,60 @@ void main() {
         },
         act: (bloc) => bloc.add(const SignUpWithFacebook()),
         expect: () => [isA<SignUpStart>(), isA<SignUpSuccess>()]);
+    blocTest("when sign up with facebook with canceled response",
+        build: () => SignUpBloc(),
+        setUp: () => when(authenticationService.signUpWithFacebook())
+            .thenThrow(UserCancelException()),
+        act: (bloc) => bloc.add(const SignUpWithFacebook()),
+        expect: () => [isA<SignUpStart>(), isA<UserCancelled>()]);
+
+    blocTest("when sign up with facebook with canceled response",
+        build: () => SignUpBloc(),
+        setUp: () => when(authenticationService.signUpWithFacebook())
+            .thenThrow(UserNotFoundException()),
+        act: (bloc) => bloc.add(const SignUpWithFacebook()),
+        expect: () => [isA<SignUpStart>(), isA<UserCancelled>()]);
+
+    blocTest("when sign up with facebook with canceled response",
+        build: () => SignUpBloc(),
+        setUp: () => when(authenticationService.signUpWithFacebook())
+            .thenThrow(AuthenticationFailed()),
+        act: (bloc) => bloc.add(const SignUpWithFacebook()),
+        expect: () => [isA<SignUpStart>(), isA<UserCancelled>()]);
   });
-
-
-  blocTest("when sign up with facebook with canceled response",
-      build: () => SignUpBloc(),
-      setUp: () => when(authenticationService.signUpWithFacebook())
-          .thenThrow(UserCancelException()),
-      act: (bloc) => bloc.add(const SignUpWithFacebook()),
-      expect: () => [isA<SignUpStart>(), isA<UserCancelled>()]);
-
-  blocTest("when sign up with facebook with canceled response",
-      build: () => SignUpBloc(),
-      setUp: () => when(authenticationService.signUpWithFacebook())
-          .thenThrow(UserNotFoundException()),
-      act: (bloc) => bloc.add(const SignUpWithFacebook()),
-      expect: () => [isA<SignUpStart>(), isA<UserCancelled>()]);
-  blocTest("when sign up with facebook with canceled response",
-      build: () => SignUpBloc(),
-      setUp: () => when(authenticationService.signUpWithFacebook())
-          .thenThrow(AuthenticationFailed()),
-      act: (bloc) => bloc.add(const SignUpWithFacebook()),
-      expect: () => [isA<SignUpStart>(), isA<UserCancelled>()]);
 
   // blocTest("when login failed, then refactor sign up state ",
   //     build: () => SignUpBloc(),
   //     act: (bloc) => bloc.add(const RetrySignUp()),
   //     expect: () => [isA<RetryingSignUpState>()]);
+
+  blocTest(
+    "when user already have role",
+    build: () => SignUpBloc(),
+    setUp: () {
+      when(storageServiceMock.member).thenAnswer((realInvocation) {
+        return memberService;
+      });
+      when(memberService.getUserRoles(any)).thenAnswer((realInvocation) {
+        return Future.value([Roles.tenant]);
+      });
+    },
+    act: (bloc) => bloc.add(const CheckUserRolesEvent()),
+    expect: () => [isA<UserRolesAvailable>()],
+  );
+
+  blocTest("when user does not have any roles",
+      build: () => SignUpBloc(),
+      setUp: () {
+        when(storageServiceMock.member).thenAnswer((realInvocation) {
+          return memberService;
+        });
+        when(memberService.getUserRoles(any)).thenAnswer((realInvocation) {
+          return Future.value([]);
+        });
+      },
+      act: (bloc) => bloc.add(const CheckUserRolesEvent()),
+      expect: () => [isA<UserRolesUnavailable>()]);
   test('test state and event', () {
     CheckFirstLaunchSignUp firstLaunchSignUp = const CheckFirstLaunchSignUp();
 
@@ -179,6 +213,6 @@ void main() {
     expect(userRolesUnavailable.props.length, 0);
 
     UserRolesAvailable userRolesAvailable = const UserRolesAvailable();
-    expect(userRolesAvailable.props.length, 0); 
+    expect(userRolesAvailable.props.length, 0);
   });
 }

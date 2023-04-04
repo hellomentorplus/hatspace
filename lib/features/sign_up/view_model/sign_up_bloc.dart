@@ -15,11 +15,14 @@ const isFirstLaunchConst = "isFirstLaunch";
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;
   final StorageService _storageService;
-  late UserDetail user;
+  UserDetail user;
+  // final MemberService _memberService;
   SignUpBloc()
       : _authenticationService =
             HsSingleton.singleton.get<AuthenticationService>(),
         _storageService = HsSingleton.singleton.get<StorageService>(),
+        user = UserDetail(uid: "initial"),
+        // _memberService = StorageService().member ,
         super(const SignUpInitial()) {
     on<CheckFirstLaunchSignUp>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -65,7 +68,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     });
 
     on<CheckUserRolesEvent>((event, emit) async {
-      // for testing perpurse => delete it when merge
       try {
         List<Roles> listRole = [];
         listRole = await _storageService.member.getUserRoles(user.uid);
