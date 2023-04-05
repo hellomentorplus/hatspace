@@ -9,18 +9,6 @@ abstract class ChooseRoleViewState extends Equatable {
 
 class ChooseRoleViewInitial extends ChooseRoleViewState {}
 
-
-class UserRoleCardViewInitial extends ChooseRoleViewState {
-  const UserRoleCardViewInitial();
-}
-
-class SelectRoleState extends ChooseRoleViewState {
-  const SelectRoleState();
-
-  @override
-  List<Object> get props => [];
-}
-
 class StartListenRoleChange extends ChooseRoleViewState {
   const StartListenRoleChange();
   @override
