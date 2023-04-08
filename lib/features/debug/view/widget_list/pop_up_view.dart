@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hatspace/theme/pop_up/pop_up_controller.dart';
 
 Animatable<Color?> bgColor = TweenSequence<Color?>([
   TweenSequenceItem(
@@ -41,6 +42,7 @@ class _ProgressIndicatorExampleState extends State<PopupView>
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,37 +54,7 @@ class _ProgressIndicatorExampleState extends State<PopupView>
             vsync: this,
           );
           controller.repeat();
-          showDialog<String>(
-            barrierDismissible: false,
-            context: context,
-            builder: (BuildContext context) => Dialog(
-              child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AnimatedBuilder(
-                    animation: controller,
-                    builder: (context, child) {
-                      return  CircularProgressIndicator(
-                        backgroundColor:Color.fromARGB(124, 151, 151, 151) ,
-                        value: controller.value,
-                        strokeWidth: 5,
-                        valueColor: controller.drive(ColorTween(
-                            begin: const Color.fromARGB(255, 50, 168, 84),
-                            end: const Color.fromARGB(125, 50, 168, 84))),
-                      );
-                    },
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                const Text("Loading...")
-              ],
-       
-              )
-               ),
-          ).then((value) {
-            controller.dispose();
-          });
+          context.showLoading();
         },
         child: const Text('Show Dialog'),
       ),

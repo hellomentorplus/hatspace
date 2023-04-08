@@ -10,7 +10,7 @@ class WidgetCatalogScreen extends StatelessWidget {
     ItemList("Core Button", CoreButtonView()),
     // TODO: ADD Toast Message View to show all toast message
     ItemList("Toast Message", const ToastMessageViews()),
-    ItemList("Pop Up Process",  PopupView())
+    ItemList("Pop Up Process", const PopupView())
   ];
   @override
   Widget build(BuildContext context) {
