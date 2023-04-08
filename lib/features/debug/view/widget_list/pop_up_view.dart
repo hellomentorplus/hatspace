@@ -1,102 +1,67 @@
 import 'package:flutter/material.dart';
 
-class PopupView extends StatelessWidget {
+class PopupView extends StatefulWidget {
   const PopupView({super.key});
+
+  @override
+  State<PopupView> createState() => _ProgressIndicatorExampleState();
+}
+
+class _ProgressIndicatorExampleState extends State<PopupView>
+    with TickerProviderStateMixin {
+  late AnimationController controller;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child:  TextButton(
-      onPressed: () => showDialog<String>(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) =>  AlertDialog(
-          iconPadding: EdgeInsets.all(40.0),
-          icon:  Column(
+        body: Center(
+      child: TextButton(
+        onPressed: () {
+          controller = AnimationController(
+            duration: const Duration(seconds: 1),
+            vsync: this,
+          );
+          controller.repeat();
+          showDialog<String>(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Center(
+                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularProgressIndicator(),
-                Text("Loading...")
+                AnimatedBuilder(
+                    animation: controller,
+                    builder: (context, child) {
+                      return CircularProgressIndicator(
+                        value: controller.value,
+                        strokeWidth: 10,
+                        valueColor: controller.drive(ColorTween(
+                            begin: const Color.fromARGB(255, 50, 168, 84),
+                            end: const Color.fromARGB(125, 50, 168, 84))),
+                      );
+                    },
+                ),
+                const Text("Loading...")
               ],
-            
-          ),
-          // actions: <Widget>[
-
-          //   const CircularProgressIndicator(
-             
-          //   ),
-          //   TextButton(
-          //     onPressed: () => Navigator.pop(context, 'Cancel'),
-          //     child: const Text('Cancel'),
-          //   ),
-          // ],
-        ),
+            )
+              )
+               ),
+          ).then((value) => controller.dispose());
+        },
+        child: const Text('Show Dialog'),
       ),
-      child: const Text('Show Dialog'),
-    ),
-      )
-    );
+    ));
   }
 }
 
-
-// class ProgressIndicatorExample extends StatefulWidget {
-//   const ProgressIndicatorExample({super.key});
-
-//   @override
-//   State<ProgressIndicatorExample> createState() =>
-//       _ProgressIndicatorExampleState();
-// }
-
-// class _ProgressIndicatorExampleState extends State<ProgressIndicatorExample>
-//     with TickerProviderStateMixin {
-//   late AnimationController controller;
-//   bool determinate = false;
-
-//   @override
-//   void initState() {
-//     controller = AnimationController(
-//       /// [AnimationController]s can be created with `vsync: this` because of
-//       /// [TickerProviderStateMixin].
-//       vsync: this,
-//       duration: const Duration(seconds: 2),
-//     )..addListener(() {
-//         setState(() {});
-//       });
-//     controller.repeat();
-//     super.initState();
-//   }
-
-//   @override
-//   void dispose() {
-//     controller.dispose();
-//     super.dispose();
-//   }
-  
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: implement build
-//     return Scaffold(
-//       body: Center(
-//         child:  TextButton(
-//       onPressed: () => showDialog<String>(
-//         context: context,
-//         builder: (BuildContext context) => Dialog(
-//           child: 
-//               Center(
-//                 child:     CircularProgressIndicator(
-//               value: controller.value,
-//               // semanticsLabel: 'Circular progress indicator',
-//             ),
-//               )
-      
-//         ),
-//       ),
-//       child: const Text('Show Dialog'),
-//     ),
-//       )
-//     );
-//   }
-  
-//   }
