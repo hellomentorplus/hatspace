@@ -1,11 +1,10 @@
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_view_event.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
 
-part 'choose_role_view_event.dart';
-part 'choose_role_view_state.dart';
-
-class ChooseRoleViewBloc extends Bloc<ChooseRoleViewEvent, ChooseRoleViewState> {
+class ChooseRoleViewBloc
+    extends Bloc<ChooseRoleViewEvent, ChooseRoleViewState> {
   ChooseRoleViewBloc() : super(ChooseRoleViewInitial()) {
     on<ChooseRoleViewEvent>((event, emit) {
       // TODO: implement event handler
@@ -13,7 +12,7 @@ class ChooseRoleViewBloc extends Bloc<ChooseRoleViewEvent, ChooseRoleViewState> 
 
     final List<Roles> listRoles = [];
     on<OnChangeUserRoleEvent>((event, emit) {
-       emit(const StartListenRoleChange());
+      emit(const StartListenRoleChange());
       if (listRoles.contains(Roles.values[event.position])) {
         listRoles.remove(Roles.values[event.position]);
       } else {

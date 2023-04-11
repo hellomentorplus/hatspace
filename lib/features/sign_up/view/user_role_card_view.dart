@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view/choose_role_view_bloc.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_view_event.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
@@ -22,6 +24,7 @@ extension RoleToDetail on Roles {
     return UserRoleDetail(title, description);
   }
 }
+
 class UserRoleCardView extends StatelessWidget {
   final int position;
   const UserRoleCardView({super.key, required this.position});

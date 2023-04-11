@@ -1,8 +1,9 @@
-part of 'choose_role_view_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:hatspace/data/data.dart';
 
 abstract class ChooseRoleViewState extends Equatable {
   const ChooseRoleViewState();
-  
+
   @override
   List<Object> get props => [];
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view/choose_role_view_bloc.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -15,9 +16,9 @@ class ChoosingRolesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChooseRoleViewBloc>(
-       create: (context) => ChooseRoleViewBloc(),
-       child: ChoosingRoleViewBody(),
-      );
+      create: (context) => ChooseRoleViewBloc(),
+      child: ChoosingRoleViewBody(),
+    );
   }
 }
 
@@ -33,7 +34,7 @@ class ChoosingRoleViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return BlocBuilder<ChooseRoleViewBloc,ChooseRoleViewState>(
+    return BlocBuilder<ChooseRoleViewBloc, ChooseRoleViewState>(
         builder: (context, state) {
       return Scaffold(
           appBar: AppBar(
