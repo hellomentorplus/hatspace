@@ -252,10 +252,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Unable to sign you in at the moment. Please try again later`
+  /// `Unable to sign you in at the moment. Please try again later.`
   String get signinErrorToastMessage {
     return Intl.message(
-      'Unable to sign you in at the moment. Please try again later',
+      'Unable to sign you in at the moment. Please try again later.',
       name: 'signinErrorToastMessage',
       desc: '',
       args: [],
