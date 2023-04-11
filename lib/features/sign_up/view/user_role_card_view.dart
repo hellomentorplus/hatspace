@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/features/sign_up/view_model/choosing_role_view_bloc.dart';
-import 'package:hatspace/features/sign_up/view_model/choosing_role_view_event.dart';
-import 'package:hatspace/features/sign_up/view_model/choosing_role_view_state.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_view_event.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
@@ -33,12 +33,13 @@ class UserRoleCardView extends StatelessWidget {
     UserRoleDetail userRoleDetail =
         Roles.values[position].toUserRoleDetail(context);
 
-    return BlocBuilder<ChoosingRoleViewBloc, ChoosingRoleViewState>(
+    return BlocBuilder<ChooseRoleViewBloc, ChooseRoleViewState>(
         builder: (context, state) {
+      // print(state); ask Sue
       return InkWell(
           onTap: () {
             context
-                .read<ChoosingRoleViewBloc>()
+                .read<ChooseRoleViewBloc>()
                 .add(OnChangeUserRoleEvent(position));
           },
           child: Card(

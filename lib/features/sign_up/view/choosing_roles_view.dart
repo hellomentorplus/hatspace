@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/features/sign_up/view_model/choosing_role_view_bloc.dart';
-import 'package:hatspace/features/sign_up/view_model/choosing_role_view_state.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -15,8 +15,8 @@ class ChoosingRolesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ChoosingRoleViewBloc>(
-      create: (context) => ChoosingRoleViewBloc(),
+    return BlocProvider<ChooseRoleViewBloc>(
+      create: (context) => ChooseRoleViewBloc(),
       child: ChoosingRoleViewBody(),
     );
   }
@@ -25,15 +25,16 @@ class ChoosingRolesView extends StatelessWidget {
 class ChoosingRoleViewBody extends StatelessWidget {
   final List<Roles> listRole = [];
   final bool continueBtnEnabled = false;
+
   ChoosingRoleViewBody({super.key});
-  void _submitRoles(List<Roles> listRoles, BuildContext context) {
-    //Todo: Submit to create user role in database
+  void _submitRoles() {
+    //print("abc");
   }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return BlocBuilder<ChoosingRoleViewBloc, ChoosingRoleViewState>(
+    return BlocBuilder<ChooseRoleViewBloc, ChooseRoleViewState>(
         builder: (context, state) {
       return Scaffold(
           appBar: AppBar(
@@ -94,7 +95,7 @@ class ChoosingRoleViewBody extends StatelessWidget {
                     onPressed: state is UserRoleSelectedListState
                         ? state.listRole.isNotEmpty
                             ? () {
-                                _submitRoles(state.props, context);
+                                _submitRoles();
                               }
                             : null
                         : null,
