@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
-import '../../data/data.dart';
 import 'authentication_exception.dart';
 
 class AuthenticationService {

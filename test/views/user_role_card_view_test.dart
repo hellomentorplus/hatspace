@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/sign_up/view/user_role_card_view.dart';
-import 'package:hatspace/features/sign_up/view_model/choosing_role_view/choosing_role_view_bloc.dart';
+import 'package:hatspace/features/sign_up/view_model/choosing_role_view_bloc.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 import '../widget_tester_extension.dart';
