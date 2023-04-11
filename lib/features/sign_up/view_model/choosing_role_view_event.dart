@@ -1,4 +1,4 @@
-part of 'choosing_role_view_bloc.dart';
+import 'package:equatable/equatable.dart';
 
 abstract class ChoosingRoleViewEvent extends Equatable {
   const ChoosingRoleViewEvent();
