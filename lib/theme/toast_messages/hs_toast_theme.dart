@@ -28,7 +28,6 @@ enum ToastType {
     switch (this) {
       case ToastType.errorToast:
         return Assets.images.closeDark;
-        return Assets.images.closeDark;
     }
   }
 }
