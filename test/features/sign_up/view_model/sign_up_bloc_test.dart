@@ -6,6 +6,7 @@ import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
@@ -19,7 +20,8 @@ import 'sign_up_bloc_test.mocks.dart';
   FirebaseFirestore,
   CollectionReference,
   DocumentReference,
-  DocumentSnapshot
+  DocumentSnapshot,
+  MemberService
 ])
 void main() async {
   final MockAuthenticationService authenticationService =
