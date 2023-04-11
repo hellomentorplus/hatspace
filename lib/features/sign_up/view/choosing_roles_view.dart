@@ -8,7 +8,6 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
-
 import 'user_role_card_view.dart';
 
 class ChoosingRolesView extends StatelessWidget {
@@ -29,7 +28,6 @@ class ChoosingRoleViewBody extends StatelessWidget {
   ChoosingRoleViewBody({super.key});
   void _submitRoles(List<Roles> listRoles, BuildContext context) {
     //Todo: Submit to create user role in database
-    print(listRoles);
   }
 
   @override
