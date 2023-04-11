@@ -74,10 +74,9 @@ class SignUpScreen extends StatelessWidget {
                           label: HatSpaceStrings.of(context).facebookSignUp,
                           iconURL: Assets.images.facebookround,
                           onPressed: () {
-                            // context
-                            //     .read<SignUpBloc>()
-                            //     .add(const SignUpWithFacebook());
-                            context.goToChooseRole();
+                            context
+                                .read<SignUpBloc>()
+                                .add(const SignUpWithFacebook());
                           },
                         )),
                     Padding(
