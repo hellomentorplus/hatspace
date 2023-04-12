@@ -10,7 +10,7 @@ class ChooseRoleViewBloc
       // TODO: implement event handler
     });
 
-    final List<Roles> listRoles = [];
+    final Set<Roles> listRoles = {};
     on<OnChangeUserRoleEvent>((event, emit) {
       emit(const StartListenRoleChange());
       if (listRoles.contains(Roles.values[event.position])) {

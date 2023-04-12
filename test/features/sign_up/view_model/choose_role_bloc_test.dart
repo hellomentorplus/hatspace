@@ -28,7 +28,7 @@ void main() {
       expect(startListenRoleChange.props.length, 0);
 
       UserRoleSelectedListState userRoleSelectedChange =
-          const UserRoleSelectedListState([]);
+          const UserRoleSelectedListState({});
       expect(userRoleSelectedChange.props.length, 0);
 
       OnChangeUserRoleEvent onChangeUserRoleEvent =
