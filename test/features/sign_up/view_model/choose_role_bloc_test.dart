@@ -34,7 +34,6 @@ void main() {
       OnChangeUserRoleEvent onChangeUserRoleEvent =
           const OnChangeUserRoleEvent(0);
       expect(onChangeUserRoleEvent.props.length, 0);
-      
     });
   });
 }
