@@ -34,8 +34,10 @@ class ChoosingRoleViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return BlocBuilder<ChooseRoleViewBloc, ChooseRoleViewState>(
-        builder: (context, state) {
+    return BlocConsumer<ChooseRoleViewBloc, ChooseRoleViewState>(
+        listener: (context, state) {
+      // TODO: listen Success State
+    }, builder: (context, state) {
       return Scaffold(
           appBar: AppBar(
             elevation: 0,
