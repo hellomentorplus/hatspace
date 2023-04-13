@@ -40,7 +40,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<SignUpWithGoogle>((event, emit) async {
       try {
         emit(SignUpStart());
-        await _authenticationService.signUpWithGoogle();
+        user = await _authenticationService.signUpWithGoogle();
         emit(const SignUpSuccess());
       } on UserCancelException {
         emit(UserCancelled());
