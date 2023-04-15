@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
 import 'package:hatspace/route/router.dart';
@@ -17,19 +16,13 @@ class ChoosingRolesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ChooseRoleViewBloc>(
       create: (context) => ChooseRoleViewBloc(),
-      child: ChoosingRoleViewBody(),
+      child:const ChoosingRoleViewBody(),
     );
   }
 }
 
 class ChoosingRoleViewBody extends StatelessWidget {
-  final List<Roles> listRole = [];
-  final bool continueBtnEnabled = false;
-
-  ChoosingRoleViewBody({super.key});
-  void _submitRoles() {
-    //print("abc");
-  }
+  const ChoosingRoleViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +88,7 @@ class ChoosingRoleViewBody extends StatelessWidget {
                     onPressed: state is UserRoleSelectedListState
                         ? state.listRole.isNotEmpty
                             ? () {
-                                _submitRoles();
+                                // Todo: Add Submit Event
                               }
                             : null
                         : null,

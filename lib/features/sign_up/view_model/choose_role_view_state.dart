@@ -17,8 +17,8 @@ class StartListenRoleChange extends ChooseRoleViewState {
 }
 
 class UserRoleSelectedListState extends ChooseRoleViewState {
-  final List<Roles> listRole;
+  final Set<Roles> listRole;
   const UserRoleSelectedListState(this.listRole);
   @override
-  List<Roles> get props => listRole;
+  List<Object> get props => [listRole];
 }
