@@ -18,7 +18,6 @@ class ChooseRoleViewBloc
       } else {
         listRoles.add(Roles.values[event.position]);
       }
-      print(listRoles);
       emit(UserRoleSelectedListState(listRoles));
     });
   }

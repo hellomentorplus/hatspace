@@ -16,7 +16,7 @@ class ChoosingRolesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ChooseRoleViewBloc>(
       create: (context) => ChooseRoleViewBloc(),
-      child:const ChoosingRoleViewBody(),
+      child: const ChoosingRoleViewBody(),
     );
   }
 }
