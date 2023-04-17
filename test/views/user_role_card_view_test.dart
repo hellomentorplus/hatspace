@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/sign_up/view/user_role_card_view.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 import '../widget_tester_extension.dart';
 
 void main() {
   testWidgets('Check widgets on screen', (WidgetTester tester) async {
-    final widget = UserRoleCardView(position: 1, onChanged: (_) => {true});
+    const widget = UserRoleCardView(position: 1);
 
-    await tester.wrapAndPump(widget);
+    await tester.blocWrapAndPump(ChooseRoleViewBloc(), widget);
 
     InkWell inkWell = tester.widget(find.byType(InkWell));
     expect(inkWell.onTap, isNotNull);
