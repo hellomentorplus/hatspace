@@ -23,18 +23,19 @@ class ChoosingRolesView extends StatelessWidget {
 
 class ChoosingRoleViewBody extends StatelessWidget {
   const ChoosingRoleViewBody({super.key});
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return BlocBuilder<ChooseRoleViewBloc, ChooseRoleViewState>(
-        builder: (context, state) {
+    return BlocConsumer<ChooseRoleViewBloc, ChooseRoleViewState>(
+        listener: (context, state) {
+      // TODO: listen Success State
+    }, builder: (context, state) {
       return Scaffold(
           appBar: AppBar(
             elevation: 0,
             backgroundColor: HSColor.background,
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
+              icon: const Icon(Icons.arrow_back, color: HSColor.onSurface),
               onPressed: () => {},
             ),
             bottom: PreferredSize(
@@ -88,7 +89,7 @@ class ChoosingRoleViewBody extends StatelessWidget {
                     onPressed: state is UserRoleSelectedListState
                         ? state.listRole.isNotEmpty
                             ? () {
-                                // Todo: Add Submit Event
+                                // Todo: Add Submit event
                               }
                             : null
                         : null,
