@@ -27,7 +27,7 @@ enum ToastType {
   String _getCloseIcon() {
     switch (this) {
       case ToastType.errorToast:
-        return Assets.images.closeIcon;
+        return Assets.images.closeDark;
     }
   }
 }
@@ -36,76 +36,78 @@ class ToastMessageContainer extends StatelessWidget {
   final ToastType toastType;
   final String toastTitle;
   final String toastContent;
-  const ToastMessageContainer({
-    super.key,
-    required this.toastType,
-    required this.toastTitle,
-    required this.toastContent,
-  })  : assert(toastContent.length <= maxLength,
+  final VoidCallback? onCloseTap;
+  const ToastMessageContainer(
+      {super.key,
+      required this.toastType,
+      required this.toastTitle,
+      required this.toastContent,
+      this.onCloseTap})
+      : assert(toastContent.length <= maxLength,
             "Toast content from `$toastContent` must not over 160 characters"),
         assert(toastTitle.length <= maxLength,
             "Toast title `$toastTitle must not over 160 charaters ");
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.all(containerPadding),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-            color: toastType.backgroundColor),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SvgPicture.asset(
-              toastType.icon,
-              width: iconSize,
-              height: iconSize,
-            ),
-            Flexible(
-                child: Padding(
-              padding: EdgeInsets.only(left: containerPadding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+    return Material(
+        type: MaterialType.transparency,
+        child: Container(
+            padding: EdgeInsets.all(containerPadding),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: toastType.backgroundColor),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SvgPicture.asset(
+                  toastType.icon,
+                  width: iconSize,
+                  height: iconSize,
+                ),
+                Flexible(
+                    child: Padding(
+                  padding: EdgeInsets.only(left: containerPadding),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Text(
-                          toastTitle,
-                          maxLines: maxLines,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              toastTitle,
+                              maxLines: maxLines,
+                              overflow: TextOverflow.ellipsis,
+                              // TODO: TextStyle-Color need to be updated when new theme released
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14,
+                                color: Color(0xff141414),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                              key: const Key("closeTap"),
+                              onTap: onCloseTap,
+                              child: SvgPicture.asset(
+                                toastType.closeIcon,
+                                width: iconSize,
+                                height: iconSize,
+                              ))
+                        ],
+                      ),
+                      Text(toastContent,
                           overflow: TextOverflow.ellipsis,
+                          maxLines: maxLines,
                           // TODO: TextStyle-Color need to be updated when new theme released
                           style: const TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14,
-                            color: Color(0xff141414),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                          key: const Key("closeTap"),
-                          onTap: () {
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                          },
-                          child: SvgPicture.asset(
-                            toastType.closeIcon,
-                            width: iconSize,
-                            height: iconSize,
-                          ))
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: Color(0xff383838))),
                     ],
                   ),
-                  Text(toastContent,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: maxLines,
-                      // TODO: TextStyle-Color need to be updated when new theme released
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: Color(0xff383838))),
-                ],
-              ),
-            )),
-          ],
-        ));
+                )),
+              ],
+            )));
   }
 }

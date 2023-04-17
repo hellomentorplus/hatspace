@@ -19,7 +19,9 @@ class ToastMessageViews extends StatelessWidget {
               child: const Text("Error Toast Mesasge Demo"),
               onPressed: () {
                 context.showToast(
-                    ToastType.errorToast, "Login Fail", "Login fail message");
+                    type: ToastType.errorToast,
+                    title: "Login Fail",
+                    message: "Login fail message");
               },
             ),
           ],
