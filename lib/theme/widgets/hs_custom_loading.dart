@@ -42,7 +42,7 @@ class _CustomLoadingState extends State<CustomLoading>
     );
     controller.repeat();
     return RotationTransition(
-      turns: Tween(begin: 0.0, end: 1.0).animate(controller),
+      turns: Tween(begin: 1.0, end: 0.0).animate(controller),
       child: GradientCircularProgressIndicator(
         strokeCap: widget.strokeCap,
         radius: widget.radius,

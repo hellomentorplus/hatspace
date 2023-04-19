@@ -30,17 +30,18 @@ class _PopUpState extends State<PopUp> with TickerProviderStateMixin {
     );
     controller.repeat();
     return AlertDialog(
+      backgroundColor: HSColor.onPrimary,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(8.0))),
       title: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
           CustomLoading(
-              duration: Duration(seconds: 1, milliseconds: 30),
+              duration: Duration(seconds: 1, milliseconds: 500),
               strokeCap: StrokeCap.round,
               radius: 12,
-              strokeWidth: 4.0,
-              gradientColors: [HSColor.onPrimary, HSColor.primary]),
+              strokeWidth: 5.0,
+              gradientColors: [ HSColor.primary,HSColor.onPrimary,]),
           SizedBox(
             height: 16.0,
           ),
