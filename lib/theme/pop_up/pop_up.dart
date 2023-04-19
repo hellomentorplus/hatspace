@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_custom_loading.dart';
 
 class PopUp extends StatefulWidget {
@@ -39,7 +40,7 @@ class _PopUpState extends State<PopUp> with TickerProviderStateMixin {
               strokeCap: StrokeCap.round,
               radius: 12,
               strokeWidth: 4.0,
-              gradientColors: [Colors.white, Colors.green]),
+              gradientColors: [HSColor.onPrimary, HSColor.primary]),
           SizedBox(
             height: 16.0,
           ),
