@@ -1,66 +1,54 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:vector_math/vector_math.dart' as vmath;
+import 'package:hatspace/theme/hs_gradient_circular_progress_bar.dart';
 
-class GradientCircularProgressIndicator extends StatelessWidget {
-  final double radius;
-  final List<Color> gradientColors;
-  final double strokeWidth;
+class CustomLoading extends StatefulWidget {
+  final Duration duration;
   final StrokeCap strokeCap;
-  
+  final double radius;
+  final double strokeWidth;
+  final List<Color> gradientColors;
 
-  GradientCircularProgressIndicator({
-    required this.radius,
-    required this.gradientColors,
-    required this.strokeCap,
-    required this.strokeWidth,
-  });
+  const CustomLoading(
+      {super.key,
+      required this.duration,
+      required this.strokeCap,
+      required this.radius,
+      required this.strokeWidth,
+      required this.gradientColors});
+  @override
+  State<CustomLoading> createState() => _CustomLoadingState();
+}
+
+class _CustomLoadingState extends State<CustomLoading>
+    with TickerProviderStateMixin {
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: Size.fromRadius(radius),
-      painter: GradientCircularProgressPainter(
-        radius: radius,
-        gradientColors: gradientColors,
-        strokeWidth: strokeWidth,
-        strokeCap: strokeCap
+    controller = AnimationController(
+      duration: widget.duration,
+      vsync: this,
+    );
+    controller.repeat();
+    return RotationTransition(
+      turns: Tween(begin: 0.0, end: 1.0).animate(controller),
+      child: GradientCircularProgressIndicator(
+        strokeCap: widget.strokeCap,
+        radius: widget.radius,
+        gradientColors: widget.gradientColors,
+        strokeWidth: widget.strokeWidth,
       ),
     );
-  }
-}
-
-class GradientCircularProgressPainter extends CustomPainter {
-  GradientCircularProgressPainter({
-    required this.radius,
-    required this.gradientColors,
-    required this.strokeWidth,
-    required this.strokeCap
-  });
-  final double radius;
-  final List<Color> gradientColors;
-  final double strokeWidth;
-  final StrokeCap strokeCap;
-  @override
-  void paint(Canvas canvas, Size size) {
-    size = Size.fromRadius(radius);
-    double offset = strokeWidth / 2;
-    Rect rect = Offset(offset, offset) &
-        Size(size.width - strokeWidth, size.height - strokeWidth);
-       final center = Offset(size.width / 2, size.height / 2);
-    var paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = strokeCap;
-    paint.shader =
-        SweepGradient(colors: gradientColors, startAngle: 1, endAngle: pi *2 )
-            .createShader(rect);
-    canvas.drawArc(rect,0.3, pi*1.8, false, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
   }
 }
