@@ -18,7 +18,10 @@ class PopUp extends StatelessWidget {
               strokeCap: StrokeCap.round,
               radius: 12,
               strokeWidth: 5.0,
-              gradientColors: [ HSColor.primary,HSColor.onPrimary,]),
+              gradientColors: [
+                HSColor.primary,
+                HSColor.onPrimary,
+              ]),
           SizedBox(
             height: 16.0,
           ),
