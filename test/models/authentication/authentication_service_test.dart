@@ -236,62 +236,57 @@ void main() {
     },
   );
 
-  group("cover signUp function", (){
-    
-    setUp(()async{
+  group("cover signUp function", () {
+    setUp(() async {
       // Firesbase auth
 
-    when(firebaseAuth.currentUser).thenReturn(user);
-    when(firebaseAuth.signInWithCredential(any))
-        .thenAnswer((realInvocation) => Future.value(userCredential));
+      when(firebaseAuth.currentUser).thenReturn(user);
+      when(firebaseAuth.signInWithCredential(any))
+          .thenAnswer((realInvocation) => Future.value(userCredential));
       // Storage Service
-          when(firestore.collection(any))
-        .thenAnswer((realInvocation) => collectionReference);
-    when(collectionReference.doc(any))
-        .thenAnswer((realInvocation) => documentReference);
-    when(documentReference.get(any))
-        .thenAnswer((realInvocation) => Future.value(documentSnapshot));
+      when(firestore.collection(any))
+          .thenAnswer((realInvocation) => collectionReference);
+      when(collectionReference.doc(any))
+          .thenAnswer((realInvocation) => documentReference);
+      when(documentReference.get(any))
+          .thenAnswer((realInvocation) => Future.value(documentSnapshot));
 
-         when(documentSnapshot.exists).thenAnswer((realInvocation) => true);
-    when(documentSnapshot.data()).thenAnswer((realInvocation) => {
-          'roles': ['tenant', 'homeowner']
-        });
+      when(documentSnapshot.exists).thenAnswer((realInvocation) => true);
+      when(documentSnapshot.data()).thenAnswer((realInvocation) => {
+            'roles': ['tenant', 'homeowner']
+          });
     });
-   tearDown(() {
-    reset(firestore);
-    reset(collectionReference);
-    reset(documentReference);
-    reset(documentSnapshot);
-  });
-test(
-      "given user sign in with google service, when user sign in, then return List<Roles>",
-      () async {
+    tearDown(() {
+      reset(firestore);
+      reset(collectionReference);
+      reset(documentReference);
+      reset(documentSnapshot);
+    });
+    test(
+        "given user sign in with google service, when user sign in, then return List<Roles>",
+        () async {
+      AuthenticationService service = AuthenticationService(
+          googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
 
-          AuthenticationService service = AuthenticationService(
-        googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
-   
-    List<Roles> listRoles = [];
-    listRoles = await service.signUp(signUpType: SignUpType.googleService);
-    expect(listRoles, [Roles.tenant, Roles.homeowner]);
-  });
+      List<Roles> listRoles = [];
+      listRoles = await service.signUp(signUpType: SignUpType.googleService);
+      expect(listRoles, [Roles.tenant, Roles.homeowner]);
+    });
 
     test(
-      "given user sign in with facebook service, when user sign in, then return List<Roles>",
-      () async {
-
-        when(mockFacebookAuth.login()).thenAnswer((realInvocation) {
-      return Future<LoginResult>.value(LoginResult(
-          status: LoginStatus.success,
-          message: "test message",
-          accessToken: mockAccessToken));
+        "given user sign in with facebook service, when user sign in, then return List<Roles>",
+        () async {
+      when(mockFacebookAuth.login()).thenAnswer((realInvocation) {
+        return Future<LoginResult>.value(LoginResult(
+            status: LoginStatus.success,
+            message: "test message",
+            accessToken: mockAccessToken));
+      });
+      AuthenticationService service = AuthenticationService(
+          facebookAuth: mockFacebookAuth, firebaseAuth: firebaseAuth);
+      List<Roles> listRoles = [];
+      listRoles = await service.signUp(signUpType: SignUpType.facebookService);
+      expect(listRoles, [Roles.tenant, Roles.homeowner]);
     });
-        AuthenticationService service = AuthenticationService(
-        facebookAuth: mockFacebookAuth, firebaseAuth: firebaseAuth);
-    List<Roles> listRoles = [];
-    listRoles = await service.signUp(signUpType: SignUpType.facebookService);
-    expect(listRoles, [Roles.tenant, Roles.homeowner]);
   });
-  });
-  
-
 }
