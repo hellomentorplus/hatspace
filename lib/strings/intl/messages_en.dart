@@ -56,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
+        "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signinErrorToastMessage": MessageLookupByLibrary.simpleMessage(

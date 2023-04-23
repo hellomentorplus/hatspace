@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_custom_loading.dart';
 
@@ -12,8 +13,8 @@ class PopUp extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(8.0))),
       title: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          CustomLoading(
+        children: [
+          const CustomLoading(
               duration: Duration(seconds: 1, milliseconds: 500),
               strokeCap: StrokeCap.round,
               radius: 12,
@@ -22,11 +23,12 @@ class PopUp extends StatelessWidget {
                 HSColor.primary,
                 HSColor.onPrimary,
               ]),
-          SizedBox(
+          const SizedBox(
             height: 16.0,
           ),
-          Text("Loading...",
-              style: TextStyle(
+          Text(
+              HatSpaceStrings.of(context).loadingMessage,
+              style: const TextStyle(
                   //Todo: Change style when material change
                   color: Color.fromARGB(255, 20, 20, 20),
                   fontWeight: FontWeight.w500,
