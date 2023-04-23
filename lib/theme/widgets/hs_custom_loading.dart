@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/theme/hs_gradient_circular_progress_bar.dart';
+import 'package:hatspace/theme/hs_theme.dart';
 
 class CustomLoading extends StatefulWidget {
   final Duration duration;
@@ -10,11 +11,14 @@ class CustomLoading extends StatefulWidget {
 
   const CustomLoading(
       {super.key,
-      required this.duration,
-      required this.strokeCap,
-      required this.radius,
-      required this.strokeWidth,
-      required this.gradientColors});
+      this.duration = const Duration(seconds: 1, milliseconds: 500),
+      this.strokeCap = StrokeCap.round,
+      this.radius = 12.0,
+      this.strokeWidth = 5.0,
+      this.gradientColors = const [
+        HSColor.primary,
+        HSColor.onPrimary,
+      ]});
   @override
   State<CustomLoading> createState() => _CustomLoadingState();
 }

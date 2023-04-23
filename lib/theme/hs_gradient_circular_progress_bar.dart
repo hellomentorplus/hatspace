@@ -49,9 +49,9 @@ class GradientCircularProgressPainter extends CustomPainter {
       ..strokeWidth = strokeWidth
       ..strokeCap = strokeCap;
     paint.shader =
-        SweepGradient(colors: gradientColors, startAngle: 1, endAngle: pi * 2)
+        SweepGradient(colors: gradientColors, startAngle: 1, endAngle: pi * 1.9)
             .createShader(rect);
-    canvas.drawArc(rect, 0.3, pi * 1.87, false, paint);
+    canvas.drawArc(rect, 0.3, pi * 1.80, false, paint);
   }
 
   @override

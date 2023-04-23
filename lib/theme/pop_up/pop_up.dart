@@ -14,20 +14,11 @@ class PopUp extends StatelessWidget {
       title: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const CustomLoading(
-              duration: Duration(seconds: 1, milliseconds: 500),
-              strokeCap: StrokeCap.round,
-              radius: 12,
-              strokeWidth: 5.0,
-              gradientColors: [
-                HSColor.primary,
-                HSColor.onPrimary,
-              ]),
+          const CustomLoading(),
           const SizedBox(
             height: 16.0,
           ),
-          Text(
-              HatSpaceStrings.of(context).loadingMessage,
+          Text(HatSpaceStrings.of(context).loadingMessage,
               style: const TextStyle(
                   //Todo: Change style when material change
                   color: Color.fromARGB(255, 20, 20, 20),
