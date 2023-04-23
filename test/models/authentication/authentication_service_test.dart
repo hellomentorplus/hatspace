@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -6,9 +9,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
+import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-
 import 'authentication_service_test.mocks.dart';
 
 @GenerateMocks([
@@ -21,6 +25,12 @@ import 'authentication_service_test.mocks.dart';
   User,
   FacebookAuth,
   AccessToken,
+  StorageService,
+  MemberService,
+  CollectionReference,
+  DocumentReference,
+  DocumentSnapshot,
+  FirebaseFirestore,
 ])
 void main() {
   final MockGoogleSignIn googleSignIn = MockGoogleSignIn();
@@ -34,7 +44,20 @@ void main() {
   // Facebook mock
   final MockFacebookAuth mockFacebookAuth = MockFacebookAuth();
   final MockAccessToken mockAccessToken = MockAccessToken();
-  setUp(() {
+  final MockStorageService mockStorageService = MockStorageService();
+  final MockMemberService mockMemberService = MockMemberService();
+
+  final MockFirebaseFirestore firestore = MockFirebaseFirestore();
+  final MockCollectionReference<Map<String, dynamic>> collectionReference =
+      MockCollectionReference();
+  final MockDocumentReference<Map<String, dynamic>> documentReference =
+      MockDocumentReference();
+  final MockDocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+      MockDocumentSnapshot();
+  TestWidgetsFlutterBinding.ensureInitialized();
+  setupFirebaseCoreMocks();
+  setUp(() async {
+    await Firebase.initializeApp();
     when(googleSignIn.signIn())
         .thenAnswer((realInvocation) => Future.value(account));
     when(account.authentication)
@@ -55,6 +78,8 @@ void main() {
           message: "Success",
           accessToken: mockAccessToken));
     });
+    //
+    StorageService.firestore = firestore;
   });
 
   test('given facebook login success', () {
@@ -215,4 +240,63 @@ void main() {
       expect(userDetail.phone, user.phoneNumber);
     },
   );
+
+  group("cover signUp function", (){
+    
+    setUp(()async{
+      // Firesbase auth
+
+    when(firebaseAuth.currentUser).thenReturn(user);
+    when(firebaseAuth.signInWithCredential(any))
+        .thenAnswer((realInvocation) => Future.value(userCredential));
+      // Storage Service
+          when(firestore.collection(any))
+        .thenAnswer((realInvocation) => collectionReference);
+    when(collectionReference.doc(any))
+        .thenAnswer((realInvocation) => documentReference);
+    when(documentReference.get(any))
+        .thenAnswer((realInvocation) => Future.value(documentSnapshot));
+
+         when(documentSnapshot.exists).thenAnswer((realInvocation) => true);
+    when(documentSnapshot.data()).thenAnswer((realInvocation) => {
+          'roles': ['tenant', 'homeowner']
+        });
+    });
+   tearDown(() {
+    reset(firestore);
+    reset(collectionReference);
+    reset(documentReference);
+    reset(documentSnapshot);
+  });
+test(
+      "given user sign in with google service, when user sign in, then return List<Roles>",
+      () async {
+
+          AuthenticationService service = AuthenticationService(
+        googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
+   
+    List<Roles> listRoles = [];
+    listRoles = await service.signUp(signUpType: SignUpType.googleService);
+    expect(listRoles, [Roles.tenant, Roles.homeowner]);
+  });
+
+    test(
+      "given user sign in with facebook service, when user sign in, then return List<Roles>",
+      () async {
+
+        when(mockFacebookAuth.login()).thenAnswer((realInvocation) {
+      return Future<LoginResult>.value(LoginResult(
+          status: LoginStatus.success,
+          message: "test message",
+          accessToken: mockAccessToken));
+    });
+        AuthenticationService service = AuthenticationService(
+        facebookAuth: mockFacebookAuth, firebaseAuth: firebaseAuth);
+    List<Roles> listRoles = [];
+    listRoles = await service.signUp(signUpType: SignUpType.facebookService);
+    expect(listRoles, [Roles.tenant, Roles.homeowner]);
+  });
+  });
+  
+
 }

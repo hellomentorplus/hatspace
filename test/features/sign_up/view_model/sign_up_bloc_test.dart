@@ -159,33 +159,40 @@ void main() async {
   //     act: (bloc) => bloc.add(const RetrySignUp()),
   //     expect: () => [isA<RetryingSignUpState>()]);
 
-  blocTest(
-    "when user already have role",
-    build: () => SignUpBloc(),
-    setUp: () {
+  group("Check User Roles availability", () {
+    setUp(() {
       when(storageServiceMock.member).thenAnswer((realInvocation) {
         return memberService;
       });
       when(memberService.getUserRoles(any)).thenAnswer((realInvocation) {
         return Future.value([Roles.tenant]);
       });
-    },
-    act: (bloc) => bloc.add(const CheckUserRolesEvent()),
-    expect: () => [isA<UserRolesAvailable>()],
-  );
+    });
+    blocTest(
+        "when user sign up success with google and user already had roles then system will check userrole and return list of role ",
+        build: () => SignUpBloc(),
+        setUp: () {
+          when(authenticationService.signUp(
+                  signUpType: SignUpType.googleService))
+              .thenAnswer((realInvocation) => Future.value([Roles.tenant]));
+        },
+        act: (bloc) =>
+            bloc.add(const OnSignUp(signUpType: SignUpType.googleService)),
+        expect: () => [isA<SignUpStart>(), isA<UserRolesAvailable>()]);
 
-  blocTest("when user does not have any roles",
-      build: () => SignUpBloc(),
-      setUp: () {
-        when(storageServiceMock.member).thenAnswer((realInvocation) {
-          return memberService;
-        });
-        when(memberService.getUserRoles(any)).thenAnswer((realInvocation) {
-          return Future.value([]);
-        });
-      },
-      act: (bloc) => bloc.add(const CheckUserRolesEvent()),
-      expect: () => [isA<UserRolesUnavailable>()]);
+    blocTest(
+        "when user sign up success with google and user has not had roles yet, then system will check userrole and return empty list",
+        build: () => SignUpBloc(),
+        setUp: () {
+          when(authenticationService.signUp(
+                  signUpType: SignUpType.googleService))
+              .thenAnswer((realInvocation) => Future.value([]));
+        },
+        act: (bloc) =>
+            bloc.add(const OnSignUp(signUpType: SignUpType.googleService)),
+        expect: () => [isA<SignUpStart>(), isA<UserRolesUnavailable>()]);
+  });
+
   test('test state and event', () {
     CheckFirstLaunchSignUp firstLaunchSignUp = const CheckFirstLaunchSignUp();
 
