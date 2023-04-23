@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -69,9 +70,8 @@ class SignUpScreen extends StatelessWidget {
                           label: HatSpaceStrings.of(context).googleSignUp,
                           iconURL: Assets.images.google,
                           onPressed: () {
-                            context
-                                .read<SignUpBloc>()
-                                .add(const SignUpWithGoogle());
+                            context.read<SignUpBloc>().add(const OnSignUp(
+                                signUpType: SignUpType.googleService));
                           },
                         )),
                     Padding(
@@ -80,9 +80,8 @@ class SignUpScreen extends StatelessWidget {
                           label: HatSpaceStrings.of(context).facebookSignUp,
                           iconURL: Assets.images.facebookround,
                           onPressed: () {
-                            context
-                                .read<SignUpBloc>()
-                                .add(const SignUpWithFacebook());
+                            context.read<SignUpBloc>().add(const OnSignUp(
+                                signUpType: SignUpType.facebookService));
                           },
                         )),
                     Padding(

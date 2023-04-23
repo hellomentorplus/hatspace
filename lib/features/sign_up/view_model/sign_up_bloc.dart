@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
-import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/authentication/authentication_exception.dart';
@@ -14,13 +13,11 @@ const isFirstLaunchConst = "isFirstLaunch";
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;
-  final StorageService _storageService;
   UserDetail user;
   // final MemberService _memberService;
   SignUpBloc()
       : _authenticationService =
             HsSingleton.singleton.get<AuthenticationService>(),
-        _storageService = HsSingleton.singleton.get<StorageService>(),
         user = UserDetail(uid: "initial"),
         // _memberService = StorageService().member ,
         super(const SignUpInitial()) {
@@ -67,17 +64,24 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       }
     });
 
-    on<CheckUserRolesEvent>((event, emit) async {
+    on<OnSignUp>((event, emit) async {
       try {
+        emit(SignUpStart());
         List<Roles> listRole = [];
-        listRole = await _storageService.member.getUserRoles(user.uid);
+        listRole =
+            await _authenticationService.signUp(signUpType: event.signUpType);
         if (listRole.isEmpty) {
           emit(const UserRolesUnavailable());
         } else {
-          // Assumption: user already has roles
           emit(const UserRolesAvailable());
         }
-      } catch (e) {
+      } on UserCancelException {
+        emit(UserCancelled());
+      } on UserNotFoundException {
+        emit(UserCancelled());
+      } on AuthenticationFailed {
+        emit(UserCancelled());
+      } catch (_) {
         emit(AuthenticationFailed());
       }
     });

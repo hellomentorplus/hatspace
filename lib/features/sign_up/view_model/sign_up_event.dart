@@ -36,3 +36,10 @@ class CheckUserRolesEvent extends SignUpEvent {
   @override
   List<Object?> get props => [];
 }
+
+class OnSignUp extends SignUpEvent {
+  final SignUpType signUpType;
+  const OnSignUp({required this.signUpType});
+  @override
+  List<Object?> get props => [signUpType];
+}

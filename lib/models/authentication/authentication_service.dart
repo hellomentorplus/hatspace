@@ -6,10 +6,13 @@ import 'package:hatspace/data/data.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'authentication_exception.dart';
 
+enum SignUpType { googleService, facebookService }
+
 class AuthenticationService {
   final GoogleSignIn _googleSignIn;
   final FirebaseAuth _firebaseAuth;
   final FacebookAuth _facebookAuth;
+  final StorageService _storageService;
   AuthenticationService({
     GoogleSignIn? googleSignIn,
     FirebaseAuth? firebaseAuth,
@@ -17,7 +20,30 @@ class AuthenticationService {
     StorageService? storageService,
   })  : _googleSignIn = googleSignIn ?? GoogleSignIn(),
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _facebookAuth = facebookAuth ?? FacebookAuth.instance;
+        _facebookAuth = facebookAuth ?? FacebookAuth.instance,
+        _storageService = storageService ?? StorageService();
+
+  Future<List<Roles>> signUp({SignUpType? signUpType}) async {
+    UserDetail userDetail;
+
+    // CHECK authe service type
+    switch (signUpType) {
+      case SignUpType.googleService:
+        userDetail = await signUpWithGoogle();
+        break;
+      case SignUpType.facebookService:
+        userDetail = await signUpWithFacebook();
+        break;
+      default:
+        throw (UserCancelException());
+    }
+
+    // CHECK USER ROLES
+    List<Roles> listRoles = [];
+    listRoles = await _storageService.member.getUserRoles(userDetail.uid);
+    return listRoles;
+  }
+
   Future<UserDetail> signUpWithGoogle({AuthCredential? authCredential}) async {
     // no login yet, sign in with google now
     try {
