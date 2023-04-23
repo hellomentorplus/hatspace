@@ -9,7 +9,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
-import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -25,8 +24,6 @@ import 'authentication_service_test.mocks.dart';
   User,
   FacebookAuth,
   AccessToken,
-  StorageService,
-  MemberService,
   CollectionReference,
   DocumentReference,
   DocumentSnapshot,
@@ -44,8 +41,6 @@ void main() {
   // Facebook mock
   final MockFacebookAuth mockFacebookAuth = MockFacebookAuth();
   final MockAccessToken mockAccessToken = MockAccessToken();
-  final MockStorageService mockStorageService = MockStorageService();
-  final MockMemberService mockMemberService = MockMemberService();
 
   final MockFirebaseFirestore firestore = MockFirebaseFirestore();
   final MockCollectionReference<Map<String, dynamic>> collectionReference =
