@@ -27,11 +27,6 @@ class SignUpScreen extends StatelessWidget {
             context.pop();
           }
 
-          if (state is SignUpSuccess) {
-            // dismiss this page and return to home
-            context.read<SignUpBloc>().add(const CheckUserRolesEvent());
-          }
-
           if (state is UserCancelled || state is AuthenticationFailed) {
             context.showToast(
                 type: ToastType.errorToast,
