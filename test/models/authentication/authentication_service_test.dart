@@ -219,4 +219,42 @@ void main() {
       expect(userDetail.phone, user.phoneNumber);
     },
   );
+
+  test('given when user google sign up with sign up function ', ()async{
+        // when
+      AuthenticationService service = AuthenticationService(
+          googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
+      when(firebaseAuth.signInWithCredential(any))
+        .thenAnswer((realInvocation) => Future.value(userCredential));
+
+      // then
+      final UserDetail userDetail =
+          await service.signUp(signUpType: SignUpType.googleService);
+
+      expect(userDetail.uid, user.uid);
+      expect(userDetail.email, user.email);
+      expect(userDetail.phone, user.phoneNumber);
+  });
+    test('given when user facebook sign up with sign up function ', ()async{
+        // when
+      AuthenticationService service = AuthenticationService(
+          facebookAuth: mockFacebookAuth, firebaseAuth: firebaseAuth);
+      when(firebaseAuth.signInWithCredential(any))
+        .thenAnswer((realInvocation) => Future.value(userCredential));
+         when(firebaseAuth.signInWithCredential(any))
+        .thenAnswer((realInvocation) => Future.value(userCredential));
+    when(mockFacebookAuth.login()).thenAnswer((realInvocation) {
+      return Future<LoginResult>.value(LoginResult(
+          status: LoginStatus.success,
+          message: "test message",
+          accessToken: mockAccessToken));
+    });
+      // then
+      final UserDetail userDetail =
+          await service.signUp(signUpType: SignUpType.facebookService);
+
+      expect(userDetail.uid, user.uid);
+      expect(userDetail.email, user.email);
+      expect(userDetail.phone, user.phoneNumber);
+  });
 }

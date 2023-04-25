@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:hatspace/features/sign_up/view/sign_up_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
-import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -69,13 +68,11 @@ void main() {
     await widgetTester
         .tap(find.widgetWithText(SecondaryButton, "Sign up with Google"));
     await widgetTester.pumpAndSettle();
-    verify(
-        signUpBloc.add(const OnSignUp(signUpType: SignUpType.googleService)));
+  verify(signUpBloc.add(const SignUpWithGoogle()));
     // Test interaction with facebook Sign in
     await widgetTester
         .tap(find.widgetWithText(SecondaryButton, "Sign up with Facebook"));
     await widgetTester.pumpAndSettle();
-    verify(
-        signUpBloc.add(const OnSignUp(signUpType: SignUpType.facebookService)));
+   verify(signUpBloc.add(const SignUpWithFacebook()));
   });
 }

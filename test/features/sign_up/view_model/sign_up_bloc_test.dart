@@ -99,7 +99,7 @@ void main() async {
           });
         },
         act: (bloc) =>
-            bloc.add(const OnSignUp(signUpType: SignUpType.googleService)),
+            bloc.add(const SignUpWithGoogle()),
         expect: () => [isA<SignUpStart>(), isA<UserRolesAvailable>()]);
 
     blocTest(
@@ -115,7 +115,7 @@ void main() async {
           });
         },
         act: (bloc) =>
-            bloc.add(const OnSignUp(signUpType: SignUpType.googleService)),
+            bloc.add(const SignUpWithGoogle()),
         expect: () => [isA<SignUpStart>(), isA<UserRolesUnavailable>()]);
   });
 
@@ -128,7 +128,7 @@ void main() async {
               signUpType: SignUpType.googleService))
           .thenThrow(UserCancelException()),
       act: (bloc) =>
-          bloc.add(const OnSignUp(signUpType: SignUpType.googleService)),
+          bloc.add(const SignUpWithGoogle()),
       expect: () => [isA<SignUpStart>(), isA<UserCancelled>()],
     );
     blocTest(
@@ -138,7 +138,7 @@ void main() async {
                 signUpType: SignUpType.googleService))
             .thenThrow(UserNotFoundException()),
         act: (bloc) =>
-            bloc.add(const OnSignUp(signUpType: SignUpType.googleService)),
+            bloc.add(const SignUpWithGoogle()),
         expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()]);
     blocTest(
       'when signup with google failed with unknown error, then return AuthenticationFailed',
@@ -147,7 +147,7 @@ void main() async {
               signUpType: SignUpType.googleService))
           .thenThrow(PlatformException(code: '1234')),
       act: (bloc) =>
-          bloc.add(const OnSignUp(signUpType: SignUpType.googleService)),
+          bloc.add(const SignUpWithGoogle()),
       expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()],
     );
 
@@ -159,7 +159,7 @@ void main() async {
               signUpType: SignUpType.facebookService))
           .thenThrow(UserCancelException()),
       act: (bloc) =>
-          bloc.add(const OnSignUp(signUpType: SignUpType.facebookService)),
+          bloc.add(const SignUpWithFacebook()),
       expect: () => [isA<SignUpStart>(), isA<UserCancelled>()],
     );
     blocTest(
@@ -169,7 +169,7 @@ void main() async {
                 signUpType: SignUpType.facebookService))
             .thenThrow(UserNotFoundException()),
         act: (bloc) =>
-            bloc.add(const OnSignUp(signUpType: SignUpType.facebookService)),
+            bloc.add(const SignUpWithFacebook()),
         expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()]);
     blocTest(
       'when signup with google failed with unknown error, then return AuthenticationFailed',
@@ -178,7 +178,7 @@ void main() async {
               signUpType: SignUpType.facebookService))
           .thenThrow(PlatformException(code: '1234')),
       act: (bloc) =>
-          bloc.add(const OnSignUp(signUpType: SignUpType.facebookService)),
+          bloc.add(const SignUpWithFacebook()),
       expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()],
     );
   });
@@ -207,7 +207,10 @@ void main() async {
     UserRolesAvailable userRolesAvailable = const UserRolesAvailable();
     expect(userRolesAvailable.props.length, 0);
 
-    OnSignUp onSignUp = const OnSignUp(signUpType: SignUpType.googleService);
-    expect(onSignUp.props.length, 1);
+    SignUpWithGoogle signUpWithGoogle = const SignUpWithGoogle();
+    expect(signUpWithGoogle.props.length,0);
+
+    SignUpWithFacebook signUpWithFacebook = const SignUpWithFacebook();
+    expect(signUpWithFacebook.props.length, 0);
   });
 }
