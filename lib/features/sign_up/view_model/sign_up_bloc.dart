@@ -33,11 +33,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       emit(const FirstLaunchScreen(false));
     });
 
-    UserDetail userDetail;
     on<SignUpWithGoogle>((event, emit) async {
       try {
         emit(SignUpStart());
-        userDetail = await signUp(emit, SignUpType.googleService);
+        await signUp(emit, SignUpType.googleService);
       } on UserCancelException {
         emit(UserCancelled());
       } on UserNotFoundException {
@@ -50,7 +49,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<SignUpWithFacebook>((event, emit) async {
       try {
         emit(SignUpStart());
-        userDetail = await signUp(emit, SignUpType.facebookService);
+        await signUp(emit, SignUpType.facebookService);
       } on UserCancelException {
         emit(UserCancelled());
       } on UserNotFoundException {
@@ -61,7 +60,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     });
   }
 
-  Future<UserDetail> signUp( Emitter emitter, SignUpType type) async {
+  Future<UserDetail> signUp(Emitter emitter, SignUpType type) async {
     UserDetail userDetail;
     userDetail = await _authenticationService.signUp(signUpType: type);
     List<Roles> listRoles = [];

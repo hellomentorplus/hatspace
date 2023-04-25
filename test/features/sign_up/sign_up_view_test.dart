@@ -68,11 +68,11 @@ void main() {
     await widgetTester
         .tap(find.widgetWithText(SecondaryButton, "Sign up with Google"));
     await widgetTester.pumpAndSettle();
-  verify(signUpBloc.add(const SignUpWithGoogle()));
+    verify(signUpBloc.add(const SignUpWithGoogle()));
     // Test interaction with facebook Sign in
     await widgetTester
         .tap(find.widgetWithText(SecondaryButton, "Sign up with Facebook"));
     await widgetTester.pumpAndSettle();
-   verify(signUpBloc.add(const SignUpWithFacebook()));
+    verify(signUpBloc.add(const SignUpWithFacebook()));
   });
 }

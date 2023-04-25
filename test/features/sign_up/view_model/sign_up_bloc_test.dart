@@ -98,8 +98,7 @@ void main() async {
             return Future.value([Roles.tenant]);
           });
         },
-        act: (bloc) =>
-            bloc.add(const SignUpWithGoogle()),
+        act: (bloc) => bloc.add(const SignUpWithGoogle()),
         expect: () => [isA<SignUpStart>(), isA<UserRolesAvailable>()]);
 
     blocTest(
@@ -114,8 +113,7 @@ void main() async {
             return Future.value([]);
           });
         },
-        act: (bloc) =>
-            bloc.add(const SignUpWithGoogle()),
+        act: (bloc) => bloc.add(const SignUpWithGoogle()),
         expect: () => [isA<SignUpStart>(), isA<UserRolesUnavailable>()]);
   });
 
@@ -127,8 +125,7 @@ void main() async {
       setUp: () => when(authenticationService.signUp(
               signUpType: SignUpType.googleService))
           .thenThrow(UserCancelException()),
-      act: (bloc) =>
-          bloc.add(const SignUpWithGoogle()),
+      act: (bloc) => bloc.add(const SignUpWithGoogle()),
       expect: () => [isA<SignUpStart>(), isA<UserCancelled>()],
     );
     blocTest(
@@ -137,8 +134,7 @@ void main() async {
         setUp: () => when(authenticationService.signUp(
                 signUpType: SignUpType.googleService))
             .thenThrow(UserNotFoundException()),
-        act: (bloc) =>
-            bloc.add(const SignUpWithGoogle()),
+        act: (bloc) => bloc.add(const SignUpWithGoogle()),
         expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()]);
     blocTest(
       'when signup with google failed with unknown error, then return AuthenticationFailed',
@@ -146,8 +142,7 @@ void main() async {
       setUp: () => when(authenticationService.signUp(
               signUpType: SignUpType.googleService))
           .thenThrow(PlatformException(code: '1234')),
-      act: (bloc) =>
-          bloc.add(const SignUpWithGoogle()),
+      act: (bloc) => bloc.add(const SignUpWithGoogle()),
       expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()],
     );
 
@@ -158,8 +153,7 @@ void main() async {
       setUp: () => when(authenticationService.signUp(
               signUpType: SignUpType.facebookService))
           .thenThrow(UserCancelException()),
-      act: (bloc) =>
-          bloc.add(const SignUpWithFacebook()),
+      act: (bloc) => bloc.add(const SignUpWithFacebook()),
       expect: () => [isA<SignUpStart>(), isA<UserCancelled>()],
     );
     blocTest(
@@ -168,8 +162,7 @@ void main() async {
         setUp: () => when(authenticationService.signUp(
                 signUpType: SignUpType.facebookService))
             .thenThrow(UserNotFoundException()),
-        act: (bloc) =>
-            bloc.add(const SignUpWithFacebook()),
+        act: (bloc) => bloc.add(const SignUpWithFacebook()),
         expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()]);
     blocTest(
       'when signup with google failed with unknown error, then return AuthenticationFailed',
@@ -177,8 +170,7 @@ void main() async {
       setUp: () => when(authenticationService.signUp(
               signUpType: SignUpType.facebookService))
           .thenThrow(PlatformException(code: '1234')),
-      act: (bloc) =>
-          bloc.add(const SignUpWithFacebook()),
+      act: (bloc) => bloc.add(const SignUpWithFacebook()),
       expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()],
     );
   });
@@ -208,7 +200,7 @@ void main() async {
     expect(userRolesAvailable.props.length, 0);
 
     SignUpWithGoogle signUpWithGoogle = const SignUpWithGoogle();
-    expect(signUpWithGoogle.props.length,0);
+    expect(signUpWithGoogle.props.length, 0);
 
     SignUpWithFacebook signUpWithFacebook = const SignUpWithFacebook();
     expect(signUpWithFacebook.props.length, 0);
