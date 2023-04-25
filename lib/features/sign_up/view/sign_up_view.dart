@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
