@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hatspace/data/data.dart';
 
-enum PropertyKeys {
+enum PropKeys {
   id,
   type,
   name,
@@ -11,12 +11,11 @@ enum PropertyKeys {
   propertyDetails,
   photos,
   minimumRentPeriod;
-
-  static PropertyKeys fromName(String name) =>
+  static PropKeys fromName(String name) =>
       values.firstWhere((element) => element.name == name);
 }
 
-enum PropertyAdditionalKeys { bedrooms, bathrooms, parkings, additional }
+enum PropAddKeys { bedrooms, bathrooms, parkings, additional }
 
 class PropertyService {
   final FirebaseFirestore _firestore;
@@ -46,26 +45,26 @@ class PropertyService {
     // Get actual property
     Property property = Property(
         id: id,
-        type: PropertyTypes.fromName((data[PropertyKeys.type.name])),
-        name: data[PropertyKeys.name.name],
-        price: (data[PropertyKeys.price.name] as int).toDouble(),
-        description: data[PropertyKeys.description.name],
-        address: data[PropertyKeys.address.name],
+        type: PropertyTypes.fromName((data[PropKeys.type.name])),
+        name: data[PropKeys.name.name],
+        price: (data[PropKeys.price.name] as int).toDouble(),
+        description: data[PropKeys.description.name],
+        address: data[PropKeys.address.name],
         additionalDetail: additionalDetail,
-        photos: List<String>.from([PropertyKeys.photos.name]),
-        minimumRentPeriod: MinimumRentPeriod.fromName(
-            data[PropertyKeys.minimumRentPeriod.name]));
+        photos: List<String>.from([PropKeys.photos.name]),
+        minimumRentPeriod:
+            MinimumRentPeriod.fromName(data[PropKeys.minimumRentPeriod.name]));
     return property;
   }
 
   AdditionalDetail getPropertyAdditionalDetials(Map<String, dynamic> data) {
-    Map additional = data[PropertyKeys.propertyDetails.name];
+    Map additional = data[PropKeys.propertyDetails.name];
 
     AdditionalDetail additionalDetail = AdditionalDetail(
-        bedrooms: additional[PropertyAdditionalKeys.bedrooms.name],
-        bathrooms: additional[PropertyAdditionalKeys.bathrooms.name],
-        parkings: additional[PropertyAdditionalKeys.parkings.name],
-        additional: List<String>.from(additional[PropertyAdditionalKeys.additional.name]));
+        bedrooms: additional[PropAddKeys.bedrooms.name],
+        bathrooms: additional[PropAddKeys.bathrooms.name],
+        parkings: additional[PropAddKeys.parkings.name],
+        additional: List<String>.from(additional[PropAddKeys.additional.name]));
 
     return additionalDetail;
   }
