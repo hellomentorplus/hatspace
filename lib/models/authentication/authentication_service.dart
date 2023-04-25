@@ -19,7 +19,7 @@ class AuthenticationService {
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
         _facebookAuth = facebookAuth ?? FacebookAuth.instance;
 
-  Future<UserDetail> signUp({SignUpType? signUpType}) async {
+  Future<UserDetail> signUp({required SignUpType signUpType}) async {
     UserDetail userDetail;
 
     // CHECK authe service type

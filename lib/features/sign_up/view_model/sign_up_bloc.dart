@@ -34,19 +34,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     });
 
     UserDetail userDetail;
-    on<OnSignUp>((event, emit) async {
+    on<SignUpWithGoogle>((event, emit) async {
       try {
         emit(SignUpStart());
-        userDetail =
-            await _authenticationService.signUp(signUpType: event.signUpType);
-        // check user roles availability
-        List<Roles> listRole;
-        listRole = await _storageService.member.getUserRoles(userDetail.uid);
-        if (listRole.isEmpty) {
-          emit(const UserRolesUnavailable());
-        } else {
-          emit(const UserRolesAvailable());
-        }
+        userDetail = await signUp(emit, SignUpType.googleService);
       } on UserCancelException {
         emit(UserCancelled());
       } on UserNotFoundException {
@@ -55,5 +46,31 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         emit(AuthenticationFailed());
       }
     });
+
+    on<SignUpWithFacebook>((event, emit) async {
+      try {
+        emit(SignUpStart());
+        userDetail = await signUp(emit, SignUpType.facebookService);
+      } on UserCancelException {
+        emit(UserCancelled());
+      } on UserNotFoundException {
+        emit(AuthenticationFailed());
+      } catch (_) {
+        emit(AuthenticationFailed());
+      }
+    });
+  }
+
+  Future<UserDetail> signUp( Emitter emitter, SignUpType type) async {
+    UserDetail userDetail;
+    userDetail = await _authenticationService.signUp(signUpType: type);
+    List<Roles> listRoles = [];
+    listRoles = await _storageService.member.getUserRoles(userDetail.uid);
+    if (listRoles.isEmpty) {
+      emitter(const UserRolesUnavailable());
+    } else {
+      emitter(const UserRolesAvailable());
+    }
+    return userDetail;
   }
 }

@@ -16,9 +16,16 @@ class CloseSignUpScreen extends SignUpEvent {
   List<Object?> get props => [];
 }
 
-class OnSignUp extends SignUpEvent {
-  final SignUpType signUpType;
-  const OnSignUp({required this.signUpType});
+class SignUpWithGoogle extends SignUpEvent {
+  const SignUpWithGoogle();
+
   @override
-  List<Object?> get props => [signUpType];
+  List<Object?> get props => [];
+}
+
+class SignUpWithFacebook extends SignUpEvent {
+  const SignUpWithFacebook();
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
 }
