@@ -87,7 +87,6 @@ class AuthenticationService {
         default:
           throw (Exception);
       }
-      if (user != null) {}
       return UserDetail(
           uid: user!.uid, email: user.email, phone: user.phoneNumber);
     } on UserCancelException catch (_) {
