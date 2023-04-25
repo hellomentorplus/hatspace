@@ -49,19 +49,20 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     });
 
     on<SignUpWithFacebook>((event, emit) async {
-      try {
-        emit(SignUpStart());
-        await _authenticationService.signUpWithFacebook();
-        emit(const SignUpSuccess());
-      } on UserCancelException {
-        emit(UserCancelled());
-      } on UserNotFoundException {
-        emit(UserCancelled());
-      } on AuthenticationFailed {
-        emit(UserCancelled());
-      } catch (_) {
-        emit(AuthenticationFailed());
-      }
+      // try {
+      //   emit(SignUpStart());
+      //   await _authenticationService.signUpWithFacebook();
+      //   emit(const SignUpSuccess());
+      // } on UserCancelException {
+      //   emit(UserCancelled());
+      // } on UserNotFoundException {
+      //   emit(UserCancelled());
+      // } on AuthenticationFailed {
+      //   emit(UserCancelled());
+      // } catch (_) {
+      //   emit(AuthenticationFailed());
+      // }
+      _storageService.property.saveProperty();
     });
   }
 }

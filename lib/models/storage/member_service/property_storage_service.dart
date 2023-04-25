@@ -15,6 +15,9 @@ enum PropKeys {
       values.firstWhere((element) => element.name == name);
 }
 
+
+
+
 enum PropAddKeys { bedrooms, bathrooms, parkings, additional }
 
 class PropertyService {
@@ -65,7 +68,40 @@ class PropertyService {
         bathrooms: additional[PropAddKeys.bathrooms.name],
         parkings: additional[PropAddKeys.parkings.name],
         additional: List<String>.from(additional[PropAddKeys.additional.name]));
-
     return additionalDetail;
   }
+
+  Future<void> saveProperty ()async {
+    Property testProp =const Property(
+    type: PropertyTypes.house, 
+    name: "name", price: 300.0, 
+    description: "description", address: "address", 
+    additionalDetail: AdditionalDetail(bedrooms: 3, bathrooms: 2, parkings: 1, additional: ["abc"]), 
+    photos: [], 
+    minimumRentPeriod: MinimumRentPeriod.sixMonths);
+    await _firestore.collection(propertyCollection).doc().set(
+      mapObjectToMap(testProp)
+    );
+  }
+
+  Map<String,dynamic> mapObjectToMap (Property property){
+    Map<String,dynamic> map = {
+  Property.propAddress : property.address,
+      Property.propDescription: property.description,
+      Property.propMinimumRentPeriod : property.minimumRentPeriod.period,
+      Property.propName : property.name,
+      Property.propPhoto : property.photos,
+      Property.propPrice : property.price,
+      Property.propPropDetails : {
+        "bathrooms": property.additionalDetail.bathrooms,
+        "bedrooms": property.additionalDetail.bedrooms,
+        "parkings": property.additionalDetail.parkings,
+        "additional": property.additionalDetail.additional
+        },
+      Property.propType : property.type.name
+    };
+    print(map);
+    return map;
+  }
+
 }
