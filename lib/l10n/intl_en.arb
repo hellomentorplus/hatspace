@@ -25,6 +25,5 @@
   "homePageViewTitle":"Home Page",
   "linearProgressIndicator":"Linear progress indicator",
   "signinErrorToastMessage": "Unable to sign you in at the moment. Please try again later.",
-  "signinErrorToastTitle":"Login Failed",
-  "loadingMessage": "Loading..."
+  "signinErrorToastTitle":"Login Failed"
 }

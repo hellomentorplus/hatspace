@@ -271,16 +271,6 @@ class HatSpaceStrings {
       args: [],
     );
   }
-
-  /// `Loading...`
-  String get loadingMessage {
-    return Intl.message(
-      'Loading...',
-      name: 'loadingMessage',
-      desc: '',
-      args: [],
-    );
-  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
