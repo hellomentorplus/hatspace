@@ -35,10 +35,14 @@ class PropertyService {
       rentPrice: (mapPrice[Price.rentPriceKey] as int).toDouble()
     );
 
+    // Get listType
+
+    List<PropertyTypes> types =
+          (data[Property.propType] as List).map((e) => PropertyTypes.fromName('$e')).toList();
     // Get actual property
     Property property = Property(
         id: id,
-        type: PropertyTypes.fromName((data[Property.propType])),
+        listType: types,
         name: data[Property.propName],
         price: price,
         description: data[Property.propDescription],
@@ -75,14 +79,17 @@ class PropertyService {
       Property.propMinimumRentPeriod: property.minimumRentPeriod.text,
       Property.propName: property.name,
       Property.propPhoto: property.photos,
-      Property.propPrice: property.price,
+      Property.propPrice: {
+        Price.currencyKey : property.price.currency,
+        Price.rentPriceKey : property.price.rentPrice
+      },
       Property.propPropDetails: {
         AdditionalDetail.bathroomKey: property.additionalDetail.bathrooms,
         AdditionalDetail.bedroomKey: property.additionalDetail.bedrooms,
         AdditionalDetail.parkingKey: property.additionalDetail.parkings,
         AdditionalDetail.additionalKey: property.additionalDetail.additional
       },
-      Property.propType: property.type.name
+      Property.propType : property.listType
     };
     return mapProp;
   }

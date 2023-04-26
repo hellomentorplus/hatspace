@@ -85,7 +85,7 @@ class AdditionalDetail {
 
 class Property {
   final String? id;
-  final PropertyTypes type;
+  final List<PropertyTypes> listType;
   final String name;
   final Price price;
   final String description;
@@ -104,7 +104,7 @@ static const propPhoto = 'photos';
 static const propMinimumRentPeriod="minimumRentPeriod";
   const Property(
       { this.id,
-      required this.type,
+      required this.listType,
       required this.name,
       required this.price,
       required this.description,
