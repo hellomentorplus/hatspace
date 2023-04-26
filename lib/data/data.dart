@@ -76,10 +76,12 @@ class AdditionalDetail {
   static const parkingKey = "parkings";
   static const additionalKey = "additional";
   const AdditionalDetail(
-      {required this.bedrooms,
-      required this.bathrooms,
-      required this.parkings,
-      required this.additional});
+      {
+         this.bedrooms = 0,
+          this.bathrooms = 0,
+       this.parkings = 0,
+       this.additional = const []
+       });
 }
 
 

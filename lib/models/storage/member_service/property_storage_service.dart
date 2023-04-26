@@ -73,6 +73,8 @@ class PropertyService {
   }
 
   Map<String, dynamic> mapObjectToMap(Property property) {
+    // Map propType 
+    List<String> mapType = property.listType.map((e) => e.name).toList();
     Map<String, dynamic> mapProp = {
       Property.propAddress: property.address,
       Property.propDescription: property.description,
@@ -80,7 +82,7 @@ class PropertyService {
       Property.propName: property.name,
       Property.propPhoto: property.photos,
       Property.propPrice: {
-        Price.currencyKey : property.price.currency,
+        Price.currencyKey : property.price.currency.name,
         Price.rentPriceKey : property.price.rentPrice
       },
       Property.propPropDetails: {
@@ -89,7 +91,7 @@ class PropertyService {
         AdditionalDetail.parkingKey: property.additionalDetail.parkings,
         AdditionalDetail.additionalKey: property.additionalDetail.additional
       },
-      Property.propType : property.listType
+      Property.propType : mapType
     };
     return mapProp;
   }
