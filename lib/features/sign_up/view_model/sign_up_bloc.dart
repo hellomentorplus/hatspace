@@ -13,12 +13,11 @@ const isFirstLaunchConst = "isFirstLaunch";
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;
-  final StorageService _storageService;
+  //final StorageService _storageService;
 
   SignUpBloc()
       : _authenticationService =
             HsSingleton.singleton.get<AuthenticationService>(),
-          _storageService = HsSingleton.singleton.get<StorageService>(),
         super(const SignUpInitial()) {
     on<CheckFirstLaunchSignUp>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -34,35 +33,35 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     });
 
     on<SignUpWithGoogle>((event, emit) async {
-      // try {
-      //   emit(SignUpStart());
-      //   await _authenticationService.signUpWithGoogle();
-      //   emit(const SignUpSuccess());
-      // } on UserCancelException {
-      //   emit(UserCancelled());
-      // } on UserNotFoundException {
-      //   emit(AuthenticationFailed());
-      // } catch (_) {
-      //   emit(AuthenticationFailed());
-      // }  
-      _storageService.property.getProperties("sCHhTzDvaPgISSsOKHHM");
+      try {
+        emit(SignUpStart());
+        await _authenticationService.signUpWithGoogle();
+        emit(const SignUpSuccess());
+      } on UserCancelException {
+        emit(UserCancelled());
+      } on UserNotFoundException {
+        emit(AuthenticationFailed());
+      } catch (_) {
+        emit(AuthenticationFailed());
+      }  
+      // _storageService.property.getProperty("sCHhTzDvaPgISSsOKHHM");
     });
 
     on<SignUpWithFacebook>((event, emit) async {
-      // try {
-      //   emit(SignUpStart());
-      //   await _authenticationService.signUpWithFacebook();
-      //   emit(const SignUpSuccess());
-      // } on UserCancelException {
-      //   emit(UserCancelled());
-      // } on UserNotFoundException {
-      //   emit(UserCancelled());
-      // } on AuthenticationFailed {
-      //   emit(UserCancelled());
-      // } catch (_) {
-      //   emit(AuthenticationFailed());
-      // }
-      _storageService.property.saveProperty();
+      try {
+        emit(SignUpStart());
+        await _authenticationService.signUpWithFacebook();
+        emit(const SignUpSuccess());
+      } on UserCancelException {
+        emit(UserCancelled());
+      } on UserNotFoundException {
+        emit(UserCancelled());
+      } on AuthenticationFailed {
+        emit(UserCancelled());
+      } catch (_) {
+        emit(AuthenticationFailed());
+      }
+      // _storageService.property.saveProperty();
     });
   }
 }

@@ -19,8 +19,8 @@ class PropertyService {
     if (!proppertiesRef.exists) {
       return null;
     }
-
     final Map<String, dynamic>? data = proppertiesRef.data();
+    // When data is not exits
     if (data == null) {
       return null;
     }

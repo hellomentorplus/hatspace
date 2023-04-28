@@ -95,8 +95,8 @@ class Property {
   final AdditionalDetail additionalDetail;
   final List<String> photos;
   final MinimumRentPeriod minimumRentPeriod;
-  static const propId = "id";
-static const propType = "type";
+  final propId = "id";
+ static const propType = "type";
 static const propName = "name";
 static const propPrice = "price";
 static const propDescription = "description";
@@ -114,7 +114,6 @@ static const propMinimumRentPeriod="minimumRentPeriod";
       required this.additionalDetail,
       required this.photos,
       required this.minimumRentPeriod});
-  
   } 
 
 enum Roles {
