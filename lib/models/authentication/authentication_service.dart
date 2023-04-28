@@ -31,7 +31,7 @@ class AuthenticationService {
         userDetail = await signUpWithFacebook();
         break;
       default:
-        throw (UserCancelException());
+        throw (UnimplementedError);
     }
     return userDetail;
   }
