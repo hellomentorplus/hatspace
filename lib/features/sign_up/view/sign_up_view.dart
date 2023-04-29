@@ -26,16 +26,17 @@ class SignUpScreen extends StatelessWidget {
             context.pop();
           }
 
-          if (state is SignUpSuccess) {
-            // dismiss this page and return to home
-            context.pop();
-          }
-
           if (state is UserCancelled || state is AuthenticationFailed) {
             context.showToast(
                 type: ToastType.errorToast,
                 title: HatSpaceStrings.of(context).signinErrorToastTitle,
                 message: HatSpaceStrings.of(context).signinErrorToastMessage);
+          }
+          if (state is UserRolesUnavailable) {
+            context.goToChooseRole();
+          }
+          if (state is UserRolesAvailable) {
+            context.pop();
           }
         },
         child: Scaffold(
