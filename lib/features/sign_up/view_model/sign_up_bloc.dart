@@ -59,7 +59,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       }
     });
   }
-
+  
   Future<UserDetail> signUp(Emitter emitter, SignUpType type) async {
     UserDetail userDetail;
     userDetail = await _authenticationService.signUp(signUpType: type);
@@ -68,7 +68,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     if (listRoles.isEmpty) {
       emitter(const UserRolesUnavailable());
     } else {
-      emitter(const UserRolesAvailable());
+      // NOTE: This change belong to HS-101-interaction between signin and choose role
+      emitter(const SignUpSuccess());
     }
     return userDetail;
   }
