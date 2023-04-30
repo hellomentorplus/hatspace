@@ -40,7 +40,7 @@ class MemberService {
     }
   }
 
-  Future<void> saveUserRoles(String uid, List<Roles> roles) async {
+  Future<void> saveUserRoles(String uid, Set<Roles> roles) async {
     try {
       await _firestore
           .collection(memberCollection)

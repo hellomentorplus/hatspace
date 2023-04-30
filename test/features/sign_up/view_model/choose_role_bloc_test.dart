@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -102,6 +104,8 @@ void main() {
       OnChangeUserRoleEvent onChangeUserRoleEvent =
           const OnChangeUserRoleEvent(0);
       expect(onChangeUserRoleEvent.props.length, 1);
+      OnSubmitRoleEvent onSubmitRoleEvent = const OnSubmitRoleEvent({Roles.tenant});
+      expect(onSubmitRoleEvent.listRoles.length,1 );
     });
   });
 }
