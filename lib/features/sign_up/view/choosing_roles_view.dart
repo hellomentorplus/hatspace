@@ -23,8 +23,6 @@ class ChoosingRolesView extends StatelessWidget {
 }
 
 class ChoosingRoleViewBody extends StatelessWidget {
-  final bool continueBtnEnabled = false;
-
   const ChoosingRoleViewBody({super.key});
   void _submitRoles(
       {required Set<Roles> listRoles, required BuildContext context}) {
