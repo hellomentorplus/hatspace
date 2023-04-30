@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/models/storage/storage_service_exception.dart';
+
 
 class MemberService {
   final FirebaseFirestore _firestore;
@@ -38,9 +41,13 @@ class MemberService {
   }
 
   Future<void> saveUserRoles(String uid, List<Roles> roles) async {
-    await _firestore
-        .collection(memberCollection)
-        .doc(uid)
-        .set({rolesKey: roles.map((e) => e.name).toList()});
+    try {
+      await _firestore
+          .collection(memberCollection)
+          .doc(uid)
+          .set({rolesKey: roles.map((e) => e.name).toList()});
+    } on PlatformException catch (e) {
+      throw SaveDataFailureException(e.code, e.message);
+    }
   }
 }
