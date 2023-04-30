@@ -32,4 +32,8 @@ extension RouteExtension on BuildContext {
   void pop() {
     Navigator.of(this).pop();
   }
+
+  void popToRootHome() {
+    Navigator.of(this).popUntil((route) => route.isFirst);
+  }
 }

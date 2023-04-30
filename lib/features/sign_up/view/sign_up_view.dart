@@ -7,6 +7,7 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/pop_up/pop_up_controller.dart';
 import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
 import 'package:hatspace/theme/toast_messages/toast_messages_extension.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
@@ -18,7 +19,7 @@ class SignUpScreen extends StatelessWidget {
     return BlocListener<SignUpBloc, SignUpState>(
         listener: (context, state) {
           if (state is SignUpStart) {
-            // TODO: Implement Popup display
+            context.showLoading();
           }
 
           if (state is FirstLaunchScreen && state.isFirstLaunch == false) {
@@ -27,6 +28,7 @@ class SignUpScreen extends StatelessWidget {
           }
 
           if (state is UserCancelled || state is AuthenticationFailed) {
+            context.dismissLoading();
             context.showToast(
                 type: ToastType.errorToast,
                 title: HatSpaceStrings.of(context).signinErrorToastTitle,
@@ -36,7 +38,7 @@ class SignUpScreen extends StatelessWidget {
             context.goToChooseRole();
           }
           if (state is UserRolesAvailable) {
-            context.pop();
+            context.popToRootHome();
           }
         },
         child: Scaffold(
