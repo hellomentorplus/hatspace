@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -114,10 +113,16 @@ void main() {
     expect(result.last, Roles.homeowner);
   });
 
-  test('Given when user id is invalid, when saveUserRoles, then throw SaveDataFailureException',()async{
+  test(
+      'Given when user id is invalid, when saveUserRoles, then throw SaveDataFailureException',
+      () async {
     StorageService storageService = StorageService();
-    when(collectionReference.doc("invalid uid")).thenThrow(SaveDataFailureException);
-    expect(()=> storageService.member.saveUserRoles("invalid uid", {Roles.tenant}), throwsA(SaveDataFailureException));
+    when(collectionReference.doc("invalid uid"))
+        .thenThrow(SaveDataFailureException);
+    expect(
+        () =>
+            storageService.member.saveUserRoles("invalid uid", {Roles.tenant}),
+        throwsA(SaveDataFailureException));
   });
 
   test('verify API calls when saveUserRoles', () async {

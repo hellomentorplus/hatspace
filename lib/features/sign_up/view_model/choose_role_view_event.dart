@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:hatspace/data/data.dart';
 
 abstract class ChooseRoleViewEvent extends Equatable {
   const ChooseRoleViewEvent();

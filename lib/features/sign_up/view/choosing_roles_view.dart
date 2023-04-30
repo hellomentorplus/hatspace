@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_event.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
@@ -96,7 +95,9 @@ class ChoosingRoleViewBody extends StatelessWidget {
                     onPressed: state is UserRoleSelectedListState
                         ? state.listRole.isNotEmpty
                             ? () {
-                              context.read<ChooseRoleViewBloc>().add(const OnSubmitRoleEvent());
+                                context
+                                    .read<ChooseRoleViewBloc>()
+                                    .add(const OnSubmitRoleEvent());
                               }
                             : null
                         : null,

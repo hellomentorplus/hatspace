@@ -103,8 +103,7 @@ void main() {
       OnChangeUserRoleEvent onChangeUserRoleEvent =
           const OnChangeUserRoleEvent(0);
       expect(onChangeUserRoleEvent.props.length, 1);
-      OnSubmitRoleEvent onSubmitRoleEvent =
-          const OnSubmitRoleEvent();
+      OnSubmitRoleEvent onSubmitRoleEvent = const OnSubmitRoleEvent();
       expect(onSubmitRoleEvent.props.length, 0);
     });
   });
