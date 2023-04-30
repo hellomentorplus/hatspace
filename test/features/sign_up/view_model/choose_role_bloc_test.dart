@@ -63,7 +63,7 @@ void main() {
                 .thenAnswer((realInvocation) => Future<void>.value());
           },
           act: (bloc) {
-            bloc.add(const OnSubmitRoleEvent({Roles.tenant}));
+            bloc.add(const OnSubmitRoleEvent());
           },
           expect: () => [isA<ChoosingRoleSuccessState>()]);
 
@@ -83,7 +83,7 @@ void main() {
             when(memberService.saveUserRoles(mockUserDetail.uid, any))
                 .thenAnswer((realInvocation) => Future<void>.value());
           },
-          act: (bloc) => bloc.add(const OnSubmitRoleEvent({Roles.tenant})),
+          act: (bloc) => bloc.add(const OnSubmitRoleEvent()),
           expect: () => [isA<ChoosingRoleFail>()]);
     });
 
@@ -104,8 +104,8 @@ void main() {
           const OnChangeUserRoleEvent(0);
       expect(onChangeUserRoleEvent.props.length, 1);
       OnSubmitRoleEvent onSubmitRoleEvent =
-          const OnSubmitRoleEvent({Roles.tenant});
-      expect(onSubmitRoleEvent.listRoles.length, 1);
+          const OnSubmitRoleEvent();
+      expect(onSubmitRoleEvent.props.length, 0);
     });
   });
 }

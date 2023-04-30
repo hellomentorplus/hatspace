@@ -38,14 +38,6 @@ class UserRolesUnavailable extends SignUpState {
   List<Object?> get props => [];
 }
 
-//NOTE: THis changes relate to HS-101
-// TODO: Remove these line of code when finish reviewing
-// class UserRolesAvailable extends SignUpState {
-//   const UserRolesAvailable();
-//   @override
-//   List<Object?> get props => [];
-// }
-
 class SignUpSuccess extends SignUpState {
   const SignUpSuccess();
   @override

@@ -13,8 +13,7 @@ class OnChangeUserRoleEvent extends ChooseRoleViewEvent {
 }
 
 class OnSubmitRoleEvent extends ChooseRoleViewEvent {
-  final Set<Roles> listRoles;
-  const OnSubmitRoleEvent(this.listRoles);
+  const OnSubmitRoleEvent();
   @override
-  List<Object> get props => [listRoles];
+  List<Object> get props => [];
 }

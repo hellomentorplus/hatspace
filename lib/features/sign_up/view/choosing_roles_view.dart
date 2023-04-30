@@ -24,10 +24,6 @@ class ChoosingRolesView extends StatelessWidget {
 
 class ChoosingRoleViewBody extends StatelessWidget {
   const ChoosingRoleViewBody({super.key});
-  void _submitRoles(
-      {required Set<Roles> listRoles, required BuildContext context}) {
-    context.read<ChooseRoleViewBloc>().add(OnSubmitRoleEvent(listRoles));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,9 +96,7 @@ class ChoosingRoleViewBody extends StatelessWidget {
                     onPressed: state is UserRoleSelectedListState
                         ? state.listRole.isNotEmpty
                             ? () {
-                                _submitRoles(
-                                    listRoles: state.listRole,
-                                    context: context);
+                              context.read<ChooseRoleViewBloc>().add(const OnSubmitRoleEvent());
                               }
                             : null
                         : null,
