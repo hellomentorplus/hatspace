@@ -10,22 +10,20 @@ import 'package:mockito/mockito.dart';
 import '../widget_tester_extension.dart';
 import 'choosing_roles_view_test.mocks.dart';
 
-@GenerateMocks([
-  ChooseRoleViewBloc
-])
+@GenerateMocks([ChooseRoleViewBloc])
 void main() {
-   MockChooseRoleViewBloc mockChooseRoleViewBloc = MockChooseRoleViewBloc();
-    setUp(() {
+  MockChooseRoleViewBloc mockChooseRoleViewBloc = MockChooseRoleViewBloc();
+  setUp(() {
     when(mockChooseRoleViewBloc.state)
-        .thenAnswer((realInvocation) =>  ChooseRoleViewInitial());
+        .thenAnswer((realInvocation) => ChooseRoleViewInitial());
     when(mockChooseRoleViewBloc.stream)
-        .thenAnswer((realInvocation) => Stream.value( ChooseRoleViewInitial()));
+        .thenAnswer((realInvocation) => Stream.value(ChooseRoleViewInitial()));
   });
 
   testWidgets('Check widgets on screen', (WidgetTester tester) async {
-    
     const widget = ChoosingRoleViewBody();
-    await tester.blocWrapAndPump<ChooseRoleViewBloc>(mockChooseRoleViewBloc, widget);
+    await tester.blocWrapAndPump<ChooseRoleViewBloc>(
+        mockChooseRoleViewBloc, widget);
 
     Padding firstPadding = tester.firstWidget(find.byType(Padding));
     expect(firstPadding.padding,
@@ -45,7 +43,8 @@ void main() {
   testWidgets('Check list view on screen', (WidgetTester tester) async {
     const widget = ChoosingRoleViewBody();
 
-    await tester.blocWrapAndPump<ChooseRoleViewBloc>(mockChooseRoleViewBloc,widget);
+    await tester.blocWrapAndPump<ChooseRoleViewBloc>(
+        mockChooseRoleViewBloc, widget);
 
     //LISTVIEW
     ListView listView = tester.widget(find.byType(ListView));
@@ -56,7 +55,8 @@ void main() {
   testWidgets('Check buttons on screen', (WidgetTester tester) async {
     const widget = ChoosingRoleViewBody();
 
-    await tester.blocWrapAndPump<ChooseRoleViewBloc>(mockChooseRoleViewBloc,widget);
+    await tester.blocWrapAndPump<ChooseRoleViewBloc>(
+        mockChooseRoleViewBloc, widget);
 
     //PRIMARY BUTTON
     PrimaryButton primaryBtn = tester.widget(find.byType(PrimaryButton));

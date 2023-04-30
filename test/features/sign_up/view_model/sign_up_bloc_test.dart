@@ -197,7 +197,7 @@ void main() async {
     expect(userRolesUnavailable.props.length, 0);
 
     SignUpSuccess signUpSuccess = const SignUpSuccess();
-    expect(signUpSuccess.props.length,0);
+    expect(signUpSuccess.props.length, 0);
 
     SignUpWithGoogle signUpWithGoogle = const SignUpWithGoogle();
     expect(signUpWithGoogle.props.length, 0);

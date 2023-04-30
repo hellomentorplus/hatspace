@@ -59,7 +59,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       }
     });
   }
-  
+
   Future<UserDetail> signUp(Emitter emitter, SignUpType type) async {
     UserDetail userDetail;
     userDetail = await _authenticationService.signUp(signUpType: type);

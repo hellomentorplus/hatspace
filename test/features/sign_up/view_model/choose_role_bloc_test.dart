@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -48,7 +46,7 @@ void main() {
         },
         expect: () =>
             [isA<StartListenRoleChange>(), isA<UserRoleSelectedListState>()]);
-    group("Test uploading user roles", (){
+    group("Test uploading user roles", () {
       blocTest<ChooseRoleViewBloc, ChooseRoleViewState>(
           "Given when user select role and submit, then return to succes state",
           build: () => ChooseRoleViewBloc(),
@@ -69,23 +67,24 @@ void main() {
           },
           expect: () => [isA<ChoosingRoleSuccessState>()]);
 
-      blocTest("Given when user select role and submit, when user id is invalid, then return unsuccessful state", 
-      build: ()=>ChooseRoleViewBloc(),
-      setUp: (){
-          when(authenticationService.getCurrentUser())
+      blocTest(
+          "Given when user select role and submit, when user id is invalid, then return unsuccessful state",
+          build: () => ChooseRoleViewBloc(),
+          setUp: () {
+            when(authenticationService.getCurrentUser())
                 .thenAnswer((realInvocation) {
               return Future<UserDetail>.value(mockUserDetail);
             });
             when(storageServiceMock.member).thenAnswer((realInvocation) {
               return memberService;
             });
-            when(mockUserDetail.uid).thenThrow(SaveDataFailureException("code", "message"));
+            when(mockUserDetail.uid)
+                .thenThrow(SaveDataFailureException("code", "message"));
             when(memberService.saveUserRoles(mockUserDetail.uid, any))
                 .thenAnswer((realInvocation) => Future<void>.value());
-      },
-      act: (bloc) => bloc.add(const OnSubmitRoleEvent({Roles.tenant})),
-      expect: ()=> [isA<ChoosingRoleFail>()]
-      );
+          },
+          act: (bloc) => bloc.add(const OnSubmitRoleEvent({Roles.tenant})),
+          expect: () => [isA<ChoosingRoleFail>()]);
     });
 
     test("initial test", () {
@@ -104,8 +103,9 @@ void main() {
       OnChangeUserRoleEvent onChangeUserRoleEvent =
           const OnChangeUserRoleEvent(0);
       expect(onChangeUserRoleEvent.props.length, 1);
-      OnSubmitRoleEvent onSubmitRoleEvent = const OnSubmitRoleEvent({Roles.tenant});
-      expect(onSubmitRoleEvent.listRoles.length,1 );
+      OnSubmitRoleEvent onSubmitRoleEvent =
+          const OnSubmitRoleEvent({Roles.tenant});
+      expect(onSubmitRoleEvent.listRoles.length, 1);
     });
   });
 }

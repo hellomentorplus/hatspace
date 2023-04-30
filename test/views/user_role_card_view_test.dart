@@ -11,16 +11,14 @@ import 'package:mockito/annotations.dart';
 import '../features/sign_up/view_model/sign_up_bloc_test.mocks.dart';
 import '../widget_tester_extension.dart';
 
-@GenerateMocks([
-  StorageService,
-  AuthenticationService
-])
+@GenerateMocks([StorageService, AuthenticationService])
 void main() {
   MockStorageService storageService = MockStorageService();
   MockAuthenticationService authenticationService = MockAuthenticationService();
   setUp(() {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
-    HsSingleton.singleton.registerSingleton<AuthenticationService>(authenticationService);
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
   });
   testWidgets('Check widgets on screen', (WidgetTester tester) async {
     const widget = UserRoleCardView(position: 1);

@@ -10,6 +10,7 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 import 'user_role_card_view.dart';
+
 class ChoosingRolesView extends StatelessWidget {
   const ChoosingRolesView({super.key});
   @override
@@ -38,7 +39,7 @@ class ChoosingRoleViewBody extends StatelessWidget {
       if (state is ChoosingRoleSuccessState) {
         context.pop();
       }
-      if(state is ChoosingRoleFail){
+      if (state is ChoosingRoleFail) {
         // TODO: Implement failure scenario
       }
     }, builder: (context, state) {

@@ -28,7 +28,7 @@ class ChoosingRoleSuccessState extends ChooseRoleViewState {
   List<Object> get props => [];
 }
 
-class ChoosingRoleFail extends ChooseRoleViewState{
+class ChoosingRoleFail extends ChooseRoleViewState {
   @override
   List<Object> get props => [];
 }

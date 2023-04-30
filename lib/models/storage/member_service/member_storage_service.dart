@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/models/storage/storage_service_exception.dart';
 
-
 class MemberService {
   final FirebaseFirestore _firestore;
 
