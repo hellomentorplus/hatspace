@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_view_event.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -8,10 +10,8 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 import 'user_role_card_view.dart';
-
 class ChoosingRolesView extends StatelessWidget {
   const ChoosingRolesView({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChooseRoleViewBloc>(
@@ -22,13 +22,25 @@ class ChoosingRolesView extends StatelessWidget {
 }
 
 class ChoosingRoleViewBody extends StatelessWidget {
+  final bool continueBtnEnabled = false;
+
   const ChoosingRoleViewBody({super.key});
+  void _submitRoles(
+      {required Set<Roles> listRoles, required BuildContext context}) {
+    context.read<ChooseRoleViewBloc>().add(OnSubmitRoleEvent(listRoles));
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return BlocConsumer<ChooseRoleViewBloc, ChooseRoleViewState>(
         listener: (context, state) {
-      // TODO: listen Success State
+      if (state is ChoosingRoleSuccessState) {
+        context.pop();
+      }
+      if(state is ChoosingRoleFail){
+        // TODO: Implement failure scenario
+      }
     }, builder: (context, state) {
       return Scaffold(
           appBar: AppBar(
@@ -89,7 +101,9 @@ class ChoosingRoleViewBody extends StatelessWidget {
                     onPressed: state is UserRoleSelectedListState
                         ? state.listRole.isNotEmpty
                             ? () {
-                                // Todo: Add Submit event
+                                _submitRoles(
+                                    listRoles: state.listRole,
+                                    context: context);
                               }
                             : null
                         : null,
