@@ -107,7 +107,8 @@ class ChoosingRoleViewBody extends StatelessWidget {
                     child: TextOnlyButton(
                       label: HatSpaceStrings.of(context).cancelBtn,
                       onPressed: () {
-                        Navigator.of(context).popUntil((route) => route.isFirst);
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst);
                       },
                     ),
                   ),
