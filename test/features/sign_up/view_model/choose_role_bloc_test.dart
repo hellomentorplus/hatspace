@@ -8,7 +8,6 @@ import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
-import 'package:hatspace/models/storage/storage_service_exception.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -44,8 +43,7 @@ void main() {
           int position = 1;
           bloc.add(OnChangeUserRoleEvent(position));
         },
-        expect: () =>
-            [isA<StartListenRoleChange>(), isA<UserRoleSelectedListState>()]);
+        expect: () => [isA<UserRoleSelectedListState>()]);
     group("Test uploading user roles", () {
       blocTest<ChooseRoleViewBloc, ChooseRoleViewState>(
           "Given when user select role and submit, then return to succes state",
@@ -66,36 +64,13 @@ void main() {
             bloc.add(const OnSubmitRoleEvent());
           },
           expect: () => [isA<ChoosingRoleSuccessState>()]);
-
-      blocTest(
-          "Given when user select role and submit, when user id is invalid, then return unsuccessful state",
-          build: () => ChooseRoleViewBloc(),
-          setUp: () {
-            when(authenticationService.getCurrentUser())
-                .thenAnswer((realInvocation) {
-              return Future<UserDetail>.value(mockUserDetail);
-            });
-            when(storageServiceMock.member).thenAnswer((realInvocation) {
-              return memberService;
-            });
-            when(mockUserDetail.uid)
-                .thenThrow(SaveDataFailureException("code", "message"));
-            when(memberService.saveUserRoles(mockUserDetail.uid, any))
-                .thenAnswer((realInvocation) => Future<void>.value());
-          },
-          act: (bloc) => bloc.add(const OnSubmitRoleEvent()),
-          expect: () => [isA<ChoosingRoleFail>()]);
     });
 
     test("initial test", () {
-      expect(ChooseRoleViewBloc().state, ChooseRoleViewInitial());
+      expect(ChooseRoleViewBloc().state,  isA<ChooseRoleViewInitial>());
     });
 
     test("test bloc initail", () {
-      StartListenRoleChange startListenRoleChange =
-          const StartListenRoleChange();
-      expect(startListenRoleChange.props.length, 0);
-
       UserRoleSelectedListState userRoleSelectedChange =
           const UserRoleSelectedListState({});
       expect(userRoleSelectedChange.props.length, 1);

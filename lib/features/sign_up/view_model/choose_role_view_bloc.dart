@@ -4,13 +4,13 @@ import 'package:hatspace/features/sign_up/view_model/choose_role_view_event.dart
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
-import 'package:hatspace/models/storage/storage_service_exception.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 
 class ChooseRoleViewBloc
     extends Bloc<ChooseRoleViewEvent, ChooseRoleViewState> {
   final StorageService _storageService;
   final AuthenticationService _authenticationService;
+
   ChooseRoleViewBloc()
       : _storageService = HsSingleton.singleton.get<StorageService>(),
         _authenticationService =
@@ -22,7 +22,6 @@ class ChooseRoleViewBloc
 
     final Set<Roles> listRoles = {};
     on<OnChangeUserRoleEvent>((event, emit) {
-      emit(const StartListenRoleChange());
       if (listRoles.contains(Roles.values[event.position])) {
         listRoles.remove(Roles.values[event.position]);
       } else {
@@ -32,13 +31,9 @@ class ChooseRoleViewBloc
     });
 
     on<OnSubmitRoleEvent>((event, emit) async {
-      try {
-        UserDetail user = await _authenticationService.getCurrentUser();
-        await _storageService.member.saveUserRoles(user.uid, listRoles);
-        emit(ChoosingRoleSuccessState());
-      } on SaveDataFailureException {
-        emit(ChoosingRoleFail());
-      }
+      UserDetail user = await _authenticationService.getCurrentUser();
+      await _storageService.member.saveUserRoles(user.uid, listRoles);
+      emit(ChoosingRoleSuccessState());
     });
   }
 }

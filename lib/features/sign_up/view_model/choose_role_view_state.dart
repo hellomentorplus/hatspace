@@ -1,20 +1,12 @@
-import 'package:equatable/equatable.dart';
 import 'package:hatspace/data/data.dart';
 
-abstract class ChooseRoleViewState extends Equatable {
+abstract class ChooseRoleViewState {
   const ChooseRoleViewState();
 
-  @override
   List<Object> get props => [];
 }
 
 class ChooseRoleViewInitial extends ChooseRoleViewState {}
-
-class StartListenRoleChange extends ChooseRoleViewState {
-  const StartListenRoleChange();
-  @override
-  List<Object> get props => [];
-}
 
 class UserRoleSelectedListState extends ChooseRoleViewState {
   final Set<Roles> listRole;
