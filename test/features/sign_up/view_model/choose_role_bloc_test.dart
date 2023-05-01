@@ -67,7 +67,7 @@ void main() {
     });
 
     test("initial test", () {
-      expect(ChooseRoleViewBloc().state,  isA<ChooseRoleViewInitial>());
+      expect(ChooseRoleViewBloc().state, isA<ChooseRoleViewInitial>());
     });
 
     test("test bloc initail", () {
