@@ -68,7 +68,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     if (listRoles.isEmpty) {
       emitter(const UserRolesUnavailable());
     } else {
-      // NOTE: This change belong to HS-101-interaction between signin and choose role
+      //Change state name from "UserRoleAvailable" to SignUpSuccess to make logic flow clearer
       emitter(const SignUpSuccess());
     }
     return userDetail;

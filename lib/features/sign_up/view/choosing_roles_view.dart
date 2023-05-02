@@ -91,17 +91,15 @@ class ChoosingRoleViewBody extends StatelessWidget {
                   ),
                   Expanded(child: Container()),
                   PrimaryButton(
-                    label: HatSpaceStrings.of(context).continueBtn,
-                    onPressed: state is UserRoleSelectedListState
-                        ? state.listRole.isNotEmpty
-                            ? () {
-                                context
-                                    .read<ChooseRoleViewBloc>()
-                                    .add(const OnSubmitRoleEvent());
-                              }
-                            : null
-                        : null,
-                  ),
+                      label: HatSpaceStrings.of(context).continueBtn,
+                      onPressed: state is UserRoleSelectedListState &&
+                              state.listRole.isNotEmpty
+                          ? () {
+                              context
+                                  .read<ChooseRoleViewBloc>()
+                                  .add(const OnSubmitRoleEvent());
+                            }
+                          : null),
                   Padding(
                     padding: const EdgeInsets.only(top: 33),
                     child: TextOnlyButton(
