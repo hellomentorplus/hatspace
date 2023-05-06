@@ -10,3 +10,9 @@ class OnChangeUserRoleEvent extends ChooseRoleViewEvent {
   @override
   List<Object> get props => [position];
 }
+
+class OnSubmitRoleEvent extends ChooseRoleViewEvent {
+  const OnSubmitRoleEvent();
+  @override
+  List<Object> get props => [];
+}
