@@ -115,7 +115,8 @@ void main() {
   test('verify API calls when saveUserRoles', () async {
     StorageService storageService = StorageService();
 
-    await storageService.member.saveUserRoles('uid', Roles.values);
+    await storageService.member
+        .saveUserRoles('uid', {Roles.tenant, Roles.homeowner});
 
     verify(firestore.collection('members')).called(1);
     verify(collectionReference.doc('uid')).called(1);

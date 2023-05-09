@@ -38,8 +38,8 @@ class UserRolesUnavailable extends SignUpState {
   List<Object?> get props => [];
 }
 
-class UserRolesAvailable extends SignUpState {
-  const UserRolesAvailable();
+class SignUpSuccess extends SignUpState {
+  const SignUpSuccess();
   @override
   List<Object?> get props => [];
 }

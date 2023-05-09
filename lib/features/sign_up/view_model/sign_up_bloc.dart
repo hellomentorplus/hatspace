@@ -68,7 +68,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     if (listRoles.isEmpty) {
       emitter(const UserRolesUnavailable());
     } else {
-      emitter(const UserRolesAvailable());
+      //Change state name from "UserRoleAvailable" to SignUpSuccess to make logic flow clearer
+      emitter(const SignUpSuccess());
     }
     return userDetail;
   }

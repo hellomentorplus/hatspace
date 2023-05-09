@@ -99,7 +99,7 @@ void main() async {
           });
         },
         act: (bloc) => bloc.add(const SignUpWithGoogle()),
-        expect: () => [isA<SignUpStart>(), isA<UserRolesAvailable>()]);
+        expect: () => [isA<SignUpStart>(), isA<SignUpSuccess>()]);
 
     blocTest(
         "when user sign up success with google and user has not had roles yet, then system will check userrole and return empty list",
@@ -196,8 +196,8 @@ void main() async {
     UserRolesUnavailable userRolesUnavailable = const UserRolesUnavailable();
     expect(userRolesUnavailable.props.length, 0);
 
-    UserRolesAvailable userRolesAvailable = const UserRolesAvailable();
-    expect(userRolesAvailable.props.length, 0);
+    SignUpSuccess signUpSuccess = const SignUpSuccess();
+    expect(signUpSuccess.props.length, 0);
 
     SignUpWithGoogle signUpWithGoogle = const SignUpWithGoogle();
     expect(signUpWithGoogle.props.length, 0);
