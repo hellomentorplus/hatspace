@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hatspace/data/data.dart';
 
-enum PropAddKeys { bedrooms, bathrooms, parkings, additional }
-
 class PropertyService {
   final FirebaseFirestore _firestore;
-
   final String propertyCollection = 'properties';
 
   PropertyService(FirebaseFirestore firestore) : _firestore = firestore;
@@ -23,76 +20,84 @@ class PropertyService {
     // When data is not exits
     if (data == null) {
       return null;
+    } else {
+      return Property.convertMapToObject(data);
     }
-
-    // Get Property additional detail of a property
-    AdditionalDetail additionalDetail = getPropertyAdditionalDetials(data);
-
-    // GET Price 
-    Map mapPrice = data[Property.propPrice];
-    Price price = Price(
-      currency: Currency.fromName(mapPrice[Price.currencyKey]),
-      rentPrice: (mapPrice[Price.rentPriceKey] as int).toDouble()
-    );
-
-    // Get listType
-
-    List<PropertyTypes> types =
-          (data[Property.propType] as List).map((e) => PropertyTypes.fromName('$e')).toList();
-    // Get actual property
-    Property property = Property(
-        id: id,
-        listType: types,
-        name: data[Property.propName],
-        price: price,
-        description: data[Property.propDescription],
-        address: data[Property.propAddress],
-        additionalDetail: additionalDetail,
-        photos: List<String>.from([Property.propPhoto]),
-        minimumRentPeriod:
-            MinimumRentPeriod.fromName(data[Property.propMinimumRentPeriod]));
-    return property;
   }
 
-  AdditionalDetail getPropertyAdditionalDetials(Map<String, dynamic> data) {
-    Map additional = data[Property.propPropDetails];
-
-    AdditionalDetail additionalDetail = AdditionalDetail(
-        bedrooms: additional[PropAddKeys.bedrooms.name],
-        bathrooms: additional[PropAddKeys.bathrooms.name],
-        parkings: additional[PropAddKeys.parkings.name],
-        additional: List<String>.from(additional[PropAddKeys.additional.name]));
-    return additionalDetail;
+  Future<List<Property>?> getAllProperties() async {
+    const limitQuery = 20;
+    QuerySnapshot<Map<String, dynamic>>? proppertiesRef = await _firestore
+        .collection(propertyCollection).limit(limitQuery)
+        .get(const GetOptions(source: Source.server));
+    if(proppertiesRef.docs.isEmpty){
+      return null;
+    }
+    Iterable<Map<String, dynamic>> propertiesList = proppertiesRef.docs.map((doc) {
+      return doc.data();
+    }).toList();
+    print(propertiesList);
+    return null;
   }
 
   Future<void> saveProperty(Property property) async {
     await _firestore
         .collection(propertyCollection)
         .doc()
-        .set(mapObjectToMap(property));
+        .set(property.convertObjectToMap());
   }
 
-  Map<String, dynamic> mapObjectToMap(Property property) {
-    // Map propType 
-    List<String> mapType = property.listType.map((e) => e.name).toList();
-    Map<String, dynamic> mapProp = {
-      Property.propAddress: property.address,
-      Property.propDescription: property.description,
-      Property.propMinimumRentPeriod: property.minimumRentPeriod.text,
-      Property.propName: property.name,
-      Property.propPhoto: property.photos,
-      Property.propPrice: {
-        Price.currencyKey : property.price.currency.name,
-        Price.rentPriceKey : property.price.rentPrice
-      },
-      Property.propPropDetails: {
-        AdditionalDetail.bathroomKey: property.additionalDetail.bathrooms,
-        AdditionalDetail.bedroomKey: property.additionalDetail.bedrooms,
-        AdditionalDetail.parkingKey: property.additionalDetail.parkings,
-        AdditionalDetail.additionalKey: property.additionalDetail.additional
-      },
-      Property.propType : mapType
-    };
-    return mapProp;
+  // Case1: When database design with mulitple subcolleciton
+  // test_properties/AU/3170/
+  Future<List<Property>?> getAllPropertiesTest() async {
+    //   QuerySnapshot<Map<String,dynamic>>? propertyList = await _firestore
+    //   .collection("test_properties")
+    //   .doc("AU")
+    //   .collection("3170")
+    //   .get(const GetOptions(source: Source.server));
+    //   print(propertyList);
+    //   if( propertyList.docs.isEmpty){
+    //     return null;
+    //   }
+    //   Iterable<Map<String, dynamic>> list = propertyList.docs.map((doc){
+    //     return doc.data();
+    //   }).toList();
+    //   print(list);
+
+    // case2: When database design with using reference
+    // Should not user referenc
+    // Reason: => Firebase package (Cloud Firestore ODM) does not have many support for flutter
+
+    //     DocumentSnapshot<Map<String,dynamic>>? propertyList = await _firestore
+    //   .collection("VIC")
+    //   .doc("3171").get(const GetOptions(source: Source.server));
+    //   print(propertyList);
+    //   if( !propertyList.exists){
+    //     return null;
+    //   }
+    //  Map<String, dynamic>? list = propertyList.data();
+    //  print(list);
+
+    //case 3: When databse is designed as same as case 1 design
+    // using groupCollection
+    QuerySnapshot<Map<String, dynamic>>? proppertiesRef = await _firestore
+        .collection("test_properties")
+        .doc("AU")
+        .collection('3170')
+        .where("suburb", isEqualTo: "suburb1")
+        .get(const GetOptions(source: Source.server));
+
+    print(proppertiesRef.docs);
+    if (proppertiesRef.docs.length == 0) {
+      return null;
+    }
+    Iterable<Map<String, dynamic>> list = proppertiesRef.docs.map((doc) {
+      return doc.data();
+    }).toList();
+
+    print(list);
+
+    // When data is not exits
+    return null;
   }
 }
