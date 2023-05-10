@@ -71,7 +71,6 @@ void main() {
     });
 
     test("test bloc initail", () {
-
       UserRoleSelectedListState userRoleSelectedChange =
           const UserRoleSelectedListState({});
       expect(userRoleSelectedChange.props.length, 1);
@@ -82,7 +81,8 @@ void main() {
       OnSubmitRoleEvent onSubmitRoleEvent = const OnSubmitRoleEvent();
       expect(onSubmitRoleEvent.props.length, 0);
 
-      ChoosingRoleSuccessState choosingRoleSuccessState = ChoosingRoleSuccessState();
+      ChoosingRoleSuccessState choosingRoleSuccessState =
+          ChoosingRoleSuccessState();
       expect(choosingRoleSuccessState.props.length, 0);
 
       ChoosingRoleFail choosingRoleFail = ChoosingRoleFail();
