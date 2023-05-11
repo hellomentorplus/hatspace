@@ -96,7 +96,8 @@ class HomePageViewState extends State<HomePageView> {
                     ValueListenableBuilder<int>(
                       valueListenable: _selectedIndex,
                       builder: (context, value, child) => _BottomBarItem(
-                        icon: Assets.icons.explore, // TODO use booking icon without dot
+                        icon: Assets
+                            .icons.explore, // TODO use booking icon without dot
                         label: HatSpaceStrings.current.booking,
                         isSelected: value == 1,
                         onTap: () => _selectedIndex.value = 1,
@@ -119,7 +120,8 @@ class HomePageViewState extends State<HomePageView> {
                     ValueListenableBuilder<int>(
                       valueListenable: _selectedIndex,
                       builder: (context, value, child) => _BottomBarItem(
-                        icon: Assets.icons.explore, // TODO use message icon without dot
+                        icon: Assets
+                            .icons.explore, // TODO use message icon without dot
                         label: HatSpaceStrings.current.message,
                         isSelected: value == 2,
                         onTap: () => _selectedIndex.value = 2,
