@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -62,7 +61,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       } catch (_) {
         emit(AuthenticationFailed());
       }
-
     });
   }
 }

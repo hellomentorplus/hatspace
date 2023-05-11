@@ -17,6 +17,7 @@ enum PropertyTypes {
 }
 
 enum AustraliaStates {
+  //TODO: add more states for upcomming story
   nsw('New South Wales'),
   vic('Victoria'),
   qld('Queensland'),
@@ -41,7 +42,7 @@ enum AustraliaStates {
 }
 
 enum MinimumRentPeriod {
-  //TODO: waiting for PO's confirmaton
+  //TODO: add more value for upcomming story
   threeMonths('3 Months'),
   sixMonths('6 Months');
 
@@ -55,6 +56,7 @@ enum MinimumRentPeriod {
 
 enum Currency {
   aud;
+
   static Currency fromName(String name) =>
       values.firstWhere((element) => element.name == name.toLowerCase());
 }
@@ -186,21 +188,20 @@ class Property {
   final GeoPoint location;
   final Timestamp createdTime;
   final Timestamp availableDate;
-  const Property({
-    this.id,
-    required this.type,
-    required this.name,
-    required this.price,
-    required this.description,
-    required this.address,
-    required this.additionalDetail,
-    required this.photos,
-    required this.minimumRentPeriod,
-    required this.country,
-    required this.location,
-    required this.createdTime,
-    required this.availableDate
-  });
+  const Property(
+      {this.id,
+      required this.type,
+      required this.name,
+      required this.price,
+      required this.description,
+      required this.address,
+      required this.additionalDetail,
+      required this.photos,
+      required this.minimumRentPeriod,
+      required this.country,
+      required this.location,
+      required this.createdTime,
+      required this.availableDate});
   Map<String, dynamic> convertObjectToMap() {
     Map<String, dynamic> mapProp = {
       PropKeys.name: name,

@@ -1,24 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'property_storage_service_test.mocks.dart';
 
-
-
 @GenerateMocks([
   FirebaseFirestore,
   CollectionReference,
   DocumentReference,
   DocumentSnapshot,
-  AdditionalDetail,
   Property,
   StorageService,
-  PropertyService,
   QuerySnapshot,
   Query
 ])
@@ -30,23 +25,28 @@ void main() {
       MockDocumentReference();
   MockDocumentSnapshot<Map<String, dynamic>> mockDocumentSnapshot =
       MockDocumentSnapshot();
-  MockAdditionalDetail mockAdditionalDetail = MockAdditionalDetail();
-  MockProperty mockProperty = MockProperty();
-  MockStorageService mockStorageService = MockStorageService();
-  MockPropertyService mockPropertyService = MockPropertyService();
-  MockQuerySnapshot<Map<String, dynamic>> mockQuerySnapshot = MockQuerySnapshot();
+  MockQuerySnapshot<Map<String, dynamic>> mockQuerySnapshot =
+      MockQuerySnapshot();
   MockQuery<Map<String, dynamic>> mockQuery = MockQuery();
-  Property propertySample = Property(    
-        availableDate: Timestamp(200,200),
-        type: PropertyTypes.apartment,
-        name: "mock name",
-        price: Price(currency: Currency.aud, rentPrice: 3000),
-        description: "mock description",
-        address: AddressDetail(streetName: "mock streetname", streetNo: "streetNo", postcode: 3000, suburb: "suburb", state: AustraliaStates.nsw),
-        additionalDetail: const AdditionalDetail(
-            additional: [], bedrooms: 3, bathrooms: 3, parkings: 3),
-        photos: [],
-        minimumRentPeriod: MinimumRentPeriod.sixMonths, country: CountryCode.au, createdTime: Timestamp(200,200), location:const GeoPoint(90, 90));
+  Property propertySample = Property(
+      availableDate: Timestamp(200, 200),
+      type: PropertyTypes.apartment,
+      name: "mock name",
+      price: Price(currency: Currency.aud, rentPrice: 3000),
+      description: "mock description",
+      address: const AddressDetail(
+          streetName: "mock streetname",
+          streetNo: "streetNo",
+          postcode: 3000,
+          suburb: "suburb",
+          state: AustraliaStates.nsw),
+      additionalDetail: const AdditionalDetail(
+          additional: [], bedrooms: 3, bathrooms: 3, parkings: 3),
+      photos: [],
+      minimumRentPeriod: MinimumRentPeriod.sixMonths,
+      country: CountryCode.au,
+      createdTime: Timestamp(200, 200),
+      location: const GeoPoint(90, 90));
   setUpAll(() {
     StorageService.firestore = mockFirebaseFirestore;
   });
@@ -95,13 +95,12 @@ void main() {
   test(
       'given get property with valid property id, when user get all properties, then return a list of property',
       () async {
-
     when(mockDocumentSnapshot.exists).thenAnswer((realInvocation) => true);
-    when(mockCollectionReference.limit(20)).thenAnswer((realInvocation) => mockQuery);
-    when(mockQuery.get(any)).thenAnswer((realInvocation) => Future.value(mockQuerySnapshot) );
-    when(mockQuerySnapshot.docs).thenAnswer((realInvocation) => [
-      
-    ]);
+    when(mockCollectionReference.limit(20))
+        .thenAnswer((realInvocation) => mockQuery);
+    when(mockQuery.get(any))
+        .thenAnswer((realInvocation) => Future.value(mockQuerySnapshot));
+    when(mockQuerySnapshot.docs).thenAnswer((realInvocation) => []);
     StorageService storageService = StorageService();
     final result = storageService.property.getAllProperties();
     expect(result, isA<Future<List<Property>?>>());
@@ -111,7 +110,8 @@ void main() {
       'given user want to get one property, when user get one property by property id, then return property object',
       () async {
     when(mockDocumentSnapshot.exists).thenAnswer((realInvocation) => true);
-    when(mockDocumentSnapshot.data()).thenAnswer((realInvocation) => propertySample.convertObjectToMap());
+    when(mockDocumentSnapshot.data())
+        .thenAnswer((realInvocation) => propertySample.convertObjectToMap());
     StorageService storageService = StorageService();
     final result = await storageService.property.getProperty("test id");
     expect(result, isA<Property>());
@@ -123,8 +123,7 @@ void main() {
 
     verify(mockFirebaseFirestore.collection('properties')).called(1);
     verify(mockCollectionReference.doc()).called(1);
-    verify(mockDocumentReference.set(
-      propertySample.convertObjectToMap()
-    )).called(1);
+    verify(mockDocumentReference.set(propertySample.convertObjectToMap()))
+        .called(1);
   });
 }
