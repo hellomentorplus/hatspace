@@ -18,7 +18,7 @@ class HomePageView extends StatefulWidget {
 class HomePageViewState extends State<HomePageView> {
   late ShakeDetector detector;
   void _onItemTapped(int index) {
-    _counter.value = index;
+    _selectedIndex.value = index;
   }
 
   @override
@@ -44,7 +44,8 @@ class HomePageViewState extends State<HomePageView> {
     detector.startListening();
   }
 
-  final ValueNotifier<int> _counter = ValueNotifier<int>(0);
+  final ValueNotifier<int> _selectedIndex = ValueNotifier<int>(0);
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<AppConfigBloc, AppConfigState>(
@@ -70,15 +71,23 @@ class HomePageViewState extends State<HomePageView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _BottomBarItem(
-                      icon: Assets.icons.explore,
-                      label: HatSpaceStrings.current.explore,
-                      isSelected: false,
+                    ValueListenableBuilder<int>(
+                      valueListenable: _selectedIndex,
+                      builder: (context, value, child) => _BottomBarItem(
+                        icon: Assets.icons.explore,
+                        label: HatSpaceStrings.current.explore,
+                        isSelected: value == 0,
+                        onTap: () => _selectedIndex.value = 0,
+                      ),
                     ),
-                    _BottomBarItem(
-                      icon: Assets.icons.explore,
-                      label: HatSpaceStrings.current.booking,
-                      isSelected: false,
+                    ValueListenableBuilder<int>(
+                      valueListenable: _selectedIndex,
+                      builder: (context, value, child) => _BottomBarItem(
+                        icon: Assets.icons.explore,
+                        label: HatSpaceStrings.current.booking,
+                        isSelected: value == 1,
+                        onTap: () => _selectedIndex.value = 1,
+                      ),
                     ),
                     Container(
                       decoration: ShapeDecoration(
@@ -94,15 +103,23 @@ class HomePageViewState extends State<HomePageView> {
                         height: 24,
                       ),
                     ),
-                    _BottomBarItem(
-                      icon: Assets.icons.explore,
-                      label: HatSpaceStrings.current.message,
-                      isSelected: false,
+                    ValueListenableBuilder<int>(
+                      valueListenable: _selectedIndex,
+                      builder: (context, value, child) => _BottomBarItem(
+                        icon: Assets.icons.explore,
+                        label: HatSpaceStrings.current.message,
+                        isSelected: value == 2,
+                        onTap: () => _selectedIndex.value = 2,
+                      ),
                     ),
-                    _BottomBarItem(
-                      icon: Assets.icons.profile,
-                      label: HatSpaceStrings.current.profile,
-                      isSelected: false,
+                    ValueListenableBuilder<int>(
+                      valueListenable: _selectedIndex,
+                      builder: (context, value, child) => _BottomBarItem(
+                        icon: Assets.icons.profile,
+                        label: HatSpaceStrings.current.profile,
+                        isSelected: value == 3,
+                        onTap: () => _selectedIndex.value = 3,
+                      ),
                     )
                   ],
                 ),
@@ -121,30 +138,41 @@ class _BottomBarItem extends StatelessWidget {
   /// is this item selected?
   final bool isSelected;
 
+  /// ontap action
+  final VoidCallback onTap;
+
   const _BottomBarItem(
       {required this.icon,
       required this.label,
       required this.isSelected,
+        required this.onTap,
       Key? key})
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        child: Column(
-          children: [
-            SvgPicture.asset(
-              icon,
-              width: 24,
-              height: 24,
-              color: isSelected
-                  ? Theme.of(context).colorScheme.primary
-                  : HSColor.neutral6,
+  Widget build(BuildContext context) => InkWell(
+    radius: 60,
+    onTap: onTap,
+    child: AspectRatio(
+      aspectRatio: 1,
+      child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Column(
+              children: [
+                SvgPicture.asset(
+                  icon,
+                  width: 24,
+                  height: 24,
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.primary
+                      : HSColor.neutral6,
+                ),
+                Text(label,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: isSelected ? HSColor.green06 : HSColor.neutral6))
+              ],
             ),
-            Text(label,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: isSelected ? HSColor.green06 : HSColor.neutral6))
-          ],
-        ),
-      );
+          ),
+    ),
+  );
 }
