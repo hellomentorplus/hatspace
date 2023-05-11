@@ -71,6 +71,7 @@ class HomePageViewState extends State<HomePageView> {
               bottom: const SearchBar(),
               toolbarHeight: 40,
               elevation: 0.0,
+              // TODO add notification icon
             ),
             body: Center(
                 child: Text(
@@ -95,7 +96,7 @@ class HomePageViewState extends State<HomePageView> {
                     ValueListenableBuilder<int>(
                       valueListenable: _selectedIndex,
                       builder: (context, value, child) => _BottomBarItem(
-                        icon: Assets.icons.explore,
+                        icon: Assets.icons.explore, // TODO use booking icon without dot
                         label: HatSpaceStrings.current.booking,
                         isSelected: value == 1,
                         onTap: () => _selectedIndex.value = 1,
@@ -118,7 +119,7 @@ class HomePageViewState extends State<HomePageView> {
                     ValueListenableBuilder<int>(
                       valueListenable: _selectedIndex,
                       builder: (context, value, child) => _BottomBarItem(
-                        icon: Assets.icons.explore,
+                        icon: Assets.icons.explore, // TODO use message icon without dot
                         label: HatSpaceStrings.current.message,
                         isSelected: value == 2,
                         onTap: () => _selectedIndex.value = 2,
