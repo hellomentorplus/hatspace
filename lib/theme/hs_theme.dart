@@ -8,4 +8,8 @@ ThemeData lightThemeData = ThemeData(
     scaffoldBackgroundColor: colorScheme.background,
     textTheme: textTheme,
     colorScheme: colorScheme,
-    fontFamily: FontFamily.beVietnamPro);
+    fontFamily: FontFamily.beVietnamPro,
+    dividerTheme: DividerThemeData(
+      color: HSColor.neutral3,
+      thickness: 1.0,
+    ));

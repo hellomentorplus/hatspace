@@ -18,11 +18,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/explore.svg
   String get explore => 'assets/icons/explore.svg';
 
+  /// File path: assets/icons/filter.svg
+  String get filter => 'assets/icons/filter.svg';
+
   /// File path: assets/icons/profile.svg
   String get profile => 'assets/icons/profile.svg';
 
+  /// File path: assets/icons/search.svg
+  String get search => 'assets/icons/search.svg';
+
   /// List of all assets
-  List<String> get values => [add, explore, profile];
+  List<String> get values => [add, explore, filter, profile, search];
 }
 
 class $AssetsImagesGen {

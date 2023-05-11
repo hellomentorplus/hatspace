@@ -29,5 +29,6 @@
   "loadingMessage": "Loading...",
   "booking":"Booking",
   "message":"Message",
-  "profile":"Profile"
+  "profile":"Profile",
+  "searchHint":"Search rental, location..."
 }

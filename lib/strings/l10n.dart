@@ -301,6 +301,16 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Search rental, location...`
+  String get searchHint {
+    return Intl.message(
+      'Search rental, location...',
+      name: 'searchHint',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

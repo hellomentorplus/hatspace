@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/features/home/view/widgets/app_bar_bottom.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -57,8 +58,19 @@ class HomePageViewState extends State<HomePageView> {
         },
         child: Scaffold(
             appBar: AppBar(
-              title: Text(HatSpaceStrings.of(context).app_name),
-              centerTitle: true,
+              title: Text(
+                'Hi Hoang Nguyen', // TODO load user display name to be used here
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(color: colorScheme.onPrimary),
+              ),
+              titleSpacing: 16.0,
+              centerTitle: false,
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              bottom: const SearchBar(),
+              toolbarHeight: 40,
+              elevation: 0.0,
             ),
             body: Center(
                 child: Text(
@@ -126,6 +138,32 @@ class HomePageViewState extends State<HomePageView> {
               ),
             )));
   }
+
+  double _calculateToolbarHeight(
+      {required String title,
+      required TextStyle? textStyle,
+      required double textScaleFactor}) {
+    TextPainter textPainter = TextPainter(
+        text: TextSpan(
+          text: title,
+          style: textStyle,
+        ),
+        textScaleFactor: textScaleFactor,
+        textDirection: TextDirection.ltr)
+      ..layout();
+
+    final double titleHeight = textPainter.height;
+    final double searchHeight = 0;
+
+    final height = 24 /* padding top */
+        +
+        titleHeight +
+        24 /* padding bottom */
+        +
+        searchHeight;
+
+    return height;
+  }
 }
 
 class _BottomBarItem extends StatelessWidget {
@@ -145,17 +183,17 @@ class _BottomBarItem extends StatelessWidget {
       {required this.icon,
       required this.label,
       required this.isSelected,
-        required this.onTap,
+      required this.onTap,
       Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) => InkWell(
-    radius: 60,
-    onTap: onTap,
-    child: AspectRatio(
-      aspectRatio: 1,
-      child: Padding(
+        radius: 60,
+        onTap: onTap,
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: Column(
               children: [
@@ -173,6 +211,6 @@ class _BottomBarItem extends StatelessWidget {
               ],
             ),
           ),
-    ),
-  );
+        ),
+      );
 }

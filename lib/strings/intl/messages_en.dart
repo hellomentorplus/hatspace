@@ -60,6 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "searchHint":
+            MessageLookupByLibrary.simpleMessage("Search rental, location..."),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signinErrorToastMessage": MessageLookupByLibrary.simpleMessage(
             "Unable to sign you in at the moment. Please try again later."),
