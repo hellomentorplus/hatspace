@@ -35,82 +35,104 @@ class FontStyleGuide {
 const TextTheme textTheme = TextTheme(
   //TITLE
   titleLarge: TextStyle(
-      fontSize: FontStyleGuide.fontSize34,
-      fontWeight: FontStyleGuide.fwRegular,
-      letterSpacing: FontStyleGuide.letterSpacing025,
-      height: FontStyleGuide.height),
+    fontSize: FontStyleGuide.fontSize34,
+    fontWeight: FontStyleGuide.fwRegular,
+    letterSpacing: FontStyleGuide.letterSpacing025,
+    height: FontStyleGuide.height,
+    color: HSColor.neutral9,
+  ),
 
   //HEADLINE
   //headline1 => displayLarge
   displayLarge: TextStyle(
-      fontSize: FontStyleGuide.fontSize26,
-      fontWeight: FontStyleGuide.fwRegular,
-      letterSpacing: FontStyleGuide.letterSpacing0,
-      height: FontStyleGuide.height),
+    fontSize: FontStyleGuide.fontSize26,
+    fontWeight: FontStyleGuide.fwRegular,
+    letterSpacing: FontStyleGuide.letterSpacing0,
+    height: FontStyleGuide.height,
+    color: HSColor.neutral9,
+  ),
   //headline2 => displayMedium
   displayMedium: TextStyle(
-      fontSize: FontStyleGuide.fontSize26,
-      fontWeight: FontStyleGuide.fwRegular,
-      letterSpacing: FontStyleGuide.letterSpacing0,
-      height: FontStyleGuide.height),
+    fontSize: FontStyleGuide.fontSize26,
+    fontWeight: FontStyleGuide.fwRegular,
+    letterSpacing: FontStyleGuide.letterSpacing0,
+    height: FontStyleGuide.height,
+    color: HSColor.neutral9,
+  ),
 
   //SUBTITLE
   //titleMedium ?? subtitle1
   titleMedium: TextStyle(
-      fontSize: FontStyleGuide.fontSize17,
-      fontWeight: FontStyleGuide.fwSemibold,
-      letterSpacing: FontStyleGuide.letterSpacing015,
-      height: FontStyleGuide.height),
+    fontSize: FontStyleGuide.fontSize17,
+    fontWeight: FontStyleGuide.fwSemibold,
+    letterSpacing: FontStyleGuide.letterSpacing015,
+    height: FontStyleGuide.height,
+    color: HSColor.neutral9,
+  ),
 
   //BODY
   //bodyLarge ?? bodyText1
   bodyLarge: TextStyle(
-      fontSize: FontStyleGuide.fontSize17,
-      fontWeight: FontStyleGuide.fwRegular,
-      letterSpacing: FontStyleGuide.letterSpacing05,
-      height: FontStyleGuide.height),
+    fontSize: FontStyleGuide.fontSize17,
+    fontWeight: FontStyleGuide.fwRegular,
+    letterSpacing: FontStyleGuide.letterSpacing05,
+    height: FontStyleGuide.height,
+    color: HSColor.neutral9,
+  ),
   //bodyMedium ?? bodyText2
   bodyMedium: TextStyle(
-      fontSize: FontStyleGuide.fontSize13,
-      fontWeight: FontStyleGuide.fwRegular,
-      letterSpacing: FontStyleGuide.letterSpacing04,
-      height: FontStyleGuide.height),
+    fontSize: FontStyleGuide.fontSize13,
+    fontWeight: FontStyleGuide.fwRegular,
+    letterSpacing: FontStyleGuide.letterSpacing04,
+    height: FontStyleGuide.height,
+    color: HSColor.neutral9,
+  ),
 
   //BUTTON
   //labelLarge ?? button
   labelLarge: TextStyle(
-      fontSize: FontStyleGuide.fontSize13,
-      fontWeight: FontStyleGuide.fwRegular,
-      letterSpacing: FontStyleGuide.letterSpacing04,
-      height: FontStyleGuide.height),
+    fontSize: FontStyleGuide.fontSize13,
+    fontWeight: FontStyleGuide.fwRegular,
+    letterSpacing: FontStyleGuide.letterSpacing04,
+    height: FontStyleGuide.height,
+    color: HSColor.neutral9,
+  ),
 
   //CAPTION
   //bodySmall ?? caption
   bodySmall: TextStyle(
-      fontSize: FontStyleGuide.fontSize12,
-      fontWeight: FontStyleGuide.fwRegular,
-      letterSpacing: FontStyleGuide.letterSpacing04,
-      height: FontStyleGuide.height),
+    fontSize: FontStyleGuide.fontSize12,
+    fontWeight: FontStyleGuide.fwRegular,
+    letterSpacing: FontStyleGuide.letterSpacing04,
+    height: FontStyleGuide.height,
+    color: HSColor.neutral9,
+  ),
 
   //OVERLINE
   //labelSmall ?? overline
   labelSmall: TextStyle(
-      fontSize: FontStyleGuide.fontSize10,
-      fontWeight: FontStyleGuide.fwRegular,
-      letterSpacing: FontStyleGuide.letterSpacing15,
-      height: FontStyleGuide.height),
+    fontSize: FontStyleGuide.fontSize10,
+    fontWeight: FontStyleGuide.fwRegular,
+    letterSpacing: FontStyleGuide.letterSpacing15,
+    height: FontStyleGuide.height,
+    color: HSColor.neutral9,
+  ),
 );
 
 //SUBHEAD
 const TextStyle subheadCustom = TextStyle(
-    fontSize: FontStyleGuide.fontSize13,
-    fontWeight: FontStyleGuide.fwSemibold,
-    letterSpacing: FontStyleGuide.letterSpacing01,
-    height: FontStyleGuide.height);
+  fontSize: FontStyleGuide.fontSize13,
+  fontWeight: FontStyleGuide.fwSemibold,
+  letterSpacing: FontStyleGuide.letterSpacing01,
+  height: FontStyleGuide.height,
+  color: HSColor.neutral9,
+);
 
 //OVERLINE2
 const TextStyle overLine2Custom = TextStyle(
-    fontSize: FontStyleGuide.fontSize8,
-    fontWeight: FontStyleGuide.fwSemibold,
-    letterSpacing: FontStyleGuide.letterSpacing15,
-    height: FontStyleGuide.height);
+  fontSize: FontStyleGuide.fontSize8,
+  fontWeight: FontStyleGuide.fwSemibold,
+  letterSpacing: FontStyleGuide.letterSpacing15,
+  height: FontStyleGuide.height,
+  color: HSColor.neutral9,
+);

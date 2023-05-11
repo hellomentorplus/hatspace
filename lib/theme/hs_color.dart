@@ -26,6 +26,7 @@ class HSColor {
   static const Color statusSuccess = Color(0xFF34C759);
   static const Color statusInformational = Color(0xFF007AFF);
 
+  static const Color neutral9 = Color(0xFF141414);
   static const Color neutral6 = Color(0xFF8E8E93);
   static const Color neutral5 = Color(0xFFAEAEB2);
   static const Color neutral4 = Color(0xFFC7C7CC);

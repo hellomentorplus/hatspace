@@ -187,4 +187,37 @@ void main() {
     expect(svgPicture.width, 24);
     expect(svgPicture.height, 24);
   });
+
+  testWidgets("Test RoundButton with DEFAULT-DISABLE-HOVERED",
+      (WidgetTester tester) async {
+    int count = 0;
+    Widget roundButton = RoundButton(
+        iconUrl: Assets.images.increment,
+        onPressed: () {
+          count = 1;
+        });
+    await tester.wrapAndPump(roundButton);
+
+    expect(find.byType(TextButton), findsOneWidget);
+    expect(find.byType(SvgPicture), findsOneWidget);
+    expect(find.byType(Text), findsNothing);
+
+    // verify Svg icon size
+    SvgPicture svgPicture = tester.widget(find.byType(SvgPicture));
+    expect(svgPicture.width, 24);
+    expect(svgPicture.height, 24);
+
+    await tester.tap(find.byType(SvgPicture));
+    expect(reason: "Testing onPressed button", count, 1);
+
+    //Verify button shape
+    TextButton btn = tester.widget(find.byType(TextButton));
+    //===== DISABLED ========
+    final disabledState = <MaterialState>{MaterialState.disabled};
+    expect(
+      reason: "Testing color of Text",
+      btn.style?.foregroundColor?.resolve(disabledState),
+      HSColor.neutral6,
+    );
+  });
 }

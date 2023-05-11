@@ -15,6 +15,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/calendar.svg
   String get calendar => 'assets/images/calendar.svg';
 
+  /// File path: assets/images/chevron_left.svg
+  String get chevronLeft => 'assets/images/chevron_left.svg';
+
+  /// File path: assets/images/chevron_right.svg
+  String get chevronRight => 'assets/images/chevron_right.svg';
+
   /// File path: assets/images/close-clear.svg
   String get closeClear => 'assets/images/close-clear.svg';
 
@@ -23,6 +29,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/close_icon.svg
   String get closeIcon => 'assets/images/close_icon.svg';
+
+  /// File path: assets/images/decrement.svg
+  String get decrement => 'assets/images/decrement.svg';
 
   /// File path: assets/images/email.svg
   String get email => 'assets/images/email.svg';
@@ -42,6 +51,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/google.svg
   String get google => 'assets/images/google.svg';
 
+  /// File path: assets/images/increment.svg
+  String get increment => 'assets/images/increment.svg';
+
   /// File path: assets/images/messages.svg
   String get messages => 'assets/images/messages.svg';
 
@@ -54,15 +66,19 @@ class $AssetsImagesGen {
   /// List of all assets
   List<String> get values => [
         calendar,
+        chevronLeft,
+        chevronRight,
         closeClear,
         closeDark,
         closeIcon,
+        decrement,
         email,
         envelope,
         error,
         facebook,
         facebookround,
         google,
+        increment,
         messages,
         profileCircle,
         searchNormal
