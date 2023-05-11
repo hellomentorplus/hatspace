@@ -8,6 +8,8 @@ import 'package:mockito/mockito.dart';
 
 import 'property_storage_service_test.mocks.dart';
 
+
+
 @GenerateMocks([
   FirebaseFirestore,
   CollectionReference,
@@ -16,7 +18,9 @@ import 'property_storage_service_test.mocks.dart';
   AdditionalDetail,
   Property,
   StorageService,
-  PropertyService
+  PropertyService,
+  QuerySnapshot,
+  Query
 ])
 void main() {
   MockFirebaseFirestore mockFirebaseFirestore = MockFirebaseFirestore();
@@ -30,6 +34,19 @@ void main() {
   MockProperty mockProperty = MockProperty();
   MockStorageService mockStorageService = MockStorageService();
   MockPropertyService mockPropertyService = MockPropertyService();
+  MockQuerySnapshot<Map<String, dynamic>> mockQuerySnapshot = MockQuerySnapshot();
+  MockQuery<Map<String, dynamic>> mockQuery = MockQuery();
+  Property propertySample = Property(    
+        availableDate: Timestamp(200,200),
+        type: PropertyTypes.apartment,
+        name: "mock name",
+        price: Price(currency: Currency.aud, rentPrice: 3000),
+        description: "mock description",
+        address: AddressDetail(streetName: "mock streetname", streetNo: "streetNo", postcode: 3000, suburb: "suburb", state: AustraliaStates.nsw),
+        additionalDetail: const AdditionalDetail(
+            additional: [], bedrooms: 3, bathrooms: 3, parkings: 3),
+        photos: [],
+        minimumRentPeriod: MinimumRentPeriod.sixMonths, country: CountryCode.au, createdTime: Timestamp(200,200), location:const GeoPoint(90, 90));
   setUpAll(() {
     StorageService.firestore = mockFirebaseFirestore;
   });
@@ -48,6 +65,7 @@ void main() {
     reset(mockCollectionReference);
     reset(mockDocumentReference);
     reset(mockDocumentSnapshot);
+    reset(mockQuerySnapshot);
   });
 
   test(
@@ -75,45 +93,25 @@ void main() {
   });
 
   test(
-      'given get property with valid property id, when user wants to getPropertyAdditionalDetail, then return additional detail of a property',
+      'given get property with valid property id, when user get all properties, then return a list of property',
       () async {
+
+    when(mockDocumentSnapshot.exists).thenAnswer((realInvocation) => true);
+    when(mockCollectionReference.limit(20)).thenAnswer((realInvocation) => mockQuery);
+    when(mockQuery.get(any)).thenAnswer((realInvocation) => Future.value(mockQuerySnapshot) );
+    when(mockQuerySnapshot.docs).thenAnswer((realInvocation) => [
+      
+    ]);
     StorageService storageService = StorageService();
-    final result = storageService.property.getPropertyAdditionalDetials({
-      Property.propPropDetails: {
-        AdditionalDetail.bathroomKey: 3,
-        AdditionalDetail.bedroomKey: 3,
-        AdditionalDetail.parkingKey: 3,
-        AdditionalDetail.additionalKey: []
-      }
-    });
-    expect(result.bathrooms, 3);
-    expect(result.bedrooms, 3);
-    expect(result.parkings, 3);
-    expect(result.additional, []);
+    final result = storageService.property.getAllProperties();
+    expect(result, isA<Future<List<Property>?>>());
   });
 
   test(
-      'given user roles data is valie, when getUserRoles, then return list of Roles',
+      'given user want to get one property, when user get one property by property id, then return property object',
       () async {
     when(mockDocumentSnapshot.exists).thenAnswer((realInvocation) => true);
-    when(mockDocumentSnapshot.data()).thenAnswer((realInvocation) => {
-        Property.propAddress: "mock address",
-      Property.propDescription: "mock description",
-      Property.propMinimumRentPeriod: MinimumRentPeriod.sixMonths.text,
-      Property.propName: "mock name",
-      Property.propPhoto: [],
-      Property.propPrice: {
-        Price.currencyKey : Currency.AUD.name,
-        Price.rentPriceKey : 3000
-      },
-      Property.propPropDetails: {
-        AdditionalDetail.bathroomKey: 3,
-        AdditionalDetail.bedroomKey:3,
-        AdditionalDetail.parkingKey: 3,
-        AdditionalDetail.additionalKey: []
-      },
-      Property.propType : []
-        });
+    when(mockDocumentSnapshot.data()).thenAnswer((realInvocation) => propertySample.convertObjectToMap());
     StorageService storageService = StorageService();
     final result = await storageService.property.getProperty("test id");
     expect(result, isA<Property>());
@@ -121,39 +119,12 @@ void main() {
 
   test('verify API calls when save property', () async {
     StorageService storageService = StorageService();
-    await storageService.property.saveProperty(
-      Property(listType: [PropertyTypes.apartment],
-       name: "mock name", price: Price(
-        currency: Currency.AUD,
-        rentPrice: 3000
-       ),
-        description: "mock description", 
-        address: "mock address", 
-        additionalDetail:const AdditionalDetail(additional: [],bedrooms: 3,bathrooms: 3,parkings: 3), 
-        photos: [],
-         minimumRentPeriod: MinimumRentPeriod.sixMonths)
-    );
+    await storageService.property.saveProperty(propertySample);
 
     verify(mockFirebaseFirestore.collection('properties')).called(1);
     verify(mockCollectionReference.doc()).called(1);
-    verify(mockDocumentReference.set({
-       Property.propAddress: "mock address",
-      Property.propDescription: "mock description",
-      Property.propMinimumRentPeriod: MinimumRentPeriod.sixMonths.text,
-      Property.propName: "mock name",
-      Property.propPhoto: [],
-      Property.propPrice: {
-        Price.currencyKey : Currency.AUD.name,
-        Price.rentPriceKey : 3000
-      },
-      Property.propPropDetails: {
-        AdditionalDetail.bathroomKey: 3,
-        AdditionalDetail.bedroomKey:3,
-        AdditionalDetail.parkingKey: 3,
-        AdditionalDetail.additionalKey: []
-      },
-      Property.propType : [PropertyTypes.apartment.name]
-        }
+    verify(mockDocumentReference.set(
+      propertySample.convertObjectToMap()
     )).called(1);
   });
 }

@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hatspace/data/data.dart';
+
 import 'package:hatspace/models/authentication/authentication_service.dart';
-import 'package:hatspace/models/storage/storage_service.dart';
+
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/authentication/authentication_exception.dart';
@@ -16,12 +15,10 @@ const isFirstLaunchConst = "isFirstLaunch";
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;
-  final StorageService _storageService;
 
   SignUpBloc()
       : _authenticationService =
             HsSingleton.singleton.get<AuthenticationService>(),
-            _storageService = HsSingleton.singleton.get<StorageService>(),
         super(const SignUpInitial()) {
     on<CheckFirstLaunchSignUp>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -47,26 +44,25 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         emit(AuthenticationFailed());
       } catch (_) {
         emit(AuthenticationFailed());
-      }  
+      }
       // _storageService.property.getProperty("sCHhTzDvaPgISSsOKHHM");
     });
 
     on<SignUpWithFacebook>((event, emit) async {
-      // try {
-      //   emit(SignUpStart());
-      //   await _authenticationService.signUpWithFacebook();
-      //   emit(const SignUpSuccess());
-      // } on UserCancelException {
-      //   emit(UserCancelled());
-      // } on UserNotFoundException {
-      //   emit(UserCancelled());
-      // } on AuthenticationFailed {
-      //   emit(UserCancelled());
-      // } catch (_) {
-      //   emit(AuthenticationFailed());
-      // }
+      try {
+        emit(SignUpStart());
+        await _authenticationService.signUpWithFacebook();
+        emit(const SignUpSuccess());
+      } on UserCancelException {
+        emit(UserCancelled());
+      } on UserNotFoundException {
+        emit(UserCancelled());
+      } on AuthenticationFailed {
+        emit(UserCancelled());
+      } catch (_) {
+        emit(AuthenticationFailed());
+      }
 
-      _storageService.property.getAllProperties();
     });
   }
 }

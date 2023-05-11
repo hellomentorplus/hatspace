@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserDetail {
@@ -19,23 +17,27 @@ enum PropertyTypes {
 }
 
 enum AustraliaStates {
-  NSW('New South Wales'),
-  VIC('Victoria'),
-  QLD('Queensland'),
-  WA('Western Australia'),
-  SA('South Australia'),
-  TAS("Tasmania"),
-  ACT("Australian Capital Territory"),
-  NT('Northern Territory');
+  nsw('New South Wales'),
+  vic('Victoria'),
+  qld('Queensland'),
+  wd('Western Australia'),
+  sa('South Australia'),
+  tas("Tasmania"),
+  act("Australian Capital Territory"),
+  nt('Northern Territory');
 
   final String stateName;
   const AustraliaStates(this.stateName);
   static AustraliaStates fromStateNameToEnum(String stateName) =>
       values.firstWhere((element) {
-        return element.stateName == stateName;
+        if (stateName.toLowerCase() == element.name) {
+          return true;
+        } else {
+          return element.stateName == stateName;
+        }
       });
   static AustraliaStates fromName(String stateName) =>
-      values.firstWhere((element) => element.name == stateName);
+      values.firstWhere((element) => element.name == stateName.toLowerCase());
 }
 
 enum MinimumRentPeriod {
@@ -52,16 +54,15 @@ enum MinimumRentPeriod {
 }
 
 enum Currency {
-  AUD;
-
+  aud;
   static Currency fromName(String name) =>
-      values.firstWhere((element) => element.name == name);
+      values.firstWhere((element) => element.name == name.toLowerCase());
 }
 
 class Price {
   final Currency currency;
   final double rentPrice;
-  Price({this.currency = Currency.AUD, this.rentPrice = 0.0});
+  Price({this.currency = Currency.aud, this.rentPrice = 0.0});
 
   static Price convertMapToObject(Map<String, dynamic> map) {
     return Price(
@@ -71,11 +72,11 @@ class Price {
 }
 
 enum CountryCode {
-  AU,
-  US;
+  au,
+  us;
 
   static CountryCode fromName(String name) =>
-      values.firstWhere((element) => element.name == name);
+      values.firstWhere((element) => element.name == name.toLowerCase());
 }
 
 enum Roles {
@@ -110,6 +111,7 @@ class PropKeys {
   static const location = 'location';
   static const createdAt = "createAt";
   static const country = "country";
+  static const availableDate = "availableDate";
 }
 
 class AdditionalDetail {
@@ -153,7 +155,7 @@ class AddressDetail {
       PropKeys.streetNo: streetNo,
       PropKeys.streetName: streetName,
       PropKeys.postcode: postcode,
-      PropKeys.state: state.name,
+      PropKeys.state: state.stateName,
       PropKeys.surbub: suburb
     };
     return mapAddress;
@@ -166,7 +168,7 @@ class AddressDetail {
         streetNo: map[PropKeys.streetNo],
         postcode: map[PropKeys.postcode],
         suburb: map[PropKeys.surbub],
-        state: AustraliaStates.fromName(map[PropKeys.state]));
+        state: AustraliaStates.fromStateNameToEnum(map[PropKeys.state]));
   }
 }
 
@@ -180,10 +182,10 @@ class Property {
   final AdditionalDetail additionalDetail;
   final List<String> photos;
   final MinimumRentPeriod minimumRentPeriod;
-  final int surbub;
   final CountryCode country;
   final GeoPoint location;
   final Timestamp createdTime;
+  final Timestamp availableDate;
   const Property({
     this.id,
     required this.type,
@@ -195,11 +197,11 @@ class Property {
     required this.photos,
     required this.minimumRentPeriod,
     required this.country,
-    required this.surbub,
     required this.location,
     required this.createdTime,
+    required this.availableDate
   });
-   Map<String, dynamic> convertObjectToMap() {
+  Map<String, dynamic> convertObjectToMap() {
     Map<String, dynamic> mapProp = {
       PropKeys.name: name,
       PropKeys.price: {
@@ -215,31 +217,32 @@ class Property {
         PropKeys.parking: additionalDetail.parkings,
         PropKeys.additional: additionalDetail.additional
       },
+      PropKeys.availableDate: availableDate,
       PropKeys.photos: photos,
-      PropKeys.createdAt: Timestamp.now(),
+      PropKeys.createdAt: createdTime,
       PropKeys.location: location,
       PropKeys.type: type.name,
-      PropKeys.postcode: address.postcode,
-      PropKeys.country: country.name,
-      PropKeys.surbub: surbub
+      PropKeys.country: country.name.toUpperCase(),
+      "filter_by_postcode": address.postcode,
+      "filter_by_surbub": address.suburb
     };
     return mapProp;
   }
 
- static Property convertMapToObject(Map<String, dynamic> map) {
+  static Property convertMapToObject(Map<String, dynamic> map) {
     return Property(
         type: PropertyTypes.fromName(map[PropKeys.type]),
         name: map[PropKeys.name],
         price: Price.convertMapToObject(map[PropKeys.price]),
         description: map[PropKeys.desciption],
         address: AddressDetail.convertMapToObject(map[PropKeys.address]),
-        additionalDetail: AdditionalDetail.convertMapToObject(map[PropKeys.additionalDetail]),
+        additionalDetail:
+            AdditionalDetail.convertMapToObject(map[PropKeys.additionalDetail]),
         photos: List<String>.from(map[PropKeys.photos]),
-        minimumRentPeriod:
-            MinimumRentPeriod.fromName(map[PropKeys.rentPeriod]),
+        minimumRentPeriod: MinimumRentPeriod.fromName(map[PropKeys.rentPeriod]),
         country: CountryCode.fromName(map[PropKeys.country]),
-        surbub: map[PropKeys.postcode] as int,
         location: map[PropKeys.location],
-        createdTime: map[PropKeys.createdAt]);
+        createdTime: map[PropKeys.createdAt],
+        availableDate: map[PropKeys.availableDate]);
   }
 }
