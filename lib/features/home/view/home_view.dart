@@ -18,9 +18,6 @@ class HomePageView extends StatefulWidget {
 
 class HomePageViewState extends State<HomePageView> {
   late ShakeDetector detector;
-  void _onItemTapped(int index) {
-    _selectedIndex.value = index;
-  }
 
   @override
   void dispose() {
