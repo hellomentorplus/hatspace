@@ -30,8 +30,10 @@ class HSColor {
   static const Color neutral5 = Color(0xFFAEAEB2);
   static const Color neutral4 = Color(0xFFC7C7CC);
   static const Color neutral3 = Color(0xFFD1D1D6);
-  static const Color neutral2 = Color(0xFFE5E5EA);
+  static const Color neutral2 = Color(0xFFF3F3F3);
   static const Color neutral1 = Color(0xFFFAFAFA);
+
+  static const Color green06 = Color(0xFF32A854);
 }
 
 const ColorScheme colorScheme = ColorScheme(

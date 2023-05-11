@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
+        "booking": MessageLookupByLibrary.simpleMessage("Booking"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseUserRole":
             MessageLookupByLibrary.simpleMessage("Choose your role"),
@@ -57,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "message": MessageLookupByLibrary.simpleMessage("Message"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signinErrorToastMessage": MessageLookupByLibrary.simpleMessage(

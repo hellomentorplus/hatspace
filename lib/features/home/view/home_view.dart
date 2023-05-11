@@ -63,62 +63,88 @@ class HomePageViewState extends State<HomePageView> {
                 child: Text(
               HatSpaceStrings.of(context).homePageViewTitle,
             )),
-            bottomNavigationBar: ValueListenableBuilder<int>(
-              builder: (BuildContext context, int value, Widget? child) {
-                return BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed,
-                  items: <BottomNavigationBarItem>[
-                    BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        Assets.images.searchNormal,
+            bottomNavigationBar: BottomAppBar(
+              color: HSColor.neutral2,
+              height: 66 + MediaQuery.of(context).padding.bottom,
+              child: SafeArea(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _BottomBarItem(
+                      icon: Assets.icons.explore,
+                      label: HatSpaceStrings.current.explore,
+                      isSelected: false,
+                    ),
+                    _BottomBarItem(
+                      icon: Assets.icons.explore,
+                      label: HatSpaceStrings.current.booking,
+                      isSelected: false,
+                    ),
+                    Container(
+                      decoration: ShapeDecoration(
+                        shape: const CircleBorder(),
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      width: 48,
+                      height: 48,
+                      padding: const EdgeInsets.all(12.0),
+                      child: SvgPicture.asset(
+                        Assets.icons.add,
                         width: 24,
                         height: 24,
-                        color: _counter.value == 0
-                            ? HSColor.secondary
-                            : HSColor.neutral4,
                       ),
-                      label: HatSpaceStrings.of(context).explore.toString(),
                     ),
-                    BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        Assets.images.calendar,
-                        width: 24,
-                        height: 24,
-                        color: _counter.value == 1
-                            ? HSColor.secondary
-                            : HSColor.neutral4,
-                      ),
-                      label: HatSpaceStrings.of(context).tracking.toString(),
+                    _BottomBarItem(
+                      icon: Assets.icons.explore,
+                      label: HatSpaceStrings.current.message,
+                      isSelected: false,
                     ),
-                    BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        Assets.images.messages,
-                        width: 24,
-                        height: 24,
-                        color: _counter.value == 2
-                            ? HSColor.secondary
-                            : HSColor.neutral4,
-                      ),
-                      label: HatSpaceStrings.of(context).inbox.toString(),
-                    ),
-                    BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        Assets.images.profileCircle,
-                        width: 24,
-                        height: 24,
-                        color: _counter.value == 3
-                            ? HSColor.secondary
-                            : HSColor.neutral4,
-                      ),
-                      label: HatSpaceStrings.of(context).profile.toString(),
-                    ),
+                    _BottomBarItem(
+                      icon: Assets.icons.profile,
+                      label: HatSpaceStrings.current.profile,
+                      isSelected: false,
+                    )
                   ],
-                  selectedItemColor: HSColor.secondary,
-                  currentIndex: _counter.value,
-                  onTap: _onItemTapped,
-                );
-              },
-              valueListenable: _counter,
+                ),
+              ),
             )));
   }
+}
+
+class _BottomBarItem extends StatelessWidget {
+  /// Need SVG asset path here
+  final String icon;
+
+  /// Label to be display below SVG Icon
+  final String label;
+
+  /// is this item selected?
+  final bool isSelected;
+
+  const _BottomBarItem(
+      {required this.icon,
+      required this.label,
+      required this.isSelected,
+      Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: Column(
+          children: [
+            SvgPicture.asset(
+              icon,
+              width: 24,
+              height: 24,
+              color: isSelected
+                  ? Theme.of(context).colorScheme.primary
+                  : HSColor.neutral6,
+            ),
+            Text(label,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: isSelected ? HSColor.green06 : HSColor.neutral6))
+          ],
+        ),
+      );
 }
