@@ -139,32 +139,6 @@ class HomePageViewState extends State<HomePageView> {
               ),
             )));
   }
-
-  double _calculateToolbarHeight(
-      {required String title,
-      required TextStyle? textStyle,
-      required double textScaleFactor}) {
-    TextPainter textPainter = TextPainter(
-        text: TextSpan(
-          text: title,
-          style: textStyle,
-        ),
-        textScaleFactor: textScaleFactor,
-        textDirection: TextDirection.ltr)
-      ..layout();
-
-    final double titleHeight = textPainter.height;
-    final double searchHeight = 0;
-
-    final height = 24 /* padding top */
-        +
-        titleHeight +
-        24 /* padding bottom */
-        +
-        searchHeight;
-
-    return height;
-  }
 }
 
 class _BottomBarItem extends StatelessWidget {
@@ -192,25 +166,22 @@ class _BottomBarItem extends StatelessWidget {
   Widget build(BuildContext context) => InkWell(
         radius: 60,
         onTap: onTap,
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: Column(
-              children: [
-                SvgPicture.asset(
-                  icon,
-                  width: 24,
-                  height: 24,
-                  color: isSelected
-                      ? Theme.of(context).colorScheme.primary
-                      : HSColor.neutral6,
-                ),
-                Text(label,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: isSelected ? HSColor.green06 : HSColor.neutral6))
-              ],
-            ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: Column(
+            children: [
+              SvgPicture.asset(
+                icon,
+                width: 24,
+                height: 24,
+                color: isSelected
+                    ? Theme.of(context).colorScheme.primary
+                    : HSColor.neutral6,
+              ),
+              Text(label,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: isSelected ? HSColor.green06 : HSColor.neutral6))
+            ],
           ),
         ),
       );
