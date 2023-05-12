@@ -15,11 +15,20 @@ class $AssetsIconsGen {
   /// File path: assets/icons/add.svg
   String get add => 'assets/icons/add.svg';
 
+  /// File path: assets/icons/booking.svg
+  String get booking => 'assets/icons/booking.svg';
+
   /// File path: assets/icons/explore.svg
   String get explore => 'assets/icons/explore.svg';
 
   /// File path: assets/icons/filter.svg
   String get filter => 'assets/icons/filter.svg';
+
+  /// File path: assets/icons/message.svg
+  String get message => 'assets/icons/message.svg';
+
+  /// File path: assets/icons/notification.svg
+  String get notification => 'assets/icons/notification.svg';
 
   /// File path: assets/icons/profile.svg
   String get profile => 'assets/icons/profile.svg';
@@ -28,7 +37,8 @@ class $AssetsIconsGen {
   String get search => 'assets/icons/search.svg';
 
   /// List of all assets
-  List<String> get values => [add, explore, filter, profile, search];
+  List<String> get values =>
+      [add, booking, explore, filter, message, notification, profile, search];
 }
 
 class $AssetsImagesGen {

@@ -68,7 +68,19 @@ class HomePageViewState extends State<HomePageView> {
               bottom: const SearchBar(),
               toolbarHeight: 40,
               elevation: 0.0,
-              // TODO add notification icon
+
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(16.0),
+                    onTap: () {
+                      // TODO add action
+                    },
+                    child: SvgPicture.asset(Assets.icons.notification, color: Theme.of(context).colorScheme.onPrimary, width: 24, height: 24,),
+                  ),
+                )
+              ],
             ),
             body: Center(
                 child: Text(
@@ -94,7 +106,7 @@ class HomePageViewState extends State<HomePageView> {
                       valueListenable: _selectedIndex,
                       builder: (context, value, child) => _BottomBarItem(
                         icon: Assets
-                            .icons.explore, // TODO use booking icon without dot
+                            .icons.booking,
                         label: HatSpaceStrings.current.booking,
                         isSelected: value == 1,
                         onTap: () => _selectedIndex.value = 1,
@@ -118,7 +130,7 @@ class HomePageViewState extends State<HomePageView> {
                       valueListenable: _selectedIndex,
                       builder: (context, value, child) => _BottomBarItem(
                         icon: Assets
-                            .icons.explore, // TODO use message icon without dot
+                            .icons.message,
                         label: HatSpaceStrings.current.message,
                         isSelected: value == 2,
                         onTap: () => _selectedIndex.value = 2,
