@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hatspace/features/add_bedroom/view/add_bedroom_counter.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
@@ -17,14 +18,6 @@ class AddBedroomViewState extends State<AddBedroomView> {
   final ValueNotifier<int> bedroomCounter = ValueNotifier<int>(0);
   final ValueNotifier<int> bathRoomCounter = ValueNotifier<int>(0);
   final ValueNotifier<int> parkingCounter = ValueNotifier<int>(0);
-
-  bool checkCounterAdded(int counter) {
-    return counter > 0;
-  }
-
-  bool checkCounterMaxReached(int counter) {
-    return counter == 10;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +41,7 @@ class AddBedroomViewState extends State<AddBedroomView> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             PrevButton(
-              label: "Back",
+              label: HatSpaceStrings.of(context).back,
               iconUrl: Assets.images.chevronLeft,
               onPressed: () {},
             ),
@@ -58,7 +51,7 @@ class AddBedroomViewState extends State<AddBedroomView> {
                 builder: (context, child) {
                   return NextButton(
                     iconUrl: Assets.images.chevronRight,
-                    label: "Next",
+                    label: HatSpaceStrings.of(context).next,
                     onPressed: [
                       bedroomCounter.value,
                       parkingCounter.value,
@@ -86,135 +79,19 @@ class AddBedroomViewState extends State<AddBedroomView> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 24),
                 child: Text(
-                    HatSpaceStrings.of(context)
-                        .addBedroomViewInstructions
-                        .toString(),
+                    HatSpaceStrings.of(context).addBedroomViewInstructions,
                     style: Theme.of(context).textTheme.displayLarge),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    HatSpaceStrings.of(context).bedroomText.toString(),
-                    style: textTheme.bodyMedium?.copyWith(fontSize: 14),
-                  ),
-                  ValueListenableBuilder<int>(
-                    builder: (BuildContext context, int value, Widget? child) {
-                      return Row(
-                        children: [
-                          RoundButton(
-                              iconUrl: Assets.images.decrement,
-                              onPressed: checkCounterAdded(value)
-                                  ? () => bedroomCounter.value -= 1
-                                  : null),
-                          Container(
-                            width: 30,
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                              "$value",
-                              style: textTheme.titleMedium,
-                            ),
-                          ),
-                          RoundButton(
-                              iconUrl: Assets.images.increment,
-                              onPressed: checkCounterMaxReached(value)
-                                  ? null
-                                  : () => bedroomCounter.value += 1),
-                        ],
-                      );
-                    },
-                    valueListenable: bedroomCounter,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    HatSpaceStrings.of(context).bathroomText.toString(),
-                    style: textTheme.bodyMedium?.copyWith(fontSize: 14),
-                  ),
-                  ValueListenableBuilder<int>(
-                    builder: (BuildContext context, int value, Widget? child) {
-                      return Row(
-                        children: [
-                          RoundButton(
-                              iconUrl: Assets.images.decrement,
-                              onPressed: checkCounterAdded(value)
-                                  ? () => bathRoomCounter.value -= 1
-                                  : null),
-                          Container(
-                            width: 30,
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                              "$value",
-                              style: textTheme.titleMedium,
-                            ),
-                          ),
-                          RoundButton(
-                              iconUrl: Assets.images.increment,
-                              onPressed: checkCounterMaxReached(value)
-                                  ? null
-                                  : () => bathRoomCounter.value += 1),
-                        ],
-                      );
-                    },
-                    valueListenable: bathRoomCounter,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    HatSpaceStrings.of(context).parkingText.toString(),
-                    style: textTheme.bodyMedium?.copyWith(fontSize: 14),
-                  ),
-                  ValueListenableBuilder<int>(
-                    builder: (BuildContext context, int value, Widget? child) {
-                      return Row(
-                        children: [
-                          RoundButton(
-                              iconUrl: Assets.images.decrement,
-                              onPressed: checkCounterAdded(value)
-                                  ? () => parkingCounter.value -= 1
-                                  : null),
-                          Container(
-                            width: 30,
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                              "$value",
-                              style: textTheme.titleMedium,
-                            ),
-                          ),
-                          RoundButton(
-                              iconUrl: Assets.images.increment,
-                              onPressed: checkCounterMaxReached(value)
-                                  ? null
-                                  : () => parkingCounter.value += 1),
-                        ],
-                      );
-                    },
-                    valueListenable: parkingCounter,
-                  ),
-                ],
-              ),
-            ),
+            AddBedroomCounter(
+                counter: bedroomCounter,
+                text: HatSpaceStrings.of(context).bedroomText),
+            AddBedroomCounter(
+                counter: bathRoomCounter,
+                text: HatSpaceStrings.of(context).bathroomText),
+            AddBedroomCounter(
+                counter: parkingCounter,
+                text: HatSpaceStrings.of(context).parkingText),
           ],
         ),
       ),

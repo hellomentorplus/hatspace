@@ -39,6 +39,8 @@ const TextTheme textTheme = TextTheme(
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing025,
     height: FontStyleGuide.height,
+
+    //New text color based on design
     color: HSColor.neutral9,
   ),
 
@@ -49,6 +51,8 @@ const TextTheme textTheme = TextTheme(
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing0,
     height: FontStyleGuide.height,
+
+    //New text color based on design
     color: HSColor.neutral9,
   ),
   //headline2 => displayMedium
@@ -57,6 +61,8 @@ const TextTheme textTheme = TextTheme(
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing0,
     height: FontStyleGuide.height,
+
+    //New text color based on design
     color: HSColor.neutral9,
   ),
 
@@ -67,6 +73,8 @@ const TextTheme textTheme = TextTheme(
     fontWeight: FontStyleGuide.fwSemibold,
     letterSpacing: FontStyleGuide.letterSpacing015,
     height: FontStyleGuide.height,
+
+    //New text color based on design
     color: HSColor.neutral9,
   ),
 
@@ -77,6 +85,8 @@ const TextTheme textTheme = TextTheme(
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing05,
     height: FontStyleGuide.height,
+
+    //New text color based on design
     color: HSColor.neutral9,
   ),
   //bodyMedium ?? bodyText2
@@ -85,6 +95,8 @@ const TextTheme textTheme = TextTheme(
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing04,
     height: FontStyleGuide.height,
+
+    //New text color based on design
     color: HSColor.neutral9,
   ),
 
@@ -95,6 +107,8 @@ const TextTheme textTheme = TextTheme(
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing04,
     height: FontStyleGuide.height,
+
+    //New text color based on design
     color: HSColor.neutral9,
   ),
 
@@ -105,6 +119,8 @@ const TextTheme textTheme = TextTheme(
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing04,
     height: FontStyleGuide.height,
+
+    //New text color based on design
     color: HSColor.neutral9,
   ),
 
@@ -115,6 +131,8 @@ const TextTheme textTheme = TextTheme(
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing15,
     height: FontStyleGuide.height,
+
+    //New text color based on design
     color: HSColor.neutral9,
   ),
 );
@@ -125,6 +143,8 @@ const TextStyle subheadCustom = TextStyle(
   fontWeight: FontStyleGuide.fwSemibold,
   letterSpacing: FontStyleGuide.letterSpacing01,
   height: FontStyleGuide.height,
+
+  //New text color based on design
   color: HSColor.neutral9,
 );
 
@@ -134,5 +154,7 @@ const TextStyle overLine2Custom = TextStyle(
   fontWeight: FontStyleGuide.fwSemibold,
   letterSpacing: FontStyleGuide.letterSpacing15,
   height: FontStyleGuide.height,
+
+  //New text color based on design
   color: HSColor.neutral9,
 );
