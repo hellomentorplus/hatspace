@@ -35,7 +35,6 @@ class UserRoleCardView extends StatelessWidget {
 
     return BlocBuilder<ChooseRoleViewBloc, ChooseRoleViewState>(
         builder: (context, state) {
-      // print(state); ask Sue
       return InkWell(
           onTap: () {
             context

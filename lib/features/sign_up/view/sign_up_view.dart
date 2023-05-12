@@ -35,7 +35,7 @@ class SignUpScreen extends StatelessWidget {
           if (state is UserRolesUnavailable) {
             context.goToChooseRole();
           }
-          if (state is UserRolesAvailable) {
+          if (state is SignUpSuccess) {
             context.pop();
           }
         },
