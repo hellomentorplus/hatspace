@@ -167,8 +167,8 @@ class RoundButton extends StatelessWidget {
 }
 
 class NextButton extends StatelessWidget {
-  final String? label;
-  final String? iconUrl;
+  final String label;
+  final String iconUrl;
   final VoidCallback? onPressed;
 
   const NextButton(
@@ -187,11 +187,11 @@ class NextButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(label!),
+            Text(label),
             Padding(
               padding: const EdgeInsets.only(left: 10, top: 4),
               child: SvgPicture.asset(
-                iconUrl!,
+                iconUrl,
                 width: 24,
                 height: 24,
                 color: onPressed == null ? HSColor.neutral6 : HSColor.onPrimary,
@@ -204,8 +204,8 @@ class NextButton extends StatelessWidget {
 }
 
 class PrevButton extends StatelessWidget {
-  final String? label;
-  final String? iconUrl;
+  final String label;
+  final String iconUrl;
   final VoidCallback? onPressed;
 
   const PrevButton(
@@ -227,14 +227,14 @@ class PrevButton extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 10, top: 4),
               child: SvgPicture.asset(
-                iconUrl!,
+                iconUrl,
                 width: 24,
                 height: 24,
                 color: HSColor.neutral9,
                 alignment: Alignment.center,
               ),
             ),
-            Text(label!),
+            Text(label),
           ],
         ));
   }

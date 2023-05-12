@@ -3,8 +3,8 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 class AddBedroomCounter extends StatelessWidget {
-  final ValueNotifier<int>? counter;
-  final String? text;
+  final ValueNotifier<int> counter;
+  final String text;
   const AddBedroomCounter(
       {super.key, required this.counter, required this.text});
 
@@ -25,7 +25,7 @@ class AddBedroomCounter extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            text!,
+            text,
             style:
                 Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 14),
           ),
@@ -36,7 +36,7 @@ class AddBedroomCounter extends StatelessWidget {
                   RoundButton(
                       iconUrl: Assets.images.decrement,
                       onPressed: checkCounterAdded(value)
-                          ? () => counter!.value -= 1
+                          ? () => counter.value -= 1
                           : null),
                   Container(
                     width: 30,
@@ -51,11 +51,11 @@ class AddBedroomCounter extends StatelessWidget {
                       iconUrl: Assets.images.increment,
                       onPressed: checkCounterMaxReached(value)
                           ? null
-                          : () => counter!.value += 1),
+                          : () => counter.value += 1),
                 ],
               );
             },
-            valueListenable: counter!,
+            valueListenable: counter,
           ),
         ],
       ),
