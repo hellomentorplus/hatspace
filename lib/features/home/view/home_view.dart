@@ -174,6 +174,7 @@ class _BottomBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => InkWell(
         onTap: onTap,
+        borderRadius: BorderRadius.circular(36.0),
         child: AspectRatio(
           aspectRatio: 1,
           child: Column(
