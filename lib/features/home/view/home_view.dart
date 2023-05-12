@@ -175,11 +175,12 @@ class _BottomBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => InkWell(
-        radius: 60,
         onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: AspectRatio(
+          aspectRatio: 1,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SvgPicture.asset(
                 icon,
