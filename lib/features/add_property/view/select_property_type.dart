@@ -2,27 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/features/add_property/view/property_type_cart_view.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_event.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
+import 'package:hatspace/features/add_property/view_model/bloc/add_property_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
-import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:intl/intl.dart';
 
 
-class SelectPropertyType extends StatelessWidget {
-  const SelectPropertyType({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider<ChooseRoleViewBloc>(
-      create: (context) => ChooseRoleViewBloc(),
-      child: const SelectPropertyTypeBody(),
-    );
-  }
-}
 
 class SelectPropertyTypeBody extends StatelessWidget {
   const SelectPropertyTypeBody({super.key});
@@ -31,32 +17,10 @@ class SelectPropertyTypeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     String currentDate = DateFormat("dd MMMM, yyyy").format(DateTime.now());
-    return BlocConsumer<ChooseRoleViewBloc, ChooseRoleViewState>(
+    return BlocConsumer<AddPropertyBloc, AddPropertyState>(
         listener: (context, state) {},
         builder: (context, state) {
-          return Scaffold(
-              appBar: AppBar(
-                elevation: 0,
-                backgroundColor: HSColor.background,
-                leading: IconButton(
-                  icon: const Icon(Icons.close, color: HSColor.onSurface),
-                  onPressed: () => {
-                    //TODO; Implement bottom sheet warning
-                  },
-                ),
-                bottom: PreferredSize(
-                  preferredSize: Size(size.width, 0),
-                  child: LinearProgressIndicator(
-                    backgroundColor: HSColor.neutral2,
-                    color: HSColor.primary,
-                    value: 0.75,
-                    semanticsLabel:
-                        HatSpaceStrings.of(context).linearProgressIndicator,
-                  ),
-                ),
-                title: Text(HatSpaceStrings.of(context).app_name),
-              ),
-              body: Column(
+          return Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children:[
@@ -134,23 +98,8 @@ class SelectPropertyTypeBody extends StatelessWidget {
                           ],
                         ) ,
                       ),
-                      Container(
-                        key:const Key("bottom button"),
-                        padding:const EdgeInsets.fromLTRB(16, 8, 16, 42),
-                        decoration: const BoxDecoration(
-                          border:  Border(top: BorderSide(color:Color(0xfff3f3f3)))
-                        ),
-                        child:  Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          HsBackButton(lable: "BACK", icon: SvgPicture.asset(Assets.images.leftArrow)),
-                          HsNextButton(icon: SvgPicture.asset(Assets.images.rightArrow, color: Colors.white,), lable: "NEXT")
-                        ],
-                      ),
-                      )
-                     
-                    ]),
-              );
+                    ]);
+        
         });
   }
 }

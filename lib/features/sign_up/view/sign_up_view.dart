@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/features/add_property/view/add_property_page_view.dart';
 import 'package:hatspace/features/add_property/view/select_property_type.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -69,7 +70,7 @@ class SignUpScreen extends StatelessWidget {
                             //     .read<SignUpBloc>()
                             //     .add(const SignUpWithGoogle());
                             Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                              return const SelectPropertyType();
+                              return AddPropertyPageView();
                             }));
                           },
                         )),

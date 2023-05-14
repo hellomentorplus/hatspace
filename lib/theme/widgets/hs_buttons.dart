@@ -149,13 +149,13 @@ class HsBackButton extends StatelessWidget{
   });
    @override
   Widget build(BuildContext context) {
-    return OutlinedButton(onPressed: (){
-    }, 
+    return OutlinedButton(onPressed:onPressed, 
     style: OutlinedButton.styleFrom(
         side:const BorderSide(color: Colors.transparent)
     ),
     child: Row(
       children: [
+
         icon,
         Container(width: 18),
         // TODO: Update theme

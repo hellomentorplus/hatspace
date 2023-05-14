@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/features/add_property/view_model/bloc/add_property_bloc.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_event.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
@@ -27,23 +28,23 @@ class PropertyTypeCartView extends StatelessWidget {
   const PropertyTypeCartView({super.key, required this.position});
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChooseRoleViewBloc, ChooseRoleViewState>(
+    return BlocBuilder<AddPropertyBloc, AddPropertyState>(
         builder: (context, state) {
       return InkWell(
           onTap: () {
             context
-                .read<ChooseRoleViewBloc>()
-                .add(OnChangeUserRoleEvent(position));
+                .read<AddPropertyBloc>()
+                .add(SelectPropertyTypeEvent(position));
           },
           child: Card(
             shadowColor: Colors.transparent,
               margin: const EdgeInsets.only(top: 20),
               elevation: 6,
-              color: state is UserRoleSelectedListState && state.listRole.contains(Roles.values[position])
+              color: state is PropertyTypeSelectedState && state.propertyTypes == (PropertyTypes.values[position])
                   //TODO: Update ThemeColor.
                       ? const Color(0xFFEBFAEF)
                       : const Color(0xFFF3F3F3),
-              shape: state is UserRoleSelectedListState && state.listRole.contains(Roles.values[position]) 
+              shape: state is PropertyTypeSelectedState && state.propertyTypes == (PropertyTypes.values[position]) 
                 ? const RoundedRectangleBorder(
                 side: BorderSide(width: 1.5, color: Color(0xFF32A854)),
                 borderRadius: BorderRadius.all(Radius.circular(8)))
