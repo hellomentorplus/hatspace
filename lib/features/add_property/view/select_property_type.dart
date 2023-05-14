@@ -12,6 +12,7 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:intl/intl.dart';
 
+
 class SelectPropertyType extends StatelessWidget {
   const SelectPropertyType({super.key});
   @override
@@ -29,6 +30,7 @@ class SelectPropertyTypeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    String currentDate = DateFormat("dd MMMM, yyyy").format(DateTime.now());
     return BlocConsumer<ChooseRoleViewBloc, ChooseRoleViewState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -123,8 +125,8 @@ class SelectPropertyTypeBody extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              const Expanded(
-                                child: Text("13 Apr, 2023"),
+                               Expanded(
+                                child: Text(currentDate.isEmpty? "Unvailable":currentDate),
                               ),
                               SvgPicture.asset(Assets.images.calendar,width: 24,height: 24,)
                             ],
