@@ -281,6 +281,36 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `What kind of place?`
+  String get selectingRoleScreenTitle {
+    return Intl.message(
+      'What kind of place?',
+      name: 'selectingRoleScreenTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose kind of your property`
+  String get selectigRoleScreenSubtitle {
+    return Intl.message(
+      'Choose kind of your property',
+      name: 'selectigRoleScreenSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available date`
+  String get availableDate {
+    return Intl.message(
+      'Available date',
+      name: 'availableDate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
