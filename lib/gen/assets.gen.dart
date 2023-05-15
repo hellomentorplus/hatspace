@@ -15,6 +15,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/apartment.svg
   String get apartment => 'assets/images/apartment.svg';
 
+  /// File path: assets/images/arrow_calendar_left.svg
+  String get arrowCalendarLeft => 'assets/images/arrow_calendar_left.svg';
+
+  /// File path: assets/images/arrow_calendar_right.svg
+  String get arrowCalendarRight => 'assets/images/arrow_calendar_right.svg';
+
   /// File path: assets/images/calendar.svg
   String get calendar => 'assets/images/calendar.svg';
 
@@ -66,6 +72,8 @@ class $AssetsImagesGen {
   /// List of all assets
   List<String> get values => [
         apartment,
+        arrowCalendarLeft,
+        arrowCalendarRight,
         calendar,
         closeClear,
         closeDark,

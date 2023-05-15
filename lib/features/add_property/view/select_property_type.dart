@@ -131,27 +131,50 @@ class SelectPropertyTypeBody extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   mainAxisSize: MainAxisSize.min,
                                   children:  [ 
-                                    Padding(padding: EdgeInsets.fromLTRB(16, 16, 16, 21),
-                                    child:TableCalendar(
-                                    
+                              TableCalendar(
+                                headerStyle:   HeaderStyle(
+                                  headerPadding: const EdgeInsets.symmetric(horizontal: 32),
+                                  decoration: const BoxDecoration(
+                                    border: Border(bottom: BorderSide(color:Color(0xff1F3F3F3)))
+                                  ),
+                                  titleCentered: true,
+                                  formatButtonVisible: false,
+                                  titleTextStyle:const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700
+                                  ),
+                                  leftChevronIcon: SvgPicture.asset(Assets.images.arrowCalendarLeft),
+                                  rightChevronIcon: SvgPicture.asset(Assets.images.arrowCalendarRight),
+                                ),
                                             focusedDay: DateTime.now(),
                                             firstDay: DateTime(2010),
                                             lastDay: DateTime(2050),
+                                            startingDayOfWeek: StartingDayOfWeek.monday,
+                                            daysOfWeekStyle:const DaysOfWeekStyle(
+                                              // TODO: check heigh 
+                                              weekdayStyle: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                                color: Color(0xff595959),
+                                              )
+                                            ),
                                             calendarFormat:
                                                 CalendarFormat.month,
                                             calendarStyle: CalendarStyle(
+                                              tablePadding: const EdgeInsets.all(16),
                                               selectedDecoration: BoxDecoration(
                                                 color: Theme.of(context)
                                                     .primaryColor,
                                                 shape: BoxShape.circle,
                                               ),
-                                              todayDecoration: BoxDecoration(
-                                                color: Colors.grey[300],
+                                              todayDecoration: const BoxDecoration(
+                                                color: Color(0xff32A854),
                                                 shape: BoxShape.circle,
                                               ),
                                             ),
+                                    
                                           ) ,
-                                    )
+                               
                                     
                                           ]
                                 ),
