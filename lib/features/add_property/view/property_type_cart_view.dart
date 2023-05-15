@@ -24,7 +24,6 @@ extension TypeToIcon on PropertyTypes {
 
 class PropertyTypeCartView extends StatelessWidget {
   final int position;
-
   const PropertyTypeCartView({super.key, required this.position});
   @override
   Widget build(BuildContext context) {
