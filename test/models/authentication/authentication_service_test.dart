@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,7 +10,6 @@ import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-
 import 'authentication_service_test.mocks.dart';
 
 @GenerateMocks([
@@ -34,7 +35,10 @@ void main() {
   // Facebook mock
   final MockFacebookAuth mockFacebookAuth = MockFacebookAuth();
   final MockAccessToken mockAccessToken = MockAccessToken();
-  setUp(() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  setupFirebaseCoreMocks();
+  setUp(() async {
+    await Firebase.initializeApp();
     when(googleSignIn.signIn())
         .thenAnswer((realInvocation) => Future.value(account));
     when(account.authentication)
@@ -215,4 +219,42 @@ void main() {
       expect(userDetail.phone, user.phoneNumber);
     },
   );
+
+  test('given when user google sign up with sign up function ', () async {
+    // when
+    AuthenticationService service = AuthenticationService(
+        googleSignIn: googleSignIn, firebaseAuth: firebaseAuth);
+    when(firebaseAuth.signInWithCredential(any))
+        .thenAnswer((realInvocation) => Future.value(userCredential));
+
+    // then
+    final UserDetail userDetail =
+        await service.signUp(signUpType: SignUpType.googleService);
+
+    expect(userDetail.uid, user.uid);
+    expect(userDetail.email, user.email);
+    expect(userDetail.phone, user.phoneNumber);
+  });
+  test('given when user facebook sign up with sign up function ', () async {
+    // when
+    AuthenticationService service = AuthenticationService(
+        facebookAuth: mockFacebookAuth, firebaseAuth: firebaseAuth);
+    when(firebaseAuth.signInWithCredential(any))
+        .thenAnswer((realInvocation) => Future.value(userCredential));
+    when(firebaseAuth.signInWithCredential(any))
+        .thenAnswer((realInvocation) => Future.value(userCredential));
+    when(mockFacebookAuth.login()).thenAnswer((realInvocation) {
+      return Future<LoginResult>.value(LoginResult(
+          status: LoginStatus.success,
+          message: "test message",
+          accessToken: mockAccessToken));
+    });
+    // then
+    final UserDetail userDetail =
+        await service.signUp(signUpType: SignUpType.facebookService);
+
+    expect(userDetail.uid, user.uid);
+    expect(userDetail.email, user.email);
+    expect(userDetail.phone, user.phoneNumber);
+  });
 }

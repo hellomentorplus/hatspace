@@ -5,6 +5,11 @@ part 'hs_color.dart';
 part 'hs_text_theme.dart';
 
 ThemeData lightThemeData = ThemeData(
+    scaffoldBackgroundColor: colorScheme.background,
     textTheme: textTheme,
     colorScheme: colorScheme,
-    fontFamily: FontFamily.beVietnamPro);
+    fontFamily: FontFamily.beVietnamPro,
+    dividerTheme: const DividerThemeData(
+      color: HSColor.neutral3,
+      thickness: 1.0,
+    ));
