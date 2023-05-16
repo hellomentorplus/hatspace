@@ -35,8 +35,7 @@ void main() {
     await widgetTester.blocWrapAndPump<AppConfigBloc>(appConfigBloc, widget);
 
     expect(find.byType(AppBar), findsOneWidget);
-    expect(find.text('Hi Hoang Nguyen'), findsOneWidget);
-    expect(find.text('Search rental, location...'), findsOneWidget);
-    expect(find.byType(BottomAppBar), findsOneWidget);
+    expect(find.text('HAT Space'), findsOneWidget);
+    expect(find.byType(BottomNavigationBar), findsOneWidget);
   });
 }

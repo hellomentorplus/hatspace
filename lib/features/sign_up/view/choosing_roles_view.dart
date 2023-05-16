@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_event.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -12,6 +11,7 @@ import 'user_role_card_view.dart';
 
 class ChoosingRolesView extends StatelessWidget {
   const ChoosingRolesView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChooseRoleViewBloc>(
@@ -23,18 +23,12 @@ class ChoosingRolesView extends StatelessWidget {
 
 class ChoosingRoleViewBody extends StatelessWidget {
   const ChoosingRoleViewBody({super.key});
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return BlocConsumer<ChooseRoleViewBloc, ChooseRoleViewState>(
         listener: (context, state) {
-      if (state is ChoosingRoleSuccessState) {
-        context.pop();
-      }
-      if (state is ChoosingRoleFail) {
-        // TODO: Implement failure scenario
-      }
+      // TODO: listen Success State
     }, builder: (context, state) {
       return Scaffold(
           appBar: AppBar(
@@ -91,22 +85,21 @@ class ChoosingRoleViewBody extends StatelessWidget {
                   ),
                   Expanded(child: Container()),
                   PrimaryButton(
-                      label: HatSpaceStrings.of(context).continueBtn,
-                      onPressed: state is UserRoleSelectedListState &&
-                              state.listRole.isNotEmpty
-                          ? () {
-                              context
-                                  .read<ChooseRoleViewBloc>()
-                                  .add(const OnSubmitRoleEvent());
-                            }
-                          : null),
+                    label: HatSpaceStrings.of(context).continueBtn,
+                    onPressed: state is UserRoleSelectedListState
+                        ? state.listRole.isNotEmpty
+                            ? () {
+                                // Todo: Add Submit event
+                              }
+                            : null
+                        : null,
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 33),
                     child: TextOnlyButton(
                       label: HatSpaceStrings.of(context).cancelBtn,
                       onPressed: () {
-                        Navigator.of(context)
-                            .popUntil((route) => route.isFirst);
+                        context.goToHome();
                       },
                     ),
                   ),

@@ -1,40 +1,29 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
-import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
-import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'sign_up_bloc_test.mocks.dart';
 
-@GenerateMocks([
-  AuthenticationService,
-  StorageService,
-  FirebaseFirestore,
-  CollectionReference,
-  DocumentReference,
-  DocumentSnapshot,
-  MemberService
-])
-void main() async {
+@GenerateMocks([AuthenticationService])
+void main() {
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
-  final MockStorageService storageServiceMock = MockStorageService();
-  final MockMemberService memberService = MockMemberService();
-  setUpAll(() async {
+
+  setUpAll(() {
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationService);
-    HsSingleton.singleton.registerSingleton<StorageService>(storageServiceMock);
   });
+
   TestWidgetsFlutterBinding.ensureInitialized();
-  //setupFirebaseAuthMocks(); // Not relate to HS 51 - Need to add to perform test coverage
+  // setupFirebaseCoreMocks(); // Not relate to HS 51 - Need to add to perform test coverage
   group("Sign_up_bloc test state", () {
     late SignUpBloc signUpBloc;
     setUpAll(() async {
@@ -79,101 +68,83 @@ void main() async {
     });
   });
 
-  group("Check User Roles availability", () {
-    setUp(() {
-      when(storageServiceMock.member).thenAnswer((realInvocation) {
-        return memberService;
-      });
-    });
-    blocTest(
-        "when user sign up success with google and user already had roles then system will check userrole and return list of role ",
-        build: () => SignUpBloc(),
-        setUp: () {
-          when(authenticationService.signUp(
-                  signUpType: SignUpType.googleService))
-              .thenAnswer((realInvocation) => Future.value(UserDetail(
-                  uid: "mock uid", phone: "mock phone", email: "mock email")));
+  group('test sign up with google', () {
+    blocTest<SignUpBloc, SignUpState>(
+      'when signup with google success, then return success state',
+      build: () => SignUpBloc(),
+      setUp: () {
+        when(authenticationService.signUpWithGoogle()).thenAnswer(
+            (realInvocation) => Future.value(
+                UserDetail(uid: 'uid', phone: 'phone', email: 'email')));
+      },
+      act: (bloc) => bloc.add(const SignUpWithGoogle()),
+      expect: () => [isA<SignUpStart>(), isA<SignUpSuccess>()],
+    );
 
-          when(memberService.getUserRoles(any)).thenAnswer((realInvocation) {
-            return Future.value([Roles.tenant]);
-          });
-        },
-        act: (bloc) => bloc.add(const SignUpWithGoogle()),
-        expect: () => [isA<SignUpStart>(), isA<SignUpSuccess>()]);
-
-    blocTest(
-        "when user sign up success with google and user has not had roles yet, then system will check userrole and return empty list",
-        build: () => SignUpBloc(),
-        setUp: () {
-          when(authenticationService.signUp(
-                  signUpType: SignUpType.googleService))
-              .thenAnswer((realInvocation) => Future.value(UserDetail(
-                  uid: "test uid", phone: "test phone", email: "test email")));
-          when(memberService.getUserRoles(any)).thenAnswer((realInvocation) {
-            return Future.value([]);
-          });
-        },
-        act: (bloc) => bloc.add(const SignUpWithGoogle()),
-        expect: () => [isA<SignUpStart>(), isA<UserRolesUnavailable>()]);
-  });
-
-  group("Test sign up failed", () {
-    // WITH GOOGLE SIGN UP TYPE
     blocTest(
       'when sign up with google failed with UserCancelException, then return UserCancelled',
       build: () => SignUpBloc(),
-      setUp: () => when(authenticationService.signUp(
-              signUpType: SignUpType.googleService))
+      setUp: () => when(authenticationService.signUpWithGoogle())
           .thenThrow(UserCancelException()),
       act: (bloc) => bloc.add(const SignUpWithGoogle()),
       expect: () => [isA<SignUpStart>(), isA<UserCancelled>()],
     );
+
     blocTest(
         'when signup with google failed with UserNotFoundException, then return AuthenticationFailed',
         build: () => SignUpBloc(),
-        setUp: () => when(authenticationService.signUp(
-                signUpType: SignUpType.googleService))
+        setUp: () => when(authenticationService.signUpWithGoogle())
             .thenThrow(UserNotFoundException()),
         act: (bloc) => bloc.add(const SignUpWithGoogle()),
         expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()]);
+
     blocTest(
       'when signup with google failed with unknown error, then return AuthenticationFailed',
       build: () => SignUpBloc(),
-      setUp: () => when(authenticationService.signUp(
-              signUpType: SignUpType.googleService))
+      setUp: () => when(authenticationService.signUpWithGoogle())
           .thenThrow(PlatformException(code: '1234')),
       act: (bloc) => bloc.add(const SignUpWithGoogle()),
       expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()],
     );
 
-    // WITH FACEBOOK SIGN UP
-    blocTest(
-      'when sign up with google failed with UserCancelException, then return UserCancelled',
-      build: () => SignUpBloc(),
-      setUp: () => when(authenticationService.signUp(
-              signUpType: SignUpType.facebookService))
-          .thenThrow(UserCancelException()),
-      act: (bloc) => bloc.add(const SignUpWithFacebook()),
-      expect: () => [isA<SignUpStart>(), isA<UserCancelled>()],
-    );
-    blocTest(
-        'when signup with google failed with UserNotFoundException, then return AuthenticationFailed',
+    //FACEBOOK bloc test
+    blocTest('when sign up with facebook success, then return SignUpSuccess',
         build: () => SignUpBloc(),
-        setUp: () => when(authenticationService.signUp(
-                signUpType: SignUpType.facebookService))
-            .thenThrow(UserNotFoundException()),
+        setUp: () {
+          when(authenticationService.signUpWithFacebook())
+              .thenAnswer((realInvocation) {
+            return Future.value(
+                UserDetail(uid: 'uid', phone: 'phone', email: 'email'));
+          });
+        },
         act: (bloc) => bloc.add(const SignUpWithFacebook()),
-        expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()]);
-    blocTest(
-      'when signup with google failed with unknown error, then return AuthenticationFailed',
-      build: () => SignUpBloc(),
-      setUp: () => when(authenticationService.signUp(
-              signUpType: SignUpType.facebookService))
-          .thenThrow(PlatformException(code: '1234')),
-      act: (bloc) => bloc.add(const SignUpWithFacebook()),
-      expect: () => [isA<SignUpStart>(), isA<AuthenticationFailed>()],
-    );
+        expect: () => [isA<SignUpStart>(), isA<SignUpSuccess>()]);
   });
+
+  blocTest("when sign up with facebook with canceled response",
+      build: () => SignUpBloc(),
+      setUp: () => when(authenticationService.signUpWithFacebook())
+          .thenThrow(UserCancelException()),
+      act: (bloc) => bloc.add(const SignUpWithFacebook()),
+      expect: () => [isA<SignUpStart>(), isA<UserCancelled>()]);
+
+  blocTest("when sign up with facebook with canceled response",
+      build: () => SignUpBloc(),
+      setUp: () => when(authenticationService.signUpWithFacebook())
+          .thenThrow(UserNotFoundException()),
+      act: (bloc) => bloc.add(const SignUpWithFacebook()),
+      expect: () => [isA<SignUpStart>(), isA<UserCancelled>()]);
+  blocTest("when sign up with facebook with canceled response",
+      build: () => SignUpBloc(),
+      setUp: () => when(authenticationService.signUpWithFacebook())
+          .thenThrow(AuthenticationFailed()),
+      act: (bloc) => bloc.add(const SignUpWithFacebook()),
+      expect: () => [isA<SignUpStart>(), isA<UserCancelled>()]);
+
+  // blocTest("when login failed, then refactor sign up state ",
+  //     build: () => SignUpBloc(),
+  //     act: (bloc) => bloc.add(const RetrySignUp()),
+  //     expect: () => [isA<RetryingSignUpState>()]);
   test('test state and event', () {
     CheckFirstLaunchSignUp firstLaunchSignUp = const CheckFirstLaunchSignUp();
 
@@ -192,12 +163,6 @@ void main() async {
     FirstLaunchScreen firstLaunchScreenFalse = const FirstLaunchScreen(false);
     expect(firstLaunchScreenFalse.props.length, 1);
     expect(firstLaunchScreenFalse.props.first, false);
-
-    UserRolesUnavailable userRolesUnavailable = const UserRolesUnavailable();
-    expect(userRolesUnavailable.props.length, 0);
-
-    SignUpSuccess signUpSuccess = const SignUpSuccess();
-    expect(signUpSuccess.props.length, 0);
 
     SignUpWithGoogle signUpWithGoogle = const SignUpWithGoogle();
     expect(signUpWithGoogle.props.length, 0);

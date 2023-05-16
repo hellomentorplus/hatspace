@@ -1,9 +1,8 @@
 part of 'hs_theme.dart';
 
 class HSColor {
-  static const Color primary = Color(0xFF32A854); // new design color
-  static const Color onPrimary = Color(0xFFFFFFFF); // new design color
-
+  static const Color primary = Color(0xFF3ACD64);
+  static const Color onPrimary = Color(0xFFF5F8F0);
   static const Color primaryVariant = Color(0xFFCCF0D2);
   static const Color onPrimaryVariant = Color(0xFF282828);
 
@@ -12,8 +11,8 @@ class HSColor {
   static const Color secondaryVariant = Color(0xFFFDA282);
   static const Color onSecondaryVariant = Color(0xFF282828);
 
-  static const Color background = Color(0xFFFFFFFF); // new design color
-  static const Color onBackground = Color(0xFF202020); // new design color
+  static const Color background = Color(0xFFF8F8F8);
+  static const Color onBackground = Color(0xFF282828);
   static const Color backgroundVariant = Color(0xFFFDA282);
 
   static const Color surface = Color(0xFFFFFFFF);
@@ -30,13 +29,9 @@ class HSColor {
   static const Color neutral6 = Color(0xFF8E8E93);
   static const Color neutral5 = Color(0xFFAEAEB2);
   static const Color neutral4 = Color(0xFFC7C7CC);
-  static const Color neutral3 = Color(0xFFD9D9D9); // new design color
-  static const Color neutral2 = Color(0xFFF3F3F3); // new design color
-  static const Color neutral1 = Color(0xFFFFFFFF); // new design color
-
-  static const Color green06 = Color(0xFF32A854);
-
-  static const Color black = Color(0xFF000000);
+  static const Color neutral3 = Color(0xFFD1D1D6);
+  static const Color neutral2 = Color(0xFFE5E5EA);
+  static const Color neutral1 = Color(0xFFFAFAFA);
 }
 
 const ColorScheme colorScheme = ColorScheme(

@@ -18,8 +18,7 @@ void main() {
 
     final Icon renderedIcon = tester.widget<Icon>(find.byType(Icon));
 
-    // primary color changed
-    expect(renderedIcon.color, const Color(0xff32a854));
+    expect(renderedIcon.color, const Color(0xFF3ACD64));
   });
 
   testWidgets('Validate onPrimary theme color', (WidgetTester tester) async {
@@ -34,8 +33,7 @@ void main() {
 
     final Icon renderedIcon = tester.widget<Icon>(find.byType(Icon));
 
-    // onPrimary color changed
-    expect(renderedIcon.color, const Color(0xffffffff));
+    expect(renderedIcon.color, const Color(0xFFF5F8F0));
   });
 
   testWidgets('Validate secondary theme color', (WidgetTester tester) async {
@@ -95,8 +93,7 @@ void main() {
 
     final Icon renderedIcon = tester.widget<Icon>(find.byType(Icon));
 
-    // background color changed
-    expect(renderedIcon.color, const Color(0xffffffff));
+    expect(renderedIcon.color, const Color(0xFFF8F8F8));
   });
 
   testWidgets('Validate onBackground theme color', (WidgetTester tester) async {
@@ -111,8 +108,7 @@ void main() {
 
     final Icon renderedIcon = tester.widget<Icon>(find.byType(Icon));
 
-    // onBackground color changed
-    expect(renderedIcon.color, const Color(0xff202020));
+    expect(renderedIcon.color, const Color(0xFF282828));
   });
 
   testWidgets('Validate surface theme color', (WidgetTester tester) async {

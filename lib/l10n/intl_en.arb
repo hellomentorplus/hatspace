@@ -26,9 +26,5 @@
   "linearProgressIndicator":"Linear progress indicator",
   "signinErrorToastMessage": "Unable to sign you in at the moment. Please try again later.",
   "signinErrorToastTitle":"Login Failed",
-  "loadingMessage": "Loading...",
-  "booking":"Booking",
-  "message":"Message",
-  "profile":"Profile",
-  "searchHint":"Search rental, location..."
+  "loadingMessage": "Loading..."
 }

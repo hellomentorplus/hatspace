@@ -2,10 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:hatspace/data/data.dart';
+import '../../data/data.dart';
 import 'authentication_exception.dart';
-
-enum SignUpType { googleService, facebookService }
 
 class AuthenticationService {
   final GoogleSignIn _googleSignIn;
@@ -18,24 +16,6 @@ class AuthenticationService {
   })  : _googleSignIn = googleSignIn ?? GoogleSignIn(),
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
         _facebookAuth = facebookAuth ?? FacebookAuth.instance;
-
-  Future<UserDetail> signUp({required SignUpType signUpType}) async {
-    UserDetail userDetail;
-
-    // CHECK authe service type
-    switch (signUpType) {
-      case SignUpType.googleService:
-        userDetail = await signUpWithGoogle();
-        break;
-      case SignUpType.facebookService:
-        userDetail = await signUpWithFacebook();
-        break;
-      default:
-        throw UnimplementedError();
-    }
-    return userDetail;
-  }
-
   Future<UserDetail> signUpWithGoogle({AuthCredential? authCredential}) async {
     // no login yet, sign in with google now
     try {

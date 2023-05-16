@@ -1,29 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/sign_up/view/choosing_roles_view.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 
 import '../widget_tester_extension.dart';
-import 'choosing_roles_view_test.mocks.dart';
 
-@GenerateMocks([ChooseRoleViewBloc])
 void main() {
-  MockChooseRoleViewBloc mockChooseRoleViewBloc = MockChooseRoleViewBloc();
-  setUp(() {
-    when(mockChooseRoleViewBloc.state)
-        .thenAnswer((realInvocation) => ChooseRoleViewInitial());
-    when(mockChooseRoleViewBloc.stream)
-        .thenAnswer((realInvocation) => Stream.value(ChooseRoleViewInitial()));
-  });
-
   testWidgets('Check widgets on screen', (WidgetTester tester) async {
-    const widget = ChoosingRoleViewBody();
-    await tester.blocWrapAndPump<ChooseRoleViewBloc>(
-        mockChooseRoleViewBloc, widget);
+    const widget = ChoosingRolesView();
+
+    await tester.wrapAndPump(widget);
 
     Padding firstPadding = tester.firstWidget(find.byType(Padding));
     expect(firstPadding.padding,
@@ -41,10 +27,9 @@ void main() {
   });
 
   testWidgets('Check list view on screen', (WidgetTester tester) async {
-    const widget = ChoosingRoleViewBody();
+    const widget = ChoosingRolesView();
 
-    await tester.blocWrapAndPump<ChooseRoleViewBloc>(
-        mockChooseRoleViewBloc, widget);
+    await tester.wrapAndPump(widget);
 
     //LISTVIEW
     ListView listView = tester.widget(find.byType(ListView));
@@ -53,10 +38,9 @@ void main() {
   });
 
   testWidgets('Check buttons on screen', (WidgetTester tester) async {
-    const widget = ChoosingRoleViewBody();
+    const widget = ChoosingRolesView();
 
-    await tester.blocWrapAndPump<ChooseRoleViewBloc>(
-        mockChooseRoleViewBloc, widget);
+    await tester.wrapAndPump(widget);
 
     //PRIMARY BUTTON
     PrimaryButton primaryBtn = tester.widget(find.byType(PrimaryButton));

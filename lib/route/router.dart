@@ -18,7 +18,7 @@ extension RouteExtension on BuildContext {
   }
 
   void goToChooseRole() {
-    Navigator.of(this).pushReplacement(
+    Navigator.of(this).push(
         MaterialPageRoute(builder: (context) => const ChoosingRolesView()));
   }
 
