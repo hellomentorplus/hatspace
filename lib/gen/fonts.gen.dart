@@ -12,4 +12,7 @@ class FontFamily {
 
   /// Font family: BeVietnamPro
   static const String beVietnamPro = 'BeVietnamPro';
+
+  /// Font family: Manrope
+  static const String manrope = 'Manrope';
 }
