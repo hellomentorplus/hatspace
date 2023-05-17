@@ -36,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "act": MessageLookupByLibrary.simpleMessage(
+            "Australian Capital Territory"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
@@ -59,7 +61,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
+        "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
+        "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "qld": MessageLookupByLibrary.simpleMessage("Queenland"),
+        "sa": MessageLookupByLibrary.simpleMessage("South Australia"),
         "searchHint":
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
@@ -68,8 +74,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "signinErrorToastTitle":
             MessageLookupByLibrary.simpleMessage("Login Failed"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "tas": MessageLookupByLibrary.simpleMessage("Tasmania"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
         "userRoleDescription": m0,
-        "userTitleRoles": m1
+        "userTitleRoles": m1,
+        "vic": MessageLookupByLibrary.simpleMessage("Victoria"),
+        "wa": MessageLookupByLibrary.simpleMessage("Western Australia")
       };
 }

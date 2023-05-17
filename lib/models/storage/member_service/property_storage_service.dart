@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/data/property_data.dart';
 
 class PropertyService {
   final FirebaseFirestore _firestore;
@@ -40,7 +41,7 @@ class PropertyService {
     return propertiesList;
   }
 
-  Future<void> saveProperty(Property property) async {
+  Future<void> addProperty(Property property) async {
     await _firestore
         .collection(propertyCollection)
         .doc()

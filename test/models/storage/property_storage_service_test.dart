@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -119,7 +120,7 @@ void main() {
 
   test('verify API calls when save property', () async {
     StorageService storageService = StorageService();
-    await storageService.property.saveProperty(propertySample);
+    await storageService.property.addProperty(propertySample);
 
     verify(mockFirebaseFirestore.collection('properties')).called(1);
     verify(mockCollectionReference.doc()).called(1);
