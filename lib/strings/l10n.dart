@@ -391,6 +391,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `3 Months`
+  String get threeMonths {
+    return Intl.message(
+      '3 Months',
+      name: 'threeMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `6 Months`
+  String get sixMonths {
+    return Intl.message(
+      '6 Months',
+      name: 'sixMonths',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

@@ -50,8 +50,9 @@ enum AustraliaStates {
   act,
   nt,
   invalid;
+
   const AustraliaStates();
-  static String getStateName(AustraliaStates stateCode){
+  static String getStateName(AustraliaStates stateCode) {
     switch (stateCode) {
       case nsw:
         return HatSpaceStrings.current.nsw;
@@ -71,41 +72,56 @@ enum AustraliaStates {
         return "Invalid state name";
     }
   }
-  static AustraliaStates getStateCode (String stateName){
-    if (stateName == HatSpaceStrings.current.nsw){
+
+  static AustraliaStates getStateCode(String stateName) {
+    if (stateName == HatSpaceStrings.current.nsw) {
       return nsw;
-    }else if(stateName == HatSpaceStrings.current.vic){
+    } else if (stateName == HatSpaceStrings.current.vic) {
       return vic;
-    }else if(stateName ==HatSpaceStrings.current.qld){
+    } else if (stateName == HatSpaceStrings.current.qld) {
       return qld;
-    }else if(stateName == HatSpaceStrings.current.wa){
+    } else if (stateName == HatSpaceStrings.current.wa) {
       return wa;
-    }else if(stateName == HatSpaceStrings.current.tas){
+    } else if (stateName == HatSpaceStrings.current.tas) {
       return tas;
-    }else if (stateName == HatSpaceStrings.current.act){
+    } else if (stateName == HatSpaceStrings.current.act) {
       return act;
-    }else if(stateName == HatSpaceStrings.current.nt){
+    } else if (stateName == HatSpaceStrings.current.nt) {
       return nt;
-    }else{
+    } else {
       return invalid;
     }
-    }
   }
+}
 
 enum MinimumRentPeriod {
   //TODO: add more value for upcomming story
-  threeMonths('3 Months'),
-  sixMonths('6 Months'),
-  invalid("invalid");
+  threeMonths,
+  sixMonths,
+  invalid;
 
-  final String text;
-  const MinimumRentPeriod(this.text);
-  static MinimumRentPeriod fromName(String name) =>
-      values.firstWhere((element) {
-        return element.text == name;
-      }, orElse: () {
-        return invalid;
-      });
+  const MinimumRentPeriod();
+  static String getPeriodName(MinimumRentPeriod period) {
+    switch (period) {
+      case threeMonths:
+        return HatSpaceStrings.current.threeMonths;
+      case sixMonths:
+        return HatSpaceStrings.current.sixMonths;
+      // TODO: add more values in next story
+      default:
+        return "invalid";
+    }
+  }
+
+  static MinimumRentPeriod getPeriod(String period) {
+    if (period == HatSpaceStrings.current.threeMonths) {
+      return threeMonths;
+    } else if (period == HatSpaceStrings.current.sixMonths) {
+      return sixMonths;
+    } else {
+      return invalid;
+    }
+  }
 }
 
 enum Currency {
@@ -230,7 +246,7 @@ class Property {
         PropKeys.currency: price.currency.name,
         PropKeys.price: price.rentPrice
       },
-      PropKeys.rentPeriod: minimumRentPeriod.text,
+      PropKeys.rentPeriod: MinimumRentPeriod.getPeriodName(minimumRentPeriod),
       PropKeys.desciption: description,
       PropKeys.address: address.convertAddressToMap(),
       PropKeys.additionalDetail: {
@@ -261,7 +277,8 @@ class Property {
         additionalDetail:
             AdditionalDetail.convertMapToObject(map[PropKeys.additionalDetail]),
         photos: List<String>.from(map[PropKeys.photos]),
-        minimumRentPeriod: MinimumRentPeriod.fromName(map[PropKeys.rentPeriod]),
+        minimumRentPeriod:
+            MinimumRentPeriod.getPeriod(map[PropKeys.rentPeriod]),
         country: CountryCode.fromName(map[PropKeys.country]),
         location: map[PropKeys.location],
         createdTime: map[PropKeys.createdAt],

@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
+import 'package:hatspace/strings/l10n.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -48,8 +49,9 @@ void main() {
       country: CountryCode.au,
       createdTime: Timestamp(200, 200),
       location: const GeoPoint(90, 90));
-  setUpAll(() {
+  setUpAll(() async {
     StorageService.firestore = mockFirebaseFirestore;
+    await HatSpaceStrings.load(const Locale.fromSubtags(languageCode: 'en'));
   });
 
   setUp(() {
@@ -121,7 +123,6 @@ void main() {
   test('verify API calls when save property', () async {
     StorageService storageService = StorageService();
     await storageService.property.addProperty(propertySample);
-
     verify(mockFirebaseFirestore.collection('properties')).called(1);
     verify(mockCollectionReference.doc()).called(1);
     verify(mockDocumentReference.set(propertySample.convertObjectToMap()))

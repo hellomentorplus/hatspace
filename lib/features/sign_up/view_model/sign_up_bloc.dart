@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
@@ -49,33 +47,16 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     });
 
     on<SignUpWithFacebook>((event, emit) async {
-      // try {
-      //   emit(SignUpStart());
-      //   await signUp(emit, SignUpType.facebookService);
-      // } on UserCancelException {
-      //   emit(UserCancelled());
-      // } on UserNotFoundException {
-      //   emit(AuthenticationFailed());
-      // } catch (_) {
-      //   emit(AuthenticationFailed());
-      // }
-      // _storageService.property.addProperty(Property(
-      //   type: PropertyTypes.house, 
-      //   name: "Property name 3", 
-      //   price: Price(rentPrice: 5000.0), 
-      //   description: "Property 3 description", 
-      //   address: AddressDetail(streetName: "street name", streetNo: "23", postcode: 3020,  
-      //   suburb: "ABC suburb", 
-      //   state: AustraliaStates.vic, unitNo: "2"), 
-      //   additionalDetail: AdditionalDetail(), 
-      //   photos: [], 
-      //   minimumRentPeriod: MinimumRentPeriod.sixMonths, 
-      //   country: CountryCode.au, 
-      //   location: GeoPoint(60, 50), 
-      //   createdTime: Timestamp.now(), 
-      //   availableDate: Timestamp.now()));
-    // Property? prop = await  _storageService.property.getProperty("3kuSXz8kIkWxGn5T8BG5");
-    //   print(prop);
+      try {
+        emit(SignUpStart());
+        await signUp(emit, SignUpType.facebookService);
+      } on UserCancelException {
+        emit(UserCancelled());
+      } on UserNotFoundException {
+        emit(AuthenticationFailed());
+      } catch (_) {
+        emit(AuthenticationFailed());
+      }
     });
   }
 

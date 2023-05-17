@@ -38,6 +38,7 @@
   "sa":"South Australia",
   "tas":"Tasmania",
   "act": "Australian Capital Territory",
-  "nt":"Northern Territory"
-
+  "nt":"Northern Territory",
+  "threeMonths": "3 Months",
+  "sixMonths": "6 Months"
 }

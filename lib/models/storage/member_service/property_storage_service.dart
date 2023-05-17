@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
 
 class PropertyService {
