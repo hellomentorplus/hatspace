@@ -83,6 +83,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/icons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -111,7 +112,7 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   fonts:
-    - family: BeVietnamPro   
+    - family: BeVietnamPro
       fonts:
         - asset: assets/fonts/BeVietnamPro-Bold.ttf
           weight: 700
@@ -119,6 +120,22 @@ flutter:
           weight: 600
         - asset: assets/fonts/BeVietnamPro-Regular.ttf
           weight: 400
+    - family: Manrope
+      fonts:
+        - asset: assets/fonts/Manrope-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Manrope-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Manrope-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Manrope-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Manrope-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Manrope-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Manrope-ExtraLight.ttf
+          weight: 200
 flutter_intl:
   enabled: true
   class_name: HatSpaceStrings

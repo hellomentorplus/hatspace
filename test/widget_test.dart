@@ -60,17 +60,18 @@ void main() {
     const widget = HomePageView();
     await tester.blocWrapAndPump<AppConfigBloc>(mockAppConfigBloc, widget);
 
-    // // Verify that our counter starts at 0.
-    expect(find.text('HAT Space'), findsOneWidget);
+    // verify the mocked name is displayed - this will change later
+    expect(find.text('Hi Hoang Nguyen'), findsOneWidget);
   });
 
-  testWidgets('Check button navigation bar', (WidgetTester tester) async {
+  testWidgets('Check bottom app bar', (WidgetTester tester) async {
     const widget = HomePageView();
     await tester.blocWrapAndPump<AppConfigBloc>(mockAppConfigBloc, widget);
-    // // Verify that our counter starts at 0.
+    // Verify content of bottom app bar
     expect(find.text('Explore'), findsOneWidget);
-    expect(find.text('Tracking'), findsOneWidget);
-    expect(find.text('Inbox'), findsOneWidget);
+    expect(find.text('Booking'), findsOneWidget);
+    expect(find.text('Message'), findsOneWidget);
+    expect(find.text('Profile'), findsOneWidget);
   });
 
   testWidgets('It should have a widget', (tester) async {
