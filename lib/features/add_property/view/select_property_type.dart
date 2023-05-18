@@ -6,6 +6,7 @@ import 'package:hatspace/features/add_property/view_model/bloc/add_property_bloc
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -73,52 +74,6 @@ class SelectPropertyTypeBody extends StatelessWidget {
                       Container(height: 4),
                       OutlinedButton(
                           onPressed: () async {
-                            //TODO: SHOW DATE PICKER
-                            //            DateTime? pickedDate = await showDatePicker(
-                            //     context: context, initialDate: DateTime.now(),
-                            //     firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
-                            //     lastDate: DateTime(2101),
-                            // );
-                            // print(pickedDate);
-
-                            // showDialog(
-                            //     context: context,
-                            //     builder: (context) {
-                            //       return
-                            //       Container(
-                            //         height: 50,
-                            //         width: 50,
-                            //         color: HSColor.background,
-                            //         child:                         Center(
-                            //         child: Column(
-                            //             mainAxisAlignment:
-                            //                 MainAxisAlignment.center,
-                            //             mainAxisSize: MainAxisSize.min,
-                            //             children: [
-                            //               TableCalendar(
-                            //                 focusedDay: DateTime.now(),
-                            //                 firstDay: DateTime(2010),
-                            //                 lastDay: DateTime(2050),
-                            //                 calendarFormat:
-                            //                     CalendarFormat.month,
-                            //                 calendarStyle: CalendarStyle(
-                            //                   selectedDecoration: BoxDecoration(
-                            //                     color: Theme.of(context)
-                            //                         .primaryColor,
-                            //                     shape: BoxShape.circle,
-                            //                   ),
-                            //                   todayDecoration: BoxDecoration(
-                            //                     color: Colors.grey[300],
-                            //                     shape: BoxShape.circle,
-                            //                   ),
-                            //                 ),
-                            //               )
-                            //             ]),
-                            //       )
-
-                            //       );
-                            //     });
-
                             showDialog(
                                 context: context,
                                 builder: (context) {
@@ -134,67 +89,8 @@ class SelectPropertyTypeBody extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
                                         mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          TableCalendar(
-                                            // Setup Dates title
-                                            daysOfWeekHeight: 18.0,
-                                             daysOfWeekStyle:
-                                                const DaysOfWeekStyle(weekendStyle: TextStyle(
-                                                     fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: Color(0xff595959),
-                                                ),
-                                                    // TODO: check heigh
-                                                    weekdayStyle: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: Color(0xff595959),
-                                            )),
-                                            
-                                            headerStyle: HeaderStyle(
-                                              headerPadding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 32),
-                                              decoration: const BoxDecoration(
-                                                  border: Border(
-                                                      bottom: BorderSide(
-                                                          color: Color(
-                                                              0xff1F3F3F3)))),
-                                              titleCentered: true,
-                                              formatButtonVisible: false,
-                                              titleTextStyle: const TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w700),
-                                              leftChevronIcon: SvgPicture.asset(
-                                                  Assets.images
-                                                      .arrowCalendarLeft),
-                                              rightChevronIcon:
-                                                  SvgPicture.asset(Assets.images
-                                                      .arrowCalendarRight),
-                                            ),
-                                            focusedDay: DateTime.now(),
-                                            firstDay: DateTime(2010),
-                                            lastDay: DateTime(2050),
-                                            startingDayOfWeek:
-                                                StartingDayOfWeek.monday,
-                                           
-                                            calendarFormat:
-                                                CalendarFormat.month,
-                                            calendarStyle: CalendarStyle(
-                                              tablePadding:
-                                                  const EdgeInsets.all(16),
-                                              selectedDecoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                shape: BoxShape.circle,
-                                              ),
-                                              todayDecoration:
-                                                  const BoxDecoration(
-                                                color: Color(0xff32A854),
-                                                shape: BoxShape.circle,
-                                              ),
-                                            ),
-                                          ),
+                                        children: const [
+                                          HsDatePicker()
                                         ]),
                                   );
                                 });

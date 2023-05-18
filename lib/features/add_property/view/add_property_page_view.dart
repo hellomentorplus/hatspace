@@ -53,6 +53,27 @@ class _AddPropertyPageViewState extends State<AddPropertyPageView> {
                 ),
                 title: Text(HatSpaceStrings.of(context).app_name),
               ), 
+              bottomNavigationBar: BottomAppBar(
+                color: HSColor.background,
+                padding: const EdgeInsets.only(left: 16, right: 16,top: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    PrevButton(
+                    label: HatSpaceStrings.of(context).back, 
+                    iconUrl: Assets.images.chevronLeft,
+                    onPressed: (){
+                      pageController.animateToPage(currentPage -1,  duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                    }),
+                    NextButton(label: HatSpaceStrings.of(context).next, 
+                    iconUrl: Assets.images.chevronRight,
+                    onPressed: (){
+                            pageController.animateToPage(currentPage+1, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                    },)
+                  ],
+                ),
+              ),
               body:BlocProvider<AddPropertyBloc>(
       create: (context) => AddPropertyBloc(),
       child: Column(
@@ -78,31 +99,7 @@ class _AddPropertyPageViewState extends State<AddPropertyPageView> {
           }
         },
           )
-      ),
-                     Align(
-                      alignment: Alignment.bottomRight,
-                      child:   Container(
-                        key:const Key("bottom button"),
-                        padding:const EdgeInsets.fromLTRB(16, 8, 16, 42),
-                        decoration: const BoxDecoration(
-                          border:  Border(top: BorderSide(color:Color(0xfff3f3f3)))
-                        ),
-                        child:  Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          HsBackButton(onPressed: (){
-                            pageController.animateToPage(currentPage -1,  duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-                          },lable: "BACK", icon: SvgPicture.asset(Assets.images.leftArrow)),
-                          HsNextButton(onPressed: (){
-                            // TODO: Click next to go to next page
-                            
-                            // pageController.jumpToPage(1);
-                            pageController.animateToPage(currentPage+1, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-                          }, icon: SvgPicture.asset(Assets.images.rightArrow, color: Colors.white,), lable: "NEXT")
-                        ],
-                      ),
-                      ),
-                     )     
+      )
         ],
       )
        

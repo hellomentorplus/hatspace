@@ -24,6 +24,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/calendar.svg
   String get calendar => 'assets/images/calendar.svg';
 
+  /// File path: assets/images/chevron_left.svg
+  String get chevronLeft => 'assets/images/chevron_left.svg';
+
+  /// File path: assets/images/chevron_right.svg
+  String get chevronRight => 'assets/images/chevron_right.svg';
+
   /// File path: assets/images/close-clear.svg
   String get closeClear => 'assets/images/close-clear.svg';
 
@@ -54,17 +60,11 @@ class $AssetsImagesGen {
   /// File path: assets/images/house.svg
   String get house => 'assets/images/house.svg';
 
-  /// File path: assets/images/left-arrow.svg
-  String get leftArrow => 'assets/images/left-arrow.svg';
-
   /// File path: assets/images/messages.svg
   String get messages => 'assets/images/messages.svg';
 
   /// File path: assets/images/profile-circle.svg
   String get profileCircle => 'assets/images/profile-circle.svg';
-
-  /// File path: assets/images/right-arrow.svg
-  String get rightArrow => 'assets/images/right-arrow.svg';
 
   /// File path: assets/images/search-normal.svg
   String get searchNormal => 'assets/images/search-normal.svg';
@@ -75,6 +75,8 @@ class $AssetsImagesGen {
         arrowCalendarLeft,
         arrowCalendarRight,
         calendar,
+        chevronLeft,
+        chevronRight,
         closeClear,
         closeDark,
         closeIcon,
@@ -85,10 +87,8 @@ class $AssetsImagesGen {
         facebookround,
         google,
         house,
-        leftArrow,
         messages,
         profileCircle,
-        rightArrow,
         searchNormal
       ];
 }

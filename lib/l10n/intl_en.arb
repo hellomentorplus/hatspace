@@ -29,5 +29,11 @@
   "loadingMessage": "Loading...",
   "selectingRoleScreenTitle": "What kind of place?",
   "selectigRoleScreenSubtitle": "Choose kind of your property",
-  "availableDate": "Available date"
+  "availableDate": "Available date",
+  "addBedroomViewInstructions": "How many bedrooms, bathrooms, parking?",
+  "bedroomText": "Bedrooms",
+  "bathroomText": "Bathrooms",
+  "parkingText": "Parkings",
+  "back": "Back",
+  "next": "Next"
 }

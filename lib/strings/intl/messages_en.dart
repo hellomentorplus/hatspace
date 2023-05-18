@@ -36,10 +36,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
+            "How many bedrooms, bathrooms, parking?"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
         "availableDate": MessageLookupByLibrary.simpleMessage("Available date"),
+        "back": MessageLookupByLibrary.simpleMessage("Back"),
+        "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
+        "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseUserRole":
             MessageLookupByLibrary.simpleMessage("Choose your role"),
@@ -58,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "selectigRoleScreenSubtitle": MessageLookupByLibrary.simpleMessage(
             "Choose kind of your property"),
