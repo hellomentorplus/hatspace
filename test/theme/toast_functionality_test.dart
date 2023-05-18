@@ -13,8 +13,7 @@ void main() {
           child: ElevatedButton(
         key: const Key("tap-show-toast"),
         onPressed: () {
-          context.
-          showToast(
+          context.showToast(
               type: ToastType.errorToast,
               title: "test title",
               message: "message");
@@ -55,20 +54,19 @@ void main() {
   }));
 
   testWidgets("Test show toast once for multiple toast message",
-  (WidgetTester test) async {
+      (WidgetTester test) async {
     Widget testWidget = Builder(builder: (context) {
       return Center(
           child: ElevatedButton(
-            key: const Key("tap-show-toast"),
-            onPressed: () {
-              context.
-              showToast(
-                  type: ToastType.errorToast,
-                  title: "test title",
-                  message: "message");
-            },
-            child: const Text("show toast"),
-          ));
+        key: const Key("tap-show-toast"),
+        onPressed: () {
+          context.showToast(
+              type: ToastType.errorToast,
+              title: "test title",
+              message: "message");
+        },
+        child: const Text("show toast"),
+      ));
     });
     await test.wrapAndPump(testWidget);
     await test.tap(find.byKey(const Key("tap-show-toast")));
@@ -88,4 +86,4 @@ void main() {
     // ensure no more toast message
     expect(find.text("test title"), findsNothing);
   });
-  }
+}
