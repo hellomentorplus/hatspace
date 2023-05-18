@@ -199,3 +199,78 @@ class HsNextButton extends StatelessWidget{
     );
   }
 }
+
+class NextButton extends StatelessWidget {
+  final String label;
+  final String iconUrl;
+  final VoidCallback? onPressed;
+
+  const NextButton(
+      {Key? key, required this.label, required this.iconUrl, this.onPressed})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Button with icon
+    return ElevatedButton(
+        key: key,
+        onPressed: onPressed,
+        style: nextButtonTheme.style,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(label),
+            Padding(
+              padding: const EdgeInsets.only(left: 10, top: 4),
+              child: SvgPicture.asset(
+                iconUrl,
+                width: 24,
+                height: 24,
+                color: onPressed == null ? HSColor.neutral6 : HSColor.onPrimary,
+                alignment: Alignment.center,
+              ),
+            ),
+          ],
+        ));
+  }
+}
+
+class PrevButton extends StatelessWidget {
+  final String label;
+  final String iconUrl;
+  final VoidCallback? onPressed;
+
+  const PrevButton(
+      {Key? key, required this.label, required this.iconUrl, this.onPressed})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Button with icon
+    return TextButton(
+        key: key,
+        onPressed: onPressed,
+        style: backButtonTheme.style,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10, top: 4),
+              child: SvgPicture.asset(
+                iconUrl,
+                width: 24,
+                height: 24,
+                color: HSColor.neutral9,
+                alignment: Alignment.center,
+              ),
+            ),
+            Text(label),
+          ],
+        ));
+  }
+}
+
