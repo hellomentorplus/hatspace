@@ -26,6 +26,8 @@ class PropertyService {
   }
 
   Future<List<Property>?> getAllProperties() async {
+    // TODO: To be confirm with PO about limitQuery
+    //
     const limitQuery = 20;
     QuerySnapshot<Map<String, dynamic>>? proppertiesRef = await _firestore
         .collection(propertyCollection)
