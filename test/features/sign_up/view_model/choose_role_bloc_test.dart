@@ -80,6 +80,13 @@ void main() {
       expect(onChangeUserRoleEvent.props.length, 1);
       OnSubmitRoleEvent onSubmitRoleEvent = const OnSubmitRoleEvent();
       expect(onSubmitRoleEvent.props.length, 0);
+
+      ChoosingRoleSuccessState choosingRoleSuccessState =
+          ChoosingRoleSuccessState();
+      expect(choosingRoleSuccessState.props.length, 0);
+
+      ChoosingRoleFail choosingRoleFail = ChoosingRoleFail();
+      expect(choosingRoleFail.props.length, 0);
     });
   });
 }

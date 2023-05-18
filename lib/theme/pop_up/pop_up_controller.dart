@@ -10,4 +10,8 @@ extension PopUpController on BuildContext {
           return const PopUp();
         }).then((value) => Navigator.of(this).pop);
   }
+
+  void dismissLoading() {
+    Navigator.of(this, rootNavigator: true).pop();
+  }
 }
