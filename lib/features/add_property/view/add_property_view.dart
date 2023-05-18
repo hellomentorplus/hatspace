@@ -5,11 +5,11 @@ class AddPropertyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text('Add property'),
-    ),
-    body: const Center(
-      child: Text('Dummy screen'),
-    ),
-  );
+        appBar: AppBar(
+          title: Text('Add property'),
+        ),
+        body: const Center(
+          child: Text('Dummy screen'),
+        ),
+      );
 }

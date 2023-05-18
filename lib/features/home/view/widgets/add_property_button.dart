@@ -10,28 +10,28 @@ class AddPropertyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-    decoration: ShapeDecoration(
-      shape: const CircleBorder(),
-      color: Theme.of(context).colorScheme.primary,
-    ),
-    width: 48,
-    height: 48,
-    child: Material(
-      color: Colors.transparent,
-      child: InkWell(
-        customBorder: const CircleBorder(),
-        onTap: () {
-          context.read<HomeInteractionCubit>().onAddPropertyPressed();
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: SvgPicture.asset(
-            Assets.icons.add,
-            width: 24,
-            height: 24,
+        decoration: ShapeDecoration(
+          shape: const CircleBorder(),
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        width: 48,
+        height: 48,
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            customBorder: const CircleBorder(),
+            onTap: () {
+              context.read<HomeInteractionCubit>().onAddPropertyPressed();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: SvgPicture.asset(
+                Assets.icons.add,
+                width: 24,
+                height: 24,
+              ),
+            ),
           ),
         ),
-      ),
-    ),
-  );
+      );
 }
