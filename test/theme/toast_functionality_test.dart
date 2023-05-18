@@ -13,7 +13,8 @@ void main() {
           child: ElevatedButton(
         key: const Key("tap-show-toast"),
         onPressed: () {
-          context.showToast(
+          context.
+          showToast(
               type: ToastType.errorToast,
               title: "test title",
               message: "message");
@@ -52,4 +53,39 @@ void main() {
     await test.pump(const Duration(seconds: 6));
     expect(find.text("test title"), findsNothing);
   }));
-}
+
+  testWidgets("Test show toast once for multiple toast message",
+  (WidgetTester test) async {
+    Widget testWidget = Builder(builder: (context) {
+      return Center(
+          child: ElevatedButton(
+            key: const Key("tap-show-toast"),
+            onPressed: () {
+              context.
+              showToast(
+                  type: ToastType.errorToast,
+                  title: "test title",
+                  message: "message");
+            },
+            child: const Text("show toast"),
+          ));
+    });
+    await test.wrapAndPump(testWidget);
+    await test.tap(find.byKey(const Key("tap-show-toast")));
+    await test.pump();
+    await test.pump(const Duration(milliseconds: 750));
+    expect(find.text("test title"), findsOneWidget);
+
+    // tap to show toast again
+    await test.tap(find.byKey(const Key("tap-show-toast")));
+    await test.pump();
+    await test.pump(const Duration(milliseconds: 750));
+    // still only 1 toast message
+    expect(find.text("test title"), findsOneWidget);
+
+    // allow time to let timer be cancelled by itself
+    await test.pump(const Duration(seconds: 7));
+    // ensure no more toast message
+    expect(find.text("test title"), findsNothing);
+  });
+  }
