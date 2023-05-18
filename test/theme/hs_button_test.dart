@@ -34,19 +34,21 @@ void main() {
         reason: "Testing borderRadius of button",
         btn.style?.shape?.resolve(state),
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)));
+    // primary color changed in new design
     expect(
         reason: "Check Default Background",
         btn.style?.backgroundColor?.resolve(state),
-        const Color(0xff3ACD64));
+        const Color(0xff32a854));
 
     await tester.tap(find.widgetWithText(ElevatedButton, "Continue"));
     expect(reason: "Testing onPressed button", count, 1);
     //===== DISABLED ========
     final disabelState = <MaterialState>{MaterialState.disabled};
+    // new design changed color
     expect(
         reason: "Check Default Background",
         btn.style?.backgroundColor?.resolve(disabelState),
-        const Color(0xffD1D1D6));
+        const Color(0xffd9d9d9));
     expect(
         reason: "Testing color of Text",
         btn.style?.foregroundColor?.resolve(disabelState),

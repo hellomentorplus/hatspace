@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
+        "booking": MessageLookupByLibrary.simpleMessage("Booking"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseUserRole":
             MessageLookupByLibrary.simpleMessage("Choose your role"),
@@ -63,9 +64,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "message": MessageLookupByLibrary.simpleMessage("Message"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "searchHint":
+            MessageLookupByLibrary.simpleMessage("Search rental, location..."),
         "selectigRoleScreenSubtitle": MessageLookupByLibrary.simpleMessage(
             "Choose kind of your property"),
         "selectingRoleScreenTitle":

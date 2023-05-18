@@ -42,9 +42,11 @@ const TextTheme textTheme = TextTheme(
 
   //HEADLINE
   //headline1 => displayLarge
+  // new design
   displayLarge: TextStyle(
-      fontSize: FontStyleGuide.fontSize26,
-      fontWeight: FontStyleGuide.fwRegular,
+      fontFamily: 'Manrope',
+      fontSize: FontStyleGuide.fontSize24,
+      fontWeight: FontStyleGuide.fwBold,
       letterSpacing: FontStyleGuide.letterSpacing0,
       height: FontStyleGuide.height),
   //headline2 => displayMedium
@@ -70,8 +72,10 @@ const TextTheme textTheme = TextTheme(
       letterSpacing: FontStyleGuide.letterSpacing05,
       height: FontStyleGuide.height),
   //bodyMedium ?? bodyText2
+  // new design
   bodyMedium: TextStyle(
-      fontSize: FontStyleGuide.fontSize13,
+      fontFamily: 'Manrope',
+      fontSize: FontStyleGuide.fontSize14,
       fontWeight: FontStyleGuide.fwRegular,
       letterSpacing: FontStyleGuide.letterSpacing04,
       height: FontStyleGuide.height),
