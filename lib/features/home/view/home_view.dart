@@ -54,13 +54,22 @@ class HomePageViewState extends State<HomePageView> {
           create: (context) => HomeInteractionCubit(),
         )
       ],
-      child: BlocListener<AppConfigBloc, AppConfigState>(
+      child: MultiBlocListener(
+      listeners: [
+          BlocListener<AppConfigBloc, AppConfigState>(
           listener: (context, state) {
-            if (state is DebugOptionEnabledState &&
-                state.debugOptionEnabled == true) {
+            if (state is DebugOptionEnabledState && state.debugOptionEnabled == true) {
               onShakeToAction(context, state);
             }
+          }),
+        BlocListener<HomeInteractionCubit, HomeInteractionState>(
+          listener: (context, state) {
+            if (state is StartAddPropertyFlow) {
+              context.goToAddProperty();
+            }
           },
+        )
+      ],
           child: Scaffold(
               appBar: AppBar(
                 title: Text(

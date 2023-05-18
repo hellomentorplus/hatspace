@@ -8,3 +8,13 @@ class HomeInitial extends HomeInteractionState {
   @override
   List<Object> get props => [];
 }
+
+class StartValidateRole extends HomeInteractionState {
+  @override
+  List<Object?> get props => [];
+}
+
+class StartAddPropertyFlow extends HomeInteractionState {
+  @override
+  List<Object?> get props => [];
+}
