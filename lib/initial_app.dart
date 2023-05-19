@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/features/debug/view/widget_list/core_button_view.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/route/router.dart';
@@ -38,15 +39,16 @@ class MyAppBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: lightThemeData,
-      home: BlocListener<SignUpBloc, SignUpState>(
-          // Listen when FirstLauch will be navigate to Home Screen.
-          listener: (context, state) {
-            if (state is FirstLaunchScreen && state.isFirstLaunch == true) {
-              context.goToSignup();
-            }
-          },
-          // Always initialise HomePageView
-          child: const HomePageView()),
+      // home: BlocListener<SignUpBloc, SignUpState>(
+      //     // Listen when FirstLauch will be navigate to Home Screen.
+      //     listener: (context, state) {
+      //       if (state is FirstLaunchScreen && state.isFirstLaunch == true) {
+      //         context.goToSignup();
+      //       }
+      //     },
+      //     // Always initialise HomePageView
+      //     child: const HomePageView()),
+      home: CoreButtonView(),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         HatSpaceStrings.delegate

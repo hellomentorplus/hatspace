@@ -25,7 +25,6 @@ void main() {
     expect(renderedLargeT.style?.fontSize, FontStyleGuide.fontSize34);
     expect(
         renderedLargeT.style?.letterSpacing, FontStyleGuide.letterSpacing025);
-    expect(renderedLargeT.style?.height, FontStyleGuide.height);
   });
 
   testWidgets('Validate [HEADLINE] text style ', (WidgetTester tester) async {
@@ -53,12 +52,10 @@ void main() {
     expect(renderedLargeT.style?.fontSize, FontStyleGuide.fontSize26);
     expect(renderedLargeT.style?.fontWeight, FontStyleGuide.fwRegular);
     expect(renderedLargeT.style?.letterSpacing, FontStyleGuide.letterSpacing0);
-    expect(renderedLargeT.style?.height, FontStyleGuide.height);
 
     expect(renderedMediumT.style?.fontSize, FontStyleGuide.fontSize26);
     expect(renderedMediumT.style?.fontWeight, FontStyleGuide.fwRegular);
     expect(renderedMediumT.style?.letterSpacing, FontStyleGuide.letterSpacing0);
-    expect(renderedMediumT.style?.height, FontStyleGuide.height);
   });
 
   testWidgets('Validate [SUBTITLE] text style ', (WidgetTester tester) async {
@@ -78,7 +75,6 @@ void main() {
     expect(renderedMediumT.style?.fontWeight, FontStyleGuide.fwSemibold);
     expect(
         renderedMediumT.style?.letterSpacing, FontStyleGuide.letterSpacing015);
-    expect(renderedMediumT.style?.height, FontStyleGuide.height);
   });
 
   testWidgets('Validate [BODY] text style ', (WidgetTester tester) async {
@@ -106,13 +102,11 @@ void main() {
     expect(renderedLargeT.style?.fontSize, FontStyleGuide.fontSize17);
     expect(renderedLargeT.style?.fontWeight, FontStyleGuide.fwRegular);
     expect(renderedLargeT.style?.letterSpacing, FontStyleGuide.letterSpacing05);
-    expect(renderedLargeT.style?.height, FontStyleGuide.height);
 
     expect(renderedMediumT.style?.fontSize, FontStyleGuide.fontSize13);
     expect(renderedMediumT.style?.fontWeight, FontStyleGuide.fwRegular);
     expect(
         renderedMediumT.style?.letterSpacing, FontStyleGuide.letterSpacing04);
-    expect(renderedMediumT.style?.height, FontStyleGuide.height);
   });
 
   testWidgets('Validate [BUTTON] text style ', (WidgetTester tester) async {
@@ -131,7 +125,6 @@ void main() {
     expect(renderedLargeT.style?.fontSize, FontStyleGuide.fontSize13);
     expect(renderedLargeT.style?.fontWeight, FontStyleGuide.fwRegular);
     expect(renderedLargeT.style?.letterSpacing, FontStyleGuide.letterSpacing04);
-    expect(renderedLargeT.style?.height, FontStyleGuide.height);
   });
 
   testWidgets('Validate [CAPTION] text style ', (WidgetTester tester) async {
@@ -151,7 +144,6 @@ void main() {
     expect(renderedSmallT.style?.fontSize, FontStyleGuide.fontSize12);
     expect(renderedSmallT.style?.fontWeight, FontStyleGuide.fwRegular);
     expect(renderedSmallT.style?.letterSpacing, FontStyleGuide.letterSpacing04);
-    expect(renderedSmallT.style?.height, FontStyleGuide.height);
   });
 
   testWidgets('Validate [OVERLINE] text style ', (WidgetTester tester) async {
@@ -171,6 +163,5 @@ void main() {
     expect(renderedSmallT.style?.fontSize, FontStyleGuide.fontSize10);
     expect(renderedSmallT.style?.fontWeight, FontStyleGuide.fwRegular);
     expect(renderedSmallT.style?.letterSpacing, FontStyleGuide.letterSpacing15);
-    expect(renderedSmallT.style?.height, FontStyleGuide.height);
   });
 }

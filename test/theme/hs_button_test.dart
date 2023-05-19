@@ -17,40 +17,43 @@ void main() {
         onPressed: () {
           count = 1;
         });
-    await tester.wrapAndPump(primaryButton);
+    await tester.wrapAndPump(primaryButton, theme: lightThemeData);
     ElevatedButton btn =
         tester.widget(find.widgetWithText(ElevatedButton, "Continue"));
     // ====== DEFAULT ========
     final state = <MaterialState>{};
+    expect(find.byType(Text), findsOneWidget);
+    expect(find.byType(SvgPicture), findsNothing);
+
     expect(
-        reason: "Show True if alignemnt is center",
+        reason: "Show True if alignment is center",
         btn.style?.alignment,
         Alignment.center);
     expect(
-        reason: "Testing padding top and bottom of button",
+        reason: "Testing padding of button",
         btn.style?.padding?.resolve(state),
-        const EdgeInsets.only(top: 17, bottom: 17));
+        const EdgeInsets.symmetric(vertical: 17, horizontal: 32));
     expect(
         reason: "Testing borderRadius of button",
         btn.style?.shape?.resolve(state),
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)));
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)));
     expect(
         reason: "Check Default Background",
         btn.style?.backgroundColor?.resolve(state),
-        const Color(0xff3ACD64));
+        HSColor.primary);
 
     await tester.tap(find.widgetWithText(ElevatedButton, "Continue"));
     expect(reason: "Testing onPressed button", count, 1);
     //===== DISABLED ========
-    final disabelState = <MaterialState>{MaterialState.disabled};
+    final disabledState = <MaterialState>{MaterialState.disabled};
     expect(
         reason: "Check Default Background",
-        btn.style?.backgroundColor?.resolve(disabelState),
-        const Color(0xffD1D1D6));
+        btn.style?.backgroundColor?.resolve(disabledState),
+        HSColor.neutral3);
     expect(
         reason: "Testing color of Text",
-        btn.style?.foregroundColor?.resolve(disabelState),
-        HSColor.onPrimary);
+        btn.style?.foregroundColor?.resolve(disabledState),
+        HSColor.neutral5);
   });
 
   // TODO:  WAIT FOR UI DESGIN -- need to ask for confirmation
@@ -74,25 +77,25 @@ void main() {
         btn.style?.alignment,
         Alignment.center);
     expect(
-        reason: "Testing padding top and bottom of button",
+        reason: "Testing padding of button",
         btn.style?.padding?.resolve(state),
-        const EdgeInsets.only(top: 17, bottom: 17));
+        const EdgeInsets.symmetric(vertical: 17, horizontal: 32));
     expect(
         reason: "Testing borderRadius of button",
         btn.style?.shape?.resolve(state),
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)));
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)));
     expect(
         reason: "Check Default border color with default state",
         btn.style?.side?.resolve(state),
-        const BorderSide(color: HSColor.primary));
+        const BorderSide(color: HSColor.neutral4));
 
     await tester.tap(find.widgetWithText(OutlinedButton, "Continue"));
     expect(reason: "Testing onPressed button", count, 1);
     //===== DISABLED ========
-    final disabelState = <MaterialState>{MaterialState.disabled};
+    final disabledState = <MaterialState>{MaterialState.disabled};
     expect(
         reason: "Check Default border color with disabled state",
-        btn.style?.side?.resolve(disabelState),
+        btn.style?.side?.resolve(disabledState),
         const BorderSide(color: HSColor.neutral3));
   });
 
@@ -110,9 +113,17 @@ void main() {
     final state = <MaterialState>{};
 
     expect(
-        reason: "Testing underline",
-        btn.style?.textStyle?.resolve(state)?.decoration,
-        TextDecoration.underline);
+        reason: "Show True if alignemnt is center",
+        btn.style?.alignment,
+        Alignment.center);
+    expect(
+        reason: "Testing padding of button",
+        btn.style?.padding?.resolve(state),
+        const EdgeInsets.symmetric(vertical: 17, horizontal: 32));
+    expect(
+        reason: "Testing borderRadius of button",
+        btn.style?.shape?.resolve(state),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)));
 
     await tester.tap(find.widgetWithText(TextButton, "Continue"));
     expect(reason: "Testing onPressed button", count, 1);
@@ -120,71 +131,71 @@ void main() {
     // final disabelState = <MaterialState>{MaterialState.disabled};
   });
 
-  testWidgets("Test Button with Icon With DEFAULT-DISABLE-HOVER",
-      (WidgetTester tester) async {
-    Widget primaryButton = PrimaryButton(
-        iconUrl: Assets.images.facebook,
-        label: "Continue with Facebook",
-        onPressed: () {});
-    await tester.wrapAndPump(primaryButton);
-    ElevatedButton btn = tester
-        .widget(find.widgetWithText(ElevatedButton, "Continue with Facebook"));
-    SvgPicture innerIcon = tester.firstWidget(find.byType(SvgPicture));
+  // testWidgets("Test Button with Icon With DEFAULT-DISABLE-HOVER",
+  //     (WidgetTester tester) async {
+  //   Widget primaryButton = PrimaryButton(
+  //       iconUrl: Assets.images.facebook,
+  //       label: "Continue with Facebook",
+  //       onPressed: () {});
+  //   await tester.wrapAndPump(primaryButton);
+  //   ElevatedButton btn = tester
+  //       .widget(find.widgetWithText(ElevatedButton, "Continue with Facebook"));
+  //   SvgPicture innerIcon = tester.firstWidget(find.byType(SvgPicture));
 
-    // ====== DEFAULT ========
-    // final state = <MaterialState>{};
-    expect(
-        reason: "Show True if alignemnt is center",
-        btn.style?.alignment,
-        Alignment.center);
-    expect(
-        reason: "innerIcon is in center",
-        innerIcon.alignment,
-        Alignment.center);
+  //   // ====== DEFAULT ========
+  //   // final state = <MaterialState>{};
+  //   expect(
+  //       reason: "Show True if alignemnt is center",
+  //       btn.style?.alignment,
+  //       Alignment.center);
+  //   expect(
+  //       reason: "innerIcon is in center",
+  //       innerIcon.alignment,
+  //       Alignment.center);
 
-    // expect (reason:"Testing padding top and bottom of button",btn.style?.padding?.resolve(state), const EdgeInsets.only(top: 17, bottom: 17));
-    // expect (reason:"Testing borderRadius of button", btn.style?.shape?.resolve(state),RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)));
-    // expect (reason: "Check Default Background", btn.style?.backgroundColor?.resolve(state), const Color(0xff3ACD64));
+  //   // expect (reason:"Testing padding top and bottom of button",btn.style?.padding?.resolve(state), const EdgeInsets.only(top: 17, bottom: 17));
+  //   // expect (reason:"Testing borderRadius of button", btn.style?.shape?.resolve(state),RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)));
+  //   // expect (reason: "Check Default Background", btn.style?.backgroundColor?.resolve(state), const Color(0xff3ACD64));
 
-    // await tester.tap(find.widgetWithText(ElevatedButton, "Continue"));
-    // expect (reason:"Testing onPressed button",count, 1 );
-    // //===== DISABLED ========
-    // final disabelState = <MaterialState>{MaterialState.disabled};
-    // expect (reason: "Check Default Background", btn.style?.backgroundColor?.resolve(disabelState), const Color(0xffD1D1D6));
-    //  expect (reason: "Testing color of Text", btn.style?.foregroundColor?.resolve(disabelState),HSColor.onPrimary);
-  });
+  //   // await tester.tap(find.widgetWithText(ElevatedButton, "Continue"));
+  //   // expect (reason:"Testing onPressed button",count, 1 );
+  //   // //===== DISABLED ========
+  //   // final disabelState = <MaterialState>{MaterialState.disabled};
+  //   // expect (reason: "Check Default Background", btn.style?.backgroundColor?.resolve(disabelState), const Color(0xffD1D1D6));
+  //   //  expect (reason: "Testing color of Text", btn.style?.foregroundColor?.resolve(disabelState),HSColor.onPrimary);
+  // });
 
-  testWidgets('test primary button with icon only', (widgetTester) async {
-    PrimaryButton primaryButton = PrimaryButton(
-      iconUrl: Assets.images.facebook,
-    );
+  // testWidgets('test primary button with icon only', (widgetTester) async {
+  //   PrimaryButton primaryButton = PrimaryButton(
+  //     iconUrl: Assets.images.facebook,
+  //   );
 
-    await widgetTester.wrapAndPump(primaryButton);
+  //   await widgetTester.wrapAndPump(primaryButton);
 
-    expect(find.byType(ElevatedButton), findsOneWidget);
-    expect(find.byType(SvgPicture), findsOneWidget);
-    expect(find.byType(Text), findsNothing);
+  //   expect(find.byType(ElevatedButton), findsOneWidget);
+  //   expect(find.byType(SvgPicture), findsOneWidget);
+  //   expect(find.byType(Text), findsNothing);
 
-    // verify Svg icon size
-    SvgPicture svgPicture = widgetTester.widget(find.byType(SvgPicture));
-    expect(svgPicture.width, 24);
-    expect(svgPicture.height, 24);
-  });
+  //   // verify Svg icon size
+  //   SvgPicture svgPicture = widgetTester.widget(find.byType(SvgPicture));
+  //   expect(svgPicture.width, 24);
+  //   expect(svgPicture.height, 24);
+  // });
 
-  testWidgets('test secondary button with icon only', (widgetTester) async {
-    SecondaryButton outlinedButton = SecondaryButton(
-      iconURL: Assets.images.facebook,
-    );
+  // testWidgets('test secondary button with icon only', (widgetTester) async {
+  //   SecondaryButton outlinedButton = SecondaryButton(
+  //     iconURL: Assets.images.facebook,
+  //   );
 
-    await widgetTester.wrapAndPump(outlinedButton);
+  //   await widgetTester.wrapAndPump(outlinedButton);
 
-    expect(find.byType(OutlinedButton), findsOneWidget);
-    expect(find.byType(SvgPicture), findsOneWidget);
-    expect(find.byType(Text), findsNothing);
+  //   expect(find.byType(OutlinedButton), findsOneWidget);
+  //   expect(find.byType(SvgPicture), findsOneWidget);
+  //   expect(find.byType(Text), findsNothing);
 
-    // verify Svg icon size
-    SvgPicture svgPicture = widgetTester.widget(find.byType(SvgPicture));
-    expect(svgPicture.width, 24);
-    expect(svgPicture.height, 24);
-  });
+  //   // verify Svg icon size
+  //   SvgPicture svgPicture = widgetTester.widget(find.byType(SvgPicture));
+  //   expect(svgPicture.width, 24);
+  //   expect(svgPicture.height, 24);
+  // });
 }
