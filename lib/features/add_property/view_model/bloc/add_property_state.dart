@@ -1,6 +1,6 @@
 part of 'add_property_bloc.dart';
 
-abstract class AddPropertyState extends Equatable {
+abstract class AddPropertyState{
   const AddPropertyState();
   
   @override
@@ -14,4 +14,11 @@ class PropertyTypeSelectedState extends AddPropertyState {
   const PropertyTypeSelectedState(this.propertyTypes);
   @override
   List<Object> get props => [propertyTypes];
+}
+
+class PropertySelectedAvailableDate extends AddPropertyState{
+  final  DateTime availableDate;
+  const PropertySelectedAvailableDate(this.availableDate);
+  @override
+  List<Object> get props => [availableDate];
 }

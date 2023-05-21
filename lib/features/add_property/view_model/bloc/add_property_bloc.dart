@@ -16,5 +16,10 @@ class AddPropertyBloc extends Bloc<AddPropertyEvent, AddPropertyState> {
       emit(PropertyTypeSelectedState(propertyTypes));
     });
 
+    on<OnUpdateAvailableEvent>((event, emit) {
+      print("On update avaliable date");
+      emit(PropertySelectedAvailableDate(event.currentDate));
+    });
+
   }
 }

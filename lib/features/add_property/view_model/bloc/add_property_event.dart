@@ -14,3 +14,12 @@ class SelectPropertyTypeEvent extends AddPropertyEvent{
   @override
   List<Object> get props => [];
 }
+
+class OnUpdateAvailableEvent extends AddPropertyEvent{
+  DateTime currentDate = DateTime.now();
+  OnUpdateAvailableEvent(DateTime date){
+    currentDate = date;
+  }
+  @override
+  List<Object> get props => [currentDate];
+}

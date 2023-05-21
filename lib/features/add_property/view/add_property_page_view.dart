@@ -26,12 +26,14 @@ class _AddPropertyPageViewState extends State<AddPropertyPageView> {
     initialPage: 0,
     keepPage: true
   );
-  int currentPage = 0;
-  
+  ValueNotifier<int> onProgressIndicatorState = ValueNotifier(0);
   @override
   Widget build(BuildContext context) {
      final Size size = MediaQuery.of(context).size;
-    return Scaffold(
+    return ValueListenableBuilder(
+      valueListenable: onProgressIndicatorState,
+      builder: (context, currentPage, child) {
+        return Scaffold(
               appBar: AppBar(
                 elevation: 0,
                 backgroundColor: HSColor.background,
@@ -46,7 +48,7 @@ class _AddPropertyPageViewState extends State<AddPropertyPageView> {
                   child: LinearProgressIndicator(
                     backgroundColor: HSColor.neutral2,
                     color: HSColor.primary,
-                    value: (currentPage+1)/3,
+                    value:(currentPage +1 )/3,
                     semanticsLabel:
                         HatSpaceStrings.of(context).linearProgressIndicator,
                   ),
@@ -69,7 +71,7 @@ class _AddPropertyPageViewState extends State<AddPropertyPageView> {
                     NextButton(label: HatSpaceStrings.of(context).next, 
                     iconUrl: Assets.images.chevronRight,
                     onPressed: (){
-                            pageController.animateToPage(currentPage+1, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                            pageController.animateToPage(currentPage +1, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                     },)
                   ],
                 ),
@@ -81,21 +83,19 @@ class _AddPropertyPageViewState extends State<AddPropertyPageView> {
           Expanded(child: 
               PageView.builder(
                 onPageChanged: (value) {
-                   setState(() {
-                     currentPage = value;
-                   });
+                  onProgressIndicatorState.value = value;
                 },
                 physics:const NeverScrollableScrollPhysics(),
                 controller: pageController,
         itemBuilder: (context, index){
           switch (index) {
             case 0:
-              return SelectPropertyTypeBody();
+              return const SelectPropertyTypeBody();
             case 1: 
-              return ChoosingRolesView();
+              return const ChoosingRolesView();
             case 2: 
-              return HomePageView();
-            default: SelectPropertyTypeBody();
+              return const HomePageView();
+            default: const SelectPropertyTypeBody();
           }
         },
           )
@@ -105,5 +105,8 @@ class _AddPropertyPageViewState extends State<AddPropertyPageView> {
        
 
     ));
+      }
+    );
+   
   }
 }
