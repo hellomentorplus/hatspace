@@ -54,7 +54,6 @@ class DatePickerView extends StatelessWidget{
                                             (selectedDay, focusedDay) {
                                           if (!isSameDay(selectedDate.value,
                                               selectedDay)) {
-                                            print('onDaySelected $selectedDay');
                                             selectedDate.value = selectedDay;
                                           }
                                         },
@@ -93,7 +92,7 @@ class DatePickerView extends StatelessWidget{
                                         ),
                                         // focusedDay: state is PropertyTypeSelectedState? state.availableDate : selectedDate.value,
                                         firstDay: DateTime(2010),
-                                            focusedDay:  state,
+                                            focusedDay:  selectedDate.value,
                                         lastDay: DateTime(2050),
                                         startingDayOfWeek:
                                             StartingDayOfWeek.monday,
