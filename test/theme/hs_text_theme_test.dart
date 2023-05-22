@@ -103,7 +103,7 @@ void main() {
     expect(renderedLargeT.style?.fontWeight, FontStyleGuide.fwRegular);
     expect(renderedLargeT.style?.letterSpacing, FontStyleGuide.letterSpacing05);
 
-    expect(renderedMediumT.style?.fontSize, FontStyleGuide.fontSize13);
+    expect(renderedMediumT.style?.fontSize, FontStyleGuide.fontSize14);
     expect(renderedMediumT.style?.fontWeight, FontStyleGuide.fwRegular);
     expect(
         renderedMediumT.style?.letterSpacing, FontStyleGuide.letterSpacing04);

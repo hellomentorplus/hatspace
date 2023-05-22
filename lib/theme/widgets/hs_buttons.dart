@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
@@ -156,7 +155,7 @@ class TextOnlyButton extends StatelessWidget {
   const TextOnlyButton({
     Key? key,
     required this.label,
-    required this.onPressed,
+    this.onPressed,
     this.iconUrl,
     this.iconPosition = IconPosition.left,
     this.contentAlignment = MainAxisAlignment.center,
@@ -204,7 +203,7 @@ class TertiaryButton extends StatelessWidget {
   const TertiaryButton({
     Key? key,
     required this.label,
-    required this.onPressed,
+    this.onPressed,
     this.iconUrl,
     this.iconPosition = IconPosition.left,
     this.contentAlignment = MainAxisAlignment.center,
