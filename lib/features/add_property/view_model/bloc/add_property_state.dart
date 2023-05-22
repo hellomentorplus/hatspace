@@ -1,41 +1,25 @@
 part of 'add_property_bloc.dart';
 
 abstract class AddPropertyState{
-    final PropertyTypes propertyTypes;
-  final DateTime availableDate;
-  AddPropertyState({
-    PropertyTypes? type, 
-    DateTime? date
-    }):propertyTypes = type ?? PropertyTypes.house, availableDate = date?? DateTime.now();
-  @override
-  List<Object> get props => [propertyTypes, availableDate];
+  PropertyTypes propertyTypes;
+  DateTime availableDate;
+  AddPropertyState(
+    this.propertyTypes,
+    this.availableDate
+    );
+  
+  setPropertyType (PropertyTypes selectedProperty){
+    propertyTypes = selectedProperty;
+  }
+  setAvailableDate (DateTime selectedDate){
+    availableDate = selectedDate;
+  }
 }
 
 class AddPropertyInitial extends AddPropertyState {
-  PropertyTypes defaultPropertyType = PropertyTypes.house;
-  DateTime defaultDateTime  = DateTime.now();
-  AddPropertyInitial();
+  AddPropertyInitial():super(PropertyTypes.house, DateTime.now());
 }
 
 class PropertyTypeSelectedState extends AddPropertyState {
-  PropertyTypes selectedProperty;
-  DateTime selectedAvailableDate;
-  
-  PropertyTypeSelectedState({
-    PropertyTypes? type, 
-    DateTime? date
-    }):selectedProperty = type ?? PropertyTypes.house, selectedAvailableDate = date?? DateTime.now();
-    // PropertyTypeSelectedState({
-    // PropertyTypes? type, 
-    // }):selectedProperty = type ?? PropertyTypes.house;
-  @override
-  List<Object> get props => [propertyTypes];
+  PropertyTypeSelectedState(PropertyTypes type, DateTime date):super(type,date);
 }
-
-
-// class PropertySelectedAvailableDate extends AddPropertyState{
-//   final  DateTime availableDate;
-//   PropertySelectedAvailableDate(this.availableDate);
-//   @override
-//   List<Object> get props => [availableDate];
-// }

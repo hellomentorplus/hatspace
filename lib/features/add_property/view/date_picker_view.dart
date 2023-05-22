@@ -15,9 +15,6 @@ class DatePickerView extends StatelessWidget{
     late ValueNotifier<DateTime> selectedDate = ValueNotifier(DateTime.now());
     return BlocSelector<AddPropertyBloc,AddPropertyState, DateTime>(
       selector: (state) {
-        if(state is PropertyTypeSelectedState){
-          return state.selectedAvailableDate;
-        }
         return state.availableDate;
       },
         builder: (context, state) {

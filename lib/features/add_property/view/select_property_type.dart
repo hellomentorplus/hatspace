@@ -17,9 +17,6 @@ class SelectPropertyTypeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocSelector<AddPropertyBloc, AddPropertyState,PropertyTypes>(
         selector: (state) {
-          if (state is PropertyTypeSelectedState){
-            return state.selectedProperty;
-          }
           return state.propertyTypes;
         },
         builder: (context, state) {
