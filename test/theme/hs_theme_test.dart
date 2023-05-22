@@ -93,7 +93,8 @@ void main() {
 
     final Icon renderedIcon = tester.widget<Icon>(find.byType(Icon));
 
-    expect(renderedIcon.color, const Color(0xFFF8F8F8));
+    // background color changed
+    expect(renderedIcon.color, const Color(0xffffffff));
   });
 
   testWidgets('Validate onBackground theme color', (WidgetTester tester) async {
@@ -108,7 +109,8 @@ void main() {
 
     final Icon renderedIcon = tester.widget<Icon>(find.byType(Icon));
 
-    expect(renderedIcon.color, const Color(0xFF282828));
+    // onBackground color changed
+    expect(renderedIcon.color, const Color(0xff202020));
   });
 
   testWidgets('Validate surface theme color', (WidgetTester tester) async {

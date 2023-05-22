@@ -49,8 +49,9 @@ void main() {
     final Text renderedLargeT = tester.widget<Text>(find.byKey(largeK));
     final Text renderedMediumT = tester.widget<Text>(find.byKey(mediumK));
 
-    expect(renderedLargeT.style?.fontSize, FontStyleGuide.fontSize26);
-    expect(renderedLargeT.style?.fontWeight, FontStyleGuide.fwRegular);
+    // font size is updated
+    expect(renderedLargeT.style?.fontSize, FontStyleGuide.fontSize24);
+    expect(renderedLargeT.style?.fontWeight, FontStyleGuide.fwBold);
     expect(renderedLargeT.style?.letterSpacing, FontStyleGuide.letterSpacing0);
 
     expect(renderedMediumT.style?.fontSize, FontStyleGuide.fontSize26);
