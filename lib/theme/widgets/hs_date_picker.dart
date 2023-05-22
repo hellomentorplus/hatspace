@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hatspace/features/add_property/view_model/bloc/add_property_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class HsDatePicker extends StatefulWidget {
-  const HsDatePicker({super.key});
-  @override
-  _HsDatePickerState createState() => _HsDatePickerState();
-}
-
-class _HsDatePickerState extends State<HsDatePicker> {
-  final ValueNotifier<DateTime> _onSelectDate = ValueNotifier(DateTime.now());
+class HsDatePicker extends StatelessWidget {
+  final ValueNotifier<DateTime?> _initialDate;
+  // late final DateTime _initialDate;
+   HsDatePicker({super.key, 
+    DateTime? initialDate,
+  }):  _initialDate = ValueNotifier(initialDate) ?? ValueNotifier(DateTime.now());
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(valueListenable: _onSelectDate, 
-    builder: (context, value, child) {
-      return  TableCalendar(
+    return  ValueListenableBuilder(valueListenable: _initialDate, 
+    builder: ( (context, value, child) {
+      return TableCalendar(
       // on event listner
       selectedDayPredicate: (day) {
-        return isSameDay(_onSelectDate.value, day);
+        print('selectedDatePredicate $day');
+        return isSameDay(_initialDate.value, day);
       },
       onDaySelected: (selectedDay, focusedDay) {
-        if (!isSameDay(_onSelectDate.value, selectedDay)) {
-          _onSelectDate.value = selectedDay;
+     
+        if (!isSameDay(_initialDate.value, selectedDay)) {
+             print('onDaySelected $selectedDay');
+            _initialDate.value = selectedDay;
         }
       },
       // Setup Dates title
@@ -51,7 +54,7 @@ class _HsDatePickerState extends State<HsDatePicker> {
         leftChevronIcon: SvgPicture.asset(Assets.images.arrowCalendarLeft),
         rightChevronIcon: SvgPicture.asset(Assets.images.arrowCalendarRight),
       ),
-      focusedDay: DateTime.now(),
+      focusedDay: _initialDate.value?? DateTime.now(),
       firstDay: DateTime(2010),
       lastDay: DateTime(2050),
       startingDayOfWeek: StartingDayOfWeek.monday,
@@ -69,9 +72,8 @@ class _HsDatePickerState extends State<HsDatePicker> {
           shape: BoxShape.circle,
         ),
       ),
-    );
-    },
-    );
+    ); 
+    })); 
    
   }
 }

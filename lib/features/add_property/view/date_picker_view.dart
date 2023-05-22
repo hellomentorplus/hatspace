@@ -4,24 +4,27 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/features/add_property/view_model/bloc/add_property_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 
 class DatePickerView extends StatelessWidget{
-  ValueNotifier<DateTime> _selectedDate = ValueNotifier(DateTime.now());
-
-  DatePickerView({super.key});
+ const DatePickerView({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddPropertyBloc, AddPropertyState>(
+    late ValueNotifier<DateTime> selectedDate = ValueNotifier(DateTime.now());
+    return BlocSelector<AddPropertyBloc,AddPropertyState, DateTime>(
+      selector: (state) {
+        if(state is PropertyTypeSelectedState){
+          return state.selectedAvailableDate;
+        }
+        return state.availableDate;
+      },
         builder: (context, state) {
-          if(state is PropertySelectedAvailableDate){
-            _selectedDate = ValueNotifier(state.availableDate);
-            print(state.availableDate);
-          }
+          selectedDate = ValueNotifier(state);
+          print("Render Datepicker");
           return OutlinedButton(
+            
               onPressed: () async {
                 showDialog(
                     context: context,
@@ -39,20 +42,20 @@ class DatePickerView extends StatelessWidget{
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 ValueListenableBuilder(
-                                    valueListenable: _selectedDate,
+                                    valueListenable: selectedDate,
                                     builder: ((context, value, child) {
                                       return TableCalendar(
                                         // on event listner
                                         selectedDayPredicate: (day) {
                                           return isSameDay(
-                                              _selectedDate.value, day);
+                                              selectedDate.value, day);
                                         },
                                         onDaySelected:
                                             (selectedDay, focusedDay) {
-                                          if (!isSameDay(_selectedDate.value,
+                                          if (!isSameDay(selectedDate.value,
                                               selectedDay)) {
                                             print('onDaySelected $selectedDay');
-                                            _selectedDate.value = selectedDay;
+                                            selectedDate.value = selectedDay;
                                           }
                                         },
                                         // Setup Dates title
@@ -88,8 +91,9 @@ class DatePickerView extends StatelessWidget{
                                           rightChevronIcon: SvgPicture.asset(
                                               Assets.images.arrowCalendarRight),
                                         ),
-                                        focusedDay: state is PropertySelectedAvailableDate? state.availableDate : _selectedDate.value,
+                                        // focusedDay: state is PropertyTypeSelectedState? state.availableDate : selectedDate.value,
                                         firstDay: DateTime(2010),
+                                            focusedDay:  state,
                                         lastDay: DateTime(2050),
                                         startingDayOfWeek:
                                             StartingDayOfWeek.monday,
@@ -113,7 +117,7 @@ class DatePickerView extends StatelessWidget{
                                     }))
                               ]));
                     }).then((value) {
-                      context.read<AddPropertyBloc>().add(OnUpdateAvailableEvent(_selectedDate.value));
+                      context.read<AddPropertyBloc>().add(OnUpdateAvailableEvent(selectedDate.value));
                   return value;
                 });
               },
@@ -137,7 +141,7 @@ class DatePickerView extends StatelessWidget{
                 children: [
                   Expanded(
                     child:
-                        Text(DateFormat("dd MMMM, yyyy").format(_selectedDate.value)),
+                        Text(DateFormat("dd MMMM, yyyy").format(selectedDate.value)),
                   ),
                   SvgPicture.asset(
                     Assets.images.calendar,

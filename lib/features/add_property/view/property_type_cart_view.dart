@@ -18,17 +18,30 @@ class PropertyTypeDetail {
   PropertyTypeDetail(this.icon, this.tilte);
 }
 
-extension TypeToIcon on PropertyTypes {
-
-}
-
 class PropertyTypeCartView extends StatelessWidget {
   final int position;
   const PropertyTypeCartView({super.key, required this.position});
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddPropertyBloc, AddPropertyState>(
+    Color cardColor = const Color(0xFFF3F3F3);
+    RoundedRectangleBorder cardShape  = const RoundedRectangleBorder(
+                side: BorderSide(width: 1.5, color: Colors.transparent),
+                borderRadius: BorderRadius.all(Radius.circular(8)));
+    return BlocSelector<AddPropertyBloc,AddPropertyState,PropertyTypes>(
+        selector:(state) {
+          if (state is PropertyTypeSelectedState){
+            return state.selectedProperty;
+          }
+          return state.propertyTypes;
+        },
         builder: (context, state) {
+          // Card color initial state
+          if(state == PropertyTypes.values[position]){
+             cardColor = const Color(0xFFEBFAEF);
+            cardShape = const RoundedRectangleBorder(
+                side: BorderSide(width: 1.5, color: Color(0xFF32A854)),
+                borderRadius: BorderRadius.all(Radius.circular(8)));
+          }
       return InkWell(
           onTap: () {
             context
@@ -39,18 +52,8 @@ class PropertyTypeCartView extends StatelessWidget {
             shadowColor: Colors.transparent,
               margin: const EdgeInsets.only(top: 20),
               elevation: 6,
-              color: state is PropertyTypeSelectedState && state.propertyTypes == (PropertyTypes.values[position])
-                  //TODO: Update ThemeColor.
-                      ? const Color(0xFFEBFAEF)
-                      : const Color(0xFFF3F3F3),
-              shape: state is PropertyTypeSelectedState && state.propertyTypes == (PropertyTypes.values[position]) 
-                ? const RoundedRectangleBorder(
-                side: BorderSide(width: 1.5, color: Color(0xFF32A854)),
-                borderRadius: BorderRadius.all(Radius.circular(8)))
-                : const RoundedRectangleBorder(
-                side: BorderSide(width: 1.5, color: Colors.transparent),
-                borderRadius: BorderRadius.all(Radius.circular(8)), 
-              ),
+              color: cardColor,
+              shape: cardShape,
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(

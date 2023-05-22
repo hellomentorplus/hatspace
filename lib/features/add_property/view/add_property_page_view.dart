@@ -11,22 +11,15 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:intl/intl.dart';
 
-class AddPropertyPageView extends StatefulWidget {
-  const AddPropertyPageView({super.key
-  });
 
-
-
-  @override
-  State<AddPropertyPageView> createState() => _AddPropertyPageViewState();
-}
-
-class _AddPropertyPageViewState extends State<AddPropertyPageView> {
+class AddPropertyPageView extends StatelessWidget {
   final PageController pageController = PageController(
     initialPage: 0,
     keepPage: true
   );
   ValueNotifier<int> onProgressIndicatorState = ValueNotifier(0);
+
+  AddPropertyPageView({super.key});
   @override
   Widget build(BuildContext context) {
      final Size size = MediaQuery.of(context).size;
@@ -90,12 +83,12 @@ class _AddPropertyPageViewState extends State<AddPropertyPageView> {
         itemBuilder: (context, index){
           switch (index) {
             case 0:
-              return const SelectPropertyTypeBody();
+              return  SelectPropertyTypeBody();
             case 1: 
               return const ChoosingRolesView();
             case 2: 
               return const HomePageView();
-            default: const SelectPropertyTypeBody();
+            default:  SelectPropertyTypeBody();
           }
         },
           )

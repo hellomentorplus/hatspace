@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/add_property/view/date_picker_view.dart';
 import 'package:hatspace/features/add_property/view/property_type_cart_view.dart';
 import 'package:hatspace/features/add_property/view_model/bloc/add_property_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class SelectPropertyTypeBody extends StatelessWidget {
   const SelectPropertyTypeBody({super.key});
-
   @override
   Widget build(BuildContext context) {
-    String currentDate = DateFormat("dd MMMM, yyyy").format(DateTime.now());
-    return BlocConsumer<AddPropertyBloc, AddPropertyState>(
-        listener: (context, state) {},
+    return BlocSelector<AddPropertyBloc, AddPropertyState,PropertyTypes>(
+        selector: (state) {
+          if (state is PropertyTypeSelectedState){
+            return state.selectedProperty;
+          }
+          return state.propertyTypes;
+        },
         builder: (context, state) {
+          print("render property body");
           return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,7 +75,7 @@ class SelectPropertyTypeBody extends StatelessWidget {
                       ),
                       Container(height: 4), 
                       // Show DatePicker Widget;
-                      DatePickerView()
+                      const DatePickerView()
                     ],
                   ),
                 ),
