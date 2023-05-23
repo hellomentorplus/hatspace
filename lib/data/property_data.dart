@@ -51,8 +51,9 @@ enum AustraliaStates {
   act,
   nt,
   invalid;
+
   const AustraliaStates();
-   String get stateName  {
+  String get stateName {
     switch (this) {
       case nsw:
         return HatSpaceStrings.current.nsw;
@@ -73,11 +74,9 @@ enum AustraliaStates {
     }
   }
 
-
   static AustraliaStates fromName(String name) =>
       values.firstWhere((element) => element.name == name.toLowerCase(),
           orElse: () => invalid);
-
 
   static AustraliaStates getStateCode(String stateName) {
     if (stateName == HatSpaceStrings.current.nsw) {
@@ -129,9 +128,8 @@ enum MinimumRentPeriod {
     }
   }
 
- static MinimumRentPeriod fromName(String name) =>
-      values.firstWhere((element) => element.name == name,
-          orElse: () => invalid);
+  static MinimumRentPeriod fromName(String name) => values
+      .firstWhere((element) => element.name == name, orElse: () => invalid);
 }
 
 enum Currency {
@@ -217,8 +215,7 @@ class AddressDetail {
         streetNo: map[PropKeys.streetNo],
         postcode: map[PropKeys.postcode],
         suburb: map[PropKeys.surbub],
-        state: AustraliaStates.fromName(map[PropKeys.state])
-        );
+        state: AustraliaStates.fromName(map[PropKeys.state]));
   }
 }
 
@@ -231,7 +228,7 @@ class Property {
   final AddressDetail address;
   final AdditionalDetail additionalDetail;
   final List<String> photos;
-  final MinimumRentPeriod minimumRentPeriod; 
+  final MinimumRentPeriod minimumRentPeriod;
   final CountryCode country;
   final GeoPoint location;
   final Timestamp createdTime;
@@ -249,7 +246,9 @@ class Property {
       CountryCode? country,
       required this.location,
       Timestamp? createdTime,
-      required this.availableDate}):country = country?? CountryCode.au, createdTime = createdTime ?? Timestamp.now();
+      required this.availableDate})
+      : country = country ?? CountryCode.au,
+        createdTime = createdTime ?? Timestamp.now();
   // convertObjectToMap is used to upload Map type to firestore
   Map<String, dynamic> convertObjectToMap() {
     Map<String, dynamic> mapProp = {
