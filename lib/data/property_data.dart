@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hatspace/strings/l10n.dart';
 
+// Field names for firebase firestore
 class PropKeys {
   static const type = "type";
   static const name = "name";
@@ -50,10 +51,9 @@ enum AustraliaStates {
   act,
   nt,
   invalid;
-
   const AustraliaStates();
-  static String getStateName(AustraliaStates stateCode) {
-    switch (stateCode) {
+   String get stateName  {
+    switch (this) {
       case nsw:
         return HatSpaceStrings.current.nsw;
       case vic:
@@ -72,6 +72,12 @@ enum AustraliaStates {
         return "Invalid state name";
     }
   }
+
+
+  static AustraliaStates fromName(String name) =>
+      values.firstWhere((element) => element.name == name.toLowerCase(),
+          orElse: () => invalid);
+
 
   static AustraliaStates getStateCode(String stateName) {
     if (stateName == HatSpaceStrings.current.nsw) {
@@ -101,8 +107,8 @@ enum MinimumRentPeriod {
   invalid;
 
   const MinimumRentPeriod();
-  static String getPeriodName(MinimumRentPeriod period) {
-    switch (period) {
+  String get rentPeriodName {
+    switch (this) {
       case threeMonths:
         return HatSpaceStrings.current.threeMonths;
       case sixMonths:
@@ -122,6 +128,10 @@ enum MinimumRentPeriod {
       return invalid;
     }
   }
+
+ static MinimumRentPeriod fromName(String name) =>
+      values.firstWhere((element) => element.name == name,
+          orElse: () => invalid);
 }
 
 enum Currency {
@@ -194,7 +204,7 @@ class AddressDetail {
       PropKeys.streetNo: streetNo,
       PropKeys.streetName: streetName,
       PropKeys.postcode: postcode,
-      PropKeys.state: AustraliaStates.getStateName(state),
+      PropKeys.state: state.name,
       PropKeys.surbub: suburb
     };
     return mapAddress;
@@ -207,7 +217,8 @@ class AddressDetail {
         streetNo: map[PropKeys.streetNo],
         postcode: map[PropKeys.postcode],
         suburb: map[PropKeys.surbub],
-        state: AustraliaStates.getStateCode(map[PropKeys.state]));
+        state: AustraliaStates.fromName(map[PropKeys.state])
+        );
   }
 }
 
@@ -220,12 +231,12 @@ class Property {
   final AddressDetail address;
   final AdditionalDetail additionalDetail;
   final List<String> photos;
-  final MinimumRentPeriod minimumRentPeriod;
+  final MinimumRentPeriod minimumRentPeriod; 
   final CountryCode country;
   final GeoPoint location;
   final Timestamp createdTime;
   final Timestamp availableDate;
-  const Property(
+  Property(
       {this.id,
       required this.type,
       required this.name,
@@ -235,10 +246,11 @@ class Property {
       required this.additionalDetail,
       required this.photos,
       required this.minimumRentPeriod,
-      required this.country,
+      CountryCode? country,
       required this.location,
-      required this.createdTime,
-      required this.availableDate});
+      Timestamp? createdTime,
+      required this.availableDate}):country = country?? CountryCode.au, createdTime = createdTime ?? Timestamp.now();
+  // convertObjectToMap is used to upload Map type to firestore
   Map<String, dynamic> convertObjectToMap() {
     Map<String, dynamic> mapProp = {
       PropKeys.name: name,
@@ -246,7 +258,7 @@ class Property {
         PropKeys.currency: price.currency.name,
         PropKeys.price: price.rentPrice
       },
-      PropKeys.rentPeriod: MinimumRentPeriod.getPeriodName(minimumRentPeriod),
+      PropKeys.rentPeriod: minimumRentPeriod.name,
       PropKeys.desciption: description,
       PropKeys.address: address.convertAddressToMap(),
       PropKeys.additionalDetail: {
@@ -262,7 +274,8 @@ class Property {
       PropKeys.type: type.name,
       PropKeys.country: country.name.toUpperCase(),
       "filter_by_postcode": address.postcode,
-      "filter_by_surbub": address.suburb
+      "filter_by_surbub": address.suburb,
+      "filter_by_state": address.state.name
     };
     return mapProp;
   }
@@ -277,8 +290,7 @@ class Property {
         additionalDetail:
             AdditionalDetail.convertMapToObject(map[PropKeys.additionalDetail]),
         photos: List<String>.from(map[PropKeys.photos]),
-        minimumRentPeriod:
-            MinimumRentPeriod.getPeriod(map[PropKeys.rentPeriod]),
+        minimumRentPeriod: MinimumRentPeriod.fromName(map[PropKeys.rentPeriod]),
         country: CountryCode.fromName(map[PropKeys.country]),
         location: map[PropKeys.location],
         createdTime: map[PropKeys.createdAt],
