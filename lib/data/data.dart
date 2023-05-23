@@ -23,12 +23,12 @@ enum PropertyTypes {
 
   const PropertyTypes();
 
-   String getIconPath (){
+  String getIconPath() {
     switch (this) {
       case house:
-          return Assets.images.house;
+        return Assets.images.house;
       case apartment:
-          return Assets.images.apartment;
+        return Assets.images.apartment;
       default:
     }
     return "No image path";

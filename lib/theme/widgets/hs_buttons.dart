@@ -140,63 +140,62 @@ class TextOnlyButton extends StatelessWidget {
   }
 }
 
-
-class HsBackButton extends StatelessWidget{
+class HsBackButton extends StatelessWidget {
   final SvgPicture icon;
   final String lable;
   final VoidCallback? onPressed;
-  const HsBackButton({super.key, required this.lable, required this.icon, this.onPressed
-  });
-   @override
+  const HsBackButton(
+      {super.key, required this.lable, required this.icon, this.onPressed});
+  @override
   Widget build(BuildContext context) {
-    return OutlinedButton(onPressed:onPressed, 
-    style: OutlinedButton.styleFrom(
-        side:const BorderSide(color: Colors.transparent)
-    ),
-    child: Row(
-      children: [
-
-        icon,
-        Container(width: 18),
-        // TODO: Update theme
-        Text(lable, style: TextStyle(
-          fontWeight: FontWeight.w700,
-          color: HSColor.onSurface
-        ),)
-      ],
-    ));
+    return OutlinedButton(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+            side: const BorderSide(color: Colors.transparent)),
+        child: Row(
+          children: [
+            icon,
+            Container(width: 18),
+            // TODO: Update theme
+            Text(
+              lable,
+              style: const TextStyle(
+                  fontWeight: FontWeight.w700, color: HSColor.onSurface),
+            )
+          ],
+        ));
+  }
 }
-}
 
-class HsNextButton extends StatelessWidget{
+class HsNextButton extends StatelessWidget {
   final SvgPicture icon;
   final String lable;
   final VoidCallback? onPressed;
-  const HsNextButton ({super.key, required this.icon, required this.lable, this.onPressed});
+  const HsNextButton(
+      {super.key, required this.icon, required this.lable, this.onPressed});
 
   @override
-  Widget build(BuildContext context){
-    return ElevatedButton(onPressed: onPressed,
-      style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll<Color>(HSColor.primary),
-      ),
-      child: Padding(
-      padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
-      child: Row(
-        children: [
-          // TODO: update theme
-          Text(lable,
-          style:const TextStyle(
-              color: HSColor.background,
-              fontSize: 14,
-              fontWeight: FontWeight.w700
-          )),
-          Container(width: 18),
-          icon
-        ],
-      ),
-     ) 
-    );
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        onPressed: onPressed,
+        style: const ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll<Color>(HSColor.primary),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+          child: Row(
+            children: [
+              // TODO: update theme
+              Text(lable,
+                  style: const TextStyle(
+                      color: HSColor.background,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700)),
+              Container(width: 18),
+              icon
+            ],
+          ),
+        ));
   }
 }
 
@@ -273,4 +272,3 @@ class PrevButton extends StatelessWidget {
         ));
   }
 }
-

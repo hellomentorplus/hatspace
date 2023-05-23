@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hatspace/features/add_property/view/select_property_type.dart';
 import 'package:hatspace/features/add_property/view_model/bloc/add_property_bloc.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
@@ -9,24 +8,20 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
-import 'package:intl/intl.dart';
-
 
 class AddPropertyPageView extends StatelessWidget {
-  final PageController pageController = PageController(
-    initialPage: 0,
-    keepPage: true
-  );
-  ValueNotifier<int> onProgressIndicatorState = ValueNotifier(0);
+  final PageController pageController =
+      PageController(initialPage: 0, keepPage: true);
+  final ValueNotifier<int> onProgressIndicatorState = ValueNotifier(0);
 
   AddPropertyPageView({super.key});
   @override
   Widget build(BuildContext context) {
-     final Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return ValueListenableBuilder(
-      valueListenable: onProgressIndicatorState,
-      builder: (context, currentPage, child) {
-        return Scaffold(
+        valueListenable: onProgressIndicatorState,
+        builder: (context, currentPage, child) {
+          return Scaffold(
               appBar: AppBar(
                 elevation: 0,
                 backgroundColor: HSColor.background,
@@ -41,65 +36,66 @@ class AddPropertyPageView extends StatelessWidget {
                   child: LinearProgressIndicator(
                     backgroundColor: HSColor.neutral2,
                     color: HSColor.primary,
-                    value:(currentPage +1 )/3,
+                    value: (currentPage + 1) / 3,
                     semanticsLabel:
                         HatSpaceStrings.of(context).linearProgressIndicator,
                   ),
                 ),
                 title: Text(HatSpaceStrings.of(context).app_name),
-              ), 
+              ),
               bottomNavigationBar: BottomAppBar(
                 color: HSColor.background,
-                padding: const EdgeInsets.only(left: 16, right: 16,top: 8),
+                padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     PrevButton(
-                    label: HatSpaceStrings.of(context).back, 
-                    iconUrl: Assets.images.chevronLeft,
-                    onPressed: (){
-                      pageController.animateToPage(currentPage -1,  duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-                    }),
-                    NextButton(label: HatSpaceStrings.of(context).next, 
-                    iconUrl: Assets.images.chevronRight,
-                    onPressed: (){
-                            pageController.animateToPage(currentPage +1, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-                    },)
+                        label: HatSpaceStrings.of(context).back,
+                        iconUrl: Assets.images.chevronLeft,
+                        onPressed: () {
+                          pageController.animateToPage(currentPage - 1,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeIn);
+                        }),
+                    NextButton(
+                      label: HatSpaceStrings.of(context).next,
+                      iconUrl: Assets.images.chevronRight,
+                      onPressed: () {
+                        pageController.animateToPage(currentPage + 1,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeIn);
+                      },
+                    )
                   ],
                 ),
               ),
-              body:BlocProvider<AddPropertyBloc>(
-      create: (context) => AddPropertyBloc(),
-      child: Column(
-        children: [
-          Expanded(child: 
-              PageView.builder(
-                onPageChanged: (value) {
-                  onProgressIndicatorState.value = value;
-                },
-                physics:const NeverScrollableScrollPhysics(),
-                controller: pageController,
-        itemBuilder: (context, index){
-          switch (index) {
-            case 0:
-              return  SelectPropertyTypeBody();
-            case 1: 
-              return const ChoosingRolesView();
-            case 2: 
-              return const HomePageView();
-            default:  SelectPropertyTypeBody();
-          }
-        },
-          )
-      )
-        ],
-      )
-       
-
-    ));
-      }
-    );
-   
+              body: BlocProvider<AddPropertyBloc>(
+                  create: (context) => AddPropertyBloc(),
+                  child: Column(
+                    children: [
+                      Expanded(
+                          child: PageView.builder(
+                        onPageChanged: (value) {
+                          onProgressIndicatorState.value = value;
+                        },
+                        physics: const NeverScrollableScrollPhysics(),
+                        controller: pageController,
+                        itemBuilder: (context, index) {
+                          switch (index) {
+                            case 0:
+                              return const SelectPropertyTypeBody();
+                            case 1:
+                              return const ChoosingRolesView();
+                            case 2:
+                              return const HomePageView();
+                            default:
+                              return const SelectPropertyTypeBody();
+                          }
+                        },
+                      ))
+                    ],
+                  )));
+        });
   }
 }

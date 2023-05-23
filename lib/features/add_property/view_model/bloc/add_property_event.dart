@@ -7,19 +7,16 @@ abstract class AddPropertyEvent extends Equatable {
   List<Object> get props => [];
 }
 
-
-class SelectPropertyTypeEvent extends AddPropertyEvent{
+class SelectPropertyTypeEvent extends AddPropertyEvent {
   final int position;
   const SelectPropertyTypeEvent(this.position);
   @override
   List<Object> get props => [];
 }
 
-class OnUpdateAvailableEvent extends AddPropertyEvent{
-  DateTime currentDate = DateTime.now();
-  OnUpdateAvailableEvent(DateTime date){
-    currentDate = date;
-  }
+class OnUpdateAvailableEvent extends AddPropertyEvent {
+  final DateTime currentDate;
+  const OnUpdateAvailableEvent(this.currentDate);
   @override
   List<Object> get props => [currentDate];
 }

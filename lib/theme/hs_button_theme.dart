@@ -98,7 +98,6 @@ OutlinedButtonThemeData secondaryButtonWithIconTheme = OutlinedButtonThemeData(
   }),
 ));
 
-
 ElevatedButtonThemeData nextButtonTheme = ElevatedButtonThemeData(
     style: ButtonStyle(
   alignment: Alignment.center,
