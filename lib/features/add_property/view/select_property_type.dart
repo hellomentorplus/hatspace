@@ -7,8 +7,8 @@ import 'package:hatspace/features/add_property/view_model/bloc/add_property_bloc
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
-class SelectPropertyTypeBody extends StatelessWidget {
-  const SelectPropertyTypeBody({super.key});
+class SelectPropertyType extends StatelessWidget {
+  const SelectPropertyType({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocSelector<AddPropertyBloc, AddPropertyState, PropertyTypes>(
