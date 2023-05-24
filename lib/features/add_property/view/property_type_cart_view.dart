@@ -7,7 +7,6 @@ import 'package:hatspace/features/add_property/view_model/bloc/add_property_bloc
 class PropertyTypeDetail {
   SvgPicture icon;
   String tilte;
-
   PropertyTypeDetail(this.icon, this.tilte);
 }
 

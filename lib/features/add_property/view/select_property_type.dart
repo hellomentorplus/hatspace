@@ -16,57 +16,50 @@ class SelectPropertyType extends StatelessWidget {
       return state.propertyTypes;
     }, builder: (context, state) {
       // print("render property body");
-      return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      return Container(
+        padding: const EdgeInsets.only(left:16, top:33,right:16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: const EdgeInsets.fromLTRB(16, 33, 16, 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(HatSpaceStrings.of(context).selectingRoleScreenTitle,
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                              fontSize: 24,
-                              color: HSColor.onSurface,
-                              fontWeight: FontWeight.w700)),
-                  Container(height: 16),
-                  Text(HatSpaceStrings.of(context).selectigRoleScreenSubtitle,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontWeight: FontWeight.w400, fontSize: 14)),
-                  GridView.builder(
-                      padding: const EdgeInsets.only(top: 32),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 15,
-                      ),
-                      shrinkWrap: true,
-                      itemCount: 2,
-                      itemBuilder: (BuildContext context, int position) {
-                        return PropertyTypeCartView(
-                          position: position,
-                        );
-                      }),
-                  Container(height: 20),
-                  Text(
-                    HatSpaceStrings.of(context).availableDate,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: HSColor.onSurface),
-                  ),
-                  Container(height: 4),
-                  // Show DatePicker Widget;
-                  const DatePickerView()
-                ],
-              ),
-            ),
-          ]);
+            Text(HatSpaceStrings.of(context).selectingRoleScreenTitle,
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                    fontSize: 24,
+                    color: HSColor.onSurface,
+                    fontWeight: FontWeight.w700)),
+            Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text(
+                    HatSpaceStrings.of(context).selectigRoleScreenSubtitle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(fontWeight: FontWeight.w400, fontSize: 14))),
+            GridView.builder(
+                padding: const EdgeInsets.only(top: 32),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 15,
+                ),
+                shrinkWrap: true,
+                itemCount: 2,
+                itemBuilder: (BuildContext context, int position) {
+                  return PropertyTypeCartView(
+                    position: position,
+                  );
+                }),
+            Padding(padding: const EdgeInsets.only(top: 20,bottom: 4),
+            child:   Text(
+              HatSpaceStrings.of(context).availableDate,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                  color: HSColor.onSurface),
+            )),
+            // Show DatePicker Widget;
+             const DatePickerView(),
+          ],
+        ),
+      );
     });
   }
 }
