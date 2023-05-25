@@ -14,10 +14,7 @@ class AddPropertyPageView extends StatelessWidget {
       PageController(initialPage: 0, keepPage: true);
   final ValueNotifier<int> onProgressIndicatorState = ValueNotifier(0);
   // Number of Pages for PageView
-  final List<Widget> pages = [
-    const SelectPropertyType(),
-    const HomePageView()
-  ];
+  final List<Widget> pages = [const SelectPropertyType(), const HomePageView()];
   AddPropertyPageView({super.key});
   @override
   Widget build(BuildContext context) {
@@ -80,22 +77,21 @@ class AddPropertyPageView extends StatelessWidget {
               ),
               body: BlocProvider<AddPropertyBloc>(
                   create: (context) => AddPropertyBloc(),
-                  child: 
-                      PageView.builder(
-                        onPageChanged: (value) {
-                          onProgressIndicatorState.value = value;
-                        },
-                        physics: const NeverScrollableScrollPhysics(),
-                        controller: pageController,
-                        itemBuilder: (context, index) {
-                          for(int i=0; i< pages.length ; i++){
-                            if (i == index){
-                              return pages[i];
-                            }
-                          }
-                        },
-                      )
-                  ));
+                  child: PageView.builder(
+                    onPageChanged: (value) {
+                      onProgressIndicatorState.value = value;
+                    },
+                    physics: const NeverScrollableScrollPhysics(),
+                    controller: pageController,
+                    itemBuilder: (context, index) {
+                      for (int i = 0; i < pages.length; i++) {
+                        if (i == index) {
+                          return pages[i];
+                        }
+                      }
+                      return null;
+                    },
+                  )));
         });
   }
 }

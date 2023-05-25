@@ -17,7 +17,7 @@ class SelectPropertyType extends StatelessWidget {
     }, builder: (context, state) {
       // print("render property body");
       return Padding(
-        padding: const EdgeInsets.only(left:16, top:33,right:16),
+        padding: const EdgeInsets.only(left: 16, top: 33, right: 16),
         child: Wrap(
           children: [
             Text(HatSpaceStrings.of(context).selectingRoleScreenTitle,
@@ -46,16 +46,17 @@ class SelectPropertyType extends StatelessWidget {
                     position: position,
                   );
                 }),
-            Padding(padding: const EdgeInsets.only(top: 20,bottom: 4),
-            child:   Text(
-              HatSpaceStrings.of(context).availableDate,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14,
-                  color: HSColor.onSurface),
-            )),
+            Padding(
+                padding: const EdgeInsets.only(top: 20, bottom: 4),
+                child: Text(
+                  HatSpaceStrings.of(context).availableDate,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                      color: HSColor.onSurface),
+                )),
             // Show DatePicker Widget;
-             const DatePickerView(),
+            const DatePickerView(),
           ],
         ),
       );

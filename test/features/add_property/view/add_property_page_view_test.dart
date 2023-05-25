@@ -10,24 +10,22 @@ import 'package:intl/date_symbol_data_local.dart';
 import '../../../widget_tester_extension.dart';
 import 'select_property_type_test.mocks.dart';
 
-@GenerateMocks([
-  AddPropertyBloc
-])
-void main(){
-    final MockAddPropertyBloc addPropertyBloc = MockAddPropertyBloc();
-      initializeDateFormatting();
-      setUp(() {
+@GenerateMocks([AddPropertyBloc])
+void main() {
+  final MockAddPropertyBloc addPropertyBloc = MockAddPropertyBloc();
+  initializeDateFormatting();
+  setUp(() {
     when(addPropertyBloc.state)
-        .thenAnswer((realInvocation) =>  AddPropertyInitial());
+        .thenAnswer((realInvocation) => AddPropertyInitial());
     when(addPropertyBloc.stream)
         .thenAnswer((realInvocation) => Stream.value(AddPropertyInitial()));
   });
-    testWidgets('test ui for widget',
-      (widgetTester) async {
+  testWidgets('test ui for widget', (widgetTester) async {
     Widget widget = AddPropertyPageView();
 
-    await widgetTester.blocWrapAndPump<AddPropertyBloc>(addPropertyBloc, widget);
-   // expect(find.byType(BlocSelector<AddPropertyBloc, AddPropertyState,PropertyTypes>), findsOneWidget);
-   expect(find.byType(BlocProvider<AddPropertyBloc>),findsWidgets);
+    await widgetTester.blocWrapAndPump<AddPropertyBloc>(
+        addPropertyBloc, widget);
+    // expect(find.byType(BlocSelector<AddPropertyBloc, AddPropertyState,PropertyTypes>), findsOneWidget);
+    expect(find.byType(BlocProvider<AddPropertyBloc>), findsWidgets);
   });
-} 
+}
