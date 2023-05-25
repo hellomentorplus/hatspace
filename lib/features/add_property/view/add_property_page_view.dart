@@ -4,6 +4,7 @@ import 'package:hatspace/features/add_property/view/select_property_type.dart';
 import 'package:hatspace/features/add_property/view_model/bloc/add_property_bloc.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_button_setting.dart';
@@ -29,7 +30,7 @@ class AddPropertyPageView extends StatelessWidget {
                 leading: IconButton(
                   icon: const Icon(Icons.close, color: HSColor.onSurface),
                   onPressed: () => {
-                    //TODO; Implement bottom sheet warning
+                    context.popToRootHome()
                   },
                 ),
                 bottom: PreferredSize(
