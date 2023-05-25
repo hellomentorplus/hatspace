@@ -4,14 +4,6 @@ abstract class AddPropertyState {
   PropertyTypes propertyTypes;
   DateTime availableDate;
   AddPropertyState(this.propertyTypes, this.availableDate);
-
-  setPropertyType(PropertyTypes selectedProperty) {
-    propertyTypes = selectedProperty;
-  }
-
-  setAvailableDate(DateTime selectedDate) {
-    availableDate = selectedDate;
-  }
 }
 
 class AddPropertyInitial extends AddPropertyState {

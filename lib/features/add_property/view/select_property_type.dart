@@ -16,10 +16,9 @@ class SelectPropertyType extends StatelessWidget {
       return state.propertyTypes;
     }, builder: (context, state) {
       // print("render property body");
-      return Container(
+      return Padding(
         padding: const EdgeInsets.only(left:16, top:33,right:16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Wrap(
           children: [
             Text(HatSpaceStrings.of(context).selectingRoleScreenTitle,
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
