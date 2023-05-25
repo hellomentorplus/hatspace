@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/add_property/view/select_property_type.dart';
 import 'package:hatspace/features/add_property/view_model/bloc/add_property_bloc.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
+import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -29,8 +30,11 @@ class AddPropertyPageView extends StatelessWidget {
                 backgroundColor: HSColor.background,
                 leading: IconButton(
                   icon: const Icon(Icons.close, color: HSColor.onSurface),
-                  onPressed: () => {
-                    context.popToRootHome()
+                  onPressed: () {
+                    if (currentPage == 0) {
+                      // HS-99 scenario 6
+                      context.popToRootHome();
+                    }
                   },
                 ),
                 bottom: PreferredSize(
