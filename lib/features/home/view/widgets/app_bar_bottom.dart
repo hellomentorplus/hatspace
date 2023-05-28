@@ -5,8 +5,9 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 class SearchBar extends StatelessWidget implements PreferredSizeWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  SearchBar({Key? key}) : super(key: key);
 
+  FocusNode searchHintFocus = FocusNode();
   @override
   Widget build(BuildContext context) => CustomPaint(
         painter: SplitColorPainter(Theme.of(context).colorScheme.primary,
@@ -34,6 +35,10 @@ class SearchBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   Expanded(
                     child: TextField(
+                      onTapOutside:(event) {
+                        searchHintFocus.unfocus();
+                      },
+                      focusNode: searchHintFocus,
                       decoration: InputDecoration.collapsed(
                           hintText: HatSpaceStrings.current.searchHint,
                           hintStyle: Theme.of(context)
