@@ -28,8 +28,8 @@ class SearchBar extends StatelessWidget implements PreferredSizeWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: SvgPicture.asset(
                       Assets.icons.search,
-                      width: 16.0,
-                      height: 16.0,
+                      width: 20.0,
+                      height: 20.0,
                     ),
                   ),
                   Expanded(
