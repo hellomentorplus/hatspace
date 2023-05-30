@@ -12,7 +12,7 @@ ThemeData lightThemeData = ThemeData(
   elevatedButtonTheme: primaryButtonTheme,
   outlinedButtonTheme: secondaryButtonTheme,
   textButtonTheme: textOnlyButtonTheme,
-  fontFamily: FontFamily.beVietnamPro,
+  fontFamily: FontFamily.manrope,
   dividerTheme: const DividerThemeData(
     color: HSColor.neutral3,
     thickness: 1.0,

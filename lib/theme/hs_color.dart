@@ -1,7 +1,7 @@
 part of 'hs_theme.dart';
 
 class HSColor {
-  static const Color primary = Color(0xFF32A854);
+  static const Color primary = Color(0xFF32A854); //  new design color
   static const Color onPrimary = Color(0xFFFFFFFF);
   static const Color primaryVariant = Color(0xFFCCF0D2);
   static const Color onPrimaryVariant = Color(0xFF282828);
