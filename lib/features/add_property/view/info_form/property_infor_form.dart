@@ -1,42 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_button_settings.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
-
-class HatSpaceInputText  extends StatelessWidget {
+class HatSpaceInputText extends StatelessWidget {
   final String label;
   final String placeholder;
   final bool isRequired;
   final bool optionalLabel;
 
-  const HatSpaceInputText({
-    super.key, 
-    required this.label,
-    bool? isRequired,
-    required this.placeholder,
-    bool? optionalLabel
-    }): isRequired = isRequired?? false,
+  const HatSpaceInputText(
+      {super.key,
+      required this.label,
+      bool? isRequired,
+      required this.placeholder,
+      bool? optionalLabel})
+      : isRequired = isRequired ?? false,
         optionalLabel = optionalLabel ?? false;
-  
+
   @override
   Widget build(BuildContext context) {
-    return Wrap(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         RichText(
-          text: TextSpan(
-            style: Theme.of(context).textTheme.bodyMedium,
-            text: label,
-            children:[
+            text: TextSpan(
+                style: Theme.of(context).textTheme.bodyMedium,
+                text: label,
+                children: [
               TextSpan(
-                text: isRequired? " *": optionalLabel ? " (Optional)" : "",
-                style: textTheme.bodyMedium?.copyWith(color: HSColor.requiredField)
-              )
-            ] 
-            ) 
-        ),
+                  text: isRequired
+                      ? " *"
+                      : optionalLabel
+                          ? " (Optional)"
+                          : "",
+                  style: textTheme.bodyMedium?.copyWith(
+                      color: isRequired ? HSColor.requiredField : null))
+            ])),
         TextFormField(
             style:
                 Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
@@ -46,56 +49,68 @@ class HatSpaceInputText  extends StatelessWidget {
   }
 }
 
-class HatSpaceDropDownButton extends StatelessWidget{
+class HatSpaceDropDownButton extends StatelessWidget {
   final String label;
   final bool isRequired;
   final String placeholder;
   final VoidCallback onPressed;
-  const HatSpaceDropDownButton({
-    super.key,
-    required this.label,
-    bool? isRequired,
-    required this.onPressed,
-    required this.placeholder
-    }):isRequired = isRequired ?? false;
-
+  HatSpaceDropDownButton(
+      {super.key,
+      required this.label,
+      bool? isRequired,
+      required this.onPressed,
+      required this.placeholder})
+      : isRequired = isRequired ?? false;
+  List<String> list = <String>['One', 'Two', 'Three', 'Four'];
   @override
   Widget build(BuildContext context) {
     return Wrap(
       children: [
-         RichText(
-          text: TextSpan(
-            style: Theme.of(context).textTheme.bodyMedium,
-            text: label,
-            children:[
+        RichText(
+            text: TextSpan(
+                style: Theme.of(context).textTheme.bodyMedium,
+                text: label,
+                children: [
               TextSpan(
-                text: isRequired? " *": "",
-                style: textTheme.bodyMedium?.copyWith(color: HSColor.requiredField)
-              )
-            ] 
-            ) 
-        ),
-    SecondaryButton(
-      // TODO: implement placeholder with enum of preriod
-      label: placeholder, 
-      iconUrl: Assets.images.chervonDown, 
-      iconPosition: IconPosition.right,
-      contentAlignment: MainAxisAlignment.spaceBetween,
-      style: secondaryButtonTheme.style?.copyWith(
-        textStyle: MaterialStatePropertyAll<TextStyle?>(
-            Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
-        ),
-        padding: const MaterialStatePropertyAll<EdgeInsets>(EdgeInsets.fromLTRB(16, 13, 12, 13))
-      ),
-      onPressed: (){
-        // TODO: implement show rent period
-      },
-      ),
+                  text: isRequired ? " *" : "",
+                  style: textTheme.bodyMedium
+                      ?.copyWith(color: HSColor.requiredField))
+            ])),
+        // SecondaryButton(
+        //   // TODO: implement placeholder with enum of preriod
+        //   label: placeholder,
+        //   iconUrl: Assets.images.chervonDown,
+        //   iconPosition: IconPosition.right,
+        //   contentAlignment: MainAxisAlignment.spaceBetween,
+        //   style: secondaryButtonTheme.style?.copyWith(
+        //       textStyle: MaterialStatePropertyAll<TextStyle?>(
+        //         Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
+        //       ),
+        //       padding: const MaterialStatePropertyAll<EdgeInsets>(
+        //           EdgeInsets.fromLTRB(16, 13, 12, 13))),
+        //   onPressed: () {
+        //     // TODO: implement show rent period
+        //   },
+        // ),
+        DropdownButtonFormField(
+          decoration: inputTextTheme,
+          icon: SvgPicture.asset(Assets.images.chervonDown),
+          style: textTheme.bodyMedium?.copyWith(
+            color: HSColor.neutral5
+          ),
+          value: list.first,
+          items:list.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+          onChanged: (String? value){
+            print(value);
+          })
       ],
     );
-
   }
-  
 }
 
 // input THEME
@@ -124,16 +139,19 @@ class PropertyInforForm extends StatelessWidget {
     const PropertyRentPeriod(),
     const PropertyDescription(placeholder: "Enter description"),
     const Text("Your address",
-    style: TextStyle(
+        style: TextStyle(
             fontSize: 18,
             color: HSColor.onSurface,
             fontWeight: FontWeight.w700)),
-            const PropertyState()
+    const PropertyState(),
+    PropertyUnitNumber(),
+    PropertyStreetAddress(),
+    PropertySuburb()
   ];
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.centerLeft,
+        alignment: Alignment.centerLeft,
         child: Padding(
           padding: const EdgeInsets.only(left: 16, top: 33, right: 16),
           child: ListView.separated(
@@ -155,7 +173,11 @@ class PropertyName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HatSpaceInputText(label: "Property name", placeholder: "Enter property name", isRequired: true,);
+    return const HatSpaceInputText(
+      label: "Property name",
+      placeholder: "Enter property name",
+      isRequired: true,
+    );
   }
 }
 
@@ -163,76 +185,65 @@ class PropertyPrice extends StatelessWidget {
   const PropertyPrice({super.key});
   @override
   Widget build(BuildContext context) {
-    return 
-      Wrap(
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Price"),
- Card(
-        color: Colors.white,
-        elevation: 4.0,
-        shadowColor: HSColor.black.withOpacity(0.2),
-        shape: RoundedRectangleBorder(
-            side: BorderSide(color: HSColor.black),
-            borderRadius: BorderRadius.circular(8.0)),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: TextField(
-                decoration: inputTextTheme.copyWith(border:OutlineInputBorder(borderSide: BorderSide.none)),
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(height: 1.0),
-              ),
-            ),
-            Padding(padding: const EdgeInsets.only(
-              right: 7,
-              left: 16
-            ),
-            child: 
-      Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                
-                borderRadius: BorderRadius.circular(4),
-                color: HSColor.neutral2
-              ),
-              
-              child: const Text("USD (\$)",
-                style: TextStyle(
- 
+    return Wrap(
+      // crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Price"),
+        Card(
+            color: Colors.white,
+            elevation: 4.0,
+            shadowColor: HSColor.black.withOpacity(0.2),
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: HSColor.black),
+                borderRadius: BorderRadius.circular(8.0)),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: TextField(
+                    decoration: inputTextTheme.copyWith(
+                        border:
+                            OutlineInputBorder(borderSide: BorderSide.none)),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(height: 1.0),
+                  ),
                 ),
-              )
-            )
-            
-            )
-      
-          ],
-        ))
-        ],
-      );
-   
+                Padding(
+                    padding: const EdgeInsets.only(right: 7, left: 16),
+                    child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: HSColor.neutral2),
+                        child: const Text(
+                          "USD (\$)",
+                          style: TextStyle(),
+                        )))
+              ],
+            ))
+      ],
+    );
   }
 }
 
-class PropertyRentPeriod extends StatelessWidget{
+class PropertyRentPeriod extends StatelessWidget {
   const PropertyRentPeriod({super.key});
   @override
-  Widget build(context){
-    return HatSpaceDropDownButton(label: "Minimum rent period",placeholder: "6 months", isRequired: true, onPressed: (){
-
-    });
+  Widget build(context) {
+    return HatSpaceDropDownButton(
+        label: "Minimum rent period",
+        placeholder: "6 months",
+        isRequired: true,
+        onPressed: () {});
   }
 }
 
-class PropertyDescription extends StatelessWidget{
+class PropertyDescription extends StatelessWidget {
   final String placeholder;
-  const PropertyDescription({super.key,
-  required this.placeholder
-  });
+  const PropertyDescription({super.key, required this.placeholder});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -241,9 +252,9 @@ class PropertyDescription extends StatelessWidget{
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const [
-                Text("Description"),
-                // TODO: Change state
-                Text("120/4000")
+            Text("Description"),
+            // TODO: Change state
+            Text("120/4000")
           ],
         ),
         TextFormField(
@@ -257,15 +268,74 @@ class PropertyDescription extends StatelessWidget{
   }
 }
 
-class PropertyState extends StatelessWidget{
+class PropertyState extends StatelessWidget {
   const PropertyState({super.key});
-  
+
   @override
   Widget build(Object context) {
     // TODO: implement build
-    return HatSpaceDropDownButton(label: "State",placeholder: "Select", isRequired: true,onPressed: (){
-
-    });
+    return HatSpaceDropDownButton(
+        label: "State",
+        placeholder: "Select",
+        isRequired: true,
+        onPressed: () {});
   }
-  
+}
+
+class PropertyUnitNumber extends StatelessWidget {
+  const PropertyUnitNumber({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return HatSpaceInputText(
+      label: "Unit number",
+      placeholder: "Enter unit number",
+      optionalLabel: true,
+    );
+  }
+}
+
+class PropertyStreetAddress extends StatelessWidget {
+  const PropertyStreetAddress({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Wrap(
+      children: [
+        HatSpaceInputText(
+          label: "Address",
+          placeholder: "Enter address",
+          isRequired: true,
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        Text("House number + Street name")
+      ],
+    );
+  }
+}
+
+class PropertySuburb extends StatelessWidget {
+  const PropertySuburb({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: const [
+        Expanded(
+          child: HatSpaceInputText(
+              label: "Suburb", placeholder: "Enter Suburb", isRequired: true),
+        ),
+        SizedBox(width:16),
+        Expanded(
+            child: HatSpaceInputText(
+                label: "Postcode",
+                placeholder: "Enter Postcode",
+                isRequired: true))
+      ],
+    );
+  }
 }
