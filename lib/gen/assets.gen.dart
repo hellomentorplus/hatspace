@@ -47,6 +47,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/calendar.svg
   String get calendar => 'assets/images/calendar.svg';
 
+  /// File path: assets/images/chervon-down.svg
+  String get chervonDown => 'assets/images/chervon-down.svg';
+
   /// File path: assets/images/close-clear.svg
   String get closeClear => 'assets/images/close-clear.svg';
 
@@ -86,6 +89,7 @@ class $AssetsImagesGen {
   /// List of all assets
   List<String> get values => [
         calendar,
+        chervonDown,
         closeClear,
         closeDark,
         closeIcon,
