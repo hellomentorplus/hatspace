@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide SearchBar;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/features/home/view/widgets/add_property_button.dart';
@@ -48,29 +48,60 @@ class HomePageViewState extends State<HomePageView> {
 
   @override
   Widget build(BuildContext context) {
+// <<<<<<< HEAD
+//     return MultiBlocProvider(
+//       providers: [
+//         BlocProvider<HomeInteractionCubit>(
+//           create: (context) => HomeInteractionCubit(),
+//         )
+//       ],
+//       child: MultiBlocListener(
+//           listeners: [
+//             BlocListener<AppConfigBloc, AppConfigState>(
+//                 listener: (context, state) {
+//               if (state is DebugOptionEnabledState &&
+//                   state.debugOptionEnabled == true) {
+//                 onShakeToAction(context, state);
+//               }
+//             }),
+//             BlocListener<HomeInteractionCubit, HomeInteractionState>(
+//               listener: (context, state) {
+//                 if (state is StartAddPropertyFlow) {
+//                   context.goToAddProperty();
+//                 }
+//               },
+//             )
+//           ],
+//           child: Scaffold(
+//               appBar: AppBar(
+//                 title: Text(
+//                   'Hi Hoang Nguyen', // TODO load user display name to be used here
+//                   style: Theme.of(context)
+//                       .textTheme
+//                       .displayLarge
+//                       ?.copyWith(color: colorScheme.onPrimary),
+// =======
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeInteractionCubit>(
-          create: (context) => HomeInteractionCubit(),
-        )
+          create: (context) => HomeInteractionCubit(),)
       ],
       child: MultiBlocListener(
-          listeners: [
-            BlocListener<AppConfigBloc, AppConfigState>(
-                listener: (context, state) {
-              if (state is DebugOptionEnabledState &&
-                  state.debugOptionEnabled == true) {
-                onShakeToAction(context, state);
-              }
-            }),
-            BlocListener<HomeInteractionCubit, HomeInteractionState>(
-              listener: (context, state) {
-                if (state is StartAddPropertyFlow) {
-                  context.goToAddProperty();
-                }
-              },
-            )
-          ],
+      listeners: [
+          BlocListener<AppConfigBloc, AppConfigState>(
+          listener: (context, state) {
+            if (state is DebugOptionEnabledState &&
+            state.debugOptionEnabled == true) {
+              onShakeToAction(context, state);
+            }
+          }),
+        BlocListener<HomeInteractionCubit, HomeInteractionState>(
+          listener: (context, state) {
+            if (state is StartAddPropertyFlow) {
+              context.goToAddProperty();
+            }
+            },)
+      ],
           child: Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -105,7 +136,7 @@ class HomePageViewState extends State<HomePageView> {
                 HatSpaceStrings.of(context).homePageViewTitle,
               )),
               bottomNavigationBar: BottomAppBar(
-                color: HSColor.neutral2,
+                color: HSColor.neutral1.withOpacity(0.9),
                 height: 66 + MediaQuery.of(context).padding.bottom,
                 child: SafeArea(
                   child: Row(
@@ -129,7 +160,35 @@ class HomePageViewState extends State<HomePageView> {
                           onTap: () => _selectedIndex.value = 1,
                         ),
                       ),
-                      const AddPropertyButton(),
+                      Container(
+                        decoration: ShapeDecoration(
+                          shape: const CircleBorder(),
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        width: 48,
+                        height: 48,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Builder(
+                            builder: (context) {
+                              return InkWell(
+                                borderRadius: BorderRadius.circular(48.0),
+                                onTap: () {
+                                  context.read<HomeInteractionCubit>().onAddPropertyPressed();
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: SvgPicture.asset(
+                                    Assets.icons.add,
+                                    width: 24,
+                                    height: 24,
+                                  ),
+                                ),
+                              );
+                            }
+                          ),
+                        ),
+                      ),
                       ValueListenableBuilder<int>(
                         valueListenable: _selectedIndex,
                         builder: (context, value, child) => _BottomBarItem(
@@ -149,9 +208,8 @@ class HomePageViewState extends State<HomePageView> {
                         ),
                       )
                     ],
-                  ),
-                ),
-              ))),
+                  ),)))
+      ),
     );
   }
 }

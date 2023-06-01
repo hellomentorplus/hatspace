@@ -1,13 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
 
 extension ToastMessagesExtension on BuildContext {
   static OverlayEntry? overlayEntry;
+  static Timer? timer;
   void showToast(
       {required ToastType type,
       required String title,
       required String message,
       VoidCallback? onDissmiss}) {
+    removeToast(overlayEntry);
     overlayEntry = OverlayEntry(builder: (context) {
       return Positioned(
           child: SafeArea(
@@ -29,16 +33,15 @@ extension ToastMessagesExtension on BuildContext {
       });
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Overlay.of(this).insert(overlayEntry!);
-      Future.delayed(const Duration(seconds: 6), () {
-        if (overlayEntry?.mounted == true) {
-          overlayEntry?.remove();
-        }
+      timer = Timer(const Duration(seconds: 5), () {
+        removeToast(overlayEntry);
       });
     });
   }
 
   void removeToast(OverlayEntry? overlayEntry) {
     if (overlayEntry?.mounted == true) {
+      timer?.cancel();
       overlayEntry?.remove();
     }
   }
