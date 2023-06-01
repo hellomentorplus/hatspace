@@ -311,6 +311,186 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Property name`
+  String get propertyNameLabel {
+    return Intl.message(
+      'Property name',
+      name: 'propertyNameLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter property name`
+  String get propertyNamePlaceholder {
+    return Intl.message(
+      'Enter property name',
+      name: 'propertyNamePlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price`
+  String get priceLabel {
+    return Intl.message(
+      'Price',
+      name: 'priceLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your price`
+  String get pricePlaceholder {
+    return Intl.message(
+      'Enter your price',
+      name: 'pricePlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minimum rent period`
+  String get minimumRentPeriodlabel {
+    return Intl.message(
+      'Minimum rent period',
+      name: 'minimumRentPeriodlabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get descriptionLabel {
+    return Intl.message(
+      'Description',
+      name: 'descriptionLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter description`
+  String get descriptionPlaceholder {
+    return Intl.message(
+      'Enter description',
+      name: 'descriptionPlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `State`
+  String get stateLabel {
+    return Intl.message(
+      'State',
+      name: 'stateLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit number`
+  String get unitNumberLabel {
+    return Intl.message(
+      'Unit number',
+      name: 'unitNumberLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Optional`
+  String get optional {
+    return Intl.message(
+      'Optional',
+      name: 'optional',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter unit number`
+  String get unitNumberPlaceholder {
+    return Intl.message(
+      'Enter unit number',
+      name: 'unitNumberPlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address`
+  String get addressLabel {
+    return Intl.message(
+      'Address',
+      name: 'addressLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter address`
+  String get addressPlaceholder {
+    return Intl.message(
+      'Enter address',
+      name: 'addressPlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `House number + Street name`
+  String get addressHints {
+    return Intl.message(
+      'House number + Street name',
+      name: 'addressHints',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Suburb`
+  String get suburbLabel {
+    return Intl.message(
+      'Suburb',
+      name: 'suburbLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter suburb`
+  String get suburbPlaceholder {
+    return Intl.message(
+      'Enter suburb',
+      name: 'suburbPlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Postcode`
+  String get postcodeLabel {
+    return Intl.message(
+      'Postcode',
+      name: 'postcodeLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter postcode`
+  String get postcodePlaceholder {
+    return Intl.message(
+      'Enter postcode',
+      name: 'postcodePlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

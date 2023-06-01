@@ -36,6 +36,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "addressHints":
+            MessageLookupByLibrary.simpleMessage("House number + Street name"),
+        "addressLabel": MessageLookupByLibrary.simpleMessage("Address"),
+        "addressPlaceholder":
+            MessageLookupByLibrary.simpleMessage("Enter address"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
@@ -46,6 +51,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
             "You can be tenant or homeowner, OR you can be both."),
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
+        "descriptionLabel": MessageLookupByLibrary.simpleMessage("Description"),
+        "descriptionPlaceholder":
+            MessageLookupByLibrary.simpleMessage("Enter description"),
         "emailSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with email"),
         "explore": MessageLookupByLibrary.simpleMessage("Explore"),
@@ -59,7 +67,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
+        "minimumRentPeriodlabel":
+            MessageLookupByLibrary.simpleMessage("Minimum rent period"),
+        "optional": MessageLookupByLibrary.simpleMessage("Optional"),
+        "postcodeLabel": MessageLookupByLibrary.simpleMessage("Postcode"),
+        "postcodePlaceholder":
+            MessageLookupByLibrary.simpleMessage("Enter postcode"),
+        "priceLabel": MessageLookupByLibrary.simpleMessage("Price"),
+        "pricePlaceholder":
+            MessageLookupByLibrary.simpleMessage("Enter your price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "propertyNameLabel":
+            MessageLookupByLibrary.simpleMessage("Property name"),
+        "propertyNamePlaceholder":
+            MessageLookupByLibrary.simpleMessage("Enter property name"),
         "searchHint":
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
@@ -68,7 +89,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "signinErrorToastTitle":
             MessageLookupByLibrary.simpleMessage("Login Failed"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "stateLabel": MessageLookupByLibrary.simpleMessage("State"),
+        "suburbLabel": MessageLookupByLibrary.simpleMessage("Suburb"),
+        "suburbPlaceholder":
+            MessageLookupByLibrary.simpleMessage("Enter suburb"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
+        "unitNumberLabel": MessageLookupByLibrary.simpleMessage("Unit number"),
+        "unitNumberPlaceholder":
+            MessageLookupByLibrary.simpleMessage("Enter unit number"),
         "userRoleDescription": m0,
         "userTitleRoles": m1
       };

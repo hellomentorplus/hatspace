@@ -30,5 +30,23 @@
   "booking":"Booking",
   "message":"Message",
   "profile":"Profile",
-  "searchHint":"Search rental, location..."
-}
+  "searchHint":"Search rental, location...",
+  "propertyNameLabel":"Property name",
+  "propertyNamePlaceholder":"Enter property name",
+  "priceLabel":"Price",
+  "pricePlaceholder":"Enter your price",
+  "minimumRentPeriodlabel":"Minimum rent period",
+  "descriptionLabel":"Description",
+  "descriptionPlaceholder":"Enter description",
+  "stateLabel":"State",
+  "unitNumberLabel":"Unit number",
+  "optional":"Optional",
+  "unitNumberPlaceholder": "Enter unit number",
+  "addressLabel": "Address",
+  "addressPlaceholder": "Enter address",
+  "addressHints":"House number + Street name",
+  "suburbLabel": "Suburb",
+  "suburbPlaceholder":"Enter suburb",
+  "postcodeLabel":"Postcode",
+  "postcodePlaceholder":"Enter postcode"
+} 
