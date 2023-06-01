@@ -28,8 +28,8 @@ class SearchBar extends StatelessWidget implements PreferredSizeWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: SvgPicture.asset(
                       Assets.icons.search,
-                      width: 16.0,
-                      height: 16.0,
+                      width: 20.0,
+                      height: 20.0,
                     ),
                   ),
                   Expanded(
@@ -39,11 +39,11 @@ class SearchBar extends StatelessWidget implements PreferredSizeWidget {
                           hintStyle: Theme.of(context)
                               .textTheme
                               .bodyMedium
-                              ?.copyWith(height: 1.0)),
+                              ?.copyWith(height: 1.0, color: HSColor.neutral5)),
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
-                          ?.copyWith(height: 1.0),
+                          ?.copyWith(height: 1.5),
                     ),
                   ),
                   const Padding(
