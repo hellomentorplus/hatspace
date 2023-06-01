@@ -76,38 +76,23 @@ class HatSpaceDropDownButton extends StatelessWidget {
                   style: textTheme.bodyMedium
                       ?.copyWith(color: HSColor.requiredField))
             ])),
-        // SecondaryButton(
-        //   // TODO: implement placeholder with enum of preriod
-        //   label: placeholder,
-        //   iconUrl: Assets.images.chervonDown,
-        //   iconPosition: IconPosition.right,
-        //   contentAlignment: MainAxisAlignment.spaceBetween,
-        //   style: secondaryButtonTheme.style?.copyWith(
-        //       textStyle: MaterialStatePropertyAll<TextStyle?>(
-        //         Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
-        //       ),
-        //       padding: const MaterialStatePropertyAll<EdgeInsets>(
-        //           EdgeInsets.fromLTRB(16, 13, 12, 13))),
-        //   onPressed: () {
-        //     // TODO: implement show rent period
-        //   },
-        // ),
-        DropdownButtonFormField(
-          decoration: inputTextTheme,
-          icon: SvgPicture.asset(Assets.images.chervonDown),
-          style: textTheme.bodyMedium?.copyWith(
-            color: HSColor.neutral5
-          ),
-          value: list.first,
-          items:list.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-          onChanged: (String? value){
-            print(value);
-          })
+        SecondaryButton(
+          // TODO: implement placeholder with enum of preriod
+          label: placeholder,
+          iconUrl: Assets.images.chervonDown,
+          iconPosition: IconPosition.right,
+          contentAlignment: MainAxisAlignment.spaceBetween,
+          style: secondaryButtonTheme.style?.copyWith(
+              textStyle: MaterialStatePropertyAll<TextStyle?>(
+                Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
+              ),
+              padding: const MaterialStatePropertyAll<EdgeInsets>(
+                  EdgeInsets.fromLTRB(16, 13, 12, 13))),
+          onPressed: () {
+            // TODO: implement show rent period
+          },
+        ),
+
       ],
     );
   }
@@ -144,9 +129,9 @@ class PropertyInforForm extends StatelessWidget {
             color: HSColor.onSurface,
             fontWeight: FontWeight.w700)),
     const PropertyState(),
-    PropertyUnitNumber(),
-    PropertyStreetAddress(),
-    PropertySuburb()
+    const PropertyUnitNumber(),
+    const PropertyStreetAddress(),
+    const PropertySuburb()
   ];
   @override
   Widget build(BuildContext context) {
@@ -188,31 +173,27 @@ class PropertyPrice extends StatelessWidget {
     return Wrap(
       // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Price"),
+        RichText(
+            text: TextSpan(
+                style: Theme.of(context).textTheme.bodyMedium,
+                text: "Price",
+                children: [
+              TextSpan(
+                  text:  " *",
+                  style: textTheme.bodyMedium
+                      ?.copyWith(color: HSColor.requiredField))
+            ])),
         Card(
             color: Colors.white,
             elevation: 4.0,
             shadowColor: HSColor.black.withOpacity(0.2),
             shape: RoundedRectangleBorder(
-                side: BorderSide(color: HSColor.black),
+                side: const BorderSide(color: HSColor.neutral5),
                 borderRadius: BorderRadius.circular(8.0)),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: TextField(
+            child:  TextField(
                     decoration: inputTextTheme.copyWith(
-                        border:
-                            OutlineInputBorder(borderSide: BorderSide.none)),
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(height: 1.0),
-                  ),
-                ),
-                Padding(
-                    padding: const EdgeInsets.only(right: 7, left: 16),
+                    suffixIcon:  Padding(
+                    padding: const EdgeInsets.only(right: 7, left: 16, top:7, bottom: 7),
                     child: Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
@@ -222,8 +203,13 @@ class PropertyPrice extends StatelessWidget {
                           "USD (\$)",
                           style: TextStyle(),
                         )))
-              ],
-            ))
+                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(height: 1.5),
+                  ),
+                ),
       ],
     );
   }
