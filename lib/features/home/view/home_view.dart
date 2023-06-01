@@ -87,7 +87,7 @@ class HomePageViewState extends State<HomePageView> {
               HatSpaceStrings.of(context).homePageViewTitle,
             )),
             bottomNavigationBar: BottomAppBar(
-              color: HSColor.neutral2,
+              color: HSColor.neutral1.withOpacity(0.9),
               height: 66 + MediaQuery.of(context).padding.bottom,
               child: SafeArea(
                 child: Row(
