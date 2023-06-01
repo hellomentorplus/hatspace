@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart' hide SearchBar;
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hatspace/features/home/view/widgets/add_property_button.dart';
 import 'package:hatspace/features/home/view/widgets/app_bar_bottom.dart';
 import 'package:hatspace/features/home/view_model/home_interaction_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
