@@ -3,13 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/add_property/view/select_property_type.dart';
 import 'package:hatspace/features/add_property/view_model/bloc/add_property_bloc.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
-import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-import 'package:hatspace/theme/widgets/hs_button_setting.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
+import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
 class AddPropertyPageView extends StatelessWidget {
   final PageController pageController =
@@ -49,7 +48,41 @@ class AddPropertyPageView extends StatelessWidget {
                 ),
                 title: Text(HatSpaceStrings.of(context).app_name),
               ),
-              bottomNavigationBar: BottomAppBar(
+              bottomNavigationBar: BottomController(currentPage: currentPage, pageController: pageController,),
+              body: BlocProvider<AddPropertyBloc>(
+                  create: (context) => AddPropertyBloc(),
+                  child: PageView.builder(
+                    onPageChanged: (value) {
+                      onProgressIndicatorState.value = value;
+                    },
+                    physics: const NeverScrollableScrollPhysics(),
+                    controller: pageController,
+                    itemBuilder: (context, index) {
+                      for (int i = 0; i < pages.length; i++) {
+                        if (i == index) {
+                          return pages[i];
+                        }
+                      }
+                      return null;
+                    },
+                  )));
+        });
+  }
+}
+
+class BottomController extends StatelessWidget{
+
+  final PageController pageController;
+  final int currentPage;
+
+  const BottomController ({
+    super.key,
+    required this.currentPage,
+    required this.pageController
+  });
+  @override
+  Widget build(BuildContext context){
+    return BottomAppBar(
                 color: HSColor.background,
                 padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
                 child: Row(
@@ -79,24 +112,6 @@ class AddPropertyPageView extends StatelessWidget {
                         iconPosition: IconPosition.right)
                   ],
                 ),
-              ),
-              body: BlocProvider<AddPropertyBloc>(
-                  create: (context) => AddPropertyBloc(),
-                  child: PageView.builder(
-                    onPageChanged: (value) {
-                      onProgressIndicatorState.value = value;
-                    },
-                    physics: const NeverScrollableScrollPhysics(),
-                    controller: pageController,
-                    itemBuilder: (context, index) {
-                      for (int i = 0; i < pages.length; i++) {
-                        if (i == index) {
-                          return pages[i];
-                        }
-                      }
-                      return null;
-                    },
-                  )));
-        });
+              );
   }
 }
