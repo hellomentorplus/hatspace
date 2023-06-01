@@ -84,24 +84,26 @@ class HomePageViewState extends State<HomePageView> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeInteractionCubit>(
-          create: (context) => HomeInteractionCubit(),)
+          create: (context) => HomeInteractionCubit(),
+        )
       ],
       child: MultiBlocListener(
-      listeners: [
-          BlocListener<AppConfigBloc, AppConfigState>(
-          listener: (context, state) {
-            if (state is DebugOptionEnabledState &&
-            state.debugOptionEnabled == true) {
-              onShakeToAction(context, state);
-            }
-          }),
-        BlocListener<HomeInteractionCubit, HomeInteractionState>(
-          listener: (context, state) {
-            if (state is StartAddPropertyFlow) {
-              context.goToAddProperty();
-            }
-            },)
-      ],
+          listeners: [
+            BlocListener<AppConfigBloc, AppConfigState>(
+                listener: (context, state) {
+              if (state is DebugOptionEnabledState &&
+                  state.debugOptionEnabled == true) {
+                onShakeToAction(context, state);
+              }
+            }),
+            BlocListener<HomeInteractionCubit, HomeInteractionState>(
+              listener: (context, state) {
+                if (state is StartAddPropertyFlow) {
+                  context.goToAddProperty();
+                }
+              },
+            )
+          ],
           child: Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -136,45 +138,46 @@ class HomePageViewState extends State<HomePageView> {
                 HatSpaceStrings.of(context).homePageViewTitle,
               )),
               bottomNavigationBar: BottomAppBar(
-                color: HSColor.neutral1.withOpacity(0.9),
-                height: 66 + MediaQuery.of(context).padding.bottom,
-                child: SafeArea(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ValueListenableBuilder<int>(
-                        valueListenable: _selectedIndex,
-                        builder: (context, value, child) => _BottomBarItem(
-                          icon: Assets.icons.explore,
-                          label: HatSpaceStrings.current.explore,
-                          isSelected: value == 0,
-                          onTap: () => _selectedIndex.value = 0,
+                  color: HSColor.neutral1.withOpacity(0.9),
+                  height: 66 + MediaQuery.of(context).padding.bottom,
+                  child: SafeArea(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ValueListenableBuilder<int>(
+                          valueListenable: _selectedIndex,
+                          builder: (context, value, child) => _BottomBarItem(
+                            icon: Assets.icons.explore,
+                            label: HatSpaceStrings.current.explore,
+                            isSelected: value == 0,
+                            onTap: () => _selectedIndex.value = 0,
+                          ),
                         ),
-                      ),
-                      ValueListenableBuilder<int>(
-                        valueListenable: _selectedIndex,
-                        builder: (context, value, child) => _BottomBarItem(
-                          icon: Assets.icons.booking,
-                          label: HatSpaceStrings.current.booking,
-                          isSelected: value == 1,
-                          onTap: () => _selectedIndex.value = 1,
+                        ValueListenableBuilder<int>(
+                          valueListenable: _selectedIndex,
+                          builder: (context, value, child) => _BottomBarItem(
+                            icon: Assets.icons.booking,
+                            label: HatSpaceStrings.current.booking,
+                            isSelected: value == 1,
+                            onTap: () => _selectedIndex.value = 1,
+                          ),
                         ),
-                      ),
-                      Container(
-                        decoration: ShapeDecoration(
-                          shape: const CircleBorder(),
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        width: 48,
-                        height: 48,
-                        child: Material(
-                          color: Colors.transparent,
-                          child: Builder(
-                            builder: (context) {
+                        Container(
+                          decoration: ShapeDecoration(
+                            shape: const CircleBorder(),
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          width: 48,
+                          height: 48,
+                          child: Material(
+                            color: Colors.transparent,
+                            child: Builder(builder: (context) {
                               return InkWell(
                                 borderRadius: BorderRadius.circular(48.0),
                                 onTap: () {
-                                  context.read<HomeInteractionCubit>().onAddPropertyPressed();
+                                  context
+                                      .read<HomeInteractionCubit>()
+                                      .onAddPropertyPressed();
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(12.0),
@@ -185,31 +188,30 @@ class HomePageViewState extends State<HomePageView> {
                                   ),
                                 ),
                               );
-                            }
+                            }),
                           ),
                         ),
-                      ),
-                      ValueListenableBuilder<int>(
-                        valueListenable: _selectedIndex,
-                        builder: (context, value, child) => _BottomBarItem(
-                          icon: Assets.icons.message,
-                          label: HatSpaceStrings.current.message,
-                          isSelected: value == 2,
-                          onTap: () => _selectedIndex.value = 2,
+                        ValueListenableBuilder<int>(
+                          valueListenable: _selectedIndex,
+                          builder: (context, value, child) => _BottomBarItem(
+                            icon: Assets.icons.message,
+                            label: HatSpaceStrings.current.message,
+                            isSelected: value == 2,
+                            onTap: () => _selectedIndex.value = 2,
+                          ),
                         ),
-                      ),
-                      ValueListenableBuilder<int>(
-                        valueListenable: _selectedIndex,
-                        builder: (context, value, child) => _BottomBarItem(
-                          icon: Assets.icons.profile,
-                          label: HatSpaceStrings.current.profile,
-                          isSelected: value == 3,
-                          onTap: () => _selectedIndex.value = 3,
-                        ),
-                      )
-                    ],
-                  ),)))
-      ),
+                        ValueListenableBuilder<int>(
+                          valueListenable: _selectedIndex,
+                          builder: (context, value, child) => _BottomBarItem(
+                            icon: Assets.icons.profile,
+                            label: HatSpaceStrings.current.profile,
+                            isSelected: value == 3,
+                            onTap: () => _selectedIndex.value = 3,
+                          ),
+                        )
+                      ],
+                    ),
+                  )))),
     );
   }
 }
