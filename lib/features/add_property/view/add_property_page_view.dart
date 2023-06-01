@@ -48,7 +48,10 @@ class AddPropertyPageView extends StatelessWidget {
                 ),
                 title: Text(HatSpaceStrings.of(context).app_name),
               ),
-              bottomNavigationBar: BottomController(currentPage: currentPage, pageController: pageController,),
+              bottomNavigationBar: BottomController(
+                currentPage: currentPage,
+                pageController: pageController,
+              ),
               body: BlocProvider<AddPropertyBloc>(
                   create: (context) => AddPropertyBloc(),
                   child: PageView.builder(
@@ -70,48 +73,44 @@ class AddPropertyPageView extends StatelessWidget {
   }
 }
 
-class BottomController extends StatelessWidget{
-
+class BottomController extends StatelessWidget {
   final PageController pageController;
   final int currentPage;
 
-  const BottomController ({
-    super.key,
-    required this.currentPage,
-    required this.pageController
-  });
+  const BottomController(
+      {super.key, required this.currentPage, required this.pageController});
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return BottomAppBar(
-                color: HSColor.background,
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    TextOnlyButton(
-                      label: HatSpaceStrings.of(context).back,
-                      onPressed: () {
-                        pageController.animateToPage(currentPage - 1,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeIn);
-                      },
-                      style: const ButtonStyle(
-                          foregroundColor: MaterialStatePropertyAll<Color>(
-                              HSColor.onSurface)),
-                      iconUrl: Assets.images.chevronLeft,
-                    ),
-                    PrimaryButton(
-                        label: HatSpaceStrings.of(context).next,
-                        onPressed: () {
-                          pageController.animateToPage(currentPage + 1,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeIn);
-                        },
-                        iconUrl: Assets.images.chevronRight,
-                        iconPosition: IconPosition.right)
-                  ],
-                ),
-              );
+      color: HSColor.background,
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TextOnlyButton(
+            label: HatSpaceStrings.of(context).back,
+            onPressed: () {
+              pageController.animateToPage(currentPage - 1,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeIn);
+            },
+            style: const ButtonStyle(
+                foregroundColor:
+                    MaterialStatePropertyAll<Color>(HSColor.onSurface)),
+            iconUrl: Assets.images.chevronLeft,
+          ),
+          PrimaryButton(
+              label: HatSpaceStrings.of(context).next,
+              onPressed: () {
+                pageController.animateToPage(currentPage + 1,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeIn);
+              },
+              iconUrl: Assets.images.chevronRight,
+              iconPosition: IconPosition.right)
+        ],
+      ),
+    );
   }
 }
