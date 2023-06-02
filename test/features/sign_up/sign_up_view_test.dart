@@ -39,7 +39,8 @@ void main() {
     expect(find.byType(AppBar), findsOneWidget);
 
     AppBar appBar = widgetTester.widget(find.byType(AppBar));
-    expect(appBar.backgroundColor, const Color(0xFFF8F8F8));
+    // new design uses white as background color
+    expect(appBar.backgroundColor, const Color(0xffffffff));
 
     expect(
         find.descendant(

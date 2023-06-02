@@ -1,142 +1,242 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
-import 'package:hatspace/theme/hs_theme.dart';
+
+import 'hs_buttons_settings.dart';
+
+class ButtonWithIconContent extends StatelessWidget {
+  final IconPosition? iconPosition;
+  final String label;
+  final String iconUrl;
+  final MainAxisAlignment contentAlignment;
+  const ButtonWithIconContent({
+    super.key,
+    this.iconPosition,
+    required this.label,
+    required this.iconUrl,
+    required this.contentAlignment,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Widget> buttonContent = [
+      SvgPicture.asset(
+        iconUrl,
+        width: 24,
+        height: 24,
+        color: DefaultTextStyle.of(context).style.color,
+        alignment: Alignment.center,
+      ),
+      Padding(
+        padding: iconPosition == IconPosition.left
+            ? const EdgeInsets.only(left: 8)
+            : const EdgeInsets.only(right: 8),
+        child: Text(
+          label,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ];
+    return Row(
+      mainAxisAlignment: contentAlignment,
+      mainAxisSize: MainAxisSize.max,
+      children: iconPosition == IconPosition.left
+          ? buttonContent
+          : buttonContent.reversed.toList(),
+    );
+  }
+}
 
 class PrimaryButton extends StatelessWidget {
-  final String? label;
+  final String label;
   final String? iconUrl;
   final VoidCallback? onPressed;
-
-  const PrimaryButton({Key? key, this.label, this.iconUrl, this.onPressed})
-      : assert(label != null || iconUrl != null, "label or icon is required"),
-        super(key: key);
+  final IconPosition? iconPosition;
+  final ButtonStyle? style;
+  final MainAxisAlignment contentAlignment;
+  const PrimaryButton({
+    Key? key,
+    required this.label,
+    this.iconUrl,
+    this.onPressed,
+    this.iconPosition = IconPosition.left,
+    this.style,
+    this.contentAlignment = MainAxisAlignment.center,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // FOR TEXT ONLY BUTTON
-    if (iconUrl == null && label != null) {
+    if (iconUrl == null) {
       return ElevatedButton(
-          key: key,
-          onPressed: onPressed,
-          style: primaryButtonTheme.style,
-          child: Text(label!));
-    }
-    // BUTTON WITH ICON ONLY
-    if (iconUrl != null && label == null) {
-      return ElevatedButton(
+        key: key,
         onPressed: onPressed,
-        style: buttonWithIconTheme.style,
-        child: SvgPicture.asset(
-          iconUrl!,
-          width: 24,
-          height: 24,
-          color: onPressed == null ? HSColor.onPrimary : null,
-          alignment: Alignment.center,
+        style: style,
+        child: Row(
+          mainAxisAlignment: contentAlignment,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text(label),
+          ],
         ),
       );
     }
-    // Button with icon
+
     return ElevatedButton(
-        key: key,
-        onPressed: onPressed,
-        style: buttonWithIconTheme.style,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              child: SvgPicture.asset(
-                iconUrl!,
-                width: 24,
-                height: 24,
-                color: onPressed == null ? HSColor.onPrimary : null,
-                alignment: Alignment.center,
-              ),
-            ),
-            Expanded(
-                flex: 4,
-                child: Text(
-                  label!,
-                  textAlign: TextAlign.center,
-                )),
-          ],
-        ));
+      key: key,
+      onPressed: onPressed,
+      style: style,
+      child: ButtonWithIconContent(
+        contentAlignment: contentAlignment,
+        iconPosition: iconPosition,
+        iconUrl: iconUrl!,
+        label: label,
+      ),
+    );
   }
 }
 
 class SecondaryButton extends StatelessWidget {
-  final String? label;
-  final String? iconURL;
+  final String label;
+  final String? iconUrl;
+  final IconPosition? iconPosition;
+  final ButtonStyle? style;
   final VoidCallback? onPressed;
-  const SecondaryButton({Key? key, this.label, this.iconURL, this.onPressed})
-      : assert(label != null || iconURL != null, "either are required"),
-        super(key: key);
+  final MainAxisAlignment contentAlignment;
+
+  const SecondaryButton({
+    Key? key,
+    required this.label,
+    this.iconUrl,
+    this.onPressed,
+    this.iconPosition = IconPosition.left,
+    this.style,
+    this.contentAlignment = MainAxisAlignment.center,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // WITH TEXT ONLY
-    if (iconURL == null && label != null) {
+    if (iconUrl == null) {
       return OutlinedButton(
-          onPressed: onPressed,
-          style: secondaryButtonTheme.style,
-          child: Text(label!));
-    }
-    // WITH ICON ONLY
-    if (iconURL != null && label == null) {
-      return OutlinedButton(
-          style: secondaryButtonWithIconTheme.style,
-          onPressed: onPressed,
-          child: SvgPicture.asset(
-            iconURL!,
-            width: 24,
-            height: 24,
-            color: onPressed == null ? HSColor.neutral3 : null,
-            alignment: Alignment.center,
-          ));
+        onPressed: onPressed,
+        style: style,
+        child: Row(
+          mainAxisAlignment: contentAlignment,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text(label),
+          ],
+        ),
+      );
     }
 
-    // BUTTON WITH ICON AND TEXT
     return OutlinedButton(
-        onPressed: onPressed,
-        style: secondaryButtonWithIconTheme.style,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                child: SvgPicture.asset(
-                  iconURL!,
-                  width: 24,
-                  height: 24,
-                  color: onPressed == null ? HSColor.neutral3 : null,
-                  alignment: Alignment.center,
-                )),
-            Expanded(
-                flex: 4,
-                child: Text(
-                  label!,
-                  textAlign: TextAlign.center,
-                )),
-          ],
-        ));
+      onPressed: onPressed,
+      style: style,
+      child: ButtonWithIconContent(
+        contentAlignment: contentAlignment,
+        iconPosition: iconPosition,
+        iconUrl: iconUrl!,
+        label: label,
+      ),
+    );
   }
 }
 
 class TextOnlyButton extends StatelessWidget {
   final String label;
+  final String? iconUrl;
   final VoidCallback? onPressed;
-  final Color? textColor;
-  const TextOnlyButton(
-      {Key? key, required this.label, required this.onPressed, this.textColor})
-      : super(key: key);
+  final IconPosition? iconPosition;
+  final ButtonStyle? style;
+  final MainAxisAlignment contentAlignment;
+
+  const TextOnlyButton({
+    Key? key,
+    required this.label,
+    this.onPressed,
+    this.iconUrl,
+    this.iconPosition = IconPosition.left,
+    this.contentAlignment = MainAxisAlignment.center,
+    this.style,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    if (iconUrl == null) {
+      return TextButton(
+        key: key,
+        onPressed: onPressed,
+        style: style,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text(label),
+          ],
+        ),
+      );
+    }
+
     return TextButton(
-      onPressed: onPressed,
-      style: textOnlyButtonTheme.style,
-      child: Text(label),
-    );
+        key: key,
+        onPressed: onPressed,
+        style: style,
+        child: ButtonWithIconContent(
+          contentAlignment: contentAlignment,
+          iconPosition: iconPosition,
+          iconUrl: iconUrl!,
+          label: label,
+        ));
+  }
+}
+
+class TertiaryButton extends StatelessWidget {
+  final String label;
+  final String? iconUrl;
+  final VoidCallback? onPressed;
+  final IconPosition? iconPosition;
+  final ButtonStyle? style;
+  final MainAxisAlignment contentAlignment;
+
+  const TertiaryButton({
+    Key? key,
+    required this.label,
+    this.onPressed,
+    this.iconUrl,
+    this.iconPosition = IconPosition.left,
+    this.contentAlignment = MainAxisAlignment.center,
+    this.style,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (iconUrl == null) {
+      return OutlinedButton(
+        key: key,
+        onPressed: onPressed,
+        style: style ?? tertiaryButtonTheme.style,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text(label),
+          ],
+        ),
+      );
+    }
+
+    return OutlinedButton(
+        key: key,
+        onPressed: onPressed,
+        style: style ?? tertiaryButtonTheme.style,
+        child: ButtonWithIconContent(
+          contentAlignment: contentAlignment,
+          iconPosition: iconPosition,
+          iconUrl: iconUrl!,
+          label: label,
+        ));
   }
 }
 

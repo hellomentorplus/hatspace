@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../features/add_property/view/add_property_view.dart';
 import '../features/debug/view/widget_list/widget_catalog_screen.dart';
 import '../features/home/view/home_view.dart';
 import '../features/sign_up/view/choosing_roles_view.dart';
@@ -29,7 +30,19 @@ extension RouteExtension on BuildContext {
     }));
   }
 
+  void goToAddProperty() {
+    Navigator.push(
+        this,
+        MaterialPageRoute(
+          builder: (context) => const AddPropertyView(),
+        ));
+  }
+
   void pop() {
     Navigator.of(this).pop();
+  }
+
+  void popToRootHome() {
+    Navigator.of(this).popUntil((route) => route.isFirst);
   }
 }

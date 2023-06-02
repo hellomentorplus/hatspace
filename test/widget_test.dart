@@ -9,6 +9,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/initial_app.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/storage_service.dart';
+import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -16,17 +19,23 @@ import 'bloc/app_confilg_bloc/app_config_bloc_test.mocks.dart';
 import 'widget_test.mocks.dart';
 import 'widget_tester_extension.dart';
 
-@GenerateMocks([
-  AppConfigBloc,
-  SignUpBloc,
-])
+@GenerateMocks(
+    [AppConfigBloc, SignUpBloc, StorageService, AuthenticationService])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   MockFirebaseRemoteConfig mockFirebaseRemoteConfig =
       MockFirebaseRemoteConfig();
   MockAppConfigBloc mockAppConfigBloc = MockAppConfigBloc();
   MockSignUpBloc mockSignUpBloc = MockSignUpBloc();
+  final MockStorageService storageService = MockStorageService();
+  final MockAuthenticationService authenticationService =
+      MockAuthenticationService();
+
   setUpAll(() async {
+    HsSingleton.singleton.registerSingleton<StorageService>(storageService);
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
+
     when(mockFirebaseRemoteConfig.fetchAndActivate()).thenAnswer((_) {
       return Future.value(true);
     });
@@ -60,17 +69,18 @@ void main() {
     const widget = HomePageView();
     await tester.blocWrapAndPump<AppConfigBloc>(mockAppConfigBloc, widget);
 
-    // // Verify that our counter starts at 0.
-    expect(find.text('HAT Space'), findsOneWidget);
+    // verify the mocked name is displayed - this will change later
+    expect(find.text('Hi Hoang Nguyen'), findsOneWidget);
   });
 
-  testWidgets('Check button navigation bar', (WidgetTester tester) async {
+  testWidgets('Check bottom app bar', (WidgetTester tester) async {
     const widget = HomePageView();
     await tester.blocWrapAndPump<AppConfigBloc>(mockAppConfigBloc, widget);
-    // // Verify that our counter starts at 0.
+    // Verify content of bottom app bar
     expect(find.text('Explore'), findsOneWidget);
-    expect(find.text('Tracking'), findsOneWidget);
-    expect(find.text('Inbox'), findsOneWidget);
+    expect(find.text('Booking'), findsOneWidget);
+    expect(find.text('Message'), findsOneWidget);
+    expect(find.text('Profile'), findsOneWidget);
   });
 
   testWidgets('It should have a widget', (tester) async {

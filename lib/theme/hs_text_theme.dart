@@ -28,8 +28,6 @@ class FontStyleGuide {
   static const FontWeight fwRegular = FontWeight.w400;
   static const FontWeight fwSemibold = FontWeight.w600;
   static const FontWeight fwBold = FontWeight.w700;
-
-  static const double height = 1.5;
 }
 
 const TextTheme textTheme = TextTheme(
@@ -38,20 +36,18 @@ const TextTheme textTheme = TextTheme(
     fontSize: FontStyleGuide.fontSize34,
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing025,
-    height: FontStyleGuide.height,
-
     //New text color based on design
     color: HSColor.neutral9,
   ),
 
   //HEADLINE
   //headline1 => displayLarge
+  // new design
   displayLarge: TextStyle(
-    fontSize: FontStyleGuide.fontSize26,
-    fontWeight: FontStyleGuide.fwRegular,
+    fontFamily: 'Manrope',
+    fontSize: FontStyleGuide.fontSize24,
+    fontWeight: FontStyleGuide.fwBold,
     letterSpacing: FontStyleGuide.letterSpacing0,
-    height: FontStyleGuide.height,
-
     //New text color based on design
     color: HSColor.neutral9,
   ),
@@ -60,8 +56,6 @@ const TextTheme textTheme = TextTheme(
     fontSize: FontStyleGuide.fontSize26,
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing0,
-    height: FontStyleGuide.height,
-
     //New text color based on design
     color: HSColor.neutral9,
   ),
@@ -72,8 +66,6 @@ const TextTheme textTheme = TextTheme(
     fontSize: FontStyleGuide.fontSize17,
     fontWeight: FontStyleGuide.fwSemibold,
     letterSpacing: FontStyleGuide.letterSpacing015,
-    height: FontStyleGuide.height,
-
     //New text color based on design
     color: HSColor.neutral9,
   ),
@@ -84,18 +76,17 @@ const TextTheme textTheme = TextTheme(
     fontSize: FontStyleGuide.fontSize17,
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing05,
-    height: FontStyleGuide.height,
-
     //New text color based on design
     color: HSColor.neutral9,
   ),
+
   //bodyMedium ?? bodyText2
+  // new design
   bodyMedium: TextStyle(
-    fontSize: FontStyleGuide.fontSize13,
+    fontFamily: 'Manrope',
+    fontSize: FontStyleGuide.fontSize14,
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing04,
-    height: FontStyleGuide.height,
-
     //New text color based on design
     color: HSColor.neutral9,
   ),
@@ -106,8 +97,6 @@ const TextTheme textTheme = TextTheme(
     fontSize: FontStyleGuide.fontSize13,
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing04,
-    height: FontStyleGuide.height,
-
     //New text color based on design
     color: HSColor.neutral9,
   ),
@@ -118,8 +107,6 @@ const TextTheme textTheme = TextTheme(
     fontSize: FontStyleGuide.fontSize12,
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing04,
-    height: FontStyleGuide.height,
-
     //New text color based on design
     color: HSColor.neutral9,
   ),
@@ -130,8 +117,6 @@ const TextTheme textTheme = TextTheme(
     fontSize: FontStyleGuide.fontSize10,
     fontWeight: FontStyleGuide.fwRegular,
     letterSpacing: FontStyleGuide.letterSpacing15,
-    height: FontStyleGuide.height,
-
     //New text color based on design
     color: HSColor.neutral9,
   ),
@@ -139,11 +124,9 @@ const TextTheme textTheme = TextTheme(
 
 //SUBHEAD
 const TextStyle subheadCustom = TextStyle(
-  fontSize: FontStyleGuide.fontSize13,
+  fontSize: FontStyleGuide.fontSize14,
   fontWeight: FontStyleGuide.fwSemibold,
   letterSpacing: FontStyleGuide.letterSpacing01,
-  height: FontStyleGuide.height,
-
   //New text color based on design
   color: HSColor.neutral9,
 );
@@ -153,8 +136,6 @@ const TextStyle overLine2Custom = TextStyle(
   fontSize: FontStyleGuide.fontSize8,
   fontWeight: FontStyleGuide.fwSemibold,
   letterSpacing: FontStyleGuide.letterSpacing15,
-  height: FontStyleGuide.height,
-
   //New text color based on design
   color: HSColor.neutral9,
 );

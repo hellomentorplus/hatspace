@@ -292,11 +292,31 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Booking`
+  String get booking {
+    return Intl.message(
+      'Booking',
+      name: 'booking',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Bedrooms`
   String get bedroomText {
     return Intl.message(
       'Bedrooms',
       name: 'bedroomText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message`
+  String get message {
+    return Intl.message(
+      'Message',
+      name: 'message',
       desc: '',
       args: [],
     );
@@ -337,6 +357,16 @@ class HatSpaceStrings {
     return Intl.message(
       'Next',
       name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search rental, location...`
+  String get searchHint {
+    return Intl.message(
+      'Search rental, location...',
+      name: 'searchHint',
       desc: '',
       args: [],
     );

@@ -32,5 +32,9 @@
   "bathroomText": "Bathrooms",
   "parkingText": "Parkings",
   "back": "Back",
-  "next": "Next"
+  "next": "Next",
+  "booking":"Booking",
+  "message":"Message",
+  "profile":"Profile",
+  "searchHint":"Search rental, location..."
 }
