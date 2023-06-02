@@ -9,6 +9,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/initial_app.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/storage_service.dart';
+import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -16,17 +19,23 @@ import 'bloc/app_confilg_bloc/app_config_bloc_test.mocks.dart';
 import 'widget_test.mocks.dart';
 import 'widget_tester_extension.dart';
 
-@GenerateMocks([
-  AppConfigBloc,
-  SignUpBloc,
-])
+@GenerateMocks(
+    [AppConfigBloc, SignUpBloc, StorageService, AuthenticationService])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   MockFirebaseRemoteConfig mockFirebaseRemoteConfig =
       MockFirebaseRemoteConfig();
   MockAppConfigBloc mockAppConfigBloc = MockAppConfigBloc();
   MockSignUpBloc mockSignUpBloc = MockSignUpBloc();
+  final MockStorageService storageService = MockStorageService();
+  final MockAuthenticationService authenticationService =
+      MockAuthenticationService();
+
   setUpAll(() async {
+    HsSingleton.singleton.registerSingleton<StorageService>(storageService);
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
+
     when(mockFirebaseRemoteConfig.fetchAndActivate()).thenAnswer((_) {
       return Future.value(true);
     });
