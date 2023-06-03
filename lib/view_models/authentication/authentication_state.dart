@@ -8,3 +8,13 @@ class AuthenticationInitial extends AuthenticationState {
   @override
   List<Object> get props => [];
 }
+
+class AuthenticatedState extends AuthenticationState {
+  @override
+  List<Object?> get props => [];
+}
+
+class AnonymousState extends AuthenticationState {
+  @override
+  List<Object?> get props => [];
+}
