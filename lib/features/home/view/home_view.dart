@@ -47,39 +47,6 @@ class HomePageViewState extends State<HomePageView> {
 
   @override
   Widget build(BuildContext context) {
-// <<<<<<< HEAD
-//     return MultiBlocProvider(
-//       providers: [
-//         BlocProvider<HomeInteractionCubit>(
-//           create: (context) => HomeInteractionCubit(),
-//         )
-//       ],
-//       child: MultiBlocListener(
-//           listeners: [
-//             BlocListener<AppConfigBloc, AppConfigState>(
-//                 listener: (context, state) {
-//               if (state is DebugOptionEnabledState &&
-//                   state.debugOptionEnabled == true) {
-//                 onShakeToAction(context, state);
-//               }
-//             }),
-//             BlocListener<HomeInteractionCubit, HomeInteractionState>(
-//               listener: (context, state) {
-//                 if (state is StartAddPropertyFlow) {
-//                   context.goToAddProperty();
-//                 }
-//               },
-//             )
-//           ],
-//           child: Scaffold(
-//               appBar: AppBar(
-//                 title: Text(
-//                   'Hi Hoang Nguyen', // TODO load user display name to be used here
-//                   style: Theme.of(context)
-//                       .textTheme
-//                       .displayLarge
-//                       ?.copyWith(color: colorScheme.onPrimary),
-// =======
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeInteractionCubit>(
