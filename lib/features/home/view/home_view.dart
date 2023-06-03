@@ -125,7 +125,9 @@ class HomePageViewState extends State<HomePageView> {
                     },
                     icon: SvgPicture.asset(
                       Assets.icons.notification,
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      colorFilter: ColorFilter.mode(
+                          Theme.of(context).colorScheme.onPrimary,
+                          BlendMode.srcIn),
                       width: 24,
                       height: 24,
                     ),
@@ -250,9 +252,11 @@ class _BottomBarItem extends StatelessWidget {
                 icon,
                 width: 24,
                 height: 24,
-                color: isSelected
-                    ? Theme.of(context).colorScheme.primary
-                    : HSColor.neutral6,
+                colorFilter: ColorFilter.mode(
+                    isSelected
+                        ? Theme.of(context).colorScheme.primary
+                        : HSColor.neutral6,
+                    BlendMode.srcIn),
               ),
               Text(label,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
