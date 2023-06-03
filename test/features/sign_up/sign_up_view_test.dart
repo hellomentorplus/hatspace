@@ -49,8 +49,7 @@ void main() {
     SvgPicture svgPicture = widgetTester.widget(find.descendant(
         of: find.byType(AppBar), matching: find.byType(SvgPicture)));
     expect(svgPicture.bytesLoader, isA<SvgAssetLoader>());
-    SvgAssetLoader assetPicture =
-        svgPicture.bytesLoader as SvgAssetLoader;
+    SvgAssetLoader assetPicture = svgPicture.bytesLoader as SvgAssetLoader;
     expect(assetPicture.assetName, 'assets/images/close_icon.svg');
 
     expect(find.widgetWithText(SecondaryButton, 'Sign up with Google'),
