@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/add_property/view/date_picker_view.dart';
 import 'package:hatspace/features/add_property/view/property_type_cart_view.dart';
+import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
 
 import 'package:hatspace/strings/l10n.dart';
@@ -14,11 +15,11 @@ class SelectPropertyType extends StatelessWidget {
     return BlocConsumer<PropertyTypeCubit, PropertyTypeState>(
         listener: (context, state) {
       // Implement validate to enable next button
-      // if (state.availableDate.day != DateTime.now().day) {
-      //   context.read<AddPropertyCubit>().enableNextButton();
-      // }
-    }, builder: (context, state) {
-      // print("render property body");
+      if (state.propertyTypes != null){
+        context.read<AddPropertyCubit>().enableNextButton();
+      }
+    },
+     builder: (context, state) {
       return Padding(
         padding: const EdgeInsets.only(left: 16, top: 33, right: 16),
         child: Wrap(

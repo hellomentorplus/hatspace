@@ -1,30 +1,33 @@
+
 import 'package:equatable/equatable.dart';
 
-abstract class AddPropertyState extends Equatable {
+
+abstract class AddPropertyState extends Equatable{  
   final int pageViewNumber;
   // PropertyTypeState propertyTypeState;
-  const AddPropertyState(this.pageViewNumber);
+  const AddPropertyState( this.pageViewNumber);
 }
 
 class AddPropertyInitial extends AddPropertyState {
   const AddPropertyInitial() : super(0);
-
+  
   @override
   List<Object?> get props => [];
 }
 
-class PageViewNavigationState extends AddPropertyState {
-  const PageViewNavigationState(super.pageViewNumber);
 
+class PageViewNavigationState extends AddPropertyState{
+  const PageViewNavigationState(super.pageViewNumber);
+  
   @override
   // TODO: implement props
   List<Object?> get props => [super.pageViewNumber];
 }
 
-class NextButtonEnable extends AddPropertyState {
-  final bool isActive;
-  const NextButtonEnable(super.pageViewNumber, this.isActive);
-
+class NextButtonEnable extends AddPropertyState{
+ final bool isActive;
+ const NextButtonEnable( super.pageViewNumber, this.isActive);
+  
   @override
   // TODO: implement props
   List<Object?> get props => [isActive];

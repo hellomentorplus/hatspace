@@ -13,10 +13,25 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     }
     if (navType == NavigatePage.preverse && state.pageViewNumber > 0) {
       emit(PageViewNavigationState(state.pageViewNumber - 1));
+      validateState(state.pageViewNumber);
     }
   }
-
+  List<bool> activePageList = [];
   void enableNextButton() {
-    emit(NextButtonEnable(state.pageViewNumber, true));
+    if(activePageList.isEmpty){
+      activePageList.add(true);
+    }else{
+      activePageList[state.pageViewNumber] = true;
+    }
+
+      emit(NextButtonEnable(state.pageViewNumber, true));
+  }
+
+  void validateState(int pageNumber){
+    if(activePageList[pageNumber] == true){
+      emit(NextButtonEnable(state.pageViewNumber,true));
+    }else{
+      // Implement disable event
+    }
   }
 }

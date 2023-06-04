@@ -20,7 +20,7 @@ class PropertyTypeCartView extends StatelessWidget {
     RoundedRectangleBorder cardShape = const RoundedRectangleBorder(
         side: BorderSide(width: 1.5, color: Colors.transparent),
         borderRadius: BorderRadius.all(Radius.circular(8)));
-    return BlocSelector<PropertyTypeCubit, PropertyTypeState, PropertyTypes>(
+    return BlocSelector<PropertyTypeCubit, PropertyTypeState, PropertyTypes?>(
         selector: (state) {
       return state.propertyTypes;
     }, builder: (context, state) {

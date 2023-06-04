@@ -1,13 +1,13 @@
 part of 'property_type_cubit.dart';
 
 abstract class PropertyTypeState {
-  PropertyTypes propertyTypes;
+  PropertyTypes? propertyTypes;
   DateTime availableDate;
   PropertyTypeState(this.propertyTypes, this.availableDate);
 }
 
 class PropertyTypeInitial extends PropertyTypeState {
-  PropertyTypeInitial() : super(PropertyTypes.house, DateTime.now());
+  PropertyTypeInitial() : super(null, DateTime.now());
 }
 
 class PropertyTypeSelectedState extends PropertyTypeState {

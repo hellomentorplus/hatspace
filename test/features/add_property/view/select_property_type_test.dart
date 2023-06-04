@@ -18,7 +18,7 @@ void main() {
     when(propertyTypeCubit.stream)
         .thenAnswer((realInvocation) => Stream.value(PropertyTypeInitial()));
   });
-  testWidgets('verify that SelectPropertyType listent to AddPropertyBloc',
+  testWidgets('verify that SelectPropertyType listent to Property Cubit',
       (widgetTester) async {
     const Widget widget = SelectPropertyType();
 
