@@ -3,8 +3,8 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-import 'package:hatspace/theme/widgets/hs_button_settings.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
+import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
 class HatSpaceInputText extends StatelessWidget {
   final String label;

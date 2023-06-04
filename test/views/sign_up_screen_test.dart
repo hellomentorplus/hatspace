@@ -16,7 +16,7 @@ void main() {
   const widget = SignUpScreen();
   MockSignUpBloc mockSignUpBloc = MockSignUpBloc();
   setUpAll(() async {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+    TestDefaultBinaryMessengerBinding.instance?.defaultBinaryMessenger
         .setMockMethodCallHandler(
             const MethodChannel('plugins.flutter.io/shared_preferences'),
             (MethodCall methodCall) async {
