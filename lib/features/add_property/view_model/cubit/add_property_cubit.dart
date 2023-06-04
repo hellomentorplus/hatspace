@@ -16,21 +16,22 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
       validateState(state.pageViewNumber);
     }
   }
+
   List<bool> activePageList = [];
   void enableNextButton() {
-    if(activePageList.isEmpty){
+    if (activePageList.isEmpty) {
       activePageList.add(true);
-    }else{
+    } else {
       activePageList[state.pageViewNumber] = true;
     }
 
-      emit(NextButtonEnable(state.pageViewNumber, true));
+    emit(NextButtonEnable(state.pageViewNumber, true));
   }
 
-  void validateState(int pageNumber){
-    if(activePageList[pageNumber] == true){
-      emit(NextButtonEnable(state.pageViewNumber,true));
-    }else{
+  void validateState(int pageNumber) {
+    if (activePageList[pageNumber] == true) {
+      emit(NextButtonEnable(state.pageViewNumber, true));
+    } else {
       // Implement disable event
     }
   }

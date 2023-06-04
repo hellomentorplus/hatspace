@@ -5,7 +5,6 @@ import 'package:hatspace/features/add_property/view/select_property_type.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_state.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
-import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -18,14 +17,12 @@ class AddPropertyView extends StatelessWidget {
 
   @override
   Widget build(Object context) {
-    // TODO: implement build
     return MultiBlocProvider(
       providers: [
         BlocProvider<AddPropertyCubit>(create: (context) => AddPropertyCubit()),
-        BlocProvider<PropertyTypeCubit>(
-            create: (context){
-              return PropertyTypeCubit();
-              })
+        BlocProvider<PropertyTypeCubit>(create: (context) {
+          return PropertyTypeCubit();
+        })
       ],
       child: AddPropertyPageBody(),
     );
@@ -37,7 +34,10 @@ class AddPropertyPageBody extends StatelessWidget {
       PageController(initialPage: 0, keepPage: true);
   final ValueNotifier<int> onProgressIndicatorState = ValueNotifier(0);
   // Number of Pages for PageView
-  final List<Widget> pages = [const SelectPropertyType(), const PropertyInforForm()];
+  final List<Widget> pages = [
+    const SelectPropertyType(),
+    const PropertyInforForm()
+  ];
   AddPropertyPageBody({super.key});
   @override
   Widget build(BuildContext context) {
