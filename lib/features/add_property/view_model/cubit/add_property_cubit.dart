@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_state.dart';
 
-enum NavigatePage { forward, preverse }
+enum NavigatePage { forward, reverse }
 
 class AddPropertyCubit extends Cubit<AddPropertyState> {
   AddPropertyCubit() : super(const AddPropertyInitial());
@@ -11,7 +11,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
         state.pageViewNumber < totalPages - 1) {
       emit(PageViewNavigationState(state.pageViewNumber + 1));
     }
-    if (navType == NavigatePage.preverse && state.pageViewNumber > 0) {
+    if (navType == NavigatePage.reverse && state.pageViewNumber > 0) {
       emit(PageViewNavigationState(state.pageViewNumber - 1));
       validateState(state.pageViewNumber);
     }

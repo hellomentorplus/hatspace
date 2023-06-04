@@ -122,7 +122,7 @@ class BottomController extends StatelessWidget {
               onPressed: () {
                 context
                     .read<AddPropertyCubit>()
-                    .navigatePage(NavigatePage.preverse, totalPages);
+                    .navigatePage(NavigatePage.reverse, totalPages);
               },
               style: const ButtonStyle(
                   foregroundColor:
