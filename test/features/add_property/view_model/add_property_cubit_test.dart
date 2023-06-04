@@ -1,5 +1,3 @@
-
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
@@ -17,21 +15,21 @@ void main() {
   setUp(() {
     when(addPropertyCubit.state)
         .thenAnswer((realInvocation) => const AddPropertyInitial());
-    when(addPropertyCubit.stream)
-        .thenAnswer((realInvocation) => Stream.value(const AddPropertyInitial()));
+    when(addPropertyCubit.stream).thenAnswer(
+        (realInvocation) => Stream.value(const AddPropertyInitial()));
   });
-  blocTest
-  (
+  blocTest(
     "Given when user press NEXT button when it's enable, then update new state",
     build: () => AddPropertyCubit(),
     act: (bloc) => {bloc.navigatePage(NavigatePage.forward, 2)},
     expect: () => [isA<PageViewNavigationState>()],
   );
 
-  blocTest("Given when user enable next button, then update new state", 
-  build: ()=> AddPropertyCubit(),
-  act: (bloc)=> {bloc.enableNextButton()},
-  expect: () => [isA<NextButtonEnable>()],
+  blocTest(
+    "Given when user enable next button, then update new state",
+    build: () => AddPropertyCubit(),
+    act: (bloc) => {bloc.enableNextButton()},
+    expect: () => [isA<NextButtonEnable>()],
   );
 
   // blocTest(

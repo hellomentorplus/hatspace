@@ -20,7 +20,7 @@ void main() {
   });
   testWidgets('verify that SelectPropertyType listent to AddPropertyBloc',
       (widgetTester) async {
-    const Widget widget =  SelectPropertyType();
+    const Widget widget = SelectPropertyType();
 
     await widgetTester.blocWrapAndPump<PropertyTypeCubit>(
         propertyTypeCubit, widget);

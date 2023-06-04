@@ -18,8 +18,7 @@ void main() {
     when(propertyCubit.stream)
         .thenAnswer((realInvocation) => Stream.value(PropertyTypeInitial()));
   });
-  blocTest
-  (
+  blocTest(
     "Given when user select property type, then emit update AddPropertyState with new property tyep",
     build: () => PropertyTypeCubit(),
     act: (bloc) => {bloc.selectPropertyTypeEvent(1)},

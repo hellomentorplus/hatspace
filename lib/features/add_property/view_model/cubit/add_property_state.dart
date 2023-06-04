@@ -1,13 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:hatspace/data/data.dart';
-import 'package:hatspace/data/data.dart';
-
-// class PropertyTypeState  {
-//   PropertyTypes propertyTypes;
-//   DateTime availableDate;
-//   PropertyTypeState(this.propertyTypes, this.availableDate);
-// }
 
 abstract class AddPropertyState extends Equatable {
   final int pageViewNumber;

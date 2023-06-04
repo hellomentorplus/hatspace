@@ -18,8 +18,8 @@ void main() {
   setUp(() {
     when(addPropertyBloc.state)
         .thenAnswer((realInvocation) => const AddPropertyInitial());
-    when(addPropertyBloc.stream)
-        .thenAnswer((realInvocation) => Stream.value(const AddPropertyInitial()));
+    when(addPropertyBloc.stream).thenAnswer(
+        (realInvocation) => Stream.value(const AddPropertyInitial()));
   });
   testWidgets('test ui for widget', (widgetTester) async {
     Widget widget = const AddPropertyView();

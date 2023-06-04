@@ -1,5 +1,4 @@
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/data.dart';
 
 part 'property_type_state.dart';

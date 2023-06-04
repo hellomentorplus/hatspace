@@ -34,7 +34,7 @@ class AddPropertyPageBody extends StatelessWidget {
       PageController(initialPage: 0, keepPage: true);
   final ValueNotifier<int> onProgressIndicatorState = ValueNotifier(0);
   // Number of Pages for PageView
-  final List<Widget> pages = [SelectPropertyType(), const HomePageView()];
+  final List<Widget> pages = [const SelectPropertyType(), const HomePageView()];
   AddPropertyPageBody({super.key});
   @override
   Widget build(BuildContext context) {
