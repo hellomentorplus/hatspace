@@ -11,7 +11,7 @@ class DatePickerView extends StatelessWidget {
   const DatePickerView({super.key});
   @override
   Widget build(BuildContext context) {
-    print("render datepicker");
+    // print("render datepicker");
     late ValueNotifier<DateTime> selectedDate = ValueNotifier(DateTime.now());
     return BlocSelector<PropertyTypeCubit, PropertyTypeState, DateTime>(
         selector: (state) {

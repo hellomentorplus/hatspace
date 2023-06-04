@@ -87,7 +87,7 @@ class PropertyTypeCartView extends StatelessWidget {
   const PropertyTypeCartView({super.key, required this.position});
   @override
   Widget build(BuildContext context) {
-    print("render card");
+    // print("render card");
     Color cardColor = const Color(0xFFF3F3F3);
     RoundedRectangleBorder cardShape = const RoundedRectangleBorder(
         side: BorderSide(width: 1.5, color: Colors.transparent),

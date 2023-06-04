@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/add_property/view/add_property_view.dart';
 import 'package:hatspace/features/add_property/view/date_picker_view.dart';
 import 'package:hatspace/features/add_property/view/property_type_cart_view.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/add_property_state.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
-import 'package:hatspace/gen/assets.gen.dart';
+
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-import 'package:hatspace/theme/widgets/hs_buttons.dart';
-import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
-import '../../home/view/home_view.dart';
 
 class SelectPropertyType extends StatelessWidget {
-  SelectPropertyType({super.key});
-  final List<Widget> pages = [const AddPropertyView()];
+ const SelectPropertyType({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PropertyTypeCubit, PropertyTypeState>(
