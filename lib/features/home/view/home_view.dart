@@ -80,7 +80,7 @@ class HomePageViewState extends State<HomePageView> {
 //                       .displayLarge
 //                       ?.copyWith(color: colorScheme.onPrimary),
 // =======
-// Re push 
+// Re push
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeInteractionCubit>(
