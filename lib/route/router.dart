@@ -33,7 +33,7 @@ extension RouteExtension on BuildContext {
     Navigator.push(
         this,
         MaterialPageRoute(
-          builder: (context) => AddPropertyPageView(),
+          builder: (context) => const AddPropertyPageView(),
         ));
   }
 

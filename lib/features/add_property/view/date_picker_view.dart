@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hatspace/features/add_property/view_model/bloc/add_property_bloc.dart';
+import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:intl/intl.dart';
 
+
 class DatePickerView extends StatelessWidget {
   const DatePickerView({super.key});
   @override
   Widget build(BuildContext context) {
+    print("render datepicker");
     late ValueNotifier<DateTime> selectedDate = ValueNotifier(DateTime.now());
-    return BlocSelector<AddPropertyBloc, AddPropertyState, DateTime>(
+    return BlocSelector<PropertyTypeCubit, PropertyTypeState, DateTime>(
         selector: (state) {
       return state.availableDate;
     }, builder: (context, state) {
@@ -42,8 +44,7 @@ class DatePickerView extends StatelessWidget {
                           ]));
                 }).then((value) {
               context
-                  .read<AddPropertyBloc>()
-                  .add(OnUpdateAvailableEvent(selectedDate.value));
+                  .read<PropertyTypeCubit>().selectAvailableDate(selectedDate.value);
               return value;
             });
           },

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/add_property/view/date_picker_view.dart';
 import 'package:hatspace/features/add_property/view/property_type_cart_view.dart';
-import 'package:hatspace/features/add_property/view_model/bloc/add_property_bloc.dart';
+import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
@@ -11,7 +11,7 @@ class SelectPropertyType extends StatelessWidget {
   const SelectPropertyType({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<AddPropertyBloc, AddPropertyState, PropertyTypes>(
+    return BlocSelector<PropertyTypeCubit, PropertyTypeState, PropertyTypes>(
         selector: (state) {
       return state.propertyTypes;
     }, builder: (context, state) {
