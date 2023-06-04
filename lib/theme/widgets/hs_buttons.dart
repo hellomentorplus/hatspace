@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
+import 'package:hatspace/theme/hs_theme.dart';
 
 import 'hs_buttons_settings.dart';
 
@@ -24,7 +25,9 @@ class ButtonWithIconContent extends StatelessWidget {
         iconUrl,
         width: 24,
         height: 24,
-        color: DefaultTextStyle.of(context).style.color,
+        colorFilter: ColorFilter.mode(
+            DefaultTextStyle.of(context).style.color ?? HSColor.primary,
+            BlendMode.srcIn),
         alignment: Alignment.center,
       ),
       Padding(
