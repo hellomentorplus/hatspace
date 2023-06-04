@@ -5,12 +5,12 @@ import 'package:hatspace/features/add_property/view_model/cubit/add_property_sta
 enum NavigatePage { forward, preverse }
 
 class AddPropertyCubit extends Cubit<AddPropertyState> {
-  AddPropertyCubit() : super(AddPropertyInitial());
+  AddPropertyCubit() : super(const AddPropertyInitial());
 
-  void navigatePage(NavigatePage navType, List<Widget> listOfPages) {
+  void navigatePage(NavigatePage navType, int totalPages) {
     print(state.pageViewNumber);
     if (navType == NavigatePage.forward &&
-        state.pageViewNumber < listOfPages.length - 1) {
+        state.pageViewNumber < totalPages - 1) {
       emit(PageViewNavigationState(state.pageViewNumber + 1));
     }
     if (navType == NavigatePage.preverse && state.pageViewNumber > 0) {
@@ -19,7 +19,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   }
 
   void enableNextButton() {
-    print("enable next button");
+    // print("enable next button");
     emit(NextButtonEnable(state.pageViewNumber, true));
   }
 }

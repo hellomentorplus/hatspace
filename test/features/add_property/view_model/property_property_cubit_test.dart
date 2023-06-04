@@ -33,24 +33,4 @@ void main() {
     act: (bloc) => {bloc.selectAvailableDate(DateTime.now())},
     expect: () => [isA<PropertyAvailableDate>()],
   );
-
-  // test('test state and event', () {
-  //   PropertyTypeSelectedState propertyTypeSelectedState =
-  //       PropertyTypeSelectedState(PropertyTypes.house, DateTime(2023));
-  //   expect(propertyTypeSelectedState.propertyTypes, PropertyTypes.house);
-  // });
-
-  //   testWidgets('verify that SelectPropertyType listent to AddPropertyBloc',
-  //     (widgetTester) async {
-  //   const Widget widget = SelectPropertyType();
-
-  //   await widgetTester.blocWrapAndPump<AddPropertyBloc>(addPropertyBloc, widget);
-
-  //  // expect(find.byType(BlocSelector<AddPropertyBloc, AddPropertyState,PropertyTypes>), findsOneWidget);
-  //   Widget abc = widgetTester.firstWidget(find.byType(BlocSelector<AddPropertyBloc, AddPropertyState,PropertyTypes>));
-  //   expect(find.byWidget(widget),findsOneWidget);
-  //   GridView gridView = widgetTester.widget(find.byType(GridView));
-  //   expect(gridView.padding, const EdgeInsets.only(top: 32));
-  //   expect(gridView.gridDelegate, const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 15));
-  // });
 }

@@ -46,7 +46,7 @@ class AddPropertyPageBody extends StatelessWidget {
           bottomNavigationBar: BottomController(
             currentPage: currentPage,
             pageController: pageController,
-            listOfPages: pages,
+            totalPages: pages.length,
           ),
           appBar: AppBar(
             elevation: 0,
@@ -94,12 +94,12 @@ class AddPropertyPageBody extends StatelessWidget {
 class BottomController extends StatelessWidget {
   final PageController pageController;
   final int currentPage;
-  final List<Widget> listOfPages;
+  final int totalPages;
   const BottomController(
       {super.key,
       required this.currentPage,
       required this.pageController,
-      required this.listOfPages});
+      required this.totalPages});
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddPropertyCubit, AddPropertyState>(
@@ -122,7 +122,7 @@ class BottomController extends StatelessWidget {
                 //     curve: Curves.easeIn);
                 context
                     .read<AddPropertyCubit>()
-                    .navigatePage(NavigatePage.preverse, listOfPages);
+                    .navigatePage(NavigatePage.preverse, totalPages);
               },
               style: const ButtonStyle(
                   foregroundColor:
@@ -135,7 +135,7 @@ class BottomController extends StatelessWidget {
                     ? () {
                         context
                             .read<AddPropertyCubit>()
-                            .navigatePage(NavigatePage.forward, listOfPages);
+                            .navigatePage(NavigatePage.forward, totalPages);
                       }
                     : null,
                 iconUrl: Assets.images.chevronRight,
