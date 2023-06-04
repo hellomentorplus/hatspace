@@ -40,8 +40,10 @@ void main() async {
     setUpAll(() async {
       // Unexpected bugs - happended when running test coverage
       signUpBloc = SignUpBloc();
-      const MethodChannel('plugins.flutter.io/shared_preferences')
-          .setMockMethodCallHandler((MethodCall methodCall) async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+              const MethodChannel('plugins.flutter.io/shared_preferences'),
+              (MethodCall methodCall) async {
         if (methodCall.method == 'getAll') {
           return <String, dynamic>{}; // set initial values here if desired
         }
