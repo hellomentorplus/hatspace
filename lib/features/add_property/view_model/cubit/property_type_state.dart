@@ -7,13 +7,13 @@ abstract class PropertyTypeState {
 }
 
 class PropertyTypeInitial extends PropertyTypeState {
-   PropertyTypeInitial() :  super(PropertyTypes.house, DateTime.now());
+  PropertyTypeInitial() : super(PropertyTypes.house, DateTime.now());
 }
 
 class PropertyTypeSelectedState extends PropertyTypeState {
-   PropertyTypeSelectedState(super.propertyTypes, super.availableDate);
+  PropertyTypeSelectedState(super.propertyTypes, super.availableDate);
 }
 
-class PropertyAvailableDate extends PropertyTypeState{
+class PropertyAvailableDate extends PropertyTypeState {
   PropertyAvailableDate(super.propertyTypes, super.availableDate);
 }

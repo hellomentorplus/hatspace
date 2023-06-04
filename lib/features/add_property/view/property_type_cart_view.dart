@@ -69,14 +69,13 @@
 //   }
 // }
 
-
-
 // ============
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
+
 class PropertyTypeDetail {
   SvgPicture icon;
   String tilte;
@@ -95,7 +94,7 @@ class PropertyTypeCartView extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(8)));
     return BlocSelector<PropertyTypeCubit, PropertyTypeState, PropertyTypes>(
         selector: (state) {
-          return state.propertyTypes;
+      return state.propertyTypes;
     }, builder: (context, state) {
       // Card color initial state
       if (state == PropertyTypes.values[position]) {
@@ -106,8 +105,7 @@ class PropertyTypeCartView extends StatelessWidget {
       }
       return InkWell(
           onTap: () {
-            context
-                .read<PropertyTypeCubit>().selectPropertyTypeEvent(position);
+            context.read<PropertyTypeCubit>().selectPropertyTypeEvent(position);
           },
           child: Card(
               shadowColor: Colors.transparent,

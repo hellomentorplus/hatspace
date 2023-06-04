@@ -7,7 +7,6 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:intl/intl.dart';
 
-
 class DatePickerView extends StatelessWidget {
   const DatePickerView({super.key});
   @override
@@ -44,7 +43,8 @@ class DatePickerView extends StatelessWidget {
                           ]));
                 }).then((value) {
               context
-                  .read<PropertyTypeCubit>().selectAvailableDate(selectedDate.value);
+                  .read<PropertyTypeCubit>()
+                  .selectAvailableDate(selectedDate.value);
               return value;
             });
           },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/features/add_property/view/add_property_view.dart';
 import 'package:hatspace/features/add_property/view/select_property_type.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_state.dart';
@@ -12,8 +13,6 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
-
-
 class AddPropertyPageView extends StatelessWidget {
   const AddPropertyPageView({super.key});
 
@@ -22,10 +21,9 @@ class AddPropertyPageView extends StatelessWidget {
     // TODO: implement build
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AddPropertyCubit>(
-          create: (context)=> AddPropertyCubit()),
+        BlocProvider<AddPropertyCubit>(create: (context) => AddPropertyCubit()),
         BlocProvider<PropertyTypeCubit>(
-          create: (context)=> PropertyTypeCubit())
+            create: (context) => PropertyTypeCubit())
       ],
       child: AddPropertyPageBody(),
     );
@@ -37,7 +35,7 @@ class AddPropertyPageBody extends StatelessWidget {
       PageController(initialPage: 0, keepPage: true);
   final ValueNotifier<int> onProgressIndicatorState = ValueNotifier(0);
   // Number of Pages for PageView
-  final List<Widget> pages = [const SelectPropertyType(), const HomePageView()];
+  final List<Widget> pages = [SelectPropertyType(), const HomePageView()];
   AddPropertyPageBody({super.key});
   @override
   Widget build(BuildContext context) {
@@ -107,45 +105,45 @@ class BottomController extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AddPropertyCubit, AddPropertyState>(
         listener: (context, state) {
-          pageController.animateToPage(state.pageViewNumber,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeIn);
-        },
-        builder: (context,state){
-     return BottomAppBar(
-          color: HSColor.background,
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children:[
-              TextOnlyButton(
-                label: HatSpaceStrings.of(context).back,
-                onPressed:  () {
-                  // pageController.animateToPage(currentPage - 1,
-                  //     duration: const Duration(milliseconds: 300),
-                  //     curve: Curves.easeIn);
-                  context
-                      .read<AddPropertyCubit>()
-                      .navigatePage(NavigatePage.preverse, listOfPages);
-                },
-                style: const ButtonStyle(
-                    foregroundColor:
-                        MaterialStatePropertyAll<Color>(HSColor.onSurface)),
-                iconUrl: Assets.images.chevronLeft,
-              ),
-              PrimaryButton(
-                  label: HatSpaceStrings.of(context).next,
-                  onPressed: !(state is NextButtonEnable) ? () {
-                    context
-                        .read<AddPropertyCubit>()
-                        .navigatePage(NavigatePage.forward, listOfPages);
-                  }: null,
-                  iconUrl: Assets.images.chevronRight,
-                  iconPosition: IconPosition.right)
-            ],
-          ),
-        );
-        });
+      pageController.animateToPage(state.pageViewNumber,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+    }, builder: (context, state) {
+      return BottomAppBar(
+        color: HSColor.background,
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TextOnlyButton(
+              label: HatSpaceStrings.of(context).back,
+              onPressed: () {
+                // pageController.animateToPage(currentPage - 1,
+                //     duration: const Duration(milliseconds: 300),
+                //     curve: Curves.easeIn);
+                context
+                    .read<AddPropertyCubit>()
+                    .navigatePage(NavigatePage.preverse, listOfPages);
+              },
+              style: const ButtonStyle(
+                  foregroundColor:
+                      MaterialStatePropertyAll<Color>(HSColor.onSurface)),
+              iconUrl: Assets.images.chevronLeft,
+            ),
+            PrimaryButton(
+                label: HatSpaceStrings.of(context).next,
+                onPressed: (state is NextButtonEnable)
+                    ? () {
+                        context
+                            .read<AddPropertyCubit>()
+                            .navigatePage(NavigatePage.forward, listOfPages);
+                      }
+                    : null,
+                iconUrl: Assets.images.chevronRight,
+                iconPosition: IconPosition.right)
+          ],
+        ),
+      );
+    });
   }
 }

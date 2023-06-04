@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/features/add_property/view/add_property_view.dart';
 import 'package:hatspace/features/add_property/view/date_picker_view.dart';
 import 'package:hatspace/features/add_property/view/property_type_cart_view.dart';
+import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
+import 'package:hatspace/features/add_property/view_model/cubit/add_property_state.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
+import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/widgets/hs_buttons.dart';
+import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
+
+import '../../home/view/home_view.dart';
 
 class SelectPropertyType extends StatelessWidget {
-  const SelectPropertyType({super.key});
+  SelectPropertyType({super.key});
+  final List<Widget> pages = [const AddPropertyView()];
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<PropertyTypeCubit, PropertyTypeState, PropertyTypes>(
-        selector: (state) {
-      return state.propertyTypes;
+    return BlocConsumer<PropertyTypeCubit, PropertyTypeState>(
+        listener: (context, state) {
+      if (state.availableDate.day != DateTime.now().day) {
+        context.read<AddPropertyCubit>().enableNextButton();
+      }
     }, builder: (context, state) {
       // print("render property body");
       return Padding(
