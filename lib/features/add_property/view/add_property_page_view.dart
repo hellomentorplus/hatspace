@@ -24,6 +24,10 @@ class AddPropertyPageView extends StatelessWidget {
         valueListenable: onProgressIndicatorState,
         builder: (context, currentPage, child) {
           return Scaffold(
+              bottomNavigationBar: BottomController(
+                currentPage: currentPage,
+                pageController: pageController,
+              ),
               appBar: AppBar(
                 elevation: 0,
                 backgroundColor: HSColor.background,
@@ -47,10 +51,6 @@ class AddPropertyPageView extends StatelessWidget {
                   ),
                 ),
                 title: Text(HatSpaceStrings.of(context).app_name),
-              ),
-              bottomNavigationBar: BottomController(
-                currentPage: currentPage,
-                pageController: pageController,
               ),
               body: BlocProvider<AddPropertyBloc>(
                   create: (context) => AddPropertyBloc(),
