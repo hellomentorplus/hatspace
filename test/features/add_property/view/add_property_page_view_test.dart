@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/features/add_property/view/add_property_view.dart';
 
-import 'package:hatspace/features/add_property/view/add_property_page_view.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_state.dart';
 import 'package:mockito/annotations.dart';
@@ -22,7 +22,7 @@ void main() {
         .thenAnswer((realInvocation) => Stream.value(const AddPropertyInitial()));
   });
   testWidgets('test ui for widget', (widgetTester) async {
-    Widget widget = const AddPropertyPageView();
+    Widget widget = const AddPropertyView();
 
     await widgetTester.blocWrapAndPump<AddPropertyCubit>(
         addPropertyBloc, widget);
