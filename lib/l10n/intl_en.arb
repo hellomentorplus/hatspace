@@ -40,8 +40,7 @@
   "act": "Australian Capital Territory",
   "nt":"Northern Territory",
   "threeMonths": "3 Months",
-  "sixMonths": "6 Months"
-}
+  "sixMonths": "6 Months",
   "searchHint":"Search rental, location...",
   "propertyNameLabel":"Property name",
   "propertyNamePlaceholder":"Enter property name",
@@ -61,4 +60,4 @@
   "suburbPlaceholder":"Enter suburb",
   "postcodeLabel":"Postcode",
   "postcodePlaceholder":"Enter postcode"
-} 
+}
