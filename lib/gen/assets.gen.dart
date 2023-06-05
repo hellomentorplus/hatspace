@@ -44,11 +44,25 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/apartment.svg
+  String get apartment => 'assets/images/apartment.svg';
+
+  /// File path: assets/images/arrow_calendar_left.svg
+  String get arrowCalendarLeft => 'assets/images/arrow_calendar_left.svg';
+
+  /// File path: assets/images/arrow_calendar_right.svg
+  String get arrowCalendarRight => 'assets/images/arrow_calendar_right.svg';
+
   /// File path: assets/images/calendar.svg
   String get calendar => 'assets/images/calendar.svg';
 
   /// File path: assets/images/chervon-down.svg
   String get chervonDown => 'assets/images/chervon-down.svg';
+  /// File path: assets/images/chevron_left.svg
+  String get chevronLeft => 'assets/images/chevron_left.svg';
+
+  /// File path: assets/images/chevron_right.svg
+  String get chevronRight => 'assets/images/chevron_right.svg';
 
   /// File path: assets/images/close-clear.svg
   String get closeClear => 'assets/images/close-clear.svg';
@@ -77,6 +91,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/google.svg
   String get google => 'assets/images/google.svg';
 
+  /// File path: assets/images/house.svg
+  String get house => 'assets/images/house.svg';
+
   /// File path: assets/images/messages.svg
   String get messages => 'assets/images/messages.svg';
 
@@ -88,8 +105,13 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<String> get values => [
+        apartment,
+        arrowCalendarLeft,
+        arrowCalendarRight,
         calendar,
         chervonDown,
+        chevronLeft,
+        chevronRight,
         closeClear,
         closeDark,
         closeIcon,
@@ -99,6 +121,7 @@ class $AssetsImagesGen {
         facebook,
         facebookround,
         google,
+        house,
         messages,
         profileCircle,
         searchNormal

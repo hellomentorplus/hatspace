@@ -282,6 +282,96 @@ class HatSpaceStrings {
     );
   }
 
+  /// `What kind of place?`
+  String get whatKindOfPlace {
+    return Intl.message(
+      'What kind of place?',
+      name: 'whatKindOfPlace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose kind of your property`
+  String get chooseKindOfYourProperty {
+    return Intl.message(
+      'Choose kind of your property',
+      name: 'chooseKindOfYourProperty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available date`
+  String get availableDate {
+    return Intl.message(
+      'Available date',
+      name: 'availableDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How many bedrooms, bathrooms, parking?`
+  String get addBedroomViewInstructions {
+    return Intl.message(
+      'How many bedrooms, bathrooms, parking?',
+      name: 'addBedroomViewInstructions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bedrooms`
+  String get bedroomText {
+    return Intl.message(
+      'Bedrooms',
+      name: 'bedroomText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bathrooms`
+  String get bathroomText {
+    return Intl.message(
+      'Bathrooms',
+      name: 'bathroomText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Parkings`
+  String get parkingText {
+    return Intl.message(
+      'Parkings',
+      name: 'parkingText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get back {
+    return Intl.message(
+      'Back',
+      name: 'back',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Booking`
   String get booking {
     return Intl.message(

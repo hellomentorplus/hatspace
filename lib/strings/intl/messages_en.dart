@@ -43,11 +43,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "addressLabel": MessageLookupByLibrary.simpleMessage("Address"),
         "addressPlaceholder":
             MessageLookupByLibrary.simpleMessage("Enter address"),
+
+        "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
+            "How many bedrooms, bathrooms, parking?"),
+
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
+        "availableDate": MessageLookupByLibrary.simpleMessage("Available date"),
+        "back": MessageLookupByLibrary.simpleMessage("Back"),
+        "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
+        "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
         "booking": MessageLookupByLibrary.simpleMessage("Booking"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "chooseKindOfYourProperty": MessageLookupByLibrary.simpleMessage(
+            "Choose kind of your property"),
         "chooseUserRole":
             MessageLookupByLibrary.simpleMessage("Choose your role"),
         "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
@@ -69,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
+
         "minimumRentPeriodlabel":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
@@ -80,6 +91,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "priceLabel": MessageLookupByLibrary.simpleMessage("Price"),
         "pricePlaceholder":
             MessageLookupByLibrary.simpleMessage("Enter your price"),
+
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
+        "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
+        "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "propertyNameLabel":
             MessageLookupByLibrary.simpleMessage("Property name"),
@@ -109,6 +125,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "userRoleDescription": m0,
         "userTitleRoles": m1,
         "vic": MessageLookupByLibrary.simpleMessage("Victoria"),
-        "wa": MessageLookupByLibrary.simpleMessage("Western Australia")
+        "wa": MessageLookupByLibrary.simpleMessage("Western Australia"),
+        "whatKindOfPlace":
+            MessageLookupByLibrary.simpleMessage("What kind of place?")
       };
 }
