@@ -36,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "act": MessageLookupByLibrary.simpleMessage(
+            "Australian Capital Territory"),
         "addressHints":
             MessageLookupByLibrary.simpleMessage("House number + Street name"),
         "addressLabel": MessageLookupByLibrary.simpleMessage("Address"),
@@ -69,6 +71,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "minimumRentPeriodlabel":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
+        "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
+        "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
         "optional": MessageLookupByLibrary.simpleMessage("Optional"),
         "postcodeLabel": MessageLookupByLibrary.simpleMessage("Postcode"),
         "postcodePlaceholder":
@@ -81,6 +85,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Property name"),
         "propertyNamePlaceholder":
             MessageLookupByLibrary.simpleMessage("Enter property name"),
+        "qld": MessageLookupByLibrary.simpleMessage("Queenland"),
+        "sa": MessageLookupByLibrary.simpleMessage("South Australia"),
         "searchHint":
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
@@ -88,16 +94,21 @@ class MessageLookup extends MessageLookupByLibrary {
             "Unable to sign you in at the moment. Please try again later."),
         "signinErrorToastTitle":
             MessageLookupByLibrary.simpleMessage("Login Failed"),
+        "sixMonths": MessageLookupByLibrary.simpleMessage("6 Months"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "stateLabel": MessageLookupByLibrary.simpleMessage("State"),
         "suburbLabel": MessageLookupByLibrary.simpleMessage("Suburb"),
         "suburbPlaceholder":
             MessageLookupByLibrary.simpleMessage("Enter suburb"),
+        "tas": MessageLookupByLibrary.simpleMessage("Tasmania"),
+        "threeMonths": MessageLookupByLibrary.simpleMessage("3 Months"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
         "unitNumberLabel": MessageLookupByLibrary.simpleMessage("Unit number"),
         "unitNumberPlaceholder":
             MessageLookupByLibrary.simpleMessage("Enter unit number"),
         "userRoleDescription": m0,
-        "userTitleRoles": m1
+        "userTitleRoles": m1,
+        "vic": MessageLookupByLibrary.simpleMessage("Victoria"),
+        "wa": MessageLookupByLibrary.simpleMessage("Western Australia")
       };
 }
