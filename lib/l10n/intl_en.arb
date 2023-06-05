@@ -39,5 +39,15 @@
   "booking":"Booking",
   "message":"Message",
   "profile":"Profile",
-  "searchHint":"Search rental, location..."
+  "searchHint":"Search rental, location...",
+  "nsw":"New South Wales",
+  "vic":"Victoria", 
+  "qld": "Queenland",
+  "wa":"Western Australia",
+  "sa":"South Australia",
+  "tas":"Tasmania",
+  "act": "Australian Capital Territory",
+  "nt":"Northern Territory",
+  "threeMonths": "3 Months",
+  "sixMonths": "6 Months"
 }
