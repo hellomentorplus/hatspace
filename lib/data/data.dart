@@ -13,8 +13,8 @@ enum Roles {
   homeowner;
 
   // throws IterableElementError.noElement
-  static Roles fromName(String name) =>
-      values.firstWhere((element) => element.name == name);
+  static Roles fromName(String name) => values
+      .firstWhere((element) => element.name == name, orElse: () => tenant);
 }
 
 enum PropertyTypes {
@@ -34,6 +34,6 @@ enum PropertyTypes {
     return "No image path";
   }
 
-  static PropertyTypes fromName(String name) =>
+  static PropertyTypes? fromName(String name) =>
       values.firstWhere((element) => element.name == name);
 }

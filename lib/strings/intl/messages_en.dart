@@ -49,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
         "booking": MessageLookupByLibrary.simpleMessage("Booking"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "chooseKindOfYourProperty": MessageLookupByLibrary.simpleMessage(
+            "Choose kind of your property"),
         "chooseUserRole":
             MessageLookupByLibrary.simpleMessage("Choose your role"),
         "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
@@ -67,19 +69,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
         "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
-        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "qld": MessageLookupByLibrary.simpleMessage("Queenland"),
         "sa": MessageLookupByLibrary.simpleMessage("South Australia"),
         "searchHint":
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
-        "selectigRoleScreenSubtitle": MessageLookupByLibrary.simpleMessage(
-            "Choose kind of your property"),
-        "selectingRoleScreenTitle":
-            MessageLookupByLibrary.simpleMessage("What kind of place?"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signinErrorToastMessage": MessageLookupByLibrary.simpleMessage(
             "Unable to sign you in at the moment. Please try again later."),
@@ -93,6 +91,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "userRoleDescription": m0,
         "userTitleRoles": m1,
         "vic": MessageLookupByLibrary.simpleMessage("Victoria"),
-        "wa": MessageLookupByLibrary.simpleMessage("Western Australia")
+        "wa": MessageLookupByLibrary.simpleMessage("Western Australia"),
+        "whatKindOfPlace":
+            MessageLookupByLibrary.simpleMessage("What kind of place?")
       };
 }

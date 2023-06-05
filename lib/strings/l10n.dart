@@ -283,20 +283,20 @@ class HatSpaceStrings {
   }
 
   /// `What kind of place?`
-  String get selectingRoleScreenTitle {
+  String get whatKindOfPlace {
     return Intl.message(
       'What kind of place?',
-      name: 'selectingRoleScreenTitle',
+      name: 'whatKindOfPlace',
       desc: '',
       args: [],
     );
   }
 
   /// `Choose kind of your property`
-  String get selectigRoleScreenSubtitle {
+  String get chooseKindOfYourProperty {
     return Intl.message(
       'Choose kind of your property',
-      name: 'selectigRoleScreenSubtitle',
+      name: 'chooseKindOfYourProperty',
       desc: '',
       args: [],
     );

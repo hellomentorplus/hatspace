@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/widgets/hs_buttons.dart';
+import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -17,8 +18,8 @@ class DatePickerView extends StatelessWidget {
         selector: (state) {
       return state.availableDate;
     }, builder: (context, state) {
-      selectedDate = ValueNotifier(state);
-      return OutlinedButton(
+      selectedDate.value = state;
+      return SecondaryButton(
           onPressed: () async {
             showDialog(
                 context: context,
@@ -48,35 +49,14 @@ class DatePickerView extends StatelessWidget {
               return value;
             });
           },
-          // TODO: Update button theme later
+          label: DateFormat("dd MMMM, yyyy").format(selectedDate.value),
+          iconUrl: Assets.images.calendar,
+          iconPosition: IconPosition.right,
+          contentAlignment: MainAxisAlignment.spaceBetween,
           style: ButtonStyle(
-              textStyle: MaterialStatePropertyAll(textTheme.bodySmall
-                  ?.copyWith(fontWeight: FontWeight.w400, fontSize: 14)),
-              alignment: Alignment.center,
-              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                  const EdgeInsets.symmetric(vertical: 12, horizontal: 16)),
-              shape: MaterialStatePropertyAll<OutlinedBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8))),
-              side: const MaterialStatePropertyAll<BorderSide>(
-                  BorderSide(color: HSColor.neutral3)),
-              backgroundColor:
-                  const MaterialStatePropertyAll<Color>(Colors.transparent),
-              foregroundColor:
-                  const MaterialStatePropertyAll<Color>(HSColor.neutral6)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(
-                child: Text(
-                    DateFormat("dd MMMM, yyyy").format(selectedDate.value)),
-              ),
-              SvgPicture.asset(
-                Assets.images.calendar,
-                width: 24,
-                height: 24,
-              )
-            ],
+            textStyle: MaterialStatePropertyAll(textTheme.bodyMedium),
+            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                const EdgeInsets.symmetric(vertical: 12, horizontal: 16)),
           ));
     });
   }

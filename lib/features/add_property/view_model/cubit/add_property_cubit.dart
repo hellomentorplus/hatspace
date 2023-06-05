@@ -5,7 +5,7 @@ enum NavigatePage { forward, reverse }
 
 class AddPropertyCubit extends Cubit<AddPropertyState> {
   AddPropertyCubit() : super(const AddPropertyInitial());
-
+  final List<bool> activePageList = [];
   void navigatePage(NavigatePage navType, int totalPages) {
     if (navType == NavigatePage.forward &&
         state.pageViewNumber < totalPages - 1) {
@@ -17,7 +17,6 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     }
   }
 
-  List<bool> activePageList = [];
   void enableNextButton() {
     if (activePageList.isEmpty) {
       activePageList.add(true);

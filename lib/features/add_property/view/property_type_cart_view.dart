@@ -15,7 +15,6 @@ class PropertyTypeCartView extends StatelessWidget {
   const PropertyTypeCartView({super.key, required this.position});
   @override
   Widget build(BuildContext context) {
-    // print("render card");
     Color cardColor = const Color(0xFFF3F3F3);
     RoundedRectangleBorder cardShape = const RoundedRectangleBorder(
         side: BorderSide(width: 1.5, color: Colors.transparent),
@@ -42,7 +41,7 @@ class PropertyTypeCartView extends StatelessWidget {
               color: cardColor,
               shape: cardShape,
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(35),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,10 +50,12 @@ class PropertyTypeCartView extends StatelessWidget {
                       PropertyTypes.values[position].getIconPath(),
                       // color:const Color(0xff2C6ECB),
                     ),
-                    Container(
+                    const SizedBox(
                       height: 16,
                     ),
                     Text(PropertyTypes.values[position].name.toUpperCase(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge

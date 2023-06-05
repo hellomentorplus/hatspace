@@ -20,9 +20,8 @@ class AddPropertyView extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AddPropertyCubit>(create: (context) => AddPropertyCubit()),
-        BlocProvider<PropertyTypeCubit>(create: (context) {
-          return PropertyTypeCubit();
-        })
+        BlocProvider<PropertyTypeCubit>(
+            create: (context) => PropertyTypeCubit())
       ],
       child: AddPropertyPageBody(),
     );
@@ -42,67 +41,54 @@ class AddPropertyPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocBuilder<AddPropertyCubit, AddPropertyState>(
-        builder: (context, state) {
-      int currentPage = state.pageViewNumber;
-      return Scaffold(
-          bottomNavigationBar: BottomController(
-            currentPage: currentPage,
-            pageController: pageController,
-            totalPages: pages.length,
+    return Scaffold(
+        bottomNavigationBar: BottomController(
+          pageController: pageController,
+          totalPages: pages.length,
+        ),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: HSColor.background,
+          leading: IconButton(
+            icon: const Icon(Icons.close, color: HSColor.onSurface),
+            onPressed: () {
+              // HS-99 scenario 6
+              context.popToRootHome();
+            },
           ),
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: HSColor.background,
-            leading: IconButton(
-              icon: const Icon(Icons.close, color: HSColor.onSurface),
-              onPressed: () {
-                if (currentPage == 0) {
-                  // HS-99 scenario 6
-                  context.popToRootHome();
-                }
-              },
-            ),
-            bottom: PreferredSize(
+          bottom: PreferredSize(
               preferredSize: Size(size.width, 0),
-              child: LinearProgressIndicator(
-                backgroundColor: HSColor.neutral2,
-                color: HSColor.primary,
-                value: (currentPage + 1) / pages.length,
-                semanticsLabel:
-                    HatSpaceStrings.of(context).linearProgressIndicator,
-              ),
-            ),
-            title: Text(HatSpaceStrings.of(context).app_name),
-          ),
-          body: PageView.builder(
-            onPageChanged: (value) {
-              onProgressIndicatorState.value = value;
-            },
-            physics: const NeverScrollableScrollPhysics(),
-            controller: pageController,
-            itemBuilder: (context, index) {
-              for (int i = 0; i < pages.length; i++) {
-                if (i == index) {
-                  return pages[i];
-                }
-              }
-              return null;
-            },
-          ));
-    });
+              child: BlocSelector<AddPropertyCubit, AddPropertyState, int>(
+                selector: (state) => state.pageViewNumber,
+                builder: (context, state) {
+                  return LinearProgressIndicator(
+                    backgroundColor: HSColor.neutral2,
+                    color: HSColor.primary,
+                    value: (state + 1) / pages.length,
+                    semanticsLabel:
+                        HatSpaceStrings.of(context).linearProgressIndicator,
+                  );
+                },
+              )),
+        ),
+        body: PageView.builder(
+          onPageChanged: (value) {
+            onProgressIndicatorState.value = value;
+          },
+          physics: const NeverScrollableScrollPhysics(),
+          controller: pageController,
+          itemBuilder: (context, index) {
+            return pages[index];
+          },
+        ));
   }
 }
 
 class BottomController extends StatelessWidget {
   final PageController pageController;
-  final int currentPage;
   final int totalPages;
   const BottomController(
-      {super.key,
-      required this.currentPage,
-      required this.pageController,
-      required this.totalPages});
+      {super.key, required this.pageController, required this.totalPages});
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddPropertyCubit, AddPropertyState>(
