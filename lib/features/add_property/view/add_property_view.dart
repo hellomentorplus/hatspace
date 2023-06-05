@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hatspace/features/add_property/view/info_form/property_infor_form.dart';
 
 class AddPropertyView extends StatelessWidget {
   const AddPropertyView({Key? key}) : super(key: key);
@@ -8,8 +9,6 @@ class AddPropertyView extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Add property'),
         ),
-        body: const Center(
-          child: Text('Dummy screen'),
-        ),
+        body: PropertyInforForm()
       );
 }

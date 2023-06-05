@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/add_property/view/info_form/property_infor_form.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
-import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
-import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-import 'package:hatspace/theme/widgets/hs_buttons.dart';
+
 
 class AddPropertyPageView extends StatelessWidget {
   final PageController pageController =

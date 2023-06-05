@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hatspace/features/add_property/view/info_form/property_infor_form.dart';
 
 import '../features/add_property/view/add_property_view.dart';
 import '../features/debug/view/widget_list/widget_catalog_screen.dart';
@@ -34,7 +35,7 @@ extension RouteExtension on BuildContext {
     Navigator.push(
         this,
         MaterialPageRoute(
-          builder: (context) => const AddPropertyView(),
+          builder: (context) =>  const AddPropertyView(),
         ));
   }
 
