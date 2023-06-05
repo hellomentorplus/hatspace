@@ -38,15 +38,13 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "act": MessageLookupByLibrary.simpleMessage(
             "Australian Capital Territory"),
+        "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
+            "How many bedrooms, bathrooms, parking?"),
         "addressHints":
             MessageLookupByLibrary.simpleMessage("House number + Street name"),
         "addressLabel": MessageLookupByLibrary.simpleMessage("Address"),
         "addressPlaceholder":
             MessageLookupByLibrary.simpleMessage("Enter address"),
-
-        "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
-            "How many bedrooms, bathrooms, parking?"),
-
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
@@ -79,23 +77,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
-
         "minimumRentPeriodlabel":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
         "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
         "optional": MessageLookupByLibrary.simpleMessage("Optional"),
+        "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
         "postcodeLabel": MessageLookupByLibrary.simpleMessage("Postcode"),
         "postcodePlaceholder":
             MessageLookupByLibrary.simpleMessage("Enter postcode"),
         "priceLabel": MessageLookupByLibrary.simpleMessage("Price"),
         "pricePlaceholder":
             MessageLookupByLibrary.simpleMessage("Enter your price"),
-
-        "next": MessageLookupByLibrary.simpleMessage("Next"),
-        "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
-        "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
-        "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "propertyNameLabel":
             MessageLookupByLibrary.simpleMessage("Property name"),

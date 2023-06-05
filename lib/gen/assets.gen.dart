@@ -58,6 +58,7 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/chervon-down.svg
   String get chervonDown => 'assets/images/chervon-down.svg';
+
   /// File path: assets/images/chevron_left.svg
   String get chevronLeft => 'assets/images/chevron_left.svg';
 
