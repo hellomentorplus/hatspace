@@ -5,8 +5,7 @@ import 'package:hatspace/features/add_property/view_model/cubit/property_type_cu
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
-import '../view/select_property_type_test.mocks.dart';
+import 'property_property_cubit_test.mocks.dart';
 
 @GenerateMocks([AddPropertyCubit, PropertyTypeCubit])
 void main() {

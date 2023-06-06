@@ -29,20 +29,17 @@ class SelectPropertyType extends StatelessWidget {
                 child: Text(
                     HatSpaceStrings.of(context).chooseKindOfYourProperty,
                     style: Theme.of(context).textTheme.bodyMedium)),
-            GridView.builder(
-                padding: const EdgeInsets.only(top: 32),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 15,
+
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: PropertyTypeCartView(position: 0),
                 ),
-                shrinkWrap: true,
-                itemCount: 2,
-                itemBuilder: (BuildContext context, int position) {
-                  //print("positoin $position");
-                  return PropertyTypeCartView(
-                    position: position,
-                  );
-                }),
+                SizedBox(width: 15),
+                Expanded(child: PropertyTypeCartView(position: 1))
+              ],
+            ),
             Padding(
                 padding: const EdgeInsets.only(top: 20, bottom: 4),
                 child: Text(HatSpaceStrings.of(context).availableDate,
