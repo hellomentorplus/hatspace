@@ -14,47 +14,48 @@ class DatePickerView extends StatelessWidget {
   Widget build(BuildContext context) {
     late ValueNotifier<DateTime> selectedDate = ValueNotifier(DateTime.now());
     return BlocSelector<PropertyTypeCubit, PropertyTypeState, DateTime>(
-        selector: (state) => state.availableDate
-, builder: (context, state) {
-      selectedDate.value = state;
-      return SecondaryButton(
-          onPressed: () async {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return Dialog(
-                      alignment: Alignment.bottomCenter,
-                      insetPadding: const EdgeInsets.only(
-                          bottom: 24, left: 16, right: 16),
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(16))),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ValueListenableBuilder(
-                                valueListenable: selectedDate,
-                                builder: ((context, value, child) {
-                                  return HsDatePicker(
-                                      selectedDate: selectedDate);
-                                }))
-                          ]));
-                }).then((value) {
-              context
-                  .read<PropertyTypeCubit>()
-                  .selectAvailableDate(selectedDate.value);
-              return value;
-            });
-          },
-          label: DateFormat("dd MMMM, yyyy").format(selectedDate.value),
-          iconUrl: Assets.images.calendar,
-          iconPosition: IconPosition.right,
-          contentAlignment: MainAxisAlignment.spaceBetween,
-          style: ButtonStyle(
-            textStyle: MaterialStatePropertyAll(textTheme.bodyMedium),
-            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                const EdgeInsets.symmetric(vertical: 12, horizontal: 16)),
-          ));
-    });
+        selector: (state) => state.availableDate,
+        builder: (context, state) {
+          selectedDate.value = state;
+          return SecondaryButton(
+              onPressed: () async {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Dialog(
+                          alignment: Alignment.bottomCenter,
+                          insetPadding: const EdgeInsets.only(
+                              bottom: 24, left: 16, right: 16),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16))),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ValueListenableBuilder(
+                                    valueListenable: selectedDate,
+                                    builder: ((context, value, child) {
+                                      return HsDatePicker(
+                                          selectedDate: selectedDate);
+                                    }))
+                              ]));
+                    }).then((value) {
+                  context
+                      .read<PropertyTypeCubit>()
+                      .selectAvailableDate(selectedDate.value);
+                  return value;
+                });
+              },
+              label: DateFormat("dd MMMM, yyyy").format(selectedDate.value),
+              iconUrl: Assets.images.calendar,
+              iconPosition: IconPosition.right,
+              contentAlignment: MainAxisAlignment.spaceBetween,
+              style: ButtonStyle(
+                textStyle: MaterialStatePropertyAll(textTheme.bodyMedium),
+                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16)),
+              ));
+        });
   }
 }
