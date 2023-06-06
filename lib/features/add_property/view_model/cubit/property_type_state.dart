@@ -1,8 +1,8 @@
 part of 'property_type_cubit.dart';
 
 abstract class PropertyTypeState {
-  PropertyTypes? propertyTypes;
-  DateTime availableDate;
+  final PropertyTypes? propertyTypes;
+  final DateTime availableDate;
   PropertyTypeState(this.propertyTypes, this.availableDate);
 }
 

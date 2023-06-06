@@ -12,12 +12,10 @@ class DatePickerView extends StatelessWidget {
   const DatePickerView({super.key});
   @override
   Widget build(BuildContext context) {
-    // print("render datepicker");
     late ValueNotifier<DateTime> selectedDate = ValueNotifier(DateTime.now());
     return BlocSelector<PropertyTypeCubit, PropertyTypeState, DateTime>(
-        selector: (state) {
-      return state.availableDate;
-    }, builder: (context, state) {
+        selector: (state) => state.availableDate
+, builder: (context, state) {
       selectedDate.value = state;
       return SecondaryButton(
           onPressed: () async {
@@ -28,7 +26,6 @@ class DatePickerView extends StatelessWidget {
                       alignment: Alignment.bottomCenter,
                       insetPadding: const EdgeInsets.only(
                           bottom: 24, left: 16, right: 16),
-                      // backgroundColor: Colors.orangeAccent,
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(16))),
                       child: Column(
