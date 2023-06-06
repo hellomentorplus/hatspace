@@ -6,7 +6,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import '../../../widget_tester_extension.dart';
-import 'select_property_type_test.mocks.dart';
+import 'date_picker_view_test.mocks.dart';
 
 @GenerateMocks([PropertyTypeCubit])
 void main() {
