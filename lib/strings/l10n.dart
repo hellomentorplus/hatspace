@@ -503,90 +503,90 @@ class HatSpaceStrings {
   }
 
   /// `Property name`
-  String get propertyNameLabel {
+  String get propertyName {
     return Intl.message(
       'Property name',
-      name: 'propertyNameLabel',
+      name: 'propertyName',
       desc: '',
       args: [],
     );
   }
 
   /// `Enter property name`
-  String get propertyNamePlaceholder {
+  String get enterPropertyName {
     return Intl.message(
       'Enter property name',
-      name: 'propertyNamePlaceholder',
+      name: 'enterPropertyName',
       desc: '',
       args: [],
     );
   }
 
   /// `Price`
-  String get priceLabel {
+  String get price {
     return Intl.message(
       'Price',
-      name: 'priceLabel',
+      name: 'price',
       desc: '',
       args: [],
     );
   }
 
   /// `Enter your price`
-  String get pricePlaceholder {
+  String get enterYourPrice {
     return Intl.message(
       'Enter your price',
-      name: 'pricePlaceholder',
+      name: 'enterYourPrice',
       desc: '',
       args: [],
     );
   }
 
   /// `Minimum rent period`
-  String get minimumRentPeriodlabel {
+  String get minimumRentPeriod {
     return Intl.message(
       'Minimum rent period',
-      name: 'minimumRentPeriodlabel',
+      name: 'minimumRentPeriod',
       desc: '',
       args: [],
     );
   }
 
   /// `Description`
-  String get descriptionLabel {
+  String get description {
     return Intl.message(
       'Description',
-      name: 'descriptionLabel',
+      name: 'description',
       desc: '',
       args: [],
     );
   }
 
   /// `Enter description`
-  String get descriptionPlaceholder {
+  String get enterYourDescription {
     return Intl.message(
       'Enter description',
-      name: 'descriptionPlaceholder',
+      name: 'enterYourDescription',
       desc: '',
       args: [],
     );
   }
 
   /// `State`
-  String get stateLabel {
+  String get state {
     return Intl.message(
       'State',
-      name: 'stateLabel',
+      name: 'state',
       desc: '',
       args: [],
     );
   }
 
   /// `Unit number`
-  String get unitNumberLabel {
+  String get unitNumber {
     return Intl.message(
       'Unit number',
-      name: 'unitNumberLabel',
+      name: 'unitNumber',
       desc: '',
       args: [],
     );
@@ -603,80 +603,80 @@ class HatSpaceStrings {
   }
 
   /// `Enter unit number`
-  String get unitNumberPlaceholder {
+  String get enterYourUnitnumber {
     return Intl.message(
       'Enter unit number',
-      name: 'unitNumberPlaceholder',
+      name: 'enterYourUnitnumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `Address`
-  String get addressLabel {
+  /// `Street address`
+  String get streetAddress {
     return Intl.message(
-      'Address',
-      name: 'addressLabel',
+      'Street address',
+      name: 'streetAddress',
       desc: '',
       args: [],
     );
   }
 
-  /// `Enter address`
-  String get addressPlaceholder {
+  /// `Enter your address`
+  String get enterYourAddress {
     return Intl.message(
-      'Enter address',
-      name: 'addressPlaceholder',
+      'Enter your address',
+      name: 'enterYourAddress',
       desc: '',
       args: [],
     );
   }
 
   /// `House number + Street name`
-  String get addressHints {
+  String get houseNumberAndStreetName {
     return Intl.message(
       'House number + Street name',
-      name: 'addressHints',
+      name: 'houseNumberAndStreetName',
       desc: '',
       args: [],
     );
   }
 
   /// `Suburb`
-  String get suburbLabel {
+  String get suburb {
     return Intl.message(
       'Suburb',
-      name: 'suburbLabel',
+      name: 'suburb',
       desc: '',
       args: [],
     );
   }
 
   /// `Enter suburb`
-  String get suburbPlaceholder {
+  String get enterYourSuburb {
     return Intl.message(
       'Enter suburb',
-      name: 'suburbPlaceholder',
+      name: 'enterYourSuburb',
       desc: '',
       args: [],
     );
   }
 
   /// `Postcode`
-  String get postcodeLabel {
+  String get postcode {
     return Intl.message(
       'Postcode',
-      name: 'postcodeLabel',
+      name: 'postcode',
       desc: '',
       args: [],
     );
   }
 
   /// `Enter postcode`
-  String get postcodePlaceholder {
+  String get enterYourPostcode {
     return Intl.message(
       'Enter postcode',
-      name: 'postcodePlaceholder',
+      name: 'enterYourPostcode',
       desc: '',
       args: [],
     );

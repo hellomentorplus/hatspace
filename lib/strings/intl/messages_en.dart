@@ -40,11 +40,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Australian Capital Territory"),
         "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
             "How many bedrooms, bathrooms, parking?"),
-        "addressHints":
-            MessageLookupByLibrary.simpleMessage("House number + Street name"),
-        "addressLabel": MessageLookupByLibrary.simpleMessage("Address"),
-        "addressPlaceholder":
-            MessageLookupByLibrary.simpleMessage("Enter address"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
@@ -61,24 +56,37 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
             "You can be tenant or homeowner, OR you can be both."),
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
-        "descriptionLabel": MessageLookupByLibrary.simpleMessage("Description"),
-        "descriptionPlaceholder":
-            MessageLookupByLibrary.simpleMessage("Enter description"),
+        "description": MessageLookupByLibrary.simpleMessage("Description"),
         "emailSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with email"),
+        "enterPropertyName":
+            MessageLookupByLibrary.simpleMessage("Enter property name"),
+        "enterYourAddress":
+            MessageLookupByLibrary.simpleMessage("Enter your address"),
+        "enterYourDescription":
+            MessageLookupByLibrary.simpleMessage("Enter description"),
+        "enterYourPostcode":
+            MessageLookupByLibrary.simpleMessage("Enter postcode"),
+        "enterYourPrice":
+            MessageLookupByLibrary.simpleMessage("Enter your price"),
+        "enterYourSuburb": MessageLookupByLibrary.simpleMessage("Enter suburb"),
+        "enterYourUnitnumber":
+            MessageLookupByLibrary.simpleMessage("Enter unit number"),
         "explore": MessageLookupByLibrary.simpleMessage("Explore"),
         "facebookSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
         "googleSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with Google"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
+        "houseNumberAndStreetName":
+            MessageLookupByLibrary.simpleMessage("House number + Street name"),
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
         "information": MessageLookupByLibrary.simpleMessage("Information"),
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
-        "minimumRentPeriodlabel":
+        "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
@@ -87,17 +95,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
         "pleaseEnterYourPlaceholder": MessageLookupByLibrary.simpleMessage(
             "Please Enter Your Placeholder"),
-        "postcodeLabel": MessageLookupByLibrary.simpleMessage("Postcode"),
-        "postcodePlaceholder":
-            MessageLookupByLibrary.simpleMessage("Enter postcode"),
-        "priceLabel": MessageLookupByLibrary.simpleMessage("Price"),
-        "pricePlaceholder":
-            MessageLookupByLibrary.simpleMessage("Enter your price"),
+        "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
+        "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
-        "propertyNameLabel":
-            MessageLookupByLibrary.simpleMessage("Property name"),
-        "propertyNamePlaceholder":
-            MessageLookupByLibrary.simpleMessage("Enter property name"),
+        "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
         "qld": MessageLookupByLibrary.simpleMessage("Queenland"),
         "sa": MessageLookupByLibrary.simpleMessage("South Australia"),
         "searchHint":
@@ -109,16 +110,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Login Failed"),
         "sixMonths": MessageLookupByLibrary.simpleMessage("6 Months"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
-        "stateLabel": MessageLookupByLibrary.simpleMessage("State"),
-        "suburbLabel": MessageLookupByLibrary.simpleMessage("Suburb"),
-        "suburbPlaceholder":
-            MessageLookupByLibrary.simpleMessage("Enter suburb"),
+        "state": MessageLookupByLibrary.simpleMessage("State"),
+        "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
+        "suburb": MessageLookupByLibrary.simpleMessage("Suburb"),
         "tas": MessageLookupByLibrary.simpleMessage("Tasmania"),
         "threeMonths": MessageLookupByLibrary.simpleMessage("3 Months"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
-        "unitNumberLabel": MessageLookupByLibrary.simpleMessage("Unit number"),
-        "unitNumberPlaceholder":
-            MessageLookupByLibrary.simpleMessage("Enter unit number"),
+        "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
         "userRoleDescription": m0,
         "userTitleRoles": m1,
         "vic": MessageLookupByLibrary.simpleMessage("Victoria"),
