@@ -7,6 +7,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/initial_app.dart';
@@ -14,6 +15,7 @@ import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
+import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'bloc/app_confilg_bloc/app_config_bloc_test.mocks.dart';
@@ -21,13 +23,16 @@ import 'widget_test.mocks.dart';
 import 'widget_tester_extension.dart';
 
 @GenerateMocks(
-    [AppConfigBloc, SignUpBloc, StorageService, AuthenticationService])
+    [AppConfigBloc, SignUpBloc, StorageService, AuthenticationService, AuthenticationBloc])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  MockFirebaseRemoteConfig mockFirebaseRemoteConfig =
+
+  final MockFirebaseRemoteConfig mockFirebaseRemoteConfig =
       MockFirebaseRemoteConfig();
-  MockAppConfigBloc mockAppConfigBloc = MockAppConfigBloc();
-  MockSignUpBloc mockSignUpBloc = MockSignUpBloc();
+  final MockAppConfigBloc mockAppConfigBloc = MockAppConfigBloc();
+  final MockSignUpBloc mockSignUpBloc = MockSignUpBloc();
+  final MockAuthenticationBloc authenticationBloc = MockAuthenticationBloc();
+
   final MockStorageService storageService = MockStorageService();
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
@@ -66,18 +71,56 @@ void main() {
 
     // await FirebaseRemoteConfig.instance.ensureInitialized();
   });
-  testWidgets('Check home screen title', (WidgetTester tester) async {
-    const widget = HomePageView();
-    await tester.blocWrapAndPump<AppConfigBloc>(mockAppConfigBloc, widget);
 
-    // verify the mocked name is displayed - this will change later
-    expect(find.text('Hi Hoang Nguyen'), findsOneWidget);
+  testWidgets('Check home screen title when user not login', (WidgetTester tester) async {
+    when(authenticationBloc.state).thenAnswer((realInvocation) => AnonymousState());
+    when(authenticationBloc.stream).thenAnswer((realInvocation) => Stream.value(AnonymousState()));
+
+    const widget = HomePageView();
+    await tester.multiBlocWrapAndPump(
+        [
+          BlocProvider<AppConfigBloc>(
+            create: (context) => mockAppConfigBloc,
+          ),
+          BlocProvider<AuthenticationBloc>(
+            create: (context) => authenticationBloc,
+          )
+        ],
+        widget);
+    expect(find.text('Hi there 👋'), findsOneWidget);
+  });
+
+  testWidgets('Check home screen title when user login', (WidgetTester tester) async {
+    final UserDetail userDetail = UserDetail(uid: 'uid', displayName: 'displayName');
+    when(authenticationBloc.state).thenAnswer((realInvocation) => AuthenticatedState(userDetail));
+    when(authenticationBloc.stream).thenAnswer((realInvocation) => Stream.value(AuthenticatedState(userDetail)));
+
+    const widget = HomePageView();
+    await tester.multiBlocWrapAndPump(
+        [
+          BlocProvider<AppConfigBloc>(
+            create: (context) => mockAppConfigBloc,
+          ),
+          BlocProvider<AuthenticationBloc>(
+            create: (context) => authenticationBloc,
+          )
+        ],
+        widget);
+    expect(find.text('👋 Hi displayName'), findsOneWidget);
   });
 
   testWidgets('Check bottom app bar', (WidgetTester tester) async {
     const widget = HomePageView();
-    await tester.blocWrapAndPump<AppConfigBloc>(mockAppConfigBloc, widget);
-    // Verify content of bottom app bar
+    await tester.multiBlocWrapAndPump(
+        [
+          BlocProvider<AppConfigBloc>(
+            create: (context) => mockAppConfigBloc,
+          ),
+          BlocProvider<AuthenticationBloc>(
+            create: (context) => authenticationBloc,
+          )
+        ],
+        widget);    // Verify content of bottom app bar
     expect(find.text('Explore'), findsOneWidget);
     expect(find.text('Booking'), findsOneWidget);
     expect(find.text('Message'), findsOneWidget);
@@ -92,6 +135,9 @@ void main() {
       ),
       BlocProvider<AppConfigBloc>(
         create: (context) => mockAppConfigBloc,
+      ),
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => authenticationBloc,
       )
     ], widget);
     final renderingWidget = tester.widget(find.byType(MyAppBody));

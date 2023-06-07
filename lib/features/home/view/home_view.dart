@@ -10,6 +10,8 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:shake/shake.dart';
 
+import '../../../view_models/authentication/authentication_bloc.dart';
+
 class HomePageView extends StatefulWidget {
   const HomePageView({super.key});
 
@@ -72,12 +74,23 @@ class HomePageViewState extends State<HomePageView> {
           ],
           child: Scaffold(
               appBar: AppBar(
-                title: Text(
-                  HatSpaceStrings.current.welcomeDefault, // TODO load user display name to be used here
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayLarge
-                      ?.copyWith(color: colorScheme.onPrimary),
+                title: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                  builder: (context, state) {
+                    String? welcome = (state is AuthenticatedState)
+                        ? HatSpaceStrings.current
+                            .welcomeName(state.userDetail.displayName ?? '')
+                        : HatSpaceStrings.current.welcomeDefault;
+
+                    return Text(
+                      welcome.trim(), // trim text in case display name is null
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayLarge
+                          ?.copyWith(color: colorScheme.onPrimary),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    );
+                  },
                 ),
                 titleSpacing: 16.0,
                 centerTitle: false,
@@ -86,6 +99,18 @@ class HomePageViewState extends State<HomePageView> {
                 toolbarHeight: 40,
                 elevation: 0.0,
                 actions: [
+                  IconButton(
+                      onPressed: () {
+                        // TODO add action
+                      },
+                      icon: SvgPicture.asset(
+                        Assets.icons.icAgent,
+                        colorFilter: ColorFilter.mode(
+                            Theme.of(context).colorScheme.onPrimary,
+                            BlendMode.srcIn),
+                        width: 24,
+                        height: 24,
+                      )),
                   IconButton(
                     onPressed: () {
                       // TODO add action

@@ -10,6 +10,9 @@ class AuthenticationInitial extends AuthenticationState {
 }
 
 class AuthenticatedState extends AuthenticationState {
+  final UserDetail userDetail;
+
+  const AuthenticatedState(this.userDetail);
   @override
   List<Object?> get props => [];
 }
