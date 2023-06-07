@@ -14,7 +14,7 @@ import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
 class AddPropertyView extends StatelessWidget {
   const AddPropertyView({super.key});
-
+  // TODO: Remove
   @override
   Widget build(Object context) {
     return MultiBlocProvider(
