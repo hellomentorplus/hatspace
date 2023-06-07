@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide SearchBar;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/features/home/view/widgets/app_bar_bottom.dart';
@@ -92,7 +92,9 @@ class HomePageViewState extends State<HomePageView> {
                     },
                     icon: SvgPicture.asset(
                       Assets.icons.notification,
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      colorFilter: ColorFilter.mode(
+                          Theme.of(context).colorScheme.onPrimary,
+                          BlendMode.srcIn),
                       width: 24,
                       height: 24,
                     ),
@@ -217,9 +219,11 @@ class _BottomBarItem extends StatelessWidget {
                 icon,
                 width: 24,
                 height: 24,
-                color: isSelected
-                    ? Theme.of(context).colorScheme.primary
-                    : HSColor.neutral6,
+                colorFilter: ColorFilter.mode(
+                    isSelected
+                        ? Theme.of(context).colorScheme.primary
+                        : HSColor.neutral6,
+                    BlendMode.srcIn),
               ),
               Text(label,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
