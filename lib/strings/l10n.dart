@@ -311,6 +311,126 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `New South Wales`
+  String get nsw {
+    return Intl.message(
+      'New South Wales',
+      name: 'nsw',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Victoria`
+  String get vic {
+    return Intl.message(
+      'Victoria',
+      name: 'vic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Queenland`
+  String get qld {
+    return Intl.message(
+      'Queenland',
+      name: 'qld',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Western Australia`
+  String get wa {
+    return Intl.message(
+      'Western Australia',
+      name: 'wa',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `South Australia`
+  String get sa {
+    return Intl.message(
+      'South Australia',
+      name: 'sa',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tasmania`
+  String get tas {
+    return Intl.message(
+      'Tasmania',
+      name: 'tas',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Australian Capital Territory`
+  String get act {
+    return Intl.message(
+      'Australian Capital Territory',
+      name: 'act',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Northern Territory`
+  String get nt {
+    return Intl.message(
+      'Northern Territory',
+      name: 'nt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `3 Months`
+  String get threeMonths {
+    return Intl.message(
+      '3 Months',
+      name: 'threeMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `6 Months`
+  String get sixMonths {
+    return Intl.message(
+      '6 Months',
+      name: 'sixMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hi there 👋`
+  String get welcomeDefault {
+    return Intl.message(
+      'Hi there 👋',
+      name: 'welcomeDefault',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `👋 Hi {name}`
+  String welcomeName(Object name) {
+    return Intl.message(
+      '👋 Hi $name',
+      name: 'welcomeName',
+      desc: '',
+      args: [name],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

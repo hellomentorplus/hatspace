@@ -73,7 +73,7 @@ class HomePageViewState extends State<HomePageView> {
           child: Scaffold(
               appBar: AppBar(
                 title: Text(
-                  'Hi Hoang Nguyen', // TODO load user display name to be used here
+                  HatSpaceStrings.current.welcomeDefault, // TODO load user display name to be used here
                   style: Theme.of(context)
                       .textTheme
                       .displayLarge
