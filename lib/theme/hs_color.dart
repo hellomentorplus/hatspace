@@ -28,8 +28,8 @@ class HSColor {
 
   static const Color requiredField = Color(0xFFFF3333); // new design color
   static const Color neutral9 = Color(0xFF141414);
-  static const Color neutral7 = Color(0xFF383838);// new design color
-  static const Color neutral6 = Color(0xff595959);// new desgin color
+  static const Color neutral7 = Color(0xFF383838); // new design color
+  static const Color neutral6 = Color(0xff595959); // new desgin color
   static const Color neutral5 = Color(0xFF8C8C8C);
   static const Color neutral4 = Color(0xFFC7C7CC);
   static const Color neutral3 = Color(0xFFD9D9D9); // new design color
@@ -53,4 +53,3 @@ const ColorScheme colorScheme = ColorScheme(
     onBackground: HSColor.onBackground,
     surface: HSColor.surface,
     onSurface: HSColor.onSurface);
-

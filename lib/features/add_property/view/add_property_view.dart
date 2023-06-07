@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/features/add_property/view/property_info_form_view.dart';
+import 'package:hatspace/features/add_property/view/property_info_form.dart';
 import 'package:hatspace/features/add_property/view/select_property_type.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_state.dart';
@@ -33,10 +33,7 @@ class AddPropertyPageBody extends StatelessWidget {
       PageController(initialPage: 0, keepPage: true);
   final ValueNotifier<int> onProgressIndicatorState = ValueNotifier(0);
   // Number of Pages for PageView
-  final List<Widget> pages = [
-    const SelectPropertyType(),
-    PropertyInforForm()
-  ];
+  final List<Widget> pages = [const SelectPropertyType(), PropertyInforForm()];
   AddPropertyPageBody({super.key});
   @override
   Widget build(BuildContext context) {

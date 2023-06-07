@@ -73,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sign up with Google"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
+        "information": MessageLookupByLibrary.simpleMessage("Information"),
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
@@ -84,6 +85,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
         "optional": MessageLookupByLibrary.simpleMessage("Optional"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
+        "pleaseEnterYourPlaceholder": MessageLookupByLibrary.simpleMessage(
+            "Please Enter Your Placeholder"),
         "postcodeLabel": MessageLookupByLibrary.simpleMessage("Postcode"),
         "postcodePlaceholder":
             MessageLookupByLibrary.simpleMessage("Enter postcode"),
@@ -121,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "vic": MessageLookupByLibrary.simpleMessage("Victoria"),
         "wa": MessageLookupByLibrary.simpleMessage("Western Australia"),
         "whatKindOfPlace":
-            MessageLookupByLibrary.simpleMessage("What kind of place?")
+            MessageLookupByLibrary.simpleMessage("What kind of place?"),
+        "yourAddress": MessageLookupByLibrary.simpleMessage("Your address")
       };
 }

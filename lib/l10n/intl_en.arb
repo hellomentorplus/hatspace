@@ -68,5 +68,8 @@
   "suburbLabel": "Suburb",
   "suburbPlaceholder":"Enter suburb",
   "postcodeLabel":"Postcode",
-  "postcodePlaceholder":"Enter postcode"
+  "postcodePlaceholder":"Enter postcode",
+  "information":"Information",
+  "yourAddress":"Your address",
+  "pleaseEnterYourPlaceholder": "Please Enter Your Placeholder"
 }

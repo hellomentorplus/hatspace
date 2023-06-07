@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
@@ -37,15 +38,17 @@ class HatSpaceInputText extends StatelessWidget {
                   text: isRequired
                       ? " *"
                       : optionalLabel
-                          ? " (Optional)"
+                          ? HatSpaceStrings.of(context).optional
                           : "",
                   style: textTheme.bodyMedium?.copyWith(
                       color: isRequired ? HSColor.requiredField : null))
             ])),
+        const SizedBox(
+          height: 4,
+        ),
         TextFormField(
             onChanged: (value) {
               // TODO: implement bloc
-              print(value);
             },
             style:
                 Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
@@ -58,14 +61,14 @@ class HatSpaceInputText extends StatelessWidget {
 class HatSpaceDropDownButton extends StatelessWidget {
   final String label;
   final bool isRequired;
-  final String placeholder;
+  final String? placeholder;
   final VoidCallback onPressed;
   const HatSpaceDropDownButton(
       {super.key,
       required this.label,
       bool? isRequired,
       required this.onPressed,
-      required this.placeholder})
+      this.placeholder})
       : isRequired = isRequired ?? false;
   @override
   Widget build(BuildContext context) {
@@ -81,9 +84,12 @@ class HatSpaceDropDownButton extends StatelessWidget {
                   style: textTheme.bodyMedium
                       ?.copyWith(color: HSColor.requiredField))
             ])),
+        const SizedBox(
+          height: 4,
+        ),
         SecondaryButton(
           // TODO: implement placeholder with enum of preriod
-          label: placeholder,
+          label: placeholder ?? "Please select value",
           iconUrl: Assets.images.chervonDown,
           iconPosition: IconPosition.right,
           contentAlignment: MainAxisAlignment.spaceBetween,
@@ -110,7 +116,7 @@ InputDecoration inputTextTheme = InputDecoration(
         borderSide: const BorderSide(
           color: HSColor.black,
         )),
-    hintText: "Please enter your placeholder",
+    hintText: HatSpaceStrings.current.pleaseEnterYourPlaceholder,
     hintStyle:
         textTheme.bodyMedium?.copyWith(height: 1.0, color: HSColor.neutral5));
 
@@ -163,11 +169,11 @@ class PropertyPrice extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
                             color: HSColor.neutral2),
-                        child: const Text(
-                          // TODO: implement property data
-                          "USD (\$)",
-                          style: TextStyle(),
-                        )))),
+                        child: Text(
+                            // TODO: implement property data
+                            "${Currency.aud.name.toUpperCase()} (\$)",
+                            style: textTheme.bodySmall
+                                ?.copyWith(fontWeight: FontWeight.w700))))),
             style:
                 Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
           ),
@@ -184,7 +190,6 @@ class PropertyRentPeriod extends StatelessWidget {
     return HatSpaceDropDownButton(
         label: HatSpaceStrings.of(context).minimumRentPeriodlabel,
         // TODO: implement property data
-        placeholder: "6 months",
         isRequired: true,
         onPressed: () {});
   }
@@ -201,8 +206,8 @@ class PropertyDescription extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(HatSpaceStrings.of(context).descriptionLabel),
-            // TODO: Change state
-            Text("120/4000")
+            // TODO: Implement BS
+            const Text("120/4000")
           ],
         ),
         TextFormField(
@@ -228,7 +233,6 @@ class PropertyState extends StatelessWidget {
     return HatSpaceDropDownButton(
         label: HatSpaceStrings.of(context).stateLabel,
         //TODO: implement state
-        placeholder: "Select",
         isRequired: true,
         onPressed: () {});
   }
@@ -261,7 +265,7 @@ class PropertyStreetAddress extends StatelessWidget {
           isRequired: true,
           onChanged: () {},
         ),
-       const SizedBox(
+        const SizedBox(
           height: 8,
         ),
         Text(
@@ -284,17 +288,17 @@ class PropertySuburb extends StatelessWidget {
       children: [
         Expanded(
           child: HatSpaceInputText(
-            label: "Suburb",
-            placeholder: "Enter Suburb",
+            label: HatSpaceStrings.of(context).suburbLabel,
+            placeholder: HatSpaceStrings.of(context).suburbPlaceholder,
             isRequired: true,
             onChanged: () {},
           ),
         ),
-        SizedBox(width: 16),
+        const SizedBox(width: 16),
         Expanded(
             child: HatSpaceInputText(
-          label: "Postcode",
-          placeholder: "Enter Postcode",
+          label: HatSpaceStrings.of(context).postcodeLabel,
+          placeholder: HatSpaceStrings.of(context).postcodePlaceholder,
           isRequired: true,
           onChanged: () {},
         ))
@@ -306,20 +310,20 @@ class PropertySuburb extends StatelessWidget {
 class PropertyInforForm extends StatelessWidget {
   PropertyInforForm({super.key});
   final List<Widget> itemList = [
-    const Text("Information",
-        style: TextStyle(
-            fontSize: 24,
-            color: HSColor.onSurface,
-            fontWeight: FontWeight.w700)),
+    Builder(builder: (BuildContext context) {
+      return Text(HatSpaceStrings.of(context).information,
+          style: textTheme.displayLarge);
+    }),
     const PropertyName(),
     const PropertyPrice(),
     const PropertyRentPeriod(),
     const PropertyDescription(),
-    const Text("Your address",
-        style: TextStyle(
-            fontSize: 18,
-            color: HSColor.onSurface,
-            fontWeight: FontWeight.w700)),
+    Builder(builder: (BuildContext context) {
+      return Text(
+        HatSpaceStrings.of(context).yourAddress,
+        style: textTheme.displayLarge?.copyWith(fontSize: 18.0),
+      );
+    }),
     const PropertyState(),
     const PropertyUnitNumber(),
     const PropertyStreetAddress(),
@@ -330,7 +334,8 @@ class PropertyInforForm extends StatelessWidget {
     return Align(
         alignment: Alignment.centerLeft,
         child: Padding(
-          padding: const EdgeInsets.only(left: 16, top: 33, right: 16),
+          padding:
+              const EdgeInsets.only(left: 16, top: 33, right: 16, bottom: 24),
           child: ListView.separated(
             separatorBuilder: (BuildContext context, int index) =>
                 const SizedBox(

@@ -681,6 +681,36 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Information`
+  String get information {
+    return Intl.message(
+      'Information',
+      name: 'information',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your address`
+  String get yourAddress {
+    return Intl.message(
+      'Your address',
+      name: 'yourAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Enter Your Placeholder`
+  String get pleaseEnterYourPlaceholder {
+    return Intl.message(
+      'Please Enter Your Placeholder',
+      name: 'pleaseEnterYourPlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
