@@ -6,57 +6,7 @@ import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
-
-class HatSpaceInputText extends StatelessWidget {
-  final String label;
-  final String placeholder;
-  final bool isRequired;
-  final bool optionalLabel;
-  final VoidCallback onChanged;
-
-  const HatSpaceInputText(
-      {super.key,
-      required this.label,
-      bool? isRequired,
-      required this.placeholder,
-      required this.onChanged,
-      bool? optionalLabel})
-      : isRequired = isRequired ?? false,
-        optionalLabel = optionalLabel ?? false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        RichText(
-            text: TextSpan(
-                style: Theme.of(context).textTheme.bodyMedium,
-                text: label,
-                children: [
-              TextSpan(
-                  text: isRequired
-                      ? " *"
-                      : optionalLabel
-                          ? HatSpaceStrings.of(context).optional
-                          : "",
-                  style: textTheme.bodyMedium?.copyWith(
-                      color: isRequired ? HSColor.requiredField : null))
-            ])),
-        const SizedBox(
-          height: 4,
-        ),
-        TextFormField(
-            onChanged: (value) {
-              // TODO: implement bloc
-            },
-            style:
-                Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
-            decoration: inputTextTheme.copyWith(hintText: placeholder))
-      ],
-    );
-  }
-}
+import 'package:hatspace/theme/widgets/hs_text_field.dart';
 
 class HatSpaceDropDownButton extends StatelessWidget {
   final String label;
@@ -72,65 +22,39 @@ class HatSpaceDropDownButton extends StatelessWidget {
       : isRequired = isRequired ?? false;
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: [
-        RichText(
-            text: TextSpan(
-                style: Theme.of(context).textTheme.bodyMedium,
-                text: label,
-                children: [
-              TextSpan(
-                  text: isRequired ? " *" : "",
-                  style: textTheme.bodyMedium
-                      ?.copyWith(color: HSColor.requiredField))
-            ])),
-        const SizedBox(
-          height: 4,
-        ),
-        SecondaryButton(
-          // TODO: implement placeholder with enum of preriod
-          label: placeholder ?? "Please select value",
-          iconUrl: Assets.images.chervonDown,
-          iconPosition: IconPosition.right,
-          contentAlignment: MainAxisAlignment.spaceBetween,
-          style: secondaryButtonTheme.style?.copyWith(
-              textStyle: MaterialStatePropertyAll<TextStyle?>(
-                Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
-              ),
-              padding: const MaterialStatePropertyAll<EdgeInsets>(
-                  EdgeInsets.fromLTRB(16, 13, 12, 13))),
-          onPressed: () {
-            // TODO: implement show rent period
-          },
-        ),
-      ],
+    return SecondaryButton(
+      // TODO: implement placeholder with enum of preriod
+      label: placeholder ?? "Please select value",
+      iconUrl: Assets.images.chervonDown,
+      iconPosition: IconPosition.right,
+      contentAlignment: MainAxisAlignment.spaceBetween,
+      style: secondaryButtonTheme.style?.copyWith(
+          textStyle: MaterialStatePropertyAll<TextStyle?>(
+            Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
+          ),
+          padding: const MaterialStatePropertyAll<EdgeInsets>(
+              EdgeInsets.fromLTRB(16, 13, 12, 13))),
+      onPressed: () {
+        // TODO: implement show rent period
+      },
     );
   }
 }
 
-// input THEME
-InputDecoration inputTextTheme = InputDecoration(
-    contentPadding: const EdgeInsets.fromLTRB(16, 13, 12, 13),
-    border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(
-          color: HSColor.black,
-        )),
-    hintText: HatSpaceStrings.current.pleaseEnterYourPlaceholder,
-    hintStyle:
-        textTheme.bodyMedium?.copyWith(height: 1.0, color: HSColor.neutral5));
-
 class PropertyName extends StatelessWidget {
   const PropertyName({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return HatSpaceInputText(
-      label: HatSpaceStrings.of(context).propertyNameLabel,
-      placeholder: HatSpaceStrings.of(context).propertyNamePlaceholder,
-      isRequired: true,
-      onChanged: () {},
-    );
+    return Wrap(children: [
+      HatSpaceLabel(
+        label: HatSpaceStrings.of(context).propertyName,
+        isRequired: true,
+      ),
+      HatSpaceInputText(
+        placeholder: HatSpaceStrings.of(context).enterPropertyName,
+        onChanged: () {},
+      )
+    ]);
   }
 }
 
@@ -141,16 +65,8 @@ class PropertyPrice extends StatelessWidget {
     return Wrap(
       // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        RichText(
-            text: TextSpan(
-                style: Theme.of(context).textTheme.bodyMedium,
-                text: HatSpaceStrings.of(context).priceLabel,
-                children: [
-              TextSpan(
-                  text: " *",
-                  style: textTheme.bodyMedium
-                      ?.copyWith(color: HSColor.requiredField))
-            ])),
+        HatSpaceLabel(
+            label: HatSpaceStrings.of(context).price, isRequired: true),
         Card(
           color: Colors.white,
           elevation: 4.0,
@@ -160,7 +76,7 @@ class PropertyPrice extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.0)),
           child: TextFormField(
             decoration: inputTextTheme.copyWith(
-                hintText: HatSpaceStrings.of(context).pricePlaceholder,
+                hintText: HatSpaceStrings.of(context).enterYourPrice,
                 suffixIcon: Padding(
                     padding: const EdgeInsets.only(
                         right: 7, left: 16, top: 7, bottom: 7),
@@ -187,11 +103,21 @@ class PropertyRentPeriod extends StatelessWidget {
   const PropertyRentPeriod({super.key});
   @override
   Widget build(context) {
-    return HatSpaceDropDownButton(
-        label: HatSpaceStrings.of(context).minimumRentPeriodlabel,
-        // TODO: implement property data
-        isRequired: true,
-        onPressed: () {});
+    return Wrap(
+      children: [
+        HatSpaceLabel(
+            label: HatSpaceStrings.of(context).minimumRentPeriod,
+            isRequired: true),
+        const SizedBox(
+          height: 4,
+        ),
+        HatSpaceDropDownButton(
+            label: HatSpaceStrings.of(context).minimumRentPeriod,
+            // TODO: implement property data
+            isRequired: true,
+            onPressed: () {})
+      ],
+    );
   }
 }
 
@@ -205,10 +131,15 @@ class PropertyDescription extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(HatSpaceStrings.of(context).descriptionLabel),
+            HatSpaceLabel(
+                label: HatSpaceStrings.of(context).description,
+                isRequired: false),
             // TODO: Implement BS
             const Text("120/4000")
           ],
+        ),
+        const SizedBox(
+          height: 4,
         ),
         TextFormField(
           style: textTheme.bodyMedium,
@@ -216,7 +147,7 @@ class PropertyDescription extends StatelessWidget {
           keyboardType: TextInputType.multiline,
           maxLines: null,
           decoration: inputTextTheme.copyWith(
-            hintText: HatSpaceStrings.of(context).descriptionPlaceholder,
+            hintText: HatSpaceStrings.of(context).enterYourDescription,
           ),
         )
       ],
@@ -231,7 +162,7 @@ class PropertyState extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return HatSpaceDropDownButton(
-        label: HatSpaceStrings.of(context).stateLabel,
+        label: HatSpaceStrings.of(context).state,
         //TODO: implement state
         isRequired: true,
         onPressed: () {});
@@ -242,12 +173,17 @@ class PropertyUnitNumber extends StatelessWidget {
   const PropertyUnitNumber({super.key});
   @override
   Widget build(BuildContext context) {
-    return HatSpaceInputText(
-      label: HatSpaceStrings.of(context).unitNumberLabel,
-      placeholder: HatSpaceStrings.of(context).unitNumberPlaceholder,
-      optionalLabel: true,
-      onChanged: () {},
-    );
+    return Wrap(children: [
+      HatSpaceLabel(
+        label: HatSpaceStrings.of(context).unitNumber,
+        isRequired: false,
+        optional: HatSpaceStrings.of(context).optional,
+      ),
+      HatSpaceInputText(
+        placeholder: HatSpaceStrings.of(context).enterYourUnitnumber,
+        onChanged: () {},
+      )
+    ]);
   }
 }
 
@@ -259,17 +195,17 @@ class PropertyStreetAddress extends StatelessWidget {
     // TODO: implement build
     return Wrap(
       children: [
+        HatSpaceLabel(
+            label: HatSpaceStrings.of(context).streetAddress, isRequired: true),
         HatSpaceInputText(
-          label: HatSpaceStrings.of(context).addressLabel,
-          placeholder: HatSpaceStrings.of(context).addressPlaceholder,
-          isRequired: true,
+          placeholder: HatSpaceStrings.of(context).enterYourAddress,
           onChanged: () {},
         ),
         const SizedBox(
           height: 8,
         ),
         Text(
-          HatSpaceStrings.of(context).addressHints,
+          HatSpaceStrings.of(context).houseNumberAndStreetName,
           style: textTheme.bodySmall?.copyWith(color: HSColor.neutral6),
         )
       ],
@@ -287,21 +223,24 @@ class PropertySuburb extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Expanded(
-          child: HatSpaceInputText(
-            label: HatSpaceStrings.of(context).suburbLabel,
-            placeholder: HatSpaceStrings.of(context).suburbPlaceholder,
-            isRequired: true,
+            child: Wrap(children: [
+          HatSpaceLabel(
+              label: HatSpaceStrings.of(context).suburb, isRequired: true),
+          HatSpaceInputText(
+            placeholder: HatSpaceStrings.of(context).enterYourSuburb,
             onChanged: () {},
-          ),
-        ),
+          )
+        ])),
         const SizedBox(width: 16),
         Expanded(
-            child: HatSpaceInputText(
-          label: HatSpaceStrings.of(context).postcodeLabel,
-          placeholder: HatSpaceStrings.of(context).postcodePlaceholder,
-          isRequired: true,
-          onChanged: () {},
-        ))
+            child: Wrap(children: [
+          HatSpaceLabel(
+              label: HatSpaceStrings.of(context).postcode, isRequired: true),
+          HatSpaceInputText(
+            placeholder: HatSpaceStrings.of(context).enterYourPostcode,
+            onChanged: () {},
+          )
+        ]))
       ],
     );
   }
