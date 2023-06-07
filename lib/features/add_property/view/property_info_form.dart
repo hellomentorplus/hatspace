@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -23,21 +25,18 @@ class HatSpaceDropDownButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SecondaryButton(
-      // TODO: implement placeholder with enum of preriod
-      label: placeholder ?? "Please select value",
-      iconUrl: Assets.images.chervonDown,
-      iconPosition: IconPosition.right,
-      contentAlignment: MainAxisAlignment.spaceBetween,
-      style: secondaryButtonTheme.style?.copyWith(
-          textStyle: MaterialStatePropertyAll<TextStyle?>(
-            Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
-          ),
-          padding: const MaterialStatePropertyAll<EdgeInsets>(
-              EdgeInsets.fromLTRB(16, 13, 12, 13))),
-      onPressed: () {
-        // TODO: implement show rent period
-      },
-    );
+        // TODO: implement placeholder with enum of preriod
+        label: placeholder ?? "Please select value",
+        iconUrl: Assets.images.chervonDown,
+        iconPosition: IconPosition.right,
+        contentAlignment: MainAxisAlignment.spaceBetween,
+        style: secondaryButtonTheme.style?.copyWith(
+            textStyle: MaterialStatePropertyAll<TextStyle?>(
+              Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
+            ),
+            padding: const MaterialStatePropertyAll<EdgeInsets>(
+                EdgeInsets.fromLTRB(16, 13, 12, 13))),
+        onPressed: onPressed);
   }
 }
 
@@ -101,6 +100,7 @@ class PropertyPrice extends StatelessWidget {
 
 class PropertyRentPeriod extends StatelessWidget {
   const PropertyRentPeriod({super.key});
+
   @override
   Widget build(context) {
     return Wrap(
@@ -165,7 +165,71 @@ class PropertyState extends StatelessWidget {
         label: HatSpaceStrings.of(context).state,
         //TODO: implement state
         isRequired: true,
-        onPressed: () {});
+        onPressed: () {
+          showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(16))),
+              builder: (BuildContext context) {
+                return 
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.75,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+                    child: Column(
+                      
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Expanded(child: Text("")),
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.center,
+                                child:  Text(
+                              HatSpaceStrings.of(context).state,
+                              style: textTheme.displayLarge
+                                  ?.copyWith(fontSize: 16.0),
+                            ),)
+                            ),
+                            Expanded(
+                              child:
+                              Align(
+                                alignment:Alignment.centerRight ,
+                                    child:    SvgPicture.asset(
+                              Assets.images.closeIcon,
+                            )
+                              )
+                          
+                            )
+                         
+                          ],
+                        ),
+                        Expanded(
+                            child: ListView.separated(
+                          separatorBuilder: (BuildContext context, int index) =>
+                              const SizedBox(
+                            height: 16,
+                          ),
+                          itemCount: AustraliaStates.values.length,
+                          itemBuilder: (context, index) {
+                            return Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding:const EdgeInsets.symmetric(vertical: 16.0),
+                                  child:  Text(
+                                    AustraliaStates.values[index].stateName) ,
+                                ) 
+                              );
+                          },
+                        ))
+                      ],
+                    ))
+                );
+                
+              });
+        });
   }
 }
 
