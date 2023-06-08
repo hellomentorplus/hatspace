@@ -14,7 +14,8 @@ import 'package:mockito/mockito.dart';
 import '../../widget_tester_extension.dart';
 import 'home_view_test.mocks.dart';
 
-@GenerateMocks([AppConfigBloc, StorageService, AuthenticationService, AuthenticationBloc])
+@GenerateMocks(
+    [AppConfigBloc, StorageService, AuthenticationService, AuthenticationBloc])
 void main() {
   final MockAppConfigBloc appConfigBloc = MockAppConfigBloc();
   final MockStorageService storageService = MockStorageService();
@@ -34,61 +35,65 @@ void main() {
     when(appConfigBloc.state).thenReturn(const AppConfigInitialState());
   });
 
-  group('user not login', () {
-    setUp(() {
-      when(authenticationBloc.state).thenAnswer((realInvocation) => AnonymousState());
-      when(authenticationBloc.stream).thenAnswer((realInvocation) => Stream.value(AnonymousState()));
-    });
+  group(
+    'user not login',
+    () {
+      setUp(() {
+        when(authenticationBloc.state)
+            .thenAnswer((realInvocation) => AnonymousState());
+        when(authenticationBloc.stream)
+            .thenAnswer((realInvocation) => Stream.value(AnonymousState()));
+      });
 
-    tearDown(() {
-      reset(authenticationBloc);
-      reset(appConfigBloc);
-    });
+      tearDown(() {
+        reset(authenticationBloc);
+        reset(appConfigBloc);
+      });
 
-    testWidgets('verify home view listen to changes on BlocListener',
-            (widgetTester) async {
-          const Widget widget = HomePageView();
+      testWidgets('verify home view listen to changes on BlocListener',
+          (widgetTester) async {
+        const Widget widget = HomePageView();
 
-          await widgetTester.multiBlocWrapAndPump(
-              [
-                BlocProvider<AppConfigBloc>(
-                  create: (context) => appConfigBloc,
-                ),
-                BlocProvider<AuthenticationBloc>(
-                  create: (context) => authenticationBloc,
-                )
-              ],
-              widget);
+        await widgetTester.multiBlocWrapAndPump([
+          BlocProvider<AppConfigBloc>(
+            create: (context) => appConfigBloc,
+          ),
+          BlocProvider<AuthenticationBloc>(
+            create: (context) => authenticationBloc,
+          )
+        ], widget);
 
-          expect(find.byType(BlocListener<AppConfigBloc, AppConfigState>),
-              findsOneWidget);
-        });
+        expect(find.byType(BlocListener<AppConfigBloc, AppConfigState>),
+            findsOneWidget);
+      });
 
-    testWidgets('verify UI components', (widgetTester) async {
-      const Widget widget = HomePageView();
+      testWidgets('verify UI components', (widgetTester) async {
+        const Widget widget = HomePageView();
 
-      await widgetTester.multiBlocWrapAndPump(
-          [
-            BlocProvider<AppConfigBloc>(
-              create: (context) => appConfigBloc,
-            ),
-            BlocProvider<AuthenticationBloc>(
-              create: (context) => authenticationBloc,
-            )
-          ],
-          widget);
-      expect(find.byType(AppBar), findsOneWidget);
-      expect(find.text('Hi there 👋'), findsOneWidget);
-      expect(find.text('Search rental, location...'), findsOneWidget);
-      expect(find.byType(BottomAppBar), findsOneWidget);
-    });
-  },);
+        await widgetTester.multiBlocWrapAndPump([
+          BlocProvider<AppConfigBloc>(
+            create: (context) => appConfigBloc,
+          ),
+          BlocProvider<AuthenticationBloc>(
+            create: (context) => authenticationBloc,
+          )
+        ], widget);
+        expect(find.byType(AppBar), findsOneWidget);
+        expect(find.text('Hi there 👋'), findsOneWidget);
+        expect(find.text('Search rental, location...'), findsOneWidget);
+        expect(find.byType(BottomAppBar), findsOneWidget);
+      });
+    },
+  );
 
   group('user login', () {
     setUp(() {
-      final UserDetail userDetail = UserDetail(uid: 'uid', displayName: 'displayName');
-      when(authenticationBloc.state).thenAnswer((realInvocation) => AuthenticatedState(userDetail));
-      when(authenticationBloc.stream).thenAnswer((realInvocation) => Stream.value(AuthenticatedState(userDetail)));
+      final UserDetail userDetail =
+          UserDetail(uid: 'uid', displayName: 'displayName');
+      when(authenticationBloc.state)
+          .thenAnswer((realInvocation) => AuthenticatedState(userDetail));
+      when(authenticationBloc.stream).thenAnswer(
+          (realInvocation) => Stream.value(AuthenticatedState(userDetail)));
     });
 
     tearDown(() {
@@ -99,16 +104,14 @@ void main() {
     testWidgets('verify UI components', (widgetTester) async {
       const Widget widget = HomePageView();
 
-      await widgetTester.multiBlocWrapAndPump(
-          [
-            BlocProvider<AppConfigBloc>(
-              create: (context) => appConfigBloc,
-            ),
-            BlocProvider<AuthenticationBloc>(
-              create: (context) => authenticationBloc,
-            )
-          ],
-          widget);
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        )
+      ], widget);
       expect(find.byType(AppBar), findsOneWidget);
       expect(find.text('👋 Hi displayName'), findsOneWidget);
       expect(find.text('Search rental, location...'), findsOneWidget);

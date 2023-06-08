@@ -22,8 +22,13 @@ import 'bloc/app_confilg_bloc/app_config_bloc_test.mocks.dart';
 import 'widget_test.mocks.dart';
 import 'widget_tester_extension.dart';
 
-@GenerateMocks(
-    [AppConfigBloc, SignUpBloc, StorageService, AuthenticationService, AuthenticationBloc])
+@GenerateMocks([
+  AppConfigBloc,
+  SignUpBloc,
+  StorageService,
+  AuthenticationService,
+  AuthenticationBloc
+])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -72,55 +77,56 @@ void main() {
     // await FirebaseRemoteConfig.instance.ensureInitialized();
   });
 
-  testWidgets('Check home screen title when user not login', (WidgetTester tester) async {
-    when(authenticationBloc.state).thenAnswer((realInvocation) => AnonymousState());
-    when(authenticationBloc.stream).thenAnswer((realInvocation) => Stream.value(AnonymousState()));
+  testWidgets('Check home screen title when user not login',
+      (WidgetTester tester) async {
+    when(authenticationBloc.state)
+        .thenAnswer((realInvocation) => AnonymousState());
+    when(authenticationBloc.stream)
+        .thenAnswer((realInvocation) => Stream.value(AnonymousState()));
 
     const widget = HomePageView();
-    await tester.multiBlocWrapAndPump(
-        [
-          BlocProvider<AppConfigBloc>(
-            create: (context) => mockAppConfigBloc,
-          ),
-          BlocProvider<AuthenticationBloc>(
-            create: (context) => authenticationBloc,
-          )
-        ],
-        widget);
+    await tester.multiBlocWrapAndPump([
+      BlocProvider<AppConfigBloc>(
+        create: (context) => mockAppConfigBloc,
+      ),
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => authenticationBloc,
+      )
+    ], widget);
     expect(find.text('Hi there 👋'), findsOneWidget);
   });
 
-  testWidgets('Check home screen title when user login', (WidgetTester tester) async {
-    final UserDetail userDetail = UserDetail(uid: 'uid', displayName: 'displayName');
-    when(authenticationBloc.state).thenAnswer((realInvocation) => AuthenticatedState(userDetail));
-    when(authenticationBloc.stream).thenAnswer((realInvocation) => Stream.value(AuthenticatedState(userDetail)));
+  testWidgets('Check home screen title when user login',
+      (WidgetTester tester) async {
+    final UserDetail userDetail =
+        UserDetail(uid: 'uid', displayName: 'displayName');
+    when(authenticationBloc.state)
+        .thenAnswer((realInvocation) => AuthenticatedState(userDetail));
+    when(authenticationBloc.stream).thenAnswer(
+        (realInvocation) => Stream.value(AuthenticatedState(userDetail)));
 
     const widget = HomePageView();
-    await tester.multiBlocWrapAndPump(
-        [
-          BlocProvider<AppConfigBloc>(
-            create: (context) => mockAppConfigBloc,
-          ),
-          BlocProvider<AuthenticationBloc>(
-            create: (context) => authenticationBloc,
-          )
-        ],
-        widget);
+    await tester.multiBlocWrapAndPump([
+      BlocProvider<AppConfigBloc>(
+        create: (context) => mockAppConfigBloc,
+      ),
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => authenticationBloc,
+      )
+    ], widget);
     expect(find.text('👋 Hi displayName'), findsOneWidget);
   });
 
   testWidgets('Check bottom app bar', (WidgetTester tester) async {
     const widget = HomePageView();
-    await tester.multiBlocWrapAndPump(
-        [
-          BlocProvider<AppConfigBloc>(
-            create: (context) => mockAppConfigBloc,
-          ),
-          BlocProvider<AuthenticationBloc>(
-            create: (context) => authenticationBloc,
-          )
-        ],
-        widget);    // Verify content of bottom app bar
+    await tester.multiBlocWrapAndPump([
+      BlocProvider<AppConfigBloc>(
+        create: (context) => mockAppConfigBloc,
+      ),
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => authenticationBloc,
+      )
+    ], widget); // Verify content of bottom app bar
     expect(find.text('Explore'), findsOneWidget);
     expect(find.text('Booking'), findsOneWidget);
     expect(find.text('Message'), findsOneWidget);
