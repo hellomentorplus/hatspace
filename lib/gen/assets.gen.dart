@@ -56,6 +56,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/calendar.svg
   String get calendar => 'assets/images/calendar.svg';
 
+  /// File path: assets/images/check.svg
+  String get check => 'assets/images/check.svg';
+
   /// File path: assets/images/chervon-down.svg
   String get chervonDown => 'assets/images/chervon-down.svg';
 
@@ -110,6 +113,7 @@ class $AssetsImagesGen {
         arrowCalendarLeft,
         arrowCalendarRight,
         calendar,
+        check,
         chervonDown,
         chevronLeft,
         chevronRight,

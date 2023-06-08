@@ -167,68 +167,67 @@ class PropertyState extends StatelessWidget {
         isRequired: true,
         onPressed: () {
           showModalBottomSheet(
-              isScrollControlled: true,
-              context: context,
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(16))),
-              builder: (BuildContext context) {
-                return 
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.75,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
-                    child: Column(
-                      
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Expanded(child: Text("")),
-                            Expanded(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child:  Text(
-                              HatSpaceStrings.of(context).state,
-                              style: textTheme.displayLarge
-                                  ?.copyWith(fontSize: 16.0),
-                            ),)
-                            ),
-                            Expanded(
-                              child:
-                              Align(
-                                alignment:Alignment.centerRight ,
-                                    child:    SvgPicture.asset(
-                              Assets.images.closeIcon,
-                            )
-                              )
-                          
-                            )
-                         
-                          ],
-                        ),
-                        Expanded(
-                            child: ListView.separated(
-                          separatorBuilder: (BuildContext context, int index) =>
-                              const SizedBox(
-                            height: 16,
-                          ),
-                          itemCount: AustraliaStates.values.length,
-                          itemBuilder: (context, index) {
-                            return Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding:const EdgeInsets.symmetric(vertical: 16.0),
-                                  child:  Text(
-                                    AustraliaStates.values[index].stateName) ,
-                                ) 
-                              );
-                          },
-                        ))
-                      ],
-                    ))
-                );
+            isScrollControlled: true,
+              shape: RoundedRectangleBorder(
+     borderRadius: BorderRadius.circular(10.0),
+  )
+            ,context: context, builder: (BuildContext context){
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.85,
+              child: Column(
+              children: [
+                Container(padding: const EdgeInsets.symmetric(vertical: 8,),
+                decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: HSColor.neutral2))),
+                child: Row(
+                  children: [
+                    const Expanded(child: Text("")),
+                    const Expanded(child: 
+                    Center(
+                      child: Text("Space"),
+                    )),
+                    Expanded(
+                    child:  Align(
+                        alignment: Alignment.centerRight,
+                        child:  SvgPicture.asset(Assets.images.closeIcon)),
+                      )
+                  ],
                 
-              });
+                ),
+               
+                ), 
+                Flexible(child: 
+                Padding(padding:const EdgeInsets.symmetric(horizontal: 24.0,), child:   ListView.separated(
+                  separatorBuilder: (context, index) {
+                    return const Divider(thickness: 1.0,color: HSColor.neutral3,);
+                  },
+                  itemCount: AustraliaStates.values.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0 ),
+                      child:  
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+    Text(AustraliaStates.values[index].stateName),
+    SvgPicture.asset(Assets.images.check)
+                        ],
+                      ) 
+                  
+                      );
+                  
+                  
+                  },
+                ), )
+              
+                ) 
+               
+ 
+               
+              ],
+            )
+            );
+           
+          });
         });
   }
 }
