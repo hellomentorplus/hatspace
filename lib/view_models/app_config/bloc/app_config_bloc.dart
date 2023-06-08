@@ -21,7 +21,7 @@ class AppConfigBloc extends Bloc<AppConfigEvent, AppConfigState> {
       if (_firebaseRemoteConfig.lastFetchStatus ==
           RemoteConfigFetchStatus.success) {
         bool debugOptionEnable =
-            _firebaseRemoteConfig.getBool("debug_option_enabled");
+            _firebaseRemoteConfig.getBool('debug_option_enabled');
         emit(DebugOptionEnabledState(debugOptionEnabled: debugOptionEnable));
       }
     });

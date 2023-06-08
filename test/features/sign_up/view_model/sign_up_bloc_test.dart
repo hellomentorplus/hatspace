@@ -35,7 +35,7 @@ void main() async {
   });
   TestWidgetsFlutterBinding.ensureInitialized();
   //setupFirebaseAuthMocks(); // Not relate to HS 51 - Need to add to perform test coverage
-  group("Sign_up_bloc test state", () {
+  group('Sign_up_bloc test state', () {
     late SignUpBloc signUpBloc;
     setUpAll(() async {
       // Unexpected bugs - happended when running test coverage
@@ -50,12 +50,12 @@ void main() async {
         return null;
       });
     });
-    test("initial test", () {
+    test('initial test', () {
       expect(SignUpBloc().state, const SignUpInitial());
     });
 
     blocTest<SignUpBloc, SignUpState>(
-        "Return FirstLaunchScreen state with isFirstLaunch is true when first open app with CheckFirstLaunchSignUp event",
+        'Return FirstLaunchScreen state with isFirstLaunch is true when first open app with CheckFirstLaunchSignUp event',
         build: () => SignUpBloc(),
         act: ((bloc) {
           SharedPreferences.setMockInitialValues({});
@@ -81,20 +81,20 @@ void main() async {
     });
   });
 
-  group("Check User Roles availability", () {
+  group('Check User Roles availability', () {
     setUp(() {
       when(storageServiceMock.member).thenAnswer((realInvocation) {
         return memberService;
       });
     });
     blocTest(
-        "when user sign up success with google and user already had roles then system will check userrole and return list of role ",
+        'when user sign up success with google and user already had roles then system will check userrole and return list of role ',
         build: () => SignUpBloc(),
         setUp: () {
           when(authenticationService.signUp(
                   signUpType: SignUpType.googleService))
               .thenAnswer((realInvocation) => Future.value(UserDetail(
-                  uid: "mock uid", phone: "mock phone", email: "mock email")));
+                  uid: 'mock uid', phone: 'mock phone', email: 'mock email')));
 
           when(memberService.getUserRoles(any)).thenAnswer((realInvocation) {
             return Future.value([Roles.tenant]);
@@ -104,13 +104,13 @@ void main() async {
         expect: () => [isA<SignUpStart>(), isA<SignUpSuccess>()]);
 
     blocTest(
-        "when user sign up success with google and user has not had roles yet, then system will check userrole and return empty list",
+        'when user sign up success with google and user has not had roles yet, then system will check userrole and return empty list',
         build: () => SignUpBloc(),
         setUp: () {
           when(authenticationService.signUp(
                   signUpType: SignUpType.googleService))
               .thenAnswer((realInvocation) => Future.value(UserDetail(
-                  uid: "test uid", phone: "test phone", email: "test email")));
+                  uid: 'test uid', phone: 'test phone', email: 'test email')));
           when(memberService.getUserRoles(any)).thenAnswer((realInvocation) {
             return Future.value([]);
           });
@@ -119,7 +119,7 @@ void main() async {
         expect: () => [isA<SignUpStart>(), isA<UserRolesUnavailable>()]);
   });
 
-  group("Test sign up failed", () {
+  group('Test sign up failed', () {
     // WITH GOOGLE SIGN UP TYPE
     blocTest(
       'when sign up with google failed with UserCancelException, then return UserCancelled',

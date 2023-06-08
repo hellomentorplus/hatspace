@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 
-const isFirstLaunchConst = "isFirstLaunch";
+const isFirstLaunchConst = 'isFirstLaunch';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;

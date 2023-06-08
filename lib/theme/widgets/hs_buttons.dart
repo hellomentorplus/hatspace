@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
-import 'hs_buttons_settings.dart';
+import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
 class ButtonWithIconContent extends StatelessWidget {
   final IconPosition? iconPosition;
@@ -11,11 +11,8 @@ class ButtonWithIconContent extends StatelessWidget {
   final String iconUrl;
   final MainAxisAlignment contentAlignment;
   const ButtonWithIconContent({
-    super.key,
+    required this.label, required this.iconUrl, required this.contentAlignment, super.key,
     this.iconPosition,
-    required this.label,
-    required this.iconUrl,
-    required this.contentAlignment,
   });
 
   @override
@@ -58,8 +55,7 @@ class PrimaryButton extends StatelessWidget {
   final ButtonStyle? style;
   final MainAxisAlignment contentAlignment;
   const PrimaryButton({
-    Key? key,
-    required this.label,
+    required this.label, Key? key,
     this.iconUrl,
     this.onPressed,
     this.iconPosition = IconPosition.left,
@@ -108,8 +104,7 @@ class SecondaryButton extends StatelessWidget {
   final MainAxisAlignment contentAlignment;
 
   const SecondaryButton({
-    Key? key,
-    required this.label,
+    required this.label, Key? key,
     this.iconUrl,
     this.onPressed,
     this.iconPosition = IconPosition.left,
@@ -156,8 +151,7 @@ class TextOnlyButton extends StatelessWidget {
   final MainAxisAlignment contentAlignment;
 
   const TextOnlyButton({
-    Key? key,
-    required this.label,
+    required this.label, Key? key,
     this.onPressed,
     this.iconUrl,
     this.iconPosition = IconPosition.left,
@@ -204,8 +198,7 @@ class TertiaryButton extends StatelessWidget {
   final MainAxisAlignment contentAlignment;
 
   const TertiaryButton({
-    Key? key,
-    required this.label,
+    required this.label, Key? key,
     this.onPressed,
     this.iconUrl,
     this.iconPosition = IconPosition.left,

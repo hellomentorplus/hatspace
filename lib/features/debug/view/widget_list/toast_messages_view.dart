@@ -8,7 +8,7 @@ class ToastMessageViews extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Toast Messages Demo"),
+        title: const Text('Toast Messages Demo'),
       ),
       body: Center(
         //Update view for widget catalog
@@ -16,12 +16,12 @@ class ToastMessageViews extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              child: const Text("Error Toast Mesasge Demo"),
+              child: const Text('Error Toast Mesasge Demo'),
               onPressed: () {
                 context.showToast(
                     type: ToastType.errorToast,
-                    title: "Login Fail",
-                    message: "Login fail message");
+                    title: 'Login Fail',
+                    message: 'Login fail message');
               },
             ),
           ],
