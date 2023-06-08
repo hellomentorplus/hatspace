@@ -60,8 +60,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   }
 
   Future<UserDetail> signUp(Emitter emitter, SignUpType type) async {
-    UserDetail userDetail = await _authenticationService.signUp(signUpType: type);
-    List<Roles> listRoles = await _storageService.member.getUserRoles(userDetail.uid);
+    UserDetail userDetail =
+        await _authenticationService.signUp(signUpType: type);
+    List<Roles> listRoles =
+        await _storageService.member.getUserRoles(userDetail.uid);
     if (listRoles.isEmpty) {
       emitter(const UserRolesUnavailable());
     } else {
