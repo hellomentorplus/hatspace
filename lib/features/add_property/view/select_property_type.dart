@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/add_property/view/date_picker_view.dart';
-import 'package:hatspace/features/add_property/view/property_type_cart_view.dart';
+import 'package:hatspace/features/add_property/view/property_type_card_view.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
 
@@ -20,30 +20,38 @@ class SelectPropertyType extends StatelessWidget {
     }, builder: (context, state) {
       return Padding(
         padding: const EdgeInsets.only(left: 16, top: 33, right: 16),
-        child: Wrap(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Text(HatSpaceStrings.of(context).whatKindOfPlace,
-                style: Theme.of(context).textTheme.displayLarge),
-            Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Text(
-                    HatSpaceStrings.of(context).chooseKindOfYourProperty,
-                    style: Theme.of(context).textTheme.bodyMedium)),
+            Flexible(
+              child: Text(HatSpaceStrings.of(context).whatKindOfPlace,
+                  style: Theme.of(context).textTheme.displayLarge),
+            ),
+            Flexible(
+                child: Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Text(
+                        HatSpaceStrings.of(context).chooseKindOfYourProperty,
+                        style: Theme.of(context).textTheme.bodyMedium))),
 
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
-                  child: PropertyTypeCartView(position: 0),
+                  child: PropertyTypeCardView(position: 0),
                 ),
                 SizedBox(width: 15),
-                Expanded(child: PropertyTypeCartView(position: 1))
+                Expanded(child: PropertyTypeCardView(position: 1))
               ],
             ),
-            Padding(
-                padding: const EdgeInsets.only(top: 20, bottom: 4),
-                child: Text(HatSpaceStrings.of(context).availableDate,
-                    style: Theme.of(context).textTheme.bodyMedium)),
+            Flexible(
+              child: Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 4),
+                  child: Text(HatSpaceStrings.of(context).availableDate,
+                      style: Theme.of(context).textTheme.bodyMedium)),
+            ),
             // Show DatePicker Widget;
             const DatePickerView(),
           ],

@@ -14,7 +14,6 @@ import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
 class AddPropertyView extends StatelessWidget {
   const AddPropertyView({super.key});
-
   @override
   Widget build(Object context) {
     return MultiBlocProvider(
@@ -103,9 +102,13 @@ class BottomController extends StatelessWidget {
             TextOnlyButton(
               label: HatSpaceStrings.of(context).back,
               onPressed: () {
-                context
-                    .read<AddPropertyCubit>()
-                    .navigatePage(NavigatePage.reverse, totalPages);
+                if (state.pageViewNumber == 0) {
+                  context.popToRootHome();
+                } else {
+                  context
+                      .read<AddPropertyCubit>()
+                      .navigatePage(NavigatePage.reverse, totalPages);
+                }
               },
               style: const ButtonStyle(
                   foregroundColor:
