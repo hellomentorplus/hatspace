@@ -14,6 +14,7 @@ analyzer:
   - lib/**.g.dart
   - test/**.mocks.dart
   - lib/firebase_options.dart
+  - lib/strings
 
 linter:
   # The lint rules applied to this project can be customized in the

@@ -11,7 +11,10 @@ class ButtonWithIconContent extends StatelessWidget {
   final String iconUrl;
   final MainAxisAlignment contentAlignment;
   const ButtonWithIconContent({
-    required this.label, required this.iconUrl, required this.contentAlignment, super.key,
+    required this.label,
+    required this.iconUrl,
+    required this.contentAlignment,
+    super.key,
     this.iconPosition,
   });
 
@@ -55,7 +58,8 @@ class PrimaryButton extends StatelessWidget {
   final ButtonStyle? style;
   final MainAxisAlignment contentAlignment;
   const PrimaryButton({
-    required this.label, Key? key,
+    required this.label,
+    Key? key,
     this.iconUrl,
     this.onPressed,
     this.iconPosition = IconPosition.left,
@@ -104,7 +108,8 @@ class SecondaryButton extends StatelessWidget {
   final MainAxisAlignment contentAlignment;
 
   const SecondaryButton({
-    required this.label, Key? key,
+    required this.label,
+    Key? key,
     this.iconUrl,
     this.onPressed,
     this.iconPosition = IconPosition.left,
@@ -151,7 +156,8 @@ class TextOnlyButton extends StatelessWidget {
   final MainAxisAlignment contentAlignment;
 
   const TextOnlyButton({
-    required this.label, Key? key,
+    required this.label,
+    Key? key,
     this.onPressed,
     this.iconUrl,
     this.iconPosition = IconPosition.left,
@@ -198,7 +204,8 @@ class TertiaryButton extends StatelessWidget {
   final MainAxisAlignment contentAlignment;
 
   const TertiaryButton({
-    required this.label, Key? key,
+    required this.label,
+    Key? key,
     this.onPressed,
     this.iconUrl,
     this.iconPosition = IconPosition.left,

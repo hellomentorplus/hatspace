@@ -38,7 +38,10 @@ class ToastMessageContainer extends StatelessWidget {
   final String toastContent;
   final VoidCallback? onCloseTap;
   const ToastMessageContainer(
-      {required this.toastType, required this.toastTitle, required this.toastContent, super.key,
+      {required this.toastType,
+      required this.toastTitle,
+      required this.toastContent,
+      super.key,
       this.onCloseTap})
       : assert(toastContent.length <= maxLength,
             'Toast content from `$toastContent` must not over 160 characters'),
