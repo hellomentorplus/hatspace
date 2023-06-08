@@ -34,7 +34,7 @@ class HomePageViewState extends State<HomePageView> {
     // Only listen ShakeDetector when debugOptionTrue
     detector = ShakeDetector.waitForStart(
         onPhoneShake: () async {
-          // To limit that shaking will happend more than one so there will be muliple push happened
+          // To limit that shaking will happen more than one so there will be multiple push happened
           if (detector.mShakeCount == 1) {
             context.goToWidgetCatalog();
           }
@@ -107,77 +107,80 @@ class HomePageViewState extends State<HomePageView> {
               )),
               bottomNavigationBar: BottomAppBar(
                   color: HSColor.neutral1.withOpacity(0.9),
-                  height: 66 + MediaQuery.of(context).padding.bottom,
                   child: SafeArea(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ValueListenableBuilder<int>(
-                          valueListenable: _selectedIndex,
-                          builder: (context, value, child) => _BottomBarItem(
-                            icon: Assets.icons.explore,
-                            label: HatSpaceStrings.current.explore,
-                            isSelected: value == 0,
-                            onTap: () => _selectedIndex.value = 0,
+                    child: SizedBox(
+                      height: 66,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ValueListenableBuilder<int>(
+                            valueListenable: _selectedIndex,
+                            builder: (context, value, child) => _BottomBarItem(
+                              icon: Assets.icons.explore,
+                              label: HatSpaceStrings.current.explore,
+                              isSelected: value == 0,
+                              onTap: () => _selectedIndex.value = 0,
+                            ),
                           ),
-                        ),
-                        ValueListenableBuilder<int>(
-                          valueListenable: _selectedIndex,
-                          builder: (context, value, child) => _BottomBarItem(
-                            icon: Assets.icons.booking,
-                            label: HatSpaceStrings.current.booking,
-                            isSelected: value == 1,
-                            onTap: () => _selectedIndex.value = 1,
+                          ValueListenableBuilder<int>(
+                            valueListenable: _selectedIndex,
+                            builder: (context, value, child) => _BottomBarItem(
+                              icon: Assets.icons.booking,
+                              label: HatSpaceStrings.current.booking,
+                              isSelected: value == 1,
+                              onTap: () => _selectedIndex.value = 1,
+                            ),
                           ),
-                        ),
-                        Container(
-                          decoration: ShapeDecoration(
-                            shape: const CircleBorder(),
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          width: 48,
-                          height: 48,
-                          child: Material(
-                            color: Colors.transparent,
-                            child: Builder(builder: (context) {
-                              return InkWell(
-                                borderRadius: BorderRadius.circular(48.0),
-                                onTap: () {
-                                  context
-                                      .read<HomeInteractionCubit>()
-                                      .onAddPropertyPressed();
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: SvgPicture.asset(
-                                    Assets.icons.add,
-                                    width: 24,
-                                    height: 24,
+                          Container(
+                            decoration: ShapeDecoration(
+                              shape: const CircleBorder(),
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            width: 48,
+                            height: 48,
+                            margin: const EdgeInsets.all(8.0),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: Builder(builder: (context) {
+                                return InkWell(
+                                  borderRadius: BorderRadius.circular(48.0),
+                                  onTap: () {
+                                    context
+                                        .read<HomeInteractionCubit>()
+                                        .onAddPropertyPressed();
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: SvgPicture.asset(
+                                      Assets.icons.add,
+                                      width: 24,
+                                      height: 24,
+                                    ),
                                   ),
-                                ),
-                              );
-                            }),
+                                );
+                              }),
+                            ),
                           ),
-                        ),
-                        ValueListenableBuilder<int>(
-                          valueListenable: _selectedIndex,
-                          builder: (context, value, child) => _BottomBarItem(
-                            icon: Assets.icons.message,
-                            label: HatSpaceStrings.current.message,
-                            isSelected: value == 2,
-                            onTap: () => _selectedIndex.value = 2,
+                          ValueListenableBuilder<int>(
+                            valueListenable: _selectedIndex,
+                            builder: (context, value, child) => _BottomBarItem(
+                              icon: Assets.icons.message,
+                              label: HatSpaceStrings.current.message,
+                              isSelected: value == 2,
+                              onTap: () => _selectedIndex.value = 2,
+                            ),
                           ),
-                        ),
-                        ValueListenableBuilder<int>(
-                          valueListenable: _selectedIndex,
-                          builder: (context, value, child) => _BottomBarItem(
-                            icon: Assets.icons.profile,
-                            label: HatSpaceStrings.current.profile,
-                            isSelected: value == 3,
-                            onTap: () => _selectedIndex.value = 3,
-                          ),
-                        )
-                      ],
+                          ValueListenableBuilder<int>(
+                            valueListenable: _selectedIndex,
+                            builder: (context, value, child) => _BottomBarItem(
+                              icon: Assets.icons.profile,
+                              label: HatSpaceStrings.current.profile,
+                              isSelected: value == 3,
+                              onTap: () => _selectedIndex.value = 3,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   )))),
     );
@@ -208,10 +211,11 @@ class _BottomBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(36.0),
+        borderRadius: BorderRadius.circular(66.0),
         child: AspectRatio(
           aspectRatio: 1,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
