@@ -95,7 +95,7 @@ class HomePageViewState extends State<HomePageView> {
                 titleSpacing: 16.0,
                 centerTitle: false,
                 backgroundColor: Theme.of(context).colorScheme.primary,
-                bottom: const SearchBar(),
+                bottom: SearchBar(),
                 toolbarHeight: 40,
                 elevation: 0.0,
                 actions: [
