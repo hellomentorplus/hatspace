@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view/property_infor/state_selection_view.dart';
+import 'package:hatspace/features/add_property/view_model/cubit/property_infor_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/select_state_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/select_state_state.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
@@ -30,7 +30,7 @@ class HatSpaceDropDownButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SecondaryButton(
         // TODO: implement placeholder with enum of preriod
-        label: placeholder ?? "Please select value",
+        label: label ?? "Please select value",
         iconUrl: Assets.images.chervonDown,
         iconPosition: IconPosition.right,
         contentAlignment: MainAxisAlignment.spaceBetween,
@@ -254,7 +254,7 @@ class PropertyInforForm extends StatelessWidget {
         style: textTheme.displayLarge?.copyWith(fontSize: 18.0),
       );
     }),
-    StateSelectionView(),
+    const StateSelectionView(),
     const PropertyUnitNumber(),
     const PropertyStreetAddress(),
     const PropertySuburb()
@@ -263,7 +263,7 @@ class PropertyInforForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
-      BlocProvider<SelectStateCubit>(create: (context) => SelectStateCubit(),)
+      BlocProvider<PropertyInforCubit>(create: (context) => PropertyInforCubit(),)
     ], child: Align(
         alignment: Alignment.centerLeft,
         child: Padding(
