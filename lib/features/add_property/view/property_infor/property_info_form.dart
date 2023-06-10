@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/property_data.dart';
+import 'package:hatspace/features/add_property/view/property_infor/state_selection_view.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/select_state_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/select_state_state.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -158,121 +159,6 @@ class PropertyDescription extends StatelessWidget {
   }
 }
 
-class PropertyState extends StatelessWidget {
-  const PropertyState({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return BlocBuilder<SelectStateCubit,SelectStateState>(
-    builder: (context, state) {
-      print(state);
-      return  HatSpaceDropDownButton(
-        label: state.australiaState.stateName,
-        //TODO: implement state
-        isRequired: true,
-        onPressed: () {
-          showModalBottomSheet(
-              isScrollControlled: true,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              context: context,
-              builder: (BuildContext context) {
-                return BlocProvider(
-                  create: (context) => SelectStateCubit(),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.85,
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.only(
-                            bottom: 8,
-                            top: 24.0
-                          ),
-                          decoration: const BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(color: HSColor.neutral2))),
-                          child: Row(
-                            children: [
-                              const Expanded(child: Text("")),
-                              const Expanded(
-                                  child: Center(
-                                child: Text("Space"),
-                              )),
-                              Expanded(
-                                child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: 
-                                      Padding(padding: const EdgeInsets.only(right: 24.0),
-                                      child:  SvgPicture.asset(
-                                        Assets.images.closeIcon)),
-                                      
-                                      )
-                              )
-                            ],
-                          ),
-                        ),
-                        Flexible(
-                            child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 24.0,
-                          ),
-                          child: ListView.separated(
-                            separatorBuilder: (context, index) {
-                              return const Divider(
-                                thickness: 1.0,
-                                color: HSColor.neutral3,
-                              );
-                            },
-                            itemCount: AustraliaStates.values.length,
-                            itemBuilder: (context, index) {
-                              return BlocSelector<SelectStateCubit,SelectStateState,AustraliaStates>(selector: 
-                                (state)=> state.australiaState
-                              , 
-                              builder: (context, state) {
-                                return GestureDetector(
-                                  
-                                  onTap: (){
-                                    
-                                    context.read<SelectStateCubit>().SelectAustraliaState(AustraliaStates.values[index]);
-                                  },
-                                  child:  Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 16.0),
-                                  child: Row(
-                                    
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(AustraliaStates
-                                          .values[index].stateName,
-                                          ),
-                                      state.stateName == AustraliaStates.values[index].stateName ?
-                                      SvgPicture.asset(Assets.images.check) : Text("")
-                                    ],
-                                  ))
-                                );
-                              }) ;
-                      
-                            },
-                          ),
-                        )),
-                        TertiaryButton(
-                          label: "Save",
-                          onPressed: (){
-                            print('abc');
-                          },
-                          )
-                      ],
-                    ))
-                  ) ;
-              });
-        });
-    } 
-    );
-  }
-}
 
 class PropertyUnitNumber extends StatelessWidget {
   const PropertyUnitNumber({super.key});
@@ -368,7 +254,7 @@ class PropertyInforForm extends StatelessWidget {
         style: textTheme.displayLarge?.copyWith(fontSize: 18.0),
       );
     }),
-    const PropertyState(),
+    StateSelectionView(),
     const PropertyUnitNumber(),
     const PropertyStreetAddress(),
     const PropertySuburb()

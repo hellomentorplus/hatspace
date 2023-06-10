@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/add_property/view/property_info_form.dart';
+import 'package:hatspace/features/add_property/view/property_infor/property_info_form.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 import '../../../widget_tester_extension.dart';
