@@ -63,9 +63,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "message": MessageLookupByLibrary.simpleMessage("Message"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
-        "message": MessageLookupByLibrary.simpleMessage("Message"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "searchHint":
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),

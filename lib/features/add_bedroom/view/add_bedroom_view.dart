@@ -3,9 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hatspace/features/add_bedroom/view/add_bedroom_counter.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
+import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
-import '../../../../gen/assets.gen.dart';
-import '../../../../theme/hs_theme.dart';
+import '../../../gen/assets.gen.dart';
+import '../../../theme/hs_theme.dart';
 
 class AddBedroomView extends StatefulWidget {
   const AddBedroomView({super.key});
@@ -40,18 +41,35 @@ class AddBedroomViewState extends State<AddBedroomView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            PrevButton(
+            TextOnlyButton(
               label: HatSpaceStrings.of(context).back,
               iconUrl: Assets.images.chevronLeft,
+              contentAlignment: MainAxisAlignment.start,
               onPressed: () {},
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.resolveWith(
+                  (states) {
+                    //=====DISABLED EVENT
+                    if (states.contains(MaterialState.disabled)) {
+                      return HSColor.neutral5;
+                    } else {
+                      return HSColor.neutral9;
+                    }
+                  },
+                ),
+                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    const EdgeInsets.fromLTRB(10, 17, 32, 17)),
+              ),
             ),
             AnimatedBuilder(
                 animation: Listenable.merge(
                     [bedroomCounter, bathRoomCounter, parkingCounter]),
                 builder: (context, child) {
-                  return NextButton(
+                  return PrimaryButton(
                     iconUrl: Assets.images.chevronRight,
                     label: HatSpaceStrings.of(context).next,
+                    iconPosition: IconPosition.right,
+                    contentAlignment: MainAxisAlignment.end,
                     onPressed: [
                       bedroomCounter.value,
                       parkingCounter.value,
