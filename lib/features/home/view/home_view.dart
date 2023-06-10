@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide SearchBar;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/features/home/view/widgets/app_bar_bottom.dart';
@@ -34,7 +34,7 @@ class HomePageViewState extends State<HomePageView> {
     // Only listen ShakeDetector when debugOptionTrue
     detector = ShakeDetector.waitForStart(
         onPhoneShake: () async {
-          // To limit that shaking will happend more than one so there will be muliple push happened
+          // To limit that shaking will happen more than one so there will be multiple push happened
           if (detector.mShakeCount == 1) {
             context.goToWidgetCatalog();
           }
@@ -47,39 +47,6 @@ class HomePageViewState extends State<HomePageView> {
 
   @override
   Widget build(BuildContext context) {
-// <<<<<<< HEAD
-//     return MultiBlocProvider(
-//       providers: [
-//         BlocProvider<HomeInteractionCubit>(
-//           create: (context) => HomeInteractionCubit(),
-//         )
-//       ],
-//       child: MultiBlocListener(
-//           listeners: [
-//             BlocListener<AppConfigBloc, AppConfigState>(
-//                 listener: (context, state) {
-//               if (state is DebugOptionEnabledState &&
-//                   state.debugOptionEnabled == true) {
-//                 onShakeToAction(context, state);
-//               }
-//             }),
-//             BlocListener<HomeInteractionCubit, HomeInteractionState>(
-//               listener: (context, state) {
-//                 if (state is StartAddPropertyFlow) {
-//                   context.goToAddProperty();
-//                 }
-//               },
-//             )
-//           ],
-//           child: Scaffold(
-//               appBar: AppBar(
-//                 title: Text(
-//                   'Hi Hoang Nguyen', // TODO load user display name to be used here
-//                   style: Theme.of(context)
-//                       .textTheme
-//                       .displayLarge
-//                       ?.copyWith(color: colorScheme.onPrimary),
-// =======
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeInteractionCubit>(
@@ -115,7 +82,7 @@ class HomePageViewState extends State<HomePageView> {
                 titleSpacing: 16.0,
                 centerTitle: false,
                 backgroundColor: Theme.of(context).colorScheme.primary,
-                bottom: const SearchBar(),
+                bottom: SearchBar(),
                 toolbarHeight: 40,
                 elevation: 0.0,
                 actions: [
@@ -125,7 +92,9 @@ class HomePageViewState extends State<HomePageView> {
                     },
                     icon: SvgPicture.asset(
                       Assets.icons.notification,
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      colorFilter: ColorFilter.mode(
+                          Theme.of(context).colorScheme.onPrimary,
+                          BlendMode.srcIn),
                       width: 24,
                       height: 24,
                     ),
@@ -138,77 +107,80 @@ class HomePageViewState extends State<HomePageView> {
               )),
               bottomNavigationBar: BottomAppBar(
                   color: HSColor.neutral1.withOpacity(0.9),
-                  height: 66 + MediaQuery.of(context).padding.bottom,
                   child: SafeArea(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ValueListenableBuilder<int>(
-                          valueListenable: _selectedIndex,
-                          builder: (context, value, child) => _BottomBarItem(
-                            icon: Assets.icons.explore,
-                            label: HatSpaceStrings.current.explore,
-                            isSelected: value == 0,
-                            onTap: () => _selectedIndex.value = 0,
+                    child: SizedBox(
+                      height: 66,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ValueListenableBuilder<int>(
+                            valueListenable: _selectedIndex,
+                            builder: (context, value, child) => _BottomBarItem(
+                              icon: Assets.icons.explore,
+                              label: HatSpaceStrings.current.explore,
+                              isSelected: value == 0,
+                              onTap: () => _selectedIndex.value = 0,
+                            ),
                           ),
-                        ),
-                        ValueListenableBuilder<int>(
-                          valueListenable: _selectedIndex,
-                          builder: (context, value, child) => _BottomBarItem(
-                            icon: Assets.icons.booking,
-                            label: HatSpaceStrings.current.booking,
-                            isSelected: value == 1,
-                            onTap: () => _selectedIndex.value = 1,
+                          ValueListenableBuilder<int>(
+                            valueListenable: _selectedIndex,
+                            builder: (context, value, child) => _BottomBarItem(
+                              icon: Assets.icons.booking,
+                              label: HatSpaceStrings.current.booking,
+                              isSelected: value == 1,
+                              onTap: () => _selectedIndex.value = 1,
+                            ),
                           ),
-                        ),
-                        Container(
-                          decoration: ShapeDecoration(
-                            shape: const CircleBorder(),
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          width: 48,
-                          height: 48,
-                          child: Material(
-                            color: Colors.transparent,
-                            child: Builder(builder: (context) {
-                              return InkWell(
-                                borderRadius: BorderRadius.circular(48.0),
-                                onTap: () {
-                                  context
-                                      .read<HomeInteractionCubit>()
-                                      .onAddPropertyPressed();
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: SvgPicture.asset(
-                                    Assets.icons.add,
-                                    width: 24,
-                                    height: 24,
+                          Container(
+                            decoration: ShapeDecoration(
+                              shape: const CircleBorder(),
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            width: 48,
+                            height: 48,
+                            margin: const EdgeInsets.all(8.0),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: Builder(builder: (context) {
+                                return InkWell(
+                                  borderRadius: BorderRadius.circular(48.0),
+                                  onTap: () {
+                                    context
+                                        .read<HomeInteractionCubit>()
+                                        .onAddPropertyPressed();
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: SvgPicture.asset(
+                                      Assets.icons.add,
+                                      width: 24,
+                                      height: 24,
+                                    ),
                                   ),
-                                ),
-                              );
-                            }),
+                                );
+                              }),
+                            ),
                           ),
-                        ),
-                        ValueListenableBuilder<int>(
-                          valueListenable: _selectedIndex,
-                          builder: (context, value, child) => _BottomBarItem(
-                            icon: Assets.icons.message,
-                            label: HatSpaceStrings.current.message,
-                            isSelected: value == 2,
-                            onTap: () => _selectedIndex.value = 2,
+                          ValueListenableBuilder<int>(
+                            valueListenable: _selectedIndex,
+                            builder: (context, value, child) => _BottomBarItem(
+                              icon: Assets.icons.message,
+                              label: HatSpaceStrings.current.message,
+                              isSelected: value == 2,
+                              onTap: () => _selectedIndex.value = 2,
+                            ),
                           ),
-                        ),
-                        ValueListenableBuilder<int>(
-                          valueListenable: _selectedIndex,
-                          builder: (context, value, child) => _BottomBarItem(
-                            icon: Assets.icons.profile,
-                            label: HatSpaceStrings.current.profile,
-                            isSelected: value == 3,
-                            onTap: () => _selectedIndex.value = 3,
-                          ),
-                        )
-                      ],
+                          ValueListenableBuilder<int>(
+                            valueListenable: _selectedIndex,
+                            builder: (context, value, child) => _BottomBarItem(
+                              icon: Assets.icons.profile,
+                              label: HatSpaceStrings.current.profile,
+                              isSelected: value == 3,
+                              onTap: () => _selectedIndex.value = 3,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   )))),
     );
@@ -239,10 +211,11 @@ class _BottomBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(36.0),
+        borderRadius: BorderRadius.circular(66.0),
         child: AspectRatio(
           aspectRatio: 1,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -250,9 +223,11 @@ class _BottomBarItem extends StatelessWidget {
                 icon,
                 width: 24,
                 height: 24,
-                color: isSelected
-                    ? Theme.of(context).colorScheme.primary
-                    : HSColor.neutral6,
+                colorFilter: ColorFilter.mode(
+                    isSelected
+                        ? Theme.of(context).colorScheme.primary
+                        : HSColor.neutral6,
+                    BlendMode.srcIn),
               ),
               Text(label,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(

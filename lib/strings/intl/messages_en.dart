@@ -38,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
             "How many bedrooms, bathrooms, parking?"),
+        "act": MessageLookupByLibrary.simpleMessage(
+            "Australian Capital Territory"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
@@ -66,7 +68,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
+        "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
+        "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "qld": MessageLookupByLibrary.simpleMessage("Queenland"),
+        "sa": MessageLookupByLibrary.simpleMessage("South Australia"),
         "searchHint":
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
@@ -74,9 +80,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Unable to sign you in at the moment. Please try again later."),
         "signinErrorToastTitle":
             MessageLookupByLibrary.simpleMessage("Login Failed"),
+        "sixMonths": MessageLookupByLibrary.simpleMessage("6 Months"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "tas": MessageLookupByLibrary.simpleMessage("Tasmania"),
+        "threeMonths": MessageLookupByLibrary.simpleMessage("3 Months"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
         "userRoleDescription": m0,
-        "userTitleRoles": m1
+        "userTitleRoles": m1,
+        "vic": MessageLookupByLibrary.simpleMessage("Victoria"),
+        "wa": MessageLookupByLibrary.simpleMessage("Western Australia")
       };
 }

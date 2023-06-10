@@ -16,8 +16,10 @@ void main() {
   const widget = SignUpScreen();
   MockSignUpBloc mockSignUpBloc = MockSignUpBloc();
   setUpAll(() async {
-    const MethodChannel('plugins.flutter.io/shared_preferences')
-        .setMockMethodCallHandler((MethodCall methodCall) async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+            const MethodChannel('plugins.flutter.io/shared_preferences'),
+            (MethodCall methodCall) async {
       if (methodCall.method == 'getAll') {
         return <String, dynamic>{}; // set initial values here if desired
       }
