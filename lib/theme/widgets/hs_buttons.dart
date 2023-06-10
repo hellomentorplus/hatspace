@@ -263,7 +263,9 @@ class RoundButton extends StatelessWidget {
         iconUrl!,
         width: 24,
         height: 24,
-        color: DefaultTextStyle.of(context).style.color,
+        colorFilter: ColorFilter.mode(
+            DefaultTextStyle.of(context).style.color ?? HSColor.neutral9,
+            BlendMode.srcIn),
       ),
     );
   }

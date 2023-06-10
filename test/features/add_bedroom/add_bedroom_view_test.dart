@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_bedroom/view/add_bedroom_counter.dart';
 import 'package:hatspace/features/add_bedroom/view/add_bedroom_view.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 import '../../widget_tester_extension.dart';
 
