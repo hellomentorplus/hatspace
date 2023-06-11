@@ -101,29 +101,6 @@ class PropertyPrice extends StatelessWidget {
   }
 }
 
-class PropertyRentPeriod extends StatelessWidget {
-  const PropertyRentPeriod({super.key});
-
-  @override
-  Widget build(context) {
-    return Wrap(
-      children: [
-        HatSpaceLabel(
-            label: HatSpaceStrings.of(context).minimumRentPeriod,
-            isRequired: true),
-        const SizedBox(
-          height: 4,
-        ),
-        HatSpaceDropDownButton(
-            label: HatSpaceStrings.of(context).minimumRentPeriod,
-            // TODO: implement property data
-            isRequired: true,
-            onPressed: () {})
-      ],
-    );
-  }
-}
-
 class PropertyDescription extends StatelessWidget {
   const PropertyDescription({super.key});
   @override
