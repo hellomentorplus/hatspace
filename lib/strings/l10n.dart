@@ -322,26 +322,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Back`
-  String get back {
-    return Intl.message(
-      'Back',
-      name: 'back',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Next`
-  String get next {
-    return Intl.message(
-      'Next',
-      name: 'next',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Booking`
   String get booking {
     return Intl.message(

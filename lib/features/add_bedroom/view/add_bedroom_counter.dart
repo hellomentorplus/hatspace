@@ -43,7 +43,7 @@ class AddBedroomCounter extends StatelessWidget {
                     alignment: Alignment.center,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      "$value",
+                      '$value',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),

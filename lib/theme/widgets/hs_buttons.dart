@@ -244,8 +244,7 @@ class TertiaryButton extends StatelessWidget {
 }
 
 class RoundButton extends StatelessWidget {
-  // final String label;
-  final String? iconUrl;
+  final String iconUrl;
   final VoidCallback? onPressed;
   final Color? textColor;
   const RoundButton(
@@ -260,7 +259,7 @@ class RoundButton extends StatelessWidget {
       onPressed: onPressed,
       style: roundButtonTheme.style,
       child: SvgPicture.asset(
-        iconUrl!,
+        iconUrl,
         width: 24,
         height: 24,
         colorFilter: ColorFilter.mode(

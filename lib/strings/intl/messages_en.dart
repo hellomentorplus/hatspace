@@ -43,7 +43,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
-        "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
         "booking": MessageLookupByLibrary.simpleMessage("Booking"),
@@ -66,7 +65,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
-        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
         "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
