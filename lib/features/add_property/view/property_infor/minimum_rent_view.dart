@@ -48,6 +48,7 @@ class MinimumRentView extends StatelessWidget {
                     context: context,
                     builder: (context) {
                       return SizedBox(
+                        key: const Key("minimum_rent_bottom_sheet"),
                           height: MediaQuery.of(context).size.height * 0.85,
                           child: Padding(
                               padding: const EdgeInsets.only(bottom: 42),
