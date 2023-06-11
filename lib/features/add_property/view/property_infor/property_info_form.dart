@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:hatspace/data/property_data.dart';
+import 'package:hatspace/features/add_property/view/property_infor/minimum_rent_view.dart';
 import 'package:hatspace/features/add_property/view/property_infor/state_selection_view.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/property_infor_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -243,7 +244,7 @@ class PropertyInforForm extends StatelessWidget {
     }),
     const PropertyName(),
     const PropertyPrice(),
-    const PropertyRentPeriod(),
+    MinimumRentView(),
     const PropertyDescription(),
     Builder(builder: (BuildContext context) {
       return Text(

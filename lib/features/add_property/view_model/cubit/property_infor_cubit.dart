@@ -7,6 +7,10 @@ class PropertyInforCubit extends Cubit<PropertyInforState> {
   PropertyInforCubit() : super(const PropertyInforInitial());
 
   void saveSelectedState(AustraliaStates savedState) {
-    emit(SaveSelectedState(savedState));
+    emit(SaveSelectedState(savedState, state.saveRentPeriod));
+  }
+
+  void saveMinimumRentPeriod(MinimumRentPeriod savedPeriod) {
+    emit(SaveMinimumPeriodState(state.savedState, savedPeriod));
   }
 }
