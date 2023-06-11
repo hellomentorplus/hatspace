@@ -48,8 +48,14 @@
   "tas":"Tasmania",
   "act": "Australian Capital Territory",
   "nt":"Northern Territory",
+  "oneMonths": "1 Months",
   "threeMonths": "3 Months",
   "sixMonths": "6 Months",
+  "nineMonths": "9 Months",
+  "twelveMonths": "12 Months",
+  "eighteenMonths": "18 Months",
+  "tweentyFourMonths": "24 Months",
+  "thirtySixMonths": "36 Months",
   "searchHint":"Search rental, location...",
   "propertyName":"Property name",
   "enterPropertyName":"Enter property name",
@@ -73,5 +79,6 @@
   "yourAddress":"Your address",
   "pleaseEnterYourPlaceholder": "Please Enter Your Placeholder",
   "pleaseSelectYourState":"Pleas select your state",
+  "pleaseSelectRentPeriod":"Please select rent period",
   "save": "Save"
 }

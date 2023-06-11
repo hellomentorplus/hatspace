@@ -18,7 +18,7 @@ class MinimumRentView extends StatelessWidget {
   final List<MinimumRentPeriod> stateList = MinimumRentPeriod.values.toList();
   @override
   Widget build(BuildContext context) {
-    String label = HatSpaceStrings.of(context).pleaseSelectYourState;
+    String label = HatSpaceStrings.of(context).pleaseSelectRentPeriod;
     stateList.remove(MinimumRentPeriod.invalid);
     // TODO: implement build
     return BlocBuilder<PropertyInforCubit, PropertyInforState>(

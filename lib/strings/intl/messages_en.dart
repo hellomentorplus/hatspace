@@ -57,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "You can be tenant or homeowner, OR you can be both."),
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "eighteenMonths": MessageLookupByLibrary.simpleMessage("18 Months"),
         "emailSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with email"),
         "enterPropertyName":
@@ -89,12 +90,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "nineMonths": MessageLookupByLibrary.simpleMessage("9 Months"),
         "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
         "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
+        "oneMonths": MessageLookupByLibrary.simpleMessage("1 Months"),
         "optional": MessageLookupByLibrary.simpleMessage("Optional"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
         "pleaseEnterYourPlaceholder": MessageLookupByLibrary.simpleMessage(
             "Please Enter Your Placeholder"),
+        "pleaseSelectRentPeriod":
+            MessageLookupByLibrary.simpleMessage("Please select rent period"),
         "pleaseSelectYourState":
             MessageLookupByLibrary.simpleMessage("Pleas select your state"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
@@ -117,8 +122,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
         "suburb": MessageLookupByLibrary.simpleMessage("Suburb"),
         "tas": MessageLookupByLibrary.simpleMessage("Tasmania"),
+        "thirtySixMonths": MessageLookupByLibrary.simpleMessage("36 Months"),
         "threeMonths": MessageLookupByLibrary.simpleMessage("3 Months"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
+        "tweentyFourMonths": MessageLookupByLibrary.simpleMessage("24 Months"),
+        "twelveMonths": MessageLookupByLibrary.simpleMessage("12 Months"),
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
         "userRoleDescription": m0,
         "userTitleRoles": m1,
