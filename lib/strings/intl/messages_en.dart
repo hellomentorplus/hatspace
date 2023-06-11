@@ -36,10 +36,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
-            "How many bedrooms, bathrooms, parking?"),
         "act": MessageLookupByLibrary.simpleMessage(
             "Australian Capital Territory"),
+        "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
+            "How many bedrooms, bathrooms, parking?"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
@@ -67,9 +67,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
-        "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
         "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
         "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
+        "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "qld": MessageLookupByLibrary.simpleMessage("Queenland"),
         "sa": MessageLookupByLibrary.simpleMessage("South Australia"),

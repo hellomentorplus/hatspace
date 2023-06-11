@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_bedroom/view/add_bedroom_counter.dart';
 import 'package:hatspace/features/add_bedroom/view/add_bedroom_view.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 import '../../widget_tester_extension.dart';
 
@@ -17,7 +18,7 @@ void main() {
     expect(find.byType(LinearProgressIndicator), findsOneWidget);
     final state = <MaterialState>{};
 
-    TextButton backButton = tester.widget(find.byType(TextButton));
+    TextOnlyButton backButton = tester.widget(find.byType(TextOnlyButton));
 
     LinearProgressIndicator indicator =
         tester.widget(find.byType(LinearProgressIndicator));
