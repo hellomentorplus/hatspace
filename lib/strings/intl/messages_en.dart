@@ -95,12 +95,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
         "pleaseEnterYourPlaceholder": MessageLookupByLibrary.simpleMessage(
             "Please Enter Your Placeholder"),
+        "pleaseSelectYourState":
+            MessageLookupByLibrary.simpleMessage("Pleas select your state"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
         "qld": MessageLookupByLibrary.simpleMessage("Queenland"),
         "sa": MessageLookupByLibrary.simpleMessage("South Australia"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "searchHint":
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),

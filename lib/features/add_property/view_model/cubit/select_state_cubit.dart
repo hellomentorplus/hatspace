@@ -5,10 +5,9 @@ import 'package:hatspace/features/add_property/view_model/cubit/select_state_sta
 enum NavigatePage { forward, reverse }
 
 class SelectStateCubit extends Cubit<SelectStateState> {
-  SelectStateCubit() : super( StateSelectionStateInitial());
+  SelectStateCubit() : super(StateSelectionStateInitial());
 
-  void SelectAustraliaState(AustraliaStates state){
-    print("state $state");
+  void selectAustraliaState(AustraliaStates state) {
     emit(SelectedState(state));
   }
 }

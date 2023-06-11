@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view/property_infor/state_selection_view.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/property_infor_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/select_state_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
@@ -30,7 +28,7 @@ class HatSpaceDropDownButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SecondaryButton(
         // TODO: implement placeholder with enum of preriod
-        label: label ?? "Please select value",
+        label: label,
         iconUrl: Assets.images.chervonDown,
         iconPosition: IconPosition.right,
         contentAlignment: MainAxisAlignment.spaceBetween,
@@ -159,7 +157,6 @@ class PropertyDescription extends StatelessWidget {
   }
 }
 
-
 class PropertyUnitNumber extends StatelessWidget {
   const PropertyUnitNumber({super.key});
   @override
@@ -254,34 +251,35 @@ class PropertyInforForm extends StatelessWidget {
         style: textTheme.displayLarge?.copyWith(fontSize: 18.0),
       );
     }),
-    const StateSelectionView(),
+    StateSelectionView(),
     const PropertyUnitNumber(),
     const PropertyStreetAddress(),
     const PropertySuburb()
   ];
-  
+
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider<PropertyInforCubit>(create: (context) => PropertyInforCubit(),)
-    ], child: Align(
-        alignment: Alignment.centerLeft,
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 16, top: 33, right: 16, bottom: 24),
-          child: ListView.separated(
-            separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(
-              height: 16,
-            ),
-            itemCount: itemList.length,
-            itemBuilder: (context, index) {
-              return itemList[index];
-            },
-          ),
-        ))
-    ); 
-
-    
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<PropertyInforCubit>(
+            create: (context) => PropertyInforCubit(),
+          )
+        ],
+        child: Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 16, top: 33, right: 16, bottom: 24),
+              child: ListView.separated(
+                separatorBuilder: (BuildContext context, int index) =>
+                    const SizedBox(
+                  height: 16,
+                ),
+                itemCount: itemList.length,
+                itemBuilder: (context, index) {
+                  return itemList[index];
+                },
+              ),
+            )));
   }
 }

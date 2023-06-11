@@ -71,5 +71,7 @@
   "enterYourPostcode":"Enter postcode",
   "information":"Information",
   "yourAddress":"Your address",
-  "pleaseEnterYourPlaceholder": "Please Enter Your Placeholder"
+  "pleaseEnterYourPlaceholder": "Please Enter Your Placeholder",
+  "pleaseSelectYourState":"Pleas select your state",
+  "save": "Save"
 }

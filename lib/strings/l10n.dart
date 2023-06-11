@@ -711,6 +711,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Pleas select your state`
+  String get pleaseSelectYourState {
+    return Intl.message(
+      'Pleas select your state',
+      name: 'pleaseSelectYourState',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

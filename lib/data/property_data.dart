@@ -69,7 +69,7 @@ enum AustraliaStates {
         return HatSpaceStrings.current.act;
       case nt:
         return HatSpaceStrings.current.nt;
-      case sa: 
+      case sa:
         return HatSpaceStrings.current.sa;
       default:
         return "Invalid state name";
