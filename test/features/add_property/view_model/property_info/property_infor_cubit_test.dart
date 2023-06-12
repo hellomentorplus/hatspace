@@ -5,7 +5,7 @@ import 'package:hatspace/features/add_property/view_model/cubit/property_infor_c
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'property_infor_cubit.mocks.dart';
+import 'property_infor_cubit_test.mocks.dart';
 
 @GenerateMocks([PropertyInforCubit])
 void main() {
