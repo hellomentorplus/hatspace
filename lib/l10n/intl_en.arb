@@ -82,5 +82,7 @@
   "pleaseSelectRentPeriod":"Please select rent period",
   "save": "Save",
   "lostData":" Lost Data",
-  "yourDataMayBeLost": "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?"
+  "yourDataMayBeLost": "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?",
+  "yes": "Yes",
+  "no": "No"
 }

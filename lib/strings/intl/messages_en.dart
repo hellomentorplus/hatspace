@@ -92,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nineMonths": MessageLookupByLibrary.simpleMessage("9 Months"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
         "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
         "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
         "oneMonths": MessageLookupByLibrary.simpleMessage("1 Months"),
@@ -135,6 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "wa": MessageLookupByLibrary.simpleMessage("Western Australia"),
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
+        "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "yourAddress": MessageLookupByLibrary.simpleMessage("Your address"),
         "yourDataMayBeLost": MessageLookupByLibrary.simpleMessage(
             "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?")

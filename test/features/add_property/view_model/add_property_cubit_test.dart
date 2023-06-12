@@ -59,9 +59,21 @@ void main() {
     expect: () => [isA<NextButtonEnable>()],
   );
 
+  blocTest(
+    'Given when validate next button state true, then emit NextButton true',
+    build: () => AddPropertyCubit(),
+    act: (bloc) {
+      bloc.closeAddPropertyPage();
+    },
+    expect: () => [isA<AddPropertyPageClosedState>()],
+  );
+
   test("test initial state", () {
     AddPropertyInitial addPropertyInitial = const AddPropertyInitial();
     expect(addPropertyInitial.props.length, 0);
+    AddPropertyPageClosedState propertyPageClosedState =
+        const AddPropertyPageClosedState(1);
+    expect(propertyPageClosedState.props.length, 0);
   });
 
   // blocTest(

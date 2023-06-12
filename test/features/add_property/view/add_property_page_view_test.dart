@@ -29,4 +29,15 @@ void main() {
     // expect(find.byType(BlocSelector<AddPropertyBloc, AddPropertyState,PropertyTypes>), findsOneWidget);
     expect(find.byType(BlocProvider<AddPropertyCubit>), findsWidgets);
   });
+
+  testWidgets(
+      'given when user press close icon then app shows the bottom modal sheet',
+      (widgetTester) async {
+    Widget widget = const AddPropertyView();
+    await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+        addPropertyBloc, widget);
+    await widgetTester.tap(find.byType(IconButton));
+    await widgetTester.pump();
+    expect(find.byKey(const Key("warning_bottom_modal")), findsOneWidget);
+  });
 }

@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_state.dart';
 
 enum NavigatePage { forward, reverse }
@@ -6,6 +7,7 @@ enum NavigatePage { forward, reverse }
 class AddPropertyCubit extends Cubit<AddPropertyState> {
   AddPropertyCubit() : super(const AddPropertyInitial());
   final List<bool> activePageList = [];
+  Property? property;
   void navigatePage(NavigatePage navType, int totalPages) {
     if (navType == NavigatePage.forward &&
         state.pageViewNumber < totalPages - 1) {
@@ -33,5 +35,10 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     } else {
       // Implement disable event
     }
+  }
+
+  void closeAddPropertyPage() {
+    // TODO: Implement delete all state in each pages
+    emit(const AddPropertyPageClosedState(0));
   }
 }

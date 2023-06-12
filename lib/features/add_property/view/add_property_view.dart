@@ -13,6 +13,8 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
+enum AddPropertyStatus { closePage }
+
 class AddPropertyView extends StatelessWidget {
   const AddPropertyView({super.key});
 
@@ -39,55 +41,64 @@ class AddPropertyPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-        bottomNavigationBar: BottomController(
-          pageController: pageController,
-          totalPages: pages.length,
-        ),
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: HSColor.background,
-          leading: IconButton(
-            icon: const Icon(Icons.close, color: HSColor.onSurface),
-            onPressed: () {
-              // HS-99 scenario 6
-              // context.popToRootHome();
-              showModalBottomSheet(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                context: context, builder: (context){
-                return const Wrap(
-                 children: [ WarningBottomSheetView()]
-                );
-              });
-            },
-          ),
-          bottom: PreferredSize(
-              preferredSize: Size(size.width, 0),
-              child: BlocSelector<AddPropertyCubit, AddPropertyState, int>(
-                selector: (state) => state.pageViewNumber,
-                builder: (context, state) {
-                  return LinearProgressIndicator(
-                    backgroundColor: HSColor.neutral2,
-                    color: HSColor.primary,
-                    value: (state + 1) / pages.length,
-                    semanticsLabel:
-                        HatSpaceStrings.of(context).linearProgressIndicator,
-                  );
+    return BlocListener<AddPropertyCubit, AddPropertyState>(
+        listener: (context, state) {
+          if (state is AddPropertyPageClosedState) {
+            context.popToRootHome();
+          }
+        },
+        child: Scaffold(
+            bottomNavigationBar: BottomController(
+              pageController: pageController,
+              totalPages: pages.length,
+            ),
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: HSColor.background,
+              leading: IconButton(
+                icon: const Icon(Icons.close, color: HSColor.onSurface),
+                onPressed: () {
+                  // HS-99 scenario 6
+                  // context.popToRootHome();
+                  showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      context: context,
+                      builder: (modalContext) {
+                        return const Wrap(children: [WarningBottomSheetView()]);
+                      }).then((value) {
+                    if (value == AddPropertyStatus.closePage) {
+                      context.read<AddPropertyCubit>().closeAddPropertyPage();
+                    }
+                  });
                 },
-              )),
-        ),
-        body: PageView.builder(
-          onPageChanged: (value) {
-            onProgressIndicatorState.value = value;
-          },
-          physics: const NeverScrollableScrollPhysics(),
-          controller: pageController,
-          itemBuilder: (context, index) {
-            return pages[index];
-          },
-        ));
+              ),
+              bottom: PreferredSize(
+                  preferredSize: Size(size.width, 0),
+                  child: BlocSelector<AddPropertyCubit, AddPropertyState, int>(
+                    selector: (state) => state.pageViewNumber,
+                    builder: (context, state) {
+                      return LinearProgressIndicator(
+                        backgroundColor: HSColor.neutral2,
+                        color: HSColor.primary,
+                        value: (state + 1) / pages.length,
+                        semanticsLabel:
+                            HatSpaceStrings.of(context).linearProgressIndicator,
+                      );
+                    },
+                  )),
+            ),
+            body: PageView.builder(
+              onPageChanged: (value) {
+                onProgressIndicatorState.value = value;
+              },
+              physics: const NeverScrollableScrollPhysics(),
+              controller: pageController,
+              itemBuilder: (context, index) {
+                return pages[index];
+              },
+            )));
   }
 }
 
