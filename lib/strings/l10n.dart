@@ -372,6 +372,7 @@ class HatSpaceStrings {
     );
   }
 
+
   /// `Booking`
   String get booking {
     return Intl.message(
