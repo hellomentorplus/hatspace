@@ -62,7 +62,6 @@ class $AssetsImagesGen {
   /// File path: assets/images/chervon-down.svg
   String get chervonDown => 'assets/images/chervon-down.svg';
 
-
   /// File path: assets/images/chevron_left.svg
   String get chevronLeft => 'assets/images/chevron_left.svg';
 
@@ -99,7 +98,6 @@ class $AssetsImagesGen {
   /// File path: assets/images/google.svg
   String get google => 'assets/images/google.svg';
 
-
   /// File path: assets/images/house.svg
   String get house => 'assets/images/house.svg';
 
@@ -121,10 +119,8 @@ class $AssetsImagesGen {
         arrowCalendarLeft,
         arrowCalendarRight,
         calendar,
-
         check,
         chervonDown,
-
         chevronLeft,
         chevronRight,
         closeClear,
@@ -137,11 +133,8 @@ class $AssetsImagesGen {
         facebook,
         facebookround,
         google,
-
         house,
-
         increment,
-
         messages,
         profileCircle,
         searchNormal

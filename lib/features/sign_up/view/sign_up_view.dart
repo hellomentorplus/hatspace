@@ -68,10 +68,9 @@ class SignUpScreen extends StatelessWidget {
                           label: HatSpaceStrings.of(context).googleSignUp,
                           iconUrl: Assets.images.google,
                           onPressed: () {
-                            // context
-                            //     .read<SignUpBloc>()
-                            //     .add(const SignUpWithGoogle());
-                            context.goToAddProperty();
+                            context
+                                .read<SignUpBloc>()
+                                .add(const SignUpWithGoogle());
                           },
                         )),
                     Padding(
