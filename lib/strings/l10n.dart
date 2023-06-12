@@ -282,6 +282,46 @@ class HatSpaceStrings {
     );
   }
 
+  /// `How many bedrooms, bathrooms, parking?`
+  String get addBedroomViewInstructions {
+    return Intl.message(
+      'How many bedrooms, bathrooms, parking?',
+      name: 'addBedroomViewInstructions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bedrooms`
+  String get bedroomText {
+    return Intl.message(
+      'Bedrooms',
+      name: 'bedroomText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bathrooms`
+  String get bathroomText {
+    return Intl.message(
+      'Bathrooms',
+      name: 'bathroomText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Parkings`
+  String get parkingText {
+    return Intl.message(
+      'Parkings',
+      name: 'parkingText',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Booking`
   String get booking {
     return Intl.message(
