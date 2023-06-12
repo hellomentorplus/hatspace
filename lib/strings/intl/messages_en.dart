@@ -86,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "lostData": MessageLookupByLibrary.simpleMessage(" Lost Data"),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
@@ -134,6 +135,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "wa": MessageLookupByLibrary.simpleMessage("Western Australia"),
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
-        "yourAddress": MessageLookupByLibrary.simpleMessage("Your address")
+        "yourAddress": MessageLookupByLibrary.simpleMessage("Your address"),
+        "yourDataMayBeLost": MessageLookupByLibrary.simpleMessage(
+            "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?")
       };
 }

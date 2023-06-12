@@ -68,6 +68,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/chevron_right.svg
   String get chevronRight => 'assets/images/chevron_right.svg';
 
+  /// File path: assets/images/circle_warning.svg
+  String get circleWarning => 'assets/images/circle_warning.svg';
+
   /// File path: assets/images/close-clear.svg
   String get closeClear => 'assets/images/close-clear.svg';
 
@@ -117,6 +120,7 @@ class $AssetsImagesGen {
         chervonDown,
         chevronLeft,
         chevronRight,
+        circleWarning,
         closeClear,
         closeDark,
         closeIcon,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/add_property/view/property_infor/property_info_form.dart';
 import 'package:hatspace/features/add_property/view/select_property_type.dart';
+import 'package:hatspace/features/add_property/view/warning_bottom_sheet/warning_bottom_sheet_view.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_state.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
@@ -50,7 +51,16 @@ class AddPropertyPageBody extends StatelessWidget {
             icon: const Icon(Icons.close, color: HSColor.onSurface),
             onPressed: () {
               // HS-99 scenario 6
-              context.popToRootHome();
+              // context.popToRootHome();
+              showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                context: context, builder: (context){
+                return const Wrap(
+                 children: [ WarningBottomSheetView()]
+                );
+              });
             },
           ),
           bottom: PreferredSize(

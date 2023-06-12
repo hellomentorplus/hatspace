@@ -80,5 +80,7 @@
   "pleaseEnterYourPlaceholder": "Please Enter Your Placeholder",
   "pleaseSelectYourState":"Pleas select your state",
   "pleaseSelectRentPeriod":"Please select rent period",
-  "save": "Save"
+  "save": "Save",
+  "lostData":" Lost Data",
+  "yourDataMayBeLost": "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?"
 }

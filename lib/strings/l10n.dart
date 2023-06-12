@@ -801,6 +801,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// ` Lost Data`
+  String get lostData {
+    return Intl.message(
+      ' Lost Data',
+      name: 'lostData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your data may be lost if you cancel adding new property. Are you sure you want to cancel?`
+  String get yourDataMayBeLost {
+    return Intl.message(
+      'Your data may be lost if you cancel adding new property. Are you sure you want to cancel?',
+      name: 'yourDataMayBeLost',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
