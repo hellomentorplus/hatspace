@@ -120,13 +120,16 @@ class BottomController extends StatelessWidget {
             ),
             PrimaryButton(
                 label: HatSpaceStrings.of(context).next,
-                onPressed: (state is NextButtonEnable)
-                    ? () {
-                        context
-                            .read<AddPropertyCubit>()
-                            .navigatePage(NavigatePage.forward, totalPages);
-                      }
-                    : null,
+                // onPressed: (state is NextButtonEnable)
+                //     ? () {
+                //         context
+                //             .read<AddPropertyCubit>()
+                //             .navigatePage(NavigatePage.forward, totalPages);
+                //       }
+                //     : null,
+                onPressed: () => context
+                    .read<AddPropertyCubit>()
+                    .navigatePage(NavigatePage.forward, totalPages),
                 iconUrl: Assets.images.chevronRight,
                 iconPosition: IconPosition.right)
           ],
