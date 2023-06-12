@@ -282,6 +282,96 @@ class HatSpaceStrings {
     );
   }
 
+  /// `What kind of place?`
+  String get whatKindOfPlace {
+    return Intl.message(
+      'What kind of place?',
+      name: 'whatKindOfPlace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose kind of your property`
+  String get chooseKindOfYourProperty {
+    return Intl.message(
+      'Choose kind of your property',
+      name: 'chooseKindOfYourProperty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available date`
+  String get availableDate {
+    return Intl.message(
+      'Available date',
+      name: 'availableDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How many bedrooms, bathrooms, parking?`
+  String get addBedroomViewInstructions {
+    return Intl.message(
+      'How many bedrooms, bathrooms, parking?',
+      name: 'addBedroomViewInstructions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bedrooms`
+  String get bedroomText {
+    return Intl.message(
+      'Bedrooms',
+      name: 'bedroomText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bathrooms`
+  String get bathroomText {
+    return Intl.message(
+      'Bathrooms',
+      name: 'bathroomText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Parkings`
+  String get parkingText {
+    return Intl.message(
+      'Parkings',
+      name: 'parkingText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get back {
+    return Intl.message(
+      'Back',
+      name: 'back',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Booking`
   String get booking {
     return Intl.message(
@@ -392,6 +482,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `1 Months`
+  String get oneMonths {
+    return Intl.message(
+      '1 Months',
+      name: 'oneMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `3 Months`
   String get threeMonths {
     return Intl.message(
@@ -407,6 +507,296 @@ class HatSpaceStrings {
     return Intl.message(
       '6 Months',
       name: 'sixMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `9 Months`
+  String get nineMonths {
+    return Intl.message(
+      '9 Months',
+      name: 'nineMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `12 Months`
+  String get twelveMonths {
+    return Intl.message(
+      '12 Months',
+      name: 'twelveMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `18 Months`
+  String get eighteenMonths {
+    return Intl.message(
+      '18 Months',
+      name: 'eighteenMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `24 Months`
+  String get tweentyFourMonths {
+    return Intl.message(
+      '24 Months',
+      name: 'tweentyFourMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `36 Months`
+  String get thirtySixMonths {
+    return Intl.message(
+      '36 Months',
+      name: 'thirtySixMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Property name`
+  String get propertyName {
+    return Intl.message(
+      'Property name',
+      name: 'propertyName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter property name`
+  String get enterPropertyName {
+    return Intl.message(
+      'Enter property name',
+      name: 'enterPropertyName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price`
+  String get price {
+    return Intl.message(
+      'Price',
+      name: 'price',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your price`
+  String get enterYourPrice {
+    return Intl.message(
+      'Enter your price',
+      name: 'enterYourPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minimum rent period`
+  String get minimumRentPeriod {
+    return Intl.message(
+      'Minimum rent period',
+      name: 'minimumRentPeriod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message(
+      'Description',
+      name: 'description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter description`
+  String get enterYourDescription {
+    return Intl.message(
+      'Enter description',
+      name: 'enterYourDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `State`
+  String get state {
+    return Intl.message(
+      'State',
+      name: 'state',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit number`
+  String get unitNumber {
+    return Intl.message(
+      'Unit number',
+      name: 'unitNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Optional`
+  String get optional {
+    return Intl.message(
+      'Optional',
+      name: 'optional',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter unit number`
+  String get enterYourUnitnumber {
+    return Intl.message(
+      'Enter unit number',
+      name: 'enterYourUnitnumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Street address`
+  String get streetAddress {
+    return Intl.message(
+      'Street address',
+      name: 'streetAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your address`
+  String get enterYourAddress {
+    return Intl.message(
+      'Enter your address',
+      name: 'enterYourAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `House number + Street name`
+  String get houseNumberAndStreetName {
+    return Intl.message(
+      'House number + Street name',
+      name: 'houseNumberAndStreetName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Suburb`
+  String get suburb {
+    return Intl.message(
+      'Suburb',
+      name: 'suburb',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter suburb`
+  String get enterYourSuburb {
+    return Intl.message(
+      'Enter suburb',
+      name: 'enterYourSuburb',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Postcode`
+  String get postcode {
+    return Intl.message(
+      'Postcode',
+      name: 'postcode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter postcode`
+  String get enterYourPostcode {
+    return Intl.message(
+      'Enter postcode',
+      name: 'enterYourPostcode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Information`
+  String get information {
+    return Intl.message(
+      'Information',
+      name: 'information',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your address`
+  String get yourAddress {
+    return Intl.message(
+      'Your address',
+      name: 'yourAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Enter Your Placeholder`
+  String get pleaseEnterYourPlaceholder {
+    return Intl.message(
+      'Please Enter Your Placeholder',
+      name: 'pleaseEnterYourPlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pleas select your state`
+  String get pleaseSelectYourState {
+    return Intl.message(
+      'Pleas select your state',
+      name: 'pleaseSelectYourState',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select rent period`
+  String get pleaseSelectRentPeriod {
+    return Intl.message(
+      'Please select rent period',
+      name: 'pleaseSelectRentPeriod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
       desc: '',
       args: [],
     );

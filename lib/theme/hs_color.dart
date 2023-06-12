@@ -26,8 +26,10 @@ class HSColor {
   static const Color statusSuccess = Color(0xFF34C759);
   static const Color statusInformational = Color(0xFF007AFF);
 
+  static const Color requiredField = Color(0xFFFF3333); // new design color
   static const Color neutral9 = Color(0xFF141414);
-  static const Color neutral6 = Color(0xFF8E8E93);
+  static const Color neutral7 = Color(0xFF383838); // new design color
+  static const Color neutral6 = Color(0xff595959); // new desgin color
   static const Color neutral5 = Color(0xFF8C8C8C);
   static const Color neutral4 = Color(0xFFC7C7CC);
   static const Color neutral3 = Color(0xFFD9D9D9); // new design color

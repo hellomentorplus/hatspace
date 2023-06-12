@@ -69,6 +69,8 @@ enum AustraliaStates {
         return HatSpaceStrings.current.act;
       case nt:
         return HatSpaceStrings.current.nt;
+      case sa:
+        return HatSpaceStrings.current.sa;
       default:
         return "Invalid state name";
     }
@@ -101,17 +103,35 @@ enum AustraliaStates {
 
 enum MinimumRentPeriod {
   //TODO: add more value for upcomming story
+  oneMonths,
   threeMonths,
   sixMonths,
+  nineMonths,
+  twelveMonths,
+  eighteenMonths,
+  tweentyFourMonths,
+  thirtySixMonths,
   invalid;
 
   const MinimumRentPeriod();
   String get rentPeriodName {
     switch (this) {
+      case oneMonths:
+        return HatSpaceStrings.current.oneMonths;
       case threeMonths:
         return HatSpaceStrings.current.threeMonths;
       case sixMonths:
         return HatSpaceStrings.current.sixMonths;
+      case nineMonths:
+        return HatSpaceStrings.current.nineMonths;
+      case twelveMonths:
+        return HatSpaceStrings.current.twelveMonths;
+      case eighteenMonths:
+        return HatSpaceStrings.current.eighteenMonths;
+      case tweentyFourMonths:
+        return HatSpaceStrings.current.tweentyFourMonths;
+      case thirtySixMonths:
+        return HatSpaceStrings.current.thirtySixMonths;
       // TODO: add more values in next story
       default:
         return "invalid";
@@ -123,6 +143,18 @@ enum MinimumRentPeriod {
       return threeMonths;
     } else if (period == HatSpaceStrings.current.sixMonths) {
       return sixMonths;
+    } else if (period == HatSpaceStrings.current.oneMonths) {
+      return oneMonths;
+    } else if (period == HatSpaceStrings.current.nineMonths) {
+      return nineMonths;
+    } else if (period == HatSpaceStrings.current.eighteenMonths) {
+      return eighteenMonths;
+    } else if (period == HatSpaceStrings.current.twelveMonths) {
+      return twelveMonths;
+    } else if (period == HatSpaceStrings.current.tweentyFourMonths) {
+      return tweentyFourMonths;
+    } else if (period == HatSpaceStrings.current.thirtySixMonths) {
+      return thirtySixMonths;
     } else {
       return invalid;
     }

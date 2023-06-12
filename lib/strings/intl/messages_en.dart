@@ -38,34 +38,77 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "act": MessageLookupByLibrary.simpleMessage(
             "Australian Capital Territory"),
+        "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
+            "How many bedrooms, bathrooms, parking?"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
+        "availableDate": MessageLookupByLibrary.simpleMessage("Available date"),
+        "back": MessageLookupByLibrary.simpleMessage("Back"),
+        "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
+        "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
         "booking": MessageLookupByLibrary.simpleMessage("Booking"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "chooseKindOfYourProperty": MessageLookupByLibrary.simpleMessage(
+            "Choose kind of your property"),
         "chooseUserRole":
             MessageLookupByLibrary.simpleMessage("Choose your role"),
         "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
             "You can be tenant or homeowner, OR you can be both."),
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
+        "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "eighteenMonths": MessageLookupByLibrary.simpleMessage("18 Months"),
         "emailSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with email"),
+        "enterPropertyName":
+            MessageLookupByLibrary.simpleMessage("Enter property name"),
+        "enterYourAddress":
+            MessageLookupByLibrary.simpleMessage("Enter your address"),
+        "enterYourDescription":
+            MessageLookupByLibrary.simpleMessage("Enter description"),
+        "enterYourPostcode":
+            MessageLookupByLibrary.simpleMessage("Enter postcode"),
+        "enterYourPrice":
+            MessageLookupByLibrary.simpleMessage("Enter your price"),
+        "enterYourSuburb": MessageLookupByLibrary.simpleMessage("Enter suburb"),
+        "enterYourUnitnumber":
+            MessageLookupByLibrary.simpleMessage("Enter unit number"),
         "explore": MessageLookupByLibrary.simpleMessage("Explore"),
         "facebookSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
         "googleSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with Google"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
+        "houseNumberAndStreetName":
+            MessageLookupByLibrary.simpleMessage("House number + Street name"),
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
+        "information": MessageLookupByLibrary.simpleMessage("Information"),
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
+        "minimumRentPeriod":
+            MessageLookupByLibrary.simpleMessage("Minimum rent period"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "nineMonths": MessageLookupByLibrary.simpleMessage("9 Months"),
         "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
         "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
+        "oneMonths": MessageLookupByLibrary.simpleMessage("1 Months"),
+        "optional": MessageLookupByLibrary.simpleMessage("Optional"),
+        "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
+        "pleaseEnterYourPlaceholder": MessageLookupByLibrary.simpleMessage(
+            "Please Enter Your Placeholder"),
+        "pleaseSelectRentPeriod":
+            MessageLookupByLibrary.simpleMessage("Please select rent period"),
+        "pleaseSelectYourState":
+            MessageLookupByLibrary.simpleMessage("Pleas select your state"),
+        "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
+        "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
         "qld": MessageLookupByLibrary.simpleMessage("Queenland"),
         "sa": MessageLookupByLibrary.simpleMessage("South Australia"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "searchHint":
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
@@ -75,12 +118,22 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Login Failed"),
         "sixMonths": MessageLookupByLibrary.simpleMessage("6 Months"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "state": MessageLookupByLibrary.simpleMessage("State"),
+        "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
+        "suburb": MessageLookupByLibrary.simpleMessage("Suburb"),
         "tas": MessageLookupByLibrary.simpleMessage("Tasmania"),
+        "thirtySixMonths": MessageLookupByLibrary.simpleMessage("36 Months"),
         "threeMonths": MessageLookupByLibrary.simpleMessage("3 Months"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
+        "tweentyFourMonths": MessageLookupByLibrary.simpleMessage("24 Months"),
+        "twelveMonths": MessageLookupByLibrary.simpleMessage("12 Months"),
+        "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
         "userRoleDescription": m0,
         "userTitleRoles": m1,
         "vic": MessageLookupByLibrary.simpleMessage("Victoria"),
-        "wa": MessageLookupByLibrary.simpleMessage("Western Australia")
+        "wa": MessageLookupByLibrary.simpleMessage("Western Australia"),
+        "whatKindOfPlace":
+            MessageLookupByLibrary.simpleMessage("What kind of place?"),
+        "yourAddress": MessageLookupByLibrary.simpleMessage("Your address")
       };
 }
