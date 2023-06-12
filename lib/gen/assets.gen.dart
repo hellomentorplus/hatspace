@@ -62,6 +62,7 @@ class $AssetsImagesGen {
   /// File path: assets/images/chervon-down.svg
   String get chervonDown => 'assets/images/chervon-down.svg';
 
+
   /// File path: assets/images/chevron_left.svg
   String get chevronLeft => 'assets/images/chevron_left.svg';
 
@@ -76,6 +77,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/close_icon.svg
   String get closeIcon => 'assets/images/close_icon.svg';
+
+  /// File path: assets/images/decrement.svg
+  String get decrement => 'assets/images/decrement.svg';
 
   /// File path: assets/images/email.svg
   String get email => 'assets/images/email.svg';
@@ -94,6 +98,7 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/google.svg
   String get google => 'assets/images/google.svg';
+
 
   /// File path: assets/images/house.svg
   String get house => 'assets/images/house.svg';
@@ -116,20 +121,27 @@ class $AssetsImagesGen {
         arrowCalendarLeft,
         arrowCalendarRight,
         calendar,
+
         check,
         chervonDown,
+
         chevronLeft,
         chevronRight,
         closeClear,
         closeDark,
         closeIcon,
+        decrement,
         email,
         envelope,
         error,
         facebook,
         facebookround,
         google,
+
         house,
+
+        increment,
+
         messages,
         profileCircle,
         searchNormal

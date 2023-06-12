@@ -43,8 +43,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
+
         "availableDate": MessageLookupByLibrary.simpleMessage("Available date"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
+
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
         "booking": MessageLookupByLibrary.simpleMessage("Booking"),
@@ -93,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nineMonths": MessageLookupByLibrary.simpleMessage("9 Months"),
         "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
         "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
+
         "oneMonths": MessageLookupByLibrary.simpleMessage("1 Months"),
         "optional": MessageLookupByLibrary.simpleMessage("Optional"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
@@ -104,6 +107,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pleas select your state"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
+
+        "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
+
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
         "qld": MessageLookupByLibrary.simpleMessage("Queenland"),
