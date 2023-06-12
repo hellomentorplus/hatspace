@@ -125,11 +125,8 @@ class $AssetsImagesGen {
         facebook,
         facebookround,
         google,
-
         house,
-
         increment,
-
         messages,
         profileCircle,
         searchNormal
