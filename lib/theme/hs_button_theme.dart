@@ -111,21 +111,3 @@ OutlinedButtonThemeData tertiaryButtonTheme = OutlinedButtonThemeData(
     },
   ),
 ));
-
-ElevatedButtonThemeData roundButtonTheme = ElevatedButtonThemeData(
-  style: ButtonStyle(
-    alignment: Alignment.center,
-    // textStyle: MaterialStatePropertyAll(textTheme.displayLarge),
-    backgroundColor: const MaterialStatePropertyAll<Color>(HSColor.neutral2),
-    foregroundColor: MaterialStateProperty.resolveWith((states) {
-      if (states.contains(MaterialState.disabled)) {
-        return HSColor.neutral6;
-      } else {
-        return HSColor.neutral9;
-      }
-    }),
-    padding:
-        const MaterialStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.all(15)),
-    shape: const MaterialStatePropertyAll<OutlinedBorder>(CircleBorder()),
-  ),
-);
