@@ -9,7 +9,6 @@ import 'package:mockito/mockito.dart';
 import '../../../../widget_tester_extension.dart';
 import 'select_state_view_test.mocks.dart';
 
-
 @GenerateMocks([PropertyInforCubit])
 void main() {
   final MockPropertyInforCubit propertyInforCubit = MockPropertyInforCubit();

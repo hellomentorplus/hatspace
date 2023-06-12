@@ -116,20 +116,21 @@ enum MinimumRentPeriod {
   const MinimumRentPeriod();
   String get rentPeriodName {
     switch (this) {
-      case oneMonths: return HatSpaceStrings.current.oneMonths;
+      case oneMonths:
+        return HatSpaceStrings.current.oneMonths;
       case threeMonths:
         return HatSpaceStrings.current.threeMonths;
       case sixMonths:
         return HatSpaceStrings.current.sixMonths;
       case nineMonths:
         return HatSpaceStrings.current.nineMonths;
-        case twelveMonths:
+      case twelveMonths:
         return HatSpaceStrings.current.twelveMonths;
-        case eighteenMonths:
+      case eighteenMonths:
         return HatSpaceStrings.current.eighteenMonths;
-        case tweentyFourMonths:
+      case tweentyFourMonths:
         return HatSpaceStrings.current.tweentyFourMonths;
-        case thirtySixMonths:
+      case thirtySixMonths:
         return HatSpaceStrings.current.thirtySixMonths;
       // TODO: add more values in next story
       default:
@@ -142,20 +143,19 @@ enum MinimumRentPeriod {
       return threeMonths;
     } else if (period == HatSpaceStrings.current.sixMonths) {
       return sixMonths;
-    } else if (period == HatSpaceStrings.current.oneMonths){
+    } else if (period == HatSpaceStrings.current.oneMonths) {
       return oneMonths;
-    } else if(period== HatSpaceStrings.current.nineMonths){
+    } else if (period == HatSpaceStrings.current.nineMonths) {
       return nineMonths;
-    }else if(period == HatSpaceStrings.current.eighteenMonths){
+    } else if (period == HatSpaceStrings.current.eighteenMonths) {
       return eighteenMonths;
-    }else if(period == HatSpaceStrings.current.twelveMonths){
+    } else if (period == HatSpaceStrings.current.twelveMonths) {
       return twelveMonths;
-    }else if (period == HatSpaceStrings.current.tweentyFourMonths){
+    } else if (period == HatSpaceStrings.current.tweentyFourMonths) {
       return tweentyFourMonths;
-    }else if (period == HatSpaceStrings.current.thirtySixMonths){
+    } else if (period == HatSpaceStrings.current.thirtySixMonths) {
       return thirtySixMonths;
-    }
-    else {
+    } else {
       return invalid;
     }
   }

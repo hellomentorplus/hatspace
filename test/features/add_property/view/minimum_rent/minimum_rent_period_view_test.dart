@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_property/view/property_infor/minimum_rent_view.dart';

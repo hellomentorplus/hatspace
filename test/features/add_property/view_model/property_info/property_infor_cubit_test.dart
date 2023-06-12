@@ -7,11 +7,10 @@ import 'package:mockito/mockito.dart';
 
 import 'property_infor_cubit.mocks.dart';
 
-@GenerateMocks([
-  PropertyInforCubit
-])
+@GenerateMocks([PropertyInforCubit])
 void main() {
-  final MockPropertyInforCubit mockPropertyInforCubit = MockPropertyInforCubit();
+  final MockPropertyInforCubit mockPropertyInforCubit =
+      MockPropertyInforCubit();
   // initializeDateFormatting();
   setUp(() {
     when(mockPropertyInforCubit.state)
@@ -25,18 +24,17 @@ void main() {
     act: (bloc) => {bloc.saveSelectedState(AustraliaStates.act)},
     expect: () => [isA<SaveSelectedState>()],
   );
-    blocTest(
+  blocTest(
     "given user select and save rent period state, return will be SaveRentPriodState",
     build: () => PropertyInforCubit(),
-    act: (bloc) => {bloc.saveMinimumRentPeriod(MinimumRentPeriod.eighteenMonths)},
+    act: (bloc) =>
+        {bloc.saveMinimumRentPeriod(MinimumRentPeriod.eighteenMonths)},
     expect: () => [isA<SaveMinimumPeriodState>()],
   );
-
 
   test("test initial state", () {
     PropertyInforInitial propertyInforInitial = const PropertyInforInitial();
     expect(propertyInforInitial.savedState, AustraliaStates.invalid);
     expect(propertyInforInitial.saveRentPeriod, MinimumRentPeriod.invalid);
   });
-
 }
