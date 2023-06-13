@@ -96,27 +96,43 @@ void main() async {
               .thenAnswer((realInvocation) => Future.value(UserDetail(
                   uid: "mock uid", phone: "mock phone", email: "mock email")));
 
-          when(memberService.getUserRoles(any)).thenAnswer((realInvocation) {
-            return Future.value([Roles.tenant]);
+          when(memberService.getUserRoles(any))
+              .thenAnswer((realInvocation) => Future.value([Roles.tenant]));
+
+          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+              .setMockMethodCallHandler(
+                  const MethodChannel('plugins.flutter.io/shared_preferences'),
+                  (MethodCall methodCall) async {
+            if (methodCall.method == 'getAll') {
+              return <String, dynamic>{}; // set initial values here if desired
+            }
+
+            expect(methodCall.method, 'setBool');
+            expect(methodCall.arguments,
+                {'key': 'flutter.isFirstLaunch', 'value': false});
+
+            if (methodCall.method == 'setBool') {
+              return true;
+            }
+            return null;
           });
         },
         act: (bloc) => bloc.add(const SignUpWithGoogle()),
         expect: () => [isA<SignUpStart>(), isA<SignUpSuccess>()]);
 
     blocTest(
-        "when user sign up success with google and user has not had roles yet, then system will check userrole and return empty list",
-        build: () => SignUpBloc(),
-        setUp: () {
-          when(authenticationService.signUp(
-                  signUpType: SignUpType.googleService))
-              .thenAnswer((realInvocation) => Future.value(UserDetail(
-                  uid: "test uid", phone: "test phone", email: "test email")));
-          when(memberService.getUserRoles(any)).thenAnswer((realInvocation) {
-            return Future.value([]);
-          });
-        },
-        act: (bloc) => bloc.add(const SignUpWithGoogle()),
-        expect: () => [isA<SignUpStart>(), isA<UserRolesUnavailable>()]);
+      "when user sign up success with google and user has not had roles yet, then system will check userrole and return empty list",
+      build: () => SignUpBloc(),
+      setUp: () {
+        when(authenticationService.signUp(signUpType: SignUpType.googleService))
+            .thenAnswer((realInvocation) => Future.value(UserDetail(
+                uid: "test uid", phone: "test phone", email: "test email")));
+        when(memberService.getUserRoles(any))
+            .thenAnswer((realInvocation) => Future.value([]));
+      },
+      act: (bloc) => bloc.add(const SignUpWithGoogle()),
+      expect: () => [isA<SignUpStart>(), isA<UserRolesUnavailable>()],
+    );
   });
 
   group("Test sign up failed", () {
