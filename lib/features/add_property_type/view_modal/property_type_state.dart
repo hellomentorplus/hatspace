@@ -1,5 +1,3 @@
-
-
 import 'package:hatspace/data/data.dart';
 
 abstract class PropertyTypeState {
