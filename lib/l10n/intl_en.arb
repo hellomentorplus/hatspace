@@ -50,7 +50,6 @@
   "nt":"Northern Territory",
   "threeMonths": "3 Months",
   "sixMonths": "6 Months",
-  "searchHint":"Search rental, location...",
   "propertyName":"Property name",
   "enterPropertyName":"Enter property name",
   "price":"Price",
@@ -71,5 +70,7 @@
   "enterYourPostcode":"Enter postcode",
   "information":"Information",
   "yourAddress":"Your address",
-  "pleaseEnterYourPlaceholder": "Please Enter Your Placeholder"
+  "pleaseEnterYourPlaceholder": "Please Enter Your Placeholder",
+  "welcomeDefault":"Hi there 👋",
+  "welcomeName":"👋 Hi {name}"
 }

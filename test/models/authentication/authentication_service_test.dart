@@ -52,6 +52,8 @@ void main() {
     when(user.uid).thenReturn('uid');
     when(user.email).thenReturn('email@gmail.com');
     when(user.phoneNumber).thenReturn('123456');
+    when(user.displayName).thenReturn('displayName');
+
     when(mockAccessToken.token).thenReturn("mock token");
     when(mockFacebookAuth.login()).thenAnswer((_) async {
       return Future<LoginResult>.value(LoginResult(
@@ -214,9 +216,10 @@ void main() {
       // then
       final UserDetail userDetail = await service.getCurrentUser();
 
-      expect(userDetail.email, user.email);
-      expect(userDetail.uid, user.uid);
-      expect(userDetail.phone, user.phoneNumber);
+      expect(userDetail.email, 'email@gmail.com');
+      expect(userDetail.uid, 'uid');
+      expect(userDetail.phone, '123456');
+      expect(userDetail.displayName, 'displayName');
     },
   );
 
