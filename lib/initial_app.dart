@@ -31,8 +31,20 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyAppBody extends StatelessWidget {
+class MyAppBody extends StatefulWidget {
   const MyAppBody({super.key});
+
+  @override
+  State<MyAppBody> createState() => _MyAppBodyState();
+}
+
+class _MyAppBodyState extends State<MyAppBody> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<AuthenticationBloc>().add(ValidateAuthentication());
+  }
 
   @override
   Widget build(BuildContext context) {

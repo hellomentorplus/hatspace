@@ -84,5 +84,7 @@
   "lostData":" Lost Data",
   "yourDataMayBeLost": "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "welcomeDefault":"Hi there 👋",
+  "welcomeName":"👋 Hi {name}"
 }
