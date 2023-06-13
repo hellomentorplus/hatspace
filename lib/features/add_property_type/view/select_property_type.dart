@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/features/add_property/view/date_picker_view.dart';
-import 'package:hatspace/features/add_property/view/property_type_card_view.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
+import 'package:hatspace/features/add_property_type/view/date_picker_view.dart';
+import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
 
 import 'package:hatspace/strings/l10n.dart';
+
+import 'property_type_card_view.dart';
 
 class SelectPropertyType extends StatelessWidget {
   const SelectPropertyType({super.key});
