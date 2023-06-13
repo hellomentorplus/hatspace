@@ -13,7 +13,6 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
 class AddPropertyView extends StatelessWidget {
-
   const AddPropertyView({Key? key}) : super(key: key);
   @override
   Widget build(Object context) {
