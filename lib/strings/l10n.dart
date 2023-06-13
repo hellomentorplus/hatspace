@@ -451,6 +451,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Hi there 👋`
+  String get welcomeDefault {
+    return Intl.message(
+      'Hi there 👋',
+      name: 'welcomeDefault',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `👋 Hi {name}`
+  String welcomeName(Object name) {
+    return Intl.message(
+      '👋 Hi $name',
+      name: 'welcomeName',
+      desc: '',
+      args: [name],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

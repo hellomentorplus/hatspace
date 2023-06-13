@@ -44,5 +44,7 @@
   "act": "Australian Capital Territory",
   "nt":"Northern Territory",
   "threeMonths": "3 Months",
-  "sixMonths": "6 Months"
+  "sixMonths": "6 Months",
+  "welcomeDefault":"Hi there 👋",
+  "welcomeName":"👋 Hi {name}"
 }

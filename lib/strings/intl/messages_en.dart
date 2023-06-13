@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': '',
           })}";
 
+  static String m2(name) => "👋 Hi ${name}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "act": MessageLookupByLibrary.simpleMessage(
@@ -86,6 +88,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "userRoleDescription": m0,
         "userTitleRoles": m1,
         "vic": MessageLookupByLibrary.simpleMessage("Victoria"),
-        "wa": MessageLookupByLibrary.simpleMessage("Western Australia")
+        "wa": MessageLookupByLibrary.simpleMessage("Western Australia"),
+        "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
+        "welcomeName": m2
       };
 }

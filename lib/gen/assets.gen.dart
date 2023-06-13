@@ -24,6 +24,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/filter.svg
   String get filter => 'assets/icons/filter.svg';
 
+  /// File path: assets/icons/ic_agent.svg
+  String get icAgent => 'assets/icons/ic_agent.svg';
+
   /// File path: assets/icons/message.svg
   String get message => 'assets/icons/message.svg';
 
@@ -37,8 +40,17 @@ class $AssetsIconsGen {
   String get search => 'assets/icons/search.svg';
 
   /// List of all assets
-  List<String> get values =>
-      [add, booking, explore, filter, message, notification, profile, search];
+  List<String> get values => [
+        add,
+        booking,
+        explore,
+        filter,
+        icAgent,
+        message,
+        notification,
+        profile,
+        search
+      ];
 }
 
 class $AssetsImagesGen {
