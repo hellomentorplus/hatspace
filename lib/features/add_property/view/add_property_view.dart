@@ -39,7 +39,7 @@ class AddPropertyPageBody extends StatelessWidget {
   AddPropertyPageBody({super.key});
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
         bottomNavigationBar: BottomController(
           pageController: pageController,
@@ -74,6 +74,7 @@ class AddPropertyPageBody extends StatelessWidget {
           onPageChanged: (value) {
             onProgressIndicatorState.value = value;
           },
+          itemCount: pages.length,
           physics: const NeverScrollableScrollPhysics(),
           controller: pageController,
           itemBuilder: (context, index) {
