@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
@@ -18,11 +19,39 @@ class DatePickerView extends StatelessWidget {
         builder: (context, state) {
           selectedDate.value = state;
           return SecondaryButton(
-              onPressed: () async {
+              onPressed: () {
                 showDialog(
                     context: context,
                     builder: (context) {
-                      return Dialog(
+                      return DateDialog(selectedDate: selectedDate, dateNotifier: selectedDate);
+                    });
+              },
+              label: DateFormat("dd MMMM, yyyy").format(selectedDate.value),
+              iconUrl: Assets.images.calendar,
+              iconPosition: IconPosition.right,
+              contentAlignment: MainAxisAlignment.spaceBetween,
+              style: ButtonStyle(
+                textStyle: MaterialStatePropertyAll(textTheme.bodyMedium),
+                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16)),
+              ));
+        });
+  }
+}
+
+class DateDialog extends StatelessWidget{
+  final ValueListenable<DateTime> selectedDate;
+  final ValueNotifier<DateTime> dateNotifier;
+  const DateDialog({super.key,
+    required this.selectedDate,
+    required this.dateNotifier
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context)=> PropertyTypeCubit(),
+      child: Dialog(
                           alignment: Alignment.bottomCenter,
                           insetPadding: const EdgeInsets.only(
                               bottom: 24, left: 16, right: 16),
@@ -36,26 +65,17 @@ class DatePickerView extends StatelessWidget {
                                 ValueListenableBuilder(
                                     valueListenable: selectedDate,
                                     builder: ((context, value, child) {
-                                      return HsDatePicker(
-                                          selectedDate: selectedDate);
+                                      return BlocProvider(create: (context)=> PropertyTypeCubit(),
+                                        child: HsDatePicker(
+                                          saveSelectDate: () {
+                                            print(dateNotifier.value);
+                                            context.read<PropertyTypeCubit>().selectAvailableDate(dateNotifier.value);
+                                          },
+                                          selectedDate: dateNotifier) ,
+                                      );
                                     }))
-                              ]));
-                    }).then((value) {
-                  context
-                      .read<PropertyTypeCubit>()
-                      .selectAvailableDate(selectedDate.value);
-                  return value;
-                });
-              },
-              label: DateFormat("dd MMMM, yyyy").format(selectedDate.value),
-              iconUrl: Assets.images.calendar,
-              iconPosition: IconPosition.right,
-              contentAlignment: MainAxisAlignment.spaceBetween,
-              style: ButtonStyle(
-                textStyle: MaterialStatePropertyAll(textTheme.bodyMedium),
-                padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16)),
-              ));
-        });
+                              ])) ,
+       ) ;
   }
+  
 }
