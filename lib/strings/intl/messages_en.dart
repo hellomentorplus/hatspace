@@ -94,9 +94,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "userTitleRoles": m1,
         "vic": MessageLookupByLibrary.simpleMessage("Victoria"),
         "wa": MessageLookupByLibrary.simpleMessage("Western Australia"),
+        "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
+        "welcomeName": m2,
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?")
-        "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
-        "welcomeName": m2
       };
 }
