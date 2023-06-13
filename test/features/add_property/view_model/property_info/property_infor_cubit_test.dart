@@ -1,7 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/property_infor_cubit.dart';
+import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
+import 'package:hatspace/features/add_property_info/view_modal/property_infor_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

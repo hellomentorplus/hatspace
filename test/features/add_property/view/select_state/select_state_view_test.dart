@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/add_property/view/property_infor/property_info_form.dart';
-import 'package:hatspace/features/add_property/view/property_infor/state_selection_view.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/property_infor_cubit.dart';
+import 'package:hatspace/features/add_property_info/view/property_info_form.dart';
+import 'package:hatspace/features/add_property_info/view/state_selection_view.dart';
+import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
+import 'package:hatspace/features/add_property_info/view_modal/property_infor_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

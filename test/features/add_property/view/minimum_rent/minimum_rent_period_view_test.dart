@@ -1,8 +1,11 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/add_property/view/property_infor/minimum_rent_view.dart';
-import 'package:hatspace/features/add_property/view/property_infor/property_info_form.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/property_infor_cubit.dart';
+import 'package:hatspace/features/add_property_info/view/minimum_rent_view.dart';
+import 'package:hatspace/features/add_property_info/view/property_info_form.dart';
+import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
+import 'package:hatspace/features/add_property_info/view_modal/property_infor_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -12,7 +15,6 @@ import 'minimum_rent_period_view_test.mocks.dart';
 @GenerateMocks([PropertyInforCubit])
 void main() {
   final MockPropertyInforCubit propertyInforCubit = MockPropertyInforCubit();
-  // initializeDateFormatting();
   setUp(() {
     when(propertyInforCubit.state)
         .thenAnswer((realInvocation) => const PropertyInforInitial());

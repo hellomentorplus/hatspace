@@ -1,4 +1,4 @@
-part of 'property_infor_cubit.dart';
+import 'package:hatspace/data/property_data.dart';
 
 abstract class PropertyInforState {
   final AustraliaStates savedState;
