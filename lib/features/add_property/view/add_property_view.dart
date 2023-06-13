@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/features/add_property/view/property_info_form.dart';
 import 'package:hatspace/features/add_property/view/select_property_type.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/add_property_state.dart';
 import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
+import 'package:hatspace/features/add_property_info/view/property_info_form.dart';
+
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -13,7 +14,9 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
 class AddPropertyView extends StatelessWidget {
+
   const AddPropertyView({Key? key}) : super(key: key);
+
   @override
   Widget build(Object context) {
     return MultiBlocProvider(
@@ -117,13 +120,18 @@ class BottomController extends StatelessWidget {
             ),
             PrimaryButton(
                 label: HatSpaceStrings.of(context).next,
-                onPressed: (state is NextButtonEnable)
-                    ? () {
-                        context
-                            .read<AddPropertyCubit>()
-                            .navigatePage(NavigatePage.forward, totalPages);
-                      }
-                    : null,
+                // onPressed: (state is NextButtonEnable)
+                //     ? () {
+                //         context
+                //             .read<AddPropertyCubit>()
+                //             .navigatePage(NavigatePage.forward, totalPages);
+                //       }
+                //     : null,
+                onPressed: () {
+                  context
+                      .read<AddPropertyCubit>()
+                      .navigatePage(NavigatePage.forward, totalPages);
+                },
                 iconUrl: Assets.images.chevronRight,
                 iconPosition: IconPosition.right)
           ],

@@ -30,12 +30,17 @@
   "whatKindOfPlace": "What kind of place?",
   "chooseKindOfYourProperty": "Choose kind of your property",
   "availableDate": "Available date",
+
+
   "addBedroomViewInstructions": "How many bedrooms, bathrooms, parking?",
   "bedroomText": "Bedrooms",
   "bathroomText": "Bathrooms",
   "parkingText": "Parkings",
+
+
   "back": "Back",
   "next": "Next",
+
   "booking":"Booking",
   "message":"Message",
   "profile":"Profile",
@@ -48,8 +53,14 @@
   "tas":"Tasmania",
   "act": "Australian Capital Territory",
   "nt":"Northern Territory",
+  "oneMonths": "1 Months",
   "threeMonths": "3 Months",
   "sixMonths": "6 Months",
+  "nineMonths": "9 Months",
+  "twelveMonths": "12 Months",
+  "eighteenMonths": "18 Months",
+  "tweentyFourMonths": "24 Months",
+  "thirtySixMonths": "36 Months",
   "propertyName":"Property name",
   "enterPropertyName":"Enter property name",
   "price":"Price",
@@ -72,5 +83,8 @@
   "yourAddress":"Your address",
   "pleaseEnterYourPlaceholder": "Please Enter Your Placeholder",
   "welcomeDefault":"Hi there 👋",
-  "welcomeName":"👋 Hi {name}"
+  "welcomeName":"👋 Hi {name}",
+  "pleaseSelectYourState":"Pleas select your state",
+  "pleaseSelectRentPeriod":"Please select rent period",
+  "save": "Save"
 }

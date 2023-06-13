@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:hatspace/data/property_data.dart';
+import 'package:hatspace/features/add_property_info/view/minimum_rent_view.dart';
+import 'package:hatspace/features/add_property_info/view/state_selection_view.dart';
+import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -23,21 +29,18 @@ class HatSpaceDropDownButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SecondaryButton(
-      // TODO: implement placeholder with enum of preriod
-      label: placeholder ?? "Please select value",
-      iconUrl: Assets.images.chervonDown,
-      iconPosition: IconPosition.right,
-      contentAlignment: MainAxisAlignment.spaceBetween,
-      style: secondaryButtonTheme.style?.copyWith(
-          textStyle: MaterialStatePropertyAll<TextStyle?>(
-            Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
-          ),
-          padding: const MaterialStatePropertyAll<EdgeInsets>(
-              EdgeInsets.fromLTRB(16, 13, 12, 13))),
-      onPressed: () {
-        // TODO: implement show rent period
-      },
-    );
+        // TODO: implement placeholder with enum of preriod
+        label: label,
+        iconUrl: Assets.images.chervonDown,
+        iconPosition: IconPosition.right,
+        contentAlignment: MainAxisAlignment.spaceBetween,
+        style: secondaryButtonTheme.style?.copyWith(
+            textStyle: MaterialStatePropertyAll<TextStyle?>(
+              Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
+            ),
+            padding: const MaterialStatePropertyAll<EdgeInsets>(
+                EdgeInsets.fromLTRB(16, 13, 12, 13))),
+        onPressed: onPressed);
   }
 }
 
@@ -99,28 +102,6 @@ class PropertyPrice extends StatelessWidget {
   }
 }
 
-class PropertyRentPeriod extends StatelessWidget {
-  const PropertyRentPeriod({super.key});
-  @override
-  Widget build(context) {
-    return Wrap(
-      children: [
-        HatSpaceLabel(
-            label: HatSpaceStrings.of(context).minimumRentPeriod,
-            isRequired: true),
-        const SizedBox(
-          height: 4,
-        ),
-        HatSpaceDropDownButton(
-            label: HatSpaceStrings.of(context).minimumRentPeriod,
-            // TODO: implement property data
-            isRequired: true,
-            onPressed: () {})
-      ],
-    );
-  }
-}
-
 class PropertyDescription extends StatelessWidget {
   const PropertyDescription({super.key});
   @override
@@ -152,20 +133,6 @@ class PropertyDescription extends StatelessWidget {
         )
       ],
     );
-  }
-}
-
-class PropertyState extends StatelessWidget {
-  const PropertyState({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return HatSpaceDropDownButton(
-        label: HatSpaceStrings.of(context).state,
-        //TODO: implement state
-        isRequired: true,
-        onPressed: () {});
   }
 }
 
@@ -255,7 +222,7 @@ class PropertyInforForm extends StatelessWidget {
     }),
     const PropertyName(),
     const PropertyPrice(),
-    const PropertyRentPeriod(),
+    MinimumRentView(),
     const PropertyDescription(),
     Builder(builder: (BuildContext context) {
       return Text(
@@ -263,28 +230,35 @@ class PropertyInforForm extends StatelessWidget {
         style: textTheme.displayLarge?.copyWith(fontSize: 18.0),
       );
     }),
-    const PropertyState(),
+    StateSelectionView(),
     const PropertyUnitNumber(),
     const PropertyStreetAddress(),
     const PropertySuburb()
   ];
+
   @override
   Widget build(BuildContext context) {
-    return Align(
-        alignment: Alignment.centerLeft,
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 16, top: 33, right: 16, bottom: 24),
-          child: ListView.separated(
-            separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(
-              height: 16,
-            ),
-            itemCount: itemList.length,
-            itemBuilder: (context, index) {
-              return itemList[index];
-            },
-          ),
-        ));
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<PropertyInforCubit>(
+            create: (context) => PropertyInforCubit(),
+          )
+        ],
+        child: Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 16, top: 33, right: 16, bottom: 24),
+              child: ListView.separated(
+                separatorBuilder: (BuildContext context, int index) =>
+                    const SizedBox(
+                  height: 16,
+                ),
+                itemCount: itemList.length,
+                itemBuilder: (context, index) {
+                  return itemList[index];
+                },
+              ),
+            )));
   }
 }

@@ -482,6 +482,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `1 Months`
+  String get oneMonths {
+    return Intl.message(
+      '1 Months',
+      name: 'oneMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `3 Months`
   String get threeMonths {
     return Intl.message(
@@ -497,6 +507,56 @@ class HatSpaceStrings {
     return Intl.message(
       '6 Months',
       name: 'sixMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `9 Months`
+  String get nineMonths {
+    return Intl.message(
+      '9 Months',
+      name: 'nineMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `12 Months`
+  String get twelveMonths {
+    return Intl.message(
+      '12 Months',
+      name: 'twelveMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `18 Months`
+  String get eighteenMonths {
+    return Intl.message(
+      '18 Months',
+      name: 'eighteenMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `24 Months`
+  String get tweentyFourMonths {
+    return Intl.message(
+      '24 Months',
+      name: 'tweentyFourMonths',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `36 Months`
+  String get thirtySixMonths {
+    return Intl.message(
+      '36 Months',
+      name: 'thirtySixMonths',
       desc: '',
       args: [],
     );
@@ -729,6 +789,36 @@ class HatSpaceStrings {
       name: 'welcomeName',
       desc: '',
       args: [name],
+    );
+  }
+
+  /// `Pleas select your state`
+  String get pleaseSelectYourState {
+    return Intl.message(
+      'Pleas select your state',
+      name: 'pleaseSelectYourState',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select rent period`
+  String get pleaseSelectRentPeriod {
+    return Intl.message(
+      'Please select rent period',
+      name: 'pleaseSelectRentPeriod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
     );
   }
 }
