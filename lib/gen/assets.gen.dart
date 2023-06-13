@@ -115,6 +115,7 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/house.svg
   String get house => 'assets/images/house.svg';
+
   /// File path: assets/images/increment.svg
   String get increment => 'assets/images/increment.svg';
 
@@ -138,8 +139,6 @@ class $AssetsImagesGen {
         chevronLeft,
         chevronRight,
         circleWarning,
-        chevronLeft,
-        chevronRight,
         closeClear,
         closeDark,
         closeIcon,
