@@ -102,6 +102,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please Enter Your Placeholder"),
         "pleaseSelectRentPeriod":
             MessageLookupByLibrary.simpleMessage("Please select rent period"),
+        "pleaseSelectValue":
+            MessageLookupByLibrary.simpleMessage("Please select value"),
         "pleaseSelectYourState":
             MessageLookupByLibrary.simpleMessage("Pleas select your state"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),

@@ -12,7 +12,6 @@ import 'property_infor_cubit_test.mocks.dart';
 void main() {
   final MockPropertyInforCubit mockPropertyInforCubit =
       MockPropertyInforCubit();
-  // initializeDateFormatting();
   setUp(() {
     when(mockPropertyInforCubit.state)
         .thenAnswer((realInvocation) => const PropertyInforInitial());

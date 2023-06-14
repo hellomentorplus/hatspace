@@ -7,7 +7,6 @@ import 'package:hatspace/features/add_property_info/view/property_info_form.dart
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
 
-
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -16,7 +15,6 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
 class AddPropertyView extends StatelessWidget {
-
   const AddPropertyView({super.key});
   @override
   Widget build(Object context) {
@@ -126,18 +124,13 @@ class BottomController extends StatelessWidget {
             ),
             PrimaryButton(
                 label: HatSpaceStrings.of(context).next,
-                // onPressed: (state is NextButtonEnable)
-                //     ? () {
-                //         context
-                //             .read<AddPropertyCubit>()
-                //             .navigatePage(NavigatePage.forward, totalPages);
-                //       }
-                //     : null,
-                onPressed: () {
-                  context
-                      .read<AddPropertyCubit>()
-                      .navigatePage(NavigatePage.forward, totalPages);
-                },
+                onPressed: (state is NextButtonEnable)
+                    ? () {
+                        context
+                            .read<AddPropertyCubit>()
+                            .navigatePage(NavigatePage.forward, totalPages);
+                      }
+                    : null,
                 iconUrl: Assets.images.chevronRight,
                 iconPosition: IconPosition.right)
           ],

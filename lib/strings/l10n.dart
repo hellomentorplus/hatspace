@@ -821,6 +821,16 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Please select value`
+  String get pleaseSelectValue {
+    return Intl.message(
+      'Please select value',
+      name: 'pleaseSelectValue',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

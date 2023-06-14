@@ -86,5 +86,6 @@
   "welcomeName":"👋 Hi {name}",
   "pleaseSelectYourState":"Pleas select your state",
   "pleaseSelectRentPeriod":"Please select rent period",
-  "save": "Save"
+  "save": "Save",
+  "pleaseSelectValue":"Please select value"
 }

@@ -1,4 +1,3 @@
-
 part of 'property_type_cubit.dart';
 
 abstract class PropertyTypeState extends Equatable {
@@ -9,7 +8,6 @@ abstract class PropertyTypeState extends Equatable {
 
 class PropertyTypeInitial extends PropertyTypeState {
   PropertyTypeInitial() : super(null, DateTime.now());
-
 
   @override
   List<Object?> get props => [super.availableDate, super.propertyTypes];

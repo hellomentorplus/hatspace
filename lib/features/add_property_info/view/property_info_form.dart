@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/data/property_data.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
@@ -24,7 +25,7 @@ class HatSpaceDropDownButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SecondaryButton(
       // TODO: implement placeholder with enum of preriod
-      label: placeholder ?? "Please select value",
+      label: placeholder ?? HatSpaceStrings.of(context).pleaseSelectValue,
       iconUrl: Assets.images.chervonDown,
       iconPosition: IconPosition.right,
       contentAlignment: MainAxisAlignment.spaceBetween,
@@ -33,7 +34,8 @@ class HatSpaceDropDownButton extends StatelessWidget {
             Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
           ),
           padding: const MaterialStatePropertyAll<EdgeInsets>(
-              EdgeInsets.fromLTRB(16, 13, 12, 13))),
+              EdgeInsets.fromLTRB(HsDimens.spacing16, HsDimens.spacing12,
+                  HsDimens.spacing12, HsDimens.spacing12))),
       onPressed: () {
         // TODO: implement show rent period
       },
@@ -63,7 +65,6 @@ class PropertyPrice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         HatSpaceLabel(
             label: HatSpaceStrings.of(context).price, isRequired: true),
@@ -79,9 +80,12 @@ class PropertyPrice extends StatelessWidget {
                 hintText: HatSpaceStrings.of(context).enterYourPrice,
                 suffixIcon: Padding(
                     padding: const EdgeInsets.only(
-                        right: 7, left: 16, top: 7, bottom: 7),
+                        right: HsDimens.spacing8,
+                        left: HsDimens.spacing16,
+                        top: HsDimens.spacing8,
+                        bottom: HsDimens.spacing8),
                     child: Container(
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(HsDimens.spacing8),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
                             color: HSColor.neutral2),
@@ -99,8 +103,8 @@ class PropertyPrice extends StatelessWidget {
   }
 }
 
-class PropertyRentPeriod extends StatelessWidget {
-  const PropertyRentPeriod({super.key});
+class MinimumRentView extends StatelessWidget {
+  const MinimumRentView({super.key});
   @override
   Widget build(context) {
     return Wrap(
@@ -134,7 +138,7 @@ class PropertyDescription extends StatelessWidget {
             HatSpaceLabel(
                 label: HatSpaceStrings.of(context).description,
                 isRequired: false),
-            // TODO: Implement BS
+            // TODO: Implement Bloc State
             const Text("120/4000")
           ],
         ),
@@ -155,8 +159,8 @@ class PropertyDescription extends StatelessWidget {
   }
 }
 
-class PropertyState extends StatelessWidget {
-  const PropertyState({super.key});
+class StateSelectionView extends StatelessWidget {
+  const StateSelectionView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -255,7 +259,7 @@ class PropertyInforForm extends StatelessWidget {
     }),
     const PropertyName(),
     const PropertyPrice(),
-    const PropertyRentPeriod(),
+    const MinimumRentView(),
     const PropertyDescription(),
     Builder(builder: (BuildContext context) {
       return Text(
@@ -263,7 +267,7 @@ class PropertyInforForm extends StatelessWidget {
         style: textTheme.displayLarge?.copyWith(fontSize: 18.0),
       );
     }),
-    const PropertyState(),
+    const StateSelectionView(),
     const PropertyUnitNumber(),
     const PropertyStreetAddress(),
     const PropertySuburb()
@@ -273,8 +277,11 @@ class PropertyInforForm extends StatelessWidget {
     return Align(
         alignment: Alignment.centerLeft,
         child: Padding(
-          padding:
-              const EdgeInsets.only(left: 16, top: 33, right: 16, bottom: 24),
+          padding: const EdgeInsets.only(
+              left: HsDimens.spacing16,
+              top: HsDimens.spacing32,
+              right: HsDimens.spacing16,
+              bottom: HsDimens.spacing24),
           child: ListView.separated(
             separatorBuilder: (BuildContext context, int index) =>
                 const SizedBox(

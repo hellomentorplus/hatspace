@@ -1,13 +1,7 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
-import 'package:hatspace/features/add_property_type/view_modal/property_type_state.dart';
-
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
@@ -64,44 +58,5 @@ class DatePickerView extends StatelessWidget {
                         horizontal: HsDimens.spacing16)),
               ));
         });
-  }
-}
-
-class DateDialog extends StatelessWidget {
-  final ValueListenable<DateTime> selectedDate;
-  final ValueNotifier<DateTime> dateNotifier;
-  final BuildContext mainScreenContext;
-  const DateDialog(
-      {super.key,
-      required this.selectedDate,
-      required this.dateNotifier,
-      required this.mainScreenContext});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => PropertyTypeCubit(),
-      child: Dialog(
-          alignment: Alignment.bottomCenter,
-          insetPadding: const EdgeInsets.only(bottom: 24, left: 16, right: 16),
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16))),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ValueListenableBuilder(
-                    valueListenable: selectedDate,
-                    builder: ((_, value, child) {
-                      return HsDatePicker(
-                          // saveSelectDate: () {
-                          //   mainScreenContext
-                          //       .read<PropertyTypeCubit>()
-                          //       .selectAvailableDate(dateNotifier.value);
-                          // },
-                          selectedDate: dateNotifier);
-                    }))
-              ])),
-    );
   }
 }
