@@ -27,10 +27,19 @@
   "signinErrorToastMessage": "Unable to sign you in at the moment. Please try again later.",
   "signinErrorToastTitle":"Login Failed",
   "loadingMessage": "Loading...",
+
+  "whatKindOfPlace": "What kind of place?",
+  "chooseKindOfYourProperty": "Choose kind of your property",
+  "availableDate": "Available date",
+
   "addBedroomViewInstructions": "How many bedrooms, bathrooms, parking?",
   "bedroomText": "Bedrooms",
   "bathroomText": "Bathrooms",
   "parkingText": "Parkings",
+
+  "back": "Back",
+  "next": "Next",
+
   "booking":"Booking",
   "message":"Message",
   "profile":"Profile",

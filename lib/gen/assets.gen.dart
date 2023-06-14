@@ -56,6 +56,15 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/apartment.svg
+  String get apartment => 'assets/images/apartment.svg';
+
+  /// File path: assets/images/arrow_calendar_left.svg
+  String get arrowCalendarLeft => 'assets/images/arrow_calendar_left.svg';
+
+  /// File path: assets/images/arrow_calendar_right.svg
+  String get arrowCalendarRight => 'assets/images/arrow_calendar_right.svg';
+
   /// File path: assets/images/calendar.svg
   String get calendar => 'assets/images/calendar.svg';
 
@@ -95,6 +104,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/google.svg
   String get google => 'assets/images/google.svg';
 
+  /// File path: assets/images/house.svg
+  String get house => 'assets/images/house.svg';
+
   /// File path: assets/images/increment.svg
   String get increment => 'assets/images/increment.svg';
 
@@ -109,6 +121,9 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<String> get values => [
+        apartment,
+        arrowCalendarLeft,
+        arrowCalendarRight,
         calendar,
         chevronLeft,
         chevronRight,
@@ -122,6 +137,7 @@ class $AssetsImagesGen {
         facebook,
         facebookround,
         google,
+        house,
         increment,
         messages,
         profileCircle,
