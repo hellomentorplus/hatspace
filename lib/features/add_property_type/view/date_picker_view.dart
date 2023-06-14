@@ -26,7 +26,9 @@ class DatePickerView extends StatelessWidget {
                       return Dialog(
                           alignment: Alignment.bottomCenter,
                           insetPadding: const EdgeInsets.only(
-                              bottom: HsDimens.spacing24, left: HsDimens.spacing16, right: HsDimens.spacing16),
+                              bottom: HsDimens.spacing24,
+                              left: HsDimens.spacing16,
+                              right: HsDimens.spacing16),
                           shape: const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(16))),
@@ -51,7 +53,9 @@ class DatePickerView extends StatelessWidget {
               style: ButtonStyle(
                 textStyle: MaterialStatePropertyAll(textTheme.bodyMedium),
                 padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    const EdgeInsets.symmetric(vertical: HsDimens.spacing12, horizontal: HsDimens.spacing16)),
+                    const EdgeInsets.symmetric(
+                        vertical: HsDimens.spacing12,
+                        horizontal: HsDimens.spacing16)),
               ));
         });
   }

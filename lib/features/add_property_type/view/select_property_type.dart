@@ -21,7 +21,10 @@ class SelectPropertyType extends StatelessWidget {
       }
     }, builder: (context, state) {
       return Padding(
-        padding: const EdgeInsets.only(left: HsDimens.spacing16, top: HsDimens.spacing32, right: HsDimens.spacing16),
+        padding: const EdgeInsets.only(
+            left: HsDimens.spacing16,
+            top: HsDimens.spacing32,
+            right: HsDimens.spacing16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -50,7 +53,8 @@ class SelectPropertyType extends StatelessWidget {
             ),
             Flexible(
               child: Padding(
-                  padding: const EdgeInsets.only(top: HsDimens.spacing20, bottom: HsDimens.spacing4),
+                  padding: const EdgeInsets.only(
+                      top: HsDimens.spacing20, bottom: HsDimens.spacing4),
                   child: Text(HatSpaceStrings.of(context).availableDate,
                       style: Theme.of(context).textTheme.bodyMedium)),
             ),
