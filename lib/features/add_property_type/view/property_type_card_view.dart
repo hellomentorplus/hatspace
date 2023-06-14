@@ -48,7 +48,7 @@ class PropertyTypeCardView extends StatelessWidget {
                     color: cardColor,
                     shape: cardShape,
                     child: Padding(
-                      padding: const EdgeInsets.all(35.0),
+                      padding: const EdgeInsets.all(HsDimens.spacing36),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,

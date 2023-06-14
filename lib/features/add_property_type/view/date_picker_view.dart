@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -25,7 +26,7 @@ class DatePickerView extends StatelessWidget {
                       return Dialog(
                           alignment: Alignment.bottomCenter,
                           insetPadding: const EdgeInsets.only(
-                              bottom: 24, left: 16, right: 16),
+                              bottom: HsDimens.spacing24, left: HsDimens.spacing16, right: HsDimens.spacing16),
                           shape: const RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(16))),
@@ -50,7 +51,7 @@ class DatePickerView extends StatelessWidget {
               style: ButtonStyle(
                 textStyle: MaterialStatePropertyAll(textTheme.bodyMedium),
                 padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16)),
+                    const EdgeInsets.symmetric(vertical: HsDimens.spacing12, horizontal: HsDimens.spacing16)),
               ));
         });
   }

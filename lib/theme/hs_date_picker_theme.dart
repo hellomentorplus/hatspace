@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -17,7 +18,7 @@ HeaderStyle hsDatePickerHeaderTheme = HeaderStyle(
 
 CalendarStyle hsDatePickerCalenderTheme = CalendarStyle(
   selectedTextStyle: const TextStyle(color: HSColor.onSurface),
-  tablePadding: const EdgeInsets.all(16),
+  tablePadding: const EdgeInsets.all(HsDimens.spacing16),
   selectedDecoration: BoxDecoration(
       color: Colors.transparent,
       shape: BoxShape.circle,

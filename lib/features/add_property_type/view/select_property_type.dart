@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property_type/view/date_picker_view.dart';
 import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
@@ -20,7 +21,7 @@ class SelectPropertyType extends StatelessWidget {
       }
     }, builder: (context, state) {
       return Padding(
-        padding: const EdgeInsets.only(left: 16, top: 33, right: 16),
+        padding: const EdgeInsets.only(left: HsDimens.spacing16, top: HsDimens.spacing32, right: HsDimens.spacing16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -32,7 +33,7 @@ class SelectPropertyType extends StatelessWidget {
             ),
             Flexible(
                 child: Padding(
-                    padding: const EdgeInsets.only(top: 16),
+                    padding: const EdgeInsets.only(top: HsDimens.spacing16),
                     child: Text(
                         HatSpaceStrings.of(context).chooseKindOfYourProperty,
                         style: Theme.of(context).textTheme.bodyMedium))),
@@ -49,7 +50,7 @@ class SelectPropertyType extends StatelessWidget {
             ),
             Flexible(
               child: Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 4),
+                  padding: const EdgeInsets.only(top: HsDimens.spacing20, bottom: HsDimens.spacing4),
                   child: Text(HatSpaceStrings.of(context).availableDate,
                       style: Theme.of(context).textTheme.bodyMedium)),
             ),
