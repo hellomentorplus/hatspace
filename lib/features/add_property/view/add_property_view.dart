@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/add_property/view/select_property_type.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/add_property_state.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:hatspace/features/add_property_info/view/property_info_form.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
+
 
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
@@ -14,8 +16,8 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
 class AddPropertyView extends StatelessWidget {
-  const AddPropertyView({Key? key}) : super(key: key);
 
+  const AddPropertyView({super.key});
   @override
   Widget build(Object context) {
     return MultiBlocProvider(
@@ -38,7 +40,7 @@ class AddPropertyPageBody extends StatelessWidget {
   AddPropertyPageBody({super.key});
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
         bottomNavigationBar: BottomController(
           pageController: pageController,
@@ -73,6 +75,7 @@ class AddPropertyPageBody extends StatelessWidget {
           onPageChanged: (value) {
             onProgressIndicatorState.value = value;
           },
+          itemCount: pages.length,
           physics: const NeverScrollableScrollPhysics(),
           controller: pageController,
           itemBuilder: (context, index) {
@@ -96,7 +99,11 @@ class BottomController extends StatelessWidget {
     }, builder: (context, state) {
       return BottomAppBar(
         color: HSColor.background,
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+        padding: const EdgeInsets.only(
+            left: HsDimens.spacing16,
+            right: HsDimens.spacing16,
+            top: HsDimens.spacing8,
+            bottom: 29.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,7 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
+import 'package:hatspace/features/add_property_type/view_modal/property_type_state.dart';
 
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -24,10 +29,27 @@ class DatePickerView extends StatelessWidget {
                 showDialog(
                     context: context,
                     builder: (_) {
-                      return DateDialog(
-                          selectedDate: selectedDate,
-                          dateNotifier: selectedDate,
-                          mainScreenContext: context);
+                      return Dialog(
+                          alignment: Alignment.bottomCenter,
+                          insetPadding: const EdgeInsets.only(
+                              bottom: HsDimens.spacing24,
+                              left: HsDimens.spacing16,
+                              right: HsDimens.spacing16),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16))),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                HsDatePicker(
+                                    saveSelectDate: (value) {
+                                      context
+                                          .read<PropertyTypeCubit>()
+                                          .selectAvailableDate(value);
+                                    },
+                                    selectedDate: selectedDate)
+                              ]));
                     });
               },
               label: DateFormat('dd MMMM, yyyy').format(selectedDate.value),
@@ -37,7 +59,9 @@ class DatePickerView extends StatelessWidget {
               style: ButtonStyle(
                 textStyle: MaterialStatePropertyAll(textTheme.bodyMedium),
                 padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16)),
+                    const EdgeInsets.symmetric(
+                        vertical: HsDimens.spacing12,
+                        horizontal: HsDimens.spacing16)),
               ));
         });
   }
