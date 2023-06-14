@@ -93,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nineMonths": MessageLookupByLibrary.simpleMessage("9 Months"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
         "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
         "oneMonths": MessageLookupByLibrary.simpleMessage("1 Months"),
