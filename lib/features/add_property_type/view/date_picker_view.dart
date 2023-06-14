@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
@@ -23,10 +22,25 @@ class DatePickerView extends StatelessWidget {
                 showDialog(
                     context: context,
                     builder: (_) {
-                      return DateDialog(
-                          selectedDate: selectedDate,
-                          dateNotifier: selectedDate,
-                          mainScreenContext: context);
+                      return Dialog(
+                          alignment: Alignment.bottomCenter,
+                          insetPadding: const EdgeInsets.only(
+                              bottom: 24, left: 16, right: 16),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16))),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                HsDatePicker(
+                                    saveSelectDate: (value) {
+                                      context
+                                          .read<PropertyTypeCubit>()
+                                          .selectAvailableDate(value);
+                                    },
+                                    selectedDate: selectedDate)
+                              ]));
                     });
               },
               label: DateFormat('dd MMMM, yyyy').format(selectedDate.value),
@@ -39,44 +53,5 @@ class DatePickerView extends StatelessWidget {
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 16)),
               ));
         });
-  }
-}
-
-class DateDialog extends StatelessWidget {
-  final ValueListenable<DateTime> selectedDate;
-  final ValueNotifier<DateTime> dateNotifier;
-  final BuildContext mainScreenContext;
-  const DateDialog(
-      {super.key,
-      required this.selectedDate,
-      required this.dateNotifier,
-      required this.mainScreenContext});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => PropertyTypeCubit(),
-      child: Dialog(
-          alignment: Alignment.bottomCenter,
-          insetPadding: const EdgeInsets.only(bottom: 24, left: 16, right: 16),
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16))),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ValueListenableBuilder(
-                    valueListenable: selectedDate,
-                    builder: ((_, value, child) {
-                      return HsDatePicker(
-                          saveSelectDate: () {
-                            mainScreenContext
-                                .read<PropertyTypeCubit>()
-                                .selectAvailableDate(dateNotifier.value);
-                          },
-                          selectedDate: dateNotifier);
-                    }))
-              ])),
-    );
   }
 }
