@@ -53,7 +53,8 @@ enum AustraliaStates {
   invalid;
 
   const AustraliaStates();
-  String get stateName {
+  // Change due to apdapt to feature
+  String get getName {
     switch (this) {
       case nsw:
         return HatSpaceStrings.current.nsw;
@@ -114,7 +115,7 @@ enum MinimumRentPeriod {
   invalid;
 
   const MinimumRentPeriod();
-  String get rentPeriodName {
+  String get getName {
     switch (this) {
       case oneMonths:
         return HatSpaceStrings.current.oneMonths;
