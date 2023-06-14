@@ -1,12 +1,16 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/add_property_state.dart';
+
+import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
+
+
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'property_property_cubit_test.mocks.dart';
+
+import 'add_property_cubit_test.mocks.dart';
 
 @GenerateMocks([AddPropertyCubit])
 void main() {
@@ -74,6 +78,9 @@ void main() {
     AddPropertyPageClosedState propertyPageClosedState =
         const AddPropertyPageClosedState(1);
     expect(propertyPageClosedState.props.length, 0);
+  test("test initial state", () {
+    AddPropertyInitial addPropertyInitial = const AddPropertyInitial();
+    expect(addPropertyInitial.props.length, 0);
   });
 
   // blocTest(

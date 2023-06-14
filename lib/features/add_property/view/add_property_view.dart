@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/features/add_property/view/property_infor/property_info_form.dart';
-import 'package:hatspace/features/add_property/view/select_property_type.dart';
-import 'package:hatspace/features/add_property/view/warning_bottom_sheet/warning_bottom_sheet_view.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/add_property_state.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/property_type_cubit.dart';
+
+import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/add_property/view/property_info_form_view.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
+import 'package:hatspace/features/add_property_type/view/select_property_type.dart';
+import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
+
+
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -14,6 +17,8 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
 enum AddPropertyStatus { closePage }
+
+
 
 class AddPropertyView extends StatelessWidget {
   const AddPropertyView({super.key});
@@ -99,6 +104,7 @@ class AddPropertyPageBody extends StatelessWidget {
                 return pages[index];
               },
             )));
+
   }
 }
 
@@ -116,7 +122,12 @@ class BottomController extends StatelessWidget {
     }, builder: (context, state) {
       return BottomAppBar(
         color: HSColor.background,
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+        padding: const EdgeInsets.only(
+            left: HsDimens.spacing16,
+            right: HsDimens.spacing16,
+            top: HsDimens.spacing8,
+            bottom: 29.0),
+
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -124,9 +135,15 @@ class BottomController extends StatelessWidget {
             TextOnlyButton(
               label: HatSpaceStrings.of(context).back,
               onPressed: () {
-                context
-                    .read<AddPropertyCubit>()
-                    .navigatePage(NavigatePage.reverse, totalPages);
+
+                if (state.pageViewNumber == 0) {
+                  context.popToRootHome();
+                } else {
+                  context
+                      .read<AddPropertyCubit>()
+                      .navigatePage(NavigatePage.reverse, totalPages);
+                }
+
               },
               style: const ButtonStyle(
                   foregroundColor:
