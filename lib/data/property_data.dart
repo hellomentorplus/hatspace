@@ -1,7 +1,6 @@
 // Property key field match with firestore
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hatspace/strings/l10n.dart';
-import 'package:intl/intl.dart';
 
 // Field names for firebase firestore
 class PropKeys {
@@ -60,8 +59,11 @@ enum AustraliaStates {
   static AustraliaStates fromName(String name) =>
       values.firstWhere((element) => element.name == name.toLowerCase(),
           orElse: () => invalid);
-  static AustraliaStates fromFullName(String fullName){
-    return values.firstWhere((element) => HatSpaceStrings.current.australiaState(element) == fullName, orElse: ()=> invalid);
+  static AustraliaStates fromFullName(String fullName) {
+    return values.firstWhere(
+        (element) =>
+            HatSpaceStrings.current.australiaState(element) == fullName,
+        orElse: () => invalid);
   }
 }
 
