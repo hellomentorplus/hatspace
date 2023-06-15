@@ -59,12 +59,10 @@ enum AustraliaStates {
   static AustraliaStates fromName(String name) =>
       values.firstWhere((element) => element.name == name.toLowerCase(),
           orElse: () => invalid);
-  static AustraliaStates fromFullName(String fullName) 
-  => values.firstWhere(
-        (element) =>
-            HatSpaceStrings.current.australiaState(element) == fullName,
-        orElse: () => invalid);
-  }
+  static AustraliaStates fromFullName(String fullName) => values.firstWhere(
+      (element) => HatSpaceStrings.current.australiaState(element) == fullName,
+      orElse: () => invalid);
+}
 
 enum MinimumRentPeriod {
   //TODO: add more value for upcomming story
