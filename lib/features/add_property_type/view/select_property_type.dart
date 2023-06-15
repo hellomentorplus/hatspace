@@ -14,6 +14,7 @@ class SelectPropertyType extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PropertyTypeCubit, PropertyTypeState>(
+      //alksdjlkasjdkajdlkjalksdjlkj
         listener: (context, state) {
       // Implement validate to enable next button
       if (state.propertyTypes != null) {
