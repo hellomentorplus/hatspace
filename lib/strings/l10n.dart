@@ -562,6 +562,19 @@ class HatSpaceStrings {
     );
   }
 
+  /// `{count, plural, zero{No rent period} one{1 Month} other { {count} Months }}`
+  String rentPeriod(num count) {
+    return Intl.plural(
+      count,
+      zero: 'No rent period',
+      one: '1 Month',
+      other: ' $count Months ',
+      name: 'rentPeriod',
+      desc: '',
+      args: [count],
+    );
+  }
+
   /// `Property name`
   String get propertyName {
     return Intl.message(

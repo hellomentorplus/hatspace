@@ -1,6 +1,7 @@
 // Property key field match with firestore
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:intl/intl.dart';
 
 // Field names for firebase firestore
 class PropKeys {
@@ -103,62 +104,24 @@ enum AustraliaStates {
 
 enum MinimumRentPeriod {
   //TODO: add more value for upcomming story
-  oneMonths,
-  threeMonths,
-  sixMonths,
-  nineMonths,
-  twelveMonths,
-  eighteenMonths,
-  tweentyFourMonths,
-  thirtySixMonths,
-  invalid;
+  oneMonth(1),
+  threeMonths(2),
+  sixMonths(6),
+  nineMonths(9),
+  twelveMonths(12),
+  eighteenMonths(18),
+  tweentyFourMonths(24),
+  thirtySixMonths(36),
+  invalid(0);
 
-  const MinimumRentPeriod();
-  String get rentPeriodName {
-    switch (this) {
-      case oneMonths:
-        return HatSpaceStrings.current.oneMonths;
-      case threeMonths:
-        return HatSpaceStrings.current.threeMonths;
-      case sixMonths:
-        return HatSpaceStrings.current.sixMonths;
-      case nineMonths:
-        return HatSpaceStrings.current.nineMonths;
-      case twelveMonths:
-        return HatSpaceStrings.current.twelveMonths;
-      case eighteenMonths:
-        return HatSpaceStrings.current.eighteenMonths;
-      case tweentyFourMonths:
-        return HatSpaceStrings.current.tweentyFourMonths;
-      case thirtySixMonths:
-        return HatSpaceStrings.current.thirtySixMonths;
-      // TODO: add more values in next story
-      default:
-        return "invalid";
-    }
+   const MinimumRentPeriod(this.months);
+    final int months;
+   static String getname(int months) {
+     return HatSpaceStrings.current.rentPeriod(months);
   }
 
-  static MinimumRentPeriod getPeriod(String period) {
-    if (period == HatSpaceStrings.current.threeMonths) {
-      return threeMonths;
-    } else if (period == HatSpaceStrings.current.sixMonths) {
-      return sixMonths;
-    } else if (period == HatSpaceStrings.current.oneMonths) {
-      return oneMonths;
-    } else if (period == HatSpaceStrings.current.nineMonths) {
-      return nineMonths;
-    } else if (period == HatSpaceStrings.current.eighteenMonths) {
-      return eighteenMonths;
-    } else if (period == HatSpaceStrings.current.twelveMonths) {
-      return twelveMonths;
-    } else if (period == HatSpaceStrings.current.tweentyFourMonths) {
-      return tweentyFourMonths;
-    } else if (period == HatSpaceStrings.current.thirtySixMonths) {
-      return thirtySixMonths;
-    } else {
-      return invalid;
-    }
-  }
+  static MinimumRentPeriod fromValue(int months)=>  values.firstWhere((element) => element.months == months, orElse: () => invalid);
+  
 
   static MinimumRentPeriod fromName(String name) => values
       .firstWhere((element) => element.name == name, orElse: () => invalid);
@@ -289,7 +252,7 @@ class Property {
         PropKeys.currency: price.currency.name,
         PropKeys.price: price.rentPrice
       },
-      PropKeys.rentPeriod: minimumRentPeriod.name,
+      PropKeys.rentPeriod: minimumRentPeriod.months,
       PropKeys.desciption: description,
       PropKeys.address: address.convertAddressToMap(),
       PropKeys.additionalDetail: {
@@ -321,7 +284,7 @@ class Property {
         additionalDetail:
             AdditionalDetail.convertMapToObject(map[PropKeys.additionalDetail]),
         photos: List<String>.from(map[PropKeys.photos]),
-        minimumRentPeriod: MinimumRentPeriod.fromName(map[PropKeys.rentPeriod]),
+        minimumRentPeriod: MinimumRentPeriod.fromValue(map[PropKeys.rentPeriod]),
         country: CountryCode.fromName(map[PropKeys.country]),
         location: map[PropKeys.location],
         createdTime: map[PropKeys.createdAt],
