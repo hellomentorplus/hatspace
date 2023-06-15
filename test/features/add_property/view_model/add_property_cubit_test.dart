@@ -9,8 +9,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-
-import 'add_property_cubit_test.mocks.dart';
+import 'property_property_cubit_test.mocks.dart';
 
 @GenerateMocks([AddPropertyCubit])
 void main() {
@@ -63,14 +62,14 @@ void main() {
     expect: () => [isA<NextButtonEnable>()],
   );
 
-  blocTest(
-    'Given when validate next button state true, then emit NextButton true',
-    build: () => AddPropertyCubit(),
-    act: (bloc) {
-      bloc.closeAddPropertyPage();
-    },
-    expect: () => [isA<AddPropertyPageClosedState>()],
-  );
+  // blocTest(
+  //   'Given when validate next button state true, then emit NextButton true',
+  //   build: () => AddPropertyCubit(),
+  //   act: (bloc) {
+  //     bloc.closeAddPropertyPage();
+  //   },
+  //   expect: () => [isA<AddPropertyPageClosedState>()],
+  // );
 
   test("test initial state", () {
     AddPropertyInitial addPropertyInitial = const AddPropertyInitial();

@@ -9,8 +9,10 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 class WarningBottomSheetView extends StatelessWidget {
+  final ValueChanged isClosed;
   const WarningBottomSheetView({
     super.key,
+    required this.isClosed
   });
   @override
   Widget build(BuildContext context) {
@@ -49,14 +51,14 @@ class WarningBottomSheetView extends StatelessWidget {
                     label: HatSpaceStrings.of(context).no,
                     onPressed: () {
                       // TODO; close bottom sheet, no data save
-                      context.pop();
+                      isClosed(false);
                     }),
                 const SizedBox(height: HsDimens.spacing16),
                 SecondaryButton(
                     label: HatSpaceStrings.of(context).yes,
                     onPressed: () {
                       //TODO: close button sheet, erase data.
-                      context.popWithValue(AddPropertyStatus.closePage);
+                      isClosed(true);
                     })
               ],
             )

@@ -73,12 +73,16 @@ class AddPropertyPageBody extends StatelessWidget {
                       ),
                       context: context,
                       builder: (modalContext) {
-                        return const Wrap(children: [WarningBottomSheetView()]);
-                      }).then((value) {
-                    if (value == AddPropertyStatus.closePage) {
-                      context.read<AddPropertyCubit>().closeAddPropertyPage();
-                    }
-                  });
+                        return  Wrap(children: [WarningBottomSheetView(
+                          isClosed: (isClose){
+                            if(isClose == true){
+                              context.read<AddPropertyCubit>().closeAddPropertyPage();
+                            }else{
+                              context.pop();
+                            }
+                          },
+                        )]);
+                      });
                 },
               ),
               bottom: PreferredSize(
