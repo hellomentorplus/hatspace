@@ -482,86 +482,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `1 Months`
-  String get oneMonths {
-    return Intl.message(
-      '1 Months',
-      name: 'oneMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `3 Months`
-  String get threeMonths {
-    return Intl.message(
-      '3 Months',
-      name: 'threeMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `6 Months`
-  String get sixMonths {
-    return Intl.message(
-      '6 Months',
-      name: 'sixMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `9 Months`
-  String get nineMonths {
-    return Intl.message(
-      '9 Months',
-      name: 'nineMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `12 Months`
-  String get twelveMonths {
-    return Intl.message(
-      '12 Months',
-      name: 'twelveMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `18 Months`
-  String get eighteenMonths {
-    return Intl.message(
-      '18 Months',
-      name: 'eighteenMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `24 Months`
-  String get tweentyFourMonths {
-    return Intl.message(
-      '24 Months',
-      name: 'tweentyFourMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `36 Months`
-  String get thirtySixMonths {
-    return Intl.message(
-      '36 Months',
-      name: 'thirtySixMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `{count, plural, zero{No rent period} one{1 Month} other { {count} Months }}`
   String rentPeriod(num count) {
     return Intl.plural(
@@ -572,6 +492,27 @@ class HatSpaceStrings {
       name: 'rentPeriod',
       desc: '',
       args: [count],
+    );
+  }
+
+  /// `{ausState, select, vic{Victoria} nsw{New South Wales} qld{Queenland} wa{Western Australia} sa{South Australia} tas{Tasmania} act{Australian Capital Territory} nt{Northern Territory} other{No State Available}  }`
+  String australiaState(Object ausState) {
+    return Intl.select(
+      ausState,
+      {
+        'vic': 'Victoria',
+        'nsw': 'New South Wales',
+        'qld': 'Queenland',
+        'wa': 'Western Australia',
+        'sa': 'South Australia',
+        'tas': 'Tasmania',
+        'act': 'Australian Capital Territory',
+        'nt': 'Northern Territory',
+        'other': 'No State Available',
+      },
+      name: 'australiaState',
+      desc: '',
+      args: [ausState],
     );
   }
 
