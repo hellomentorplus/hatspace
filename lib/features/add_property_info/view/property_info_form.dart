@@ -1,47 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
-import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
-import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
 
-class HatSpaceDropDownButton extends StatelessWidget {
-  final String label;
-  final bool isRequired;
-  final String? placeholder;
-  final VoidCallback onPressed;
-  const HatSpaceDropDownButton(
-      {super.key,
-      required this.label,
-      bool? isRequired,
-      required this.onPressed,
-      this.placeholder})
-      : isRequired = isRequired ?? false;
-  @override
-  Widget build(BuildContext context) {
-    return SecondaryButton(
-      // TODO: implement placeholder with enum of preriod
-      label: placeholder ?? HatSpaceStrings.of(context).pleaseSelectValue,
-      iconUrl: Assets.images.chervonDown,
-      iconPosition: IconPosition.right,
-      contentAlignment: MainAxisAlignment.spaceBetween,
-      style: secondaryButtonTheme.style?.copyWith(
-          textStyle: MaterialStatePropertyAll<TextStyle?>(
-            Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
-          ),
-          padding: const MaterialStatePropertyAll<EdgeInsets>(
-              EdgeInsets.fromLTRB(HsDimens.spacing16, HsDimens.spacing12,
-                  HsDimens.spacing12, HsDimens.spacing12))),
-      onPressed: () {
-        // TODO: implement show rent period
-      },
-    );
-  }
-}
 
 class PropertyName extends StatelessWidget {
   const PropertyName({super.key});

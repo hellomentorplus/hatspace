@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
@@ -266,6 +268,43 @@ class RoundButton extends StatelessWidget {
             DefaultTextStyle.of(context).style.color ?? HSColor.neutral9,
             BlendMode.srcIn),
       ),
+    );
+  }
+}
+
+
+class HatSpaceDropDownButton extends StatelessWidget {
+  final String label;
+  final bool isRequired;
+  final String? placeholder;
+  final VoidCallback onPressed;
+  final String? icon;
+  const HatSpaceDropDownButton(
+      {super.key,
+      required this.label,
+      bool? isRequired,
+      required this.onPressed,
+      this.icon,
+      this.placeholder})
+      : isRequired = isRequired ?? false;
+  @override
+  Widget build(BuildContext context) {
+    return SecondaryButton(
+      // TODO: implement placeholder with enum of preriod
+      label: placeholder ?? HatSpaceStrings.current.pleaseSelectValue,
+      iconUrl: icon,
+      iconPosition: IconPosition.right,
+      contentAlignment: MainAxisAlignment.spaceBetween,
+      style: secondaryButtonTheme.style?.copyWith(
+          textStyle: MaterialStatePropertyAll<TextStyle?>(
+            Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
+          ),
+          padding: const MaterialStatePropertyAll<EdgeInsets>(
+              EdgeInsets.fromLTRB(HsDimens.spacing16, HsDimens.spacing12,
+                  HsDimens.spacing12, HsDimens.spacing12))),
+      onPressed: () {
+        // TODO: implement show rent period
+      },
     );
   }
 }
