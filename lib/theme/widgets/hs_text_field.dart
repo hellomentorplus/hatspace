@@ -26,7 +26,6 @@ class HatSpaceLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return RichText(
         text: TextSpan(
             style: Theme.of(context).textTheme.bodyMedium,
