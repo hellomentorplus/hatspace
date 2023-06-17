@@ -11,7 +11,9 @@ class AddPropertySurburbView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Expanded(
-            child: Wrap(children: [
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
           HatSpaceLabel(
               label: HatSpaceStrings.of(context).suburb, isRequired: true),
           HatSpaceInputText(
@@ -21,7 +23,11 @@ class AddPropertySurburbView extends StatelessWidget {
         ])),
         const SizedBox(width: 16),
         Expanded(
-            child: Wrap(children: [
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: 
+            
+            [
           HatSpaceLabel(
               label: HatSpaceStrings.of(context).postcode, isRequired: true),
           HatSpaceInputText(
