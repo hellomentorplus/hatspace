@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:hatspace/data/property_data.dart';
-
-import 'package:hatspace/features/add_property_info/view/property_info_form.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_state.dart';
-
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_modal_view.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
 
@@ -21,14 +18,13 @@ class StateSelectionView extends StatelessWidget {
   Widget build(BuildContext context) {
     String label = HatSpaceStrings.of(context).pleaseSelectYourState;
     stateList.remove(AustraliaStates.invalid);
-    // TODO: implement build
     return BlocBuilder<PropertyInforCubit, PropertyInforState>(
         builder: (context, state) {
       if (state.savedState != AustraliaStates.invalid) {
         selectState.value = state.savedState;
       }
       if (state is SaveSelectedState) {
-        label = state.savedState.getName;
+        label = state.savedState.displayName;
         context.pop();
       }
       return Column(
@@ -37,7 +33,7 @@ class StateSelectionView extends StatelessWidget {
           HatSpaceLabel(
               label: HatSpaceStrings.of(context).state, isRequired: true),
           HatSpaceDropDownButton(
-              label: label,
+              value: label,
               isRequired: true,
               onPressed: () {
                 showModalBottomSheet(

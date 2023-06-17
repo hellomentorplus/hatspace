@@ -8,7 +8,6 @@ import 'package:hatspace/features/add_property_info/view/property_info_form.dart
 import 'package:hatspace/features/add_property_type/view/select_property_type.dart';
 import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
 
-
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -100,7 +99,6 @@ class BottomController extends StatelessWidget {
     }, builder: (context, state) {
       return BottomAppBar(
         color: HSColor.background,
-
         padding: const EdgeInsets.only(
             left: HsDimens.spacing16,
             right: HsDimens.spacing16,
@@ -113,7 +111,6 @@ class BottomController extends StatelessWidget {
             TextOnlyButton(
               label: HatSpaceStrings.of(context).back,
               onPressed: () {
-
                 if (state.pageViewNumber == 0) {
                   context.popToRootHome();
                 } else {

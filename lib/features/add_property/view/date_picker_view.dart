@@ -37,6 +37,11 @@ class DatePickerView extends StatelessWidget {
                                     valueListenable: selectedDate,
                                     builder: ((context, value, child) {
                                       return HsDatePicker(
+                                          saveSelectDate: (value) {
+                                            context
+                                                .read<PropertyTypeCubit>()
+                                                .selectAvailableDate(value);
+                                          },
                                           selectedDate: selectedDate);
                                     }))
                               ]));

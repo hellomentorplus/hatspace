@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/property_data.dart';
-import 'package:hatspace/features/add_property_info/view/property_info_form.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_state.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_modal_view.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
 
@@ -26,7 +26,7 @@ class MinimumRentView extends StatelessWidget {
         selectPeriod.value = state.saveRentPeriod;
       }
       if (state is SaveMinimumPeriodState) {
-        label = state.saveRentPeriod.getName;
+        label = state.saveRentPeriod.displayName;
         context.pop();
       }
       return Column(
@@ -36,7 +36,7 @@ class MinimumRentView extends StatelessWidget {
               label: HatSpaceStrings.of(context).minimumRentPeriod,
               isRequired: true),
           HatSpaceDropDownButton(
-              label: label,
+              value: label,
               //TODO: implement state
               isRequired: true,
               onPressed: () {

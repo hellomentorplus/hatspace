@@ -1,11 +1,9 @@
-
 part of 'property_type_cubit.dart';
 
 abstract class PropertyTypeState extends Equatable {
   final PropertyTypes? propertyTypes;
   final DateTime availableDate;
   const PropertyTypeState(this.propertyTypes, this.availableDate);
-
 }
 
 class PropertyTypeInitial extends PropertyTypeState {

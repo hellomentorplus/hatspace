@@ -105,7 +105,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please Enter Your Placeholder"),
         "pleaseSelectRentPeriod":
             MessageLookupByLibrary.simpleMessage("Please select rent period"),
-
         "pleaseSelectValue":
             MessageLookupByLibrary.simpleMessage("Please select value"),
         "pleaseSelectYourState":
@@ -143,7 +142,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "wa": MessageLookupByLibrary.simpleMessage("Western Australia"),
         "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
         "welcomeName": m3,
-
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
         "yourAddress": MessageLookupByLibrary.simpleMessage("Your address")

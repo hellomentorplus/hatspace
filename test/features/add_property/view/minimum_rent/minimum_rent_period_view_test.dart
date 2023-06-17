@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_property_info/view/minimum_rent_view.dart';
-import 'package:hatspace/features/add_property_info/view/property_info_form.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_state.dart';
+import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_modal_view.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
