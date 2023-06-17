@@ -6,7 +6,9 @@ class AddPropertyUnitView extends StatelessWidget {
   const AddPropertyUnitView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Wrap(children: [
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
       HatSpaceLabel(
         label: HatSpaceStrings.of(context).unitNumber,
         isRequired: false,

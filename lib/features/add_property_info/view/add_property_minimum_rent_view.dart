@@ -8,7 +8,8 @@ class AddPropertyMinimumView extends StatelessWidget {
   const AddPropertyMinimumView({super.key});
   @override
   Widget build(context) {
-    return Wrap(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         HatSpaceLabel(
             label: HatSpaceStrings.of(context).minimumRentPeriod,

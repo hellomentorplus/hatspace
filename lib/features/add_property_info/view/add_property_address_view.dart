@@ -8,8 +8,8 @@ class AddPropertyAddressView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Wrap(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         HatSpaceLabel(
             label: HatSpaceStrings.of(context).streetAddress, isRequired: true),

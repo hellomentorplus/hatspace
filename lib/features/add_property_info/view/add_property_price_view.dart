@@ -9,17 +9,12 @@ class AddPropertyPriceView extends StatelessWidget {
   const AddPropertyPriceView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Wrap(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         HatSpaceLabel(
             label: HatSpaceStrings.of(context).price, isRequired: true),
-        Card(
-          color: Colors.white,
-          elevation: 4.0,
-          shadowColor: HSColor.black.withOpacity(0.2),
-          shape: RoundedRectangleBorder(
-              side: const BorderSide(color: HSColor.neutral5),
-              borderRadius: BorderRadius.circular(8.0)),
+        InkWell(
           child: TextFormField(
             decoration: inputTextTheme.copyWith(
                 hintText: HatSpaceStrings.of(context).enterYourPrice,

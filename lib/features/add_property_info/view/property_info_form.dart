@@ -14,17 +14,17 @@ import 'package:hatspace/theme/hs_theme.dart';
 class PropertyInforForm extends StatelessWidget {
   PropertyInforForm({super.key});
   final List<Widget> itemList = [
-    Builder(builder: (BuildContext context) {
-      return Text(HatSpaceStrings.of(context).information,
+    Builder(builder: (context) {
+      return Text(HatSpaceStrings.current.information,
           style: textTheme.displayLarge);
     }),
     const AddPropertyNameView(),
     const AddPropertyPriceView(),
     const AddPropertyMinimumView(),
     const AddPropertyDescriptionView(),
-    Builder(builder: (BuildContext context) {
+    Builder(builder: (context) {
       return Text(
-        HatSpaceStrings.of(context).yourAddress,
+        HatSpaceStrings.current.yourAddress,
         style: textTheme.displayLarge?.copyWith(fontSize: 18.0),
       );
     }),

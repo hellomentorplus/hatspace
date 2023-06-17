@@ -53,8 +53,8 @@ enum AustraliaStates {
   invalid;
 
   const AustraliaStates();
-  static String getName(AustraliaStates statesCode) =>
-      HatSpaceStrings.current.australiaState(statesCode);
+  String get displayName =>
+      HatSpaceStrings.current.australiaState(this);
 
   static AustraliaStates fromName(String name) =>
       values.firstWhere((element) => element.name == name.toLowerCase(),
@@ -75,7 +75,7 @@ enum MinimumRentPeriod {
 
   const MinimumRentPeriod(this.months);
   final int months;
-  String getName() {
+  String get displayName {
     return HatSpaceStrings.current.rentPeriod(months);
   }
 
