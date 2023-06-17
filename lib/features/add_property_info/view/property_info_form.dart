@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_address_view.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_description_view.dart';
@@ -9,21 +8,8 @@ import 'package:hatspace/features/add_property_info/view/add_property_price_view
 import 'package:hatspace/features/add_property_info/view/add_property_state_view.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_surburb.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_unit_view.dart';
-import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-import 'package:hatspace/theme/widgets/hs_buttons.dart';
-import 'package:hatspace/theme/widgets/hs_text_field.dart';
-
-
-
-
-
-
-
-
-
-
 
 class PropertyInforForm extends StatelessWidget {
   PropertyInforForm({super.key});

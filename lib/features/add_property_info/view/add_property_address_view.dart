@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';

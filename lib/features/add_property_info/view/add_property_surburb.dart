@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
