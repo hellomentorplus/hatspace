@@ -272,26 +272,23 @@ class RoundButton extends StatelessWidget {
   }
 }
 
-
 class HatSpaceDropDownButton extends StatelessWidget {
-  final String label;
   final bool isRequired;
-  final String? placeholder;
+  final String? value;
   final VoidCallback onPressed;
   final String? icon;
   const HatSpaceDropDownButton(
       {super.key,
-      required this.label,
       bool? isRequired,
       required this.onPressed,
       this.icon,
-      this.placeholder})
+      this.value})
       : isRequired = isRequired ?? false;
   @override
   Widget build(BuildContext context) {
     return SecondaryButton(
       // TODO: implement placeholder with enum of preriod
-      label: placeholder ?? HatSpaceStrings.current.pleaseSelectValue,
+      label: value ?? HatSpaceStrings.current.pleaseSelectValue,
       iconUrl: icon,
       iconPosition: IconPosition.right,
       contentAlignment: MainAxisAlignment.spaceBetween,
