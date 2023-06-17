@@ -68,7 +68,7 @@ enum MinimumRentPeriod {
   nineMonths(9),
   twelveMonths(12),
   eighteenMonths(18),
-  tweentyFourMonths(24),
+  twentyFourMonths(24),
   thirtySixMonths(36),
   invalid(0);
 
