@@ -32,7 +32,7 @@ class HatSpaceLabel extends StatelessWidget {
             text: label,
             children: [
           TextSpan(
-              text: isRequired ? " *": "",
+              text: isRequired ? " *" : "",
               style: textTheme.bodyMedium
                   ?.copyWith(color: isRequired ? HSColor.requiredField : null))
         ]));
