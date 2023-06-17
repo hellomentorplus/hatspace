@@ -299,9 +299,7 @@ class HatSpaceDropDownButton extends StatelessWidget {
           padding: const MaterialStatePropertyAll<EdgeInsets>(
               EdgeInsets.fromLTRB(HsDimens.spacing16, HsDimens.spacing12,
                   HsDimens.spacing12, HsDimens.spacing12))),
-      onPressed: () {
-        // TODO: implement show rent period
-      },
+      onPressed: onPressed,
     );
   }
 }

@@ -97,7 +97,7 @@ class HsModalView extends StatelessWidget {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            itemList[index].getName,
+                                            itemList[index].displayName,
                                           ),
                                           renderSelectedItemIcon(value, index)
                                         ],
