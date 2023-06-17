@@ -20,7 +20,10 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(description) => "${Intl.select(description, {
+  static String m0(count) =>
+      "${Intl.plural(count, zero: 'No rent period', one: '1 Month', other: ' ${count} Months ')}";
+
+  static String m1(description) => "${Intl.select(description, {
             'tenant':
                 'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
             'homeowner':
@@ -28,11 +31,13 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': '',
           })}";
 
-  static String m1(role) => "${Intl.select(role, {
+  static String m2(role) => "${Intl.select(role, {
             'tenant': 'Tenant',
             'homeowner': 'Homeowner',
             'other': '',
           })}";
+
+  static String m3(name) => "👋 Hi ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -100,6 +105,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please Enter Your Placeholder"),
         "pleaseSelectRentPeriod":
             MessageLookupByLibrary.simpleMessage("Please select rent period"),
+
+        "pleaseSelectValue":
+            MessageLookupByLibrary.simpleMessage("Please select value"),
         "pleaseSelectYourState":
             MessageLookupByLibrary.simpleMessage("Pleas select your state"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
@@ -107,6 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
         "qld": MessageLookupByLibrary.simpleMessage("Queenland"),
+        "rentPeriod": m0,
         "sa": MessageLookupByLibrary.simpleMessage("South Australia"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "searchHint":
@@ -128,10 +137,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "tweentyFourMonths": MessageLookupByLibrary.simpleMessage("24 Months"),
         "twelveMonths": MessageLookupByLibrary.simpleMessage("12 Months"),
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
-        "userRoleDescription": m0,
-        "userTitleRoles": m1,
+        "userRoleDescription": m1,
+        "userTitleRoles": m2,
         "vic": MessageLookupByLibrary.simpleMessage("Victoria"),
         "wa": MessageLookupByLibrary.simpleMessage("Western Australia"),
+        "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
+        "welcomeName": m3,
+
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
         "yourAddress": MessageLookupByLibrary.simpleMessage("Your address")

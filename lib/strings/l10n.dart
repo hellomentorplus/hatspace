@@ -402,163 +402,37 @@ class HatSpaceStrings {
     );
   }
 
-  /// `New South Wales`
-  String get nsw {
-    return Intl.message(
-      'New South Wales',
-      name: 'nsw',
+  /// `{count, plural, zero{No rent period} one{1 Month} other { {count} Months }}`
+  String rentPeriod(num count) {
+    return Intl.plural(
+      count,
+      zero: 'No rent period',
+      one: '1 Month',
+      other: ' $count Months ',
+      name: 'rentPeriod',
       desc: '',
-      args: [],
+      args: [count],
     );
   }
 
-  /// `Victoria`
-  String get vic {
-    return Intl.message(
-      'Victoria',
-      name: 'vic',
+  /// `{ausState, select, vic{Victoria} nsw{New South Wales} qld{Queenland} wa{Western Australia} sa{South Australia} tas{Tasmania} act{Australian Capital Territory} nt{Northern Territory} other{No State Available}  }`
+  String australiaState(Object ausState) {
+    return Intl.select(
+      ausState,
+      {
+        'vic': 'Victoria',
+        'nsw': 'New South Wales',
+        'qld': 'Queenland',
+        'wa': 'Western Australia',
+        'sa': 'South Australia',
+        'tas': 'Tasmania',
+        'act': 'Australian Capital Territory',
+        'nt': 'Northern Territory',
+        'other': 'No State Available',
+      },
+      name: 'australiaState',
       desc: '',
-      args: [],
-    );
-  }
-
-  /// `Queenland`
-  String get qld {
-    return Intl.message(
-      'Queenland',
-      name: 'qld',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Western Australia`
-  String get wa {
-    return Intl.message(
-      'Western Australia',
-      name: 'wa',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `South Australia`
-  String get sa {
-    return Intl.message(
-      'South Australia',
-      name: 'sa',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Tasmania`
-  String get tas {
-    return Intl.message(
-      'Tasmania',
-      name: 'tas',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Australian Capital Territory`
-  String get act {
-    return Intl.message(
-      'Australian Capital Territory',
-      name: 'act',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Northern Territory`
-  String get nt {
-    return Intl.message(
-      'Northern Territory',
-      name: 'nt',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `1 Months`
-  String get oneMonths {
-    return Intl.message(
-      '1 Months',
-      name: 'oneMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `3 Months`
-  String get threeMonths {
-    return Intl.message(
-      '3 Months',
-      name: 'threeMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `6 Months`
-  String get sixMonths {
-    return Intl.message(
-      '6 Months',
-      name: 'sixMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `9 Months`
-  String get nineMonths {
-    return Intl.message(
-      '9 Months',
-      name: 'nineMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `12 Months`
-  String get twelveMonths {
-    return Intl.message(
-      '12 Months',
-      name: 'twelveMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `18 Months`
-  String get eighteenMonths {
-    return Intl.message(
-      '18 Months',
-      name: 'eighteenMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `24 Months`
-  String get tweentyFourMonths {
-    return Intl.message(
-      '24 Months',
-      name: 'tweentyFourMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `36 Months`
-  String get thirtySixMonths {
-    return Intl.message(
-      '36 Months',
-      name: 'thirtySixMonths',
-      desc: '',
-      args: [],
+      args: [ausState],
     );
   }
 
@@ -772,6 +646,26 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Hi there 👋`
+  String get welcomeDefault {
+    return Intl.message(
+      'Hi there 👋',
+      name: 'welcomeDefault',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `👋 Hi {name}`
+  String welcomeName(Object name) {
+    return Intl.message(
+      '👋 Hi $name',
+      name: 'welcomeName',
+      desc: '',
+      args: [name],
+    );
+  }
+
   /// `Pleas select your state`
   String get pleaseSelectYourState {
     return Intl.message(
@@ -797,6 +691,16 @@ class HatSpaceStrings {
     return Intl.message(
       'Save',
       name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select value`
+  String get pleaseSelectValue {
+    return Intl.message(
+      'Please select value',
+      name: 'pleaseSelectValue',
       desc: '',
       args: [],
     );
