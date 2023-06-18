@@ -6,8 +6,8 @@ import 'package:hatspace/features/home/view_model/home_interaction_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:shake/shake.dart';
 
@@ -71,34 +71,12 @@ class HomePageViewState extends State<HomePageView> {
                   context.goToAddProperty();
                 }
                 if (state is ShowModalLogin) {
-                  showModalBottomSheet(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      context: context,
-                      builder: (_) {
-                        return Wrap(
-                          children: [
-                            HsWarningBottomSheetView(
-                              iconUrl: Assets.images.loginCircle,
-                              title: HatSpaceStrings.of(context).login,
-                              description: HatSpaceStrings.of(context)
-                                  .neeTobeLoggedInToView,
-                              enablePrimaryButton: true,
-                              primaryButtonLabel:
-                                  HatSpaceStrings.of(context).yesLoginNow,
-                              primaryOnPressed: () {
-                                context.pop();
-                                context.goToSignup();
-                              },
-                              enableSecondaryButton: true,
-                              secondaryButtonLabel:
-                                  HatSpaceStrings.of(context).noLater,
-                              secondaryOnPressed: () => context.pop(),
-                            )
-                          ],
-                        );
-                      });
+                  context.showLoginModal(primaryOnPressed: () {
+                    context.pop();
+                    context.goToSignup();
+                  }, secondaryOnPressed: () {
+                    context.pop();
+                  });
                 }
               },
             )
