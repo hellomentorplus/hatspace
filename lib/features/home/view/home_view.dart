@@ -70,20 +70,35 @@ class HomePageViewState extends State<HomePageView> {
                 if (state is StartAddPropertyFlow) {
                   context.goToAddProperty();
                 }
-                if(state is ShowModalLogin){
-                  showModalBottomSheet(context: context, builder: (_){
-                    return HsWarningBottomSheetView(
-                      iconUrl: Assets.images.loginCircle,
-                      title: HatSpaceStrings.of(context).login,
-                      description: HatSpaceStrings.of(context).neeTobeLoggedInToView,
-                      enablePrimaryButton: true,
-                      primaryButtonLabel: HatSpaceStrings.of(context).yesLoginNow,
-                      primaryOnPressed: () => context.goToSignup(),
-                      enableSecondaryButton: true,
-                      secondaryButtonLabel: HatSpaceStrings.of(context).noLater,
-                      secondaryOnPressed: () => context.pop(),
-                    );
-                  }); 
+                if (state is ShowModalLogin) {
+                  showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      context: context,
+                      builder: (_) {
+                        return Wrap(
+                          children: [
+                            HsWarningBottomSheetView(
+                              iconUrl: Assets.images.loginCircle,
+                              title: HatSpaceStrings.of(context).login,
+                              description: HatSpaceStrings.of(context)
+                                  .neeTobeLoggedInToView,
+                              enablePrimaryButton: true,
+                              primaryButtonLabel:
+                                  HatSpaceStrings.of(context).yesLoginNow,
+                              primaryOnPressed: () {
+                                context.pop();
+                                context.goToSignup();
+                              },
+                              enableSecondaryButton: true,
+                              secondaryButtonLabel:
+                                  HatSpaceStrings.of(context).noLater,
+                              secondaryOnPressed: () => context.pop(),
+                            )
+                          ],
+                        );
+                      });
                 }
               },
             )
@@ -160,17 +175,26 @@ class HomePageViewState extends State<HomePageView> {
                               icon: Assets.icons.explore,
                               label: HatSpaceStrings.current.explore,
                               isSelected: value == 0,
-                              onTap: () => _selectedIndex.value = 0,
+                              onTap: () {
+                                context
+                                    .read<HomeInteractionCubit>()
+                                    .onValidateLogin(BottomBarItems.explore);
+                                _selectedIndex.value = 0;
+                              },
                             ),
                           ),
                           ValueListenableBuilder<int>(
                             valueListenable: _selectedIndex,
                             builder: (context, value, child) => _BottomBarItem(
-                              icon: Assets.icons.booking,
-                              label: HatSpaceStrings.current.booking,
-                              isSelected: value == 1,
-                              onTap: () => _selectedIndex.value = 1,
-                            ),
+                                icon: Assets.icons.booking,
+                                label: HatSpaceStrings.current.booking,
+                                isSelected: value == 1,
+                                onTap: () {
+                                  context
+                                      .read<HomeInteractionCubit>()
+                                      .onValidateLogin(BottomBarItems.explore);
+                                  _selectedIndex.value = 1;
+                                }),
                           ),
                           Container(
                             decoration: ShapeDecoration(
@@ -205,20 +229,28 @@ class HomePageViewState extends State<HomePageView> {
                           ValueListenableBuilder<int>(
                             valueListenable: _selectedIndex,
                             builder: (context, value, child) => _BottomBarItem(
-                              icon: Assets.icons.message,
-                              label: HatSpaceStrings.current.message,
-                              isSelected: value == 2,
-                              onTap: () => _selectedIndex.value = 2,
-                            ),
+                                icon: Assets.icons.message,
+                                label: HatSpaceStrings.current.message,
+                                isSelected: value == 2,
+                                onTap: () {
+                                  context
+                                      .read<HomeInteractionCubit>()
+                                      .onValidateLogin(BottomBarItems.explore);
+                                  _selectedIndex.value = 2;
+                                }),
                           ),
                           ValueListenableBuilder<int>(
                             valueListenable: _selectedIndex,
                             builder: (context, value, child) => _BottomBarItem(
-                              icon: Assets.icons.profile,
-                              label: HatSpaceStrings.current.profile,
-                              isSelected: value == 3,
-                              onTap: () => _selectedIndex.value = 3,
-                            ),
+                                icon: Assets.icons.profile,
+                                label: HatSpaceStrings.current.profile,
+                                isSelected: value == 3,
+                                onTap: () {
+                                  context
+                                      .read<HomeInteractionCubit>()
+                                      .onValidateLogin(BottomBarItems.explore);
+                                  _selectedIndex.value = 3;
+                                }),
                           )
                         ],
                       ),

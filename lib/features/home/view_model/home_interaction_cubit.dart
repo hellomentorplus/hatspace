@@ -8,6 +8,13 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 
 part 'home_interaction_state.dart';
 
+enum BottomBarItems {
+  explore,
+  booking,
+  message,
+  profile
+}
+
 class HomeInteractionCubit extends Cubit<HomeInteractionState> {
   HomeInteractionCubit() : super(HomeInitial());
 
@@ -29,11 +36,25 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
           emit(StartAddPropertyFlow());
         } else {
           // TODO handle when user is not a homeowner
-          emit(ShowModalLogin());
         }
       }
     } on UserNotFoundException catch (_) {
       // TODO handle case when user is not login
+      emit(ShowModalLogin());
+    }
+  }
+  void onValidateLogin(BottomBarItems items)async {
+    emit(StartValidateLogin());
+    try{
+      final UserDetail detail = await authenticationService.getCurrentUser();
+      final List<Roles> roles =
+          await storageService.member.getUserRoles(detail.uid);
+
+      if (!isClosed) {
+        // TODO handle when user already login
+      }
+    } on UserNotFoundException catch (_){
+      emit(ShowModalLogin());
     }
   }
 }
