@@ -3,9 +3,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
+import 'package:hatspace/features/home/view_model/home_interaction_cubit.dart';
+import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:mockito/annotations.dart';
@@ -14,14 +18,21 @@ import 'package:mockito/mockito.dart';
 import '../../widget_tester_extension.dart';
 import 'home_view_test.mocks.dart';
 
-@GenerateMocks(
-    [AppConfigBloc, StorageService, AuthenticationService, AuthenticationBloc])
+@GenerateMocks([
+  AppConfigBloc,
+  StorageService,
+  AuthenticationService,
+  AuthenticationBloc,
+  HomeInteractionCubit
+])
 void main() {
   final MockAppConfigBloc appConfigBloc = MockAppConfigBloc();
   final MockStorageService storageService = MockStorageService();
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
   final MockAuthenticationBloc authenticationBloc = MockAuthenticationBloc();
+  final MockHomeInteractionCubit homeInteractionCubit =
+      MockHomeInteractionCubit();
 
   setUpAll(() {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
@@ -43,6 +54,8 @@ void main() {
             .thenAnswer((realInvocation) => AnonymousState());
         when(authenticationBloc.stream)
             .thenAnswer((realInvocation) => Stream.value(AnonymousState()));
+        when(authenticationService.getCurrentUser())
+            .thenThrow(UserNotFoundException());
       });
 
       tearDown(() {
@@ -60,10 +73,15 @@ void main() {
           ),
           BlocProvider<AuthenticationBloc>(
             create: (context) => authenticationBloc,
-          )
+          ),
         ], widget);
 
         expect(find.byType(BlocListener<AppConfigBloc, AppConfigState>),
+            findsOneWidget);
+
+        expect(
+            find.byType(
+                BlocListener<HomeInteractionCubit, HomeInteractionState>),
             findsOneWidget);
       });
 
@@ -82,6 +100,22 @@ void main() {
         expect(find.text('Hi there 👋'), findsOneWidget);
         expect(find.text('Search rental, location...'), findsOneWidget);
         expect(find.byType(BottomAppBar), findsOneWidget);
+      });
+
+      testWidgets('verify login modal when user tap item bottom bar',
+          (widgetTester) async {
+        const Widget widget = HomePageView();
+        await widgetTester.multiBlocWrapAndPump([
+          BlocProvider<AppConfigBloc>(
+            create: (context) => appConfigBloc,
+          ),
+          BlocProvider<AuthenticationBloc>(
+            create: (context) => authenticationBloc,
+          )
+        ], widget);
+        await widgetTester.tap(find.text(HatSpaceStrings.current.explore));
+        await widgetTester.pump();
+        expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
       });
     },
   );

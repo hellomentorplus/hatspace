@@ -46,7 +46,7 @@ void main() {
             .thenThrow(UserNotFoundException());
       },
       act: (bloc) => bloc.onAddPropertyPressed(),
-      expect: () => [isA<StartValidateRole>()]);
+      expect: () => [isA<StartValidateRole>(), isA<ShowModalLogin>()]);
 
   blocTest(
     'Given user has role tenant only, when handle Add Property, then return nothing',
@@ -80,4 +80,14 @@ void main() {
     act: (bloc) => bloc.onAddPropertyPressed(),
     expect: () => [isA<StartValidateRole>(), isA<StartAddPropertyFlow>()],
   );
+
+  blocTest(
+      "Given user has not sign in, when handle BottomAppBar time, then return ShowModalLogin",
+      build: () => HomeInteractionCubit(),
+      setUp: () {
+        when(authenticationService.getCurrentUser())
+            .thenThrow(UserNotFoundException());
+      },
+      act: (bloc) => bloc.onValidateLogin(BottomBarItems.booking),
+      expect: () => [isA<StartValidateLogin>(), isA<ShowModalLogin>()]);
 }
