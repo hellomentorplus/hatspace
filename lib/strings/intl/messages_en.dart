@@ -95,7 +95,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nineMonths": MessageLookupByLibrary.simpleMessage("9 Months"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
-        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
         "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
         "oneMonths": MessageLookupByLibrary.simpleMessage("1 Months"),

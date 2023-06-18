@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/add_property/view/property_info_form_view.dart';
+import 'package:hatspace/features/add_property/view/show_warning_bottom_sheet_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:hatspace/features/add_property_type/view/select_property_type.dart';
 import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
-import 'package:hatspace/features/warning_bottom_sheet/warning_bottom_sheet_view.dart';
 
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
