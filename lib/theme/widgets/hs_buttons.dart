@@ -273,7 +273,6 @@ class RoundButton extends StatelessWidget {
 }
 
 class HatSpaceDropDownButton extends StatelessWidget {
-  final bool isRequired;
   final String? value;
   final VoidCallback onPressed;
   final String? icon;
@@ -282,8 +281,7 @@ class HatSpaceDropDownButton extends StatelessWidget {
       bool? isRequired,
       required this.onPressed,
       this.icon,
-      this.value})
-      : isRequired = isRequired ?? false;
+      this.value});
   @override
   Widget build(BuildContext context) {
     return SecondaryButton(
