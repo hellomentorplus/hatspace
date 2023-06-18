@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_property/view/add_property_view.dart';
-import 'package:hatspace/features/add_property/view/show_warning_bottom_sheet_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
-import 'package:hatspace/theme/widgets/hs_buttons.dart';
-
+import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -32,7 +30,6 @@ void main() {
     expect(find.byType(BlocProvider<AddPropertyCubit>), findsWidgets);
   });
 
-
   testWidgets(
       'given when user press close icon then app shows the bottom modal sheet',
       (widgetTester) async {
@@ -41,7 +38,6 @@ void main() {
         addPropertyBloc, widget);
     await widgetTester.tap(find.byType(IconButton));
     await widgetTester.pump();
-    expect(find.byKey(const Key("warning_bottom_modal")), findsOneWidget);
-
+    expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
   });
 }
