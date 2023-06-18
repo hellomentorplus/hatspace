@@ -42,7 +42,7 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
   void onValidateLogin(BottomBarItems items) async {
     emit(StartValidateLogin());
     try {
-      final UserDetail detail = await authenticationService.getCurrentUser();
+      await authenticationService.getCurrentUser();
       if (!isClosed) {
         // TODO handle when user already login
       }

@@ -23,7 +23,6 @@ import 'home_view_test.mocks.dart';
   StorageService,
   AuthenticationService,
   AuthenticationBloc,
-  HomeInteractionCubit
 ])
 void main() {
   final MockAppConfigBloc appConfigBloc = MockAppConfigBloc();
@@ -31,8 +30,6 @@ void main() {
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
   final MockAuthenticationBloc authenticationBloc = MockAuthenticationBloc();
-  final MockHomeInteractionCubit homeInteractionCubit =
-      MockHomeInteractionCubit();
 
   setUpAll(() {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
