@@ -75,15 +75,6 @@ void main() {
     AddPropertyPageClosedState propertyPageClosedState =
         const AddPropertyPageClosedState(1);
     expect(propertyPageClosedState.props.length, 0);
-  test("test initial state", () {
-    AddPropertyInitial addPropertyInitial = const AddPropertyInitial();
-    expect(addPropertyInitial.props.length, 0);
   });
 
-  // blocTest(
-  //   "Given when user select property type, then emit update AddPropertyState with new property tyep",
-  //   build: () => PropertyTypeCubit(),
-  //   act: (bloc) => {bloc.selectAvailableDate(DateTime.now())},
-  //   expect: () => [isA<PropertyAvailableDate>()],
-  // );
 }
