@@ -34,4 +34,9 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
       // Implement disable event
     }
   }
+  void closeAddPropertyPage() {
+    // TODO: Implement delete all state in each pages
+    emit(const AddPropertyPageClosedState(0));
+  }
+  
 }

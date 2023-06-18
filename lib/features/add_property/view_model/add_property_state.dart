@@ -26,3 +26,10 @@ class NextButtonEnable extends AddPropertyState {
   @override
   List<Object?> get props => [isActive];
 }
+
+
+class AddPropertyPageClosedState extends AddPropertyState {
+  const AddPropertyPageClosedState(super.pageViewNumber);
+  @override
+  List<Object?> get props => [];
+}

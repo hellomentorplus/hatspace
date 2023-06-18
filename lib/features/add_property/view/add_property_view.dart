@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/features/add_property/view/property_info_form_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:hatspace/features/add_property_type/view/select_property_type.dart';
 import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
+import 'package:hatspace/features/warning_bottom_sheet/warning_bottom_sheet_view.dart';
 
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
@@ -34,12 +34,14 @@ class AddPropertyPageBody extends StatelessWidget {
       PageController(initialPage: 0, keepPage: true);
   final ValueNotifier<int> onProgressIndicatorState = ValueNotifier(0);
   // Number of Pages for PageView
-  final List<Widget> pages = [const SelectPropertyType(), PropertyInforForm()];
+  final List<Widget> pages = [
+    const SelectPropertyType(),
+  ];
   AddPropertyPageBody({super.key});
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return BlocListener<AddPropertyCubit, AddPropertyState>(
+    final Size size = MediaQuery.of(context).size;
+       return BlocListener<AddPropertyCubit, AddPropertyState>(
         listener: (context, state) {
           if (state is AddPropertyPageClosedState) {
             context.popToRootHome();
@@ -64,44 +66,45 @@ class AddPropertyPageBody extends StatelessWidget {
                       ),
                       context: context,
                       builder: (modalContext) {
-                        return  Wrap(children: [WarningBottomSheetView(
-                          isClosed: (isClose){
-                            if(isClose == true){
-                              context.read<AddPropertyCubit>().closeAddPropertyPage();
-                            }else{
-                              context.pop();
-                            }
-                          },
-                        )]);
-                      });
+                        return Wrap(
+                          children: [
+                            WarningBottomSheetView(isClosed: (isClosed){
+                                if(isClosed){
+                                  context.read<AddPropertyCubit>().closeAddPropertyPage();
+                                }else{
+                                  context.pop();
+                                }
+                            })
+                          ],
+                        );
+                  });
+              }),
+          bottom: PreferredSize(
+              preferredSize: Size(size.width, 0),
+              child: BlocSelector<AddPropertyCubit, AddPropertyState, int>(
+                selector: (state) => state.pageViewNumber,
+                builder: (context, state) {
+                  return LinearProgressIndicator(
+                    backgroundColor: HSColor.neutral2,
+                    color: HSColor.primary,
+                    value: (state + 1) / pages.length,
+                    semanticsLabel:
+                        HatSpaceStrings.of(context).linearProgressIndicator,
+                  );
                 },
-              ),
-              bottom: PreferredSize(
-                  preferredSize: Size(size.width, 0),
-                  child: BlocSelector<AddPropertyCubit, AddPropertyState, int>(
-                    selector: (state) => state.pageViewNumber,
-                    builder: (context, state) {
-                      return LinearProgressIndicator(
-                        backgroundColor: HSColor.neutral2,
-                        color: HSColor.primary,
-                        value: (state + 1) / pages.length,
-                        semanticsLabel:
-                            HatSpaceStrings.of(context).linearProgressIndicator,
-                      );
-                    },
-                  )),
-            ),
-            body: PageView.builder(
-              onPageChanged: (value) {
-                onProgressIndicatorState.value = value;
-              },
-              physics: const NeverScrollableScrollPhysics(),
-              controller: pageController,
-              itemBuilder: (context, index) {
-                return pages[index];
-              },
-            )));
-
+              )),
+        ),
+        body: PageView.builder(
+          onPageChanged: (value) {
+            onProgressIndicatorState.value = value;
+          },
+          itemCount: pages.length,
+          physics: const NeverScrollableScrollPhysics(),
+          controller: pageController,
+          itemBuilder: (context, index) {
+            return pages[index];
+          },
+        )));
   }
 }
 
@@ -124,7 +127,6 @@ class BottomController extends StatelessWidget {
             right: HsDimens.spacing16,
             top: HsDimens.spacing8,
             bottom: 29.0),
-
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
