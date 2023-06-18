@@ -13,9 +13,9 @@ class AddPropertySurburbView extends StatelessWidget {
         Expanded(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          HatSpaceLabel(
-              label: HatSpaceStrings.of(context).suburb, isRequired: true),
           HatSpaceInputText(
+            label: HatSpaceStrings.of(context).suburb,
+            isRequired: true,
             placeholder: HatSpaceStrings.of(context).enterYourSuburb,
             onChanged: () {},
           )
@@ -24,9 +24,9 @@ class AddPropertySurburbView extends StatelessWidget {
         Expanded(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          HatSpaceLabel(
-              label: HatSpaceStrings.of(context).postcode, isRequired: true),
           HatSpaceInputText(
+            label: HatSpaceStrings.of(context).postcode,
+            isRequired: true,
             placeholder: HatSpaceStrings.of(context).enterYourPostcode,
             onChanged: () {},
           )

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 InputDecoration inputTextTheme = InputDecoration(
@@ -74,7 +73,11 @@ class HatSpaceInputText extends StatelessWidget {
           0,
           Padding(
               padding: _padding,
-              child: HatSpaceLabel(label: label, isRequired: _isRequired, optional: optional,)));
+              child: HatSpaceLabel(
+                label: label,
+                isRequired: _isRequired,
+                optional: optional,
+              )));
     }
     return Column(
       crossAxisAlignment: _alignment,

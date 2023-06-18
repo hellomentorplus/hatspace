@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
@@ -16,6 +17,7 @@ class AddPropertyStateView extends StatelessWidget {
           label: HatSpaceStrings.of(context).state,
           isRequired: true,
         ),
+        const SizedBox(height: HsDimens.spacing4),
         HatSpaceDropDownButton(
             icon: Assets.images.chervonDown, onPressed: () {})
       ],
