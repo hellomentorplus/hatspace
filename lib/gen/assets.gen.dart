@@ -110,6 +110,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/increment.svg
   String get increment => 'assets/images/increment.svg';
 
+  /// File path: assets/images/login_circle.svg
+  String get loginCircle => 'assets/images/login_circle.svg';
+
   /// File path: assets/images/messages.svg
   String get messages => 'assets/images/messages.svg';
 
@@ -139,6 +142,7 @@ class $AssetsImagesGen {
         google,
         house,
         increment,
+        loginCircle,
         messages,
         profileCircle,
         searchNormal

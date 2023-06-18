@@ -521,6 +521,46 @@ class HatSpaceStrings {
       args: [name],
     );
   }
+
+  /// `Login`
+  String get login {
+    return Intl.message(
+      'Login',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You need to be logged in to view this content`
+  String get neeTobeLoggedInToView {
+    return Intl.message(
+      'You need to be logged in to view this content',
+      name: 'neeTobeLoggedInToView',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes, login now`
+  String get yesLoginNow {
+    return Intl.message(
+      'Yes, login now',
+      name: 'yesLoginNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No, later`
+  String get noLater {
+    return Intl.message(
+      'No, later',
+      name: 'noLater',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

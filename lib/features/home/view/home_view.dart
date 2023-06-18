@@ -7,6 +7,7 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:shake/shake.dart';
 
@@ -68,6 +69,21 @@ class HomePageViewState extends State<HomePageView> {
               listener: (context, state) {
                 if (state is StartAddPropertyFlow) {
                   context.goToAddProperty();
+                }
+                if(state is ShowModalLogin){
+                  showModalBottomSheet(context: context, builder: (_){
+                    return HsWarningBottomSheetView(
+                      iconUrl: Assets.images.loginCircle,
+                      title: HatSpaceStrings.of(context).login,
+                      description: HatSpaceStrings.of(context).neeTobeLoggedInToView,
+                      enablePrimaryButton: true,
+                      primaryButtonLabel: HatSpaceStrings.of(context).yesLoginNow,
+                      primaryOnPressed: () => context.goToSignup(),
+                      enableSecondaryButton: true,
+                      secondaryButtonLabel: HatSpaceStrings.of(context).noLater,
+                      secondaryOnPressed: () => context.pop(),
+                    );
+                  }); 
                 }
               },
             )

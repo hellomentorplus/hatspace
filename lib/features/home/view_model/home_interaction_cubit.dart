@@ -29,6 +29,7 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
           emit(StartAddPropertyFlow());
         } else {
           // TODO handle when user is not a homeowner
+          emit(ShowModalLogin());
         }
       }
     } on UserNotFoundException catch (_) {

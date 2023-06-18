@@ -18,3 +18,9 @@ class StartAddPropertyFlow extends HomeInteractionState {
   @override
   List<Object?> get props => [];
 }
+
+class ShowModalLogin extends HomeInteractionState{
+  @override
+  List<Object?> get props =>[];
+  
+}

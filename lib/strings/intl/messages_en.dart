@@ -70,8 +70,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
+        "neeTobeLoggedInToView": MessageLookupByLibrary.simpleMessage(
+            "You need to be logged in to view this content"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "noLater": MessageLookupByLibrary.simpleMessage("No, later"),
         "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
         "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
@@ -97,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
         "welcomeName": m2,
         "whatKindOfPlace":
-            MessageLookupByLibrary.simpleMessage("What kind of place?")
+            MessageLookupByLibrary.simpleMessage("What kind of place?"),
+        "yesLoginNow": MessageLookupByLibrary.simpleMessage("Yes, login now")
       };
 }
