@@ -9,10 +9,10 @@ import 'package:hatspace/features/add_property_type/view_modal/property_type_cub
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
-import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 
 class AddPropertyView extends StatelessWidget {
   const AddPropertyView({super.key});
@@ -60,37 +60,12 @@ class AddPropertyPageBody extends StatelessWidget {
                   onPressed: () {
                     // HS-99 scenario 6
                     // context.popToRootHome();
-                    showModalBottomSheet(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        context: context,
-                        builder: (_) {
-                          return Wrap(
-                            children: [
-                              HsWarningBottomSheetView(
-                                iconUrl: Assets.images.circleWarning,
-                                title: HatSpaceStrings.of(context).lostData,
-                                description: HatSpaceStrings.of(context)
-                                    .yourDataMayBeLost,
-                                enablePrimaryButton: true,
-                                primaryButtonLabel:
-                                    HatSpaceStrings.of(context).no,
-                                primaryOnPressed: () {
-                                  context.pop();
-                                },
-                                enableSecondaryButton: true,
-                                secondaryButtonLabel:
-                                    HatSpaceStrings.of(context).yes,
-                                secondaryOnPressed: () {
-                                  context
-                                      .read<AddPropertyCubit>()
-                                      .closeAddPropertyPage();
-                                },
-                              )
-                            ],
-                          );
-                        });
+                    context.showWarningModal(primaryOnPressed: () {
+                      context.pop();
+                    }, secondaryOnPressed: () {
+                      context.pop();
+                      context.read<AddPropertyCubit>().closeAddPropertyPage();
+                    });
                   }),
               bottom: PreferredSize(
                   preferredSize: Size(size.width, 0),
