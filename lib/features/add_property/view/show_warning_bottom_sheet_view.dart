@@ -56,7 +56,7 @@ class WarningBottomSheetView extends StatelessWidget {
                 SecondaryButton(
                     label: HatSpaceStrings.of(context).yes,
                     onPressed: () {
-                      //TODO: close button sheet, erase data.
+                      //TODO: close buttom sheet, erase data.
                       isClosed(true);
                     })
               ],

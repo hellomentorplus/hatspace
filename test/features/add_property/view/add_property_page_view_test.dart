@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_property/view/add_property_view.dart';
+import 'package:hatspace/features/add_property/view/show_warning_bottom_sheet_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
+import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
@@ -40,5 +42,6 @@ void main() {
     await widgetTester.tap(find.byType(IconButton));
     await widgetTester.pump();
     expect(find.byKey(const Key("warning_bottom_modal")), findsOneWidget);
+
   });
 }
