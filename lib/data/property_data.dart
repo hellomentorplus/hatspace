@@ -34,10 +34,8 @@ enum PropertyTypes {
   apartment,
   invalid;
 
-  static PropertyTypes fromName(String name) {
-    return values.firstWhere((element) => element.name == name,
-        orElse: () => invalid);
-  }
+  static PropertyTypes fromName(String name) => values
+      .firstWhere((element) => element.name == name, orElse: () => invalid);
 }
 
 enum AustraliaStates {
@@ -69,21 +67,16 @@ enum MinimumRentPeriod {
   nineMonths(9),
   twelveMonths(12),
   eighteenMonths(18),
-  tweentyFourMonths(24),
+  twentyFourMonths(24),
   thirtySixMonths(36),
   invalid(0);
 
   const MinimumRentPeriod(this.months);
   final int months;
-  String get displayName {
-    return HatSpaceStrings.current.rentPeriod(months);
-  }
+  String get displayName => HatSpaceStrings.current.rentPeriod(months);
 
-  static MinimumRentPeriod fromValue(int months) => values
+  static MinimumRentPeriod fromMonthsValue(int months) => values
       .firstWhere((element) => element.months == months, orElse: () => invalid);
-
-  static MinimumRentPeriod fromName(String name) => values
-      .firstWhere((element) => element.name == name, orElse: () => invalid);
 }
 
 enum Currency {
@@ -244,7 +237,7 @@ class Property {
             AdditionalDetail.convertMapToObject(map[PropKeys.additionalDetail]),
         photos: List<String>.from(map[PropKeys.photos]),
         minimumRentPeriod:
-            MinimumRentPeriod.fromValue(map[PropKeys.rentPeriod]),
+            MinimumRentPeriod.fromMonthsValue(map[PropKeys.rentPeriod]),
         country: CountryCode.fromName(map[PropKeys.country]),
         location: map[PropKeys.location],
         createdTime: map[PropKeys.createdAt],

@@ -7,12 +7,9 @@ class AddPropertyUnitView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      HatSpaceLabel(
-        label: HatSpaceStrings.of(context).unitNumber,
-        isRequired: false,
-        optional: HatSpaceStrings.of(context).optional,
-      ),
       HatSpaceInputText(
+        label: HatSpaceStrings.of(context).unitNumber,
+        optional: "(${HatSpaceStrings.of(context).optional})",
         placeholder: HatSpaceStrings.of(context).enterYourUnitnumber,
         onChanged: () {},
       )

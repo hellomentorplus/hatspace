@@ -11,9 +11,9 @@ class AddPropertyAddressView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HatSpaceLabel(
-            label: HatSpaceStrings.of(context).streetAddress, isRequired: true),
         HatSpaceInputText(
+          label: HatSpaceStrings.of(context).streetAddress,
+          isRequired: true,
           placeholder: HatSpaceStrings.of(context).enterYourAddress,
           onChanged: () {},
         ),

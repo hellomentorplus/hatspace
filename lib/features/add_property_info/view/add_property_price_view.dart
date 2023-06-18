@@ -14,6 +14,7 @@ class AddPropertyPriceView extends StatelessWidget {
       children: [
         HatSpaceLabel(
             label: HatSpaceStrings.of(context).price, isRequired: true),
+        const SizedBox(height: HsDimens.spacing4),
         InkWell(
           child: TextFormField(
             decoration: inputTextTheme.copyWith(

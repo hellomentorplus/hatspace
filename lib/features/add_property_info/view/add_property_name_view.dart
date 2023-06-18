@@ -6,15 +6,12 @@ class AddPropertyNameView extends StatelessWidget {
   const AddPropertyNameView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      HatSpaceLabel(
+    return HatSpaceInputText(
         label: HatSpaceStrings.of(context).propertyName,
         isRequired: true,
-      ),
-      HatSpaceInputText(
         placeholder: HatSpaceStrings.of(context).enterPropertyName,
-        onChanged: () {},
-      )
-    ]);
+        onChanged: () {
+          // TODO implement interaction
+        });
   }
 }
