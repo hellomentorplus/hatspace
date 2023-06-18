@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/data/property_data.dart';
+import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
+import 'package:hatspace/features/add_property_info/view_modal/property_infor_state.dart';
 
-import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -17,7 +20,6 @@ class AddPropertyStateView extends StatelessWidget {
   Widget build(BuildContext context) {
     String label = HatSpaceStrings.of(context).pleaseSelectYourState;
     stateList.remove(AustraliaStates.invalid);
-    // TODO: implement build
     return BlocBuilder<PropertyInforCubit, PropertyInforState>(
         builder: (context, state) {
       if (state.savedState != AustraliaStates.invalid) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/add_property_info/view/state_selection_view.dart';
+import 'package:hatspace/features/add_property_info/view/add_property_state_view.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_state.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
@@ -22,7 +22,7 @@ void main() {
         (realInvocation) => Stream.value(const PropertyInforInitial()));
   });
   testWidgets('test state bottom sheet for widget', (widgetTester) async {
-    Widget stateView = StateSelectionView();
+    Widget stateView = AddPropertyStateView();
     await widgetTester.blocWrapAndPump<PropertyInforCubit>(
         propertyInforCubit, stateView);
     await widgetTester.tap(find.byType(HatSpaceDropDownButton));

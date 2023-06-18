@@ -20,7 +20,6 @@ class AddPropertyMinimumView extends StatelessWidget {
   Widget build(BuildContext context) {
     String label = HatSpaceStrings.of(context).pleaseSelectRentPeriod;
     periodList.remove(MinimumRentPeriod.invalid);
-    // TODO: implement build
     return BlocBuilder<PropertyInforCubit, PropertyInforState>(
         builder: (context, state) {
       if (state.saveRentPeriod != MinimumRentPeriod.invalid) {
