@@ -6,7 +6,7 @@ import 'package:hatspace/features/add_property_info/view/add_property_minimum_re
 import 'package:hatspace/features/add_property_info/view/add_property_name_view.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_price_view.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_state_view.dart';
-import 'package:hatspace/features/add_property_info/view/add_property_surburb.dart';
+import 'package:hatspace/features/add_property_info/view/add_property_suburb.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_unit_view.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -31,7 +31,7 @@ class PropertyInforForm extends StatelessWidget {
     const AddPropertyStateView(),
     const AddPropertyUnitView(),
     const AddPropertyAddressView(),
-    const AddPropertySurburbView()
+    const AddPropertySuburbView()
   ];
   @override
   Widget build(BuildContext context) {
