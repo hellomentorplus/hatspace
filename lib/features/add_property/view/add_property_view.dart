@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property/view/property_info_form_view.dart';
-import 'package:hatspace/features/add_property/view/warning_bottom_sheet/warning_bottom_sheet_view.dart';
-import 'package:hatspace/features/add_property/view_model/cubit/add_property_cubit.dart';
-
-import 'package:hatspace/features/add_property/view_model/cubit/add_property_state.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:hatspace/features/add_property_type/view/select_property_type.dart';
 import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
-
 
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
@@ -18,13 +14,8 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
-enum AddPropertyStatus { closePage }
-
-
-
 class AddPropertyView extends StatelessWidget {
   const AddPropertyView({super.key});
-
   @override
   Widget build(Object context) {
     return MultiBlocProvider(
@@ -141,7 +132,6 @@ class BottomController extends StatelessWidget {
             TextOnlyButton(
               label: HatSpaceStrings.of(context).back,
               onPressed: () {
-
                 if (state.pageViewNumber == 0) {
                   context.popToRootHome();
                 } else {
@@ -149,7 +139,6 @@ class BottomController extends StatelessWidget {
                       .read<AddPropertyCubit>()
                       .navigatePage(NavigatePage.reverse, totalPages);
                 }
-
               },
               style: const ButtonStyle(
                   foregroundColor:

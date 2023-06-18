@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:hatspace/features/add_property_type/view/date_picker_view.dart';
 import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
 import 'package:mockito/annotations.dart';

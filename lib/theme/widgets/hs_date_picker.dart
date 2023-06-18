@@ -4,7 +4,6 @@ import 'package:table_calendar/table_calendar.dart';
 
 class HsDatePicker extends StatelessWidget {
   final ValueNotifier<DateTime> selectedDate;
-
   final ValueChanged saveSelectDate;
   const HsDatePicker(
       {super.key, required this.selectedDate, required this.saveSelectDate});
