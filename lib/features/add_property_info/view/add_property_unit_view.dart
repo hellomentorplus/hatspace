@@ -9,9 +9,11 @@ class AddPropertyUnitView extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       HatSpaceInputText(
         label: HatSpaceStrings.of(context).unitNumber,
-        optional: "(${HatSpaceStrings.of(context).optional})",
+        optional: HatSpaceStrings.of(context).optional,
         placeholder: HatSpaceStrings.of(context).enterYourUnitnumber,
-        onChanged: () {},
+        onChanged: (value) {
+          // TODO: Read value from text field
+        },
       )
     ]);
   }

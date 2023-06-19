@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
-InputDecoration inputTextTheme = InputDecoration(
+final InputDecoration inputTextTheme = InputDecoration(
     contentPadding: const EdgeInsets.fromLTRB(16, 13, 12, 13),
     border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
@@ -41,7 +41,7 @@ class HatSpaceLabel extends StatelessWidget {
 class HatSpaceInputText extends StatelessWidget {
   final String? label;
   final String? placeholder;
-  final VoidCallback onChanged;
+  final ValueChanged onChanged;
   final bool? _isRequired;
   final CrossAxisAlignment _alignment;
   final EdgeInsets _padding;
@@ -62,9 +62,7 @@ class HatSpaceInputText extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> textField = [
       TextFormField(
-          onChanged: (value) {
-            onChanged();
-          },
+          onChanged: onChanged,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
           decoration: inputTextTheme.copyWith(hintText: placeholder))
     ];

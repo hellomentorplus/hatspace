@@ -17,7 +17,9 @@ class AddPropertySuburbView extends StatelessWidget {
             label: HatSpaceStrings.of(context).suburb,
             isRequired: true,
             placeholder: HatSpaceStrings.of(context).enterYourSuburb,
-            onChanged: () {},
+            onChanged: (value) {
+              // TODO: Read value from text field
+            },
           )
         ])),
         const SizedBox(width: 16),
@@ -28,7 +30,7 @@ class AddPropertySuburbView extends StatelessWidget {
             label: HatSpaceStrings.of(context).postcode,
             isRequired: true,
             placeholder: HatSpaceStrings.of(context).enterYourPostcode,
-            onChanged: () {},
+            onChanged: (value) {},
           )
         ]))
       ],

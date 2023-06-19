@@ -1,13 +1,15 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_property_info/view/property_info_form.dart';
+import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 import '../../../widget_tester_extension.dart';
 
 void main() {
-  Widget propertyInforForm = PropertyInforForm();
-  testWidgets('Test UI', (widgetTester) async {
+  testWidgets("Test AddPropertyView UI", (WidgetTester widgetTester) async {
+    await HatSpaceStrings.load(const Locale.fromSubtags(languageCode: 'en'));
+    Widget propertyInforForm = PropertyInforForm();
     await widgetTester.wrapAndPump(propertyInforForm);
     Text header = widgetTester.widget(find.text("Information"));
     expect(header.style, textTheme.displayLarge);

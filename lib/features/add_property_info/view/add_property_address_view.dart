@@ -15,7 +15,7 @@ class AddPropertyAddressView extends StatelessWidget {
           label: HatSpaceStrings.of(context).streetAddress,
           isRequired: true,
           placeholder: HatSpaceStrings.of(context).enterYourAddress,
-          onChanged: () {},
+          onChanged: (value) {},
         ),
         const SizedBox(
           height: 8,
