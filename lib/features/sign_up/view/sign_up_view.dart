@@ -11,6 +11,7 @@ import 'package:hatspace/theme/pop_up/pop_up_controller.dart';
 import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
 import 'package:hatspace/theme/toast_messages/toast_messages_extension.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
+import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -39,6 +40,7 @@ class SignUpScreen extends StatelessWidget {
             context.goToChooseRole();
           }
           if (state is SignUpSuccess) {
+            context.read<AuthenticationBloc>().add(ValidateAuthentication());
             context.dismissLoading();
             context.pop();
           }
