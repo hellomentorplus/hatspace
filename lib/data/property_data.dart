@@ -51,7 +51,6 @@ enum AustraliaStates {
   invalid;
 
   const AustraliaStates();
-
   String get displayName => HatSpaceStrings.current.australiaState(this);
 
   static AustraliaStates fromName(String name) =>
