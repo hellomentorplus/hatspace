@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 
-import 'member_service/member_storage_service.dart';
+import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class StorageService {

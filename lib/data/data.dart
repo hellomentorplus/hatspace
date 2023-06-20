@@ -32,7 +32,7 @@ enum PropertyTypes {
         return Assets.images.apartment;
       default:
     }
-    return "No image path";
+    return 'No image path';
   }
 
   static PropertyTypes? fromName(String name) =>

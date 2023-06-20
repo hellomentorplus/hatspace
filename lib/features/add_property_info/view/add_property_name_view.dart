@@ -10,8 +10,8 @@ class AddPropertyNameView extends StatelessWidget {
         label: HatSpaceStrings.of(context).propertyName,
         isRequired: true,
         placeholder: HatSpaceStrings.of(context).enterPropertyName,
-        onChanged: () {
-          // TODO implement interaction
+        onChanged: (value) {
+          // TODO: Read value from text field
         });
   }
 }

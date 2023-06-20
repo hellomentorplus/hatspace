@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
-InputDecoration inputTextTheme = InputDecoration(
+final InputDecoration inputTextTheme = InputDecoration(
     contentPadding: const EdgeInsets.fromLTRB(16, 13, 12, 13),
     border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
@@ -17,8 +17,8 @@ class HatSpaceLabel extends StatelessWidget {
   final bool _isRequired;
   final String? optional;
   const HatSpaceLabel({
-    super.key,
     required this.label,
+    super.key,
     bool? isRequired,
     this.optional,
   }) : _isRequired = isRequired ?? false;
@@ -31,7 +31,7 @@ class HatSpaceLabel extends StatelessWidget {
             text: label,
             children: [
           TextSpan(
-              text: _isRequired ? " *" : optional,
+              text: _isRequired ? ' *' : optional,
               style: textTheme.bodyMedium
                   ?.copyWith(color: _isRequired ? HSColor.requiredField : null))
         ]));
@@ -41,16 +41,16 @@ class HatSpaceLabel extends StatelessWidget {
 class HatSpaceInputText extends StatelessWidget {
   final String? label;
   final String? placeholder;
-  final VoidCallback onChanged;
+  final ValueChanged onChanged;
   final bool? _isRequired;
   final CrossAxisAlignment _alignment;
   final EdgeInsets _padding;
   final String? optional;
   const HatSpaceInputText(
-      {super.key,
+      {required this.onChanged,
+      super.key,
       this.label,
       this.placeholder,
-      required this.onChanged,
       CrossAxisAlignment? alignment,
       bool? isRequired,
       this.optional,
@@ -62,13 +62,11 @@ class HatSpaceInputText extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> textField = [
       TextFormField(
-          onChanged: (value) {
-            onChanged();
-          },
+          onChanged: onChanged,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
           decoration: inputTextTheme.copyWith(hintText: placeholder))
     ];
-    if (label != "") {
+    if (label != '') {
       textField.insert(
           0,
           Padding(

@@ -17,7 +17,7 @@ class AddPropertyDescriptionView extends StatelessWidget {
                 label: HatSpaceStrings.of(context).description,
                 isRequired: false),
             // TODO: Implement Bloc State
-            const Text("120/4000")
+            const Text('120/4000')
           ],
         ),
         const SizedBox(

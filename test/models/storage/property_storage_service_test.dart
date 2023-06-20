@@ -33,14 +33,14 @@ void main() {
   Property propertySample = Property(
       availableDate: Timestamp(200, 200),
       type: PropertyTypes.apartment,
-      name: "mock name",
+      name: 'mock name',
       price: Price(currency: Currency.aud, rentPrice: 3000),
-      description: "mock description",
+      description: 'mock description',
       address: const AddressDetail(
-          streetName: "mock streetname",
-          streetNo: "streetNo",
+          streetName: 'mock streetname',
+          streetNo: 'streetNo',
           postcode: 3000,
-          suburb: "suburb",
+          suburb: 'suburb',
           state: AustraliaStates.nsw),
       additionalDetail: const AdditionalDetail(
           additional: [], bedrooms: 3, bathrooms: 3, parkings: 3),
@@ -78,7 +78,7 @@ void main() {
 
     StorageService storageService = StorageService();
 
-    final result = await storageService.property.getProperty("propId");
+    final result = await storageService.property.getProperty('propId');
 
     expect(result, isNull);
   });
@@ -116,7 +116,7 @@ void main() {
     when(mockDocumentSnapshot.data())
         .thenAnswer((realInvocation) => propertySample.convertObjectToMap());
     StorageService storageService = StorageService();
-    final result = await storageService.property.getProperty("test id");
+    final result = await storageService.property.getProperty('test id');
     expect(result, isA<Property>());
   });
 

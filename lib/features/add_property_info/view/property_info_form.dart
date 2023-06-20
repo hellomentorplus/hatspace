@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_address_view.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_description_view.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_minimum_rent_view.dart';
@@ -15,21 +16,14 @@ import 'package:hatspace/theme/hs_theme.dart';
 class PropertyInforForm extends StatelessWidget {
   PropertyInforForm({super.key});
   final List<Widget> itemList = [
-    Builder(builder: (context) {
-      return Text(HatSpaceStrings.current.information,
-          style: textTheme.displayLarge);
-    }),
+    Text(HatSpaceStrings.current.information, style: textTheme.displayLarge),
     const AddPropertyNameView(),
     const AddPropertyPriceView(),
-    AddPropertyMinimumView(),
+    const AddPropertyMinimumView(),
     const AddPropertyDescriptionView(),
-    Builder(builder: (context) {
-      return Text(
-        HatSpaceStrings.current.yourAddress,
-        style: textTheme.displayLarge?.copyWith(fontSize: 18.0),
-      );
-    }),
-    AddPropertyStateView(),
+    Text(HatSpaceStrings.current.yourAddress,
+        style: textTheme.displayLarge?.copyWith(fontSize: 18.0)),
+    const AddPropertyStateView(),
     const AddPropertyUnitView(),
     const AddPropertyAddressView(),
     const AddPropertySuburbView()

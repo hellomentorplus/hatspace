@@ -8,11 +8,11 @@ class GradientCircularProgressIndicator extends StatelessWidget {
   final StrokeCap strokeCap;
 
   const GradientCircularProgressIndicator({
-    super.key,
     required this.radius,
     required this.gradientColors,
     required this.strokeCap,
     required this.strokeWidth,
+    super.key,
   });
 
   @override

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../gen/assets.gen.dart';
-import '../../view_model/home_interaction_cubit.dart';
+import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/features/home/view_model/home_interaction_cubit.dart';
 
 class AddPropertyButton extends StatelessWidget {
   const AddPropertyButton({Key? key}) : super(key: key);

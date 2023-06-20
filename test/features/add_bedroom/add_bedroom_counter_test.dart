@@ -16,9 +16,9 @@ void main() {
     expect(find.text('1'), findsOneWidget);
 
     await tester.tap(find.byType(RoundButton).first);
-    expect(reason: "Testing decrement button", counter.value, 0);
+    expect(reason: 'Testing decrement button', counter.value, 0);
 
     await tester.tap(find.byType(RoundButton).last);
-    expect(reason: "Testing increment button", counter.value, 1);
+    expect(reason: 'Testing increment button', counter.value, 1);
   });
 }

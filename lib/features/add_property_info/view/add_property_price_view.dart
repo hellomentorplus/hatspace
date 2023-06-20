@@ -15,29 +15,26 @@ class AddPropertyPriceView extends StatelessWidget {
         HatSpaceLabel(
             label: HatSpaceStrings.of(context).price, isRequired: true),
         const SizedBox(height: HsDimens.spacing4),
-        InkWell(
-          child: TextFormField(
-            decoration: inputTextTheme.copyWith(
-                hintText: HatSpaceStrings.of(context).enterYourPrice,
-                suffixIcon: Padding(
-                    padding: const EdgeInsets.only(
-                        right: HsDimens.spacing8,
-                        left: HsDimens.spacing16,
-                        top: HsDimens.spacing8,
-                        bottom: HsDimens.spacing8),
-                    child: Container(
-                        padding: const EdgeInsets.all(HsDimens.spacing8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            color: HSColor.neutral2),
-                        child: Text(
-                            // TODO: implement property data
-                            "${Currency.aud.name.toUpperCase()} (\$)",
-                            style: textTheme.bodySmall
-                                ?.copyWith(fontWeight: FontWeight.w700))))),
-            style:
-                Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
-          ),
+        TextFormField(
+          decoration: inputTextTheme.copyWith(
+              hintText: HatSpaceStrings.of(context).enterYourPrice,
+              suffixIcon: Padding(
+                  padding: const EdgeInsets.only(
+                      right: HsDimens.spacing8,
+                      left: HsDimens.spacing16,
+                      top: HsDimens.spacing8,
+                      bottom: HsDimens.spacing8),
+                  child: Container(
+                      padding: const EdgeInsets.all(HsDimens.spacing8),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: HSColor.neutral2),
+                      child: Text(
+                          // TODO: implement property data
+                          '${Currency.aud.name.toUpperCase()} (\$)',
+                          style: textTheme.bodySmall
+                              ?.copyWith(fontWeight: FontWeight.w700))))),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
         ),
       ],
     );

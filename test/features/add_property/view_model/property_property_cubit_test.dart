@@ -21,14 +21,14 @@ void main() {
         .thenAnswer((realInvocation) => Stream.value(PropertyTypeInitial()));
   });
   blocTest(
-    "Given when user select property type, then emit update AddPropertyState with new property tyep",
+    'Given when user select property type, then emit update AddPropertyState with new property tyep',
     build: () => PropertyTypeCubit(),
     act: (bloc) => {bloc.selectPropertyTypeEvent(1)},
     expect: () => [isA<PropertyTypeSelectedState>()],
   );
 
   blocTest(
-    "Given when user select new date, then emit update PropertyTypes with available date",
+    'Given when user select new date, then emit update PropertyTypes with available date',
     build: () => PropertyTypeCubit(),
     act: (bloc) => {bloc.selectAvailableDate(DateTime.now())},
     expect: () => [isA<PropertyAvailableDate>()],
