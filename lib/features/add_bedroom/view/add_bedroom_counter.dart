@@ -6,7 +6,7 @@ class AddBedroomCounter extends StatelessWidget {
   final ValueNotifier<int> counter;
   final String text;
   const AddBedroomCounter(
-      {super.key, required this.counter, required this.text});
+      {required this.counter, required this.text, super.key});
 
   bool checkCounterAdded(int counter) {
     return counter > 0;

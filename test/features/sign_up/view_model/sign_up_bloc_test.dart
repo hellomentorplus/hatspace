@@ -121,12 +121,12 @@ void main() async {
         expect: () => [isA<SignUpStart>(), isA<SignUpSuccess>()]);
 
     blocTest(
-      "when user sign up success with google and user has not had roles yet, then system will check userrole and return empty list",
+      'when user sign up success with google and user has not had roles yet, then system will check userrole and return empty list',
       build: () => SignUpBloc(),
       setUp: () {
         when(authenticationService.signUp(signUpType: SignUpType.googleService))
             .thenAnswer((realInvocation) => Future.value(UserDetail(
-                uid: "test uid", phone: "test phone", email: "test email")));
+                uid: 'test uid', phone: 'test phone', email: 'test email')));
         when(memberService.getUserRoles(any))
             .thenAnswer((realInvocation) => Future.value([]));
       },

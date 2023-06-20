@@ -6,7 +6,7 @@ class PropertyInforForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text("DUMMY"),
+      child: Text('DUMMY'),
     );
   }
 }

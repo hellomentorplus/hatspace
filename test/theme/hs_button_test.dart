@@ -608,7 +608,7 @@ void main() {
     });
   });
 
-  testWidgets("Test RoundButton with DEFAULT-DISABLE-HOVERED",
+  testWidgets('Test RoundButton with DEFAULT-DISABLE-HOVERED',
       (WidgetTester tester) async {
     int count = 0;
     Widget roundButton = RoundButton(
@@ -628,14 +628,14 @@ void main() {
     expect(svgPicture.height, 24);
 
     await tester.tap(find.byType(SvgPicture));
-    expect(reason: "Testing onPressed button", count, 1);
+    expect(reason: 'Testing onPressed button', count, 1);
 
     //Verify button shape
     TextButton btn = tester.widget(find.byType(TextButton));
     //===== DISABLED ========
     final disabledState = <MaterialState>{MaterialState.disabled};
     expect(
-      reason: "Testing color of Text",
+      reason: 'Testing color of Text',
       btn.style?.foregroundColor?.resolve(disabledState),
       HSColor.neutral6,
     );
