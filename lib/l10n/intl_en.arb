@@ -27,6 +27,19 @@
   "signinErrorToastMessage": "Unable to sign you in at the moment. Please try again later.",
   "signinErrorToastTitle":"Login Failed",
   "loadingMessage": "Loading...",
+
+  "whatKindOfPlace": "What kind of place?",
+  "chooseKindOfYourProperty": "Choose kind of your property",
+  "availableDate": "Available date",
+
+  "addBedroomViewInstructions": "How many bedrooms, bathrooms, parking?",
+  "bedroomText": "Bedrooms",
+  "bathroomText": "Bathrooms",
+  "parkingText": "Parkings",
+
+  "back": "Back",
+  "next": "Next",
+
   "booking":"Booking",
   "message":"Message",
   "profile":"Profile",
@@ -40,5 +53,7 @@
   "act": "Australian Capital Territory",
   "nt":"Northern Territory",
   "threeMonths": "3 Months",
-  "sixMonths": "6 Months"
+  "sixMonths": "6 Months",
+  "welcomeDefault":"Hi there 👋",
+  "welcomeName":"👋 Hi {name}"
 }

@@ -118,6 +118,7 @@ class AuthenticationService {
     return UserDetail(
         uid: firebaseUser.uid,
         phone: firebaseUser.phoneNumber,
-        email: firebaseUser.email);
+        email: firebaseUser.email,
+        displayName: firebaseUser.displayName);
   }
 }

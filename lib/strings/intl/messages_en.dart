@@ -34,15 +34,25 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': '',
           })}";
 
+  static String m2(name) => "👋 Hi ${name}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "act": MessageLookupByLibrary.simpleMessage(
             "Australian Capital Territory"),
+        "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
+            "How many bedrooms, bathrooms, parking?"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
+        "availableDate": MessageLookupByLibrary.simpleMessage("Available date"),
+        "back": MessageLookupByLibrary.simpleMessage("Back"),
+        "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
+        "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
         "booking": MessageLookupByLibrary.simpleMessage("Booking"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "chooseKindOfYourProperty": MessageLookupByLibrary.simpleMessage(
+            "Choose kind of your property"),
         "chooseUserRole":
             MessageLookupByLibrary.simpleMessage("Choose your role"),
         "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
@@ -61,8 +71,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
         "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
+        "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "qld": MessageLookupByLibrary.simpleMessage("Queenland"),
         "sa": MessageLookupByLibrary.simpleMessage("South Australia"),
@@ -81,6 +93,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "userRoleDescription": m0,
         "userTitleRoles": m1,
         "vic": MessageLookupByLibrary.simpleMessage("Victoria"),
-        "wa": MessageLookupByLibrary.simpleMessage("Western Australia")
+        "wa": MessageLookupByLibrary.simpleMessage("Western Australia"),
+        "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
+        "welcomeName": m2,
+        "whatKindOfPlace":
+            MessageLookupByLibrary.simpleMessage("What kind of place?")
       };
 }

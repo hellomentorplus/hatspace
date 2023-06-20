@@ -242,3 +242,30 @@ class TertiaryButton extends StatelessWidget {
         ));
   }
 }
+
+class RoundButton extends StatelessWidget {
+  final String iconUrl;
+  final VoidCallback? onPressed;
+  final Color? textColor;
+  const RoundButton(
+      {Key? key,
+      required this.iconUrl,
+      required this.onPressed,
+      this.textColor})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: onPressed,
+      style: roundButtonTheme.style,
+      child: SvgPicture.asset(
+        iconUrl,
+        width: 24,
+        height: 24,
+        colorFilter: ColorFilter.mode(
+            DefaultTextStyle.of(context).style.color ?? HSColor.neutral9,
+            BlendMode.srcIn),
+      ),
+    );
+  }
+}
