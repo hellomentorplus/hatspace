@@ -277,7 +277,8 @@ class HatSpaceDropDownButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String? icon;
   const HatSpaceDropDownButton(
-      {required this.onPressed, super.key,
+      {required this.onPressed,
+      super.key,
       bool? isRequired,
       this.icon,
       this.value});

@@ -17,7 +17,8 @@ class HatSpaceLabel extends StatelessWidget {
   final bool _isRequired;
   final String? optional;
   const HatSpaceLabel({
-    required this.label, super.key,
+    required this.label,
+    super.key,
     bool? isRequired,
     this.optional,
   }) : _isRequired = isRequired ?? false;
@@ -46,7 +47,8 @@ class HatSpaceInputText extends StatelessWidget {
   final EdgeInsets _padding;
   final String? optional;
   const HatSpaceInputText(
-      {required this.onChanged, super.key,
+      {required this.onChanged,
+      super.key,
       this.label,
       this.placeholder,
       CrossAxisAlignment? alignment,
