@@ -31,7 +31,7 @@ class AddPropertyPriceView extends StatelessWidget {
                           color: HSColor.neutral2),
                       child: Text(
                           // TODO: implement property data
-                          "${Currency.aud.name.toUpperCase()} (\$)",
+                          '${Currency.aud.name.toUpperCase()} (\$)',
                           style: textTheme.bodySmall
                               ?.copyWith(fontWeight: FontWeight.w700))))),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),

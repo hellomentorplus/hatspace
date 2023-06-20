@@ -4,16 +4,16 @@ import 'package:hatspace/strings/l10n.dart';
 
 // Field names for firebase firestore
 class PropKeys {
-  static const type = "type";
-  static const name = "name";
-  static const price = "price";
+  static const type = 'type';
+  static const name = 'name';
+  static const price = 'price';
   static const currency = 'currency';
-  static const desciption = "description";
-  static const address = "address";
-  static const additionalDetail = "propertyDetails";
+  static const description = 'description';
+  static const address = 'address';
+  static const additionalDetail = 'propertyDetails';
   static const photos = 'photos';
-  static const rentPeriod = "rentPeriod";
-  static const surbub = "surbub";
+  static const rentPeriod = 'rentPeriod';
+  static const surbub = 'surbub';
   static const bedroom = 'bedrooms';
   static const bathroom = 'bathrooms';
   static const parking = 'parkings';
@@ -24,9 +24,9 @@ class PropKeys {
   static const state = 'state';
   static const postcode = 'postcode';
   static const location = 'location';
-  static const createdAt = "createAt";
-  static const country = "country";
-  static const availableDate = "availableDate";
+  static const createdAt = 'createAt';
+  static const country = 'country';
+  static const availableDate = 'availableDate';
 }
 
 enum PropertyTypes {
@@ -135,12 +135,12 @@ class AddressDetail {
   final String suburb;
   final AustraliaStates state;
   const AddressDetail({
-    this.unitNo = "",
     required this.streetName,
     required this.streetNo,
     required this.postcode,
     required this.suburb,
     required this.state,
+    this.unitNo = '',
   });
   Map<String, dynamic> convertAddressToMap() {
     Map<String, dynamic> mapAddress = {
@@ -149,7 +149,7 @@ class AddressDetail {
       PropKeys.streetName: streetName,
       PropKeys.postcode: postcode,
       PropKeys.state: state.name,
-      PropKeys.surbub: suburb
+      PropKeys.surbub: suburb,
     };
     return mapAddress;
   }
@@ -179,21 +179,21 @@ class Property {
   final GeoPoint location;
   final Timestamp createdTime;
   final Timestamp availableDate;
-  Property(
-      {this.id,
-      required this.type,
-      required this.name,
-      required this.price,
-      required this.description,
-      required this.address,
-      required this.additionalDetail,
-      required this.photos,
-      required this.minimumRentPeriod,
-      CountryCode? country,
-      required this.location,
-      Timestamp? createdTime,
-      required this.availableDate})
-      : country = country ?? CountryCode.au,
+  Property({
+    required this.type,
+    required this.name,
+    required this.price,
+    required this.description,
+    required this.address,
+    required this.additionalDetail,
+    required this.photos,
+    required this.minimumRentPeriod,
+    required this.location,
+    required this.availableDate,
+    this.id,
+    CountryCode? country,
+    Timestamp? createdTime,
+  })  : country = country ?? CountryCode.au,
         createdTime = createdTime ?? Timestamp.now();
   // convertObjectToMap is used to upload Map type to firestore
   Map<String, dynamic> convertObjectToMap() {
@@ -204,7 +204,7 @@ class Property {
         PropKeys.price: price.rentPrice
       },
       PropKeys.rentPeriod: minimumRentPeriod.months,
-      PropKeys.desciption: description,
+      PropKeys.description: description,
       PropKeys.address: address.convertAddressToMap(),
       PropKeys.additionalDetail: {
         PropKeys.bathroom: additionalDetail.bathrooms,
@@ -218,9 +218,9 @@ class Property {
       PropKeys.location: location,
       PropKeys.type: type.name,
       PropKeys.country: country.name.toUpperCase(),
-      "filter_by_postcode": address.postcode,
-      "filter_by_surbub": address.suburb,
-      "filter_by_state": address.state.name
+      'filter_by_postcode': address.postcode,
+      'filter_by_surbub': address.suburb,
+      'filter_by_state': address.state.name,
     };
     return mapProp;
   }
@@ -230,7 +230,7 @@ class Property {
         type: PropertyTypes.fromName(map[PropKeys.type]),
         name: map[PropKeys.name],
         price: Price.convertMapToObject(map[PropKeys.price]),
-        description: map[PropKeys.desciption],
+        description: map[PropKeys.description],
         address: AddressDetail.convertMapToObject(map[PropKeys.address]),
         additionalDetail:
             AdditionalDetail.convertMapToObject(map[PropKeys.additionalDetail]),

@@ -17,8 +17,8 @@ class HatSpaceLabel extends StatelessWidget {
   final bool _isRequired;
   final String? optional;
   const HatSpaceLabel({
-    super.key,
     required this.label,
+    super.key,
     bool? isRequired,
     this.optional,
   }) : _isRequired = isRequired ?? false;
@@ -31,7 +31,7 @@ class HatSpaceLabel extends StatelessWidget {
             text: label,
             children: [
           TextSpan(
-              text: _isRequired ? " *" : optional,
+              text: _isRequired ? ' *' : optional,
               style: textTheme.bodyMedium
                   ?.copyWith(color: _isRequired ? HSColor.requiredField : null))
         ]));
@@ -47,10 +47,10 @@ class HatSpaceInputText extends StatelessWidget {
   final EdgeInsets _padding;
   final String? optional;
   const HatSpaceInputText(
-      {super.key,
+      {required this.onChanged,
+      super.key,
       this.label,
       this.placeholder,
-      required this.onChanged,
       CrossAxisAlignment? alignment,
       bool? isRequired,
       this.optional,
@@ -66,7 +66,7 @@ class HatSpaceInputText extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
           decoration: inputTextTheme.copyWith(hintText: placeholder))
     ];
-    if (label != "") {
+    if (label != '') {
       textField.insert(
           0,
           Padding(

@@ -4,7 +4,7 @@ import 'package:hatspace/data/data.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 
-import '../../models/authentication/authentication_service.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';

@@ -11,9 +11,9 @@ void main() {
         onPressed: () {
           context.showLoading();
         },
-        child: const Text("Show Loading"));
+        child: const Text('Show Loading'));
   });
-  testWidgets("Test pop up ui", (WidgetTester widgetTester) async {
+  testWidgets('Test pop up ui', (WidgetTester widgetTester) async {
     await widgetTester.wrapAndPump(builder);
     await widgetTester.tap(find.byType(ElevatedButton));
     await widgetTester.pump();

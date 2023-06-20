@@ -86,7 +86,7 @@ class BottomController extends StatelessWidget {
   final PageController pageController;
   final int totalPages;
   const BottomController(
-      {super.key, required this.pageController, required this.totalPages});
+      {required this.pageController, required this.totalPages, super.key});
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddPropertyCubit, AddPropertyState>(

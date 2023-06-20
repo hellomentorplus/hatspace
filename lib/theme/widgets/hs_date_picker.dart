@@ -6,7 +6,7 @@ class HsDatePicker extends StatelessWidget {
   final ValueNotifier<DateTime> selectedDate;
   final ValueChanged saveSelectDate;
   const HsDatePicker(
-      {super.key, required this.selectedDate, required this.saveSelectDate});
+      {required this.selectedDate, required this.saveSelectDate, super.key});
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(

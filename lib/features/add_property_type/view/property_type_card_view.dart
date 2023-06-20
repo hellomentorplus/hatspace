@@ -14,7 +14,7 @@ class PropertyTypeDetail {
 
 class PropertyTypeCardView extends StatelessWidget {
   final int position;
-  const PropertyTypeCardView({super.key, required this.position});
+  const PropertyTypeCardView({required this.position, super.key});
   @override
   Widget build(BuildContext context) {
     return BlocSelector<PropertyTypeCubit, PropertyTypeState, PropertyTypes?>(
