@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/strings/l10n.dart';
-import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-
-import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
 class ButtonWithIconContent extends StatelessWidget {
@@ -65,7 +61,6 @@ class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
     required this.label,
     Key? key,
-    Key? key,
     this.iconUrl,
     this.onPressed,
     this.iconPosition = IconPosition.left,
@@ -116,7 +111,6 @@ class SecondaryButton extends StatelessWidget {
   const SecondaryButton({
     required this.label,
     Key? key,
-    Key? key,
     this.iconUrl,
     this.onPressed,
     this.iconPosition = IconPosition.left,
@@ -165,7 +159,6 @@ class TextOnlyButton extends StatelessWidget {
   const TextOnlyButton({
     required this.label,
     Key? key,
-    Key? key,
     this.onPressed,
     this.iconUrl,
     this.iconPosition = IconPosition.left,
@@ -213,7 +206,6 @@ class TertiaryButton extends StatelessWidget {
 
   const TertiaryButton({
     required this.label,
-    Key? key,
     Key? key,
     this.onPressed,
     this.iconUrl,

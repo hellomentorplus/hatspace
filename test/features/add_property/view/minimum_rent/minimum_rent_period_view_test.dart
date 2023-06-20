@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/add_property_info/view/minimum_rent_view.dart';
+import 'package:hatspace/features/add_property_info/view/add_property_minimum_rent_view.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_state.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
@@ -16,12 +16,12 @@ void main() {
   final MockPropertyInforCubit propertyInforCubit = MockPropertyInforCubit();
   setUp(() {
     when(propertyInforCubit.state)
-        .thenAnswer((realInvocation) => const PropertyInforInitial());
+        .thenAnswer((realInvocation) =>  PropertyInforInitial());
     when(propertyInforCubit.stream).thenAnswer(
-        (realInvocation) => Stream.value(const PropertyInforInitial()));
+        (realInvocation) => Stream.value( PropertyInforInitial()));
   });
   testWidgets('test minimum rent period sheet', (widgetTester) async {
-    Widget rentView = MinimumRentView();
+    Widget rentView = AddPropertyMinimumView();
     await widgetTester.blocWrapAndPump<PropertyInforCubit>(
         propertyInforCubit, rentView);
     await widgetTester.tap(find.byType(HatSpaceDropDownButton));

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/property_data.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_state.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -15,18 +16,20 @@ class AddPropertyMinimumView extends StatelessWidget {
   final ValueNotifier<MinimumRentPeriod> selectPeriod =
       ValueNotifier<MinimumRentPeriod>(MinimumRentPeriod.values.first);
   final List<MinimumRentPeriod> periodList = MinimumRentPeriod.values.toList();
-   @override
+  @override
   Widget build(BuildContext context) {
     String label = HatSpaceStrings.of(context).pleaseSelectRentPeriod;
     periodList.remove(MinimumRentPeriod.invalid);
-    return BlocBuilder<PropertyInforCubit, PropertyInforState>(
-        builder: (context, state) {
-      if (state.saveRentPeriod != MinimumRentPeriod.invalid) {
-        selectPeriod.value = state.saveRentPeriod;
+    return BlocConsumer<PropertyInforCubit, PropertyInforState>(
+        listener: (context, state) {
+      // TODO: Listen to validation
+    }, builder: (context, state) {
+      print(state);
+      if (state.propertyInfo.rentPeriod != MinimumRentPeriod.invalid) {
+        selectPeriod.value = state.propertyInfo.rentPeriod;
       }
-      if (state is SaveMinimumPeriodState) {
-        label = state.saveRentPeriod.displayName;
-        context.pop();
+      if (state is SavePropertyInforFields) {
+        label = state.propertyInfo.rentPeriod.displayName;
       }
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,6 +59,7 @@ class AddPropertyMinimumView extends StatelessWidget {
                             context
                                 .read<PropertyInforCubit>()
                                 .saveMinimumRentPeriod(value);
+                            context.pop();
                           });
                     });
               })
