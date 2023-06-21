@@ -69,6 +69,7 @@ class SignUpScreen extends StatelessWidget {
                         child: SecondaryButton(
                           label: HatSpaceStrings.of(context).googleSignUp,
                           iconUrl: Assets.images.google,
+                          overrideIconColor: false,
                           onPressed: () {
                             context
                                 .read<SignUpBloc>()
@@ -80,6 +81,7 @@ class SignUpScreen extends StatelessWidget {
                         child: SecondaryButton(
                           label: HatSpaceStrings.of(context).facebookSignUp,
                           iconUrl: Assets.images.facebookround,
+                          overrideIconColor: false,
                           onPressed: () {
                             context
                                 .read<SignUpBloc>()
@@ -91,6 +93,7 @@ class SignUpScreen extends StatelessWidget {
                         child: SecondaryButton(
                           label: HatSpaceStrings.of(context).emailSignUp,
                           iconUrl: Assets.images.envelope,
+                          overrideIconColor: false,
                           onPressed: () {},
                         )),
                     Padding(
