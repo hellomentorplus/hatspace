@@ -170,7 +170,6 @@ class TextOnlyButton extends StatelessWidget {
   final IconPosition? iconPosition;
   final ButtonStyle? style;
   final MainAxisAlignment contentAlignment;
-  final bool overrideIconColor;
 
   const TextOnlyButton({
     required this.label,
@@ -180,7 +179,6 @@ class TextOnlyButton extends StatelessWidget {
     this.iconPosition = IconPosition.left,
     this.contentAlignment = MainAxisAlignment.center,
     this.style,
-    this.overrideIconColor = true,
   }) : super(key: key);
 
   @override
@@ -209,7 +207,6 @@ class TextOnlyButton extends StatelessWidget {
           iconPosition: iconPosition,
           iconUrl: iconUrl!,
           label: label,
-          overrideIconColor: overrideIconColor,
         ));
   }
 }
