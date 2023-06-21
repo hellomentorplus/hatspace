@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
@@ -12,10 +14,13 @@ class ButtonWithIconContent extends StatelessWidget {
   final String label;
   final String iconUrl;
   final MainAxisAlignment contentAlignment;
+  final bool overrideIconColor;
+
   const ButtonWithIconContent({
     required this.label,
     required this.iconUrl,
     required this.contentAlignment,
+    this.overrideIconColor = true,
     super.key,
     this.iconPosition,
   });
@@ -27,9 +32,11 @@ class ButtonWithIconContent extends StatelessWidget {
         iconUrl,
         width: 24,
         height: 24,
-        colorFilter: ColorFilter.mode(
-            DefaultTextStyle.of(context).style.color ?? HSColor.primary,
-            BlendMode.srcIn),
+        colorFilter: overrideIconColor
+            ? ColorFilter.mode(
+                DefaultTextStyle.of(context).style.color ?? HSColor.primary,
+                BlendMode.srcIn)
+            : null,
         alignment: Alignment.center,
       ),
       Padding(
@@ -59,6 +66,8 @@ class PrimaryButton extends StatelessWidget {
   final IconPosition? iconPosition;
   final ButtonStyle? style;
   final MainAxisAlignment contentAlignment;
+  final bool overrideIconColor;
+
   const PrimaryButton({
     required this.label,
     Key? key,
@@ -67,6 +76,7 @@ class PrimaryButton extends StatelessWidget {
     this.iconPosition = IconPosition.left,
     this.style,
     this.contentAlignment = MainAxisAlignment.center,
+    this.overrideIconColor = true,
   }) : super(key: key);
 
   @override
@@ -96,6 +106,7 @@ class PrimaryButton extends StatelessWidget {
         iconPosition: iconPosition,
         iconUrl: iconUrl!,
         label: label,
+        overrideIconColor: overrideIconColor,
       ),
     );
   }
@@ -108,6 +119,7 @@ class SecondaryButton extends StatelessWidget {
   final ButtonStyle? style;
   final VoidCallback? onPressed;
   final MainAxisAlignment contentAlignment;
+  final bool overrideIconColor;
 
   const SecondaryButton({
     required this.label,
@@ -117,6 +129,7 @@ class SecondaryButton extends StatelessWidget {
     this.iconPosition = IconPosition.left,
     this.style,
     this.contentAlignment = MainAxisAlignment.center,
+    this.overrideIconColor = true,
   }) : super(key: key);
 
   @override
@@ -144,6 +157,7 @@ class SecondaryButton extends StatelessWidget {
         iconPosition: iconPosition,
         iconUrl: iconUrl!,
         label: label,
+        overrideIconColor: overrideIconColor,
       ),
     );
   }
@@ -156,6 +170,7 @@ class TextOnlyButton extends StatelessWidget {
   final IconPosition? iconPosition;
   final ButtonStyle? style;
   final MainAxisAlignment contentAlignment;
+  final bool overrideIconColor;
 
   const TextOnlyButton({
     required this.label,
@@ -165,6 +180,7 @@ class TextOnlyButton extends StatelessWidget {
     this.iconPosition = IconPosition.left,
     this.contentAlignment = MainAxisAlignment.center,
     this.style,
+    this.overrideIconColor = true,
   }) : super(key: key);
 
   @override
@@ -193,6 +209,7 @@ class TextOnlyButton extends StatelessWidget {
           iconPosition: iconPosition,
           iconUrl: iconUrl!,
           label: label,
+          overrideIconColor: overrideIconColor,
         ));
   }
 }
@@ -204,6 +221,7 @@ class TertiaryButton extends StatelessWidget {
   final IconPosition? iconPosition;
   final ButtonStyle? style;
   final MainAxisAlignment contentAlignment;
+  final bool overrideIconColor;
 
   const TertiaryButton({
     required this.label,
@@ -213,6 +231,7 @@ class TertiaryButton extends StatelessWidget {
     this.iconPosition = IconPosition.left,
     this.contentAlignment = MainAxisAlignment.center,
     this.style,
+    this.overrideIconColor = true,
   }) : super(key: key);
 
   @override
@@ -241,6 +260,7 @@ class TertiaryButton extends StatelessWidget {
           iconPosition: iconPosition,
           iconUrl: iconUrl!,
           label: label,
+          overrideIconColor: overrideIconColor,
         ));
   }
 }
