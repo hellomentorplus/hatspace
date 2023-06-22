@@ -3,7 +3,7 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
-import '../../../../theme/hs_theme.dart';
+import 'package:hatspace/theme/hs_theme.dart';
 
 class CoreButtonView extends StatelessWidget {
   final SizedBox sizedBox = const SizedBox(
@@ -13,14 +13,14 @@ class CoreButtonView extends StatelessWidget {
   final List<Widget> buttonsList = [
     // Enabled Button with left icon
     PrimaryButton(
-      label: "Sign up with Google",
+      label: 'Sign up with Google',
       iconUrl: Assets.images.google,
       onPressed: () {},
     ),
 
     // Disabled button with left icon
     PrimaryButton(
-      label: "Sign up with Google",
+      label: 'Sign up with Google',
       iconUrl: Assets.images.google,
       contentAlignment: MainAxisAlignment.center,
       onPressed: null,
@@ -28,20 +28,20 @@ class CoreButtonView extends StatelessWidget {
 
     //Enabled button with right icon
     PrimaryButton(
-      label: "Sign up with Google",
+      label: 'Sign up with Google',
       iconUrl: Assets.images.google,
       iconPosition: IconPosition.right,
       onPressed: () {},
     ),
 
     PrimaryButton(
-      label: "Sign up",
+      label: 'Sign up',
       onPressed: (() {}),
     ),
 
     //Normal Secondary Button
     SecondaryButton(
-      label: "Sign up with Facebook",
+      label: 'Sign up with Facebook',
       contentAlignment: MainAxisAlignment.center,
       iconUrl: Assets.images.facebook,
       onPressed: (() {}),
@@ -49,33 +49,33 @@ class CoreButtonView extends StatelessWidget {
 
     //Disabled Secondary Button
     SecondaryButton(
-      label: "Sign up with Facebook",
+      label: 'Sign up with Facebook',
       contentAlignment: MainAxisAlignment.start,
       iconUrl: Assets.images.facebook,
     ),
     SecondaryButton(
-      label: "Sign up with Facebook",
+      label: 'Sign up with Facebook',
       iconUrl: Assets.images.facebook,
       iconPosition: IconPosition.right,
       onPressed: () {},
     ),
 
     TextOnlyButton(
-      label: "Skip",
+      label: 'Skip',
       iconUrl: Assets.images.closeIcon,
       onPressed: (() {}),
     ),
 
-    TertiaryButton(label: "Button", onPressed: () {}),
+    TertiaryButton(label: 'Button', onPressed: () {}),
     TertiaryButton(
-      label: "Button",
+      label: 'Button',
       onPressed: () {},
       iconUrl: Assets.images.calendar,
       iconPosition: IconPosition.right,
       contentAlignment: MainAxisAlignment.start,
     ),
     TertiaryButton(
-      label: "Button",
+      label: 'Button',
       onPressed: () {},
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.resolveWith((states) {
@@ -118,7 +118,7 @@ class CoreButtonView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Core button UI"),
+        title: const Text('Core button UI'),
       ),
       body: Column(
         children: [
@@ -140,12 +140,12 @@ class CoreButtonView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               TextOnlyButton(
-                label: "Back",
+                label: 'Back',
                 onPressed: () {},
                 iconUrl: Assets.images.facebookround,
               ),
               PrimaryButton(
-                  label: "Next",
+                  label: 'Next',
                   iconUrl: Assets.images.email,
                   onPressed: () {},
                   iconPosition: IconPosition.right)

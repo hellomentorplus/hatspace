@@ -6,7 +6,7 @@ import 'package:hatspace/theme/widgets/hs_custom_loading.dart';
 import '../widget_tester_extension.dart';
 
 void main() {
-  testWidgets("Ui testing of gradient circular progress bar",
+  testWidgets('Ui testing of gradient circular progress bar',
       (WidgetTester widgetTester) async {
     GradientCircularProgressIndicator customProgress =
         const GradientCircularProgressIndicator(
@@ -22,7 +22,7 @@ void main() {
     expect(customProgress.strokeCap, StrokeCap.round);
     expect(customProgress.strokeWidth, 5.0);
   });
-  testWidgets("Test custom loading UI", (WidgetTester widgetTester) async {
+  testWidgets('Test custom loading UI', (WidgetTester widgetTester) async {
     CustomLoading customLoading = const CustomLoading(
         duration: Duration(seconds: 2),
         strokeCap: StrokeCap.round,

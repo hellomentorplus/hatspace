@@ -44,7 +44,7 @@ void main() {
   );
 
   blocTest(
-    "Given when user enable next button, then update new state",
+    'Given when user enable next button, then update new state',
     build: () => AddPropertyCubit(),
     act: (bloc) => {bloc.enableNextButton()},
     expect: () => [isA<NextButtonEnable>()],
@@ -60,7 +60,7 @@ void main() {
     expect: () => [isA<NextButtonEnable>()],
   );
 
-  test("test initial state", () {
+  test('test initial state', () {
     AddPropertyInitial addPropertyInitial = const AddPropertyInitial();
     expect(addPropertyInitial.props.length, 0);
   });

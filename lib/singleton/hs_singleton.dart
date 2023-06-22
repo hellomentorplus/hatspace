@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 
-import '../models/authentication/authentication_service.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
 
 abstract class HsSingleton {
   static final singleton = _HsSingletonImpl();

@@ -50,7 +50,7 @@ void main() {
     when(mockFirebaseRemoteConfig.fetchAndActivate()).thenAnswer((_) {
       return Future.value(true);
     });
-    when(mockFirebaseRemoteConfig.getBool("debug_option_enabled"))
+    when(mockFirebaseRemoteConfig.getBool('debug_option_enabled'))
         .thenReturn(true);
     when(mockAppConfigBloc.stream).thenAnswer((realInvocation) {
       // Bloc's using stream to return states

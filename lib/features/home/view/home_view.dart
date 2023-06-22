@@ -11,7 +11,7 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:shake/shake.dart';
 
-import '../../../view_models/authentication/authentication_bloc.dart';
+import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 
 class HomePageView extends StatefulWidget {
   const HomePageView({super.key});

@@ -28,7 +28,7 @@ void main() {
   final MockMemberService memberService = MockMemberService();
   final MockUserDetail mockUserDetail = MockUserDetail();
   TestWidgetsFlutterBinding.ensureInitialized();
-  group("Test choose role bloc", () {
+  group('Test choose role bloc', () {
     setUpAll(() {
       HsSingleton.singleton
           .registerSingleton<AuthenticationService>(authenticationService);
@@ -37,16 +37,16 @@ void main() {
     });
 
     blocTest<ChooseRoleViewBloc, ChooseRoleViewState>(
-        "Given user select tenant role, then return state with user list have tenant role ",
+        'Given user select tenant role, then return state with user list have tenant role ',
         build: () => ChooseRoleViewBloc(),
         act: (bloc) {
           int position = 1;
           bloc.add(OnChangeUserRoleEvent(position));
         },
         expect: () => [isA<UserRoleSelectedListState>()]);
-    group("Test uploading user roles", () {
+    group('Test uploading user roles', () {
       blocTest<ChooseRoleViewBloc, ChooseRoleViewState>(
-          "Given when user select role and submit, then return to succes state",
+          'Given when user select role and submit, then return to succes state',
           build: () => ChooseRoleViewBloc(),
           setUp: () {
             when(authenticationService.getCurrentUser())
@@ -66,11 +66,11 @@ void main() {
           expect: () => [isA<ChoosingRoleSuccessState>()]);
     });
 
-    test("initial test", () {
+    test('initial test', () {
       expect(ChooseRoleViewBloc().state, isA<ChooseRoleViewInitial>());
     });
 
-    test("test bloc initail", () {
+    test('test bloc initail', () {
       UserRoleSelectedListState userRoleSelectedChange =
           const UserRoleSelectedListState({});
       expect(userRoleSelectedChange.props.length, 1);
