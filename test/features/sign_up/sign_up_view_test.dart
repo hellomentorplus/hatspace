@@ -48,19 +48,19 @@ void main() {
 
     expect(
         find.ancestor(
-            of: find.text("Sign up with Google"),
+            of: find.text("Continue with with Google"),
             matching: find.byType(SecondaryButton)),
         findsOneWidget);
 
     expect(
         find.ancestor(
-            of: find.text("Sign up with Facebook"),
+            of: find.text("Continue with Facebook"),
             matching: find.byType(SecondaryButton)),
         findsOneWidget);
 
     expect(
         find.ancestor(
-            of: find.text("Sign up with email"),
+            of: find.text("Continue with email"),
             matching: find.byType(SecondaryButton)),
         findsOneWidget);
 

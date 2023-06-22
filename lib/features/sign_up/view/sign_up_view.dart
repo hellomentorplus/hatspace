@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
@@ -44,86 +45,118 @@ class SignUpScreen extends StatelessWidget {
           }
         },
         child: Scaffold(
-            appBar: AppBar(
-                elevation: 0, // Remove shadow from app bar background
-                backgroundColor: HSColor.background,
-                leading: Padding(
-                  padding: const EdgeInsets.only(top: 0, left: 10, right: 0),
-                  child: IconButton(
-                    icon: SvgPicture.asset(Assets.images.closeIcon),
-                    onPressed: () {
-                      context.read<SignUpBloc>().add(const CloseSignUpScreen());
-                    },
-                  ),
-                )),
-            body: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 71),
+            body: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: Assets.images.signInBackground.provider(),
+                      fit: BoxFit.cover)),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                    sigmaX: 4,
+                    sigmaY:
+                        4), // Adjust the sigma values for desired blur intensity
+                child: Container(
+                  color: Colors.black
+                      .withOpacity(0.3), // Adjust the opacity and color
+                ),
+              ),
+            ),
+            SafeArea(
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: SecondaryButton(
-                          label: HatSpaceStrings.of(context).googleSignUp,
-                          iconUrl: Assets.images.google,
-                          onPressed: () {
-                            context
-                                .read<SignUpBloc>()
-                                .add(const SignUpWithGoogle());
-                          },
-                        )),
-                    Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: SecondaryButton(
-                          label: HatSpaceStrings.of(context).facebookSignUp,
-                          iconUrl: Assets.images.facebookround,
-                          onPressed: () {
-                            context
-                                .read<SignUpBloc>()
-                                .add(const SignUpWithFacebook());
-                          },
-                        )),
-                    Padding(
-                        padding: const EdgeInsets.only(bottom: 18),
-                        child: SecondaryButton(
-                          label: HatSpaceStrings.of(context).emailSignUp,
-                          iconUrl: Assets.images.envelope,
-                          onPressed: () {},
-                        )),
-                    Padding(
-                        padding: const EdgeInsets.only(bottom: 52),
-                        child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                                style: textTheme.bodyMedium?.copyWith(
-                                  fontSize: 12,
-                                  color: HSColor.onSurface,
-                                ),
-                                children: [
-                                  TextSpan(
-                                      style: textTheme.bodyMedium?.copyWith(
-                                          fontSize: 12,
-                                          color: HSColor.onSurface),
-                                      text: HatSpaceStrings.of(context)
-                                          .alreadyHaveAccount),
-                                  TextSpan(
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          decoration: TextDecoration.underline),
-                                      text: HatSpaceStrings.of(context).signIn,
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTapDown = (details) {})
-                                ]))),
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                     TextOnlyButton(
-                      label: HatSpaceStrings.of(context).skip,
+                      label: HatSpaceStrings.current.skip,
                       onPressed: () {
                         context
                             .read<SignUpBloc>()
                             .add(const CloseSignUpScreen());
                       },
+                      style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                          colorScheme.onPrimary,
+                        ),
+                      ),
                     ),
                   ]),
-            )));
+                  Padding(
+                    padding: const EdgeInsets.only(top: 150.0, bottom: 80.0),
+                    child: SizedBox(
+                      width: 150.0,
+                      height: 150.0,
+                      child: SvgPicture.asset(Assets.images.logo),
+                    ),
+                  ),
+                  Expanded(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                          child: SecondaryButton(
+                            contentAlignment: MainAxisAlignment.start,
+                            label: HatSpaceStrings.of(context).emailSignUp,
+                            iconUrl: Assets.icons.envelope,
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                              padding:
+                                  MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                      const EdgeInsets.all(16.0)),
+                            ),
+                            onPressed: () {},
+                          )),
+                      Padding(
+                          padding:
+                              const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 16.0),
+                          child: SecondaryButton(
+                            contentAlignment: MainAxisAlignment.start,
+                            label: HatSpaceStrings.of(context).facebookSignUp,
+                            iconUrl: Assets.icons.facebook,
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                              padding:
+                                  MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                      const EdgeInsets.all(16.0)),
+                              iconColor: MaterialStateProperty.all<Color>(
+                                  const Color(0xFF3C65CE)),
+                            ),
+                            onPressed: () {
+                              context
+                                  .read<SignUpBloc>()
+                                  .add(const SignUpWithFacebook());
+                            },
+                          )),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                          child: SecondaryButton(
+                            contentAlignment: MainAxisAlignment.start,
+                            label: HatSpaceStrings.of(context).googleSignUp,
+                            iconUrl: Assets.icons.google,
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                              padding:
+                                  MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                      const EdgeInsets.all(16.0)),
+                            ),
+                            onPressed: () {
+                              context
+                                  .read<SignUpBloc>()
+                                  .add(const SignUpWithGoogle());
+                            },
+                          )),
+                    ],
+                  ))
+                ],
+              ),
+            ),
+          ],
+        )));
   }
 }

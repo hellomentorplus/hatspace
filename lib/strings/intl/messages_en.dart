@@ -59,12 +59,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "You can be tenant or homeowner, OR you can be both."),
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
         "emailSignUp":
-            MessageLookupByLibrary.simpleMessage("Sign up with email"),
+            MessageLookupByLibrary.simpleMessage("Continue with Email"),
         "explore": MessageLookupByLibrary.simpleMessage("Explore"),
         "facebookSignUp":
-            MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
+            MessageLookupByLibrary.simpleMessage("Continue with Facebook"),
         "googleSignUp":
-            MessageLookupByLibrary.simpleMessage("Sign up with Google"),
+            MessageLookupByLibrary.simpleMessage("Continue with Google"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
         "linearProgressIndicator":
@@ -86,7 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signinErrorToastTitle":
             MessageLookupByLibrary.simpleMessage("Login Failed"),
         "sixMonths": MessageLookupByLibrary.simpleMessage("6 Months"),
-        "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "skip": MessageLookupByLibrary.simpleMessage("SKIP"),
         "tas": MessageLookupByLibrary.simpleMessage("Tasmania"),
         "threeMonths": MessageLookupByLibrary.simpleMessage("3 Months"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),

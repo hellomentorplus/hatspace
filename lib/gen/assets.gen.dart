@@ -18,11 +18,20 @@ class $AssetsIconsGen {
   /// File path: assets/icons/booking.svg
   String get booking => 'assets/icons/booking.svg';
 
+  /// File path: assets/icons/envelope.svg
+  String get envelope => 'assets/icons/envelope.svg';
+
   /// File path: assets/icons/explore.svg
   String get explore => 'assets/icons/explore.svg';
 
+  /// File path: assets/icons/facebook.svg
+  String get facebook => 'assets/icons/facebook.svg';
+
   /// File path: assets/icons/filter.svg
   String get filter => 'assets/icons/filter.svg';
+
+  /// File path: assets/icons/google.svg
+  String get google => 'assets/icons/google.svg';
 
   /// File path: assets/icons/ic_agent.svg
   String get icAgent => 'assets/icons/ic_agent.svg';
@@ -43,8 +52,11 @@ class $AssetsIconsGen {
   List<String> get values => [
         add,
         booking,
+        envelope,
         explore,
+        facebook,
         filter,
+        google,
         icAgent,
         message,
         notification,
@@ -110,6 +122,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/increment.svg
   String get increment => 'assets/images/increment.svg';
 
+  /// File path: assets/images/logo.svg
+  String get logo => 'assets/images/logo.svg';
+
   /// File path: assets/images/messages.svg
   String get messages => 'assets/images/messages.svg';
 
@@ -119,8 +134,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/search-normal.svg
   String get searchNormal => 'assets/images/search-normal.svg';
 
+  /// File path: assets/images/signIn_background.png
+  AssetGenImage get signInBackground =>
+      const AssetGenImage('assets/images/signIn_background.png');
+
   /// List of all assets
-  List<String> get values => [
+  List<dynamic> get values => [
         apartment,
         arrowCalendarLeft,
         arrowCalendarRight,
@@ -139,9 +158,11 @@ class $AssetsImagesGen {
         google,
         house,
         increment,
+        logo,
         messages,
         profileCircle,
-        searchNormal
+        searchNormal,
+        signInBackground
       ];
 }
 
