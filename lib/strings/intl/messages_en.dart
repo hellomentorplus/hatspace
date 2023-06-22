@@ -101,14 +101,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "loginDescription": MessageLookupByLibrary.simpleMessage(
+            "You need to be logged in to view this content"),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "noLater": MessageLookupByLibrary.simpleMessage("No,later"),
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
         "pleaseEnterYourPlaceholder": MessageLookupByLibrary.simpleMessage(
             "Please Enter Your Placeholder"),
+        "pleaseSelectValue":
+            MessageLookupByLibrary.simpleMessage("Please select value"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
@@ -133,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "welcomeName": m4,
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
+        "yesLoginNow": MessageLookupByLibrary.simpleMessage("Yes, login now"),
         "yourAddress": MessageLookupByLibrary.simpleMessage("Your address")
       };
 }

@@ -82,7 +82,7 @@ void main() {
   );
 
   blocTest(
-      "Given user has not sign in, when handle BottomAppBar time, then return ShowModalLogin",
+      'Given user has not sign in, when handle BottomAppBar time, then return ShowModalLogin',
       build: () => HomeInteractionCubit(),
       setUp: () {
         when(authenticationService.getCurrentUser())
