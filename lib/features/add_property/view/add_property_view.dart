@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
@@ -26,8 +25,7 @@ class AddPropertyView extends StatelessWidget {
         BlocProvider<PropertyTypeCubit>(
             create: (context) => PropertyTypeCubit()),
         BlocProvider<PropertyInforCubit>(
-            create: (context) => PropertyInforCubit(PropertyInfor(
-                AustraliaStates.invalid, MinimumRentPeriod.invalid))),
+            create: (context) => PropertyInforCubit()),
       ],
       child: AddPropertyPageBody(),
     );

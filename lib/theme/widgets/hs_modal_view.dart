@@ -14,12 +14,12 @@ class HsModalView extends StatelessWidget {
   final ValueChanged onSave;
   final double? height;
   const HsModalView(
-      {super.key,
-      required this.currentValue,
+      {required this.currentValue,
       required this.itemList,
       required this.height,
       required this.title,
-      required this.onSave});
+      required this.onSave,
+      super.key});
 
   Widget renderSelectedItemIcon(dynamic selectedValue, int index) {
     if (selectedValue == itemList[index]) {
@@ -31,7 +31,6 @@ class HsModalView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SizedBox(
         key: key,
         height: height,

@@ -16,9 +16,9 @@ void main() {
   final MockPropertyInforCubit propertyInforCubit = MockPropertyInforCubit();
   setUp(() {
     when(propertyInforCubit.state)
-        .thenAnswer((realInvocation) =>  PropertyInforInitial());
-    when(propertyInforCubit.stream).thenAnswer(
-        (realInvocation) => Stream.value( PropertyInforInitial()));
+        .thenAnswer((realInvocation) => PropertyInforInitial());
+    when(propertyInforCubit.stream)
+        .thenAnswer((realInvocation) => Stream.value(PropertyInforInitial()));
   });
   testWidgets('test minimum rent period sheet', (widgetTester) async {
     Widget rentView = AddPropertyMinimumView();

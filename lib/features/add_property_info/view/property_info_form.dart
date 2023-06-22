@@ -29,21 +29,23 @@ class PropertyInforForm extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Align(
-        alignment: Alignment.centerLeft,
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 16, top: 33, right: 16, bottom: 24),
-          child: ListView.separated(
-            separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(
-              height: 16,
-            ),
-            itemCount: itemList.length,
-            itemBuilder: (context, index) {
-              return itemList[index];
-            },
-          ),
-        ));
+    return BlocProvider(
+        create: (context) => PropertyInforCubit(),
+        child: Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 16, top: 33, right: 16, bottom: 24),
+              child: ListView.separated(
+                separatorBuilder: (BuildContext context, int index) =>
+                    const SizedBox(
+                  height: 16,
+                ),
+                itemCount: itemList.length,
+                itemBuilder: (context, index) {
+                  return itemList[index];
+                },
+              ),
+            )));
   }
 }

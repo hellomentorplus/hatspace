@@ -21,7 +21,12 @@ class AddPropertyStateView extends StatelessWidget {
     stateList.remove(AustraliaStates.invalid);
     return BlocConsumer<PropertyInforCubit, PropertyInforState>(
         listener: (context, state) {
-      // TODO: listen to validation
+      if (state is StartListenAustraliaStateChange) {
+        context.pop();
+      }
+    }, buildWhen: (previous, current) {
+      return previous.propertyInfo.state != current.propertyInfo.state &&
+          previous is StartListenAustraliaStateChange;
     }, builder: (context, state) {
       if (state.propertyInfo.state != AustraliaStates.invalid) {
         selectState.value = state.propertyInfo.state;
@@ -55,7 +60,6 @@ class AddPropertyStateView extends StatelessWidget {
                             context
                                 .read<PropertyInforCubit>()
                                 .saveSelectedState(value);
-                            context.pop();
                           });
                     });
               })

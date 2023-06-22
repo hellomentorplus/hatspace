@@ -15,27 +15,32 @@ void main() {
   // initializeDateFormatting();
   setUp(() {
     when(mockPropertyInforCubit.state)
-        .thenAnswer((realInvocation) => const PropertyInforInitial());
-    when(mockPropertyInforCubit.stream).thenAnswer(
-        (realInvocation) => Stream.value(const PropertyInforInitial()));
+        .thenAnswer((realInvocation) => PropertyInforInitial());
+    when(mockPropertyInforCubit.stream)
+        .thenAnswer((realInvocation) => Stream.value(PropertyInforInitial()));
   });
   blocTest(
-    "given user select and save australia state, return will be SaveSelectedState",
+    'given user select and save australia state, return will be SaveSelectedState',
     build: () => PropertyInforCubit(),
     act: (bloc) => {bloc.saveSelectedState(AustraliaStates.act)},
-    expect: () => [isA<SaveSelectedState>()],
+    expect: () => [
+      isA<StartListenAustraliaStateChange>(),
+      isA<SavePropertyInforFields>()
+    ],
   );
   blocTest(
-    "given user select and save rent period state, return will be SaveRentPriodState",
+    'given user select and save rent period state, return will be SaveRentPriodState',
     build: () => PropertyInforCubit(),
     act: (bloc) =>
         {bloc.saveMinimumRentPeriod(MinimumRentPeriod.eighteenMonths)},
-    expect: () => [isA<SaveMinimumPeriodState>()],
+    expect: () =>
+        [isA<StartListenRentPeriodChange>(), isA<SavePropertyInforFields>()],
   );
 
-  test("test initial state", () {
-    PropertyInforInitial propertyInforInitial = const PropertyInforInitial();
-    expect(propertyInforInitial.savedState, AustraliaStates.invalid);
-    expect(propertyInforInitial.saveRentPeriod, MinimumRentPeriod.invalid);
+  test('test initial state', () {
+    PropertyInforInitial propertyInforInitial = PropertyInforInitial();
+    expect(propertyInforInitial.propertyInfo.state, AustraliaStates.invalid);
+    expect(propertyInforInitial.propertyInfo.rentPeriod,
+        MinimumRentPeriod.invalid);
   });
 }

@@ -17,9 +17,9 @@ void main() {
   // initializeDateFormatting();
   setUp(() {
     when(propertyInforCubit.state)
-        .thenAnswer((realInvocation) => const PropertyInforInitial());
-    when(propertyInforCubit.stream).thenAnswer(
-        (realInvocation) => Stream.value(const PropertyInforInitial()));
+        .thenAnswer((realInvocation) => PropertyInforInitial());
+    when(propertyInforCubit.stream)
+        .thenAnswer((realInvocation) => Stream.value(PropertyInforInitial()));
   });
   testWidgets('test state bottom sheet for widget', (widgetTester) async {
     Widget stateView = AddPropertyStateView();

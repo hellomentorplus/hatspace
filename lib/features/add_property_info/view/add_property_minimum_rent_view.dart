@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/property_data.dart';
-import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_state.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -22,9 +21,14 @@ class AddPropertyMinimumView extends StatelessWidget {
     periodList.remove(MinimumRentPeriod.invalid);
     return BlocConsumer<PropertyInforCubit, PropertyInforState>(
         listener: (context, state) {
-      // TODO: Listen to validation
+      if (state is StartListenRentPeriodChange) {
+        context.pop();
+      }
+    }, buildWhen: (previous, current) {
+      return previous.propertyInfo.rentPeriod !=
+              current.propertyInfo.rentPeriod &&
+          previous is StartListenRentPeriodChange;
     }, builder: (context, state) {
-      print(state);
       if (state.propertyInfo.rentPeriod != MinimumRentPeriod.invalid) {
         selectPeriod.value = state.propertyInfo.rentPeriod;
       }
@@ -40,7 +44,6 @@ class AddPropertyMinimumView extends StatelessWidget {
           HatSpaceDropDownButton(
               icon: Assets.images.chervonDown,
               value: label,
-              //TODO: implement state
               isRequired: true,
               onPressed: () {
                 showModalBottomSheet(
@@ -59,7 +62,6 @@ class AddPropertyMinimumView extends StatelessWidget {
                             context
                                 .read<PropertyInforCubit>()
                                 .saveMinimumRentPeriod(value);
-                            context.pop();
                           });
                     });
               })

@@ -12,23 +12,32 @@ class PropertyInforInitial extends PropertyInforState {
       : super(
             PropertyInfor(AustraliaStates.invalid, MinimumRentPeriod.invalid));
   @override
-  List<Object?> get props => [propertyInfo];
+  List<Object> get props => [propertyInfo.rentPeriod, propertyInfo.state];
 }
 
 class SavePropertyInforFields extends PropertyInforState {
   const SavePropertyInforFields(super.propertyInfo);
   @override
-  List<Object?> get props => [propertyInfo.rentPeriod, propertyInfo.state];
+  List<Object> get props => [propertyInfo.rentPeriod, propertyInfo.state];
 }
 
-class SaveSelectedState extends PropertyInforState {
-  const SaveSelectedState(super.propertyInfo);
+class StartInputValue extends PropertyInforState {
+  final PropertyInfor propertyInfor;
+  const StartInputValue(this.propertyInfor) : super(propertyInfor);
   @override
-  List<Object?> get props => [super.propertyInfo];
+  List<Object> get props => [propertyInfo.rentPeriod, propertyInfo.state];
 }
 
-class SaveMinimumPeriodState extends PropertyInforState {
-  const SaveMinimumPeriodState(super.propertyInfo);
+class StartListenAustraliaStateChange extends PropertyInforState {
+  const StartListenAustraliaStateChange(super.propertyInfo);
   @override
-  List<Object?> get props => [super.propertyInfo];
+  List<Object?> get props =>
+      [super.propertyInfo.state, super.propertyInfo.rentPeriod];
+}
+
+class StartListenRentPeriodChange extends PropertyInforState {
+  const StartListenRentPeriodChange(super.propertyInfo);
+  @override
+  List<Object?> get props =>
+      [super.propertyInfo.state, super.propertyInfo.rentPeriod];
 }
