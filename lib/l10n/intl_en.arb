@@ -71,9 +71,14 @@
   "pleaseEnterYourPlaceholder": "Please Enter Your Placeholder",
   "welcomeDefault":"Hi there 👋",
   "welcomeName":"👋 Hi {name}",
+
   "login": "Login",
   "loginDescription": "You need to be logged in to view this content",
   "yesLoginNow":"Yes, login now",
   "noLater":"No,later",
+
+  "pleaseSelectYourState":"Pleas select your state",
+  "pleaseSelectRentPeriod":"Please select rent period",
+  "save": "Save",
   "pleaseSelectValue":"Please select value"
 }

@@ -706,6 +706,36 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Pleas select your state`
+  String get pleaseSelectYourState {
+    return Intl.message(
+      'Pleas select your state',
+      name: 'pleaseSelectYourState',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select rent period`
+  String get pleaseSelectRentPeriod {
+    return Intl.message(
+      'Please select rent period',
+      name: 'pleaseSelectRentPeriod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please select value`
   String get pleaseSelectValue {
     return Intl.message(
