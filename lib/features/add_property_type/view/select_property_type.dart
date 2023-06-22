@@ -7,7 +7,7 @@ import 'package:hatspace/features/add_property_type/view_modal/property_type_cub
 
 import 'package:hatspace/strings/l10n.dart';
 
-import 'property_type_card_view.dart';
+import 'package:hatspace/features/add_property_type/view/property_type_card_view.dart';
 
 class SelectPropertyType extends StatelessWidget {
   const SelectPropertyType({super.key});

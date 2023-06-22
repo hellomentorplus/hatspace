@@ -54,11 +54,11 @@ void main() {
     when(user.phoneNumber).thenReturn('123456');
     when(user.displayName).thenReturn('displayName');
 
-    when(mockAccessToken.token).thenReturn("mock token");
+    when(mockAccessToken.token).thenReturn('mock token');
     when(mockFacebookAuth.login()).thenAnswer((_) async {
       return Future<LoginResult>.value(LoginResult(
           status: LoginStatus.success,
-          message: "Success",
+          message: 'Success',
           accessToken: mockAccessToken));
     });
   });
@@ -70,7 +70,7 @@ void main() {
     when(mockFacebookAuth.login()).thenAnswer((realInvocation) {
       return Future<LoginResult>.value(LoginResult(
           status: LoginStatus.success,
-          message: "test message",
+          message: 'test message',
           accessToken: mockAccessToken));
     });
     // when
@@ -249,7 +249,7 @@ void main() {
     when(mockFacebookAuth.login()).thenAnswer((realInvocation) {
       return Future<LoginResult>.value(LoginResult(
           status: LoginStatus.success,
-          message: "test message",
+          message: 'test message',
           accessToken: mockAccessToken));
     });
     // then

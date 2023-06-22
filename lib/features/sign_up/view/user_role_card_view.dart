@@ -6,7 +6,7 @@ import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
-import '../../../data/data.dart';
+import 'package:hatspace/data/data.dart';
 
 class UserRoleDetail {
   String title;
@@ -27,7 +27,7 @@ extension RoleToDetail on Roles {
 
 class UserRoleCardView extends StatelessWidget {
   final int position;
-  const UserRoleCardView({super.key, required this.position});
+  const UserRoleCardView({required this.position, super.key});
   @override
   Widget build(BuildContext context) {
     UserRoleDetail userRoleDetail =

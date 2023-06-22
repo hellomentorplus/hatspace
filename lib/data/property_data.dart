@@ -4,16 +4,16 @@ import 'package:hatspace/strings/l10n.dart';
 
 // Field names for firebase firestore
 class PropKeys {
-  static const type = "type";
-  static const name = "name";
-  static const price = "price";
+  static const type = 'type';
+  static const name = 'name';
+  static const price = 'price';
   static const currency = 'currency';
-  static const desciption = "description";
-  static const address = "address";
-  static const additionalDetail = "propertyDetails";
+  static const description = 'description';
+  static const address = 'address';
+  static const additionalDetail = 'propertyDetails';
   static const photos = 'photos';
-  static const rentPeriod = "rentPeriod";
-  static const surbub = "surbub";
+  static const rentPeriod = 'rentPeriod';
+  static const surbub = 'surbub';
   static const bedroom = 'bedrooms';
   static const bathroom = 'bathrooms';
   static const parking = 'parkings';
@@ -24,9 +24,9 @@ class PropKeys {
   static const state = 'state';
   static const postcode = 'postcode';
   static const location = 'location';
-  static const createdAt = "createAt";
-  static const country = "country";
-  static const availableDate = "availableDate";
+  static const createdAt = 'createAt';
+  static const country = 'country';
+  static const availableDate = 'availableDate';
 }
 
 enum PropertyTypes {
@@ -34,10 +34,8 @@ enum PropertyTypes {
   apartment,
   invalid;
 
-  static PropertyTypes fromName(String name) {
-    return values.firstWhere((element) => element.name == name,
-        orElse: () => invalid);
-  }
+  static PropertyTypes fromName(String name) => values
+      .firstWhere((element) => element.name == name, orElse: () => invalid);
 }
 
 enum AustraliaStates {
@@ -53,83 +51,31 @@ enum AustraliaStates {
   invalid;
 
   const AustraliaStates();
-  String get stateName {
-    switch (this) {
-      case nsw:
-        return HatSpaceStrings.current.nsw;
-      case vic:
-        return HatSpaceStrings.current.vic;
-      case qld:
-        return HatSpaceStrings.current.qld;
-      case wa:
-        return HatSpaceStrings.current.wa;
-      case tas:
-        return HatSpaceStrings.current.tas;
-      case act:
-        return HatSpaceStrings.current.act;
-      case nt:
-        return HatSpaceStrings.current.nt;
-      default:
-        return "Invalid state name";
-    }
-  }
+  String get displayName => HatSpaceStrings.current.australiaState(this);
 
   static AustraliaStates fromName(String name) =>
       values.firstWhere((element) => element.name == name.toLowerCase(),
           orElse: () => invalid);
-
-  static AustraliaStates getStateCode(String stateName) {
-    if (stateName == HatSpaceStrings.current.nsw) {
-      return nsw;
-    } else if (stateName == HatSpaceStrings.current.vic) {
-      return vic;
-    } else if (stateName == HatSpaceStrings.current.qld) {
-      return qld;
-    } else if (stateName == HatSpaceStrings.current.wa) {
-      return wa;
-    } else if (stateName == HatSpaceStrings.current.tas) {
-      return tas;
-    } else if (stateName == HatSpaceStrings.current.act) {
-      return act;
-    } else if (stateName == HatSpaceStrings.current.nt) {
-      return nt;
-    } else {
-      return invalid;
-    }
-  }
 }
 
 enum MinimumRentPeriod {
   //TODO: add more value for upcomming story
-  threeMonths,
-  sixMonths,
-  invalid;
+  oneMonth(1),
+  threeMonths(3),
+  sixMonths(6),
+  nineMonths(9),
+  twelveMonths(12),
+  eighteenMonths(18),
+  twentyFourMonths(24),
+  thirtySixMonths(36),
+  invalid(0);
 
-  const MinimumRentPeriod();
-  String get rentPeriodName {
-    switch (this) {
-      case threeMonths:
-        return HatSpaceStrings.current.threeMonths;
-      case sixMonths:
-        return HatSpaceStrings.current.sixMonths;
-      // TODO: add more values in next story
-      default:
-        return "invalid";
-    }
-  }
+  const MinimumRentPeriod(this.months);
+  final int months;
+  String get displayName => HatSpaceStrings.current.rentPeriod(months);
 
-  static MinimumRentPeriod getPeriod(String period) {
-    if (period == HatSpaceStrings.current.threeMonths) {
-      return threeMonths;
-    } else if (period == HatSpaceStrings.current.sixMonths) {
-      return sixMonths;
-    } else {
-      return invalid;
-    }
-  }
-
-  static MinimumRentPeriod fromName(String name) => values
-      .firstWhere((element) => element.name == name, orElse: () => invalid);
+  static MinimumRentPeriod fromMonthsValue(int months) => values
+      .firstWhere((element) => element.months == months, orElse: () => invalid);
 }
 
 enum Currency {
@@ -189,12 +135,12 @@ class AddressDetail {
   final String suburb;
   final AustraliaStates state;
   const AddressDetail({
-    this.unitNo = "",
     required this.streetName,
     required this.streetNo,
     required this.postcode,
     required this.suburb,
     required this.state,
+    this.unitNo = '',
   });
   Map<String, dynamic> convertAddressToMap() {
     Map<String, dynamic> mapAddress = {
@@ -203,7 +149,7 @@ class AddressDetail {
       PropKeys.streetName: streetName,
       PropKeys.postcode: postcode,
       PropKeys.state: state.name,
-      PropKeys.surbub: suburb
+      PropKeys.surbub: suburb,
     };
     return mapAddress;
   }
@@ -233,21 +179,21 @@ class Property {
   final GeoPoint location;
   final Timestamp createdTime;
   final Timestamp availableDate;
-  Property(
-      {this.id,
-      required this.type,
-      required this.name,
-      required this.price,
-      required this.description,
-      required this.address,
-      required this.additionalDetail,
-      required this.photos,
-      required this.minimumRentPeriod,
-      CountryCode? country,
-      required this.location,
-      Timestamp? createdTime,
-      required this.availableDate})
-      : country = country ?? CountryCode.au,
+  Property({
+    required this.type,
+    required this.name,
+    required this.price,
+    required this.description,
+    required this.address,
+    required this.additionalDetail,
+    required this.photos,
+    required this.minimumRentPeriod,
+    required this.location,
+    required this.availableDate,
+    this.id,
+    CountryCode? country,
+    Timestamp? createdTime,
+  })  : country = country ?? CountryCode.au,
         createdTime = createdTime ?? Timestamp.now();
   // convertObjectToMap is used to upload Map type to firestore
   Map<String, dynamic> convertObjectToMap() {
@@ -257,8 +203,8 @@ class Property {
         PropKeys.currency: price.currency.name,
         PropKeys.price: price.rentPrice
       },
-      PropKeys.rentPeriod: minimumRentPeriod.name,
-      PropKeys.desciption: description,
+      PropKeys.rentPeriod: minimumRentPeriod.months,
+      PropKeys.description: description,
       PropKeys.address: address.convertAddressToMap(),
       PropKeys.additionalDetail: {
         PropKeys.bathroom: additionalDetail.bathrooms,
@@ -272,9 +218,9 @@ class Property {
       PropKeys.location: location,
       PropKeys.type: type.name,
       PropKeys.country: country.name.toUpperCase(),
-      "filter_by_postcode": address.postcode,
-      "filter_by_surbub": address.suburb,
-      "filter_by_state": address.state.name
+      'filter_by_postcode': address.postcode,
+      'filter_by_surbub': address.suburb,
+      'filter_by_state': address.state.name,
     };
     return mapProp;
   }
@@ -284,12 +230,13 @@ class Property {
         type: PropertyTypes.fromName(map[PropKeys.type]),
         name: map[PropKeys.name],
         price: Price.convertMapToObject(map[PropKeys.price]),
-        description: map[PropKeys.desciption],
+        description: map[PropKeys.description],
         address: AddressDetail.convertMapToObject(map[PropKeys.address]),
         additionalDetail:
             AdditionalDetail.convertMapToObject(map[PropKeys.additionalDetail]),
         photos: List<String>.from(map[PropKeys.photos]),
-        minimumRentPeriod: MinimumRentPeriod.fromName(map[PropKeys.rentPeriod]),
+        minimumRentPeriod:
+            MinimumRentPeriod.fromMonthsValue(map[PropKeys.rentPeriod]),
         country: CountryCode.fromName(map[PropKeys.country]),
         location: map[PropKeys.location],
         createdTime: map[PropKeys.createdAt],

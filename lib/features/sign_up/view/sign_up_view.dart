@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,40 +11,42 @@ import 'package:hatspace/theme/pop_up/pop_up_controller.dart';
 import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
 import 'package:hatspace/theme/toast_messages/toast_messages_extension.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
+import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
-        listener: (context, state) {
-          if (state is SignUpStart) {
-            context.showLoading();
-          }
+      listener: (context, state) {
+        if (state is SignUpStart) {
+          context.showLoading();
+        }
 
-          if (state is FirstLaunchScreen && state.isFirstLaunch == false) {
-            // dismiss this page and return to home
-            context.pop();
-          }
+        if (state is FirstLaunchScreen && state.isFirstLaunch == false) {
+          // dismiss this page and return to home
+          context.pop();
+        }
 
-          if (state is UserCancelled || state is AuthenticationFailed) {
-            context.dismissLoading();
-            context.showToast(
-                type: ToastType.errorToast,
-                title: HatSpaceStrings.of(context).signinErrorToastTitle,
-                message: HatSpaceStrings.of(context).signinErrorToastMessage);
-          }
-          if (state is UserRolesUnavailable) {
-            context.dismissLoading();
-            context.goToChooseRole();
-          }
-          if (state is SignUpSuccess) {
-            context.dismissLoading();
-            context.pop();
-          }
-        },
-        child: Scaffold(
-            body: Stack(
+        if (state is UserCancelled || state is AuthenticationFailed) {
+          context.dismissLoading();
+          context.showToast(
+              type: ToastType.errorToast,
+              title: HatSpaceStrings.of(context).signinErrorToastTitle,
+              message: HatSpaceStrings.of(context).signinErrorToastMessage);
+        }
+        if (state is UserRolesUnavailable) {
+          context.dismissLoading();
+          context.goToChooseRole();
+        }
+        if (state is SignUpSuccess) {
+          context.read<AuthenticationBloc>().add(ValidateAuthentication());
+          context.dismissLoading();
+          context.pop();
+        }
+      },
+      child: Scaffold(
+        body: Stack(
           children: [
             Container(
               decoration: BoxDecoration(
@@ -64,31 +65,41 @@ class SignUpScreen extends StatelessWidget {
               ),
             ),
             SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    TextOnlyButton(
-                      label: HatSpaceStrings.current.skip,
-                      onPressed: () {
-                        context
-                            .read<SignUpBloc>()
-                            .add(const CloseSignUpScreen());
-                      },
-                      style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                          colorScheme.onPrimary,
-                        ),
-                      ),
-                    ),
-                  ]),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 150.0, bottom: 80.0),
-                    child: SizedBox(
-                      width: 150.0,
-                      height: 150.0,
-                      child: SvgPicture.asset(Assets.images.logo),
-                    ),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                  Expanded(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                TextOnlyButton(
+                                  label: HatSpaceStrings.current.skip,
+                                  onPressed: () {
+                                    context
+                                        .read<SignUpBloc>()
+                                        .add(const CloseSignUpScreen());
+                                  },
+                                  style: ButtonStyle(
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                      colorScheme.onPrimary,
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 80.0),
+                            child: SizedBox(
+                              width: 150.0,
+                              height: 150.0,
+                              child: SvgPicture.asset(Assets.images.logo),
+                            ),
+                          ),
+                        ]),
                   ),
                   Expanded(
                       child: Column(
@@ -101,6 +112,7 @@ class SignUpScreen extends StatelessWidget {
                             contentAlignment: MainAxisAlignment.start,
                             label: HatSpaceStrings.of(context).emailSignUp,
                             iconUrl: Assets.icons.envelope,
+                            overrideIconColor: false,
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.white),
@@ -117,14 +129,13 @@ class SignUpScreen extends StatelessWidget {
                             contentAlignment: MainAxisAlignment.start,
                             label: HatSpaceStrings.of(context).facebookSignUp,
                             iconUrl: Assets.icons.facebook,
+                            overrideIconColor: false,
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.white),
                               padding:
                                   MaterialStateProperty.all<EdgeInsetsGeometry>(
                                       const EdgeInsets.all(16.0)),
-                              iconColor: MaterialStateProperty.all<Color>(
-                                  const Color(0xFF3C65CE)),
                             ),
                             onPressed: () {
                               context
@@ -138,6 +149,7 @@ class SignUpScreen extends StatelessWidget {
                             contentAlignment: MainAxisAlignment.start,
                             label: HatSpaceStrings.of(context).googleSignUp,
                             iconUrl: Assets.icons.google,
+                            overrideIconColor: false,
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.white),
@@ -153,10 +165,10 @@ class SignUpScreen extends StatelessWidget {
                           )),
                     ],
                   ))
-                ],
-              ),
-            ),
+                ])),
           ],
-        )));
+        ),
+      ),
+    );
   }
 }

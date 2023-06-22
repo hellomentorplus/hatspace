@@ -80,6 +80,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/calendar.svg
   String get calendar => 'assets/images/calendar.svg';
 
+  /// File path: assets/images/check.svg
+  String get check => 'assets/images/check.svg';
+
+  /// File path: assets/images/chervon-down.svg
+  String get chervonDown => 'assets/images/chervon-down.svg';
+
   /// File path: assets/images/chevron_left.svg
   String get chevronLeft => 'assets/images/chevron_left.svg';
 
@@ -144,6 +150,8 @@ class $AssetsImagesGen {
         arrowCalendarLeft,
         arrowCalendarRight,
         calendar,
+        check,
+        chervonDown,
         chevronLeft,
         chevronRight,
         closeClear,

@@ -402,101 +402,245 @@ class HatSpaceStrings {
     );
   }
 
-  /// `New South Wales`
-  String get nsw {
+  /// `{count, plural, zero{No rent period} one{1 Month} other { {count} Months }}`
+  String rentPeriod(num count) {
+    return Intl.plural(
+      count,
+      zero: 'No rent period',
+      one: '1 Month',
+      other: ' $count Months ',
+      name: 'rentPeriod',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `{ausState, select, vic{Victoria} nsw{New South Wales} qld{Queenland} wa{Western Australia} sa{South Australia} tas{Tasmania} act{Australian Capital Territory} nt{Northern Territory} other{No State Available}}`
+  String australiaState(Object ausState) {
+    return Intl.select(
+      ausState,
+      {
+        'vic': 'Victoria',
+        'nsw': 'New South Wales',
+        'qld': 'Queenland',
+        'wa': 'Western Australia',
+        'sa': 'South Australia',
+        'tas': 'Tasmania',
+        'act': 'Australian Capital Territory',
+        'nt': 'Northern Territory',
+        'other': 'No State Available',
+      },
+      name: 'australiaState',
+      desc: '',
+      args: [ausState],
+    );
+  }
+
+  /// `Property name`
+  String get propertyName {
     return Intl.message(
-      'New South Wales',
-      name: 'nsw',
+      'Property name',
+      name: 'propertyName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Victoria`
-  String get vic {
+  /// `Enter property name`
+  String get enterPropertyName {
     return Intl.message(
-      'Victoria',
-      name: 'vic',
+      'Enter property name',
+      name: 'enterPropertyName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Queenland`
-  String get qld {
+  /// `Price`
+  String get price {
     return Intl.message(
-      'Queenland',
-      name: 'qld',
+      'Price',
+      name: 'price',
       desc: '',
       args: [],
     );
   }
 
-  /// `Western Australia`
-  String get wa {
+  /// `Enter your price`
+  String get enterYourPrice {
     return Intl.message(
-      'Western Australia',
-      name: 'wa',
+      'Enter your price',
+      name: 'enterYourPrice',
       desc: '',
       args: [],
     );
   }
 
-  /// `South Australia`
-  String get sa {
+  /// `Minimum rent period`
+  String get minimumRentPeriod {
     return Intl.message(
-      'South Australia',
-      name: 'sa',
+      'Minimum rent period',
+      name: 'minimumRentPeriod',
       desc: '',
       args: [],
     );
   }
 
-  /// `Tasmania`
-  String get tas {
+  /// `Description`
+  String get description {
     return Intl.message(
-      'Tasmania',
-      name: 'tas',
+      'Description',
+      name: 'description',
       desc: '',
       args: [],
     );
   }
 
-  /// `Australian Capital Territory`
-  String get act {
+  /// `Enter description`
+  String get enterYourDescription {
     return Intl.message(
-      'Australian Capital Territory',
-      name: 'act',
+      'Enter description',
+      name: 'enterYourDescription',
       desc: '',
       args: [],
     );
   }
 
-  /// `Northern Territory`
-  String get nt {
+  /// `State`
+  String get state {
     return Intl.message(
-      'Northern Territory',
-      name: 'nt',
+      'State',
+      name: 'state',
       desc: '',
       args: [],
     );
   }
 
-  /// `3 Months`
-  String get threeMonths {
+  /// `Unit number`
+  String get unitNumber {
     return Intl.message(
-      '3 Months',
-      name: 'threeMonths',
+      'Unit number',
+      name: 'unitNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `6 Months`
-  String get sixMonths {
+  /// `(Optional)`
+  String get optional {
     return Intl.message(
-      '6 Months',
-      name: 'sixMonths',
+      '(Optional)',
+      name: 'optional',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter unit number`
+  String get enterYourUnitnumber {
+    return Intl.message(
+      'Enter unit number',
+      name: 'enterYourUnitnumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Street address`
+  String get streetAddress {
+    return Intl.message(
+      'Street address',
+      name: 'streetAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your address`
+  String get enterYourAddress {
+    return Intl.message(
+      'Enter your address',
+      name: 'enterYourAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `House number + Street name`
+  String get houseNumberAndStreetName {
+    return Intl.message(
+      'House number + Street name',
+      name: 'houseNumberAndStreetName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Suburb`
+  String get suburb {
+    return Intl.message(
+      'Suburb',
+      name: 'suburb',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter suburb`
+  String get enterYourSuburb {
+    return Intl.message(
+      'Enter suburb',
+      name: 'enterYourSuburb',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Postcode`
+  String get postcode {
+    return Intl.message(
+      'Postcode',
+      name: 'postcode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter postcode`
+  String get enterYourPostcode {
+    return Intl.message(
+      'Enter postcode',
+      name: 'enterYourPostcode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Information`
+  String get information {
+    return Intl.message(
+      'Information',
+      name: 'information',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your address`
+  String get yourAddress {
+    return Intl.message(
+      'Your address',
+      name: 'yourAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Enter Your Placeholder`
+  String get pleaseEnterYourPlaceholder {
+    return Intl.message(
+      'Please Enter Your Placeholder',
+      name: 'pleaseEnterYourPlaceholder',
       desc: '',
       args: [],
     );
@@ -519,6 +663,46 @@ class HatSpaceStrings {
       name: 'welcomeName',
       desc: '',
       args: [name],
+    );
+  }
+
+  /// `Pleas select your state`
+  String get pleaseSelectYourState {
+    return Intl.message(
+      'Pleas select your state',
+      name: 'pleaseSelectYourState',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select rent period`
+  String get pleaseSelectRentPeriod {
+    return Intl.message(
+      'Please select rent period',
+      name: 'pleaseSelectRentPeriod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select value`
+  String get pleaseSelectValue {
+    return Intl.message(
+      'Please select value',
+      name: 'pleaseSelectValue',
+      desc: '',
+      args: [],
     );
   }
 }

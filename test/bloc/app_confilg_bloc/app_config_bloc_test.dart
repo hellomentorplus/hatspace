@@ -10,10 +10,10 @@ import 'app_config_bloc_test.mocks.dart';
 @GenerateMocks([FirebaseRemoteConfig])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  group("Testing Firebase Remote Config", () {
+  group('Testing Firebase Remote Config', () {
     MockFirebaseRemoteConfig firebaseRemoteMock = MockFirebaseRemoteConfig();
     blocTest<AppConfigBloc, AppConfigState>(
-      "Testing Debug Option from Firebase Remote Config",
+      'Testing Debug Option from Firebase Remote Config',
       build: () {
         return AppConfigBloc(firebaseRemoteConfig: firebaseRemoteMock);
       },
@@ -24,7 +24,7 @@ void main() {
         when(firebaseRemoteMock.fetchAndActivate()).thenAnswer((_) {
           return Future.value(true);
         });
-        when(firebaseRemoteMock.getBool("debug_option_enabled"))
+        when(firebaseRemoteMock.getBool('debug_option_enabled'))
             .thenReturn(true);
       },
       act: ((bloc) {
