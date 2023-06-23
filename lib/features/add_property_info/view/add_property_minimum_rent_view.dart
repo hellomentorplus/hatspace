@@ -13,60 +13,55 @@ import 'package:hatspace/theme/widgets/hs_text_field.dart';
 class AddPropertyMinimumView extends StatelessWidget {
   AddPropertyMinimumView({super.key});
   final ValueNotifier<MinimumRentPeriod> selectPeriod =
-      ValueNotifier<MinimumRentPeriod>(MinimumRentPeriod.values.first);
+      ValueNotifier<MinimumRentPeriod>(MinimumRentPeriod.invalid);
   final List<MinimumRentPeriod> periodList = MinimumRentPeriod.values.toList();
   @override
   Widget build(BuildContext context) {
-    String label = HatSpaceStrings.of(context).pleaseSelectRentPeriod;
     periodList.remove(MinimumRentPeriod.invalid);
-    return BlocConsumer<PropertyInforCubit, PropertyInforState>(
+    return BlocListener<PropertyInforCubit, PropertyInforState>(
         listener: (context, state) {
-      if (state is StartListenRentPeriodChange) {
-        context.pop();
-      }
-    }, buildWhen: (previous, current) {
-      return previous.propertyInfo.rentPeriod !=
-              current.propertyInfo.rentPeriod &&
-          previous is StartListenRentPeriodChange;
-    }, builder: (context, state) {
-      if (state.propertyInfo.rentPeriod != MinimumRentPeriod.invalid) {
-        selectPeriod.value = state.propertyInfo.rentPeriod;
-      }
-      if (state is SavePropertyInforFields) {
-        label = state.propertyInfo.rentPeriod.displayName;
-      }
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          HatSpaceLabel(
-              label: HatSpaceStrings.of(context).minimumRentPeriod,
-              isRequired: true),
-          HatSpaceDropDownButton(
-              icon: Assets.images.chervonDown,
-              value: label,
-              isRequired: true,
-              onPressed: () {
-                showModalBottomSheet(
-                    isScrollControlled: true,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    context: context,
-                    builder: (_) {
-                      return HsModalView(
-                          currentValue: selectPeriod,
-                          itemList: periodList,
-                          height: MediaQuery.of(context).size.height * 0.85,
-                          title: HatSpaceStrings.of(context).minimumRentPeriod,
-                          onSave: (value) {
-                            context
-                                .read<PropertyInforCubit>()
-                                .saveMinimumRentPeriod(value);
-                          });
-                    });
-              })
-        ],
-      );
-    });
+          if (state is StartListenRentPeriodChange) {
+            context.pop();
+          }
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            HatSpaceLabel(
+                label: HatSpaceStrings.of(context).minimumRentPeriod,
+                isRequired: true),
+            ValueListenableBuilder(
+                valueListenable: selectPeriod,
+                builder: (_, value, child) {
+                  print("rent");
+                  return HatSpaceDropDownButton(
+                      icon: Assets.images.chervonDown,
+                      value: selectPeriod.value.displayName,
+                      isRequired: true,
+                      onPressed: () {
+                        showModalBottomSheet(
+                            isScrollControlled: true,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            context: context,
+                            builder: (_) {
+                              return HsModalView(
+                                  currentValue: selectPeriod,
+                                  itemList: periodList,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.85,
+                                  title: HatSpaceStrings.of(context)
+                                      .minimumRentPeriod,
+                                  onSave: (value) {
+                                    context
+                                        .read<PropertyInforCubit>()
+                                        .saveMinimumRentPeriod(value);
+                                  });
+                            });
+                      });
+                })
+          ],
+        ));
   }
 }

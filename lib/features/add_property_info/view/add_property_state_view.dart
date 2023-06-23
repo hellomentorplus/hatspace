@@ -13,58 +13,55 @@ import 'package:hatspace/theme/widgets/hs_text_field.dart';
 class AddPropertyStateView extends StatelessWidget {
   AddPropertyStateView({super.key});
   final ValueNotifier<AustraliaStates> selectState =
-      ValueNotifier<AustraliaStates>(AustraliaStates.values.first);
+      ValueNotifier<AustraliaStates>(AustraliaStates.invalid);
   final List<AustraliaStates> stateList = AustraliaStates.values.toList();
   @override
   Widget build(BuildContext context) {
-    String label = HatSpaceStrings.of(context).pleaseSelectYourState;
     stateList.remove(AustraliaStates.invalid);
-    return BlocConsumer<PropertyInforCubit, PropertyInforState>(
+    return BlocListener<PropertyInforCubit, PropertyInforState>(
         listener: (context, state) {
-      if (state is StartListenAustraliaStateChange) {
+          if (state is StartListenAustraliaStateChange) {
+            print(state.propertyInfo.state);
         context.pop();
-      }
-    }, buildWhen: (previous, current) {
-      return previous.propertyInfo.state != current.propertyInfo.state &&
-          previous is StartListenAustraliaStateChange;
-    }, builder: (context, state) {
-      if (state.propertyInfo.state != AustraliaStates.invalid) {
-        selectState.value = state.propertyInfo.state;
-      }
-      if (state is SavePropertyInforFields) {
-        label = state.propertyInfo.state.displayName;
-      }
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          HatSpaceLabel(
-              label: HatSpaceStrings.of(context).state, isRequired: true),
-          HatSpaceDropDownButton(
-              icon: Assets.images.chervonDown,
-              isRequired: true,
-              value: label,
-              onPressed: () {
-                showModalBottomSheet(
-                    isScrollControlled: true,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    context: context,
-                    builder: (_) {
-                      return HsModalView(
-                          currentValue: selectState,
-                          itemList: stateList,
-                          height: MediaQuery.of(context).size.height * 0.85,
-                          title: HatSpaceStrings.of(context).state,
-                          onSave: (value) {
-                            context
-                                .read<PropertyInforCubit>()
-                                .saveSelectedState(value);
-                          });
-                    });
-              })
-        ],
-      );
-    });
+          }
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            HatSpaceLabel(
+                      label: HatSpaceStrings.of(context).state,
+                      isRequired: true),
+            ValueListenableBuilder(
+                valueListenable: selectState,
+                builder: (_, value, child) {
+                  print("state");
+                  return   HatSpaceDropDownButton(
+                icon: Assets.images.chervonDown,
+                isRequired: true,
+                value: selectState.value.displayName,
+                onPressed: () {
+                  showModalBottomSheet(
+                      isScrollControlled: true,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      context: context,
+                      builder: (_) {
+                        return HsModalView(
+                            currentValue: selectState,
+                            itemList: stateList,
+                            height: MediaQuery.of(context).size.height * 0.85,
+                            title: HatSpaceStrings.of(context).state,
+                            onSave: (value) {
+                              context
+                                  .read<PropertyInforCubit>()
+                                  .saveSelectedState(value);
+                            });
+                      });
+                });
+                }),
+          
+          ],
+        ));
   }
 }

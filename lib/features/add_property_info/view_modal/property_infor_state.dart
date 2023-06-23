@@ -15,17 +15,11 @@ class PropertyInforInitial extends PropertyInforState {
   List<Object> get props => [propertyInfo.rentPeriod, propertyInfo.state];
 }
 
-class SavePropertyInforFields extends PropertyInforState {
-  const SavePropertyInforFields(super.propertyInfo);
+class StartListenStateChange extends PropertyInforState{
+  const StartListenStateChange(super.propertyInfo);
   @override
-  List<Object> get props => [propertyInfo.rentPeriod, propertyInfo.state];
-}
-
-class StartInputValue extends PropertyInforState {
-  final PropertyInfor propertyInfor;
-  const StartInputValue(this.propertyInfor) : super(propertyInfor);
-  @override
-  List<Object> get props => [propertyInfo.rentPeriod, propertyInfo.state];
+  List<Object?> get props =>
+      [super.propertyInfo.state, super.propertyInfo.rentPeriod];
 }
 
 class StartListenAustraliaStateChange extends PropertyInforState {

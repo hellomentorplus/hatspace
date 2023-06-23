@@ -7,7 +7,7 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
-class HsModalView extends StatelessWidget {
+class HsModalView<T> extends StatelessWidget {
   final String title;
   final ValueNotifier currentValue;
   final List<dynamic> itemList;

@@ -28,16 +28,15 @@ class PropertyInforCubit extends Cubit<PropertyInforState> {
   PropertyInforCubit() : super(PropertyInforInitial());
 
   void saveSelectedState(AustraliaStates savedState) {
-    emit(StartListenAustraliaStateChange(
-        PropertyInfor(AustraliaStates.invalid, MinimumRentPeriod.invalid)));
+    emit(StartListenStateChange(propertyInfor));
     propertyInfor.saveState(savedState);
-    emit(SavePropertyInforFields(propertyInfor));
+    emit(StartListenAustraliaStateChange(propertyInfor));
   }
 
   void saveMinimumRentPeriod(MinimumRentPeriod savedPeriod) {
-    emit(StartListenRentPeriodChange(
-        PropertyInfor(AustraliaStates.invalid, MinimumRentPeriod.invalid)));
+    emit(StartListenStateChange(propertyInfor));
     propertyInfor.saveRentPeriod(savedPeriod);
-    emit(SavePropertyInforFields(propertyInfor));
+  emit(StartListenRentPeriodChange(propertyInfor));
+
   }
 }
