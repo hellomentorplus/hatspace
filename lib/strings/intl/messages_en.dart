@@ -98,6 +98,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("House number + Street name"),
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
         "information": MessageLookupByLibrary.simpleMessage("Information"),
+        "letAddSomePhotosOfYourPlace": MessageLookupByLibrary.simpleMessage(
+            "Let\'s add some photos of your place"),
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
@@ -120,6 +122,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
         "rentPeriod": m1,
+        "requireAtLeast4Photos":
+            MessageLookupByLibrary.simpleMessage("Require at least 4 photos *"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "searchHint":
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
