@@ -9,23 +9,26 @@ class AddPropertyImages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: HsDimens.spacing16, vertical: HsDimens.spacing24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(HatSpaceStrings.current.letAddSomePhotosOfYourPlace,
-              style: Theme.of(context).textTheme.displayLarge),
-          const SizedBox(height: HsDimens.spacing8,),
-          Text(HatSpaceStrings.current.requireAtLeast4Photos,
-              style: Theme.of(context).textTheme.bodyMedium),
-          const SizedBox(height: HsDimens.spacing20,),
-          InkWell(
-            onTap: () {},
-            child: SvgPicture.asset(Assets.images.uploadPhoto),
-          ),
-        ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: HsDimens.spacing16, vertical: HsDimens.spacing24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(HatSpaceStrings.current.letAddSomePhotosOfYourPlace,
+                style: Theme.of(context).textTheme.displayLarge),
+            const SizedBox(height: HsDimens.spacing8,),
+            Text(HatSpaceStrings.current.requireAtLeast4Photos,
+                style: Theme.of(context).textTheme.bodyMedium),
+            const SizedBox(height: HsDimens.spacing20,),
+            InkWell(
+              onTap: () {},
+              child: SvgPicture.asset(Assets.images.uploadPhoto),
+            ),
+          ],
+        ),
       ),
     );
   }
