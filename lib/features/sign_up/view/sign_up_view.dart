@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
@@ -67,7 +68,6 @@ class SignUpScreen extends StatelessWidget {
             SafeArea(
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                   Expanded(
                     child: Column(
@@ -77,7 +77,8 @@ class SignUpScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 TextOnlyButton(
-                                  label: HatSpaceStrings.current.skip,
+                                  label: HatSpaceStrings.current.skip
+                                      .toUpperCase(),
                                   onPressed: () {
                                     context
                                         .read<SignUpBloc>()
@@ -92,11 +93,12 @@ class SignUpScreen extends StatelessWidget {
                                 ),
                               ]),
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 80.0),
+                            padding: const EdgeInsets.only(
+                                bottom: HsDimens.spacing80),
                             child: SizedBox(
-                              width: 150.0,
-                              height: 150.0,
-                              child: SvgPicture.asset(Assets.images.logo),
+                              child: SvgPicture.asset(Assets.images.logo,
+                                  width: HsDimens.size118,
+                                  height: HsDimens.size64),
                             ),
                           ),
                         ]),
@@ -107,7 +109,8 @@ class SignUpScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: HsDimens.spacing24),
                           child: SecondaryButton(
                             contentAlignment: MainAxisAlignment.start,
                             label: HatSpaceStrings.of(context).emailSignUp,
@@ -118,13 +121,14 @@ class SignUpScreen extends StatelessWidget {
                                   Colors.white),
                               padding:
                                   MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                      const EdgeInsets.all(16.0)),
+                                      const EdgeInsets.all(HsDimens.spacing16)),
                             ),
                             onPressed: () {},
                           )),
                       Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(24.0, 16.0, 24.0, 16.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: HsDimens.spacing24,
+                              vertical: HsDimens.spacing16),
                           child: SecondaryButton(
                             contentAlignment: MainAxisAlignment.start,
                             label: HatSpaceStrings.of(context).facebookSignUp,
@@ -135,7 +139,7 @@ class SignUpScreen extends StatelessWidget {
                                   Colors.white),
                               padding:
                                   MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                      const EdgeInsets.all(16.0)),
+                                      const EdgeInsets.all(HsDimens.spacing16)),
                             ),
                             onPressed: () {
                               context
@@ -144,7 +148,8 @@ class SignUpScreen extends StatelessWidget {
                             },
                           )),
                       Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: HsDimens.spacing24),
                           child: SecondaryButton(
                             contentAlignment: MainAxisAlignment.start,
                             label: HatSpaceStrings.of(context).googleSignUp,
@@ -155,7 +160,7 @@ class SignUpScreen extends StatelessWidget {
                                   Colors.white),
                               padding:
                                   MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                      const EdgeInsets.all(16.0)),
+                                      const EdgeInsets.all(HsDimens.spacing16)),
                             ),
                             onPressed: () {
                               context

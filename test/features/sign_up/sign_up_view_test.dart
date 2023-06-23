@@ -48,7 +48,7 @@ void main() {
     await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
     Padding wrapContainer = tester.firstWidget(find.byType(Padding));
     expect(wrapContainer.padding,
-        const EdgeInsets.only(left: 0, right: 0, bottom: 0));
+        const EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 0));
 
     // Look for SKIP button
     expect(

@@ -8,7 +8,7 @@
   "googleSignUp": "Continue with Google",
   "facebookSignUp": "Continue with Facebook",
   "emailSignUp": "Continue with Email",
-  "skip": "SKIP",
+  "skip": "Skip,
   "signIn": "Sign in",
   "alreadyHaveAccount": "Already have account ?",
   "app_name": "HAT Space",
