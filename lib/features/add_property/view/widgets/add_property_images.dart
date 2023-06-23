@@ -19,10 +19,14 @@ class AddPropertyImages extends StatelessWidget {
           children: [
             Text(HatSpaceStrings.current.letAddSomePhotosOfYourPlace,
                 style: Theme.of(context).textTheme.displayLarge),
-            const SizedBox(height: HsDimens.spacing8,),
+            const SizedBox(
+              height: HsDimens.spacing8,
+            ),
             Text(HatSpaceStrings.current.requireAtLeast4Photos,
                 style: Theme.of(context).textTheme.bodyMedium),
-            const SizedBox(height: HsDimens.spacing20,),
+            const SizedBox(
+              height: HsDimens.spacing20,
+            ),
             InkWell(
               onTap: () {},
               child: SvgPicture.asset(Assets.images.uploadPhoto),

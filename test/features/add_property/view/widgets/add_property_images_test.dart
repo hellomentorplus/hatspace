@@ -6,7 +6,8 @@ import 'package:hatspace/features/add_property/view/widgets/add_property_images.
 import '../../../../widget_tester_extension.dart';
 
 void main() {
-  testWidgets('verify add property images screen with empty selected images', (widgetTester) async {
+  testWidgets('verify add property images screen with empty selected images',
+      (widgetTester) async {
     const Widget widget = AddPropertyImages();
     await widgetTester.wrapAndPump(widget);
 
