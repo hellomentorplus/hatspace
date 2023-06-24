@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/add_property/view/add_features_view.dart'
+import 'package:hatspace/features/add_property/view/widgets/add_features_view.dart'
     as view;
-import 'package:hatspace/gen/assets.gen.dart';
-import '../../../widget_tester_extension.dart';
+import 'package:hatspace/features/add_property/view/widgets/feature_type.dart';
+import '../../../../widget_tester_extension.dart';
 
 void main() {
   testWidgets('[Add Features screen] Verify UI', (WidgetTester tester) async {
@@ -32,8 +32,8 @@ void main() {
         tester.firstWidget<view.FeatureItemView>(featuresItem.first);
     final lastFeat =
         tester.firstWidget<view.FeatureItemView>(featuresItem.last);
-    expect(features.contains(firstFeat.title), true);
-    expect(features.contains(lastFeat.title), true);
+    expect(features.contains(firstFeat.feature.displayName), true);
+    expect(features.contains(lastFeat.feature.displayName), true);
     expect(featuresItem, findsWidgets);
   });
 
@@ -73,14 +73,12 @@ void main() {
 
   testWidgets('[Feature Item View] Verify UI and Interaction',
       (WidgetTester tester) async {
-    const String title = 'Test title';
     final ValueNotifier<bool> isSelected = ValueNotifier<bool>(false);
     Widget widget = ValueListenableBuilder(
         valueListenable: isSelected,
         builder: (_, isSelectedData, __) {
           return view.FeatureItemView(
-            title: title,
-            iconSvgPath: Assets.icons.airConditioners,
+            feature: Feature.electricStove,
             isSelected: isSelectedData,
             onSelectionChanged: (feature, selected) =>
                 isSelected.value = !selected,
@@ -89,7 +87,7 @@ void main() {
 
     await tester.wrapAndPump(widget);
     expect(find.byType(view.FeatureItemView), findsOneWidget);
-    expect(find.text(title), findsOneWidget);
+    expect(find.text(Feature.electricStove.displayName), findsOneWidget);
 
     /// Find only 1 svg for icon, not found tick icon
     expect(find.byType(SvgPicture), findsOneWidget);

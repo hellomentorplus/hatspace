@@ -104,9 +104,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("House number + Street name"),
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
         "information": MessageLookupByLibrary.simpleMessage("Information"),
+        "kitchen": MessageLookupByLibrary.simpleMessage("Kitchen"),
         "letAddSomePhotosOfYourPlace": MessageLookupByLibrary.simpleMessage(
             "Let\'s add some photos of your place"),
-        "kitchen": MessageLookupByLibrary.simpleMessage("Kitchen"),
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),

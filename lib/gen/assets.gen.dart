@@ -18,23 +18,11 @@ class $AssetsIconsGen {
   /// File path: assets/icons/air_conditioners.svg
   String get airConditioners => 'assets/icons/air_conditioners.svg';
 
-  /// File path: assets/icons/arrow_left.svg
-  String get arrowLeft => 'assets/icons/arrow_left.svg';
-
-  /// File path: assets/icons/arrow_right.svg
-  String get arrowRight => 'assets/icons/arrow_right.svg';
-
   /// File path: assets/icons/booking.svg
   String get booking => 'assets/icons/booking.svg';
 
   /// File path: assets/icons/check.svg
   String get check => 'assets/icons/check.svg';
-
-  /// File path: assets/icons/close.svg
-  String get close => 'assets/icons/close.svg';
-
-  /// File path: assets/icons/close_no_padding.svg
-  String get closeNoPadding => 'assets/icons/close_no_padding.svg';
 
   /// File path: assets/icons/electric_stove.svg
   String get electricStove => 'assets/icons/electric_stove.svg';
@@ -88,12 +76,8 @@ class $AssetsIconsGen {
   List<String> get values => [
         add,
         airConditioners,
-        arrowLeft,
-        arrowRight,
         booking,
         check,
-        close,
-        closeNoPadding,
         electricStove,
         explore,
         filter,
