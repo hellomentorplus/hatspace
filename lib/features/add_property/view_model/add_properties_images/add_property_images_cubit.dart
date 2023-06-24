@@ -7,13 +7,14 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 part 'add_property_images_state.dart';
 
 class AddPropertyImagesCubit extends Cubit<AddPropertyImagesState> {
-
-  final HsPermissionService _permissionService = HsSingleton.singleton.get<HsPermissionService>();
+  final HsPermissionService _permissionService =
+      HsSingleton.singleton.get<HsPermissionService>();
 
   AddPropertyImagesCubit() : super(AddPropertyImagesInitial());
 
   void requestPhotoPermission() async {
-    HsPermissionStatus status = await _permissionService.requestPhotoPermission();
+    HsPermissionStatus status =
+        await _permissionService.requestPhotoPermission();
 
     switch (status) {
       case HsPermissionStatus.granted:
