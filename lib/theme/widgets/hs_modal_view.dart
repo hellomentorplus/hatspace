@@ -7,10 +7,13 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
+typedef GetItemString<T> = String Function(T item);
+
 class HsModalView<T> extends StatelessWidget {
   final String title;
   final ValueNotifier currentValue;
-  final List<dynamic> itemList;
+  final GetItemString<T> getItemString;
+  final List<T> itemList;
   final ValueChanged onSave;
   final double? height;
   const HsModalView(
@@ -19,9 +22,13 @@ class HsModalView<T> extends StatelessWidget {
       required this.height,
       required this.title,
       required this.onSave,
+      required this.getItemString,
       super.key});
 
-  Widget renderSelectedItemIcon(dynamic selectedValue, int index) {
+  Widget renderSelectedItemIcon(
+    dynamic selectedValue,
+    int index,
+  ) {
     if (selectedValue == itemList[index]) {
       return SvgPicture.asset(Assets.images.check);
     } else {
@@ -32,7 +39,6 @@ class HsModalView<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        key: key,
         height: height,
         child: Padding(
             padding: const EdgeInsets.only(bottom: HsDimens.spacing40),
@@ -85,23 +91,22 @@ class HsModalView<T> extends StatelessWidget {
                             onTap: () {
                               currentValue.value = itemList[index];
                             },
-                            child: ValueListenableBuilder(
-                                valueListenable: currentValue,
-                                builder: (_, value, child) {
-                                  return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: HsDimens.spacing16),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            itemList[index].displayName,
-                                          ),
-                                          renderSelectedItemIcon(value, index)
-                                        ],
-                                      ));
-                                }));
+                            child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: HsDimens.spacing16),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(getItemString(itemList[index])),
+                                    ValueListenableBuilder(
+                                        valueListenable: currentValue,
+                                        builder: (_, value, context) {
+                                          return renderSelectedItemIcon(
+                                              value, index);
+                                        })
+                                  ],
+                                )));
                       }),
                 )),
                 Padding(

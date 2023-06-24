@@ -4,7 +4,6 @@ import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_state.dart';
 import 'package:hatspace/gen/assets.gen.dart';
-import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_modal_view.dart';
@@ -21,7 +20,7 @@ class AddPropertyMinimumView extends StatelessWidget {
     return BlocListener<PropertyInforCubit, PropertyInforState>(
         listener: (context, state) {
           if (state is StartListenRentPeriodChange) {
-            context.pop();
+            // context.pop();
           }
         },
         child: Column(
@@ -33,7 +32,6 @@ class AddPropertyMinimumView extends StatelessWidget {
             ValueListenableBuilder(
                 valueListenable: selectPeriod,
                 builder: (_, value, child) {
-                  print("rent");
                   return HatSpaceDropDownButton(
                       icon: Assets.images.chervonDown,
                       value: selectPeriod.value.displayName,
@@ -47,7 +45,9 @@ class AddPropertyMinimumView extends StatelessWidget {
                             context: context,
                             builder: (_) {
                               return HsModalView(
+                                  key: const Key('rent_view_modal'),
                                   currentValue: selectPeriod,
+                                  getItemString: (item) => item.displayName,
                                   itemList: periodList,
                                   height:
                                       MediaQuery.of(context).size.height * 0.85,

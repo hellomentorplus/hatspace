@@ -24,8 +24,8 @@ void main() {
     build: () => PropertyInforCubit(),
     act: (bloc) => {bloc.saveSelectedState(AustraliaStates.act)},
     expect: () => [
+      isA<StartListenStateChange>(),
       isA<StartListenAustraliaStateChange>(),
-      isA<SavePropertyInforFields>()
     ],
   );
   blocTest(
@@ -34,7 +34,7 @@ void main() {
     act: (bloc) =>
         {bloc.saveMinimumRentPeriod(MinimumRentPeriod.eighteenMonths)},
     expect: () =>
-        [isA<StartListenRentPeriodChange>(), isA<SavePropertyInforFields>()],
+        [isA<StartListenStateChange>(), isA<StartListenRentPeriodChange>()],
   );
 
   test('test initial state', () {

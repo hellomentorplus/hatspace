@@ -15,7 +15,7 @@ class PropertyInforInitial extends PropertyInforState {
   List<Object> get props => [propertyInfo.rentPeriod, propertyInfo.state];
 }
 
-class StartListenStateChange extends PropertyInforState{
+class StartListenStateChange extends PropertyInforState {
   const StartListenStateChange(super.propertyInfo);
   @override
   List<Object?> get props =>

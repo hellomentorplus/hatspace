@@ -4,7 +4,6 @@ import 'package:hatspace/features/add_property_info/view/add_property_state_view
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
 import 'package:hatspace/features/add_property_info/view_modal/property_infor_state.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
-import 'package:hatspace/theme/widgets/hs_modal_view.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -27,6 +26,6 @@ void main() {
         propertyInforCubit, stateView);
     await widgetTester.tap(find.byType(HatSpaceDropDownButton));
     await widgetTester.pump();
-    expect(find.byType(HsModalView), findsOneWidget);
+    expect(find.byKey(const Key('state_view_modal')), findsWidgets);
   });
 }
