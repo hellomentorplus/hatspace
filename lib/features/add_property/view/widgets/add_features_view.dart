@@ -51,22 +51,21 @@ class _AddFeaturesViewState extends State<AddFeaturesView> {
             valueListenable: selectedFeatures,
             builder: (_, selectedFeatures, __) {
               return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 164 / 98,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 15),
-                padding: const EdgeInsets.only(
-                  left: HsDimens.spacing16,
-                  bottom: HsDimens.spacing16,
-                  right: HsDimens.spacing16),
-                itemCount: Feature.values.length,
-                itemBuilder: (_, index) => FeatureItemView(
-                  feature: Feature.values[index],
-                  onSelectionChanged: onSelected,
-                  isSelected: selectedFeatures
-                      .contains(Feature.values[index]))
-              );
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200,
+                      childAspectRatio: 164 / 98,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15),
+                  padding: const EdgeInsets.only(
+                      left: HsDimens.spacing16,
+                      bottom: HsDimens.spacing16,
+                      right: HsDimens.spacing16),
+                  itemCount: Feature.values.length,
+                  itemBuilder: (_, index) => FeatureItemView(
+                      feature: Feature.values[index],
+                      onSelectionChanged: onSelected,
+                      isSelected:
+                          selectedFeatures.contains(Feature.values[index])));
             },
           ),
         ),
