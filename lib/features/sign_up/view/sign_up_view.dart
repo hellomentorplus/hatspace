@@ -95,11 +95,9 @@ class SignUpScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(
                                 bottom: HsDimens.spacing80),
-                            child: SizedBox(
-                              child: SvgPicture.asset(Assets.images.logo,
-                                  width: HsDimens.size118,
-                                  height: HsDimens.size64),
-                            ),
+                            child: SvgPicture.asset(Assets.images.logo,
+                                width: HsDimens.size118,
+                                height: HsDimens.size64),
                           ),
                         ]),
                   ),
