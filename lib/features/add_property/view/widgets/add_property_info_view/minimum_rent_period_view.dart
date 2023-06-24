@@ -7,8 +7,8 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_modal_view.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
 
-class AddPropertyMinimumView extends StatelessWidget {
-  AddPropertyMinimumView({super.key});
+class MinimumRentPeriodView extends StatelessWidget {
+  MinimumRentPeriodView({super.key});
   final ValueNotifier<MinimumRentPeriod> selectPeriod =
       ValueNotifier<MinimumRentPeriod>(MinimumRentPeriod.invalid);
   final List<MinimumRentPeriod> periodList = MinimumRentPeriod.values.toList();

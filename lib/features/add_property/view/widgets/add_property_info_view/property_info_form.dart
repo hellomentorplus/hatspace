@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_address_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_description_view.dart';
-import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_minimum_rent_view.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/minimum_rent_period_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_name_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_price_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_state_view.dart';
@@ -17,7 +17,7 @@ class PropertyInforForm extends StatelessWidget {
     Text(HatSpaceStrings.current.information, style: textTheme.displayLarge),
     const AddPropertyNameView(),
     const AddPropertyPriceView(),
-    AddPropertyMinimumView(),
+    MinimumRentPeriodView(),
     const AddPropertyDescriptionView(),
     Text(HatSpaceStrings.current.yourAddress,
         style: textTheme.displayLarge?.copyWith(fontSize: 18.0)),
