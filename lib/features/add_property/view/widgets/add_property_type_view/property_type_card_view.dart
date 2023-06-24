@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_type_view_model/property_type_cubit.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 class PropertyTypeDetail {

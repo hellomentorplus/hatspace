@@ -1,14 +1,13 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
-import 'package:hatspace/features/add_property_type/view_modal/property_type_cubit.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_type_view_model/property_type_cubit.dart';
 
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-import 'property_property_cubit_test.mocks.dart';
+import '../view/date_picker_view_test.mocks.dart';
 
 @GenerateMocks([AddPropertyCubit, PropertyTypeCubit])
 void main() {

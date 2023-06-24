@@ -170,9 +170,10 @@ class HomePageViewState extends State<HomePageView> {
                                 return InkWell(
                                   borderRadius: BorderRadius.circular(48.0),
                                   onTap: () {
-                                    context
-                                        .read<HomeInteractionCubit>()
-                                        .onAddPropertyPressed();
+                                    // context
+                                    //     .read<HomeInteractionCubit>()
+                                    //     .onAddPropertyPressed();
+                                    context.goToAddProperty();
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
