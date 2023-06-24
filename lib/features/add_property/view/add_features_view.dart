@@ -36,6 +36,7 @@ class _AddFeaturesViewState extends State<AddFeaturesView> {
           padding: _kScreenPadding,
           child: Text(
             HatSpaceStrings.of(context).askFeaturesOwned,
+
             /// This one help preventing overflow when run flutter test
             maxLines: 3, overflow: TextOverflow.ellipsis,
             style: Theme.of(context)
