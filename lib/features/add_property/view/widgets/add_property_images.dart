@@ -15,20 +15,15 @@ class AddPropertyImages extends StatelessWidget {
         child: BlocBuilder<AddPropertyImagesCubit, AddPropertyImagesState>(
             builder: (context, state) {
               if (state is PhotoPermissionDenied) {
-                print("xxxx - listen PhotoPermissionDenied");
-                // should show relational
+                // do nothing
               }
 
               if (state is PhotoPermissionDeniedForever) {
                 // open app setting
-                print("xxxx - listen PhotoPermissionDeniedForever");
-
               }
 
               if (state is PhotoPermissionGranted) {
                 // open photo screen
-                print("xxxx - listen PhotoPermissionGranted");
-
               }
 
               return SingleChildScrollView(
@@ -58,7 +53,6 @@ class AddPropertyImages extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          print("xxxx - tap upload photo");
                           context.read<AddPropertyImagesCubit>()
                               .requestPhotoPermission();
                         },

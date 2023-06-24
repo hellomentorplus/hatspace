@@ -13,30 +13,22 @@ class AddPropertyImagesCubit extends Cubit<AddPropertyImagesState> {
   AddPropertyImagesCubit() : super(AddPropertyImagesInitial());
 
   void requestPhotoPermission() async {
-    print("xxxx - requestPhotoPermission");
-
     HsPermissionStatus status = await _permissionService.requestPhotoPermission();
 
     switch (status) {
       case HsPermissionStatus.granted:
       case HsPermissionStatus.limited:
         if (!isClosed) {
-          print("xxxx - PhotoPermissionGranted");
-
           emit(PhotoPermissionGranted());
         }
         break;
       case HsPermissionStatus.deniedForever:
         if (!isClosed) {
-          print("xxxx - PhotoPermissionDeniedForever");
-
           emit(PhotoPermissionDeniedForever());
         }
         break;
       default:
         if (!isClosed) {
-          print("xxxx - PhotoPermissionDenied");
-
           emit(PhotoPermissionDenied());
         }
     }
