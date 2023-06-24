@@ -185,6 +185,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/search-normal.svg
   String get searchNormal => 'assets/images/search-normal.svg';
 
+  /// File path: assets/images/upload_photo.svg
+  String get uploadPhoto => 'assets/images/upload_photo.svg';
+
   /// List of all assets
   List<String> get values => [
         apartment,
@@ -209,7 +212,8 @@ class $AssetsImagesGen {
         increment,
         messages,
         profileCircle,
-        searchNormal
+        searchNormal,
+        uploadPhoto
       ];
 }
 
