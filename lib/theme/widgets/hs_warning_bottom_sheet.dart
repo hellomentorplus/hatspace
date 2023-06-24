@@ -106,9 +106,11 @@ class HsWarningBottomSheetView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
             vertical: HsDimens.spacing32, horizontal: HsDimens.spacing24),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.max,
           children: [
             Column(children: modalContent),
-            const SizedBox(height: HsDimens.spacing24),
+            // const SizedBox(height: HsDimens.spacing24),
             // Button group
             Column(
               children: buttonGroup,

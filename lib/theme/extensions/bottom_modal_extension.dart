@@ -16,7 +16,9 @@ extension HsBottomSheet on BuildContext {
         ),
         context: this,
         builder: (_) {
-          return Wrap(
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               HsWarningBottomSheetView(
                 iconUrl: Assets.images.loginCircle,
