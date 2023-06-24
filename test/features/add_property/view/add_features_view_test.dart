@@ -39,7 +39,7 @@ void main() {
 
   testWidgets('[Add Features screen] Verify Interaction',
       (WidgetTester tester) async {
-    view.AddFeaturesView widget = view.AddFeaturesView();
+    view.AddFeaturesView widget = const view.AddFeaturesView();
 
     await tester.wrapAndPump(widget);
     final Finder featuresBtns = find.byType(view.FeatureItemView);
