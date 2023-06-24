@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_address_view.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_description_view.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_minimum_rent_view.dart';
@@ -8,7 +7,6 @@ import 'package:hatspace/features/add_property_info/view/add_property_price_view
 import 'package:hatspace/features/add_property_info/view/add_property_state_view.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_suburb.dart';
 import 'package:hatspace/features/add_property_info/view/add_property_unit_view.dart';
-import 'package:hatspace/features/add_property_info/view_modal/property_infor_cubit.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
@@ -29,9 +27,7 @@ class PropertyInforForm extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => PropertyInforCubit(),
-        child: Align(
+    return Align(
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: const EdgeInsets.only(
@@ -46,6 +42,6 @@ class PropertyInforForm extends StatelessWidget {
                   return itemList[index];
                 },
               ),
-            )));
+            ));
   }
 }
