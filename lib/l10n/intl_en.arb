@@ -74,5 +74,7 @@
   "pleaseSelectYourState":"Pleas select your state",
   "pleaseSelectRentPeriod":"Please select rent period",
   "save": "Save",
-  "pleaseSelectValue":"Please select value"
+  "pleaseSelectValue":"Please select value",
+  "letAddSomePhotosOfYourPlace":"Let's add some photos of your place",
+  "requireAtLeast4Photos":"Require at least 4 photos *"
 }

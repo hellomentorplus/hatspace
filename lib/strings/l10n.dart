@@ -705,6 +705,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Let's add some photos of your place`
+  String get letAddSomePhotosOfYourPlace {
+    return Intl.message(
+      'Let\'s add some photos of your place',
+      name: 'letAddSomePhotosOfYourPlace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Require at least 4 photos *`
+  String get requireAtLeast4Photos {
+    return Intl.message(
+      'Require at least 4 photos *',
+      name: 'requireAtLeast4Photos',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
