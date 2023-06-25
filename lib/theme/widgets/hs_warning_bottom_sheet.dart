@@ -40,7 +40,7 @@ class HsWarningBottomSheetView extends StatelessWidget {
     // Icon configuration
     modalContent = [
       Padding(
-          padding: const EdgeInsets.only(bottom: 4),
+          padding: const EdgeInsets.only(bottom: HsDimens.spacing4),
           child: Text(title ?? 'Title',
               style: textTheme.displayLarge?.copyWith(fontSize: 18.0))),
       Text(
@@ -60,7 +60,7 @@ class HsWarningBottomSheetView extends StatelessWidget {
     // Button Configuration
     if (primaryButtonLabel != null) {
       button = Padding(
-          padding: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.only(bottom: HsDimens.spacing16),
           child: PrimaryButton(
               label: primaryButtonLabel ?? '',
               onPressed: () {
@@ -71,7 +71,7 @@ class HsWarningBottomSheetView extends StatelessWidget {
     }
     if (secondaryButtonLabel != null) {
       button = Padding(
-          padding: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.only(bottom: HsDimens.spacing16),
           child: SecondaryButton(
               label: secondaryButtonLabel ?? '',
               onPressed: () {
@@ -82,7 +82,7 @@ class HsWarningBottomSheetView extends StatelessWidget {
     }
     if (textButtonLabel != null) {
       button = Padding(
-          padding: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.only(bottom: HsDimens.spacing16),
           child: TextOnlyButton(
               label: textButtonLabel ?? '',
               onPressed: () {
@@ -93,7 +93,7 @@ class HsWarningBottomSheetView extends StatelessWidget {
     }
     if (tertiaryButtonLabel != null) {
       button = Padding(
-          padding: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.only(bottom: HsDimens.spacing16),
           child: TextOnlyButton(
               label: tertiaryButtonLabel ?? '',
               onPressed: () {
