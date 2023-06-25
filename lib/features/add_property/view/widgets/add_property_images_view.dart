@@ -57,7 +57,6 @@ class AddPropertyImagesContent extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  print("on tap test");
                   context
                       .read<AddPropertyImagesCubit>()
                       .requestPhotoPermission();

@@ -137,38 +137,40 @@ void main() {
   });
 
   group('verify interaction', () {
-    // testWidgets(
-    //     'given photo permission is denied '
-    //     'when taps on upload photo '
-    //     'then permission service should request photo permission',
-    //     (widgetTester) async {
-    //   const Widget widget = AddPropertyImagesContent();
-    //
-    //   when(addPropertyImagesCubit.state)
-    //       .thenAnswer((realInvocation) => PhotoPermissionDenied());
-    //   when(addPropertyImagesCubit.stream).thenAnswer(
-    //           (realInvocation) => Stream.value(PhotoPermissionDenied()));
-    //
-    //   await widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
-    //     addPropertyImagesCubit,
-    //     widget,
-    //   );
-    //
-    //   Finder svgPicture = find.descendant(
-    //     of: find.byType(InkWell),
-    //     matching: find.byType(SvgPicture),
-    //   );
-    //
-    //   SvgPicture uploadPhoto = widgetTester.widget(svgPicture);
-    //   BytesLoader bytesLoader = uploadPhoto.bytesLoader;
-    //   expect(bytesLoader, isA<SvgAssetLoader>());
-    //   expect((bytesLoader as SvgAssetLoader).assetName,
-    //       'assets/images/upload_photo.svg');
-    //
-    //   await widgetTester.tap(svgPicture);
-    //   await widgetTester.pumpAndSettle();
-    //
-    //   verify(addPropertyImagesCubit.requestPhotoPermission()).called(1);
-    // });
+    testWidgets(
+        'given photo permission is denied '
+        'when taps on upload photo '
+        'then permission service should request photo permission',
+        (widgetTester) async {
+      const Widget widget = AddPropertyImagesContent();
+
+      when(addPropertyImagesCubit.state)
+          .thenAnswer((realInvocation) => PhotoPermissionDenied());
+      when(addPropertyImagesCubit.stream).thenAnswer(
+          (realInvocation) => Stream.value(PhotoPermissionDenied()));
+
+      await widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
+        addPropertyImagesCubit,
+        widget,
+      );
+      await expectLater(find.byType(AddPropertyImagesContent), findsOneWidget);
+
+      Finder svgPicture = find.descendant(
+        of: find.byType(InkWell),
+        matching: find.byType(SvgPicture),
+      );
+
+      SvgPicture uploadPhoto = widgetTester.widget(svgPicture);
+      BytesLoader bytesLoader = uploadPhoto.bytesLoader;
+      expect(bytesLoader, isA<SvgAssetLoader>());
+      expect((bytesLoader as SvgAssetLoader).assetName,
+          'assets/images/upload_photo.svg');
+
+      await widgetTester.ensureVisible(svgPicture);
+      await widgetTester.tap(svgPicture);
+      await widgetTester.pumpAndSettle();
+
+      verify(addPropertyImagesCubit.requestPhotoPermission()).called(1);
+    });
   });
 }
