@@ -37,10 +37,12 @@ class HsWarningBottomSheetView extends StatelessWidget {
     List<Widget> modalContent = [];
     List<Widget> buttonGroup = [];
     Widget button;
+    // Icon configuration
     modalContent = [
-      Text(title ?? 'Title',
-          style: textTheme.displayLarge?.copyWith(fontSize: 18.0)),
-      const SizedBox(height: HsDimens.spacing4),
+      Padding(
+          padding: const EdgeInsets.only(bottom: 4),
+          child: Text(title ?? 'Title',
+              style: textTheme.displayLarge?.copyWith(fontSize: 18.0))),
       Text(
         description ?? 'Description',
         overflow: TextOverflow.ellipsis,
@@ -49,17 +51,16 @@ class HsWarningBottomSheetView extends StatelessWidget {
       )
     ];
     if (iconUrl != null) {
-      List<Widget> iconContent = [
-        SvgPicture.asset(iconUrl!),
-        const SizedBox(
-          height: HsDimens.spacing24,
-        ),
-      ];
-      modalContent = List.from(iconContent)..addAll(modalContent);
+      Widget iconContent = Padding(
+        padding: const EdgeInsets.only(bottom: HsDimens.spacing24),
+        child: SvgPicture.asset(iconUrl!),
+      );
+      modalContent.insert(0, iconContent);
     }
+    // Button Configuration
     if (primaryButtonLabel != null) {
       button = Padding(
-          padding: const EdgeInsets.only(bottom: HsDimens.spacing16),
+          padding: const EdgeInsets.only(bottom: 16),
           child: PrimaryButton(
               label: primaryButtonLabel ?? '',
               onPressed: () {
@@ -70,7 +71,7 @@ class HsWarningBottomSheetView extends StatelessWidget {
     }
     if (secondaryButtonLabel != null) {
       button = Padding(
-          padding: const EdgeInsets.only(bottom: HsDimens.spacing16),
+          padding: const EdgeInsets.only(bottom: 16),
           child: SecondaryButton(
               label: secondaryButtonLabel ?? '',
               onPressed: () {
@@ -81,9 +82,9 @@ class HsWarningBottomSheetView extends StatelessWidget {
     }
     if (textButtonLabel != null) {
       button = Padding(
-          padding: const EdgeInsets.only(bottom: HsDimens.spacing16),
+          padding: const EdgeInsets.only(bottom: 16),
           child: TextOnlyButton(
-              label: secondaryButtonLabel ?? '',
+              label: textButtonLabel ?? '',
               onPressed: () {
                 // TODO; close bottom sheet, no data save
                 textButtonOnPressed!();
@@ -92,9 +93,9 @@ class HsWarningBottomSheetView extends StatelessWidget {
     }
     if (tertiaryButtonLabel != null) {
       button = Padding(
-          padding: const EdgeInsets.only(bottom: HsDimens.spacing16),
+          padding: const EdgeInsets.only(bottom: 16),
           child: TextOnlyButton(
-              label: secondaryButtonLabel ?? '',
+              label: tertiaryButtonLabel ?? '',
               onPressed: () {
                 // TODO; close bottom sheet, no data save
                 tertiaryButtonOnPressed!();
@@ -102,20 +103,18 @@ class HsWarningBottomSheetView extends StatelessWidget {
       buttonGroup.add(button);
     }
     return Padding(
-        key: key,
-        padding: const EdgeInsets.symmetric(
-            vertical: HsDimens.spacing32, horizontal: HsDimens.spacing24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Column(children: modalContent),
-            // const SizedBox(height: HsDimens.spacing24),
-            // Button group
-            Column(
-              children: buttonGroup,
-            )
-          ],
-        ));
+      padding: const EdgeInsets.symmetric(
+          vertical: HsDimens.spacing32, horizontal: HsDimens.spacing24),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Column(children: modalContent),
+          // Button group
+          Padding(
+              padding: const EdgeInsets.only(top: HsDimens.spacing24),
+              child: Column(children: buttonGroup)),
+        ],
+      ),
+    );
   }
 }

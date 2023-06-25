@@ -8,6 +8,7 @@ extension HsBottomSheet on BuildContext {
       {required VoidCallback primaryOnPressed,
       required VoidCallback secondaryOnPressed}) {
     return showModalBottomSheet(
+        useSafeArea: true,
         isScrollControlled: false,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -16,21 +17,16 @@ extension HsBottomSheet on BuildContext {
         ),
         context: this,
         builder: (_) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              HsWarningBottomSheetView(
-                iconUrl: Assets.images.loginCircle,
-                title: HatSpaceStrings.current.login,
-                description: HatSpaceStrings.current.loginDescription,
-                primaryButtonLabel: HatSpaceStrings.current.yesLoginNow,
-                primaryOnPressed: primaryOnPressed,
-                secondaryButtonLabel: HatSpaceStrings.current.noLater,
-                secondaryOnPressed: secondaryOnPressed,
-              )
-            ],
-          );
+          return SingleChildScrollView(
+              child: HsWarningBottomSheetView(
+            iconUrl: Assets.images.loginCircle,
+            title: HatSpaceStrings.current.login,
+            description: HatSpaceStrings.current.loginDescription,
+            primaryButtonLabel: HatSpaceStrings.current.yesLoginNow,
+            primaryOnPressed: primaryOnPressed,
+            secondaryButtonLabel: HatSpaceStrings.current.noLater,
+            secondaryOnPressed: secondaryOnPressed,
+          ));
         });
   }
 
