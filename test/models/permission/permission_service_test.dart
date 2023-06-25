@@ -83,8 +83,8 @@ void main() {
   group('Request Photo Permission Group', () {
     group('Android with SDK less than 32', () {
       test(
-          'given SDK is 31 and permission is denied, '
-          'when requestPhotoPermission, '
+          'given SDK is 31 and permission is denied,'
+          'when requestPhotoPermission,'
           'then request storage permission and hs permission status is denied',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.android;
@@ -96,8 +96,8 @@ void main() {
       });
 
       test(
-          'given SDK is 31 and permission is granted, '
-          'when requestPhotoPermission, '
+          'given SDK is 31 and permission is granted,'
+          'when requestPhotoPermission,'
           'then request storage permission and hs permission status is granted',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.android;
@@ -108,8 +108,8 @@ void main() {
       });
 
       test(
-          'given SDK is 31 and permission is restricted, '
-          'when requestPhotoPermission, '
+          'given SDK is 31 and permission is restricted,'
+          'when requestPhotoPermission,'
           'then request storage permission and hs permission status is denied',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.android;
@@ -121,8 +121,8 @@ void main() {
       });
 
       test(
-          'given SDK is 31 and permission is limited, '
-          'when requestPhotoPermission, '
+          'given SDK is 31 and permission is limited,'
+          'when requestPhotoPermission,'
           'then request storage permission and hs permission status is limited',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.android;
@@ -134,8 +134,8 @@ void main() {
       });
 
       test(
-          'given SDK is 31 and permission is permanentlyDenied, '
-          'when requestPhotoPermission, '
+          'given SDK is 31 and permission is permanentlyDenied,'
+          'when requestPhotoPermission,'
           'then request storage permission and hs permission status is deniedForever',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.android;
@@ -147,8 +147,8 @@ void main() {
       });
 
       test(
-          'given SDK is 31 and permission is permanentlyDenied, '
-          'when requestPhotoPermission, '
+          'given SDK is 31 and permission is provisional,'
+          'when requestPhotoPermission,'
           'then request storage permission and hs permission status is granted',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.android;
@@ -162,8 +162,8 @@ void main() {
 
     group('Android with SDK more than 32', () {
       test(
-          'given SDK is 33 and permission is denied, '
-          'when requestPhotoPermission, '
+          'given SDK is 33 and permission is denied,'
+          'when requestPhotoPermission,'
           'then request photo permission and hs permission status is denied',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.android;
@@ -175,8 +175,8 @@ void main() {
       });
 
       test(
-          'given SDK is 33 and permission is granted, '
-          'when requestPhotoPermission, '
+          'given SDK is 33 and permission is granted,'
+          'when requestPhotoPermission,'
           'then request photo permission and hs permission status is granted',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.android;
@@ -188,8 +188,8 @@ void main() {
       });
 
       test(
-          'given SDK is 33 and permission is restricted, '
-          'when requestPhotoPermission, '
+          'given SDK is 33 and permission is restricted,'
+          'when requestPhotoPermission,'
           'then request photo permission and hs permission status is denied',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.android;
@@ -201,8 +201,8 @@ void main() {
       });
 
       test(
-          'given SDK is 33 and permission is limited, '
-          'when requestPhotoPermission, '
+          'given SDK is 33 and permission is limited,'
+          'when requestPhotoPermission,'
           'then request photo permission and hs permission status is limited',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.android;
@@ -214,8 +214,8 @@ void main() {
       });
 
       test(
-          'given SDK is 33 and permission is permanentlyDenied, '
-          'when requestPhotoPermission, '
+          'given SDK is 33 and permission is permanentlyDenied,'
+          'when requestPhotoPermission,'
           'then request photo permission and hs permission status is deniedForever',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.android;
@@ -227,8 +227,8 @@ void main() {
       });
 
       test(
-          'given SDK is 33 and permission is permanentlyDenied, '
-          'when requestPhotoPermission, '
+          'given SDK is 33 and permission is provisional,'
+          'when requestPhotoPermission,'
           'then request photo permission and hs permission status is granted',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.android;
@@ -242,8 +242,8 @@ void main() {
 
     group('iOS', () {
       test(
-          'given permission is denied, '
-          'when requestPhotoPermission, '
+          'given permission is denied,'
+          'when requestPhotoPermission,'
           'then request photo permission and hs permission status is denied',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
@@ -260,8 +260,8 @@ void main() {
       });
 
       test(
-          'given permission is granted, '
-          'when requestPhotoPermission, '
+          'given permission is granted,'
+          'when requestPhotoPermission,'
           'then request photo permission and hs permission status is granted',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
@@ -279,8 +279,8 @@ void main() {
       });
 
       test(
-          'given permission is restricted, '
-          'when requestPhotoPermission, '
+          'given permission is restricted,'
+          'when requestPhotoPermission,'
           'then request photo permission and hs permission status is denied',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
@@ -298,8 +298,8 @@ void main() {
       });
 
       test(
-          'given permission is limited, '
-          'when requestPhotoPermission, '
+          'given permission is limited,'
+          'when requestPhotoPermission,'
           'then request photo permission and hs permission status is limited',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
@@ -317,8 +317,8 @@ void main() {
       });
 
       test(
-          'given permission is permanentlyDenied, '
-          'when requestPhotoPermission, '
+          'given permission is permanentlyDenied,'
+          'when requestPhotoPermission,'
           'then request photo permission and hs permission status is deniedForever',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
@@ -336,8 +336,8 @@ void main() {
       });
 
       test(
-          'given permission is permanentlyDenied, '
-          'when requestPhotoPermission, '
+          'given permission is provisional,'
+          'when requestPhotoPermission,'
           'then request photo permission and hs permission status is granted',
           () async {
         debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
