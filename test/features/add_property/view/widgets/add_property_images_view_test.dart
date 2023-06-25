@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_images_view.dart';
-import 'package:hatspace/features/add_property/view_model/add_properties_images/add_property_images_cubit.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_images_cubit.dart';
 import 'package:hatspace/models/permission/permission_service.dart';
-import 'package:hatspace/models/permission/permission_status.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -156,7 +154,7 @@ void main() {
         matching: find.byType(SvgPicture),
       );
       expect(uploadPhoto, findsOneWidget);
-      
+
       await widgetTester.tap(uploadPhoto);
       await widgetTester.pumpAndSettle();
 
