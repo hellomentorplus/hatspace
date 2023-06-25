@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 
 enum NavigatePage { forward, reverse }
@@ -6,6 +7,8 @@ enum NavigatePage { forward, reverse }
 class AddPropertyCubit extends Cubit<AddPropertyState> {
   AddPropertyCubit() : super(const AddPropertyInitial());
   final List<bool> activePageList = [];
+  AustraliaStates australiaState = AustraliaStates.invalid;
+  MinimumRentPeriod rentPeriod = MinimumRentPeriod.invalid;
   void navigatePage(NavigatePage navType, int totalPages) {
     if (navType == NavigatePage.forward &&
         state.pageViewNumber < totalPages - 1) {
@@ -33,5 +36,18 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     } else {
       // Implement disable event
     }
+  }
+
+  // Implement property infor here
+  void saveProperty(AustraliaStates australiaState) {
+    emit(StartListenChanges(state.pageViewNumber));
+    this.australiaState = australiaState;
+    emit(OnSaveAustraliaState(state.pageViewNumber));
+  }
+
+  void saveRentPeriod(MinimumRentPeriod rentPeriod) {
+    emit(StartListenChanges(state.pageViewNumber));
+    this.rentPeriod = rentPeriod;
+    emit(OnSaveRentPeriod(state.pageViewNumber));
   }
 }
