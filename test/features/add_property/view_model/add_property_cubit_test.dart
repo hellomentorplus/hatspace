@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/data/property_data.dart';
 
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
@@ -60,6 +61,18 @@ void main() {
     },
     expect: () => [isA<NextButtonEnable>()],
   );
+
+  blocTest(
+      'Given when user wants to select Australia state and save it, then emit SaveAustraliaState',
+      build: () => AddPropertyCubit(),
+      act: (bloc) => bloc.saveProperty(AustraliaStates.act),
+      expect: () => [isA<StartListenChanges>(), isA<OnSaveAustraliaState>()]);
+
+  blocTest(
+      'Given when user wants to select Minimum rent period and save it, then emit SaveMinimumRentPeriod',
+      build: () => AddPropertyCubit(),
+      act: (bloc) => bloc.saveRentPeriod(MinimumRentPeriod.nineMonths),
+      expect: () => [isA<StartListenChanges>(), isA<OnSaveRentPeriod>()]);
 
   test('test initial state', () {
     AddPropertyInitial addPropertyInitial = const AddPropertyInitial();
