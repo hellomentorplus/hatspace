@@ -38,18 +38,17 @@ class HsWarningBottomSheetView extends StatelessWidget {
     List<Widget> buttonGroup = [];
     Widget button;
     // Icon configuration
-    modalContent = [
-      Padding(
-          padding: const EdgeInsets.only(bottom: HsDimens.spacing4),
-          child: Text(title ?? 'Title',
-              style: textTheme.displayLarge?.copyWith(fontSize: 18.0))),
-      Text(
-        description ?? 'Description',
-        overflow: TextOverflow.ellipsis,
-        maxLines: 3,
-        textAlign: TextAlign.center,
-      )
-    ];
+    if(title != null ){
+      modalContent.add(Padding(
+        padding: const EdgeInsets.only(bottom: HsDimens.spacing4),
+        child: Text(title!, style: textTheme.displayLarge?.copyWith(fontSize: 18.0)),
+      ));
+    }
+    if(description != null){
+      modalContent.add(
+        Text(description!, overflow: TextOverflow.ellipsis,maxLines: 3, textAlign: TextAlign.center)
+      );
+    }
     if (iconUrl != null) {
       Widget iconContent = Padding(
         padding: const EdgeInsets.only(bottom: HsDimens.spacing24),

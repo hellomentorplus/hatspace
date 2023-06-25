@@ -13,7 +13,7 @@ extension HsBottomSheet on BuildContext {
         isScrollControlled: false,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
-            top: Radius.circular(HsDimens.radius8),
+            top: Radius.circular(HsDimens.radius16),
           ),
         ),
         context: this,

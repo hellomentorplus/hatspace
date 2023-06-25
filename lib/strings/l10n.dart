@@ -696,10 +696,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `No,later`
+  /// `No, later`
   String get noLater {
     return Intl.message(
-      'No,later',
+      'No, later',
       name: 'noLater',
       desc: '',
       args: [],
