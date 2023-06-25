@@ -10,7 +10,8 @@ class AddPropertyFeaturesView extends StatefulWidget {
   const AddPropertyFeaturesView({super.key});
 
   @override
-  State<AddPropertyFeaturesView> createState() => _AddPropertyFeaturesViewState();
+  State<AddPropertyFeaturesView> createState() =>
+      _AddPropertyFeaturesViewState();
 }
 
 class _AddPropertyFeaturesViewState extends State<AddPropertyFeaturesView> {

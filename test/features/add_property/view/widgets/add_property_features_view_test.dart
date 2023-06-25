@@ -50,7 +50,8 @@ void main() {
 
     /// Compare type and order
     for (int i = 0; i < definedFeatures.length; i++) {
-      expect(definedFeatures[i] == foundFeatureWidgets.elementAt(i).feature, true);
+      expect(
+          definedFeatures[i] == foundFeatureWidgets.elementAt(i).feature, true);
     }
   });
 
