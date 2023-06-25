@@ -5,7 +5,6 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 class HsWarningBottomSheetView extends StatelessWidget {
-  // final ValueChanged value;
   final String? iconUrl;
   final String? title;
   final String? description;
@@ -19,7 +18,6 @@ class HsWarningBottomSheetView extends StatelessWidget {
   final VoidCallback? tertiaryButtonOnPressed;
   const HsWarningBottomSheetView({
     super.key,
-    // required this.value,
     this.iconUrl,
     this.title,
     this.description,
