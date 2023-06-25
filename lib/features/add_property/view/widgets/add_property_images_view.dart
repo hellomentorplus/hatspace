@@ -23,21 +23,21 @@ class AddPropertyImagesContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddPropertyImagesCubit, AddPropertyImagesState>(
-        builder: (context, state) {
-      if (state is PhotoPermissionDenied) {
-        // do nothing
-      }
+    return BlocListener<AddPropertyImagesCubit, AddPropertyImagesState>(
+      listener: (context, state) {
+        if (state is PhotoPermissionDenied) {
+          // do nothing
+        }
 
-      if (state is PhotoPermissionDeniedForever) {
-        // open app setting
-      }
+        if (state is PhotoPermissionDeniedForever) {
+          // open app setting
+        }
 
-      if (state is PhotoPermissionGranted) {
-        // open photo screen
-      }
-
-      return SingleChildScrollView(
+        if (state is PhotoPermissionGranted) {
+          // open photo screen
+        }
+      },
+      child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
               horizontal: HsDimens.spacing16, vertical: HsDimens.spacing24),
@@ -57,6 +57,7 @@ class AddPropertyImagesContent extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
+                  print("on tap test");
                   context
                       .read<AddPropertyImagesCubit>()
                       .requestPhotoPermission();
@@ -66,7 +67,7 @@ class AddPropertyImagesContent extends StatelessWidget {
             ],
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 }

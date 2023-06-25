@@ -154,17 +154,21 @@ void main() {
     //     widget,
     //   );
     //
-    //   Finder uploadPhoto = find.descendant(
+    //   Finder svgPicture = find.descendant(
     //     of: find.byType(InkWell),
     //     matching: find.byType(SvgPicture),
     //   );
-    //   expect(uploadPhoto, findsOneWidget);
     //
-    //   await widgetTester.tap(uploadPhoto);
+    //   SvgPicture uploadPhoto = widgetTester.widget(svgPicture);
+    //   BytesLoader bytesLoader = uploadPhoto.bytesLoader;
+    //   expect(bytesLoader, isA<SvgAssetLoader>());
+    //   expect((bytesLoader as SvgAssetLoader).assetName,
+    //       'assets/images/upload_photo.svg');
+    //
+    //   await widgetTester.tap(svgPicture);
     //   await widgetTester.pumpAndSettle();
     //
     //   verify(addPropertyImagesCubit.requestPhotoPermission()).called(1);
-    //   verifyNoMoreInteractions(addPropertyImagesCubit);
     // });
   });
 }

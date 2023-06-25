@@ -56,7 +56,8 @@ void main() {
     });
   }
 
-  void setupPermissionStatusAndExpectProperPermission(int permission, int status) {
+  void setupPermissionStatusAndExpectProperPermission(
+      int permission, int status) {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
             const MethodChannel('flutter.baseflow.com/permissions/methods'),
