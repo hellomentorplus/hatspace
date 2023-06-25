@@ -2,44 +2,61 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
-import 'package:hatspace/features/add_property/view/widgets/add_features_view.dart'
+import 'package:hatspace/features/add_property/view/widgets/add_property_features_view.dart'
     as view;
 import '../../../../widget_tester_extension.dart';
 
 void main() {
   testWidgets('[Add Features screen] Verify UI', (WidgetTester tester) async {
-    Widget widget = const view.AddFeaturesView();
-    const List<String> features = [
-      'Fridge',
-      'Washing machine',
-      'Swimming pool',
-      'Air conditioners',
-      'Electric stove',
-      'TV',
-      'Wifi',
-      'Security cameras',
-      'Kitchen',
-      'Portable fans'
-    ];
+    bool isReachedBottom = false;
+    Widget widget = NotificationListener<ScrollEndNotification>(
+      onNotification: (scrollEnd) {
+        final metrics = scrollEnd.metrics;
+        if (metrics.atEdge) {
+          isReachedBottom = metrics.pixels != 0;
+        }
+        return true;
+      },
+      child: const view.AddPropertyFeaturesView(),
+    );
 
     await tester.wrapAndPump(widget);
-    expect(find.byType(view.AddFeaturesView), findsOneWidget);
+
+    expect(find.byType(view.AddPropertyFeaturesView), findsOneWidget);
     expect(find.text('Which features your place has?'), findsOneWidget);
-    final Finder featuresItem = find.ancestor(
-        of: find.byType(SvgPicture),
-        matching: find.byType(view.FeatureItemView));
-    final firstFeat =
-        tester.firstWidget<view.FeatureItemView>(featuresItem.first);
-    final lastFeat =
-        tester.firstWidget<view.FeatureItemView>(featuresItem.last);
-    expect(features.contains(firstFeat.feature.displayName), true);
-    expect(features.contains(lastFeat.feature.displayName), true);
-    expect(featuresItem, findsWidgets);
+
+    const List<Feature> definedFeatures = Feature.values;
+    final Set<view.FeatureItemView> foundFeatureWidgets = {};
+
+    foundFeatureWidgets.addAll(tester
+        .widgetList<view.FeatureItemView>(find.descendant(
+            of: find.byType(GridView),
+            matching: find.byType(view.FeatureItemView)))
+        .toSet());
+
+    while (!isReachedBottom) {
+      final Finder gridViewFinder = find.byType(GridView);
+      await tester.drag(gridViewFinder, const Offset(0, -10));
+      await tester.pumpAndSettle();
+      final Set<view.FeatureItemView> newFeatWidgets = tester
+          .widgetList<view.FeatureItemView>(find.descendant(
+              of: gridViewFinder, matching: find.byType(view.FeatureItemView)))
+          .toSet();
+      foundFeatureWidgets.addAll([...foundFeatureWidgets, ...newFeatWidgets]);
+    }
+
+    /// Compare length
+    expect(definedFeatures.length == foundFeatureWidgets.length, true);
+
+    /// Compare type and order
+    for (int i = 0; i < definedFeatures.length; i++) {
+      expect(definedFeatures[i] == foundFeatureWidgets.elementAt(i).feature, true);
+    }
   });
 
   testWidgets('[Add Features screen] Verify Interaction',
       (WidgetTester tester) async {
-    view.AddFeaturesView widget = const view.AddFeaturesView();
+    view.AddPropertyFeaturesView widget = const view.AddPropertyFeaturesView();
 
     await tester.wrapAndPump(widget);
     final Finder featuresBtns = find.byType(view.FeatureItemView);

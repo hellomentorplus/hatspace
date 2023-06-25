@@ -6,14 +6,14 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
-class AddFeaturesView extends StatefulWidget {
-  const AddFeaturesView({super.key});
+class AddPropertyFeaturesView extends StatefulWidget {
+  const AddPropertyFeaturesView({super.key});
 
   @override
-  State<AddFeaturesView> createState() => _AddFeaturesViewState();
+  State<AddPropertyFeaturesView> createState() => _AddPropertyFeaturesViewState();
 }
 
-class _AddFeaturesViewState extends State<AddFeaturesView> {
+class _AddPropertyFeaturesViewState extends State<AddPropertyFeaturesView> {
   final ValueNotifier<List<Feature>> selectedFeatures =
       ValueNotifier<List<Feature>>([]);
 
