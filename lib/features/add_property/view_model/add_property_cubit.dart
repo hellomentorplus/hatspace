@@ -66,7 +66,8 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
     emit(NextButtonEnable(state.pageViewNumber, nextButtonEnable));
   }
-    void saveProperty(AustraliaStates australiaState) {
+
+  void saveProperty(AustraliaStates australiaState) {
     emit(StartListenChanges(state.pageViewNumber));
     this.australiaState = australiaState;
     emit(OnSaveAustraliaState(state.pageViewNumber));

@@ -4,7 +4,6 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/property_info_form.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_type_view/select_property_type.dart';
-import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_type_view_model/property_type_cubit.dart';

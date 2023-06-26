@@ -5,7 +5,6 @@ import 'package:hatspace/features/add_property/view/widgets/add_property_type_vi
 import 'package:hatspace/features/add_property/view/widgets/add_property_type_view/property_type_card_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_type_view_model/property_type_cubit.dart';
 
-
 import 'package:hatspace/strings/l10n.dart';
 
 class SelectPropertyType extends StatelessWidget {
