@@ -15,8 +15,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/add.svg
   String get add => 'assets/icons/add.svg';
 
+  /// File path: assets/icons/air_conditioners.svg
+  String get airConditioners => 'assets/icons/air_conditioners.svg';
+
   /// File path: assets/icons/booking.svg
   String get booking => 'assets/icons/booking.svg';
+
+  /// File path: assets/icons/check.svg
+  String get check => 'assets/icons/check.svg';
+
+  /// File path: assets/icons/electric_stove.svg
+  String get electricStove => 'assets/icons/electric_stove.svg';
 
   /// File path: assets/icons/explore.svg
   String get explore => 'assets/icons/explore.svg';
@@ -24,8 +33,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/filter.svg
   String get filter => 'assets/icons/filter.svg';
 
+  /// File path: assets/icons/fridge.svg
+  String get fridge => 'assets/icons/fridge.svg';
+
   /// File path: assets/icons/ic_agent.svg
   String get icAgent => 'assets/icons/ic_agent.svg';
+
+  /// File path: assets/icons/kitchen.svg
+  String get kitchen => 'assets/icons/kitchen.svg';
 
   /// File path: assets/icons/message.svg
   String get message => 'assets/icons/message.svg';
@@ -33,23 +48,52 @@ class $AssetsIconsGen {
   /// File path: assets/icons/notification.svg
   String get notification => 'assets/icons/notification.svg';
 
+  /// File path: assets/icons/portable_fans.svg
+  String get portableFans => 'assets/icons/portable_fans.svg';
+
   /// File path: assets/icons/profile.svg
   String get profile => 'assets/icons/profile.svg';
 
   /// File path: assets/icons/search.svg
   String get search => 'assets/icons/search.svg';
 
+  /// File path: assets/icons/security_cameras.svg
+  String get securityCameras => 'assets/icons/security_cameras.svg';
+
+  /// File path: assets/icons/swimming_pool.svg
+  String get swimmingPool => 'assets/icons/swimming_pool.svg';
+
+  /// File path: assets/icons/tv.svg
+  String get tv => 'assets/icons/tv.svg';
+
+  /// File path: assets/icons/washing_machine.svg
+  String get washingMachine => 'assets/icons/washing_machine.svg';
+
+  /// File path: assets/icons/wifi.svg
+  String get wifi => 'assets/icons/wifi.svg';
+
   /// List of all assets
   List<String> get values => [
         add,
+        airConditioners,
         booking,
+        check,
+        electricStove,
         explore,
         filter,
+        fridge,
         icAgent,
+        kitchen,
         message,
         notification,
+        portableFans,
         profile,
-        search
+        search,
+        securityCameras,
+        swimmingPool,
+        tv,
+        washingMachine,
+        wifi
       ];
 }
 
@@ -125,6 +169,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/search-normal.svg
   String get searchNormal => 'assets/images/search-normal.svg';
 
+  /// File path: assets/images/upload_photo.svg
+  String get uploadPhoto => 'assets/images/upload_photo.svg';
+
   /// List of all assets
   List<String> get values => [
         apartment,
@@ -149,7 +196,8 @@ class $AssetsImagesGen {
         increment,
         messages,
         profileCircle,
-        searchNormal
+        searchNormal,
+        uploadPhoto
       ];
 }
 

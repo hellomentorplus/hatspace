@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/property_info_form.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_type_view/select_property_type.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_type_view_model/property_type_cubit.dart';
@@ -20,7 +21,9 @@ class AddPropertyView extends StatelessWidget {
   Widget build(Object context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AddPropertyCubit>(create: (context) => AddPropertyCubit()),
+        BlocProvider<AddPropertyCubit>(
+            create: (context) =>
+                AddPropertyCubit()..validateNextButtonState(0)),
         BlocProvider<PropertyTypeCubit>(
             create: (context) => PropertyTypeCubit()),
       ],
@@ -34,7 +37,11 @@ class AddPropertyPageBody extends StatelessWidget {
       PageController(initialPage: 0, keepPage: true);
   final ValueNotifier<int> onProgressIndicatorState = ValueNotifier(0);
   // Number of Pages for PageView
-  final List<Widget> pages = [const SelectPropertyType(), PropertyInforForm()];
+  final List<Widget> pages = [
+    const SelectPropertyType(),
+    PropertyInforForm(),
+    const AddPropertyRoomsView()
+  ];
   AddPropertyPageBody({super.key});
   @override
   Widget build(BuildContext context) {
@@ -124,7 +131,7 @@ class BottomController extends StatelessWidget {
             ),
             PrimaryButton(
                 label: HatSpaceStrings.of(context).next,
-                onPressed: (state is NextButtonEnable)
+                onPressed: (state is NextButtonEnable && state.isActive)
                     ? () {
                         context
                             .read<AddPropertyCubit>()

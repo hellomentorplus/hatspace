@@ -5,9 +5,12 @@ import 'package:hatspace/strings/l10n.dart';
 
 extension WidgetExtension on WidgetTester {
   Future<void> wrapAndPump(Widget widget,
-      {bool infiniteAnimationWidget = false, ThemeData? theme}) async {
+      {bool infiniteAnimationWidget = false,
+      ThemeData? theme,
+      bool useRouter = false}) async {
     final Widget wrapper = _MaterialWrapWidget(
       theme: theme,
+      useRouter: useRouter,
       child: widget,
     );
 
@@ -21,11 +24,14 @@ extension WidgetExtension on WidgetTester {
 
   Future<void> blocWrapAndPump<B extends StateStreamableSource<Object?>>(
       B bloc, Widget widget,
-      {bool infiniteAnimationWidget = false, ThemeData? theme}) async {
+      {bool infiniteAnimationWidget = false,
+      ThemeData? theme,
+      bool useRouter = false}) async {
     final Widget wrapper = BlocProvider<B>(
       create: (_) => bloc,
       child: _MaterialWrapWidget(
         theme: theme,
+        useRouter: useRouter,
         child: widget,
       ),
     );
@@ -50,6 +56,7 @@ extension WidgetExtension on WidgetTester {
     final Widget wrapper = MultiBlocProvider(
         providers: providers,
         child: _MaterialWrapWidget(
+          useRouter: useRouter,
           child: widget,
         ));
 
@@ -76,8 +83,10 @@ extension WidgetExtension on WidgetTester {
 class _MaterialWrapWidget extends StatelessWidget {
   final Widget child;
   final ThemeData? theme;
+  final bool useRouter;
 
-  const _MaterialWrapWidget({required this.child, Key? key, this.theme})
+  const _MaterialWrapWidget(
+      {required this.child, required this.useRouter, Key? key, this.theme})
       : super(key: key);
 
   @override
@@ -85,7 +94,7 @@ class _MaterialWrapWidget extends StatelessWidget {
     return MaterialApp(
       theme: theme,
       home: Scaffold(
-        body: child,
+        body: useRouter ? _DummyRouter(targetPage: child) : child,
       ),
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         HatSpaceStrings.delegate
@@ -93,4 +102,21 @@ class _MaterialWrapWidget extends StatelessWidget {
       supportedLocales: HatSpaceStrings.delegate.supportedLocales,
     );
   }
+}
+
+class _DummyRouter extends StatelessWidget {
+  final Widget targetPage;
+  const _DummyRouter({required this.targetPage, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: Center(
+          child: TextButton(
+            child: const Text('Start testing'),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => targetPage,
+            )),
+          ),
+        ),
+      );
 }
