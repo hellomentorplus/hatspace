@@ -35,6 +35,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   final List<bool> activePageList = [];
   AustraliaStates australiaState = AustraliaStates.invalid;
   MinimumRentPeriod rentPeriod = MinimumRentPeriod.invalid;
+
   void navigatePage(NavigatePage navType, int totalPages) {
     if (navType == NavigatePage.forward &&
         state.pageViewNumber < totalPages - 1) {
@@ -63,15 +64,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
       // TODO add validation logic for other screens
     }
 
-    emit(NextButtonEnable(state.pageViewNumber, true));
-  }
-
-  void validateState(int pageNumber) {
-    if (activePageList[pageNumber] == true) {
-      emit(NextButtonEnable(state.pageViewNumber, true));
-    } else {
-      // Implement disable event
-    }
+    emit(NextButtonEnable(state.pageViewNumber, nextButtonEnable));
   }
     void saveProperty(AustraliaStates australiaState) {
     emit(StartListenChanges(state.pageViewNumber));

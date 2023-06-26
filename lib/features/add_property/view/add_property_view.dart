@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/property_info_form.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_type_view/select_property_type.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
