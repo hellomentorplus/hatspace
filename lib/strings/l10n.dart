@@ -130,10 +130,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `SKIP`
+  /// `Skip`
   String get skip {
     return Intl.message(
-      'SKIP',
+      'Skip',
       name: 'skip',
       desc: '',
       args: [],

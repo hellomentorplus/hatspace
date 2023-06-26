@@ -111,7 +111,7 @@ class SignUpScreen extends StatelessWidget {
                               horizontal: HsDimens.spacing24),
                           child: SecondaryButton(
                             contentAlignment: MainAxisAlignment.start,
-                            label: HatSpaceStrings.of(context).emailSignUp,
+                            label: HatSpaceStrings.current.emailSignUp,
                             iconUrl: Assets.icons.envelope,
                             overrideIconColor: false,
                             style: ButtonStyle(
@@ -129,7 +129,7 @@ class SignUpScreen extends StatelessWidget {
                               vertical: HsDimens.spacing16),
                           child: SecondaryButton(
                             contentAlignment: MainAxisAlignment.start,
-                            label: HatSpaceStrings.of(context).facebookSignUp,
+                            label: HatSpaceStrings.current.facebookSignUp,
                             iconUrl: Assets.icons.facebook,
                             overrideIconColor: false,
                             style: ButtonStyle(
@@ -150,7 +150,7 @@ class SignUpScreen extends StatelessWidget {
                               horizontal: HsDimens.spacing24),
                           child: SecondaryButton(
                             contentAlignment: MainAxisAlignment.start,
-                            label: HatSpaceStrings.of(context).googleSignUp,
+                            label: HatSpaceStrings.current.googleSignUp,
                             iconUrl: Assets.icons.google,
                             overrideIconColor: false,
                             style: ButtonStyle(

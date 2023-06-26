@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/sign_up/view/sign_up_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
+import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:mockito/annotations.dart';
@@ -56,10 +57,27 @@ void main() {
             of: find.text('SKIP'), matching: find.byType(TextOnlyButton)),
         findsOneWidget);
 
-    expect(
-        find.descendant(
-            of: find.byType(SizedBox), matching: find.byType(SvgPicture)),
-        findsOneWidget);
+    // Look for app logo
+    expect(find.byWidgetPredicate((widget) {
+      if (widget is! SvgPicture) {
+        return false;
+      }
+
+      final SvgPicture svgPicture = widget;
+      final BytesLoader bytesLoader = svgPicture.bytesLoader;
+
+      if (bytesLoader is! SvgAssetLoader) {
+        return false;
+      }
+
+      final SvgAssetLoader svgAssetLoader = bytesLoader;
+
+      if (svgAssetLoader.assetName != Assets.images.logo) {
+        return false;
+      }
+
+      return true;
+    }), findsOneWidget);
 
     expect(
         find.ancestor(
