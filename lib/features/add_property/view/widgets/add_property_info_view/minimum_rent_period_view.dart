@@ -21,14 +21,10 @@ class MinimumRentPeriodView extends StatelessWidget {
           }
         },
         child: HsModalSelectionView<MinimumRentPeriod>(
-          itemList: periodList,
-          dislayName: (item) {
-            return item.displayName;
-          },
-          initialValue: initial,
-          onValueChanges: (value) {
-            context.read<AddPropertyCubit>().saveRentPeriod(value);
-          },
-        ));
+            itemList: periodList,
+            dislayName: (item) => item.displayName,
+            initialValue: initial,
+            onValueChanges: (value) =>
+                context.read<AddPropertyCubit>().saveRentPeriod(value)));
   }
 }

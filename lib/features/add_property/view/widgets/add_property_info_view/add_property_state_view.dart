@@ -21,14 +21,10 @@ class AddPropertyStateView extends StatelessWidget {
           }
         },
         child: HsModalSelectionView<AustraliaStates>(
-          itemList: stateList,
-          dislayName: (item) {
-            return item.displayName;
-          },
-          initialValue: initial,
-          onValueChanges: (value) {
-            context.read<AddPropertyCubit>().saveProperty(value);
-          },
-        ));
+            itemList: stateList,
+            dislayName: (item) => item.displayName,
+            initialValue: initial,
+            onValueChanges: (value) =>
+                context.read<AddPropertyCubit>().saveProperty(value)));
   }
 }
