@@ -77,8 +77,7 @@ class AddRoomsViewState extends State<AddRoomsView> {
 class _AddBedroomCounter extends StatelessWidget {
   final ValueNotifier<int> counter;
   final String text;
-  const _AddBedroomCounter(
-      {required this.counter, required this.text});
+  const _AddBedroomCounter({required this.counter, required this.text});
 
   bool checkCounterAdded(int counter) {
     return counter > 0;
