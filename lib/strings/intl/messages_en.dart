@@ -54,7 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
-            "How many bedrooms, bathrooms, parking?"),
+            "How many bedrooms, bathrooms, car spaces?"),
         "airConditioners":
             MessageLookupByLibrary.simpleMessage("Air conditioners"),
         "alreadyHaveAccount":
@@ -115,7 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
-        "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
+        "parkingText": MessageLookupByLibrary.simpleMessage("Car spaces"),
         "pleaseEnterYourPlaceholder": MessageLookupByLibrary.simpleMessage(
             "Please Enter Your Placeholder"),
         "pleaseSelectRentPeriod":
