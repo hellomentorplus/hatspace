@@ -312,10 +312,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `How many bedrooms, bathrooms, parking?`
+  /// `How many bedrooms, bathrooms, car spaces?`
   String get addBedroomViewInstructions {
     return Intl.message(
-      'How many bedrooms, bathrooms, parking?',
+      'How many bedrooms, bathrooms, car spaces?',
       name: 'addBedroomViewInstructions',
       desc: '',
       args: [],
@@ -342,10 +342,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Parkings`
+  /// `Car spaces`
   String get parkingText {
     return Intl.message(
-      'Parkings',
+      'Car spaces',
       name: 'parkingText',
       desc: '',
       args: [],

@@ -32,10 +32,10 @@
   "chooseKindOfYourProperty": "Choose kind of your property",
   "availableDate": "Available date",
 
-  "addBedroomViewInstructions": "How many bedrooms, bathrooms, parking?",
+  "addBedroomViewInstructions": "How many bedrooms, bathrooms, car spaces?",
   "bedroomText": "Bedrooms",
   "bathroomText": "Bathrooms",
-  "parkingText": "Parkings",
+  "parkingText": "Car spaces",
 
   "back": "Back",
   "next": "Next",

@@ -26,7 +26,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   }
 
   set parking(int count) {
-    _parking = 0;
+    _parking = count;
     validateNextButtonState(state.pageViewNumber);
   }
 
