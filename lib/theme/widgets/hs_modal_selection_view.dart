@@ -42,9 +42,9 @@ class HsModalSelectionView<T> extends StatelessWidget {
                     ),
                     context: context,
                     builder: (_) {
-                      return HsModalView(
+                      return HsModalView<T>(
                           getItemString: dislayName,
-                          selection: selection,
+                          selection: selection.value,
                           itemList: itemList,
                           title: HatSpaceStrings.of(context).state,
                           onSave: (value) {

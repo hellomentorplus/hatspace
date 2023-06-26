@@ -8,22 +8,25 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 typedef GetItemString<T> = String Function(T item);
+typedef GetItemValue<T> = T Function(T item);
 
 class HsModalView<T> extends StatelessWidget {
   final String title;
   final GetItemString<T> getItemString;
   final List<T> itemList;
   final ValueChanged onSave;
-  final ValueNotifier<T> selection;
   final double? height;
-  const HsModalView(
-      {required this.selection,
+  late final ValueNotifier<T>
+      modalNotifier; // only used for render check icon on modal
+  HsModalView(
+      {required T selection,
       required this.itemList,
       required this.title,
       required this.onSave,
       required this.getItemString,
       this.height,
-      super.key});
+      super.key})
+      : modalNotifier = ValueNotifier(selection);
 
   Widget renderSelectedItemIcon(
     T selectedValue,
@@ -38,8 +41,6 @@ class HsModalView<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<T> modalNotifier = ValueNotifier<T>(
-        selection.value); // only used for render check icon on modal
     return SizedBox(
         height: height ?? MediaQuery.of(context).size.height * 0.85,
         child: Padding(
