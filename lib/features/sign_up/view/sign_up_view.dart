@@ -33,8 +33,8 @@ class SignUpScreen extends StatelessWidget {
           context.dismissLoading();
           context.showToast(
               type: ToastType.errorToast,
-              title: HatSpaceStrings.of(context).signinErrorToastTitle,
-              message: HatSpaceStrings.of(context).signinErrorToastMessage);
+              title: HatSpaceStrings.current.signinErrorToastTitle,
+              message: HatSpaceStrings.current.signinErrorToastMessage);
         }
         if (state is UserRolesUnavailable) {
           context.dismissLoading();
