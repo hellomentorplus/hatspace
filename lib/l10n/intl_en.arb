@@ -76,5 +76,16 @@
   "save": "Save",
   "pleaseSelectValue":"Please select value",
   "letAddSomePhotosOfYourPlace":"Let's add some photos of your place",
-  "requireAtLeast4Photos":"Require at least 4 photos *"
+  "requireAtLeast4Photos":"Require at least 4 photos *",
+  "fridge": "Fridge",
+  "washingMachine": "Washing machine",
+  "swimmingPool": "Swimming pool",
+  "airConditioners": "Air conditioners",
+  "electricStove": "Electric stove",
+  "tv": "TV",
+  "wifi": "Wifi",
+  "securityCameras": "Security cameras",
+  "kitchen": "Kitchen",
+  "portableFans": "Portable Fans",
+  "askFeaturesOwned": "Which features your place has?"
 }
