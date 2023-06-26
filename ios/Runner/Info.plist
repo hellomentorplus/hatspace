@@ -8,6 +8,8 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Hatspace</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>Hat Space would like to Photo Access.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -67,6 +69,5 @@
 	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-
 </dict>
 </plist>
