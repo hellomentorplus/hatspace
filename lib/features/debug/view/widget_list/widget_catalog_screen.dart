@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hatspace/features/add_property/view/widgets/add_rooms_view.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
 import 'package:hatspace/features/debug/view/widget_list/core_button_view.dart';
 import 'package:hatspace/features/debug/view/widget_list/pop_up_view.dart';
 import 'package:hatspace/features/debug/view/widget_list/toast_messages_view.dart';
@@ -12,7 +12,7 @@ class WidgetCatalogScreen extends StatelessWidget {
     // TODO: ADD Toast Message View to show all toast message
     ItemList('Toast Message', const ToastMessageViews()),
     ItemList('Pop Up Process', const PopupView()),
-    ItemList('Add Bedroom View', const AddRoomsView()),
+    ItemList('Add Bedroom View', const AddPropertyRoomsView()),
   ];
   @override
   Widget build(BuildContext context) {

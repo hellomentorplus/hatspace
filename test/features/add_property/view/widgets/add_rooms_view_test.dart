@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/add_property/view/widgets/add_rooms_view.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:mockito/annotations.dart';
@@ -15,7 +15,7 @@ void main() {
   final MockAddPropertyCubit addPropertyCubit = MockAddPropertyCubit();
 
   testWidgets('verify UI components', (widgetTester) async {
-    const Widget widget = AddRoomsView();
+    const Widget widget = AddPropertyRoomsView();
 
     await widgetTester.wrapAndPump(widget);
 
@@ -46,7 +46,7 @@ void main() {
     when(addPropertyCubit.state)
         .thenAnswer((realInvocation) => const NextButtonEnable(2, false));
 
-    const Widget widget = AddRoomsView();
+    const Widget widget = AddPropertyRoomsView();
 
     await widgetTester.blocWrapAndPump<AddPropertyCubit>(
         addPropertyCubit, widget);
@@ -114,7 +114,7 @@ void main() {
     when(addPropertyCubit.state)
         .thenAnswer((realInvocation) => const NextButtonEnable(2, false));
 
-    const Widget widget = AddRoomsView();
+    const Widget widget = AddPropertyRoomsView();
 
     await widgetTester.blocWrapAndPump<AddPropertyCubit>(
         addPropertyCubit, widget);
@@ -182,7 +182,7 @@ void main() {
     when(addPropertyCubit.state)
         .thenAnswer((realInvocation) => const NextButtonEnable(2, false));
 
-    const Widget widget = AddRoomsView();
+    const Widget widget = AddPropertyRoomsView();
 
     await widgetTester.blocWrapAndPump<AddPropertyCubit>(
         addPropertyCubit, widget);

@@ -6,14 +6,14 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
-class AddRoomsView extends StatefulWidget {
-  const AddRoomsView({super.key});
+class AddPropertyRoomsView extends StatefulWidget {
+  const AddPropertyRoomsView({super.key});
 
   @override
-  State<AddRoomsView> createState() => AddRoomsViewState();
+  State<AddPropertyRoomsView> createState() => AddPropertyRoomsViewState();
 }
 
-class AddRoomsViewState extends State<AddRoomsView> {
+class AddPropertyRoomsViewState extends State<AddPropertyRoomsView> {
   final ValueNotifier<int> bedroomCounter = ValueNotifier<int>(0);
   final ValueNotifier<int> bathRoomCounter = ValueNotifier<int>(0);
   final ValueNotifier<int> parkingCounter = ValueNotifier<int>(0);
@@ -46,20 +46,19 @@ class AddRoomsViewState extends State<AddRoomsView> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(top: 24),
-              child: Text(
-                  HatSpaceStrings.of(context).addBedroomViewInstructions,
+              child: Text(HatSpaceStrings.current.addBedroomViewInstructions,
                   style: Theme.of(context).textTheme.displayLarge),
             ),
           ),
           _AddBedroomCounter(
               counter: bedroomCounter,
-              text: HatSpaceStrings.of(context).bedroomText),
+              text: HatSpaceStrings.current.bedroomText),
           _AddBedroomCounter(
               counter: bathRoomCounter,
-              text: HatSpaceStrings.of(context).bathroomText),
+              text: HatSpaceStrings.current.bathroomText),
           _AddBedroomCounter(
               counter: parkingCounter,
-              text: HatSpaceStrings.of(context).parkingText),
+              text: HatSpaceStrings.current.parkingText),
         ],
       ),
     );
