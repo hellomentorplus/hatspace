@@ -312,10 +312,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `How many bedrooms, bathrooms, parking?`
+  /// `How many bedrooms, bathrooms, car spaces?`
   String get addBedroomViewInstructions {
     return Intl.message(
-      'How many bedrooms, bathrooms, parking?',
+      'How many bedrooms, bathrooms, car spaces?',
       name: 'addBedroomViewInstructions',
       desc: '',
       args: [],
@@ -342,10 +342,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Parkings`
+  /// `Car spaces`
   String get parkingText {
     return Intl.message(
-      'Parkings',
+      'Car spaces',
       name: 'parkingText',
       desc: '',
       args: [],
@@ -701,6 +701,136 @@ class HatSpaceStrings {
     return Intl.message(
       'Please select value',
       name: 'pleaseSelectValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Let's add some photos of your place`
+  String get letAddSomePhotosOfYourPlace {
+    return Intl.message(
+      'Let\'s add some photos of your place',
+      name: 'letAddSomePhotosOfYourPlace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Require at least 4 photos *`
+  String get requireAtLeast4Photos {
+    return Intl.message(
+      'Require at least 4 photos *',
+      name: 'requireAtLeast4Photos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fridge`
+  String get fridge {
+    return Intl.message(
+      'Fridge',
+      name: 'fridge',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Washing machine`
+  String get washingMachine {
+    return Intl.message(
+      'Washing machine',
+      name: 'washingMachine',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Swimming pool`
+  String get swimmingPool {
+    return Intl.message(
+      'Swimming pool',
+      name: 'swimmingPool',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Air conditioners`
+  String get airConditioners {
+    return Intl.message(
+      'Air conditioners',
+      name: 'airConditioners',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Electric stove`
+  String get electricStove {
+    return Intl.message(
+      'Electric stove',
+      name: 'electricStove',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `TV`
+  String get tv {
+    return Intl.message(
+      'TV',
+      name: 'tv',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wifi`
+  String get wifi {
+    return Intl.message(
+      'Wifi',
+      name: 'wifi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Security cameras`
+  String get securityCameras {
+    return Intl.message(
+      'Security cameras',
+      name: 'securityCameras',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kitchen`
+  String get kitchen {
+    return Intl.message(
+      'Kitchen',
+      name: 'kitchen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Portable Fans`
+  String get portableFans {
+    return Intl.message(
+      'Portable Fans',
+      name: 'portableFans',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Which features your place has?`
+  String get askFeaturesOwned {
+    return Intl.message(
+      'Which features your place has?',
+      name: 'askFeaturesOwned',
       desc: '',
       args: [],
     );
