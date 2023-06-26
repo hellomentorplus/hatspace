@@ -16,9 +16,9 @@ class SelectPropertyType extends StatelessWidget {
     return BlocConsumer<PropertyTypeCubit, PropertyTypeState>(
         listener: (context, state) {
       // Implement validate to enable next button
-      if (state.propertyTypes != null) {
-        context.read<AddPropertyCubit>().enableNextButton();
-      }
+      // if (state.propertyTypes != null) {
+      //   context.read<AddPropertyCubit>().enableNextButton();
+      // }
     }, builder: (context, state) {
       return Padding(
         padding: const EdgeInsets.only(

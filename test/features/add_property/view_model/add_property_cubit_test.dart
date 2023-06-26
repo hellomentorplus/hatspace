@@ -31,8 +31,7 @@ void main() {
     build: () => AddPropertyCubit(),
     act: (bloc) {
       bloc.navigatePage(NavigatePage.forward, 2);
-      bloc.enableNextButton();
-      bloc.validateState(0);
+      bloc.validateNextButtonState(0);
       bloc.navigatePage(NavigatePage.reverse, 2);
     },
     expect: () => [
@@ -43,19 +42,12 @@ void main() {
     ],
   );
 
-  blocTest(
-    'Given when user enable next button, then update new state',
-    build: () => AddPropertyCubit(),
-    act: (bloc) => {bloc.enableNextButton()},
-    expect: () => [isA<NextButtonEnable>()],
-  );
 
   blocTest(
     'Given when validate next button state true, then emit NextButton true',
     build: () => AddPropertyCubit(),
     act: (bloc) {
-      bloc.enableNextButton();
-      bloc.validateState(0);
+      bloc.validateNextButtonState(0);
     },
     expect: () => [isA<NextButtonEnable>()],
   );

@@ -1,20 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/strings/l10n.dart';
 
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
-class AddBedroomView extends StatefulWidget {
-  const AddBedroomView({super.key});
+class AddRoomsView extends StatefulWidget {
+  const AddRoomsView({super.key});
 
   @override
-  State<AddBedroomView> createState() => AddBedroomViewState();
+  State<AddRoomsView> createState() => AddRoomsViewState();
 }
 
-class AddBedroomViewState extends State<AddBedroomView> {
+class AddRoomsViewState extends State<AddRoomsView> {
   final ValueNotifier<int> bedroomCounter = ValueNotifier<int>(0);
   final ValueNotifier<int> bathRoomCounter = ValueNotifier<int>(0);
   final ValueNotifier<int> parkingCounter = ValueNotifier<int>(0);
+
+  @override
+  void initState() {
+    super.initState();
+
+    bedroomCounter.addListener(() {
+      context.read<AddPropertyCubit>().bedrooms = bedroomCounter.value;
+    });
+
+    bathRoomCounter.addListener(() {
+      context.read<AddPropertyCubit>().bathrooms = bathRoomCounter.value;
+    });
+
+    parkingCounter.addListener(() {
+      context.read<AddPropertyCubit>().parking = parkingCounter.value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +63,14 @@ class AddBedroomViewState extends State<AddBedroomView> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    bedroomCounter.dispose();
+    bathRoomCounter.dispose();
+    parkingCounter.dispose();
+    super.dispose();
   }
 }
 
