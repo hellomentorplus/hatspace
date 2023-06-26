@@ -19,7 +19,8 @@ void main() {
 
     await widgetTester.wrapAndPump(widget);
 
-    expect(find.text('How many bedrooms, bathrooms, car spaces?'), findsOneWidget);
+    expect(
+        find.text('How many bedrooms, bathrooms, car spaces?'), findsOneWidget);
     expect(find.text('Bedrooms'), findsOneWidget);
     expect(find.text('Bathrooms'), findsOneWidget);
     expect(find.text('Car spaces'), findsOneWidget);
@@ -196,16 +197,16 @@ void main() {
         findsOneWidget);
 
     await widgetTester.ensureVisible(find.descendant(
-        of: find
-            .byWidgetPredicate((widget) => findRowForLabel(widget, 'Car spaces')),
+        of: find.byWidgetPredicate(
+            (widget) => findRowForLabel(widget, 'Car spaces')),
         matching: find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(
                 widget, 'assets/images/increment.svg'))));
 
     // tap on increase button in widget row of Parkings
     await widgetTester.tap(find.descendant(
-        of: find
-            .byWidgetPredicate((widget) => findRowForLabel(widget, 'Car spaces')),
+        of: find.byWidgetPredicate(
+            (widget) => findRowForLabel(widget, 'Car spaces')),
         matching: find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(
                 widget, 'assets/images/increment.svg'))));
@@ -224,8 +225,8 @@ void main() {
 
     // tap on decrease button in widget row of Parkings
     await widgetTester.tap(find.descendant(
-        of: find
-            .byWidgetPredicate((widget) => findRowForLabel(widget, 'Car spaces')),
+        of: find.byWidgetPredicate(
+            (widget) => findRowForLabel(widget, 'Car spaces')),
         matching: find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(
                 widget, 'assets/images/decrement.svg'))));
