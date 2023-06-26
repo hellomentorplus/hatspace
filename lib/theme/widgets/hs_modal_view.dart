@@ -11,22 +11,22 @@ typedef GetItemString<T> = String Function(T item);
 
 class HsModalView<T> extends StatelessWidget {
   final String title;
-  final ValueNotifier currentValue;
   final GetItemString<T> getItemString;
   final List<T> itemList;
   final ValueChanged onSave;
+  final ValueNotifier<T> selection;
   final double? height;
   const HsModalView(
-      {required this.currentValue,
+      {required this.selection,
       required this.itemList,
-      required this.height,
       required this.title,
       required this.onSave,
       required this.getItemString,
+      this.height,
       super.key});
 
   Widget renderSelectedItemIcon(
-    dynamic selectedValue,
+    T selectedValue,
     int index,
   ) {
     if (selectedValue == itemList[index]) {
@@ -38,8 +38,10 @@ class HsModalView<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ValueNotifier<T> modalNotifier = ValueNotifier<T>(
+        selection.value); // only used for render check icon on modal
     return SizedBox(
-        height: height,
+        height: height ?? MediaQuery.of(context).size.height * 0.85,
         child: Padding(
             padding: const EdgeInsets.only(bottom: HsDimens.spacing40),
             child: Column(
@@ -89,7 +91,7 @@ class HsModalView<T> extends StatelessWidget {
                       itemBuilder: (_, index) {
                         return GestureDetector(
                             onTap: () {
-                              currentValue.value = itemList[index];
+                              modalNotifier.value = itemList[index];
                             },
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -100,7 +102,7 @@ class HsModalView<T> extends StatelessWidget {
                                   children: [
                                     Text(getItemString(itemList[index])),
                                     ValueListenableBuilder(
-                                        valueListenable: currentValue,
+                                        valueListenable: modalNotifier,
                                         builder: (_, value, context) {
                                           return renderSelectedItemIcon(
                                               value, index);
@@ -121,7 +123,7 @@ class HsModalView<T> extends StatelessWidget {
                       ),
                       label: HatSpaceStrings.of(context).save,
                       onPressed: () {
-                        onSave(currentValue.value);
+                        onSave(modalNotifier.value);
                       },
                     ))
               ],

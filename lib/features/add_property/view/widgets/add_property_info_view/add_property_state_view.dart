@@ -4,6 +4,7 @@ import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:hatspace/route/router.dart';
+import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_modal_selection_view.dart';
 
 class AddPropertyStateView extends StatelessWidget {
@@ -21,10 +22,13 @@ class AddPropertyStateView extends StatelessWidget {
           }
         },
         child: HsModalSelectionView<AustraliaStates>(
+            label: HatSpaceStrings.of(context).state,
+            isRequired: true,
             itemList: stateList,
             dislayName: (item) => item.displayName,
-            initialValue: initial,
-            onValueChanges: (value) =>
-                context.read<AddPropertyCubit>().saveProperty(value)));
+            selection: initial,
+            onValueChanges: (value) {
+              context.read<AddPropertyCubit>().saveProperty(value);
+            }));
   }
 }

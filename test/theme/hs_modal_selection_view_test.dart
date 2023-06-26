@@ -12,7 +12,7 @@ void main() {
     Widget rentView = HsModalSelectionView(
       itemList: AustraliaStates.values,
       dislayName: (item) => item.displayName,
-      initialValue: ValueNotifier<AustraliaStates>(AustraliaStates.invalid),
+      selection: ValueNotifier<AustraliaStates>(AustraliaStates.invalid),
       onValueChanges: (value) {},
     );
     await widgetTester.wrapAndPump(rentView);

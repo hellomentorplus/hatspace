@@ -4,6 +4,7 @@ import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:hatspace/route/router.dart';
+import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_modal_selection_view.dart';
 
 class MinimumRentPeriodView extends StatelessWidget {
@@ -21,9 +22,11 @@ class MinimumRentPeriodView extends StatelessWidget {
           }
         },
         child: HsModalSelectionView<MinimumRentPeriod>(
+            label: HatSpaceStrings.of(context).minimumRentPeriod,
+            isRequired: true,
             itemList: periodList,
             dislayName: (item) => item.displayName,
-            initialValue: initial,
+            selection: initial,
             onValueChanges: (value) =>
                 context.read<AddPropertyCubit>().saveRentPeriod(value)));
   }
