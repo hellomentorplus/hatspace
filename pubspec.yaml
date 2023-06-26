@@ -52,6 +52,7 @@ dependencies:
   table_calendar: ^3.0.8
   permission_handler: ^10.3.0
   device_info_plus: ^9.0.2
+  clock: ^1.1.1
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,6 @@
+import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
+import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/theme/hs_date_picker_theme.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -31,7 +33,7 @@ class HsDatePicker extends StatelessWidget {
               daysOfWeekHeight: 18.0,
               daysOfWeekStyle: hsDateOfWeekTheme,
               headerStyle: hsDatePickerHeaderTheme,
-              firstDay: DateTime.now(),
+              firstDay: HsSingleton.singleton.get<Clock>().now(),
               focusedDay: value,
               lastDay: DateTime(2050),
               startingDayOfWeek: StartingDayOfWeek.monday,
