@@ -99,7 +99,7 @@ class _AddBedroomCounter extends StatelessWidget {
           Text(
             text,
             style:
-            Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 14),
+                Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 14),
           ),
           ValueListenableBuilder<int>(
             builder: (BuildContext context, int value, Widget? child) {

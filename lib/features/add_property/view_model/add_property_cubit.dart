@@ -45,19 +45,18 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   /// Validate next button
   void validateNextButtonState(int pageNumber) {
     bool nextButtonEnable = false;
-    switch(pageNumber) {
+    switch (pageNumber) {
       case 0: // choose kind of place
         nextButtonEnable = true;
         break;
       case 1: // property info
         // TODO add validation logic for property info
-      nextButtonEnable = true;
+        nextButtonEnable = true;
         break;
       case 2:
         nextButtonEnable = _bedrooms + _bathrooms + _parking > 0;
-        print('nextButtonEnable $nextButtonEnable ==> ${_bedrooms + _bathrooms + _parking}');
         break;
-        // TODO add validation logic for other screens
+      // TODO add validation logic for other screens
     }
 
     emit(NextButtonEnable(state.pageViewNumber, nextButtonEnable));

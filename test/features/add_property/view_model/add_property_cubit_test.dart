@@ -20,10 +20,10 @@ void main() {
         (realInvocation) => Stream.value(const AddPropertyInitial()));
   });
   blocTest(
-    "Given when user press NEXT button when it's enable, then update new state",
+    "Given when user press NEXT button when it's enable, then update Page view navigation, and update next button validation",
     build: () => AddPropertyCubit(),
     act: (bloc) => {bloc.navigatePage(NavigatePage.forward, 2)},
-    expect: () => [isA<PageViewNavigationState>()],
+    expect: () => [isA<PageViewNavigationState>(), isA<NextButtonEnable>()],
   );
 
   blocTest(
@@ -42,14 +42,56 @@ void main() {
     ],
   );
 
-
   blocTest(
-    'Given when validate next button state true, then emit NextButton true',
+    'Given page is What kind of place, when validate next button, then emit NextButton true',
     build: () => AddPropertyCubit(),
     act: (bloc) {
       bloc.validateNextButtonState(0);
     },
     expect: () => [isA<NextButtonEnable>()],
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, true);
+      expect(nextButtonEnable.pageViewNumber, 0);
+    },
+  );
+
+  blocTest(
+    'given page is rooms info, and no room added, when validate next button, then emit NextButton false',
+    build: () => AddPropertyCubit(),
+    act: (bloc) => bloc.validateNextButtonState(2),
+    expect: () => [isA<NextButtonEnable>()],
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, false);
+      expect(nextButtonEnable.pageViewNumber, 0);
+    },
+  );
+
+  blocTest(
+    'given page is rooms info, and rooms are added, when validate next button, then emit NextButton false',
+    build: () => AddPropertyCubit(),
+    act: (bloc) {
+      // set rooms number
+      bloc.parking = 1;
+      bloc.bedrooms = 1;
+      bloc.validateNextButtonState(2);
+    },
+    expect: () => [isA<NextButtonEnable>()],
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, true);
+      expect(nextButtonEnable.pageViewNumber, 0);
+    },
   );
 
   test('test initial state', () {

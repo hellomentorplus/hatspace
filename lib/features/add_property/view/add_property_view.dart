@@ -20,7 +20,9 @@ class AddPropertyView extends StatelessWidget {
   Widget build(Object context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AddPropertyCubit>(create: (context) => AddPropertyCubit()..validateNextButtonState(0)),
+        BlocProvider<AddPropertyCubit>(
+            create: (context) =>
+                AddPropertyCubit()..validateNextButtonState(0)),
         BlocProvider<PropertyTypeCubit>(
             create: (context) => PropertyTypeCubit())
       ],
@@ -34,7 +36,11 @@ class AddPropertyPageBody extends StatelessWidget {
       PageController(initialPage: 0, keepPage: true);
   final ValueNotifier<int> onProgressIndicatorState = ValueNotifier(0);
   // Number of Pages for PageView
-  final List<Widget> pages = [const SelectPropertyType(), PropertyInforForm(), const AddRoomsView()];
+  final List<Widget> pages = [
+    const SelectPropertyType(),
+    PropertyInforForm(),
+    const AddRoomsView()
+  ];
   AddPropertyPageBody({super.key});
   @override
   Widget build(BuildContext context) {
