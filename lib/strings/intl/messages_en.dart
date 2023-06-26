@@ -95,7 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter unit number"),
         "explore": MessageLookupByLibrary.simpleMessage("Explore"),
         "facebookSignUp":
-            MessageLookupByLibrary.simpleMessage("Continue with Facebook")
+            MessageLookupByLibrary.simpleMessage("Continue with Facebook"),
         "fridge": MessageLookupByLibrary.simpleMessage("Fridge"),
         "googleSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Google"),

@@ -187,7 +187,7 @@ class $AssetsImagesGen {
   /// File path: assets/images/signIn_background.png
   AssetGenImage get signInBackground =>
       const AssetGenImage('assets/images/signIn_background.png');
-  
+
   /// File path: assets/images/upload_photo.svg
   String get uploadPhoto => 'assets/images/upload_photo.svg';
 
@@ -217,8 +217,8 @@ class $AssetsImagesGen {
         messages,
         profileCircle,
         searchNormal,
-        signInBackground
-        uploadPhoto
+        signInBackground,
+        uploadPhoto,
       ];
 }
 
