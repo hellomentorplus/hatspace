@@ -27,26 +27,20 @@
   "signinErrorToastMessage": "Unable to sign you in at the moment. Please try again later.",
   "signinErrorToastTitle":"Login Failed",
   "loadingMessage": "Loading...",
-
   "whatKindOfPlace": "What kind of place?",
   "chooseKindOfYourProperty": "Choose kind of your property",
   "availableDate": "Available date",
-
   "addBedroomViewInstructions": "How many bedrooms, bathrooms, car spaces?",
   "bedroomText": "Bedrooms",
   "bathroomText": "Bathrooms",
   "parkingText": "Car spaces",
-
   "back": "Back",
   "next": "Next",
-
   "booking":"Booking",
   "message":"Message",
   "profile":"Profile",
   "searchHint":"Search rental, location...",
-
   "rentPeriod":"{count, plural, zero{No rent period} one{1 Month} other { {count} Months }}",
-
   "australiaState": "{ausState, select, vic{Victoria} nsw{New South Wales} qld{Queenland} wa{Western Australia} sa{South Australia} tas{Tasmania} act{Australian Capital Territory} nt{Northern Territory} other{No State Available}}",
   "propertyName":"Property name",
   "enterPropertyName":"Enter property name",
@@ -87,5 +81,7 @@
   "securityCameras": "Security cameras",
   "kitchen": "Kitchen",
   "portableFans": "Portable Fans",
-  "askFeaturesOwned": "Which features your place has?"
+  "askFeaturesOwned": "Which features your place has?",
+  "house":"House",
+  "apartment":"Apartment"
 }

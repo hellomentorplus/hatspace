@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 
 enum NavigatePage { forward, reverse }
@@ -7,6 +8,25 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   AddPropertyCubit() : super(const AddPropertyInitial());
 
   /// Defines all value needed for a property
+  /// 1. Choose kind of place
+  PropertyTypes _type = PropertyTypes.house;
+  DateTime _availableDate = DateTime.now();
+
+  PropertyTypes get propertyType => _type;
+  set propertyType(PropertyTypes type) {
+    _type = type;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  DateTime get availableDate => _availableDate;
+  set availableDate(DateTime dateTime) {
+    _availableDate = dateTime;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  /// 2. Property info
+
+  /// 3. Rooms
   int _bedrooms = 0;
   int _bathrooms = 0;
   int _parking = 0;

@@ -3,23 +3,27 @@ import 'package:hatspace/theme/hs_date_picker_theme.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HsDatePicker extends StatelessWidget {
-  final ValueNotifier<DateTime> selectedDate;
-  final ValueChanged saveSelectDate;
-  const HsDatePicker(
-      {required this.selectedDate, required this.saveSelectDate, super.key});
+  final ValueChanged<DateTime> saveSelectDate;
+
+  late final ValueNotifier<DateTime> _selectedDateNotifier;
+
+  HsDatePicker(
+      {required DateTime selectedDate, required this.saveSelectDate, super.key})
+      : _selectedDateNotifier = ValueNotifier(selectedDate);
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable: selectedDate,
+        valueListenable: _selectedDateNotifier,
         builder: (BuildContext context, value, child) {
           return TableCalendar(
               // on event listner
               selectedDayPredicate: (day) {
-                return isSameDay(selectedDate.value, day);
+                return isSameDay(value, day);
               },
               onDaySelected: (selectedDay, focusedDay) {
-                if (!isSameDay(selectedDate.value, selectedDay)) {
-                  selectedDate.value = selectedDay;
+                if (!isSameDay(value, selectedDay)) {
+                  _selectedDateNotifier.value = selectedDay;
                   saveSelectDate(selectedDay);
                 }
               },
@@ -27,8 +31,8 @@ class HsDatePicker extends StatelessWidget {
               daysOfWeekHeight: 18.0,
               daysOfWeekStyle: hsDateOfWeekTheme,
               headerStyle: hsDatePickerHeaderTheme,
-              firstDay: DateTime(2010),
-              focusedDay: selectedDate.value,
+              firstDay: DateTime.now(),
+              focusedDay: value,
               lastDay: DateTime(2050),
               startingDayOfWeek: StartingDayOfWeek.monday,
               calendarFormat: CalendarFormat.month,
