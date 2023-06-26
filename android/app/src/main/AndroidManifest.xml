@@ -9,7 +9,7 @@
         <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
     </queries>
    <application
-        android:label="hatspace"
+        android:label="HATspace"
         android:name="${applicationName}"
          android:resizeableActivity="false"
         android:icon="@mipmap/ic_launcher">
