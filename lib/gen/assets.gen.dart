@@ -21,14 +21,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/booking.svg
   String get booking => 'assets/icons/booking.svg';
 
-  /// File path: assets/icons/envelope.svg
-  String get envelope => 'assets/icons/envelope.svg';
-
   /// File path: assets/icons/check.svg
   String get check => 'assets/icons/check.svg';
 
   /// File path: assets/icons/electric_stove.svg
   String get electricStove => 'assets/icons/electric_stove.svg';
+
+  /// File path: assets/icons/envelope.svg
+  String get envelope => 'assets/icons/envelope.svg';
 
   /// File path: assets/icons/explore.svg
   String get explore => 'assets/icons/explore.svg';
@@ -39,11 +39,11 @@ class $AssetsIconsGen {
   /// File path: assets/icons/filter.svg
   String get filter => 'assets/icons/filter.svg';
 
-  /// File path: assets/icons/google.svg
-  String get google => 'assets/icons/google.svg';
-
   /// File path: assets/icons/fridge.svg
   String get fridge => 'assets/icons/fridge.svg';
+
+  /// File path: assets/icons/google.svg
+  String get google => 'assets/icons/google.svg';
 
   /// File path: assets/icons/ic_agent.svg
   String get icAgent => 'assets/icons/ic_agent.svg';
@@ -86,14 +86,14 @@ class $AssetsIconsGen {
         add,
         airConditioners,
         booking,
-        envelope,
         check,
         electricStove,
+        envelope,
         explore,
         facebook,
         filter,
-        google,
         fridge,
+        google,
         icAgent,
         kitchen,
         message,
@@ -218,7 +218,7 @@ class $AssetsImagesGen {
         profileCircle,
         searchNormal,
         signInBackground,
-        uploadPhoto,
+        uploadPhoto
       ];
 }
 
