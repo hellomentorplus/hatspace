@@ -110,7 +110,7 @@ void main() {
   );
 
   blocTest(
-    'given page is Feature list, and features are added, when validate next button, then emit NextButton false',
+    'given page is Feature list, and features are added, when validate next button, then emit NextButton true',
     build: () => AddPropertyCubit(),
     act: (bloc) {
       // set rooms number
