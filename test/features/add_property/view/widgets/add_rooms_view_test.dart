@@ -14,10 +14,23 @@ import 'add_rooms_view_test.mocks.dart';
 void main() {
   final MockAddPropertyCubit addPropertyCubit = MockAddPropertyCubit();
 
+  setUp(() {
+    when(addPropertyCubit.state).thenAnswer((realInvocation) => const AddPropertyInitial());
+    when(addPropertyCubit.stream).thenAnswer((realInvocation) => const Stream.empty());
+
+    when(addPropertyCubit.parking).thenReturn(0);
+    when(addPropertyCubit.bathrooms).thenReturn(0);
+    when(addPropertyCubit.bedrooms).thenReturn(0);
+  });
+
+  tearDown(() {
+    reset(addPropertyCubit);
+  });
+
   testWidgets('verify UI components', (widgetTester) async {
     const Widget widget = AddPropertyRoomsView();
 
-    await widgetTester.wrapAndPump(widget);
+    await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, widget);
 
     expect(
         find.text('How many bedrooms, bathrooms, car spaces?'), findsOneWidget);

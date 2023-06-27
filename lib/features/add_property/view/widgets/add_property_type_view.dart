@@ -75,7 +75,7 @@ class _AddPropertyTypeViewState extends State<AddPropertyTypeView> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 15),
+                const SizedBox(width: HsDimens.spacing16),
                 Expanded(
                     child: ValueListenableBuilder<PropertyTypes>(
                   valueListenable: _propertyType,
@@ -143,9 +143,9 @@ class _PropertyTypeCardView extends StatelessWidget {
               side: BorderSide(
                   width: 1.5,
                   color: isSelected ? HSColor.onAccent : Colors.transparent),
-              borderRadius: const BorderRadius.all(Radius.circular(8))),
+              borderRadius: BorderRadius.circular(HsDimens.radius8)),
           child: InkWell(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(HsDimens.radius8),
             onTap: () => onSelected(type),
             child: Padding(
               padding: const EdgeInsets.symmetric(
@@ -159,7 +159,7 @@ class _PropertyTypeCardView extends StatelessWidget {
                     type.getIconPath(),
                   )),
                   const SizedBox(
-                    height: 16,
+                    height: HsDimens.spacing16,
                   ),
                   Expanded(
                       child: Text(type.displayName,
@@ -195,8 +195,8 @@ class _DatePickerView extends StatelessWidget {
                         bottom: HsDimens.spacing24,
                         left: HsDimens.spacing16,
                         right: HsDimens.spacing16),
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16))),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(HsDimens.radius16)),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         mainAxisSize: MainAxisSize.min,

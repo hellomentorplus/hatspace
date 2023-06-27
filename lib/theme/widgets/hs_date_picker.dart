@@ -4,7 +4,7 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/theme/hs_date_picker_theme.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class HsDatePicker extends StatelessWidget {
+class HsDatePicker extends StatefulWidget {
   final ValueChanged<DateTime> saveSelectDate;
 
   late final ValueNotifier<DateTime> _selectedDateNotifier;
@@ -14,19 +14,29 @@ class HsDatePicker extends StatelessWidget {
       : _selectedDateNotifier = ValueNotifier(selectedDate);
 
   @override
+  State<HsDatePicker> createState() => _HsDatePickerState();
+}
+
+class _HsDatePickerState extends State<HsDatePicker> {
+  @override
+  void dispose() {
+    widget._selectedDateNotifier.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable: _selectedDateNotifier,
+        valueListenable: widget._selectedDateNotifier,
         builder: (BuildContext context, value, child) {
           return TableCalendar(
-              // on event listner
+              // on event listener
               selectedDayPredicate: (day) {
                 return isSameDay(value, day);
               },
               onDaySelected: (selectedDay, focusedDay) {
                 if (!isSameDay(value, selectedDay)) {
-                  _selectedDateNotifier.value = selectedDay;
-                  saveSelectDate(selectedDay);
+                  widget._selectedDateNotifier.value = selectedDay;
+                  widget.saveSelectDate(selectedDay);
                 }
               },
               // Setup Dates title
