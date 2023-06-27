@@ -22,6 +22,10 @@ class AddPropertyRoomsViewState extends State<AddPropertyRoomsView> {
   void initState() {
     super.initState();
 
+    bedroomCounter.value = context.read<AddPropertyCubit>().bedrooms;
+    bathRoomCounter.value = context.read<AddPropertyCubit>().bathrooms;
+    parkingCounter.value = context.read<AddPropertyCubit>().parking;
+
     bedroomCounter.addListener(() {
       context.read<AddPropertyCubit>().bedrooms = bedroomCounter.value;
     });
