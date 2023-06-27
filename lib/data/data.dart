@@ -1,4 +1,5 @@
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/strings/l10n.dart';
 
 class UserDetail {
   final String uid;
@@ -33,6 +34,15 @@ enum PropertyTypes {
       default:
     }
     return 'No image path';
+  }
+
+  String get displayName {
+    switch (this) {
+      case PropertyTypes.house:
+        return HatSpaceStrings.current.house;
+      case PropertyTypes.apartment:
+        return HatSpaceStrings.current.apartment;
+    }
   }
 
   static PropertyTypes? fromName(String name) =>

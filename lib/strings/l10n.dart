@@ -835,6 +835,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `House`
+  String get house {
+    return Intl.message(
+      'House',
+      name: 'house',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Apartment`
+  String get apartment {
+    return Intl.message(
+      'Apartment',
+      name: 'apartment',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

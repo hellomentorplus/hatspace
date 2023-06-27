@@ -59,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Air conditioners"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
+        "apartment": MessageLookupByLibrary.simpleMessage("Apartment"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
         "askFeaturesOwned": MessageLookupByLibrary.simpleMessage(
             "Which features your place has?"),
@@ -100,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "googleSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with Google"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
+        "house": MessageLookupByLibrary.simpleMessage("House"),
         "houseNumberAndStreetName":
             MessageLookupByLibrary.simpleMessage("House number + Street name"),
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
