@@ -1,10 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
-
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
-
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -97,16 +95,39 @@ void main() {
   );
 
   blocTest(
-      'Given when user wants to select Australia state and save it, then emit SaveAustraliaState',
-      build: () => AddPropertyCubit(),
-      act: (bloc) => bloc.saveProperty(AustraliaStates.act),
-      expect: () => [isA<StartListenChanges>(), isA<OnSaveAustraliaState>()]);
+
+    'given page is Feature list, and no feature added, when validate next button, then emit NextButton false',
+    build: () => AddPropertyCubit(),
+    act: (bloc) => bloc.validateNextButtonState(3),
+    expect: () => [isA<NextButtonEnable>()],
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, false);
+      expect(nextButtonEnable.pageViewNumber, 0);
+    },
+  );
 
   blocTest(
-      'Given when user wants to select Minimum rent period and save it, then emit SaveMinimumRentPeriod',
-      build: () => AddPropertyCubit(),
-      act: (bloc) => bloc.saveRentPeriod(MinimumRentPeriod.nineMonths),
-      expect: () => [isA<StartListenChanges>(), isA<OnSaveRentPeriod>()]);
+    'given page is Feature list, and features are added, when validate next button, then emit NextButton true',
+    build: () => AddPropertyCubit(),
+    act: (bloc) {
+      // set rooms number
+      bloc.features = [Feature.securityCameras];
+      bloc.validateNextButtonState(3);
+    },
+    expect: () => [isA<NextButtonEnable>()],
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, true);
+      expect(nextButtonEnable.pageViewNumber, 0);
+    },
+  );
 
   test('test initial state', () {
     AddPropertyInitial addPropertyInitial = const AddPropertyInitial();
