@@ -14,6 +14,7 @@ void main() {
       dislayName: (item) => item.displayName,
       selection: ValueNotifier<AustraliaStates>(AustraliaStates.invalid),
       onValueChanges: (value) {},
+      label: 'State',
     );
     await widgetTester.wrapAndPump(rentView);
     await widgetTester.tap(find.byType(HatSpaceDropDownButton));

@@ -8,23 +8,20 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 typedef GetItemString<T> = String Function(T item);
-typedef GetItemValue<T> = T Function(T item);
 
 class HsModalView<T> extends StatelessWidget {
   final String title;
   final GetItemString<T> getItemString;
   final List<T> itemList;
   final ValueChanged onSave;
-  final double? height;
   late final ValueNotifier<T>
       modalNotifier; // only used for render check icon on modal
   HsModalView(
       {required T selection,
       required this.itemList,
-      required this.title,
       required this.onSave,
       required this.getItemString,
-      this.height,
+      required this.title,
       super.key})
       : modalNotifier = ValueNotifier(selection);
 
@@ -41,41 +38,33 @@ class HsModalView<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: height ?? MediaQuery.of(context).size.height * 0.85,
+    return FractionallySizedBox(
+        heightFactor: 0.85,
         child: Padding(
             padding: const EdgeInsets.only(bottom: HsDimens.spacing40),
             child: Column(
               children: [
                 Container(
-                  padding: const EdgeInsets.only(
-                      bottom: HsDimens.spacing8, top: HsDimens.spacing24),
-                  decoration: const BoxDecoration(
-                      border:
-                          Border(bottom: BorderSide(color: HSColor.neutral2))),
-                  child: Row(
-                    children: [
-                      const Expanded(child: SizedBox.shrink()),
-                      Expanded(
-                          child: Center(
-                        child: Text(
-                          title,
-                          style: textTheme.displayLarge
-                              ?.copyWith(fontSize: FontStyleGuide.fontSize16),
-                        ),
-                      )),
-                      Expanded(
-                          child: Align(
-                              alignment: Alignment.centerRight,
-                              child: IconButton(
-                                icon: SvgPicture.asset(Assets.images.closeIcon),
-                                onPressed: () {
-                                  context.pop();
-                                },
-                              )))
-                    ],
-                  ),
-                ),
+                    padding: const EdgeInsets.only(
+                        bottom: HsDimens.spacing8, top: HsDimens.spacing24),
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(color: HSColor.neutral2))),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Positioned(
+                            right: 24,
+                            child: IconButton(
+                              icon: SvgPicture.asset(Assets.images.closeIcon),
+                              onPressed: () => context.pop(),
+                            )),
+                        Center(
+                            child: Text((title),
+                                style: textTheme.displayLarge?.copyWith(
+                                    fontSize: FontStyleGuide.fontSize16)))
+                      ],
+                    )),
                 Flexible(
                     child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -90,7 +79,7 @@ class HsModalView<T> extends StatelessWidget {
                       },
                       itemCount: itemList.length,
                       itemBuilder: (_, index) {
-                        return GestureDetector(
+                        return InkWell(
                             onTap: () {
                               modalNotifier.value = itemList[index];
                             },
@@ -98,10 +87,16 @@ class HsModalView<T> extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     vertical: HsDimens.spacing16),
                                 child: Row(
+                                  mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(getItemString(itemList[index])),
+                                    Expanded(
+                                        child: Text(
+                                            getItemString(itemList[index]),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis)),
+                                    const SizedBox(width: 10),
                                     ValueListenableBuilder(
                                         valueListenable: modalNotifier,
                                         builder: (_, value, context) {
@@ -115,13 +110,7 @@ class HsModalView<T> extends StatelessWidget {
                 Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: HsDimens.spacing24),
-                    child: TertiaryButton(
-                      style: const ButtonStyle(
-                        foregroundColor:
-                            MaterialStatePropertyAll<Color>(HSColor.background),
-                        backgroundColor:
-                            MaterialStatePropertyAll<Color>(HSColor.green06),
-                      ),
+                    child: PrimaryButton(
                       label: HatSpaceStrings.of(context).save,
                       onPressed: () {
                         onSave(modalNotifier.value);
