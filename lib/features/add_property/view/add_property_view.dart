@@ -5,10 +5,9 @@ import 'package:hatspace/features/add_property/view/widgets/add_property_feature
 import 'package:hatspace/features/add_property/view/widgets/add_property_images_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/property_info_form.dart';
-import 'package:hatspace/features/add_property/view/widgets/add_property_type_view/select_property_type.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_type_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
-import 'package:hatspace/features/add_property/view_model/add_property_type_view_model/property_type_cubit.dart';
 
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
@@ -27,9 +26,6 @@ class AddPropertyView extends StatelessWidget {
         BlocProvider<AddPropertyCubit>(
             create: (context) =>
                 AddPropertyCubit()..validateNextButtonState(0)),
-        BlocProvider<PropertyTypeCubit>(
-            create: (context) => PropertyTypeCubit()),
-
       ],
       child: AddPropertyPageBody(),
     );
