@@ -4,13 +4,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:intl/intl.dart';
-import 'package:hatspace/data/data.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
+import 'package:hatspace/data/property_data.dart';
 
 class AddPropertyTypeView extends StatefulWidget {
   const AddPropertyTypeView({super.key});
