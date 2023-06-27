@@ -32,11 +32,32 @@ class PropKeys {
 
 enum PropertyTypes {
   house,
-  apartment,
-  invalid;
+  apartment;
 
-  static PropertyTypes fromName(String name) => values
-      .firstWhere((element) => element.name == name, orElse: () => invalid);
+  const PropertyTypes();
+
+  String getIconPath() {
+    switch (this) {
+      case house:
+        return Assets.images.house;
+      case apartment:
+        return Assets.images.apartment;
+      default:
+    }
+    return 'No image path';
+  }
+
+  String get displayName {
+    switch (this) {
+      case PropertyTypes.house:
+        return HatSpaceStrings.current.house;
+      case PropertyTypes.apartment:
+        return HatSpaceStrings.current.apartment;
+    }
+  }
+
+  static PropertyTypes fromName(String name) =>
+      values.firstWhere((element) => element.name == name, orElse: () => PropertyTypes.house,);
 }
 
 enum AustraliaStates {

@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
+import 'package:hatspace/data/property_data.dart';
 
 enum NavigatePage { forward, reverse }
 
@@ -50,6 +50,14 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     validateNextButtonState(state.pageViewNumber);
   }
 
+  /// 4. Features
+  List<Feature> _features = [];
+  List<Feature> get features => _features;
+  set features(List<Feature> list) {
+    _features = list;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
   /// navigate to next page
   void navigatePage(NavigatePage navType, int totalPages) {
     if (navType == NavigatePage.forward &&
@@ -73,8 +81,11 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
         // TODO add validation logic for property info
         nextButtonEnable = true;
         break;
-      case 2:
+      case 2: // rooms
         nextButtonEnable = _bedrooms + _bathrooms + _parking > 0;
+        break;
+      case 3: // features
+      nextButtonEnable = _features.isNotEmpty;
         break;
       // TODO add validation logic for other screens
     }

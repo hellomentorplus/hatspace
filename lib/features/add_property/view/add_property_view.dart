@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_features_view.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_images_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
@@ -36,7 +38,9 @@ class AddPropertyPageBody extends StatelessWidget {
   final List<Widget> pages = [
     const AddPropertyTypeView(),
     PropertyInforForm(),
-    const AddPropertyRoomsView()
+    const AddPropertyRoomsView(),
+    const AddPropertyFeaturesView(),
+    const AddPropertyImagesView()
   ];
   AddPropertyPageBody({super.key});
   @override

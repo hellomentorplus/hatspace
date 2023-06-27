@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -17,6 +19,15 @@ class AddPropertyFeaturesView extends StatefulWidget {
 class _AddPropertyFeaturesViewState extends State<AddPropertyFeaturesView> {
   final ValueNotifier<List<Feature>> selectedFeatures =
       ValueNotifier<List<Feature>>([]);
+
+  @override
+  void initState() {
+    super.initState();
+
+    selectedFeatures.addListener(() {
+      context.read<AddPropertyCubit>().features = selectedFeatures.value;
+    });
+  }
 
   @override
   void dispose() {
