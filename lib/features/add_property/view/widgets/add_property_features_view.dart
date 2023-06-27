@@ -24,6 +24,8 @@ class _AddPropertyFeaturesViewState extends State<AddPropertyFeaturesView> {
   void initState() {
     super.initState();
 
+    selectedFeatures.value = context.read<AddPropertyCubit>().features;
+
     selectedFeatures.addListener(() {
       context.read<AddPropertyCubit>().features = selectedFeatures.value;
     });
