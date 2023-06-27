@@ -52,14 +52,14 @@ class _AddPropertyTypeViewState extends State<AddPropertyTypeView> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Flexible(
-              child: Text(HatSpaceStrings.of(context).whatKindOfPlace,
+              child: Text(HatSpaceStrings.current.whatKindOfPlace,
                   style: Theme.of(context).textTheme.displayLarge),
             ),
             Flexible(
                 child: Padding(
                     padding: const EdgeInsets.only(top: HsDimens.spacing16),
                     child: Text(
-                        HatSpaceStrings.of(context).chooseKindOfYourProperty,
+                        HatSpaceStrings.current.chooseKindOfYourProperty,
                         style: Theme.of(context).textTheme.bodyMedium))),
 
             Row(
@@ -91,7 +91,7 @@ class _AddPropertyTypeViewState extends State<AddPropertyTypeView> {
               child: Padding(
                   padding: const EdgeInsets.only(
                       top: HsDimens.spacing20, bottom: HsDimens.spacing4),
-                  child: Text(HatSpaceStrings.of(context).availableDate,
+                  child: Text(HatSpaceStrings.current.availableDate,
                       style: Theme.of(context).textTheme.bodyMedium)),
             ),
             // Show DatePicker Widget;
