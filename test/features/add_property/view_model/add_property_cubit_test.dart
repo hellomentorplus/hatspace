@@ -95,7 +95,6 @@ void main() {
   );
 
   blocTest(
-
     'given page is Feature list, and no feature added, when validate next button, then emit NextButton false',
     build: () => AddPropertyCubit(),
     act: (bloc) => bloc.validateNextButtonState(3),
