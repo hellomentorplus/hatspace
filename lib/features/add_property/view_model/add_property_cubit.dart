@@ -85,7 +85,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
         nextButtonEnable = _bedrooms + _bathrooms + _parking > 0;
         break;
       case 3: // features
-      nextButtonEnable = _features.isNotEmpty;
+        nextButtonEnable = _features.isNotEmpty;
         break;
       // TODO add validation logic for other screens
     }

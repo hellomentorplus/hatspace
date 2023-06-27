@@ -17,8 +17,9 @@ void main() {
   final MockAddPropertyCubit addPropertyCubit = MockAddPropertyCubit();
 
   setUp(() {
-    when(addPropertyCubit.stream).thenAnswer((realInvocation) => Stream.empty());
-    when(addPropertyCubit.state).thenReturn(AddPropertyInitial());
+    when(addPropertyCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+    when(addPropertyCubit.state).thenReturn(const AddPropertyInitial());
 
     when(addPropertyCubit.features).thenReturn([]);
   });

@@ -56,8 +56,10 @@ enum PropertyTypes {
     }
   }
 
-  static PropertyTypes fromName(String name) =>
-      values.firstWhere((element) => element.name == name, orElse: () => PropertyTypes.house,);
+  static PropertyTypes fromName(String name) => values.firstWhere(
+        (element) => element.name == name,
+        orElse: () => PropertyTypes.house,
+      );
 }
 
 enum AustraliaStates {
