@@ -23,6 +23,7 @@ class _HsDatePickerState extends State<HsDatePicker> {
     widget._selectedDateNotifier.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
