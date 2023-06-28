@@ -54,7 +54,7 @@ class HsModalView<T> extends StatelessWidget {
                       alignment: Alignment.center,
                       children: [
                         Positioned(
-                            right: 24,
+                            right: HsDimens.spacing24,
                             child: IconButton(
                               icon: SvgPicture.asset(Assets.images.closeIcon),
                               onPressed: () => context.pop(),
@@ -96,7 +96,7 @@ class HsModalView<T> extends StatelessWidget {
                                             getItemString(itemList[index]),
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis)),
-                                    const SizedBox(width: 10),
+                                    const SizedBox(width: HsDimens.spacing12),
                                     ValueListenableBuilder(
                                         valueListenable: modalNotifier,
                                         builder: (_, value, context) {
