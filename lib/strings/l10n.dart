@@ -415,14 +415,14 @@ class HatSpaceStrings {
     );
   }
 
-  /// `{ausState, select, vic{Victoria} nsw{New South Wales} qld{Queenland} wa{Western Australia} sa{South Australia} tas{Tasmania} act{Australian Capital Territory} nt{Northern Territory} other{No State Available}}`
+  /// `{ausState, select, vic{Victoria} nsw{New South Wales} qld{Queensland} wa{Western Australia} sa{South Australia} tas{Tasmania} act{Australian Capital Territory} nt{Northern Territory} other{No State Available}}`
   String australiaState(Object ausState) {
     return Intl.select(
       ausState,
       {
         'vic': 'Victoria',
         'nsw': 'New South Wales',
-        'qld': 'Queenland',
+        'qld': 'Queensland',
         'wa': 'Western Australia',
         'sa': 'South Australia',
         'tas': 'Tasmania',
