@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/gen/assets.gen.dart';
-import 'package:hatspace/strings/l10n.dart';
+
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 
 extension HsBottomSheet on BuildContext {
-  showLoginModal(
-      {required VoidCallback primaryOnPressed,
-      required VoidCallback secondaryOnPressed}) {
+  showHsBottomSheet(HsWarningBottomSheetView hsWarningBottomSheetView) {
     return showModalBottomSheet(
         useSafeArea: true,
         isScrollControlled: false,
@@ -19,19 +16,8 @@ extension HsBottomSheet on BuildContext {
         context: this,
         builder: (_) {
           return SingleChildScrollView(
-              child: HsWarningBottomSheetView(
-            iconUrl: Assets.images.loginCircle,
-            title: HatSpaceStrings.current.login,
-            description: HatSpaceStrings.current.loginDescription,
-            primaryButtonLabel: HatSpaceStrings.current.yesLoginNow,
-            primaryOnPressed: primaryOnPressed,
-            secondaryButtonLabel: HatSpaceStrings.current.noLater,
-            secondaryOnPressed: secondaryOnPressed,
-          ));
+              child: hsWarningBottomSheetView
+          );
         });
-  }
-
-  void dismissLoading() {
-    Navigator.of(this, rootNavigator: true).pop();
   }
 }
