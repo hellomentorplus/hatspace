@@ -54,10 +54,15 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
-            "How many bedrooms, bathrooms, parking?"),
+            "How many bedrooms, bathrooms, car spaces?"),
+        "airConditioners":
+            MessageLookupByLibrary.simpleMessage("Air conditioners"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
+        "apartment": MessageLookupByLibrary.simpleMessage("Apartment"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
+        "askFeaturesOwned": MessageLookupByLibrary.simpleMessage(
+            "Which features your place has?"),
         "australiaState": m0,
         "availableDate": MessageLookupByLibrary.simpleMessage("Available date"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
@@ -73,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "You can be tenant or homeowner, OR you can be both."),
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
         "emailSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with email"),
         "enterPropertyName":
@@ -91,13 +97,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "explore": MessageLookupByLibrary.simpleMessage("Explore"),
         "facebookSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
+        "fridge": MessageLookupByLibrary.simpleMessage("Fridge"),
         "googleSignUp":
             MessageLookupByLibrary.simpleMessage("Sign up with Google"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
+        "house": MessageLookupByLibrary.simpleMessage("House"),
         "houseNumberAndStreetName":
             MessageLookupByLibrary.simpleMessage("House number + Street name"),
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
         "information": MessageLookupByLibrary.simpleMessage("Information"),
+        "kitchen": MessageLookupByLibrary.simpleMessage("Kitchen"),
+        "letAddSomePhotosOfYourPlace": MessageLookupByLibrary.simpleMessage(
+            "Let\'s add some photos of your place"),
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
@@ -110,7 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noLater": MessageLookupByLibrary.simpleMessage("No, later"),
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
-        "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
+        "parkingText": MessageLookupByLibrary.simpleMessage("Car spaces"),
         "pleaseEnterYourPlaceholder": MessageLookupByLibrary.simpleMessage(
             "Please Enter Your Placeholder"),
         "pleaseSelectRentPeriod":
@@ -119,14 +130,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please select value"),
         "pleaseSelectYourState":
             MessageLookupByLibrary.simpleMessage("Pleas select your state"),
+        "portableFans": MessageLookupByLibrary.simpleMessage("Portable Fans"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
         "rentPeriod": m1,
+        "requireAtLeast4Photos":
+            MessageLookupByLibrary.simpleMessage("Require at least 4 photos *"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "searchHint":
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
+        "securityCameras":
+            MessageLookupByLibrary.simpleMessage("Security cameras"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signinErrorToastMessage": MessageLookupByLibrary.simpleMessage(
             "Unable to sign you in at the moment. Please try again later."),
@@ -136,15 +152,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
         "suburb": MessageLookupByLibrary.simpleMessage("Suburb"),
+        "swimmingPool": MessageLookupByLibrary.simpleMessage("Swimming pool"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
+        "tv": MessageLookupByLibrary.simpleMessage("TV"),
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
         "userRoleDescription": m2,
         "userTitleRoles": m3,
+        "washingMachine":
+            MessageLookupByLibrary.simpleMessage("Washing machine"),
         "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
         "welcomeName": m4,
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
+
         "yesLoginNow": MessageLookupByLibrary.simpleMessage("Yes, login now"),
+
+        "wifi": MessageLookupByLibrary.simpleMessage("Wifi"),
+
         "yourAddress": MessageLookupByLibrary.simpleMessage("Your address")
       };
 }
