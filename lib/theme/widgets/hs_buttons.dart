@@ -286,11 +286,11 @@ class RoundButton extends StatelessWidget {
   }
 }
 
-class HatSpaceDropDownButton extends StatelessWidget {
+class HsDropDownButton extends StatelessWidget {
   final String? value;
   final VoidCallback onPressed;
   final String? icon;
-  const HatSpaceDropDownButton(
+  const HsDropDownButton(
       {required this.onPressed,
       super.key,
       bool? isRequired,

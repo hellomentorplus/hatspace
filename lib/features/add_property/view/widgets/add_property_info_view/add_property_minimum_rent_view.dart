@@ -22,7 +22,7 @@ class AddPropertyMinimumRentView extends StatelessWidget {
           }
         },
         child: HsModalSelectionView<MinimumRentPeriod>(
-            label: HatSpaceStrings.of(context).minimumRentPeriod,
+            label: HatSpaceStrings.current.minimumRentPeriod,
             isRequired: true,
             itemList: periodList,
             dislayName: (item) => item.displayName,

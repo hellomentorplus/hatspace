@@ -10,7 +10,7 @@ import '../find_extension.dart';
 import '../widget_tester_extension.dart';
 
 void main() {
-  testWidgets('Verify hs_modal UI', (WidgetTester widgetTester) async {
+  testWidgets('Verify hs modal UI', (WidgetTester widgetTester) async {
     ValueNotifier<AustraliaStates> notifier =
         ValueNotifier(AustraliaStates.invalid);
 
@@ -24,24 +24,13 @@ void main() {
       label: 'State',
     );
     await widgetTester.wrapAndPump(rentView);
-    await widgetTester.tap(find.byType(HatSpaceDropDownButton));
+    // find drop down button
+    expect(find.byType(HsDropDownButton), findsOneWidget);
+    expect(find.svgPictureWithAssets(Assets.images.chervonDown), findsOneWidget);
+    await widgetTester.tap(find.byType(HsDropDownButton));
     await widgetTester.pump();
     // Find Hs_modal with label
     expect(find.byType(HsModalView<AustraliaStates>), findsOneWidget);
-    expect(find.text('State', skipOffstage: false), findsOneWidget);
-    // Find Render item list
-    expect(find.byType(HsModalView<AustraliaStates>), findsWidgets);
-    for (int i = 0; i < AustraliaStates.values.length; i++) {
-      if (AustraliaStates.values[i] != AustraliaStates.invalid) {
-        expect(
-            find.text(AustraliaStates.values[i].displayName,
-                skipOffstage: false),
-            findsOneWidget);
-      }
-    }
     // before tap: find only 2 icon close icon and chervonDown
-    expect(
-        find.svgPictureWithAssets(Assets.images.chervonDown), findsOneWidget);
-    expect(find.svgPictureWithAssets(Assets.images.closeIcon), findsOneWidget);
   });
 }

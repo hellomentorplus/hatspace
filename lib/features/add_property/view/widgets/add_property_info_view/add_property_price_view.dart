@@ -12,7 +12,7 @@ class AddPropertyPriceView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HatSpaceLabel(
+        HsLabel(
             label: HatSpaceStrings.of(context).price, isRequired: true),
         const SizedBox(height: HsDimens.spacing4),
         TextFormField(

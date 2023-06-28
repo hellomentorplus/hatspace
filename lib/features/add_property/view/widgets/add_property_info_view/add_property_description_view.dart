@@ -13,7 +13,7 @@ class AddPropertyDescriptionView extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            HatSpaceLabel(
+            HsLabel(
                 label: HatSpaceStrings.of(context).description,
                 isRequired: false),
             // TODO: Implement Bloc State

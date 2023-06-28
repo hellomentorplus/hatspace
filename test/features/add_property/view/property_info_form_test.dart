@@ -33,7 +33,7 @@ void main() {
         addressHeader.style, textTheme.displayLarge?.copyWith(fontSize: 18.0));
   });
 
-  group('Select State Interaciton', () {
+  group('Select State and Minimum rent period interaciton', () {
     setUp(() {
       when(addPropertyCubit.stream).thenAnswer(
           (realInvocation) => Stream.value(const AddPropertyInitial()));
@@ -48,7 +48,7 @@ void main() {
       reset(addPropertyCubit);
     });
     testWidgets(
-        'Given when user tap on select state button, then show the  HsModalView with AustraliaState',
+        'Given when user taps on select state button, then shows the HsModalView with AustraliaState',
         (WidgetTester widgetTester) async {
       Widget addPropertyStateView = AddPropertyStateView();
       await widgetTester.blocWrapAndPump<AddPropertyCubit>(
@@ -57,7 +57,7 @@ void main() {
           find.byType(HsModalSelectionView<AustraliaStates>), findsOneWidget);
 
       // on tap value to display HsModalView
-      await widgetTester.tap(find.byType(HatSpaceDropDownButton));
+      await widgetTester.tap(find.byType(HsDropDownButton));
       await widgetTester.pump();
       expect(find.byType(HsModalView<AustraliaStates>), findsOneWidget);
       // Expect to show all states name
@@ -71,7 +71,7 @@ void main() {
       }
     });
     testWidgets(
-        'Given when user tap on select minimum button, then show the  HsModalView with Minimum Rent Period',
+        'Given when user taps on select minimum button, then shows the HsModalView with Minimum Rent Period',
         (WidgetTester widgetTester) async {
       Widget minimumRentPeriod = AddPropertyMinimumRentView();
       await widgetTester.blocWrapAndPump<AddPropertyCubit>(
@@ -80,7 +80,7 @@ void main() {
           find.byType(HsModalSelectionView<MinimumRentPeriod>), findsOneWidget);
 
       // on tap value to display HsModalView
-      await widgetTester.tap(find.byType(HatSpaceDropDownButton));
+      await widgetTester.tap(find.byType(HsDropDownButton));
       await widgetTester.pump();
       expect(find.byType(HsModalView<MinimumRentPeriod>), findsOneWidget);
       // Expect to show all states name

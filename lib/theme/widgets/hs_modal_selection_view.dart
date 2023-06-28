@@ -22,11 +22,11 @@ class HsModalSelectionView<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      HatSpaceLabel(label: label, isRequired: isRequired ?? false),
+      HsLabel(label: label, isRequired: isRequired ?? false),
       ValueListenableBuilder(
           valueListenable: selection,
           builder: (_, value, child) {
-            return HatSpaceDropDownButton(
+            return HsDropDownButton(
                 icon: Assets.images.chervonDown,
                 isRequired: true,
                 value: dislayName(value),
