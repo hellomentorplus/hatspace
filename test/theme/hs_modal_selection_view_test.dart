@@ -28,8 +28,7 @@ void main() {
     await widgetTester.pump();
     // Find Hs_modal with label
     expect(find.byType(HsModalView<AustraliaStates>), findsOneWidget);
-    expect(find.text('State', skipOffstage: false),
-        findsOneWidget);
+    expect(find.text('State', skipOffstage: false), findsOneWidget);
     // Find Render item list
     expect(find.byType(HsModalView<AustraliaStates>), findsWidgets);
     for (int i = 0; i < AustraliaStates.values.length; i++) {
@@ -44,7 +43,5 @@ void main() {
     expect(
         find.svgPictureWithAssets(Assets.images.chervonDown), findsOneWidget);
     expect(find.svgPictureWithAssets(Assets.images.closeIcon), findsOneWidget);
-
-
   });
 }
