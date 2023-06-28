@@ -32,6 +32,5 @@ void main() {
     await widgetTester.pump();
     // Find Hs_modal with label
     expect(find.byType(HsModalView<AustraliaStates>), findsOneWidget);
-    // before tap: find only 2 icon close icon and chervonDown
   });
 }
