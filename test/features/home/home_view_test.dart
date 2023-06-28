@@ -118,12 +118,15 @@ void main() {
         await widgetTester.pump();
         expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
         // verify all ui component of login modal
-                expect(find.widgetWithText(PrimaryButton, 'Yes'), findsOneWidget);
-        expect(find.widgetWithText(SecondaryButton, 'No, later'), findsOneWidget);
+        expect(find.widgetWithText(PrimaryButton, 'Yes'), findsOneWidget);
+        expect(
+            find.widgetWithText(SecondaryButton, 'No, later'), findsOneWidget);
 
-        expect(find.svgPictureWithAssets(Assets.images.loginCircle), findsOneWidget);
+        expect(find.svgPictureWithAssets(Assets.images.loginCircle),
+            findsOneWidget);
         expect(find.text('Login'), findsOneWidget);
-        expect(find.text('You need to be logged in to view this content'), findsOneWidget);
+        expect(find.text('You need to be logged in to view this content'),
+            findsOneWidget);
 
         // verify tap out to close
         await widgetTester.tapAt(const Offset(20.0, 20.0));

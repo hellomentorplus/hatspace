@@ -15,9 +15,7 @@ extension HsBottomSheet on BuildContext {
         ),
         context: this,
         builder: (_) {
-          return SingleChildScrollView(
-              child: hsWarningBottomSheetView
-          );
+          return SingleChildScrollView(child: hsWarningBottomSheetView);
         });
   }
 }
