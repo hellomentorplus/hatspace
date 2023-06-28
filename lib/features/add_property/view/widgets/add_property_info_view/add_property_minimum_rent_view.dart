@@ -7,8 +7,8 @@ import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_modal_selection_view.dart';
 
-class MinimumRentPeriodView extends StatelessWidget {
-  MinimumRentPeriodView({super.key});
+class AddPropertyMinimumRentView extends StatelessWidget {
+  AddPropertyMinimumRentView({super.key});
   final ValueNotifier<MinimumRentPeriod> initial =
       ValueNotifier<MinimumRentPeriod>(MinimumRentPeriod.invalid);
   final List<MinimumRentPeriod> periodList = MinimumRentPeriod.values.toList();

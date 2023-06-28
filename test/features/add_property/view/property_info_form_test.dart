@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_state_view.dart';
-import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/minimum_rent_period_view.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_minimum_rent_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/property_info_form.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
@@ -73,7 +73,7 @@ void main() {
     testWidgets(
         'Given when user tap on select minimum button, then show the  HsModalView with Minimum Rent Period',
         (WidgetTester widgetTester) async {
-      Widget minimumRentPeriod = MinimumRentPeriodView();
+      Widget minimumRentPeriod = AddPropertyMinimumRentView();
       await widgetTester.blocWrapAndPump<AddPropertyCubit>(
           addPropertyCubit, minimumRentPeriod);
       expect(

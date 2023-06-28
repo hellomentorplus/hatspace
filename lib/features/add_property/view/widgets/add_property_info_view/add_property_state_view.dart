@@ -22,7 +22,7 @@ class AddPropertyStateView extends StatelessWidget {
           }
         },
         child: HsModalSelectionView<AustraliaStates>(
-            label: HatSpaceStrings.of(context).state,
+            label: HatSpaceStrings.current.state,
             isRequired: true,
             itemList: stateList,
             dislayName: (item) => item.displayName,
