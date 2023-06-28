@@ -686,11 +686,11 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Yes, login now`
-  String get yesLoginNow {
+  /// `Yes`
+  String get yes {
     return Intl.message(
-      'Yes, login now',
-      name: 'yesLoginNow',
+      'Yes',
+      name: 'yes',
       desc: '',
       args: [],
     );

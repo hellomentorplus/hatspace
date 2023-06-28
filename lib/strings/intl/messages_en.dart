@@ -164,11 +164,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "welcomeName": m4,
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
-
-        "yesLoginNow": MessageLookupByLibrary.simpleMessage("Yes, login now"),
-
         "wifi": MessageLookupByLibrary.simpleMessage("Wifi"),
-
+        "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "yourAddress": MessageLookupByLibrary.simpleMessage("Your address")
       };
 }
