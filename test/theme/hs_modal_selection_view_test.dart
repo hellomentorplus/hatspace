@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/gen/assets.gen.dart';
-import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_modal_selection_view.dart';
 import 'package:hatspace/theme/widgets/hs_modal_view.dart';
@@ -12,7 +11,6 @@ import '../widget_tester_extension.dart';
 
 void main() {
   testWidgets('Verify hs_modal UI', (WidgetTester widgetTester) async {
-    await HatSpaceStrings.load(const Locale.fromSubtags(languageCode: 'en'));
     ValueNotifier<AustraliaStates> notifier =
         ValueNotifier(AustraliaStates.invalid);
 
@@ -23,14 +21,14 @@ void main() {
       onValueChanges: (selectedState) {
         notifier.value = selectedState;
       },
-      label: HatSpaceStrings.current.state,
+      label: 'State',
     );
     await widgetTester.wrapAndPump(rentView);
     await widgetTester.tap(find.byType(HatSpaceDropDownButton));
     await widgetTester.pump();
     // Find Hs_modal with label
     expect(find.byType(HsModalView<AustraliaStates>), findsOneWidget);
-    expect(find.text(HatSpaceStrings.current.state, skipOffstage: false),
+    expect(find.text('State', skipOffstage: false),
         findsOneWidget);
     // Find Render item list
     expect(find.byType(HsModalView<AustraliaStates>), findsWidgets);
@@ -46,5 +44,7 @@ void main() {
     expect(
         find.svgPictureWithAssets(Assets.images.chervonDown), findsOneWidget);
     expect(find.svgPictureWithAssets(Assets.images.closeIcon), findsOneWidget);
+
+
   });
 }
