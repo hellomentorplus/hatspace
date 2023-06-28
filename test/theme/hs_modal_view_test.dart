@@ -30,7 +30,8 @@ void main() {
     Positioned positioned = widgetTester.widget(find.byType(Positioned));
     expect(positioned.right, HsDimens.spacing24);
     // verify interaction on nsw tap
-    await widgetTester.tap(find.text(AustraliaStates.nsw.displayName, skipOffstage: false));
+    await widgetTester
+        .tap(find.text(AustraliaStates.nsw.displayName, skipOffstage: false));
     await widgetTester.pumpAndSettle();
     expect(modalView.modalNotifier.value, AustraliaStates.nsw);
     expect(find.svgPictureWithAssets(Assets.images.check), findsOneWidget);

@@ -111,7 +111,7 @@ class HsModalView<T> extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: HsDimens.spacing24),
                     child: PrimaryButton(
-                      label: HatSpaceStrings.of(context).save,
+                      label: HatSpaceStrings.current.save,
                       onPressed: () {
                         onSave(modalNotifier.value);
                       },
