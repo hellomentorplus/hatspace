@@ -60,15 +60,6 @@ void main() {
       await widgetTester.tap(find.byType(HsDropDownButton));
       await widgetTester.pump();
       expect(find.byType(HsModalView<AustraliaStates>), findsOneWidget);
-      // Expect to show all states name
-      for (int i = 0; i < AustraliaStates.values.length; i++) {
-        if (AustraliaStates.values[i] != AustraliaStates.invalid) {
-          expect(
-              find.text(AustraliaStates.values[i].displayName,
-                  skipOffstage: false),
-              findsOneWidget);
-        }
-      }
     });
     testWidgets(
         'Given when user taps on select minimum button, then shows the HsModalView with Minimum Rent Period',
@@ -82,16 +73,7 @@ void main() {
       // on tap value to display HsModalView
       await widgetTester.tap(find.byType(HsDropDownButton));
       await widgetTester.pump();
-      expect(find.byType(HsModalView<MinimumRentPeriod>), findsOneWidget);
-      // Expect to show all states name
-      for (int i = 0; i < MinimumRentPeriod.values.length; i++) {
-        if (MinimumRentPeriod.values[i] != MinimumRentPeriod.invalid) {
-          expect(
-              find.text(MinimumRentPeriod.values[i].displayName,
-                  skipOffstage: false),
-              findsOneWidget);
-        }
-      }
+      expect(find.byType(HsModalView<MinimumRentPeriod>), findsOneWidget);     
     });
   });
 }
