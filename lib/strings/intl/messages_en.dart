@@ -122,6 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noLater": MessageLookupByLibrary.simpleMessage("No, later"),
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Car spaces"),
+        "parkingText": MessageLookupByLibrary.simpleMessage("Car spaces"),
         "pleaseEnterYourPlaceholder": MessageLookupByLibrary.simpleMessage(
             "Please Enter Your Placeholder"),
         "pleaseSelectRentPeriod":
@@ -131,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseSelectYourState":
             MessageLookupByLibrary.simpleMessage("Pleas select your state"),
         "portableFans": MessageLookupByLibrary.simpleMessage("Portable Fans"),
+        "portableFans": MessageLookupByLibrary.simpleMessage("Portable Fans"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
@@ -138,9 +140,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "rentPeriod": m1,
         "requireAtLeast4Photos":
             MessageLookupByLibrary.simpleMessage("Require at least 4 photos *"),
+        "requireAtLeast4Photos":
+            MessageLookupByLibrary.simpleMessage("Require at least 4 photos *"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "searchHint":
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
+        "securityCameras":
+            MessageLookupByLibrary.simpleMessage("Security cameras"),
         "securityCameras":
             MessageLookupByLibrary.simpleMessage("Security cameras"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
@@ -153,11 +159,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
         "suburb": MessageLookupByLibrary.simpleMessage("Suburb"),
         "swimmingPool": MessageLookupByLibrary.simpleMessage("Swimming pool"),
+        "swimmingPool": MessageLookupByLibrary.simpleMessage("Swimming pool"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
+        "tv": MessageLookupByLibrary.simpleMessage("TV"),
         "tv": MessageLookupByLibrary.simpleMessage("TV"),
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
         "userRoleDescription": m2,
         "userTitleRoles": m3,
+        "washingMachine":
+            MessageLookupByLibrary.simpleMessage("Washing machine"),
         "washingMachine":
             MessageLookupByLibrary.simpleMessage("Washing machine"),
         "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
