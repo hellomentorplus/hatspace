@@ -4,7 +4,6 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
 class ButtonWithIconContent extends StatelessWidget {
@@ -287,11 +286,11 @@ class RoundButton extends StatelessWidget {
   }
 }
 
-class HatSpaceDropDownButton extends StatelessWidget {
+class HsDropDownButton extends StatelessWidget {
   final String? value;
   final VoidCallback onPressed;
   final String? icon;
-  const HatSpaceDropDownButton(
+  const HsDropDownButton(
       {required this.onPressed,
       super.key,
       bool? isRequired,
@@ -312,9 +311,7 @@ class HatSpaceDropDownButton extends StatelessWidget {
           padding: const MaterialStatePropertyAll<EdgeInsets>(
               EdgeInsets.fromLTRB(HsDimens.spacing16, HsDimens.spacing12,
                   HsDimens.spacing12, HsDimens.spacing12))),
-      onPressed: () {
-        // TODO: implement show rent period
-      },
+      onPressed: onPressed,
     );
   }
 }
