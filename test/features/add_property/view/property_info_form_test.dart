@@ -73,7 +73,7 @@ void main() {
       // on tap value to display HsModalView
       await widgetTester.tap(find.byType(HsDropDownButton));
       await widgetTester.pump();
-      expect(find.byType(HsModalView<MinimumRentPeriod>), findsOneWidget);     
+      expect(find.byType(HsModalView<MinimumRentPeriod>), findsOneWidget);
     });
   });
 }
