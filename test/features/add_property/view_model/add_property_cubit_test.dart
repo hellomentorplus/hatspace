@@ -1,8 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
-
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -82,6 +82,40 @@ void main() {
       bloc.parking = 1;
       bloc.bedrooms = 1;
       bloc.validateNextButtonState(2);
+    },
+    expect: () => [isA<NextButtonEnable>()],
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, true);
+      expect(nextButtonEnable.pageViewNumber, 0);
+    },
+  );
+
+  blocTest(
+    'given page is Feature list, and no feature added, when validate next button, then emit NextButton false',
+    build: () => AddPropertyCubit(),
+    act: (bloc) => bloc.validateNextButtonState(3),
+    expect: () => [isA<NextButtonEnable>()],
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, false);
+      expect(nextButtonEnable.pageViewNumber, 0);
+    },
+  );
+
+  blocTest(
+    'given page is Feature list, and features are added, when validate next button, then emit NextButton true',
+    build: () => AddPropertyCubit(),
+    act: (bloc) {
+      // set rooms number
+      bloc.features = [Feature.securityCameras];
+      bloc.validateNextButtonState(3);
     },
     expect: () => [isA<NextButtonEnable>()],
     verify: (bloc) {

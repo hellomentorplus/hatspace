@@ -39,4 +39,8 @@ class HsDimens {
   // sizes
   static const double size64 = 64.0;
   static const double size118 = 118.0;
+
+  // radius
+  static const double radius8 = 8.0;
+  static const double radius16 = 16.0;
 }

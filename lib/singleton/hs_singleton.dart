@@ -1,3 +1,4 @@
+import 'package:clock/clock.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hatspace/models/permission/permission_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -27,6 +28,10 @@ class _HsSingletonImpl implements HsSingleton {
 
     if (!_singleton.isRegistered<HsPermissionService>()) {
       _singleton.registerSingleton(HsPermissionService());
+    }
+
+    if (!_singleton.isRegistered<Clock>()) {
+      _singleton.registerSingleton(const Clock());
     }
   }
 

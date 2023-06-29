@@ -4,9 +4,26 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_features_view.dart'
     as view;
+import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import '../../../../widget_tester_extension.dart';
 
+import 'add_property_features_view_test.mocks.dart';
+
+@GenerateMocks([AddPropertyCubit])
 void main() {
+  final MockAddPropertyCubit addPropertyCubit = MockAddPropertyCubit();
+
+  setUp(() {
+    when(addPropertyCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+    when(addPropertyCubit.state).thenReturn(const AddPropertyInitial());
+
+    when(addPropertyCubit.features).thenReturn([]);
+  });
+
   testWidgets('[Add Features screen] Verify UI', (WidgetTester tester) async {
     bool isReachedBottom = false;
     Widget widget = NotificationListener<ScrollEndNotification>(
@@ -20,7 +37,7 @@ void main() {
       child: const view.AddPropertyFeaturesView(),
     );
 
-    await tester.wrapAndPump(widget);
+    await tester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, widget);
 
     expect(find.byType(view.AddPropertyFeaturesView), findsOneWidget);
     expect(find.text('Which features your place has?'), findsOneWidget);
@@ -59,7 +76,7 @@ void main() {
       (WidgetTester tester) async {
     view.AddPropertyFeaturesView widget = const view.AddPropertyFeaturesView();
 
-    await tester.wrapAndPump(widget);
+    await tester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, widget);
     final Finder featuresBtns = find.byType(view.FeatureItemView);
     final firstFeat =
         tester.firstWidget<view.FeatureItemView>(featuresBtns.first);
