@@ -21,7 +21,7 @@ class AddPropertyMinimumRentView extends StatelessWidget {
         dislayName: (item) => item.displayName,
         selection: initial,
         onValueChanges: (value) {
-          context.read<AddPropertyCubit>().rentPeriod = value;
+          context.read<AddPropertyCubit>().saveRentPeriod(value);
           context.pop();
         });
   }

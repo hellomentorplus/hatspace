@@ -25,16 +25,14 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   }
 
   /// 2. Property info
-  AustraliaStates _australiaState = AustraliaStates.invalid;
-  MinimumRentPeriod _rentPeriod = MinimumRentPeriod.invalid;
+  AustraliaStates australiaState = AustraliaStates.invalid;
+  MinimumRentPeriod rentPeriod = MinimumRentPeriod.invalid;
   // add more property infor fields
 
-  AustraliaStates get ausState => _australiaState;
-  set ausState(AustraliaStates australiaState) =>
-      _australiaState = australiaState;
-
-  MinimumRentPeriod get rentPeriod => _rentPeriod;
-  set rentPeriod(MinimumRentPeriod rentPeriod) => _rentPeriod = rentPeriod;
+  void saveState(AustraliaStates australiaState) =>
+      this.australiaState = australiaState;
+  void saveRentPeriod(MinimumRentPeriod rentPeriod) =>
+      this.rentPeriod = rentPeriod;
 
   /// 3. Rooms
   int _bedrooms = 0;
