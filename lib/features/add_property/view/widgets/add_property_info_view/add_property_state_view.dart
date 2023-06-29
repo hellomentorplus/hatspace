@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_modal_selection_view.dart';
@@ -15,20 +14,15 @@ class AddPropertyStateView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     stateList.remove(AustraliaStates.invalid);
-    return BlocListener<AddPropertyCubit, AddPropertyState>(
-        listener: (context, state) {
-          if (state is OnSaveAustraliaState) {
-            context.pop();
-          }
-        },
-        child: HsModalSelectionView<AustraliaStates>(
-            label: HatSpaceStrings.current.state,
-            isRequired: true,
-            itemList: stateList,
-            dislayName: (item) => item.displayName,
-            selection: initial,
-            onValueChanges: (value) {
-              context.read<AddPropertyCubit>().saveProperty(value);
-            }));
+    return HsModalSelectionView<AustraliaStates>(
+        label: HatSpaceStrings.current.state,
+        isRequired: true,
+        itemList: stateList,
+        dislayName: (item) => item.displayName,
+        selection: initial,
+        onValueChanges: (value) {
+          context.read<AddPropertyCubit>().ausState = value;
+          context.pop();
+        });
   }
 }

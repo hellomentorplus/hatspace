@@ -26,24 +26,3 @@ class NextButtonEnable extends AddPropertyState {
   @override
   List<Object?> get props => [isActive];
 }
-
-class StartListenChanges extends AddPropertyState {
-  const StartListenChanges(super.pageViewNumber);
-
-  @override
-  List<Object?> get props => [];
-}
-
-class OnSaveAustraliaState extends AddPropertyState {
-  const OnSaveAustraliaState(super.pageViewNumber);
-
-  @override
-  List<Object?> get props => [];
-}
-
-class OnSaveRentPeriod extends AddPropertyState {
-  const OnSaveRentPeriod(super.pageViewNumber);
-
-  @override
-  List<Object?> get props => [];
-}

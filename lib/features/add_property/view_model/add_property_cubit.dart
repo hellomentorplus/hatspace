@@ -25,6 +25,16 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   }
 
   /// 2. Property info
+  AustraliaStates _australiaState = AustraliaStates.invalid;
+  MinimumRentPeriod _rentPeriod = MinimumRentPeriod.invalid;
+  // add more property infor fields
+
+  AustraliaStates get ausState => _australiaState;
+  set ausState(AustraliaStates australiaState) =>
+      _australiaState = australiaState;
+
+  MinimumRentPeriod get rentPeriod => _rentPeriod;
+  set rentPeriod(MinimumRentPeriod rentPeriod) => _rentPeriod = rentPeriod;
 
   /// 3. Rooms
   int _bedrooms = 0;
@@ -60,8 +70,6 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   /// navigate to next page
   final List<bool> activePageList = [];
-  AustraliaStates australiaState = AustraliaStates.invalid;
-  MinimumRentPeriod rentPeriod = MinimumRentPeriod.invalid;
 
   void navigatePage(NavigatePage navType, int totalPages) {
     if (navType == NavigatePage.forward &&
@@ -95,17 +103,5 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     }
 
     emit(NextButtonEnable(state.pageViewNumber, nextButtonEnable));
-  }
-
-  void saveProperty(AustraliaStates australiaState) {
-    emit(StartListenChanges(state.pageViewNumber));
-    this.australiaState = australiaState;
-    emit(OnSaveAustraliaState(state.pageViewNumber));
-  }
-
-  void saveRentPeriod(MinimumRentPeriod rentPeriod) {
-    emit(StartListenChanges(state.pageViewNumber));
-    this.rentPeriod = rentPeriod;
-    emit(OnSaveRentPeriod(state.pageViewNumber));
   }
 }

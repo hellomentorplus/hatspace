@@ -12,11 +12,11 @@ class AddPropertyPriceView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HsLabel(label: HatSpaceStrings.of(context).price, isRequired: true),
+        HsLabel(label: HatSpaceStrings.current.price, isRequired: true),
         const SizedBox(height: HsDimens.spacing4),
         TextFormField(
           decoration: inputTextTheme.copyWith(
-              hintText: HatSpaceStrings.of(context).enterYourPrice,
+              hintText: HatSpaceStrings.current.enterYourPrice,
               suffixIcon: Padding(
                   padding: const EdgeInsets.only(
                       right: HsDimens.spacing8,
@@ -33,7 +33,7 @@ class AddPropertyPriceView extends StatelessWidget {
                           '${Currency.aud.name.toUpperCase()} (\$)',
                           style: textTheme.bodySmall
                               ?.copyWith(fontWeight: FontWeight.w700))))),
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
+          style: textTheme.bodyMedium?.copyWith(height: 1.5),
         ),
       ],
     );
