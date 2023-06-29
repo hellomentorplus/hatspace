@@ -80,7 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
         "emailSignUp":
-            MessageLookupByLibrary.simpleMessage("Sign up with email"),
+            MessageLookupByLibrary.simpleMessage("Continue with Email"),
         "enterPropertyName":
             MessageLookupByLibrary.simpleMessage("Enter property name"),
         "enterYourAddress":
@@ -96,10 +96,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter unit number"),
         "explore": MessageLookupByLibrary.simpleMessage("Explore"),
         "facebookSignUp":
-            MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
+            MessageLookupByLibrary.simpleMessage("Continue with Facebook"),
         "fridge": MessageLookupByLibrary.simpleMessage("Fridge"),
         "googleSignUp":
-            MessageLookupByLibrary.simpleMessage("Sign up with Google"),
+            MessageLookupByLibrary.simpleMessage("Continue with Google"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
         "house": MessageLookupByLibrary.simpleMessage("House"),
         "houseNumberAndStreetName":

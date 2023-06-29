@@ -14,6 +14,8 @@ class HsDimens {
   static const double spacing48 = 48.0;
   static const double spacing52 = 52.0;
   static const double spacing56 = 56.0;
+  static const double spacing80 = 80.0;
+  static const double spacing150 = 150.0;
 
   //line-height
   static const double lineheight4 = 4.0;
@@ -34,6 +36,11 @@ class HsDimens {
   // grid-system
   static const double gridSpacing = 4.0;
 
+  // sizes
+  static const double size64 = 64.0;
+  static const double size118 = 118.0;
+
+  // radius
   static const double radius4 = 4.0;
   static const double radius8 = 8.0;
   static const double radius12 = 12.0;
