@@ -9,8 +9,6 @@ import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
-import 'package:hatspace/strings/l10n.dart';
-import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
@@ -149,7 +147,9 @@ void main() {
         expect(find.byType(HsWarningBottomSheetView), findsNothing);
 
         // Verify action on Add icon
-        await widgetTester.tap(find.ancestor(of: find.svgPictureWithAssets(Assets.icons.add), matching: find.byType(InkWell)));
+        await widgetTester.tap(find.ancestor(
+            of: find.svgPictureWithAssets(Assets.icons.add),
+            matching: find.byType(InkWell)));
         await widgetTester.pump();
         expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
         // verify tap out to close
