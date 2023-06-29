@@ -100,30 +100,30 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Sign up with Google`
+  /// `Continue with Google`
   String get googleSignUp {
     return Intl.message(
-      'Sign up with Google',
+      'Continue with Google',
       name: 'googleSignUp',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign up with Facebook`
+  /// `Continue with Facebook`
   String get facebookSignUp {
     return Intl.message(
-      'Sign up with Facebook',
+      'Continue with Facebook',
       name: 'facebookSignUp',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign up with email`
+  /// `Continue with Email`
   String get emailSignUp {
     return Intl.message(
-      'Sign up with email',
+      'Continue with Email',
       name: 'emailSignUp',
       desc: '',
       args: [],
