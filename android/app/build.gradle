@@ -107,11 +107,23 @@ android {
             signingConfig signingConfigs.release
         }
     }
+
+    flavorDimensions "app"
+
+    productFlavors {
+        beta {
+            dimension "app"
+            resValue "string", "app_name", "HATSpace Beta"
+            applicationIdSuffix ".beta"
+        }
+    }
 }
 
 flutter {
     source '../..'
 }
+
+
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
