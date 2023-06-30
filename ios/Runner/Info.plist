@@ -7,9 +7,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>HATspace</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>HATspace would like to Photo Access.</string>
+	<string>HATspace would like to Photo Access.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -64,8 +64,8 @@
 	<string>$(FACEBOOK_CLIENT_TOKEN)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-  		<string>fbapi</string>
-  		<string>fb-messenger-share-api</string>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
 	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
