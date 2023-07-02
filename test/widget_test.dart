@@ -83,6 +83,7 @@ void main() {
         .thenAnswer((realInvocation) => AnonymousState());
     when(authenticationBloc.stream)
         .thenAnswer((realInvocation) => Stream.value(AnonymousState()));
+    when(authenticationBloc.isUserLoggedIn).thenReturn(false);
 
     const widget = HomePageView();
     await tester.multiBlocWrapAndPump([
@@ -104,6 +105,7 @@ void main() {
         .thenAnswer((realInvocation) => AuthenticatedState(userDetail));
     when(authenticationBloc.stream).thenAnswer(
         (realInvocation) => Stream.value(AuthenticatedState(userDetail)));
+    when(authenticationBloc.isUserLoggedIn).thenReturn(true);
 
     const widget = HomePageView();
     await tester.multiBlocWrapAndPump([

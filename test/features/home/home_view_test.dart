@@ -54,6 +54,7 @@ void main() {
             .thenAnswer((realInvocation) => Stream.value(AnonymousState()));
         when(authenticationService.getCurrentUser())
             .thenThrow(UserNotFoundException());
+        when(authenticationBloc.isUserLoggedIn).thenReturn(false);
       });
 
       tearDown(() {
@@ -168,6 +169,7 @@ void main() {
           .thenAnswer((realInvocation) => AuthenticatedState(userDetail));
       when(authenticationBloc.stream).thenAnswer(
           (realInvocation) => Stream.value(AuthenticatedState(userDetail)));
+      
     });
 
     tearDown(() {
@@ -177,7 +179,7 @@ void main() {
 
     testWidgets('verify UI components', (widgetTester) async {
       const Widget widget = HomePageView();
-
+      when(authenticationBloc.isUserLoggedIn).thenReturn(true);
       await widgetTester.multiBlocWrapAndPump([
         BlocProvider<AppConfigBloc>(
           create: (context) => appConfigBloc,

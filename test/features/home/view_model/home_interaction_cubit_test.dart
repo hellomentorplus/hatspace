@@ -46,14 +46,14 @@ void main() {
             .thenThrow(UserNotFoundException());
       },
       act: (bloc) => bloc.onAddPropertyPressed(),
-      expect: () => [isA<StartValidateRole>(), isA<ShowModalLogin>()]);
+      expect: () => [isA<StartValidateRole>(), isA<OnOpenBottomModal>()]);
 
   blocTest(
     'Given user has role tenant only, when handle Add Property, then return nothing',
     build: () => HomeInteractionCubit(),
     setUp: () {
       when(memberService.getUserRoles(any))
-          .thenAnswer((_) => Future.value([Roles.tenant]));
+        .thenAnswer((_) => Future.value([Roles.tenant]));
     },
     act: (bloc) => bloc.onAddPropertyPressed(),
     expect: () => [isA<StartValidateRole>()],
@@ -81,13 +81,14 @@ void main() {
     expect: () => [isA<StartValidateRole>(), isA<StartAddPropertyFlow>()],
   );
 
-  blocTest(
-      'Given user has not sign in, when handle BottomAppBar time, then return ShowModalLogin',
+blocTest(
+      'given user is not logged in, when handle On tap bottom items, then return OnShowBottomModal',
       build: () => HomeInteractionCubit(),
       setUp: () {
         when(authenticationService.getCurrentUser())
             .thenThrow(UserNotFoundException());
+
       },
-      act: (bloc) => bloc.onValidateLogin(BottomBarItems.booking),
-      expect: () => [isA<StartValidateLogin>(), isA<ShowModalLogin>()]);
+      act: (bloc) => bloc.onTapBottomItems(false),
+      expect: () => [isA<StartOnTapBottomItems>(), isA<OnOpenBottomModal>()]);
 }
