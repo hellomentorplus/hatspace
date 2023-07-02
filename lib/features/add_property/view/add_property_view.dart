@@ -4,10 +4,10 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_features_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_images_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/property_info_form.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_type_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
-import 'package:hatspace/features/add_property_info/view/property_info_form.dart';
-import 'package:hatspace/features/add_property/view/widgets/add_property_type_view.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -17,6 +17,7 @@ import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
 class AddPropertyView extends StatelessWidget {
   const AddPropertyView({super.key});
+
   @override
   Widget build(Object context) {
     return MultiBlocProvider(

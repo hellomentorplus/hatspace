@@ -7,9 +7,9 @@ class AddPropertyNameView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HatSpaceInputText(
-        label: HatSpaceStrings.of(context).propertyName,
+        label: HatSpaceStrings.current.propertyName,
         isRequired: true,
-        placeholder: HatSpaceStrings.of(context).enterPropertyName,
+        placeholder: HatSpaceStrings.current.enterPropertyName,
         onChanged: (value) {
           // TODO: Read value from text field
         });

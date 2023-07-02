@@ -36,11 +36,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/electric_stove.svg
   String get electricStove => 'assets/icons/electric_stove.svg';
 
+  /// File path: assets/icons/envelope.svg
+  String get envelope => 'assets/icons/envelope.svg';
+
   /// File path: assets/icons/explore.svg
   String get explore => 'assets/icons/explore.svg';
 
   /// File path: assets/icons/eye.svg
   String get eye => 'assets/icons/eye.svg';
+
+  /// File path: assets/icons/facebook.svg
+  String get facebook => 'assets/icons/facebook.svg';
 
   /// File path: assets/icons/favorite_active.svg
   String get favoriteActive => 'assets/icons/favorite_active.svg';
@@ -53,6 +59,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/fridge.svg
   String get fridge => 'assets/icons/fridge.svg';
+
+  /// File path: assets/icons/google.svg
+  String get google => 'assets/icons/google.svg';
 
   /// File path: assets/icons/ic_agent.svg
   String get icAgent => 'assets/icons/ic_agent.svg';
@@ -100,12 +109,15 @@ class $AssetsIconsGen {
         car,
         check,
         electricStove,
+        envelope,
         explore,
         eye,
+        facebook,
         favoriteActive,
         favoriteUnactive,
         filter,
         fridge,
+        google,
         icAgent,
         kitchen,
         message,
@@ -184,6 +196,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/increment.svg
   String get increment => 'assets/images/increment.svg';
 
+  /// File path: assets/images/logo.svg
+  String get logo => 'assets/images/logo.svg';
+
   /// File path: assets/images/messages.svg
   String get messages => 'assets/images/messages.svg';
 
@@ -193,11 +208,15 @@ class $AssetsImagesGen {
   /// File path: assets/images/search-normal.svg
   String get searchNormal => 'assets/images/search-normal.svg';
 
+  /// File path: assets/images/signIn_background.png
+  AssetGenImage get signInBackground =>
+      const AssetGenImage('assets/images/signIn_background.png');
+
   /// File path: assets/images/upload_photo.svg
   String get uploadPhoto => 'assets/images/upload_photo.svg';
 
   /// List of all assets
-  List<String> get values => [
+  List<dynamic> get values => [
         apartment,
         arrowCalendarLeft,
         arrowCalendarRight,
@@ -218,9 +237,11 @@ class $AssetsImagesGen {
         google,
         house,
         increment,
+        logo,
         messages,
         profileCircle,
         searchNormal,
+        signInBackground,
         uploadPhoto
       ];
 }

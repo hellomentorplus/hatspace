@@ -100,30 +100,30 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Sign up with Google`
+  /// `Continue with Google`
   String get googleSignUp {
     return Intl.message(
-      'Sign up with Google',
+      'Continue with Google',
       name: 'googleSignUp',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign up with Facebook`
+  /// `Continue with Facebook`
   String get facebookSignUp {
     return Intl.message(
-      'Sign up with Facebook',
+      'Continue with Facebook',
       name: 'facebookSignUp',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign up with email`
+  /// `Continue with Email`
   String get emailSignUp {
     return Intl.message(
-      'Sign up with email',
+      'Continue with Email',
       name: 'emailSignUp',
       desc: '',
       args: [],
@@ -415,14 +415,14 @@ class HatSpaceStrings {
     );
   }
 
-  /// `{ausState, select, vic{Victoria} nsw{New South Wales} qld{Queenland} wa{Western Australia} sa{South Australia} tas{Tasmania} act{Australian Capital Territory} nt{Northern Territory} other{No State Available}}`
+  /// `{ausState, select, vic{Victoria} nsw{New South Wales} qld{Queensland} wa{Western Australia} sa{South Australia} tas{Tasmania} act{Australian Capital Territory} nt{Northern Territory} other{No State Available}}`
   String australiaState(Object ausState) {
     return Intl.select(
       ausState,
       {
         'vic': 'Victoria',
         'nsw': 'New South Wales',
-        'qld': 'Queenland',
+        'qld': 'Queensland',
         'wa': 'Western Australia',
         'sa': 'South Australia',
         'tas': 'Tasmania',

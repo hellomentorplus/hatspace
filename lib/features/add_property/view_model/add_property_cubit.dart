@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:hatspace/data/property_data.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 
 enum NavigatePage { forward, reverse }
 
@@ -25,6 +25,14 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   }
 
   /// 2. Property info
+  AustraliaStates australiaState = AustraliaStates.invalid;
+  MinimumRentPeriod rentPeriod = MinimumRentPeriod.invalid;
+  // add more property infor fields
+
+  void saveState(AustraliaStates australiaState) =>
+      this.australiaState = australiaState;
+  void saveRentPeriod(MinimumRentPeriod rentPeriod) =>
+      this.rentPeriod = rentPeriod;
 
   /// 3. Rooms
   int _bedrooms = 0;
@@ -59,6 +67,8 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   }
 
   /// navigate to next page
+  final List<bool> activePageList = [];
+
   void navigatePage(NavigatePage navType, int totalPages) {
     if (navType == NavigatePage.forward &&
         state.pageViewNumber < totalPages - 1) {

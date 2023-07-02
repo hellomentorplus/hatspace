@@ -23,7 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(ausState) => "${Intl.select(ausState, {
             'vic': 'Victoria',
             'nsw': 'New South Wales',
-            'qld': 'Queenland',
+            'qld': 'Queensland',
             'wa': 'Western Australia',
             'sa': 'South Australia',
             'tas': 'Tasmania',
@@ -81,7 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
         "emailSignUp":
-            MessageLookupByLibrary.simpleMessage("Sign up with email"),
+            MessageLookupByLibrary.simpleMessage("Continue with Email"),
         "enterPropertyName":
             MessageLookupByLibrary.simpleMessage("Enter property name"),
         "enterYourAddress":
@@ -97,10 +97,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter unit number"),
         "explore": MessageLookupByLibrary.simpleMessage("Explore"),
         "facebookSignUp":
-            MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
+            MessageLookupByLibrary.simpleMessage("Continue with Facebook"),
         "fridge": MessageLookupByLibrary.simpleMessage("Fridge"),
         "googleSignUp":
-            MessageLookupByLibrary.simpleMessage("Sign up with Google"),
+            MessageLookupByLibrary.simpleMessage("Continue with Google"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
         "house": MessageLookupByLibrary.simpleMessage("House"),
         "houseNumberAndStreetName":

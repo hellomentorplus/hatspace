@@ -13,9 +13,8 @@ class AddPropertyDescriptionView extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            HatSpaceLabel(
-                label: HatSpaceStrings.of(context).description,
-                isRequired: false),
+            HsLabel(
+                label: HatSpaceStrings.current.description, isRequired: false),
             // TODO: Implement Bloc State
             const Text('120/4000')
           ],
@@ -29,7 +28,7 @@ class AddPropertyDescriptionView extends StatelessWidget {
           keyboardType: TextInputType.multiline,
           maxLines: null,
           decoration: inputTextTheme.copyWith(
-            hintText: HatSpaceStrings.of(context).enterYourDescription,
+            hintText: HatSpaceStrings.current.enterYourDescription,
           ),
         )
       ],
