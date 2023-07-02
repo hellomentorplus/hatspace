@@ -12,11 +12,11 @@ final InputDecoration inputTextTheme = InputDecoration(
     hintStyle:
         textTheme.bodyMedium?.copyWith(height: 1.0, color: HSColor.neutral5));
 
-class HatSpaceLabel extends StatelessWidget {
+class HsLabel extends StatelessWidget {
   final String? label;
   final bool _isRequired;
   final String? optional;
-  const HatSpaceLabel({
+  const HsLabel({
     required this.label,
     super.key,
     bool? isRequired,
@@ -71,7 +71,7 @@ class HatSpaceInputText extends StatelessWidget {
           0,
           Padding(
               padding: _padding,
-              child: HatSpaceLabel(
+              child: HsLabel(
                 label: label,
                 isRequired: _isRequired,
                 optional: optional,

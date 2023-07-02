@@ -12,16 +12,16 @@ class AddPropertyAddressView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         HatSpaceInputText(
-          label: HatSpaceStrings.of(context).streetAddress,
+          label: HatSpaceStrings.current.streetAddress,
           isRequired: true,
-          placeholder: HatSpaceStrings.of(context).enterYourAddress,
+          placeholder: HatSpaceStrings.current.enterYourAddress,
           onChanged: (value) {},
         ),
         const SizedBox(
           height: 8,
         ),
         Text(
-          HatSpaceStrings.of(context).houseNumberAndStreetName,
+          HatSpaceStrings.current.houseNumberAndStreetName,
           style: textTheme.bodySmall?.copyWith(color: HSColor.neutral6),
         )
       ],

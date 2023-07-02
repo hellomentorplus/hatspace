@@ -23,7 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(ausState) => "${Intl.select(ausState, {
             'vic': 'Victoria',
             'nsw': 'New South Wales',
-            'qld': 'Queenland',
+            'qld': 'Queensland',
             'wa': 'Western Australia',
             'sa': 'South Australia',
             'tas': 'Tasmania',
