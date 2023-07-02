@@ -109,8 +109,7 @@ void main() {
     final BytesLoader favoriteIconData =
         widgetTester.widget<SvgPicture>(favoriteIconFinder).bytesLoader;
     expect(favoriteIconData, isA<SvgAssetLoader>());
-    expect((favoriteIconData as SvgAssetLoader).assetName,
-        activeSvgPath);
+    expect((favoriteIconData as SvgAssetLoader).assetName, activeSvgPath);
 
     await widgetTester.tap(favoriteIconFinder);
     await widgetTester.pumpAndSettle();
@@ -122,7 +121,7 @@ void main() {
     final BytesLoader updatedFavoriteIconData =
         widgetTester.widget<SvgPicture>(updatedFavoriteIconFinder).bytesLoader;
     expect(updatedFavoriteIconData, isA<SvgAssetLoader>());
-    expect((updatedFavoriteIconData as SvgAssetLoader).assetName,
-        unActiveSvgPath);
+    expect(
+        (updatedFavoriteIconData as SvgAssetLoader).assetName, unActiveSvgPath);
   });
 }

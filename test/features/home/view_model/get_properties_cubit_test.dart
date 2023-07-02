@@ -133,11 +133,9 @@ void main() {
       build: () => GetPropertiesCubit(),
       verify: (bloc) {
         expect(bloc.state.isInitialState, true);
-        expect(
-            () => bloc.state.properties, throwsA(isA<TypeError>()));
-        expect(
-            () => bloc.state.errorFetching, throwsA(isA<TypeError>()));
-        expect(
-            () => (bloc.state as GetPropertiesSucceedState).properties, throwsA(isA<TypeError>()));
+        expect(() => bloc.state.properties, throwsA(isA<TypeError>()));
+        expect(() => bloc.state.errorFetching, throwsA(isA<TypeError>()));
+        expect(() => (bloc.state as GetPropertiesSucceedState).properties,
+            throwsA(isA<TypeError>()));
       });
 }

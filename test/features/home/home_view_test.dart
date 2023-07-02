@@ -261,15 +261,15 @@ void main() {
       final Finder propertiesListViewFinder = find.byType(ListView);
       expect(propertiesListViewFinder, findsOneWidget);
 
-      final PropertyItemView propertyWidget1 = widgetTester.widget(
-          find.byKey(ValueKey(fakeData.first.id)));
+      final PropertyItemView propertyWidget1 =
+          widgetTester.widget(find.byKey(ValueKey(fakeData.first.id)));
       expect(propertyWidget1.property.id, fakeData.first.id);
 
       await widgetTester.drag(propertiesListViewFinder, const Offset(0, -300));
       await widgetTester.pump();
 
-      final PropertyItemView propertyWidget2 = widgetTester.widget(
-          find.byKey(ValueKey(fakeData[1].id)));
+      final PropertyItemView propertyWidget2 =
+          widgetTester.widget(find.byKey(ValueKey(fakeData[1].id)));
       expect(propertyWidget2.property.id, fakeData[1].id);
     });
   });

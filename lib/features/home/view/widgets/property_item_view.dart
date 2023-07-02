@@ -74,7 +74,8 @@ class PropertyItemView extends StatelessWidget {
                           Flexible(
                             child: Text(
                               '${property.todayViews} ${HatSpaceStrings.current.viewsToday}',
-                              maxLines: 2, overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.end,
                               style: Theme.of(context)
                                   .textTheme
@@ -138,13 +139,15 @@ class PropertyItemView extends StatelessWidget {
                   const SizedBox(
                     width: HsDimens.spacing12,
                   ),
-                  Expanded(child: Text(
-                    property.type.displayName,
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: HSColor.green06, fontWeight: FontWeight.w500),
-                  ),)
+                  Expanded(
+                    child: Text(
+                      property.type.displayName,
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: HSColor.green06, fontWeight: FontWeight.w500),
+                    ),
+                  )
                 ],
               )
             ],
@@ -254,19 +257,21 @@ class __PropertyImgsCarouselState extends State<_PropertyImgsCarousel> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: widget.photos
-                            .mapIndexed((index, __) => ValueListenableBuilder<int>(
-                                valueListenable: _idxNotifier,
-                                builder: (_, selectedIndex, __) {
-                                  return Container(
-                                    margin: EdgeInsets.only(
-                                        right: index == widget.photos.length - 1
-                                            ? 0
-                                            : HsDimens.spacing4),
-                                    child: _DotIndicator(
-                                      isSelected: selectedIndex == index,
-                                    ),
-                                  );
-                                }))
+                            .mapIndexed(
+                                (index, __) => ValueListenableBuilder<int>(
+                                    valueListenable: _idxNotifier,
+                                    builder: (_, selectedIndex, __) {
+                                      return Container(
+                                        margin: EdgeInsets.only(
+                                            right: index ==
+                                                    widget.photos.length - 1
+                                                ? 0
+                                                : HsDimens.spacing4),
+                                        child: _DotIndicator(
+                                          isSelected: selectedIndex == index,
+                                        ),
+                                      );
+                                    }))
                             .toList(),
                       ),
                       const SizedBox(

@@ -11,8 +11,7 @@ abstract class GetPropertiesState extends Equatable {
   List<PropertyItemData> get properties =>
       (this as GetPropertiesSucceedState).propertyList;
 
-  String get errorFetching =>
-      (this as GetPropertiesFailedState).error;
+  String get errorFetching => (this as GetPropertiesFailedState).error;
 
   @override
   List<Object?> get props => [];

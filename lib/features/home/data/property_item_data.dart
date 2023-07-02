@@ -32,23 +32,23 @@ class PropertyItemData extends Equatable {
       required this.ownerAvatar,
       required this.isFavorited});
 
-  factory PropertyItemData.fromModel(Property property, User user) => PropertyItemData(
-    id: property.id,
-    photos: property.photos,
-    price: '${property.price.currency.symbol}${property.price.rentPrice}',
-    name: property.name,
-    type: property.type,
-    bedrooms: property.additionalDetail.bedrooms,
-    bathrooms: property.additionalDetail.bathrooms,
-    parkings: property.additionalDetail.parkings,
-    todayViews: 0,
-    availableDate: DateFormat('MM/dd/yy').format(
+  factory PropertyItemData.fromModel(Property property, User user) =>
+      PropertyItemData(
+          id: property.id,
+          photos: property.photos,
+          price: '${property.price.currency.symbol}${property.price.rentPrice}',
+          name: property.name,
+          type: property.type,
+          bedrooms: property.additionalDetail.bedrooms,
+          bathrooms: property.additionalDetail.bathrooms,
+          parkings: property.additionalDetail.parkings,
+          todayViews: 0,
+          availableDate: DateFormat('MM/dd/yy').format(
               DateTime.fromMillisecondsSinceEpoch(
                   property.availableDate.millisecondsSinceEpoch)),
-    ownerName: user.name,
-    ownerAvatar: user.avatar,
-    isFavorited: false
-  );
+          ownerName: user.name,
+          ownerAvatar: user.avatar,
+          isFavorited: false);
 
   @override
   List<Object?> get props => [
