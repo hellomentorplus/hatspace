@@ -5,6 +5,7 @@ import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 
 part 'home_interaction_state.dart';
 
@@ -17,7 +18,6 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
       HsSingleton.singleton.get<StorageService>();
   final AuthenticationService authenticationService =
       HsSingleton.singleton.get<AuthenticationService>();
-
   void onAddPropertyPressed() async {
     emit(StartValidateRole());
     try {
@@ -35,19 +35,14 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
       }
     } on UserNotFoundException catch (_) {
       // TODO handle case when user is not login
-      emit(ShowModalLogin());
+      emit(OnOpenBottomModal());
     }
   }
 
-  void onValidateLogin(BottomBarItems items) async {
-    emit(StartValidateLogin());
-    try {
-      await authenticationService.getCurrentUser();
-      if (!isClosed) {
-        // TODO handle when user already login
-      }
-    } on UserNotFoundException catch (_) {
-      emit(ShowModalLogin());
+  void onTapBottomItems (bool isUserLoggedIn){
+    emit(StartOnTapBottomItems());
+    if(!isUserLoggedIn){
+      emit(OnOpenBottomModal());
     }
   }
 }

@@ -7,6 +7,7 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
+import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
@@ -47,10 +48,26 @@ class HomePageViewState extends State<HomePageView> {
     detector.startListening();
   }
 
+  void showLoginModal(BuildContext context) {
+    context.showHsBottomSheet(HsWarningBottomSheetView(
+        iconUrl: Assets.images.loginCircle,
+        title: HatSpaceStrings.current.login,
+        description: HatSpaceStrings.current.loginDescription,
+        primaryButtonLabel: HatSpaceStrings.current.yes,
+        primaryOnPressed: () {
+          context.pop();
+          context.goToSignup();
+        },
+        secondaryButtonLabel: HatSpaceStrings.current.noLater,
+        secondaryOnPressed: () => context.pop())
+        );
+  }
+
   final ValueNotifier<int> _selectedIndex = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
+    bool isUserLoggin = false;
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeInteractionCubit>(
@@ -71,19 +88,8 @@ class HomePageViewState extends State<HomePageView> {
                 if (state is StartAddPropertyFlow) {
                   context.goToAddProperty();
                 }
-                if (state is ShowModalLogin) {
-                  context.showHsBottomSheet(HsWarningBottomSheetView(
-                    iconUrl: Assets.images.loginCircle,
-                    title: HatSpaceStrings.current.login,
-                    description: HatSpaceStrings.current.loginDescription,
-                    primaryButtonLabel: HatSpaceStrings.current.yes,
-                    primaryOnPressed: () {
-                      context.pop();
-                      context.goToSignup();
-                    },
-                    secondaryButtonLabel: HatSpaceStrings.current.noLater,
-                    secondaryOnPressed: () => context.pop(),
-                  ));
+                if (state is OnOpenBottomModal) {
+                  showLoginModal(context);
                 }
               },
             )
@@ -92,6 +98,8 @@ class HomePageViewState extends State<HomePageView> {
               appBar: AppBar(
                 title: BlocBuilder<AuthenticationBloc, AuthenticationState>(
                   builder: (context, state) {
+                    isUserLoggin =
+                        context.read<AuthenticationBloc>().isUserLoggedIn;
                     String? welcome = (state is AuthenticatedState)
                         ? HatSpaceStrings.current
                             .welcomeName(state.userDetail.displayName ?? '')
@@ -163,7 +171,7 @@ class HomePageViewState extends State<HomePageView> {
                               onTap: () {
                                 context
                                     .read<HomeInteractionCubit>()
-                                    .onValidateLogin(BottomBarItems.explore);
+                                    .onTapBottomItems(isUserLoggin);
                                 _selectedIndex.value = 0;
                               },
                             ),
@@ -177,7 +185,7 @@ class HomePageViewState extends State<HomePageView> {
                                 onTap: () {
                                   context
                                       .read<HomeInteractionCubit>()
-                                      .onValidateLogin(BottomBarItems.explore);
+                                      .onTapBottomItems(isUserLoggin);
                                   _selectedIndex.value = 1;
                                 }),
                           ),
@@ -197,7 +205,7 @@ class HomePageViewState extends State<HomePageView> {
                                   onTap: () {
                                     context
                                         .read<HomeInteractionCubit>()
-                                        .onAddPropertyPressed();
+                                        .onTapBottomItems(isUserLoggin);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
@@ -220,7 +228,7 @@ class HomePageViewState extends State<HomePageView> {
                                 onTap: () {
                                   context
                                       .read<HomeInteractionCubit>()
-                                      .onValidateLogin(BottomBarItems.explore);
+                                      .onTapBottomItems(isUserLoggin);
                                   _selectedIndex.value = 2;
                                 }),
                           ),
@@ -233,7 +241,7 @@ class HomePageViewState extends State<HomePageView> {
                                 onTap: () {
                                   context
                                       .read<HomeInteractionCubit>()
-                                      .onValidateLogin(BottomBarItems.explore);
+                                      .onTapBottomItems(isUserLoggin);
                                   _selectedIndex.value = 3;
                                 }),
                           )
