@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/home/data/property_item_data.dart';
@@ -66,7 +65,8 @@ class PropertyItemView extends StatelessWidget {
                         children: [
                           SvgPicture.asset(
                             Assets.icons.eye,
-                            color: HSColor.neutral6,
+                            colorFilter: const ColorFilter.mode(
+                                HSColor.neutral6, BlendMode.srcIn),
                           ),
                           const SizedBox(
                             width: HsDimens.spacing4,
@@ -162,7 +162,7 @@ class _PropertyFeatureView extends StatelessWidget {
   final String iconSvgUrl;
   final int quantity;
   const _PropertyFeatureView(
-      {required this.iconSvgUrl, required this.quantity, super.key});
+      {required this.iconSvgUrl, required this.quantity});
 
   @override
   Widget build(BuildContext context) {
@@ -257,21 +257,21 @@ class __PropertyImgsCarouselState extends State<_PropertyImgsCarousel> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: widget.photos
-                            .mapIndexed(
-                                (index, __) => ValueListenableBuilder<int>(
-                                    valueListenable: _idxNotifier,
-                                    builder: (_, selectedIndex, __) {
-                                      return Container(
-                                        margin: EdgeInsets.only(
-                                            right: index ==
-                                                    widget.photos.length - 1
-                                                ? 0
-                                                : HsDimens.spacing4),
-                                        child: _DotIndicator(
-                                          isSelected: selectedIndex == index,
-                                        ),
-                                      );
-                                    }))
+                            .map((photo) => ValueListenableBuilder<int>(
+                                valueListenable: _idxNotifier,
+                                builder: (_, selectedIndex, __) {
+                                  return Container(
+                                    margin: EdgeInsets.only(
+                                        right: widget.photos.indexOf(photo) ==
+                                                widget.photos.length - 1
+                                            ? 0
+                                            : HsDimens.spacing4),
+                                    child: _DotIndicator(
+                                      isSelected: selectedIndex ==
+                                          widget.photos.indexOf(photo),
+                                    ),
+                                  );
+                                }))
                             .toList(),
                       ),
                       const SizedBox(
