@@ -35,7 +35,7 @@ class PropertyItemData extends Equatable {
   factory PropertyItemData.fromModel(Property property, User user) => PropertyItemData(
     id: property.id,
     photos: property.photos,
-    price: '${property.price.currency.name} ${property.price.rentPrice}',
+    price: '${property.price.currency.symbol}${property.price.rentPrice}',
     name: property.name,
     type: property.type,
     bedrooms: property.additionalDetail.bedrooms,
@@ -45,7 +45,6 @@ class PropertyItemData extends Equatable {
     availableDate: DateFormat('MM/dd/yy').format(
               DateTime.fromMillisecondsSinceEpoch(
                   property.availableDate.millisecondsSinceEpoch)),
-    // user: user,
     ownerName: user.name,
     ownerAvatar: user.avatar,
     isFavorited: false

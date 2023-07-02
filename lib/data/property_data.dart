@@ -104,11 +104,14 @@ enum MinimumRentPeriod {
 }
 
 enum Currency {
-  aud;
+  aud(r'$');
 
   static Currency fromName(String name) =>
       values.firstWhere((element) => element.name == name.toLowerCase(),
           orElse: () => aud);
+
+  final String symbol;
+  const Currency(this.symbol);
 }
 
 class Price {
@@ -337,22 +340,8 @@ class User extends Equatable {
   final String name;
   final String avatar;
 
-  const User({
-    required this.id, required this.name, required this.avatar
-  });
+  const User({required this.id, required this.name, required this.avatar});
 
-  User fromJson(Map<String, dynamic> json) => User(
-    id: json['id'] as String,
-    name: json['name'] as String,
-    avatar: json['avatar'] as String,
-  );
-
-  Map<String, dynamic> toJson(User user) => <String, dynamic>{
-    'id': user.id,
-    'name': user.name,
-    'avatar': user.avatar
-  };
-  
   @override
   List<Object?> get props => [id, name, avatar];
 }

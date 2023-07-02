@@ -9,7 +9,7 @@ abstract class GetPropertiesState extends Equatable {
   bool get isGetPropertiesFailed => this is GetPropertiesFailedState;
 
   List<PropertyItemData> get properties =>
-      (this as GetPropertiesSucceedState).properties;
+      (this as GetPropertiesSucceedState).propertyList;
 
   String get errorFetching =>
       (this as GetPropertiesFailedState).error;
@@ -27,9 +27,9 @@ class GettingPropertiesState extends GetPropertiesState {
 }
 
 class GetPropertiesSucceedState extends GetPropertiesState {
-  final List<PropertyItemData> properties;
+  final List<PropertyItemData> propertyList;
 
-  const GetPropertiesSucceedState(this.properties);
+  const GetPropertiesSucceedState(this.propertyList);
 
   @override
   List<Object?> get props => [properties];
