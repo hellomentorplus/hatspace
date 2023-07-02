@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart' hide SearchBar;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/home/view/widgets/app_bar_bottom.dart';
+import 'package:hatspace/features/home/view/widgets/property_item_view.dart';
+import 'package:hatspace/features/home/view_model/get_properties_cubit.dart';
 import 'package:hatspace/features/home/view_model/home_interaction_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
@@ -53,7 +56,10 @@ class HomePageViewState extends State<HomePageView> {
       providers: [
         BlocProvider<HomeInteractionCubit>(
           create: (context) => HomeInteractionCubit(),
-        )
+        ),
+        BlocProvider<GetPropertiesCubit>(
+          create: (context) => GetPropertiesCubit()..getProperties(),
+        ),
       ],
       child: MultiBlocListener(
           listeners: [
@@ -126,10 +132,32 @@ class HomePageViewState extends State<HomePageView> {
                   )
                 ],
               ),
-              body: Center(
-                  child: Text(
-                HatSpaceStrings.of(context).homePageViewTitle,
-              )),
+              body: BlocBuilder<GetPropertiesCubit, GetPropertiesState>(
+                builder: (context, state) {
+                  if (state.isGetPropertiesSucceed) {
+                    if (state.properties.isEmpty) {
+                      /// TODO :  Render empty data widget
+                    }
+                    return ListView.separated(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: HsDimens.spacing16,
+                        vertical: HsDimens.spacing24,
+                      ),
+                      itemBuilder: (_, idx) => PropertyItemView(
+                          property: state.properties[0]),
+                      itemCount: 20,
+                      separatorBuilder: (_, __) => const SizedBox(
+                        height: HsDimens.spacing12,
+                      ),
+                    );
+                  } else if (state.isGetPropertiesFailed) {
+                    /// TODO :  Render failed widget
+                  } else if (state.isGettingPropertiesState) {
+                    /// TODO :  Render loading widget
+                  }
+                  return const SizedBox();
+                },
+              ),
               bottomNavigationBar: BottomAppBar(
                   color: HSColor.neutral1.withOpacity(0.9),
                   child: SafeArea(

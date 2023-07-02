@@ -855,6 +855,36 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Available`
+  String get available {
+    return Intl.message(
+      'Available',
+      name: 'available',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `pw`
+  String get pw {
+    return Intl.message(
+      'pw',
+      name: 'pw',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `views today`
+  String get viewsToday {
+    return Intl.message(
+      'views today',
+      name: 'viewsToday',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

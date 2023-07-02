@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
+import 'package:hatspace/features/home/view_model/get_properties_cubit.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
@@ -14,14 +18,20 @@ import 'package:mockito/mockito.dart';
 import '../../widget_tester_extension.dart';
 import 'home_view_test.mocks.dart';
 
-@GenerateMocks(
-    [AppConfigBloc, StorageService, AuthenticationService, AuthenticationBloc])
+@GenerateMocks([
+  AppConfigBloc,
+  StorageService,
+  AuthenticationService,
+  AuthenticationBloc,
+  PropertyService
+])
 void main() {
   final MockAppConfigBloc appConfigBloc = MockAppConfigBloc();
   final MockStorageService storageService = MockStorageService();
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
   final MockAuthenticationBloc authenticationBloc = MockAuthenticationBloc();
+  final MockPropertyService propertyService = MockPropertyService();
 
   setUpAll(() {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
@@ -33,6 +43,7 @@ void main() {
     when(appConfigBloc.stream).thenAnswer(
         (realInvocation) => Stream.value(const AppConfigInitialState()));
     when(appConfigBloc.state).thenReturn(const AppConfigInitialState());
+    when(storageService.property).thenReturn(propertyService);
   });
 
   group(
@@ -116,6 +127,21 @@ void main() {
       expect(find.text('👋 Hi displayName'), findsOneWidget);
       expect(find.text('Search rental, location...'), findsOneWidget);
       expect(find.byType(BottomAppBar), findsOneWidget);
+    });
+  });
+
+  group('[Properties] Property list', () {
+    setUp(() {
+      // when(propertyService.getAllProperties()).then;
+    });
+
+    testWidgets('Verify property list', (widgetTester) async {
+      const Widget home = HomePageView();
+      await widgetTester.wrapAndPump(home);
+      await widgetTester.pumpAndSettle();
+      expect(find.byType(ListView), findsNothing);
+      await widgetTester.pumpAndSettle();
+      expect(find.byType(ListView), findsOneWidget);
     });
   });
 }

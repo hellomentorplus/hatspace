@@ -64,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "askFeaturesOwned": MessageLookupByLibrary.simpleMessage(
             "Which features your place has?"),
         "australiaState": m0,
+        "available": MessageLookupByLibrary.simpleMessage("Available"),
         "availableDate": MessageLookupByLibrary.simpleMessage("Available date"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
@@ -131,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
+        "pw": MessageLookupByLibrary.simpleMessage("pw"),
         "rentPeriod": m1,
         "requireAtLeast4Photos":
             MessageLookupByLibrary.simpleMessage("Require at least 4 photos *"),
@@ -154,6 +156,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
         "userRoleDescription": m2,
         "userTitleRoles": m3,
+        "viewsToday": MessageLookupByLibrary.simpleMessage("views today"),
         "washingMachine":
             MessageLookupByLibrary.simpleMessage("Washing machine"),
         "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
