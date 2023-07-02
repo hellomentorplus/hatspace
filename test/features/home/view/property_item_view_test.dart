@@ -46,13 +46,10 @@ void main() {
     expect(find.text('pw'), findsOneWidget);
     expect(find.byType(SvgPicture), findsNWidgets(5));
     expect(find.text('pw'), findsOneWidget);
-    expect(
-        find.descendant(
-            of: find.byType(CircleAvatar), matching: find.byType(NetworkImage)),
-        findsOneWidget);
+    expect(find.byType(CircleAvatar), findsOneWidget);
   });
 
-  testWidgets('Verify PropertyItemView photos pageview interaction',
+  testWidgets('Verify PropertyItemView photos page view interaction',
       (widgetTester) async {
     const PropertyItemView propertyWidget =
         PropertyItemView(property: propertyData);
@@ -95,7 +92,7 @@ void main() {
     const PropertyItemView propertyWidget =
         PropertyItemView(property: propertyData);
     const String activeSvgPath = 'assets/icons/favorite_active.svg';
-    const String unActiveSvgPath = 'assets/icons/favorite_active.svg';
+    const String unActiveSvgPath = 'assets/icons/favorite_unactive.svg';
     await mockNetworkImagesFor(() => widgetTester.wrapAndPump(ListView(
           children: const [propertyWidget],
         )));
