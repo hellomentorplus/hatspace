@@ -53,7 +53,7 @@ void main() {
     build: () => HomeInteractionCubit(),
     setUp: () {
       when(memberService.getUserRoles(any))
-        .thenAnswer((_) => Future.value([Roles.tenant]));
+          .thenAnswer((_) => Future.value([Roles.tenant]));
     },
     act: (bloc) => bloc.onAddPropertyPressed(),
     expect: () => [isA<StartValidateRole>()],
@@ -81,13 +81,12 @@ void main() {
     expect: () => [isA<StartValidateRole>(), isA<StartAddPropertyFlow>()],
   );
 
-blocTest(
+  blocTest(
       'given user is not logged in, when handle On tap bottom items, then return OnShowBottomModal',
       build: () => HomeInteractionCubit(),
       setUp: () {
         when(authenticationService.getCurrentUser())
             .thenThrow(UserNotFoundException());
-
       },
       act: (bloc) => bloc.onTapBottomItems(false),
       expect: () => [isA<StartOnTapBottomItems>(), isA<OnOpenBottomModal>()]);

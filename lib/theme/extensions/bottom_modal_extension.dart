@@ -7,7 +7,7 @@ extension HsBottomSheet on BuildContext {
   showHsBottomSheet(HsWarningBottomSheetView hsWarningBottomSheetView) {
     return showModalBottomSheet(
         useSafeArea: true,
-        isScrollControlled: false,
+        isScrollControlled: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(HsDimens.radius16),
@@ -15,7 +15,7 @@ extension HsBottomSheet on BuildContext {
         ),
         context: this,
         builder: (_) {
-          return hsWarningBottomSheetView;
-  });
+          return SingleChildScrollView(child: hsWarningBottomSheetView);
+        });
   }
 }

@@ -39,9 +39,9 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
     }
   }
 
-  void onTapBottomItems (bool isUserLoggedIn){
+  void onTapBottomItems(bool isUserLoggedIn) {
     emit(StartOnTapBottomItems());
-    if(!isUserLoggedIn){
+    if (!isUserLoggedIn) {
       emit(OnOpenBottomModal());
     }
   }

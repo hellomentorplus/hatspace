@@ -50,17 +50,19 @@ class HomePageViewState extends State<HomePageView> {
 
   void showLoginModal(BuildContext context) {
     context.showHsBottomSheet(HsWarningBottomSheetView(
-        iconUrl: Assets.images.loginCircle,
-        title: HatSpaceStrings.current.login,
-        description: HatSpaceStrings.current.loginDescription,
-        primaryButtonLabel: HatSpaceStrings.current.yes,
-        primaryOnPressed: () {
-          context.pop();
-          context.goToSignup();
-        },
-        secondaryButtonLabel: HatSpaceStrings.current.noLater,
-        secondaryOnPressed: () => context.pop())
-        );
+      iconUrl: Assets.images.loginCircle,
+      title: HatSpaceStrings.current.login,
+      description: HatSpaceStrings.current.loginDescription,
+      primaryButtonLabel: HatSpaceStrings.current.yes,
+      primaryOnPressed: () {
+        context.pop();
+        context.goToSignup();
+      },
+      secondaryButtonLabel: HatSpaceStrings.current.noLater,
+      secondaryOnPressed: () => context.pop(),
+      tertiaryButtonLabel: "asdkasdjljk",
+      textButtonLabel: "akslkasjdkl",
+    ));
   }
 
   final ValueNotifier<int> _selectedIndex = ValueNotifier<int>(0);

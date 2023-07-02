@@ -169,7 +169,6 @@ void main() {
           .thenAnswer((realInvocation) => AuthenticatedState(userDetail));
       when(authenticationBloc.stream).thenAnswer(
           (realInvocation) => Stream.value(AuthenticatedState(userDetail)));
-      
     });
 
     tearDown(() {

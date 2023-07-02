@@ -40,7 +40,8 @@ class HsWarningBottomSheetView extends StatelessWidget {
       modalContent.add(Padding(
         padding: const EdgeInsets.only(bottom: HsDimens.spacing4),
         child: Text(title!,
-            style: textTheme.displayLarge?.copyWith(fontSize: 18.0)),
+            style: textTheme.displayLarge
+                ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
       ));
     }
     if (description != null) {
@@ -63,7 +64,6 @@ class HsWarningBottomSheetView extends StatelessWidget {
           child: PrimaryButton(
               label: primaryButtonLabel ?? '',
               onPressed: () {
-                // TODO; close bottom sheet, no data save
                 primaryOnPressed!();
               }));
       buttonGroup.add(button);
@@ -74,7 +74,6 @@ class HsWarningBottomSheetView extends StatelessWidget {
           child: SecondaryButton(
               label: secondaryButtonLabel ?? '',
               onPressed: () {
-                // TODO; close bottom sheet, no data save
                 secondaryOnPressed!();
               }));
       buttonGroup.add(button);
@@ -85,7 +84,6 @@ class HsWarningBottomSheetView extends StatelessWidget {
           child: TextOnlyButton(
               label: textButtonLabel ?? '',
               onPressed: () {
-                // TODO; close bottom sheet, no data save
                 textButtonOnPressed!();
               }));
       buttonGroup.add(button);
@@ -96,29 +94,19 @@ class HsWarningBottomSheetView extends StatelessWidget {
           child: TextOnlyButton(
               label: tertiaryButtonLabel ?? '',
               onPressed: () {
-                // TODO; close bottom sheet, no data save
                 tertiaryButtonOnPressed!();
               }));
       buttonGroup.add(button);
     }
-    return IntrinsicHeight(
-      child:  Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(
           vertical: HsDimens.spacing32, horizontal: HsDimens.spacing24),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Column(
-              mainAxisAlignment: MainAxisAlignment.end, children: modalContent),
-          // Button group
-          const SizedBox(height: HsDimens.spacing24),
-          Column(
-              mainAxisAlignment: MainAxisAlignment.end, children: buttonGroup),
-        ],
-      ),
-    )
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.max,
+          children: modalContent +
+              [const SizedBox(height: HsDimens.spacing24)] +
+              buttonGroup),
     );
-   
   }
 }

@@ -14,15 +14,14 @@ class AuthenticationBloc
   final AuthenticationService authenticationService =
       HsSingleton.singleton.get<AuthenticationService>();
   // TODO: implement User Repository here
- bool isUserLoggedIn = false;
+  bool isUserLoggedIn = false;
   AuthenticationBloc() : super(AuthenticationInitial()) {
     on<ValidateAuthentication>(_validateAuthentication);
   }
- 
+
   void _validateAuthentication(
       ValidateAuthentication event, Emitter<AuthenticationState> emit) async {
     try {
-     // authenticationService.signOut();
       final UserDetail userDetail =
           await authenticationService.getCurrentUser();
       isUserLoggedIn = true;
