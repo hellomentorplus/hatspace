@@ -8,7 +8,7 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 
 part 'home_interaction_state.dart';
 
-enum BottomBarItems { explore, booking, message, profile }
+enum BottomBarItems { explore, booking, message, profile, adding }
 
 class HomeInteractionCubit extends Cubit<HomeInteractionState> {
   HomeInteractionCubit() : super(HomeInitial());
@@ -33,15 +33,17 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
         }
       }
     } on UserNotFoundException catch (_) {
-      // TODO handle case when user is not login
-      emit(OnOpenBottomModal());
+      emit(OpenLoginBottomSheetModal());
     }
   }
 
-  void onTapBottomItems(bool isUserLoggedIn) {
+  void onTapBottomItems(BottomBarItems item) async {
     emit(StartOnTapBottomItems());
+    bool isUserLoggedIn = await authenticationService.getIsUserLoggedIn();
     if (!isUserLoggedIn) {
-      emit(OnOpenBottomModal());
+      emit(OpenLoginBottomSheetModal());
+    } else {
+      // TODO: Navigate to coresponsding screen
     }
   }
 }

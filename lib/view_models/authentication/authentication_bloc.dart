@@ -13,8 +13,6 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final AuthenticationService authenticationService =
       HsSingleton.singleton.get<AuthenticationService>();
-  // TODO: implement User Repository here
-  bool isUserLoggedIn = false;
   AuthenticationBloc() : super(AuthenticationInitial()) {
     on<ValidateAuthentication>(_validateAuthentication);
   }
@@ -24,10 +22,8 @@ class AuthenticationBloc
     try {
       final UserDetail userDetail =
           await authenticationService.getCurrentUser();
-      isUserLoggedIn = true;
       emit(AuthenticatedState(userDetail));
     } on UserNotFoundException catch (_) {
-      isUserLoggedIn = false;
       emit(AnonymousState());
     }
   }

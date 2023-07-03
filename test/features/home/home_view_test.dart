@@ -54,7 +54,6 @@ void main() {
             .thenAnswer((realInvocation) => Stream.value(AnonymousState()));
         when(authenticationService.getCurrentUser())
             .thenThrow(UserNotFoundException());
-        when(authenticationBloc.isUserLoggedIn).thenReturn(false);
       });
 
       tearDown(() {
@@ -103,6 +102,8 @@ void main() {
       testWidgets('verify login modal when user tap item bottom bar',
           (widgetTester) async {
         const Widget widget = HomePageView();
+        when(authenticationService.getIsUserLoggedIn())
+            .thenAnswer((realInvocation) => Future.value(false));
         await widgetTester.multiBlocWrapAndPump([
           BlocProvider<AppConfigBloc>(
             create: (context) => appConfigBloc,
@@ -178,7 +179,6 @@ void main() {
 
     testWidgets('verify UI components', (widgetTester) async {
       const Widget widget = HomePageView();
-      when(authenticationBloc.isUserLoggedIn).thenReturn(true);
       await widgetTester.multiBlocWrapAndPump([
         BlocProvider<AppConfigBloc>(
           create: (context) => appConfigBloc,

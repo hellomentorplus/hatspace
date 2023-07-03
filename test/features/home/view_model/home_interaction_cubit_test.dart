@@ -46,7 +46,8 @@ void main() {
             .thenThrow(UserNotFoundException());
       },
       act: (bloc) => bloc.onAddPropertyPressed(),
-      expect: () => [isA<StartValidateRole>(), isA<OnOpenBottomModal>()]);
+      expect: () =>
+          [isA<StartValidateRole>(), isA<OpenLoginBottomSheetModal>()]);
 
   blocTest(
     'Given user has role tenant only, when handle Add Property, then return nothing',
@@ -87,7 +88,10 @@ void main() {
       setUp: () {
         when(authenticationService.getCurrentUser())
             .thenThrow(UserNotFoundException());
+        when(authenticationService.getIsUserLoggedIn())
+            .thenAnswer((realInvocation) => Future.value(false));
       },
-      act: (bloc) => bloc.onTapBottomItems(false),
-      expect: () => [isA<StartOnTapBottomItems>(), isA<OnOpenBottomModal>()]);
+      act: (bloc) => bloc.onTapBottomItems(BottomBarItems.booking),
+      expect: () =>
+          [isA<StartOnTapBottomItems>(), isA<OpenLoginBottomSheetModal>()]);
 }

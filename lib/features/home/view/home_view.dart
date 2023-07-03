@@ -66,7 +66,6 @@ class HomePageViewState extends State<HomePageView> {
 
   @override
   Widget build(BuildContext context) {
-    bool isUserLoggin = false;
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeInteractionCubit>(
@@ -87,7 +86,7 @@ class HomePageViewState extends State<HomePageView> {
                 if (state is StartAddPropertyFlow) {
                   context.goToAddProperty();
                 }
-                if (state is OnOpenBottomModal) {
+                if (state is OpenLoginBottomSheetModal) {
                   showLoginModal(context);
                 }
               },
@@ -97,8 +96,6 @@ class HomePageViewState extends State<HomePageView> {
               appBar: AppBar(
                 title: BlocBuilder<AuthenticationBloc, AuthenticationState>(
                   builder: (context, state) {
-                    isUserLoggin =
-                        context.read<AuthenticationBloc>().isUserLoggedIn;
                     String? welcome = (state is AuthenticatedState)
                         ? HatSpaceStrings.current
                             .welcomeName(state.userDetail.displayName ?? '')
@@ -170,7 +167,7 @@ class HomePageViewState extends State<HomePageView> {
                               onTap: () {
                                 context
                                     .read<HomeInteractionCubit>()
-                                    .onTapBottomItems(isUserLoggin);
+                                    .onTapBottomItems(BottomBarItems.explore);
                                 _selectedIndex.value = 0;
                               },
                             ),
@@ -184,7 +181,7 @@ class HomePageViewState extends State<HomePageView> {
                                 onTap: () {
                                   context
                                       .read<HomeInteractionCubit>()
-                                      .onTapBottomItems(isUserLoggin);
+                                      .onTapBottomItems(BottomBarItems.booking);
                                   _selectedIndex.value = 1;
                                 }),
                           ),
@@ -204,7 +201,7 @@ class HomePageViewState extends State<HomePageView> {
                                   onTap: () {
                                     context
                                         .read<HomeInteractionCubit>()
-                                        .onTapBottomItems(isUserLoggin);
+                                        .onAddPropertyPressed();
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
@@ -227,7 +224,7 @@ class HomePageViewState extends State<HomePageView> {
                                 onTap: () {
                                   context
                                       .read<HomeInteractionCubit>()
-                                      .onTapBottomItems(isUserLoggin);
+                                      .onTapBottomItems(BottomBarItems.message);
                                   _selectedIndex.value = 2;
                                 }),
                           ),
@@ -240,7 +237,7 @@ class HomePageViewState extends State<HomePageView> {
                                 onTap: () {
                                   context
                                       .read<HomeInteractionCubit>()
-                                      .onTapBottomItems(isUserLoggin);
+                                      .onTapBottomItems(BottomBarItems.profile);
                                   _selectedIndex.value = 3;
                                 }),
                           )
