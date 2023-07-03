@@ -83,6 +83,7 @@ android {
         resValue 'string','facebook_app_id',facebookAppId
         resValue 'string','facebook_client_token',facebookClientToken
         resValue 'string', 'fb_login_protocol_scheme',"fb$facebookAppId}"
+        resValue 'string', 'app_name', 'HATSpace'
     }
 
     signingConfigs {
@@ -98,6 +99,7 @@ android {
 
     buildTypes {
         debug {
+            resValue 'string', 'app_name', 'HATSpace Debug'
             applicationIdSuffix '.dev'
         }
 
@@ -105,14 +107,11 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
+            resValue 'string', 'app_name', 'HATSpace'
         }
-    }
 
-    flavorDimensions "app"
-
-    productFlavors {
-        beta {
-            dimension "app"
+        profile {
+            signingConfig signingConfigs.release
             resValue "string", "app_name", "HATSpace Beta"
             applicationIdSuffix ".beta"
         }
