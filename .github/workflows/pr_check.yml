@@ -89,7 +89,7 @@ jobs:
 
       # build android app
       - name: Build Android app in debug mode
-        run: flutter build apk --debug
+        run: flutter build apk --debug --flavor alpha
         
       # build iOS app
       - name: Build iOS App in debug, no codesign
