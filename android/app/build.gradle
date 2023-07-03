@@ -29,19 +29,19 @@ if (flutterVersionName == null) {
 
 //Facebook configuration
 
-def facebookProperties = new Properties()
-def facebookPropertiesFile = rootProject.file('appconfig.properties')
-if (facebookPropertiesFile.exists()) {
-    facebookPropertiesFile.withReader('UTF-8') { reader ->
-        facebookProperties.load(reader)
+def appSettings = new Properties()
+def appSettingsFile = rootProject.file('appconfig.properties')
+if (appSettingsFile.exists()) {
+    appSettingsFile.withReader('UTF-8') { reader ->
+        appSettings.load(reader)
     }
 }
-def facebookAppId = facebookProperties.getProperty('FACEBOOK_APP_ID')
+def facebookAppId = appSettings.getProperty('FACEBOOK_APP_ID')
 if(facebookAppId == null){
     throw new GradleException("Facebook App Id not found")
 }
 
-def facebookClientToken = facebookProperties.getProperty('FACEBOOK_CLIENT_TOKEN')
+def facebookClientToken = appSettings.getProperty('FACEBOOK_CLIENT_TOKEN')
 if(facebookClientToken == null){
     throw new GradleException("Facebook Client Token not found")
 }
@@ -109,9 +109,17 @@ android {
             signingConfig signingConfigs.release
             resValue 'string', 'app_name', 'HATSpace'
         }
+    }
 
-        profile {
-            signingConfig signingConfigs.release
+    flavorDimensions "app"
+
+    productFlavors {
+        alpha {
+            dimension "app"
+            isDefault true
+        }
+        beta {
+            dimension "app"
             resValue "string", "app_name", "HATSpace Beta"
             applicationIdSuffix ".beta"
         }
