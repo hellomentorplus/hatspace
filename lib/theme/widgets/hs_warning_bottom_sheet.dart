@@ -29,7 +29,23 @@ class HsWarningBottomSheetView extends StatelessWidget {
     this.textButtonOnPressed,
     this.tertiaryButtonLabel,
     this.tertiaryButtonOnPressed,
-  });
+  })  : assert(
+            iconUrl == null &&
+                title == null &&
+                description == null &&
+                primaryButtonLabel == null &&
+                secondaryButtonLabel == null &&
+                textButtonLabel == null &&
+                tertiaryButtonLabel == null,
+            "Required at least one field to enable bottom sheet"),
+        assert(primaryButtonLabel != null && primaryOnPressed == null,
+            "Require on pressed action"),
+        assert(secondaryButtonLabel != null && secondaryOnPressed == null,
+            "Required on pressed action"),
+        assert(textButtonLabel != null && textButtonOnPressed == null,
+            "Required on pressed action"),
+        assert(tertiaryButtonLabel != null && tertiaryButtonOnPressed == null,
+            "Required on pressed action");
   @override
   Widget build(BuildContext context) {
     List<Widget> modalContent = [];
