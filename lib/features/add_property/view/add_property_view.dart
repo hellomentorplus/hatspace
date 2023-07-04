@@ -6,6 +6,7 @@ import 'package:hatspace/features/add_property/view/widgets/add_property_images_
 import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/property_info_form.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_type_view.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_images_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -37,11 +38,12 @@ class AddPropertyPageBody extends StatelessWidget {
   final ValueNotifier<int> onProgressIndicatorState = ValueNotifier(0);
   // Number of Pages for PageView
   final List<Widget> pages = [
+    const AddPropertyImagesView(),
     const AddPropertyTypeView(),
     PropertyInforForm(),
     const AddPropertyRoomsView(),
     const AddPropertyFeaturesView(),
-    const AddPropertyImagesView()
+    const AddPropertyRoomsView()
   ];
   AddPropertyPageBody({super.key});
   @override
