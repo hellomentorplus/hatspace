@@ -4,18 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/home/view_model/home_interaction_cubit.dart';
-import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
-import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../find_extension.dart';
 import '../../widget_tester_extension.dart';
 import 'home_view_test.mocks.dart';
 

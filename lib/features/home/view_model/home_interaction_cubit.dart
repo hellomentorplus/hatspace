@@ -32,8 +32,6 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
           // TODO handle when user is not a homeowner
         }
       }
-    } on UserNotFoundException catch (_) {
-      
-    }
+    } on UserNotFoundException catch (_) {}
   }
 }

@@ -18,4 +18,3 @@ class StartAddPropertyFlow extends HomeInteractionState {
   @override
   List<Object?> get props => [];
 }
-
