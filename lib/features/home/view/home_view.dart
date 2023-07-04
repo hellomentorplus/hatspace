@@ -141,13 +141,10 @@ class HomePageViewState extends State<HomePageView> {
                           ValueListenableBuilder<int>(
                             valueListenable: _selectedIndex,
                             builder: (context, value, child) => _BottomBarItem(
-                              icon: Assets.icons.explore,
-                              label: HatSpaceStrings.current.explore,
-                              isSelected: value == 0,
-                              onTap: () {
-                                _selectedIndex.value = 0;
-                              },
-                            ),
+                                icon: Assets.icons.explore,
+                                label: HatSpaceStrings.current.explore,
+                                isSelected: value == 0,
+                                onTap: () => _selectedIndex.value = 0),
                           ),
                           ValueListenableBuilder<int>(
                             valueListenable: _selectedIndex,
@@ -155,9 +152,7 @@ class HomePageViewState extends State<HomePageView> {
                                 icon: Assets.icons.booking,
                                 label: HatSpaceStrings.current.booking,
                                 isSelected: value == 1,
-                                onTap: () {
-                                  _selectedIndex.value = 1;
-                                }),
+                                onTap: () => _selectedIndex.value = 1),
                           ),
                           Container(
                             decoration: ShapeDecoration(
@@ -172,11 +167,9 @@ class HomePageViewState extends State<HomePageView> {
                               child: Builder(builder: (context) {
                                 return InkWell(
                                   borderRadius: BorderRadius.circular(48.0),
-                                  onTap: () {
-                                    context
-                                        .read<HomeInteractionCubit>()
-                                        .onAddPropertyPressed();
-                                  },
+                                  onTap: () => context
+                                      .read<HomeInteractionCubit>()
+                                      .onAddPropertyPressed(),
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: SvgPicture.asset(
@@ -195,9 +188,7 @@ class HomePageViewState extends State<HomePageView> {
                                 icon: Assets.icons.message,
                                 label: HatSpaceStrings.current.message,
                                 isSelected: value == 2,
-                                onTap: () {
-                                  _selectedIndex.value = 2;
-                                }),
+                                onTap: () => _selectedIndex.value = 2),
                           ),
                           ValueListenableBuilder<int>(
                             valueListenable: _selectedIndex,
@@ -205,9 +196,7 @@ class HomePageViewState extends State<HomePageView> {
                                 icon: Assets.icons.profile,
                                 label: HatSpaceStrings.current.profile,
                                 isSelected: value == 3,
-                                onTap: () {
-                                  _selectedIndex.value = 3;
-                                }),
+                                onTap: () => _selectedIndex.value = 3),
                           )
                         ],
                       ),

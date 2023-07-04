@@ -666,46 +666,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Login`
-  String get login {
-    return Intl.message(
-      'Login',
-      name: 'login',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `You need to be logged in to view this content`
-  String get loginDescription {
-    return Intl.message(
-      'You need to be logged in to view this content',
-      name: 'loginDescription',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Yes`
-  String get yes {
-    return Intl.message(
-      'Yes',
-      name: 'yes',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No, later`
-  String get noLater {
-    return Intl.message(
-      'No, later',
-      name: 'noLater',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Pleas select your state`
   String get pleaseSelectYourState {
     return Intl.message(

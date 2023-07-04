@@ -3,8 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
-import 'package:hatspace/features/home/view_model/home_interaction_cubit.dart';
-import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
@@ -49,8 +47,6 @@ void main() {
             .thenAnswer((realInvocation) => AnonymousState());
         when(authenticationBloc.stream)
             .thenAnswer((realInvocation) => Stream.value(AnonymousState()));
-        when(authenticationService.getCurrentUser())
-            .thenThrow(UserNotFoundException());
       });
 
       tearDown(() {
@@ -72,11 +68,6 @@ void main() {
         ], widget);
 
         expect(find.byType(BlocListener<AppConfigBloc, AppConfigState>),
-            findsOneWidget);
-
-        expect(
-            find.byType(
-                BlocListener<HomeInteractionCubit, HomeInteractionState>),
             findsOneWidget);
       });
 
