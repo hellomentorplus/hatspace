@@ -8,8 +8,6 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 
 part 'home_interaction_state.dart';
 
-enum BottomBarItems { explore, booking, message, profile, adding }
-
 class HomeInteractionCubit extends Cubit<HomeInteractionState> {
   HomeInteractionCubit() : super(HomeInitial());
 
