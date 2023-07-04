@@ -123,13 +123,6 @@ class AuthenticationService {
   }
 
   Future<bool> getIsUserLoggedIn() async {
-    bool isUserLoggedIn;
-    final User? firebaseUser = _firebaseAuth.currentUser;
-    if (firebaseUser == null) {
-      isUserLoggedIn = false;
-    } else {
-      isUserLoggedIn = true;
-    }
-    return isUserLoggedIn;
+    return _firebaseAuth.currentUser != null;
   }
 }
