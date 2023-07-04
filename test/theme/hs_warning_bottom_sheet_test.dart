@@ -17,13 +17,13 @@ void main() {
       description: 'description',
       iconUrl: Assets.images.check,
       primaryButtonLabel: 'Primary button',
-      primaryOnPressed: null,
+      primaryOnPressed: () {},
       secondaryButtonLabel: 'Secondary button',
-      secondaryOnPressed: null,
+      secondaryOnPressed: () {},
       textButtonLabel: 'Text button',
-      textButtonOnPressed: null,
+      textButtonOnPressed: () {},
       tertiaryButtonLabel: 'Tertiary button',
-      tertiaryButtonOnPressed: null,
+      tertiaryButtonOnPressed: () {},
     );
     await widgetTester.wrapAndPump(hsWarningBottomSheetView);
     // Verify text style
