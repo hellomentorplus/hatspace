@@ -47,7 +47,7 @@ void main() {
       },
       act: (bloc) => bloc.onAddPropertyPressed(),
       expect: () =>
-          [isA<StartValidateRole>(), isA<OpenLoginBottomSheetModal>()]);
+          [isA<StartValidateRole>()]);
 
   blocTest(
     'Given user has role tenant only, when handle Add Property, then return nothing',
@@ -82,16 +82,4 @@ void main() {
     expect: () => [isA<StartValidateRole>(), isA<StartAddPropertyFlow>()],
   );
 
-  blocTest(
-      'given user is not logged in, when handle On tap bottom items, then return OnShowBottomModal',
-      build: () => HomeInteractionCubit(),
-      setUp: () {
-        when(authenticationService.getCurrentUser())
-            .thenThrow(UserNotFoundException());
-        when(authenticationService.getIsUserLoggedIn())
-            .thenAnswer((realInvocation) => Future.value(false));
-      },
-      act: (bloc) => bloc.onTapBottomItems(BottomBarItems.booking),
-      expect: () =>
-          [isA<StartOnTapBottomItems>(), isA<OpenLoginBottomSheetModal>()]);
 }

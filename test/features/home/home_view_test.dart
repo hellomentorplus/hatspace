@@ -99,66 +99,6 @@ void main() {
         expect(find.text('Search rental, location...'), findsOneWidget);
         expect(find.byType(BottomAppBar), findsOneWidget);
       });
-      testWidgets('verify login modal when user tap item bottom bar',
-          (widgetTester) async {
-        const Widget widget = HomePageView();
-        when(authenticationService.getIsUserLoggedIn())
-            .thenAnswer((realInvocation) => Future.value(false));
-        await widgetTester.multiBlocWrapAndPump([
-          BlocProvider<AppConfigBloc>(
-            create: (context) => appConfigBloc,
-          ),
-          BlocProvider<AuthenticationBloc>(
-            create: (context) => authenticationBloc,
-          )
-        ], widget);
-        // tap on explore bottom app item will show login modal
-        await widgetTester.tap(find.text('Explore'));
-        await widgetTester.pump();
-        expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
-        // verify tap out to close
-        await widgetTester.tapAt(const Offset(20.0, 20.0));
-        await widgetTester.pump();
-        expect(find.byType(HsWarningBottomSheetView), findsNothing);
-
-        // tap on Booking bottom item will show login modal
-        await widgetTester.tap(find.text('Booking'));
-        await widgetTester.pump();
-        expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
-        // verify tap out to close
-        await widgetTester.tapAt(const Offset(20.0, 20.0));
-        await widgetTester.pump();
-        expect(find.byType(HsWarningBottomSheetView), findsNothing);
-
-        // Verify action on tap Message
-        await widgetTester.tap(find.text('Message'));
-        await widgetTester.pump();
-        expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
-        // verify tap out to close
-        await widgetTester.tapAt(const Offset(20.0, 20.0));
-        await widgetTester.pump();
-        expect(find.byType(HsWarningBottomSheetView), findsNothing);
-
-        // Verify action on tap Profile
-        await widgetTester.tap(find.text('Profile'));
-        await widgetTester.pump();
-        expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
-        // verify tap out to close
-        await widgetTester.tapAt(const Offset(20.0, 20.0));
-        await widgetTester.pump();
-        expect(find.byType(HsWarningBottomSheetView), findsNothing);
-
-        // Verify action on Add icon
-        await widgetTester.tap(find.ancestor(
-            of: find.svgPictureWithAssets(Assets.icons.add),
-            matching: find.byType(InkWell)));
-        await widgetTester.pump();
-        expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
-        // verify tap out to close
-        await widgetTester.tapAt(const Offset(20.0, 20.0));
-        await widgetTester.pump();
-        expect(find.byType(HsWarningBottomSheetView), findsNothing);
-      });
     },
   );
 

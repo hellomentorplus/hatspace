@@ -33,17 +33,7 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
         }
       }
     } on UserNotFoundException catch (_) {
-      emit(OpenLoginBottomSheetModal());
-    }
-  }
-
-  void onTapBottomItems(BottomBarItems item) async {
-    emit(StartOnTapBottomItems());
-    bool isUserLoggedIn = await authenticationService.getIsUserLoggedIn();
-    if (!isUserLoggedIn) {
-      emit(OpenLoginBottomSheetModal());
-    } else {
-      // TODO: Navigate to coresponsding screen
+      
     }
   }
 }

@@ -47,21 +47,6 @@ class HomePageViewState extends State<HomePageView> {
     detector.startListening();
   }
 
-  void showLoginModal(BuildContext context) {
-    context.showHsBottomSheet(HsWarningBottomSheetView(
-      iconUrl: Assets.images.loginCircle,
-      title: HatSpaceStrings.current.login,
-      description: HatSpaceStrings.current.loginDescription,
-      primaryButtonLabel: HatSpaceStrings.current.yes,
-      primaryOnPressed: () {
-        context.pop();
-        context.goToSignup();
-      },
-      secondaryButtonLabel: HatSpaceStrings.current.noLater,
-      secondaryOnPressed: () => context.pop(),
-    ));
-  }
-
   final ValueNotifier<int> _selectedIndex = ValueNotifier<int>(0);
 
   @override
@@ -85,9 +70,6 @@ class HomePageViewState extends State<HomePageView> {
               listener: (context, state) {
                 if (state is StartAddPropertyFlow) {
                   context.goToAddProperty();
-                }
-                if (state is OpenLoginBottomSheetModal) {
-                  showLoginModal(context);
                 }
               },
             )
@@ -165,9 +147,6 @@ class HomePageViewState extends State<HomePageView> {
                               label: HatSpaceStrings.current.explore,
                               isSelected: value == 0,
                               onTap: () {
-                                context
-                                    .read<HomeInteractionCubit>()
-                                    .onTapBottomItems(BottomBarItems.explore);
                                 _selectedIndex.value = 0;
                               },
                             ),
@@ -179,9 +158,6 @@ class HomePageViewState extends State<HomePageView> {
                                 label: HatSpaceStrings.current.booking,
                                 isSelected: value == 1,
                                 onTap: () {
-                                  context
-                                      .read<HomeInteractionCubit>()
-                                      .onTapBottomItems(BottomBarItems.booking);
                                   _selectedIndex.value = 1;
                                 }),
                           ),
@@ -222,9 +198,6 @@ class HomePageViewState extends State<HomePageView> {
                                 label: HatSpaceStrings.current.message,
                                 isSelected: value == 2,
                                 onTap: () {
-                                  context
-                                      .read<HomeInteractionCubit>()
-                                      .onTapBottomItems(BottomBarItems.message);
                                   _selectedIndex.value = 2;
                                 }),
                           ),
@@ -235,9 +208,6 @@ class HomePageViewState extends State<HomePageView> {
                                 label: HatSpaceStrings.current.profile,
                                 isSelected: value == 3,
                                 onTap: () {
-                                  context
-                                      .read<HomeInteractionCubit>()
-                                      .onTapBottomItems(BottomBarItems.profile);
                                   _selectedIndex.value = 3;
                                 }),
                           )
