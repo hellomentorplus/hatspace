@@ -41,9 +41,9 @@ class HsWarningBottomSheetView extends StatelessWidget {
         assert(primaryButtonLabel != null && primaryOnPressed == null,
             'Need button lable to enable button'),
         assert(secondaryButtonLabel != null && secondaryOnPressed == null,
-         'Need button lable to enable button'),
+            'Need button lable to enable button'),
         assert(textButtonLabel != null && textButtonOnPressed == null,
-             'Need button lable to enable button'),
+            'Need button lable to enable button'),
         assert(tertiaryButtonLabel != null && tertiaryButtonOnPressed == null,
             'Need button lable to enable button');
   @override
@@ -107,7 +107,7 @@ class HsWarningBottomSheetView extends StatelessWidget {
     if (tertiaryButtonLabel != null) {
       button = Padding(
           padding: const EdgeInsets.only(bottom: HsDimens.spacing16),
-          child: TextOnlyButton(
+          child: TertiaryButton(
               label: tertiaryButtonLabel ?? '',
               onPressed: () {
                 tertiaryButtonOnPressed!();
