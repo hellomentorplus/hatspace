@@ -48,32 +48,31 @@ void main() {
     }, throwsA(isA<AssertionError>()));
   });
 
-  testWidgets(
-      'Given when having button label but no actions, then throw assertion',
-      (widgetTester) async {
+  test('Given when having button label but no actions, then throw assertion',
+      () async {
     expect(() {
       HsWarningBottomSheetView(
         title: 'testing',
-        primaryButtonLabel: 'primary',
+        primaryButtonLabel: 'primaryButtonLabel',
       );
     }, throwsA(isA<AssertionError>()));
 
     expect(() {
       HsWarningBottomSheetView(
         title: 'testing',
-        tertiaryButtonLabel: 'primary',
+        tertiaryButtonLabel: 'tertiaryButtonLabel',
       );
     }, throwsA(isA<AssertionError>()));
     expect(() {
       HsWarningBottomSheetView(
         title: 'testing',
-        secondaryButtonLabel: 'primary',
+        secondaryButtonLabel: 'secondaryButtonLabel',
       );
     }, throwsA(isA<AssertionError>()));
     expect(() {
       HsWarningBottomSheetView(
         title: 'testing',
-        textButtonLabel: 'primary',
+        textButtonLabel: 'textButtonLabel',
       );
     }, throwsA(isA<AssertionError>()));
   });
