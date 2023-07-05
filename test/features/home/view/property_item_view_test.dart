@@ -4,45 +4,48 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/home/data/property_item_data.dart';
 import 'package:hatspace/features/home/view/widgets/property_item_view.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 import '../../../widget_tester_extension.dart';
 
 void main() {
-  const PropertyItemData propertyData = PropertyItemData(
-    id: 'id',
-    availableDate: 'Available',
-    bathrooms: 1,
-    bedrooms: 2,
-    isFavorited: true,
-    name: 'property name',
-    ownerAvatar: '',
-    ownerName: 'Van a',
-    parkings: 3,
-    photos: ['1', '2', '3'],
-    price: '123232',
-    todayViews: 20,
-    type: PropertyTypes.house,
-  );
+  initializeDateFormatting();
+  final PropertyItemData propertyData = PropertyItemData(
+      id: 'id',
+      availableDate: DateTime(2023, 1, 2),
+      state: 'state',
+      numberOfBathrooms: 1,
+      numberOfBedrooms: 2,
+      isFavorited: true,
+      name: 'property name',
+      ownerAvatar: 'mockUrl.jpg',
+      ownerName: 'Van a',
+      numberOfParkings: 3,
+      photos: const ['1', '2', '3'],
+      price: 2000.0,
+      numberOfViewsToday: 20,
+      type: PropertyTypes.house,
+      currency: Currency.aud);
 
   testWidgets('Verify PropertyItemView UI', (widgetTester) async {
-    const PropertyItemView propertyWidget =
+    final PropertyItemView propertyWidget =
         PropertyItemView(property: propertyData);
     await mockNetworkImagesFor(() => widgetTester.wrapAndPump(ListView(
-          children: const [propertyWidget],
+          children: [propertyWidget],
         )));
-    expect(find.text(propertyData.name), findsOneWidget);
-    expect(find.text(propertyData.ownerName), findsOneWidget);
-    expect(find.text(propertyData.price), findsOneWidget);
+    expect(find.text(propertyData.state), findsOneWidget);
+    expect(find.text(propertyData.ownerName!), findsOneWidget);
+    expect(find.text(r'$2,000'), findsOneWidget);
     expect(find.text(propertyData.type.displayName), findsOneWidget);
-    expect(
-        find.text('Available date: ${propertyData.availableDate}',
-            findRichText: true),
+    expect(find.text('Available date:01/02/23', findRichText: true),
         findsOneWidget);
-    expect(find.text(propertyData.bathrooms.toString()), findsOneWidget);
-    expect(find.text(propertyData.bedrooms.toString()), findsOneWidget);
-    expect(find.text(propertyData.parkings.toString()), findsOneWidget);
-    expect(find.text('${propertyData.todayViews} views today'), findsOneWidget);
+    expect(
+        find.text(propertyData.numberOfBathrooms.toString()), findsOneWidget);
+    expect(find.text(propertyData.numberOfBedrooms.toString()), findsOneWidget);
+    expect(find.text(propertyData.numberOfParkings.toString()), findsOneWidget);
+    expect(find.text('${propertyData.numberOfViewsToday} views today'),
+        findsOneWidget);
     expect(find.text('pw'), findsOneWidget);
     expect(find.byType(SvgPicture), findsNWidgets(5));
     expect(find.text('pw'), findsOneWidget);
@@ -51,10 +54,10 @@ void main() {
 
   testWidgets('Verify PropertyItemView photos page view interaction',
       (widgetTester) async {
-    const PropertyItemView propertyWidget =
+    final PropertyItemView propertyWidget =
         PropertyItemView(property: propertyData);
     await mockNetworkImagesFor(() => widgetTester.wrapAndPump(ListView(
-          children: const [propertyWidget],
+          children: [propertyWidget],
         )));
 
     final Finder imgsPageViewFinder = find.byType(PageView);
@@ -89,18 +92,18 @@ void main() {
 
   testWidgets('Verify PropertyItemView favorite interaction',
       (widgetTester) async {
-    const PropertyItemView propertyWidget =
+    final PropertyItemView propertyWidget =
         PropertyItemView(property: propertyData);
     const String activeSvgPath = 'assets/icons/favorite_active.svg';
     const String unActiveSvgPath = 'assets/icons/favorite_unactive.svg';
     await mockNetworkImagesFor(() => widgetTester.wrapAndPump(ListView(
-          children: const [propertyWidget],
+          children: [propertyWidget],
         )));
 
     final Finder favoriteIconFinder = find.descendant(
         of: find.byType(Positioned),
         matching: find.descendant(
-            of: find.byType(InkWell), matching: find.byType(SvgPicture)));
+            of: find.byType(GestureDetector), matching: find.byType(SvgPicture)));
     expect(favoriteIconFinder, findsOneWidget);
 
     final BytesLoader favoriteIconData =
@@ -114,7 +117,7 @@ void main() {
     final Finder updatedFavoriteIconFinder = find.descendant(
         of: find.byType(Positioned),
         matching: find.descendant(
-            of: find.byType(InkWell), matching: find.byType(SvgPicture)));
+            of: find.byType(GestureDetector), matching: find.byType(SvgPicture)));
     final BytesLoader updatedFavoriteIconData =
         widgetTester.widget<SvgPicture>(updatedFavoriteIconFinder).bytesLoader;
     expect(updatedFavoriteIconData, isA<SvgAssetLoader>());

@@ -53,7 +53,6 @@ dependencies:
   permission_handler: ^10.3.0
   device_info_plus: ^9.0.2
   clock: ^1.1.1
-  network_image_mock: ^2.1.1
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +69,8 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.1
   intl_utils: ^2.7.0
+  network_image_mock: ^2.1.1
+
 
 
  

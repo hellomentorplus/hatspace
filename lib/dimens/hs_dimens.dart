@@ -37,10 +37,13 @@ class HsDimens {
   static const double gridSpacing = 4.0;
 
   // sizes
+  static const double size6 = 6.0;
   static const double size64 = 64.0;
   static const double size118 = 118.0;
 
   // radius
+  static const double radius2 = 2.0;
+  static const double radius7 = 7.0;
   static const double radius8 = 8.0;
   static const double radius16 = 16.0;
 }

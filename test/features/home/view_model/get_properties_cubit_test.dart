@@ -1,11 +1,13 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/home/view_model/get_properties_cubit.dart';
 import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:hatspace/strings/l10n.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -16,12 +18,15 @@ void main() {
   final MockStorageService storageService = MockStorageService();
   final PropertyService propertyService = MockPropertyService();
 
-  setUpAll(() {
+  setUpAll(() async {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
 
     /// Must have to specify this because when bloc uses storage service to get data,
     /// then the storage service will use this mock property service. Otherwise it will fail.
     when(storageService.property).thenReturn(propertyService);
+
+    /// Must to enable localization because AustraliaStates has used HatSpaceStrings
+    await HatSpaceStrings.load(const Locale.fromSubtags(languageCode: 'en'));
   });
 
   blocTest(
@@ -41,7 +46,7 @@ void main() {
                 true),
             isA<GetPropertiesState>()
                 .having(
-                    (p0) => p0.isGetPropertiesFailed, 'Fetched failed', true)
+                    (p0) => p0.isGetPropertiesFailed, 'Is fetched failed', true)
                 .having((p0) => p0.errorFetching, 'Fetched failed message',
                     'Failed to fetch properties')
           ]);
@@ -101,8 +106,8 @@ void main() {
           (p0) => p0.isGettingPropertiesState, 'Fetching properties', true),
       isA<GetPropertiesState>()
           .having((p0) => p0.properties.length, 'Properties length', 2)
-          .having((p0) => p0.properties.first.name, 'Property Name', 'name')
-          .having((p0) => p0.properties[1].name, 'Property Name', 'name 1')
+          .having((p0) => p0.properties.first.name, 'Property Name 1', 'name')
+          .having((p0) => p0.properties[1].name, 'Property Name 2', 'name 1')
     ],
   );
 
@@ -118,11 +123,31 @@ void main() {
     act: (bloc) => bloc.getProperties(),
     expect: () => [
       isA<GetPropertiesState>().having(
-          (p0) => p0.isGettingPropertiesState, 'Fetching properties', true),
+          (p0) => p0.isGettingPropertiesState, 'Is fetching properties', true),
       isA<GetPropertiesState>()
           .having((p0) => p0.properties.length, 'Properties length', 0)
           .having(
-              (p0) => p0.isGetPropertiesSucceed, 'Fetching properties', true),
+              (p0) => p0.isGetPropertiesSucceed, 'Did fetch properties succeed', true),
+    ],
+  );
+
+  blocTest<GetPropertiesCubit, GetPropertiesState>(
+    'Given current state is initial state and propertyService return null. '
+    'When user call getAllProperties. '
+    'Then emit state with orders : GetPropertiesInitialState -> GettingPropertiesState -> GetPropertiesSucceedState',
+    build: () => GetPropertiesCubit(),
+    setUp: () {
+      when(propertyService.getAllProperties())
+          .thenAnswer((_) => Future.value(null));
+    },
+    act: (bloc) => bloc.getProperties(),
+    expect: () => [
+      isA<GetPropertiesState>().having(
+          (p0) => p0.isGettingPropertiesState, 'Is fetching properties', true),
+      isA<GetPropertiesState>()
+          .having((p0) => p0.properties.length, 'Properties length', 0)
+          .having(
+              (p0) => p0.isGetPropertiesSucceed, 'Did fetch properties succeed', true),
     ],
   );
 

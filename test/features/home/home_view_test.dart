@@ -14,6 +14,7 @@ import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
@@ -31,6 +32,7 @@ import 'home_view_test.mocks.dart';
   HomeInteractionCubit
 ])
 void main() {
+  initializeDateFormatting();
   final MockAppConfigBloc appConfigBloc = MockAppConfigBloc();
   final MockStorageService storageService = MockStorageService();
   final MockAuthenticationService authenticationService =
@@ -170,7 +172,7 @@ void main() {
     });
     testWidgets(
         'Given cubit state is initial'
-        'When user first go to home screen'
+        'When user firstly goes to home screen'
         'Then user does not see list of property', (widgetTester) async {
       when(getPropertiesCubit.stream)
           .thenAnswer((_) => Stream.value(const GetPropertiesInitialState()));
@@ -185,7 +187,7 @@ void main() {
 
     testWidgets(
         'Given cubit state is loading'
-        'When user first go to home screen'
+        'When user firstly goes to home screen'
         'Then user does not see list of property', (widgetTester) async {
       when(getPropertiesCubit.stream).thenAnswer(
           (_) => Stream.value(const GetPropertiesFailedState('error')));
@@ -200,7 +202,7 @@ void main() {
 
     testWidgets(
         'Given cubit state is success but does not have data'
-        'When user first go to home screen'
+        'When user firstly goes to home screen'
         'Then user does not see list of property', (widgetTester) async {
       when(getPropertiesCubit.stream)
           .thenAnswer((_) => Stream.value(const GetPropertiesSucceedState([])));
@@ -215,42 +217,46 @@ void main() {
 
     testWidgets(
         'Given cubit state is success and have data'
-        'When user first go to home screen'
+        'When user firstly goes to home screen'
         'Then user will see list of property', (widgetTester) async {
-      const List<PropertyItemData> fakeData = [
+      final List<PropertyItemData> fakeData = [
         PropertyItemData(
             id: 'id',
-            photos: ['1', '2'],
-            price: 'price',
+            photos: const ['1', '2'],
+            price: 280.0,
             name: 'name',
+            state: 'state',
             type: PropertyTypes.apartment,
-            bedrooms: 1,
-            bathrooms: 1,
-            parkings: 1,
-            todayViews: 20,
-            availableDate: 'available date',
+            numberOfBedrooms: 1,
+            numberOfBathrooms: 1,
+            numberOfParkings: 1,
+            numberOfViewsToday: 20,
+            availableDate: DateTime(2023, 1, 1),
             ownerAvatar: '1',
             ownerName: 'name',
-            isFavorited: true),
+            isFavorited: true, 
+            currency: Currency.aud),
         PropertyItemData(
             id: 'id 1',
-            photos: ['1', '2'],
-            price: 'price',
+            photos: const ['1', '2'],
+            price: 270.0,
             name: 'name 1',
+            state: 'state 1',
             type: PropertyTypes.apartment,
-            bedrooms: 1,
-            bathrooms: 1,
-            parkings: 1,
-            todayViews: 20,
-            availableDate: 'available date',
+            numberOfBedrooms: 1,
+            numberOfBathrooms: 1,
+            numberOfParkings: 1,
+            numberOfViewsToday: 20,
+            availableDate: DateTime(2023, 1, 2),
             ownerAvatar: '1',
             ownerName: 'name',
-            isFavorited: true),
+            isFavorited: true,
+            currency: Currency.aud),
       ];
       when(getPropertiesCubit.stream).thenAnswer(
-          (_) => Stream.value(const GetPropertiesSucceedState(fakeData)));
+          (_) => Stream.value(GetPropertiesSucceedState(fakeData)));
       when(getPropertiesCubit.state)
-          .thenAnswer((_) => const GetPropertiesSucceedState(fakeData));
+          .thenAnswer((_) => GetPropertiesSucceedState(fakeData));
 
       const HomePageBody home = HomePageBody();
       await mockNetworkImagesFor(

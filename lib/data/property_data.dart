@@ -1,6 +1,5 @@
 // Property key field match with firestore
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:equatable/equatable.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 
@@ -333,15 +332,4 @@ enum Feature {
         return Assets.icons.portableFans;
     }
   }
-}
-
-class User extends Equatable {
-  final String id;
-  final String name;
-  final String avatar;
-
-  const User({required this.id, required this.name, required this.avatar});
-
-  @override
-  List<Object?> get props => [id, name, avatar];
 }

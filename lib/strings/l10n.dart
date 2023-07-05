@@ -302,10 +302,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Available date`
+  /// `Available date:`
   String get availableDate {
     return Intl.message(
-      'Available date',
+      'Available date:',
       name: 'availableDate',
       desc: '',
       args: [],
@@ -876,13 +876,41 @@ class HatSpaceStrings {
     );
   }
 
-  /// `views today`
-  String get viewsToday {
+  /// `{number} views today`
+  String viewsToday(Object number) {
     return Intl.message(
-      'views today',
+      '$number views today',
       name: 'viewsToday',
       desc: '',
-      args: [],
+      args: [number],
+    );
+  }
+
+  /// `{date}`
+  String dateFormatter(DateTime date) {
+    final DateFormat dateDateFormat =
+        DateFormat('MM/dd/yy', Intl.getCurrentLocale());
+    final String dateString = dateDateFormat.format(date);
+
+    return Intl.message(
+      '$dateString',
+      name: 'dateFormatter',
+      desc: '',
+      args: [dateString],
+    );
+  }
+
+  /// `{symbol}{currency}`
+  String currencyFormatter(String symbol, double currency) {
+    final NumberFormat currencyNumberFormat =
+        NumberFormat.decimalPattern(Intl.getCurrentLocale());
+    final String currencyString = currencyNumberFormat.format(currency);
+
+    return Intl.message(
+      '$symbol$currencyString',
+      name: 'currencyFormatter',
+      desc: '',
+      args: [symbol, currencyString],
     );
   }
 }

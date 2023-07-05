@@ -29,72 +29,65 @@ class PropertyItemView extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                      child: Row(
-                    children: [
-                      Flexible(
-                          child: Text(
-                        property.price,
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
+                    child: Row(
+                      children: [
+                        Text(
+                          HatSpaceStrings.current.currencyFormatter(property.currency.symbol, property.price),
+                          style: Theme.of(context)
                             .textTheme
                             .displayMedium
                             ?.copyWith(fontWeight: FontWeight.w700),
-                      )),
-                      const SizedBox(width: HsDimens.spacing4),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: Text(
-                          HatSpaceStrings.current.pw,
-                          maxLines: 2,
+                        ),
+                        const SizedBox(width: HsDimens.spacing4),
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(top: HsDimens.radius8),
+                          child: Text(
+                            HatSpaceStrings.current.pw,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(color: HSColor.neutral6),
+                          ),
+                        )
+                      ],
+                    )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: HsDimens.radius8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SvgPicture.asset(
+                          Assets.icons.eye,
+                          colorFilter: const ColorFilter.mode(
+                              HSColor.neutral6, BlendMode.srcIn),
+                        ),
+                        const SizedBox(
+                          width: HsDimens.spacing4,
+                        ),
+                        Text(
+                          HatSpaceStrings.current
+                              .viewsToday(property.numberOfViewsToday),
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.end,
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium
                               ?.copyWith(color: HSColor.neutral6),
                         ),
-                      )
-                    ],
-                  )),
-                  const SizedBox(width: HsDimens.spacing12),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          SvgPicture.asset(
-                            Assets.icons.eye,
-                            colorFilter: const ColorFilter.mode(
-                                HSColor.neutral6, BlendMode.srcIn),
-                          ),
-                          const SizedBox(
-                            width: HsDimens.spacing4,
-                          ),
-                          Flexible(
-                            child: Text(
-                              '${property.todayViews} ${HatSpaceStrings.current.viewsToday}',
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.end,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(color: HSColor.neutral6),
-                            ),
-                          )
-                        ],
-                      ),
+                      ],
                     ),
-                  )
+                  ),
                 ],
               ),
               const SizedBox(
                 height: HsDimens.spacing4,
               ),
               Text(
-                property.name,
-                maxLines: 4,
+                property.state,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context)
                     .textTheme
@@ -102,48 +95,39 @@ class PropertyItemView extends StatelessWidget {
                     ?.copyWith(color: HSColor.neutral6),
               ),
               const SizedBox(
-                height: HsDimens.spacing4,
-              ),
-              const SizedBox(
-                height: HsDimens.spacing4,
+                height: HsDimens.spacing8,
               ),
               Row(
                 children: [
                   _PropertyFeatureView(
                     iconSvgUrl: Assets.icons.bed,
-                    quantity: property.bedrooms,
+                    quantity: property.numberOfBedrooms,
                   ),
                   const SizedBox(
                     width: HsDimens.spacing8,
                   ),
                   _PropertyFeatureView(
                     iconSvgUrl: Assets.icons.bath,
-                    quantity: property.bathrooms,
+                    quantity: property.numberOfBathrooms,
                   ),
                   const SizedBox(
                     width: HsDimens.spacing8,
                   ),
                   _PropertyFeatureView(
                     iconSvgUrl: Assets.icons.car,
-                    quantity: property.parkings,
-                  ),
-                  const SizedBox(
-                    width: HsDimens.spacing12,
+                    quantity: property.numberOfParkings,
                   ),
                   Container(
                     height: HsDimens.spacing4,
                     width: HsDimens.spacing4,
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: HsDimens.spacing12),
                     decoration: const BoxDecoration(
                         shape: BoxShape.circle, color: HSColor.neutral4),
-                  ),
-                  const SizedBox(
-                    width: HsDimens.spacing12,
                   ),
                   Expanded(
                     child: Text(
                       property.type.displayName,
-                      maxLines: 4,
-                      overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: HSColor.green06, fontWeight: FontWeight.w500),
                     ),
@@ -174,8 +158,6 @@ class _PropertyFeatureView extends StatelessWidget {
         ),
         Text(
           quantity.toString(),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
           style: Theme.of(context)
               .textTheme
               .bodyMedium
@@ -188,16 +170,16 @@ class _PropertyFeatureView extends StatelessWidget {
 
 class _PropertyImgsCarousel extends StatefulWidget {
   final List<String> photos;
-  final String ownerName;
-  final String ownerAvatar;
-  final String availableDate;
+  final String? ownerName;
+  final String? ownerAvatar;
+  final DateTime availableDate;
   final bool isFavorited;
   const _PropertyImgsCarousel(
       {required this.photos,
-      required this.ownerName,
-      required this.ownerAvatar,
       required this.availableDate,
-      required this.isFavorited});
+      required this.isFavorited,
+      this.ownerName,
+      this.ownerAvatar});
 
   @override
   State<_PropertyImgsCarousel> createState() => __PropertyImgsCarouselState();
@@ -251,7 +233,10 @@ class __PropertyImgsCarouselState extends State<_PropertyImgsCarousel> {
                 left: 0,
                 right: 0,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 2, right: 2, bottom: 2),
+                  padding: const EdgeInsets.only(
+                    left: HsDimens.radius2,
+                    right: HsDimens.radius2,
+                    bottom: HsDimens.radius2),
                   child: Column(
                     children: [
                       Row(
@@ -281,20 +266,24 @@ class __PropertyImgsCarouselState extends State<_PropertyImgsCarousel> {
                         padding: const EdgeInsets.all(HsDimens.spacing4),
                         decoration: BoxDecoration(
                             color: HSColor.background.withOpacity(0.9),
-                            borderRadius: BorderRadius.circular(7)),
+                            borderRadius: BorderRadius.circular(HsDimens.radius7)),
                         child: Row(
                           children: [
-                            CircleAvatar(
-                              radius: HsDimens.spacing20,
-                              backgroundImage: NetworkImage(widget.ownerAvatar),
-                            ),
-                            const SizedBox(
-                              width: HsDimens.spacing4,
-                            ),
+                            if (widget.ownerAvatar != null && widget.ownerAvatar!.isNotEmpty)...[
+                              CircleAvatar(
+                                radius: HsDimens.spacing20,
+                                backgroundImage: NetworkImage(widget.ownerAvatar!),
+                              ),
+                              const SizedBox(
+                                width: HsDimens.spacing4,
+                              ),
+                            ] else ...[
+                              /// TODO : Handle when user doesn't has avatar
+                            ],
                             Expanded(
                               child: Text(
-                                widget.ownerName,
-                                maxLines: 2,
+                                widget.ownerName ?? '',
+                                maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context)
                                     .textTheme
@@ -305,29 +294,28 @@ class __PropertyImgsCarouselState extends State<_PropertyImgsCarousel> {
                               ),
                             ),
                             const SizedBox(width: 12),
-                            Expanded(
-                                child: RichText(
-                                    textAlign: TextAlign.end,
-                                    maxLines: 4,
-                                    overflow: TextOverflow.ellipsis,
-                                    text: TextSpan(
-                                        text:
-                                            '${HatSpaceStrings.current.availableDate}: ',
+                            RichText(
+                                textAlign: TextAlign.end,
+                                text: TextSpan(
+                                    text: HatSpaceStrings
+                                        .current.availableDate,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(color: HSColor.neutral6),
+                                    children: [
+                                      TextSpan(
+                                        text: HatSpaceStrings.current
+                                            .dateFormatter(
+                                                widget.availableDate),
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall
-                                            ?.copyWith(color: HSColor.neutral6),
-                                        children: [
-                                          TextSpan(
-                                            text: widget.availableDate,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall
-                                                ?.copyWith(
-                                                  color: HSColor.neutral8,
-                                                ),
-                                          )
-                                        ]))),
+                                            ?.copyWith(
+                                              color: HSColor.neutral8,
+                                            ),
+                                      )
+                                    ])),
                           ],
                         ),
                       ),
@@ -340,7 +328,7 @@ class __PropertyImgsCarouselState extends State<_PropertyImgsCarousel> {
                 child: ValueListenableBuilder<bool>(
                   valueListenable: _favorited,
                   builder: (_, favorited, __) {
-                    return InkWell(
+                    return GestureDetector(
                       onTap: () => _favorited.value = !favorited,
                       child: SvgPicture.asset(
                         favorited
@@ -364,8 +352,8 @@ class _DotIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 6,
-      width: 6,
+      height: HsDimens.size6,
+      width: HsDimens.size6,
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: isSelected
