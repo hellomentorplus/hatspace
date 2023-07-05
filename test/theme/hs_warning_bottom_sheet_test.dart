@@ -16,7 +16,7 @@ void main() {
       title: 'title',
       description: 'description',
       iconUrl: Assets.images.check,
-      primaryButtonLabel: 'Primary button',
+      primaryButtonLabel: 'Primary Button',
       primaryOnPressed: () {},
       secondaryButtonLabel: 'Secondary button',
       secondaryOnPressed: () {},
