@@ -45,7 +45,8 @@ void main() {
         .thenAnswer((realInvocation) => DateTime.now());
     when(addPropertyBloc.state)
         .thenAnswer((realInvocation) => const NextButtonEnable(3, true));
-    when(addPropertyBloc.stream).thenAnswer((realInvocation) => const Stream.empty());
+    when(addPropertyBloc.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
 
     await widgetTester.blocWrapAndPump<AddPropertyCubit>(
         addPropertyBloc, widget);
@@ -65,7 +66,8 @@ void main() {
 
     when(addPropertyBloc.state)
         .thenAnswer((realInvocation) => const NextButtonEnable(0, true));
-    when(addPropertyBloc.stream).thenAnswer((realInvocation) => const Stream.empty());
+    when(addPropertyBloc.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
 
     await widgetTester.blocWrapAndPump<AddPropertyCubit>(
         addPropertyBloc, widget,
