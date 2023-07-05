@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/sign_up/view/sign_up_view.dart';
+import 'package:hatspace/features/sign_up/view/sign_up_screen.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
@@ -12,8 +12,8 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../widget_tester_extension.dart';
-import 'sign_up_view_test.mocks.dart';
+import '../../../widget_tester_extension.dart';
+import 'sign_up_screen_test.mocks.dart';
 
 @GenerateMocks([SignUpBloc, AuthenticationBloc])
 void main() {
