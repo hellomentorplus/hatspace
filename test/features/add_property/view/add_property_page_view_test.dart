@@ -34,15 +34,21 @@ void main() {
     expect(find.byType(BlocProvider<AddPropertyCubit>), findsWidgets);
   });
 
-  testWidgets('given current page is 3, when back button is pressed, then return to page 2', (widgetTester) async {
+  testWidgets(
+      'given current page is 3, when back button is pressed, then return to page 2',
+      (widgetTester) async {
     final Widget widget = AddPropertyPageBody();
 
-    when(addPropertyBloc.propertyType).thenAnswer((realInvocation) => PropertyTypes.house);
-    when(addPropertyBloc.availableDate).thenAnswer((realInvocation) => DateTime.now());
-    when(addPropertyBloc.state).thenAnswer((realInvocation) => NextButtonEnable(3, true));
+    when(addPropertyBloc.propertyType)
+        .thenAnswer((realInvocation) => PropertyTypes.house);
+    when(addPropertyBloc.availableDate)
+        .thenAnswer((realInvocation) => DateTime.now());
+    when(addPropertyBloc.state)
+        .thenAnswer((realInvocation) => NextButtonEnable(3, true));
     when(addPropertyBloc.stream).thenAnswer((realInvocation) => Stream.empty());
 
-    await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyBloc, widget);
+    await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+        addPropertyBloc, widget);
 
     final NavigatorState navigator = widgetTester.state(find.byType(Navigator));
     navigator.pop();
@@ -53,13 +59,17 @@ void main() {
     expect(find.byType(AddPropertyPageBody), findsOneWidget);
   });
 
-  testWidgets('given current page is 0, when back button is pressed, then exit', (widgetTester) async {
+  testWidgets('given current page is 0, when back button is pressed, then exit',
+      (widgetTester) async {
     final Widget widget = AddPropertyPageBody();
 
-    when(addPropertyBloc.state).thenAnswer((realInvocation) => NextButtonEnable(0, true));
+    when(addPropertyBloc.state)
+        .thenAnswer((realInvocation) => NextButtonEnable(0, true));
     when(addPropertyBloc.stream).thenAnswer((realInvocation) => Stream.empty());
 
-    await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyBloc, widget, useRouter: true);
+    await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+        addPropertyBloc, widget,
+        useRouter: true);
 
     final NavigatorState navigator = widgetTester.state(find.byType(Navigator));
     navigator.pop();
