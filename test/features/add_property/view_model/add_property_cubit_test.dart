@@ -95,7 +95,7 @@ void main() {
   );
 
   blocTest(
-    'given page is Feature list, and no feature added, when validate next button, then emit NextButton false',
+    'given page is Feature list, and no feature added, when validate next button, then emit NextButton true by default',
     build: () => AddPropertyCubit(),
     act: (bloc) => bloc.validateNextButtonState(3),
     expect: () => [isA<NextButtonEnable>()],
@@ -104,7 +104,7 @@ void main() {
       expect(state, isA<NextButtonEnable>());
 
       NextButtonEnable nextButtonEnable = state as NextButtonEnable;
-      expect(nextButtonEnable.isActive, false);
+      expect(nextButtonEnable.isActive, true);
       expect(nextButtonEnable.pageViewNumber, 0);
     },
   );
