@@ -5,10 +5,9 @@ import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
-
 part 'home_interaction_state.dart';
 
-enum BottomBarItems { explore, booking, message, profile, adding }
+enum BottomBarItems { explore, booking, message, profile, addingProperty }
 
 class HomeInteractionCubit extends Cubit<HomeInteractionState> {
   HomeInteractionCubit() : super(HomeInitial());
@@ -32,18 +31,23 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
           // TODO handle when user is not a homeowner
         }
       }
-    } on UserNotFoundException catch (_) {
-      emit(OpenLoginBottomSheetModal());
-    }
+    } on UserNotFoundException catch (_) {}
   }
 
-  void onTapBottomItems(BottomBarItems item) async {
+  void onBottomItemTapped(BottomBarItems item) async {
     emit(StartOnTapBottomItems());
     bool isUserLoggedIn = await authenticationService.getIsUserLoggedIn();
     if (!isUserLoggedIn) {
-      emit(OpenLoginBottomSheetModal());
-    } else {
-      // TODO: Navigate to coresponsding screen
+      return emit(OpenLoginBottomSheetModal());
+    }
+    switch (item) {
+      case (BottomBarItems.addingProperty):
+        {
+          onAddPropertyPressed();
+        }
+        // TODO: Handle navigate to others items
+        break;
+      default:
     }
   }
 }

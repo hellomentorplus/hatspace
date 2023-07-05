@@ -167,7 +167,7 @@ class HomePageViewState extends State<HomePageView> {
                               onTap: () {
                                 context
                                     .read<HomeInteractionCubit>()
-                                    .onTapBottomItems(BottomBarItems.explore);
+                                    .onBottomItemTapped(BottomBarItems.explore);
                                 _selectedIndex.value = 0;
                               },
                             ),
@@ -181,7 +181,7 @@ class HomePageViewState extends State<HomePageView> {
                                 onTap: () {
                                   context
                                       .read<HomeInteractionCubit>()
-                                      .onTapBottomItems(BottomBarItems.booking);
+                                      .onBottomItemTapped(BottomBarItems.booking);
                                   _selectedIndex.value = 1;
                                 }),
                           ),
@@ -224,7 +224,7 @@ class HomePageViewState extends State<HomePageView> {
                                 onTap: () {
                                   context
                                       .read<HomeInteractionCubit>()
-                                      .onTapBottomItems(BottomBarItems.message);
+                                      .onBottomItemTapped(BottomBarItems.message);
                                   _selectedIndex.value = 2;
                                 }),
                           ),
@@ -237,7 +237,7 @@ class HomePageViewState extends State<HomePageView> {
                                 onTap: () {
                                   context
                                       .read<HomeInteractionCubit>()
-                                      .onTapBottomItems(BottomBarItems.profile);
+                                      .onBottomItemTapped(BottomBarItems.profile);
                                   _selectedIndex.value = 3;
                                 }),
                           )
