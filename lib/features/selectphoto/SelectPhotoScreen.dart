@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class SelectPhotoScreen extends StatefulWidget {
@@ -11,8 +13,7 @@ class SelectPhotoScreen extends StatefulWidget {
 }
 
 class _SelectPhotoScreenState extends State<SelectPhotoScreen> {
-  List<AssetPathEntity> albums = [];
-  List<AssetEntity> images = [];
+  List<File> images = [];
   int currentPage = 0;
   int perPage = 40;
   ScrollController _scrollController = ScrollController();
@@ -24,33 +25,56 @@ class _SelectPhotoScreenState extends State<SelectPhotoScreen> {
     _scrollController.addListener(_scrollListener);
   }
 
+  Future<File> compressImage(File imageFile) async {
+    double maxSizeBytes = 5.0; // 5MB
+
+    List<int> imageBytes = await imageFile.readAsBytes();
+    double initialSize = imageBytes.length / (1024 * 1024);
+
+    if (initialSize <= maxSizeBytes) {
+      // No need to compress if the image is already smaller than 5MB
+      return imageFile;
+    }
+
+    print('currentPage - a > 5MB ${initialSize} MB\n');
+
+    Uint8List? compressedBytes = await FlutterImageCompress.compressWithFile(
+      imageFile.path,
+      quality: 98,
+    );
+
+    imageBytes = compressedBytes!.toList();
+
+    File a =  File(imageFile.path)..writeAsBytesSync(imageBytes);
+    print('currentPage - a=${await a.length() / (1024*1024)} MB\n');
+
+    return a;
+  }
+
   Future<void> loadPhotos({int page = 0, int perPage = 40}) async {
-    final galleryList = await PhotoManager.getAssetListPaged(
+    final List<AssetEntity> galleryList = await PhotoManager.getAssetListPaged(
       type: RequestType.image,
       page: page,
       pageCount: perPage,
     );
+    print('currentPage - galleryList size=${galleryList.length}\n');
 
-    final filteredImages = await Future.wait(galleryList.map((asset) async {
+    final List<File> compressedAssets = [];
+
+    await Future.wait(galleryList.map((asset) async {
       final file = await asset.file;
       if (file != null) {
-        final fileSize = await file.length();
-        print('currentPage - fileSize=${fileSize / (1024 * 1024)} MB\n');
-        return fileSize < 5 * 1024 * 1024; // Filter images less than 5MB
+        final compressedFile = await compressImage(file);
+        print('currentPage - compressedSize=${await compressedFile.length() / (1024*1024)} MB\n');
+        compressedAssets.add(compressedFile);
       }
-      return false; // Handle null file
     }).toList());
 
-    final filteredAssetList = galleryList.asMap().entries.where((entry) {
-      final index = entry.key;
-      return filteredImages[index];
-    }).map((entry) => entry.value).toList();
-
     setState(() {
-      images.addAll(filteredAssetList);
+      print('currentPage - compressedAssets size=${compressedAssets.length}\n');
+      images.addAll(compressedAssets);
     });
   }
-
 
   void _scrollListener() {
     if (_scrollController.position.pixels ==
@@ -78,27 +102,14 @@ class _SelectPhotoScreenState extends State<SelectPhotoScreen> {
           crossAxisCount: 4, // Number of items per row
         ),
         controller: _scrollController,
-        itemCount: images.length,
+        itemCount: images.length + 1, // Add 1 for the loading indicator
         itemBuilder: (context, index) {
           if (index < images.length) {
             final image = images[index];
             return GridTile(
-              child: FutureBuilder<File?>(
-                future: image.file,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done &&
-                      snapshot.hasData) {
-                    final file = snapshot.data!;
-                    return Image.file(
-                      file, // Display image from file
-                      fit: BoxFit.cover,
-                    );
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
+              child: Image.file(
+                image, // Display image from file
+                fit: BoxFit.cover,
               ),
             );
           } else {
