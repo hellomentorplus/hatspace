@@ -102,4 +102,13 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
     emit(NextButtonEnable(state.pageViewNumber, nextButtonEnable));
   }
+
+  /// handle back button
+  void onBackPressed(int totalPages) {
+    if (state.pageViewNumber > 0) {
+      navigatePage(NavigatePage.reverse, totalPages);
+    } else if (state.pageViewNumber == 0) {
+      emit(ExitAddPropertyFlow(state.pageViewNumber));
+    }
+  }
 }
