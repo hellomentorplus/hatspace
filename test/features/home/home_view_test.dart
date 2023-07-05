@@ -64,7 +64,7 @@ void main() {
           ),
           BlocProvider<AuthenticationBloc>(
             create: (context) => authenticationBloc,
-          ),
+          )
         ], widget);
 
         expect(find.byType(BlocListener<AppConfigBloc, AppConfigState>),
