@@ -19,18 +19,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../widget_tester_extension.dart';
 import 'sign_up_view_test.mocks.dart';
 
-@GenerateMocks([SignUpBloc, AuthenticationBloc, StorageService, AuthenticationService])
+@GenerateMocks(
+    [SignUpBloc, AuthenticationBloc, StorageService, AuthenticationService])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   const widget = SignUpScreen();
   final MockSignUpBloc mockSignUpBloc = MockSignUpBloc();
   final MockAuthenticationBloc authenticationBloc = MockAuthenticationBloc();
   final MockStorageService storageService = MockStorageService();
-  final MockAuthenticationService authenticationService = MockAuthenticationService();
+  final MockAuthenticationService authenticationService =
+      MockAuthenticationService();
 
   setUpAll(() async {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
-    HsSingleton.singleton.registerSingleton<AuthenticationService>(authenticationService);
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
             const MethodChannel('plugins.flutter.io/shared_preferences'),
@@ -255,30 +258,30 @@ void main() {
 
     testWidgets(
         'when state is UserRolesUnavailable, then request authentication validate',
-            (widgetTester) async {
-          when(authenticationBloc.state)
-              .thenAnswer((realInvocation) => AuthenticationInitial());
-          when(authenticationBloc.stream).thenAnswer(
-                  (realInvocation) => Stream.value(AuthenticationInitial()));
+        (widgetTester) async {
+      when(authenticationBloc.state)
+          .thenAnswer((realInvocation) => AuthenticationInitial());
+      when(authenticationBloc.stream).thenAnswer(
+          (realInvocation) => Stream.value(AuthenticationInitial()));
 
-          when(mockSignUpBloc.state)
-              .thenAnswer((realInvocation) => const UserRolesUnavailable());
-          when(mockSignUpBloc.stream)
-              .thenAnswer((realInvocation) => Stream.value(const UserRolesUnavailable()));
+      when(mockSignUpBloc.state)
+          .thenAnswer((realInvocation) => const UserRolesUnavailable());
+      when(mockSignUpBloc.stream).thenAnswer(
+          (realInvocation) => Stream.value(const UserRolesUnavailable()));
 
-          const Widget widget = SignUpScreen();
+      const Widget widget = SignUpScreen();
 
-          await widgetTester.multiBlocWrapAndPump([
-            BlocProvider<AuthenticationBloc>(
-              create: (context) => authenticationBloc,
-            ),
-            BlocProvider<SignUpBloc>(
-              create: (context) => mockSignUpBloc,
-            ),
-          ], widget, infiniteAnimationWidget: true, useRouter: true);
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<SignUpBloc>(
+          create: (context) => mockSignUpBloc,
+        ),
+      ], widget, infiniteAnimationWidget: true, useRouter: true);
 
-          // expect to send event to authentication bloc
-          verify(authenticationBloc.add(ValidateAuthentication())).called(1);
-        });
+      // expect to send event to authentication bloc
+      verify(authenticationBloc.add(ValidateAuthentication())).called(1);
+    });
   });
 }
