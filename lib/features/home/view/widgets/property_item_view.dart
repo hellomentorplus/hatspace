@@ -299,7 +299,8 @@ class __PropertyImgsCarouselState extends State<_PropertyImgsCarousel> {
                             RichText(
                                 textAlign: TextAlign.end,
                                 text: TextSpan(
-                                    text: HatSpaceStrings.current.availableDate,
+                                    text: HatSpaceStrings
+                                        .current.availableDateColon,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall

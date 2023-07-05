@@ -302,10 +302,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Available date:`
+  /// `Available date`
   String get availableDate {
     return Intl.message(
-      'Available date:',
+      'Available date',
       name: 'availableDate',
       desc: '',
       args: [],
@@ -911,6 +911,16 @@ class HatSpaceStrings {
       name: 'currencyFormatter',
       desc: '',
       args: [symbol, currencyString],
+    );
+  }
+
+  /// `Available date:`
+  String get availableDateColon {
+    return Intl.message(
+      'Available date:',
+      name: 'availableDateColon',
+      desc: '',
+      args: [],
     );
   }
 }

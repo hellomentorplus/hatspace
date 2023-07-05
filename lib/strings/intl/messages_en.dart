@@ -71,7 +71,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Which features your place has?"),
         "australiaState": m0,
         "available": MessageLookupByLibrary.simpleMessage("Available"),
-        "availableDate":
+        "availableDate": MessageLookupByLibrary.simpleMessage("Available date"),
+        "availableDateColon":
             MessageLookupByLibrary.simpleMessage("Available date:"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
