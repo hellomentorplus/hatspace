@@ -29,7 +29,7 @@ class GetPropertiesCubit extends Cubit<GetPropertiesState> {
           [];
       emit(GetPropertiesSucceedState(displayProperties));
     } catch (_) {
-      emit(const GetPropertiesFailedState('Failed to fetch properties'));
+      emit(const GetPropertiesFailedState());
     }
   }
 }

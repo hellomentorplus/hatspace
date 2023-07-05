@@ -190,9 +190,9 @@ void main() {
         'When user firstly goes to home screen'
         'Then user does not see list of property', (widgetTester) async {
       when(getPropertiesCubit.stream).thenAnswer(
-          (_) => Stream.value(const GetPropertiesFailedState('error')));
+          (_) => Stream.value(const GetPropertiesFailedState()));
       when(getPropertiesCubit.state)
-          .thenAnswer((_) => const GetPropertiesFailedState('error'));
+          .thenAnswer((_) => const GetPropertiesFailedState());
 
       const Widget home = HomePageBody();
       await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, home);

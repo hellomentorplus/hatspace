@@ -60,7 +60,7 @@ class PropertyItemData extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        photos,
+        ...photos,
         price,
         name,
         type,

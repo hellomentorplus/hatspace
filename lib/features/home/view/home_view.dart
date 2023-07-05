@@ -108,7 +108,7 @@ class HomePageBodyState extends State<HomePageBody> {
                   );
                 },
               ),
-              titleSpacing: 16.0,
+              titleSpacing: HsDimens.spacing16,
               centerTitle: false,
               backgroundColor: Theme.of(context).colorScheme.primary,
               bottom: SearchBar(),
@@ -124,37 +124,37 @@ class HomePageBodyState extends State<HomePageBody> {
                       colorFilter: ColorFilter.mode(
                           Theme.of(context).colorScheme.onPrimary,
                           BlendMode.srcIn),
-                      width: 24,
-                      height: 24,
+                      width: HsDimens.size24,
+                      height: HsDimens.size24,
                     )),
                 IconButton(
                   onPressed: () {
                     // TODO add action
                   },
                   icon: SvgPicture.asset(
-                    Assets.icons.notification,
+                    Assets.icons.icAgent,
                     colorFilter: ColorFilter.mode(
                         Theme.of(context).colorScheme.onPrimary,
                         BlendMode.srcIn),
-                    width: 24,
-                    height: 24,
+                    width: HsDimens.size24,
+                    height: HsDimens.size24,
                   ),
                 )
               ],
             ),
             body: BlocBuilder<GetPropertiesCubit, GetPropertiesState>(
               builder: (context, state) {
-                if (state.isGetPropertiesSucceed) {
-                  if (state.properties.isNotEmpty) {
+                if (state is GetPropertiesSucceedState) {
+                  if (state.propertyList.isNotEmpty) {
                     return ListView.separated(
                       padding: const EdgeInsets.symmetric(
                         horizontal: HsDimens.spacing16,
                         vertical: HsDimens.spacing24,
                       ),
                       itemBuilder: (_, idx) => PropertyItemView(
-                          key: ValueKey(state.properties[idx].id),
-                          property: state.properties[idx]),
-                      itemCount: state.properties.length,
+                          key: ValueKey(state.propertyList[idx].id),
+                          property: state.propertyList[idx]),
+                      itemCount: state.propertyList.length,
                       separatorBuilder: (_, __) => const SizedBox(
                         height: HsDimens.spacing12,
                       ),
@@ -162,9 +162,9 @@ class HomePageBodyState extends State<HomePageBody> {
                   }
 
                   /// TODO :  Render empty data widget
-                } else if (state.isGetPropertiesFailed) {
+                } else if (state is GetPropertiesFailedState) {
                   /// TODO :  Render failed widget
-                } else if (state.isGettingPropertiesState) {
+                } else if (state is GettingPropertiesState) {
                   /// TODO :  Render loading widget
                 }
                 return const SizedBox();
@@ -174,7 +174,7 @@ class HomePageBodyState extends State<HomePageBody> {
                 color: HSColor.neutral1.withOpacity(0.9),
                 child: SafeArea(
                   child: SizedBox(
-                    height: 66,
+                    height: HsDimens.size66,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -201,25 +201,27 @@ class HomePageBodyState extends State<HomePageBody> {
                             shape: const CircleBorder(),
                             color: Theme.of(context).colorScheme.primary,
                           ),
-                          width: 48,
-                          height: 48,
-                          margin: const EdgeInsets.all(8.0),
+                          width: HsDimens.size48,
+                          height: HsDimens.size48,
+                          margin: const EdgeInsets.all(HsDimens.spacing8),
                           child: Material(
                             color: Colors.transparent,
                             child: Builder(builder: (context) {
                               return InkWell(
-                                borderRadius: BorderRadius.circular(48.0),
+                                borderRadius:
+                                    BorderRadius.circular(HsDimens.radius48),
                                 onTap: () {
                                   context
                                       .read<HomeInteractionCubit>()
                                       .onAddPropertyPressed();
                                 },
                                 child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
+                                  padding:
+                                      const EdgeInsets.all(HsDimens.spacing12),
                                   child: SvgPicture.asset(
                                     Assets.icons.add,
-                                    width: 24,
-                                    height: 24,
+                                    width: HsDimens.size24,
+                                    height: HsDimens.size24,
                                   ),
                                 ),
                               );
@@ -275,7 +277,7 @@ class _BottomBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(66.0),
+        borderRadius: BorderRadius.circular(HsDimens.radius66),
         child: AspectRatio(
           aspectRatio: 1,
           child: Column(
@@ -285,8 +287,8 @@ class _BottomBarItem extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 icon,
-                width: 24,
-                height: 24,
+                width: HsDimens.size24,
+                height: HsDimens.size24,
                 colorFilter: ColorFilter.mode(
                     isSelected
                         ? Theme.of(context).colorScheme.primary

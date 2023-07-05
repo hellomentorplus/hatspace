@@ -40,16 +40,9 @@ void main() {
       },
       act: (bloc) => bloc.getProperties(),
       expect: () => [
-            isA<GetPropertiesState>().having(
-                (p0) => p0.isGettingPropertiesState,
-                'Fetching properties',
-                true),
-            isA<GetPropertiesState>()
-                .having(
-                    (p0) => p0.isGetPropertiesFailed, 'Is fetched failed', true)
-                .having((p0) => p0.errorFetching, 'Fetched failed message',
-                    'Failed to fetch properties')
-          ]);
+        isA<GettingPropertiesState>(),
+        isA<GetPropertiesFailedState>()
+      ]);
 
   blocTest(
     'Given current state is initial state and propertyService return data successfully. '
@@ -102,12 +95,11 @@ void main() {
     },
     act: (bloc) => bloc.getProperties(),
     expect: () => [
-      isA<GetPropertiesState>().having(
-          (p0) => p0.isGettingPropertiesState, 'Fetching properties', true),
-      isA<GetPropertiesState>()
-          .having((p0) => p0.properties.length, 'Properties length', 2)
-          .having((p0) => p0.properties.first.name, 'Property Name 1', 'name')
-          .having((p0) => p0.properties[1].name, 'Property Name 2', 'name 1')
+      isA<GettingPropertiesState>(),
+      isA<GetPropertiesSucceedState>()
+          .having((p0) => p0.propertyList.length, 'Properties length', 2)
+          .having((p0) => p0.propertyList.first.name, 'Property Name 1', 'name')
+          .having((p0) => p0.propertyList[1].name, 'Property Name 2', 'name 1')
     ],
   );
 
@@ -122,12 +114,9 @@ void main() {
     },
     act: (bloc) => bloc.getProperties(),
     expect: () => [
-      isA<GetPropertiesState>().having(
-          (p0) => p0.isGettingPropertiesState, 'Is fetching properties', true),
-      isA<GetPropertiesState>()
-          .having((p0) => p0.properties.length, 'Properties length', 0)
-          .having((p0) => p0.isGetPropertiesSucceed,
-              'Did fetch properties succeed', true),
+      isA<GettingPropertiesState>(),
+      isA<GetPropertiesSucceedState>()
+        .having((p0) => p0.propertyList.length, 'Properties length', 0)
     ],
   );
 
@@ -142,12 +131,9 @@ void main() {
     },
     act: (bloc) => bloc.getProperties(),
     expect: () => [
-      isA<GetPropertiesState>().having(
-          (p0) => p0.isGettingPropertiesState, 'Is fetching properties', true),
-      isA<GetPropertiesState>()
-          .having((p0) => p0.properties.length, 'Properties length', 0)
-          .having((p0) => p0.isGetPropertiesSucceed,
-              'Did fetch properties succeed', true),
+      isA<GettingPropertiesState>(),
+      isA<GetPropertiesSucceedState>()
+        .having((p0) => p0.propertyList.length, 'Properties length', 0)
     ],
   );
 
@@ -157,10 +143,8 @@ void main() {
       'Then state will be GetPropertiesInitialState.',
       build: () => GetPropertiesCubit(),
       verify: (bloc) {
-        expect(bloc.state.isInitialState, true);
-        expect(() => bloc.state.properties, throwsA(isA<TypeError>()));
-        expect(() => bloc.state.errorFetching, throwsA(isA<TypeError>()));
-        expect(() => (bloc.state as GetPropertiesSucceedState).properties,
-            throwsA(isA<TypeError>()));
+        expect(bloc.state is GetPropertiesInitialState, true);
+        expect(() => (bloc.state as GetPropertiesSucceedState).propertyList,
+          throwsA(isA<TypeError>()));
       });
 }
