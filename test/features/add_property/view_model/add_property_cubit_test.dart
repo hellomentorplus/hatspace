@@ -128,6 +128,23 @@ void main() {
     },
   );
 
+  blocTest<AddPropertyCubit, AddPropertyState>(
+    'given current page is 3, when back button pressed, then return to page 2',
+    build: () => AddPropertyCubit(),
+    act: (bloc) {
+      bloc.onBackPressed(4);
+    },
+    seed: () => const NextButtonEnable(3, true),
+    expect: () => [isA<PageViewNavigationState>(), isA<NextButtonEnable>()],
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.pageViewNumber, 2);
+    },
+  );
+
   test('test initial state', () {
     AddPropertyInitial addPropertyInitial = const AddPropertyInitial();
     expect(addPropertyInitial.props.length, 0);

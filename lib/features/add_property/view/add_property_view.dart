@@ -47,47 +47,60 @@ class AddPropertyPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Scaffold(
-        bottomNavigationBar: BottomController(
-          pageController: pageController,
-          totalPages: pages.length,
-        ),
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: HSColor.background,
-          leading: IconButton(
-            icon: const Icon(Icons.close, color: HSColor.onSurface),
-            onPressed: () {
-              // HS-99 scenario 6
-              context.popToRootHome();
-            },
-          ),
-          bottom: PreferredSize(
-              preferredSize: Size(size.width, 0),
-              child: BlocSelector<AddPropertyCubit, AddPropertyState, int>(
-                selector: (state) => state.pageViewNumber,
-                builder: (context, state) {
-                  return LinearProgressIndicator(
-                    backgroundColor: HSColor.neutral2,
-                    color: HSColor.primary,
-                    value: (state + 1) / pages.length,
-                    semanticsLabel:
-                        HatSpaceStrings.of(context).linearProgressIndicator,
-                  );
+    return WillPopScope(
+      onWillPop: () {
+        context.read<AddPropertyCubit>().onBackPressed(pages.length);
+
+        return Future.value(false);
+      },
+      child: BlocListener<AddPropertyCubit, AddPropertyState>(
+        listenWhen: (previous, current) => current is ExitAddPropertyFlow,
+        listener: (context, state) {
+          context.pop();
+        },
+        child: Scaffold(
+            bottomNavigationBar: BottomController(
+              pageController: pageController,
+              totalPages: pages.length,
+            ),
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: HSColor.background,
+              leading: IconButton(
+                icon: const Icon(Icons.close, color: HSColor.onSurface),
+                onPressed: () {
+                  // HS-99 scenario 6
+                  context.popToRootHome();
                 },
-              )),
-        ),
-        body: PageView.builder(
-          onPageChanged: (value) {
-            onProgressIndicatorState.value = value;
-          },
-          itemCount: pages.length,
-          physics: const NeverScrollableScrollPhysics(),
-          controller: pageController,
-          itemBuilder: (context, index) {
-            return pages[index];
-          },
-        ));
+              ),
+              bottom: PreferredSize(
+                  preferredSize: Size(size.width, 0),
+                  child: BlocSelector<AddPropertyCubit, AddPropertyState, int>(
+                    selector: (state) => state.pageViewNumber,
+                    builder: (context, state) {
+                      return LinearProgressIndicator(
+                        backgroundColor: HSColor.neutral2,
+                        color: HSColor.primary,
+                        value: (state + 1) / pages.length,
+                        semanticsLabel:
+                            HatSpaceStrings.of(context).linearProgressIndicator,
+                      );
+                    },
+                  )),
+            ),
+            body: PageView.builder(
+              onPageChanged: (value) {
+                onProgressIndicatorState.value = value;
+              },
+              itemCount: pages.length,
+              physics: const NeverScrollableScrollPhysics(),
+              controller: pageController,
+              itemBuilder: (context, index) {
+                return pages[index];
+              },
+            )),
+      ),
+    );
   }
 }
 
