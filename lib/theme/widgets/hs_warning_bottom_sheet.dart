@@ -39,11 +39,14 @@ class HsWarningBottomSheetView extends StatelessWidget {
                 tertiaryButtonLabel != null,
             'Require at least one field to enable bottom sheet'),
         // Assert on primary button
-        assert(primaryButtonLabel == null || primaryOnPressed != null),
-        assert(secondaryButtonLabel == null || secondaryOnPressed != null),
-        assert(textButtonLabel == null || textButtonOnPressed != null),
+        assert(primaryButtonLabel == null || primaryOnPressed != null,
+            'primaryOnPressed can not be null'),
+        assert(secondaryButtonLabel == null || secondaryOnPressed != null,
+            'secondaryOnPressed can not be null'),
+        assert(textButtonLabel == null || textButtonOnPressed != null,
+            'textButtonOnPressed can not be null'),
         assert(tertiaryButtonLabel == null || tertiaryButtonOnPressed != null,
-            'onPressed can not be null');
+            'tertiaryButtonOnPressed can not be null');
 
   @override
   Widget build(BuildContext context) {

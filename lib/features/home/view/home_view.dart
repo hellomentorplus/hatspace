@@ -181,6 +181,9 @@ class HomePageViewState extends State<HomePageView> {
                                   onTap: () => context
                                       .read<HomeInteractionCubit>()
                                       .onAddPropertyPressed(),
+                                  onTap: () => context
+                                      .read<HomeInteractionCubit>()
+                                      .onAddPropertyPressed(),
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: SvgPicture.asset(
