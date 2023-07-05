@@ -6,6 +6,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/sign_up/view/sign_up_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/storage_service.dart';
+import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:mockito/annotations.dart';
@@ -15,14 +18,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../widget_tester_extension.dart';
 import 'sign_up_view_test.mocks.dart';
 
-@GenerateMocks([SignUpBloc, AuthenticationBloc])
+@GenerateMocks(
+    [SignUpBloc, AuthenticationBloc, StorageService, AuthenticationService])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   const widget = SignUpScreen();
   final MockSignUpBloc mockSignUpBloc = MockSignUpBloc();
   final MockAuthenticationBloc authenticationBloc = MockAuthenticationBloc();
+  final MockStorageService storageService = MockStorageService();
+  final MockAuthenticationService authenticationService =
+      MockAuthenticationService();
 
   setUpAll(() async {
+    HsSingleton.singleton.registerSingleton<StorageService>(storageService);
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
             const MethodChannel('plugins.flutter.io/shared_preferences'),
@@ -229,6 +239,34 @@ void main() {
           .thenAnswer((realInvocation) => const SignUpSuccess());
       when(mockSignUpBloc.stream)
           .thenAnswer((realInvocation) => Stream.value(const SignUpSuccess()));
+
+      const Widget widget = SignUpScreen();
+
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<SignUpBloc>(
+          create: (context) => mockSignUpBloc,
+        ),
+      ], widget, infiniteAnimationWidget: true, useRouter: true);
+
+      // expect to send event to authentication bloc
+      verify(authenticationBloc.add(ValidateAuthentication())).called(1);
+    });
+
+    testWidgets(
+        'when state is UserRolesUnavailable, then request authentication validate',
+        (widgetTester) async {
+      when(authenticationBloc.state)
+          .thenAnswer((realInvocation) => AuthenticationInitial());
+      when(authenticationBloc.stream).thenAnswer(
+          (realInvocation) => Stream.value(AuthenticationInitial()));
+
+      when(mockSignUpBloc.state)
+          .thenAnswer((realInvocation) => const UserRolesUnavailable());
+      when(mockSignUpBloc.stream).thenAnswer(
+          (realInvocation) => Stream.value(const UserRolesUnavailable()));
 
       const Widget widget = SignUpScreen();
 
