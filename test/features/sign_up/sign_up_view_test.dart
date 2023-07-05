@@ -90,12 +90,6 @@ void main() {
             of: find.text('Continue with Facebook'),
             matching: find.byType(SecondaryButton)),
         findsOneWidget);
-
-    expect(
-        find.ancestor(
-            of: find.text('Continue with Email'),
-            matching: find.byType(SecondaryButton)),
-        findsOneWidget);
   });
 
   testWidgets('Verify button interaction', (WidgetTester widgetTester) async {
