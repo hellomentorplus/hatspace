@@ -38,6 +38,7 @@ class SignUpScreen extends StatelessWidget {
               message: HatSpaceStrings.current.signinErrorToastMessage);
         }
         if (state is UserRolesUnavailable) {
+          context.read<AuthenticationBloc>().add(ValidateAuthentication());
           context.dismissLoading();
           context.goToChooseRole();
         }
