@@ -28,7 +28,7 @@ class NextButtonEnable extends AddPropertyState {
 }
 
 class ExitAddPropertyFlow extends AddPropertyState {
-  ExitAddPropertyFlow(super.pageViewNumber);
+  const ExitAddPropertyFlow(super.pageViewNumber);
 
   @override
   List<Object?> get props => [];
