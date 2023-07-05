@@ -39,10 +39,8 @@ void main() {
             .thenThrow(Exception('Failed to fetch all properties'));
       },
       act: (bloc) => bloc.getProperties(),
-      expect: () => [
-        isA<GettingPropertiesState>(),
-        isA<GetPropertiesFailedState>()
-      ]);
+      expect: () =>
+          [isA<GettingPropertiesState>(), isA<GetPropertiesFailedState>()]);
 
   blocTest(
     'Given current state is initial state and propertyService return data successfully. '
@@ -116,7 +114,7 @@ void main() {
     expect: () => [
       isA<GettingPropertiesState>(),
       isA<GetPropertiesSucceedState>()
-        .having((p0) => p0.propertyList.length, 'Properties length', 0)
+          .having((p0) => p0.propertyList.length, 'Properties length', 0)
     ],
   );
 
@@ -133,7 +131,7 @@ void main() {
     expect: () => [
       isA<GettingPropertiesState>(),
       isA<GetPropertiesSucceedState>()
-        .having((p0) => p0.propertyList.length, 'Properties length', 0)
+          .having((p0) => p0.propertyList.length, 'Properties length', 0)
     ],
   );
 
@@ -145,6 +143,6 @@ void main() {
       verify: (bloc) {
         expect(bloc.state is GetPropertiesInitialState, true);
         expect(() => (bloc.state as GetPropertiesSucceedState).propertyList,
-          throwsA(isA<TypeError>()));
+            throwsA(isA<TypeError>()));
       });
 }

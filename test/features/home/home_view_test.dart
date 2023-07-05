@@ -189,8 +189,8 @@ void main() {
         'Given cubit state is loading'
         'When user firstly goes to home screen'
         'Then user does not see list of property', (widgetTester) async {
-      when(getPropertiesCubit.stream).thenAnswer(
-          (_) => Stream.value(const GetPropertiesFailedState()));
+      when(getPropertiesCubit.stream)
+          .thenAnswer((_) => Stream.value(const GetPropertiesFailedState()));
       when(getPropertiesCubit.state)
           .thenAnswer((_) => const GetPropertiesFailedState());
 
