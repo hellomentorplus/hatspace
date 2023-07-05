@@ -121,8 +121,4 @@ class AuthenticationService {
         email: firebaseUser.email,
         displayName: firebaseUser.displayName);
   }
-
-  Future<bool> getIsUserLoggedIn() async {
-    return _firebaseAuth.currentUser != null;
-  }
 }

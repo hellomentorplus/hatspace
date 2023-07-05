@@ -6,9 +6,7 @@ import 'package:hatspace/features/home/view_model/home_interaction_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
-import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:shake/shake.dart';
 
@@ -47,21 +45,6 @@ class HomePageViewState extends State<HomePageView> {
     detector.startListening();
   }
 
-  void showLoginModal(BuildContext context) {
-    context.showHsBottomSheet(HsWarningBottomSheetView(
-      iconUrl: Assets.images.loginCircle,
-      title: HatSpaceStrings.current.login,
-      description: HatSpaceStrings.current.loginDescription,
-      primaryButtonLabel: HatSpaceStrings.current.yes,
-      primaryOnPressed: () {
-        context.pop();
-        context.goToSignup();
-      },
-      secondaryButtonLabel: HatSpaceStrings.current.noLater,
-      secondaryOnPressed: () => context.pop(),
-    ));
-  }
-
   final ValueNotifier<int> _selectedIndex = ValueNotifier<int>(0);
 
   @override
@@ -85,9 +68,6 @@ class HomePageViewState extends State<HomePageView> {
               listener: (context, state) {
                 if (state is StartAddPropertyFlow) {
                   context.goToAddProperty();
-                }
-                if (state is OpenLoginBottomSheetModal) {
-                  showLoginModal(context);
                 }
               },
             )
@@ -198,11 +178,9 @@ class HomePageViewState extends State<HomePageView> {
                               child: Builder(builder: (context) {
                                 return InkWell(
                                   borderRadius: BorderRadius.circular(48.0),
-                                  onTap: () {
-                                    context
-                                        .read<HomeInteractionCubit>()
-                                        .onAddPropertyPressed();
-                                  },
+                                  onTap: () => context
+                                      .read<HomeInteractionCubit>()
+                                      .onAddPropertyPressed(),
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: SvgPicture.asset(
