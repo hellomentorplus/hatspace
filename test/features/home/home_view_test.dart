@@ -234,7 +234,7 @@ void main() {
             availableDate: DateTime(2023, 1, 1),
             ownerAvatar: '1',
             ownerName: 'name',
-            isFavorited: true, 
+            isFavorited: true,
             currency: Currency.aud),
         PropertyItemData(
             id: 'id 1',
@@ -253,8 +253,8 @@ void main() {
             isFavorited: true,
             currency: Currency.aud),
       ];
-      when(getPropertiesCubit.stream).thenAnswer(
-          (_) => Stream.value(GetPropertiesSucceedState(fakeData)));
+      when(getPropertiesCubit.stream)
+          .thenAnswer((_) => Stream.value(GetPropertiesSucceedState(fakeData)));
       when(getPropertiesCubit.state)
           .thenAnswer((_) => GetPropertiesSucceedState(fakeData));
 

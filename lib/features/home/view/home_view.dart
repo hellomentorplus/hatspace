@@ -160,6 +160,7 @@ class HomePageBodyState extends State<HomePageBody> {
                       ),
                     );
                   }
+
                   /// TODO :  Render empty data widget
                 } else if (state.isGetPropertiesFailed) {
                   /// TODO :  Render failed widget

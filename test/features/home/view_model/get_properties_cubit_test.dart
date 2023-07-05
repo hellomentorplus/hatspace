@@ -126,8 +126,8 @@ void main() {
           (p0) => p0.isGettingPropertiesState, 'Is fetching properties', true),
       isA<GetPropertiesState>()
           .having((p0) => p0.properties.length, 'Properties length', 0)
-          .having(
-              (p0) => p0.isGetPropertiesSucceed, 'Did fetch properties succeed', true),
+          .having((p0) => p0.isGetPropertiesSucceed,
+              'Did fetch properties succeed', true),
     ],
   );
 
@@ -146,8 +146,8 @@ void main() {
           (p0) => p0.isGettingPropertiesState, 'Is fetching properties', true),
       isA<GetPropertiesState>()
           .having((p0) => p0.properties.length, 'Properties length', 0)
-          .having(
-              (p0) => p0.isGetPropertiesSucceed, 'Did fetch properties succeed', true),
+          .having((p0) => p0.isGetPropertiesSucceed,
+              'Did fetch properties succeed', true),
     ],
   );
 

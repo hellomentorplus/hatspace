@@ -103,7 +103,8 @@ void main() {
     final Finder favoriteIconFinder = find.descendant(
         of: find.byType(Positioned),
         matching: find.descendant(
-            of: find.byType(GestureDetector), matching: find.byType(SvgPicture)));
+            of: find.byType(GestureDetector),
+            matching: find.byType(SvgPicture)));
     expect(favoriteIconFinder, findsOneWidget);
 
     final BytesLoader favoriteIconData =
@@ -117,7 +118,8 @@ void main() {
     final Finder updatedFavoriteIconFinder = find.descendant(
         of: find.byType(Positioned),
         matching: find.descendant(
-            of: find.byType(GestureDetector), matching: find.byType(SvgPicture)));
+            of: find.byType(GestureDetector),
+            matching: find.byType(SvgPicture)));
     final BytesLoader updatedFavoriteIconData =
         widgetTester.widget<SvgPicture>(updatedFavoriteIconFinder).bytesLoader;
     expect(updatedFavoriteIconData, isA<SvgAssetLoader>());

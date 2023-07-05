@@ -29,30 +29,29 @@ class PropertyItemView extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Row(
-                      children: [
-                        Text(
-                          HatSpaceStrings.current.currencyFormatter(property.currency.symbol, property.price),
-                          style: Theme.of(context)
+                      child: Row(
+                    children: [
+                      Text(
+                        HatSpaceStrings.current.currencyFormatter(
+                            property.currency.symbol, property.price),
+                        style: Theme.of(context)
                             .textTheme
                             .displayMedium
                             ?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(width: HsDimens.spacing4),
+                      Padding(
+                        padding: const EdgeInsets.only(top: HsDimens.radius8),
+                        child: Text(
+                          HatSpaceStrings.current.pw,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: HSColor.neutral6),
                         ),
-                        const SizedBox(width: HsDimens.spacing4),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(top: HsDimens.radius8),
-                          child: Text(
-                            HatSpaceStrings.current.pw,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(color: HSColor.neutral6),
-                          ),
-                        )
-                      ],
-                    )
-                  ),
+                      )
+                    ],
+                  )),
                   Padding(
                     padding: const EdgeInsets.only(top: HsDimens.radius8),
                     child: Row(
@@ -234,9 +233,9 @@ class __PropertyImgsCarouselState extends State<_PropertyImgsCarousel> {
                 right: 0,
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    left: HsDimens.radius2,
-                    right: HsDimens.radius2,
-                    bottom: HsDimens.radius2),
+                      left: HsDimens.radius2,
+                      right: HsDimens.radius2,
+                      bottom: HsDimens.radius2),
                   child: Column(
                     children: [
                       Row(
@@ -266,13 +265,16 @@ class __PropertyImgsCarouselState extends State<_PropertyImgsCarousel> {
                         padding: const EdgeInsets.all(HsDimens.spacing4),
                         decoration: BoxDecoration(
                             color: HSColor.background.withOpacity(0.9),
-                            borderRadius: BorderRadius.circular(HsDimens.radius7)),
+                            borderRadius:
+                                BorderRadius.circular(HsDimens.radius7)),
                         child: Row(
                           children: [
-                            if (widget.ownerAvatar != null && widget.ownerAvatar!.isNotEmpty)...[
+                            if (widget.ownerAvatar != null &&
+                                widget.ownerAvatar!.isNotEmpty) ...[
                               CircleAvatar(
                                 radius: HsDimens.spacing20,
-                                backgroundImage: NetworkImage(widget.ownerAvatar!),
+                                backgroundImage:
+                                    NetworkImage(widget.ownerAvatar!),
                               ),
                               const SizedBox(
                                 width: HsDimens.spacing4,
@@ -297,8 +299,7 @@ class __PropertyImgsCarouselState extends State<_PropertyImgsCarousel> {
                             RichText(
                                 textAlign: TextAlign.end,
                                 text: TextSpan(
-                                    text: HatSpaceStrings
-                                        .current.availableDate,
+                                    text: HatSpaceStrings.current.availableDate,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall

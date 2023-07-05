@@ -38,7 +38,9 @@ class PropertyItemData extends Equatable {
 
   factory PropertyItemData.fromModels(Property property, UserDetail user) =>
       PropertyItemData(
-          id: property.id ?? 'mock-id', /// TODO : Update this after Property class was updated with non-nullable id
+          id: property.id ?? 'mock-id',
+
+          /// TODO : Update this after Property class was updated with non-nullable id
           photos: property.photos,
           price: property.price.rentPrice,
           name: property.name,
@@ -52,7 +54,7 @@ class PropertyItemData extends Equatable {
           ownerName: user.displayName,
           ownerAvatar: user.avatar,
           isFavorited: false,
-          currency: property.price.currency, 
+          currency: property.price.currency,
           state: property.address.state.displayName);
 
   @override

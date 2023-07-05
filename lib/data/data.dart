@@ -5,7 +5,12 @@ class UserDetail {
   final String? displayName;
   final String? avatar;
 
-  UserDetail({required this.uid, this.phone, this.email, this.displayName, this.avatar});
+  UserDetail(
+      {required this.uid,
+      this.phone,
+      this.email,
+      this.displayName,
+      this.avatar});
 }
 
 enum Roles {
