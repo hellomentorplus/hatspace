@@ -39,12 +39,12 @@ class HsWarningBottomSheetView extends StatelessWidget {
                 tertiaryButtonLabel != null,
             'Require at least one field to enable bottom sheet'),
         // Assert on primary button
-        assert(
-            primaryButtonLabel != null ||
-                secondaryButtonLabel != null ||
-                textButtonLabel != null ||
-                tertiaryButtonLabel != null,
-            'hs bottom sheet need at lease one button enable');
+        assert(primaryButtonLabel == null || primaryOnPressed != null),
+        assert(secondaryButtonLabel == null || secondaryOnPressed != null),
+        assert(textButtonLabel == null || textButtonOnPressed != null),
+        assert(tertiaryButtonLabel == null || tertiaryButtonOnPressed != null,
+            'onPressed can not be null');
+
   @override
   Widget build(BuildContext context) {
     List<Widget> modalContent = [];
@@ -74,7 +74,6 @@ class HsWarningBottomSheetView extends StatelessWidget {
     }
     // Button Configuration
     if (primaryButtonLabel != null) {
-      assert(primaryOnPressed != null, 'on pressed can not be null');
       button = Padding(
           padding: const EdgeInsets.only(bottom: HsDimens.spacing16),
           child: PrimaryButton(
@@ -85,7 +84,6 @@ class HsWarningBottomSheetView extends StatelessWidget {
       buttonGroup.add(button);
     }
     if (secondaryButtonLabel != null) {
-      assert(secondaryOnPressed != null, 'on pressed can not be null');
       button = Padding(
           padding: const EdgeInsets.only(bottom: HsDimens.spacing16),
           child: SecondaryButton(
@@ -96,7 +94,6 @@ class HsWarningBottomSheetView extends StatelessWidget {
       buttonGroup.add(button);
     }
     if (textButtonLabel != null) {
-      assert(textButtonOnPressed != null, 'on pressed can not be null');
       button = Padding(
           padding: const EdgeInsets.only(bottom: HsDimens.spacing16),
           child: TextOnlyButton(
@@ -107,7 +104,6 @@ class HsWarningBottomSheetView extends StatelessWidget {
       buttonGroup.add(button);
     }
     if (tertiaryButtonLabel != null) {
-      assert(tertiaryButtonOnPressed != null, 'on pressed can not be null');
       button = Padding(
           padding: const EdgeInsets.only(bottom: HsDimens.spacing16),
           child: TertiaryButton(

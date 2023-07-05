@@ -40,4 +40,41 @@ void main() {
     expect(find.byType(TextOnlyButton), findsOneWidget);
     expect(find.byType(TertiaryButton), findsOneWidget);
   });
+
+  testWidgets('Given when no fields assigned for modal, then throw assertion',
+      (widgetTester) async {
+    expect(() {
+      HsWarningBottomSheetView();
+    }, throwsA(isA<AssertionError>()));
+  });
+
+  testWidgets(
+      'Given when having button label but no actions, then throw assertion',
+      (widgetTester) async {
+    expect(() {
+      HsWarningBottomSheetView(
+        title: 'testing',
+        primaryButtonLabel: 'primary',
+      );
+    }, throwsA(isA<AssertionError>()));
+
+    expect(() {
+      HsWarningBottomSheetView(
+        title: 'testing',
+        tertiaryButtonLabel: 'primary',
+      );
+    }, throwsA(isA<AssertionError>()));
+    expect(() {
+      HsWarningBottomSheetView(
+        title: 'testing',
+        secondaryButtonLabel: 'primary',
+      );
+    }, throwsA(isA<AssertionError>()));
+    expect(() {
+      HsWarningBottomSheetView(
+        title: 'testing',
+        textButtonLabel: 'primary',
+      );
+    }, throwsA(isA<AssertionError>()));
+  });
 }
