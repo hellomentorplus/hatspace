@@ -116,23 +116,6 @@ class SignUpBody extends StatelessWidget {
                     children: [
                       Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: HsDimens.spacing24),
-                          child: SecondaryButton(
-                            contentAlignment: MainAxisAlignment.start,
-                            label: HatSpaceStrings.current.emailSignUp,
-                            iconUrl: Assets.icons.envelope,
-                            overrideIconColor: false,
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              padding:
-                                  MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                      const EdgeInsets.all(HsDimens.spacing16)),
-                            ),
-                            onPressed: () {},
-                          )),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(
                               horizontal: HsDimens.spacing24,
                               vertical: HsDimens.spacing16),
                           child: SecondaryButton(

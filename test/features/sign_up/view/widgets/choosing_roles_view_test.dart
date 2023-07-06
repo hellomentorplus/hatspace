@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/sign_up/view/choosing_roles_view.dart';
+import 'package:hatspace/features/sign_up/view/widgets/choosing_roles_view.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../widget_tester_extension.dart';
+import '../../../../widget_tester_extension.dart';
 import 'choosing_roles_view_test.mocks.dart';
 
 @GenerateMocks([ChooseRoleViewBloc])

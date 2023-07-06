@@ -8,7 +8,7 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
-import 'package:hatspace/features/sign_up/view/user_role_card_view.dart';
+import 'package:hatspace/features/sign_up/view/widgets/user_role_card_view.dart';
 
 class ChoosingRolesView extends StatelessWidget {
   const ChoosingRolesView({super.key});
