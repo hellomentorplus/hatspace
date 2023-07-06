@@ -127,6 +127,19 @@ class HomePageBodyState extends State<HomePageBody> {
                       width: HsDimens.size24,
                       height: HsDimens.size24,
                     )),
+                IconButton(
+                  onPressed: () {
+                    // TODO add action
+                  },
+                  icon: SvgPicture.asset(
+                    Assets.icons.notification,
+                    colorFilter: ColorFilter.mode(
+                        Theme.of(context).colorScheme.onPrimary,
+                        BlendMode.srcIn),
+                    width: HsDimens.size24,
+                    height: HsDimens.size24,
+                  ),
+                )
               ],
             ),
             body: BlocBuilder<GetPropertiesCubit, GetPropertiesState>(
