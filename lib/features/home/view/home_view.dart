@@ -198,7 +198,7 @@ class HomePageViewState extends State<HomePageView> {
                                   borderRadius: BorderRadius.circular(48.0),
                                   onTap: () => context
                                       .read<HomeInteractionCubit>()
-                                      .onAddPropertyPressed(),
+                                      .onBottomItemTapped(BottomBarItems.addingProperty),
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: SvgPicture.asset(

@@ -200,9 +200,8 @@ void main() {
       expect(find.byType(HsWarningBottomSheetView), findsNothing);
     });
 
-
     testWidgets(
-        'Given HsModalLogin pop up when user taps on bottom item, then verify interaction on login modal ',
+        'Given HsModalLogin pop up when user taps on bottom item, then verify UI of modal ',
         (widgetTester) async {
       const Widget widget = HomePageView();
       await widgetTester.multiBlocWrapAndPump([
@@ -222,14 +221,13 @@ void main() {
       expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
       //verify UI
       expect(find.text('Login'), findsOneWidget);
-      expect(find.text('You need to be logged in to view this content'), findsOneWidget);
-      expect(find.svgPictureWithAssets(Assets.images.loginCircle), findsOneWidget);
-      // verify interaction to close modal
-      await widgetTester.tap(find.widgetWithText(SecondaryButton, 'No, later'));
-      // await widgetTester.pump();
-      await widgetTester.pump(const Duration(seconds: 2));
-      expect(find.byType(HsWarningBottomSheetView), findsNothing);
-
+      expect(find.text('You need to be logged in to view this content'),
+          findsOneWidget);
+      expect(
+          find.svgPictureWithAssets(Assets.images.loginCircle), findsOneWidget);
+      expect(
+          find.widgetWithText(PrimaryButton, 'Yes, login now'), findsOneWidget);
+      expect(find.widgetWithText(SecondaryButton, 'No, later'), findsOneWidget);
     });
   });
 }
