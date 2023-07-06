@@ -52,8 +52,7 @@ class AuthenticationBloc
     }
   }
 
-  void _skipSignUp(
-      SkipSignUp event, Emitter<AuthenticationState> emit) async {
+  void _skipSignUp(SkipSignUp event, Emitter<AuthenticationState> emit) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(isFirstLaunchConst, false);
     emit(AnonymousState());

@@ -44,8 +44,10 @@ void main() {
   });
 
   setUp(() {
-    when(mockSignUpBloc.stream).thenAnswer((realInvocation) => const Stream.empty());
-    when(mockSignUpBloc.state).thenAnswer((realInvocation) => const SignUpInitial());
+    when(mockSignUpBloc.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+    when(mockSignUpBloc.state)
+        .thenAnswer((realInvocation) => const SignUpInitial());
   });
 
   tearDown(() {
@@ -126,9 +128,11 @@ void main() {
 
   testWidgets('Skip event - detect first launch app',
       (WidgetTester tester) async {
-        const Widget widget = SignUpScreen();
-    when(authenticationBloc.stream).thenAnswer((realInvocation) => const Stream.empty());
-    when(authenticationBloc.state).thenAnswer((realInvocation) => RequestSignUp());
+    const Widget widget = SignUpScreen();
+    when(authenticationBloc.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+    when(authenticationBloc.state)
+        .thenAnswer((realInvocation) => RequestSignUp());
 
     await tester.multiBlocWrapAndPump([
       BlocProvider<SignUpBloc>(

@@ -11,26 +11,29 @@ import 'authentication_bloc_test.mocks.dart';
 
 @GenerateMocks([AuthenticationService])
 void main() {
-  final MockAuthenticationService authenticationService = MockAuthenticationService();
+  final MockAuthenticationService authenticationService =
+      MockAuthenticationService();
 
   setUpAll(() {
-    HsSingleton.singleton.registerSingleton<AuthenticationService>(authenticationService);
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
 
-    when(authenticationService.signOut()).thenAnswer((realInvocation) => Future.value());
+    when(authenticationService.signOut())
+        .thenAnswer((realInvocation) => Future.value());
   });
 
   blocTest<AuthenticationBloc, AuthenticationState>(
-      'Return RequestSignUp state with isFirstLaunch is true when first open app with OnAppLaunchValidation event',
-      build: () => AuthenticationBloc(),
-      act: ((bloc) {
-        SharedPreferences.setMockInitialValues({});
-        bloc.add(OnAppLaunchValidation());
-      }),
-      expect: () {
-        return [RequestSignUp()];
-      },
+    'Return RequestSignUp state with isFirstLaunch is true when first open app with OnAppLaunchValidation event',
+    build: () => AuthenticationBloc(),
+    act: ((bloc) {
+      SharedPreferences.setMockInitialValues({});
+      bloc.add(OnAppLaunchValidation());
+    }),
+    expect: () {
+      return [RequestSignUp()];
+    },
     verify: (bloc) {
-        verify(authenticationService.signOut()).called(1);
+      verify(authenticationService.signOut()).called(1);
     },
   );
 
