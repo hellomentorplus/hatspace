@@ -82,6 +82,36 @@
   "kitchen": "Kitchen",
   "portableFans": "Portable Fans",
   "askFeaturesOwned": "Which features your place has?",
-  "house":"House",
-  "apartment":"Apartment"
+  "house": "House",
+  "apartment": "Apartment",
+  "available": "Available",
+  "pw": "pw",
+  "viewsToday": "{number} views today",
+  "dateFormatter": "{date}",
+  "@dateFormatter": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "MM/dd/yy",
+        "isCustomDateFormat": "true"
+      }
+    }
+  },
+  "currencyFormatter": "{symbol}{currency}",
+  "@currencyFormatter": {
+    "placeholders": {
+      "symbol": {
+        "type": "String"
+      },
+      "currency": {
+        "type": "double",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "availableDateColon": "Available date:",
+  "login": "Login",
+  "loginDescription": "You need to be logged in to view this content",
+  "yesLoginNow": "Yes, login now",
+  "noLater": "No, later"
 }
