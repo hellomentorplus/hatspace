@@ -16,6 +16,7 @@ import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
@@ -107,23 +108,6 @@ class SignUpScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: HsDimens.spacing24),
-                          child: SecondaryButton(
-                            contentAlignment: MainAxisAlignment.start,
-                            label: HatSpaceStrings.current.emailSignUp,
-                            iconUrl: Assets.icons.envelope,
-                            overrideIconColor: false,
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              padding:
-                                  MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                      const EdgeInsets.all(HsDimens.spacing16)),
-                            ),
-                            onPressed: () {},
-                          )),
                       Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: HsDimens.spacing24,
