@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/sign_up/view/user_role_card_view.dart';
+import 'package:hatspace/features/sign_up/view/widgets/user_role_card_view.dart';
 import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -8,8 +8,8 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:mockito/annotations.dart';
 
-import '../features/sign_up/view_model/sign_up_bloc_test.mocks.dart';
-import '../widget_tester_extension.dart';
+import '../../view_model/sign_up_bloc_test.mocks.dart';
+import '../../../../widget_tester_extension.dart';
 
 @GenerateMocks([StorageService, AuthenticationService])
 void main() {

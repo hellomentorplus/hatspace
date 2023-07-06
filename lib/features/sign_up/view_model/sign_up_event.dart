@@ -4,18 +4,6 @@ abstract class SignUpEvent extends Equatable {
   const SignUpEvent();
 }
 
-class CheckFirstLaunchSignUp extends SignUpEvent {
-  const CheckFirstLaunchSignUp();
-  @override
-  List<Object?> get props => [];
-}
-
-class CloseSignUpScreen extends SignUpEvent {
-  const CloseSignUpScreen();
-  @override
-  List<Object?> get props => [];
-}
-
 class SignUpWithGoogle extends SignUpEvent {
   const SignUpWithGoogle();
 

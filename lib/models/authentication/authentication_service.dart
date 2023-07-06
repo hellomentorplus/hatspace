@@ -122,6 +122,14 @@ class AuthenticationService {
         displayName: firebaseUser.displayName);
   }
 
+  Future<void> signOut() async {
+    Future.wait([
+      _googleSignIn.signOut(),
+      _facebookAuth.logOut(),
+      _firebaseAuth.signOut()
+    ]);
+  }
+
   Future<bool> getIsUserLoggedIn()async{
     return  _firebaseAuth.currentUser != null;
   }

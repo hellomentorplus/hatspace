@@ -21,11 +21,8 @@ class MyApp extends StatelessWidget {
         return AppConfigBloc()..add(const OnInitialRemoteConfig());
       }),
       BlocProvider<AuthenticationBloc>(
-        create: (context) => AuthenticationBloc(),
+        create: (context) => AuthenticationBloc()..add(OnAppLaunchValidation()),
       ),
-      BlocProvider<SignUpBloc>(create: (context) {
-        return SignUpBloc()..add(const CheckFirstLaunchSignUp());
-      }),
       // TODO add your bloc creation here
     ], child: const MyAppBody());
   }
@@ -40,20 +37,13 @@ class MyAppBody extends StatefulWidget {
 
 class _MyAppBodyState extends State<MyAppBody> {
   @override
-  void initState() {
-    super.initState();
-
-    context.read<AuthenticationBloc>().add(ValidateAuthentication());
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: lightThemeData,
-      home: BlocListener<SignUpBloc, SignUpState>(
+      home: BlocListener<AuthenticationBloc, AuthenticationState>(
           // Listen when FirstLauch will be navigate to Home Screen.
           listener: (context, state) {
-            if (state is FirstLaunchScreen && state.isFirstLaunch == true) {
+            if (state is RequestSignUp) {
               context.goToSignup();
             }
           },

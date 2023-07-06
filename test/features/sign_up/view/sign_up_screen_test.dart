@@ -3,26 +3,35 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/sign_up/view/sign_up_view.dart';
+import 'package:hatspace/features/sign_up/view/sign_up_screen.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/storage_service.dart';
+import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../widget_tester_extension.dart';
-import 'sign_up_view_test.mocks.dart';
+import '../../../widget_tester_extension.dart';
+import 'sign_up_screen_test.mocks.dart';
 
-@GenerateMocks([SignUpBloc, AuthenticationBloc])
+@GenerateMocks(
+    [SignUpBloc, AuthenticationBloc, StorageService, AuthenticationService])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  const widget = SignUpScreen();
   final MockSignUpBloc mockSignUpBloc = MockSignUpBloc();
   final MockAuthenticationBloc authenticationBloc = MockAuthenticationBloc();
+  final MockStorageService storageService = MockStorageService();
+  final MockAuthenticationService authenticationService =
+      MockAuthenticationService();
 
   setUpAll(() async {
+    HsSingleton.singleton.registerSingleton<StorageService>(storageService);
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
             const MethodChannel('plugins.flutter.io/shared_preferences'),
@@ -32,20 +41,24 @@ void main() {
       }
       return null;
     });
-    when(mockSignUpBloc.stream).thenAnswer((realInvocation) {
-      // Bloc's using stream to return states
-      return Stream.value(const FirstLaunchScreen(true));
-    });
-    when(mockSignUpBloc.state).thenAnswer((realInvocation) {
-      return const FirstLaunchScreen(true);
-    });
-    when(mockSignUpBloc.add(const CloseSignUpScreen()))
-        .thenAnswer((realInvocation) {
-      return SharedPreferences.setMockInitialValues({'isFirstLaunch': false});
-    });
+  });
+
+  setUp(() {
+    when(mockSignUpBloc.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+    when(mockSignUpBloc.state)
+        .thenAnswer((realInvocation) => const SignUpInitial());
+  });
+
+  tearDown(() {
+    reset(storageService);
+    reset(authenticationService);
+    reset(mockSignUpBloc);
+    reset(authenticationBloc);
   });
 
   testWidgets('Check skip icon button', (WidgetTester tester) async {
+    const Widget widget = SignUpBody();
     await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
     Padding wrapContainer = tester.firstWidget(find.byType(Padding));
     expect(wrapContainer.padding,
@@ -95,17 +108,17 @@ void main() {
         find.ancestor(
             of: find.text('Continue with Email'),
             matching: find.byType(SecondaryButton)),
-        findsOneWidget);
+        findsNothing);
   });
 
   testWidgets('Verify button interaction', (WidgetTester widgetTester) async {
-    const Widget widget = SignUpScreen();
+    const Widget widget = SignUpBody();
     await widgetTester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
     // Test interaction with google Sign in
     await widgetTester
         .tap(find.widgetWithText(SecondaryButton, 'Continue with Google'));
     await widgetTester.pumpAndSettle();
-    verify(mockSignUpBloc.add(const SignUpWithGoogle()));
+    verify(mockSignUpBloc.add(const SignUpWithGoogle())).called(1);
     // Test interaction with facebook Sign in
     await widgetTester
         .tap(find.widgetWithText(SecondaryButton, 'Continue with Facebook'));
@@ -115,14 +128,28 @@ void main() {
 
   testWidgets('Skip event - detect first launch app',
       (WidgetTester tester) async {
-    await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
+    const Widget widget = SignUpScreen();
+    when(authenticationBloc.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+    when(authenticationBloc.state)
+        .thenAnswer((realInvocation) => RequestSignUp());
+
+    await tester.multiBlocWrapAndPump([
+      BlocProvider<SignUpBloc>(
+        create: (context) => mockSignUpBloc,
+      ),
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => authenticationBloc,
+      )
+    ], widget);
+
     SharedPreferences.setMockInitialValues({});
     TextOnlyButton skipButton = tester.widget(find.ancestor(
         of: find.text('SKIP'), matching: find.byType(TextOnlyButton)));
     await tester.tap(find.byWidget(skipButton));
     await tester.pumpAndSettle();
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    expect(pref.getBool(isFirstLaunchConst), false);
+
+    verify(authenticationBloc.add(SkipSignUp())).called(1);
   });
 
   group('verify listener events', () {
@@ -137,28 +164,12 @@ void main() {
       when(mockSignUpBloc.stream)
           .thenAnswer((realInvocation) => Stream.value(SignUpStart()));
 
-      const Widget widget = SignUpScreen();
+      const Widget widget = SignUpBody();
 
       await widgetTester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget,
           infiniteAnimationWidget: true);
 
       expect(find.text('Loading...'), findsOneWidget);
-    });
-
-    testWidgets(
-        'when state is FirstLaunchScreen and first launch is false, then return to previous screen',
-        (widgetTester) async {
-      when(mockSignUpBloc.state)
-          .thenAnswer((realInvocation) => const FirstLaunchScreen(false));
-      when(mockSignUpBloc.stream).thenAnswer(
-          (realInvocation) => Stream.value(const FirstLaunchScreen(false)));
-
-      const Widget widget = SignUpScreen();
-
-      await widgetTester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget,
-          infiniteAnimationWidget: true, useRouter: true);
-
-      expect(find.byType(SignUpScreen), findsNothing);
     });
 
     testWidgets('when state is UserCancelled, then show toast message',
@@ -168,7 +179,7 @@ void main() {
       when(mockSignUpBloc.stream)
           .thenAnswer((realInvocation) => Stream.value(UserCancelled()));
 
-      const Widget widget = SignUpScreen();
+      const Widget widget = SignUpBody();
 
       await widgetTester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget,
           infiniteAnimationWidget: true);
@@ -196,7 +207,7 @@ void main() {
       when(mockSignUpBloc.stream)
           .thenAnswer((realInvocation) => Stream.value(AuthenticationFailed()));
 
-      const Widget widget = SignUpScreen();
+      const Widget widget = SignUpBody();
 
       await widgetTester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget,
           infiniteAnimationWidget: true);
@@ -230,7 +241,35 @@ void main() {
       when(mockSignUpBloc.stream)
           .thenAnswer((realInvocation) => Stream.value(const SignUpSuccess()));
 
-      const Widget widget = SignUpScreen();
+      const Widget widget = SignUpBody();
+
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<SignUpBloc>(
+          create: (context) => mockSignUpBloc,
+        ),
+      ], widget, infiniteAnimationWidget: true, useRouter: true);
+
+      // expect to send event to authentication bloc
+      verify(authenticationBloc.add(ValidateAuthentication())).called(1);
+    });
+
+    testWidgets(
+        'when state is UserRolesUnavailable, then request authentication validate',
+        (widgetTester) async {
+      when(authenticationBloc.state)
+          .thenAnswer((realInvocation) => AuthenticationInitial());
+      when(authenticationBloc.stream).thenAnswer(
+          (realInvocation) => Stream.value(AuthenticationInitial()));
+
+      when(mockSignUpBloc.state)
+          .thenAnswer((realInvocation) => const UserRolesUnavailable());
+      when(mockSignUpBloc.stream).thenAnswer(
+          (realInvocation) => Stream.value(const UserRolesUnavailable()));
+
+      const Widget widget = SignUpBody();
 
       await widgetTester.multiBlocWrapAndPump([
         BlocProvider<AuthenticationBloc>(

@@ -95,11 +95,20 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
         nextButtonEnable = _bedrooms + _bathrooms + _parking > 0;
         break;
       case 3: // features
-        nextButtonEnable = _features.isNotEmpty;
+        nextButtonEnable = true;
         break;
       // TODO add validation logic for other screens
     }
 
     emit(NextButtonEnable(state.pageViewNumber, nextButtonEnable));
+  }
+
+  /// handle back button
+  void onBackPressed(int totalPages) {
+    if (state.pageViewNumber > 0) {
+      navigatePage(NavigatePage.reverse, totalPages);
+    } else if (state.pageViewNumber == 0) {
+      emit(ExitAddPropertyFlow(state.pageViewNumber));
+    }
   }
 }

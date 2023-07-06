@@ -16,17 +16,23 @@ import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => BlocProvider<SignUpBloc>(
+        create: (context) => SignUpBloc(),
+        child: const SignUpBody(),
+      );
+}
+
+class SignUpBody extends StatelessWidget {
+  const SignUpBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state is SignUpStart) {
           context.showLoading();
-        }
-
-        if (state is FirstLaunchScreen && state.isFirstLaunch == false) {
-          // dismiss this page and return to home
-          context.pop();
         }
 
         if (state is UserCancelled || state is AuthenticationFailed) {
@@ -37,6 +43,7 @@ class SignUpScreen extends StatelessWidget {
               message: HatSpaceStrings.current.signinErrorToastMessage);
         }
         if (state is UserRolesUnavailable) {
+          context.read<AuthenticationBloc>().add(ValidateAuthentication());
           context.dismissLoading();
           context.goToChooseRole();
         }
@@ -81,8 +88,9 @@ class SignUpScreen extends StatelessWidget {
                                       .toUpperCase(),
                                   onPressed: () {
                                     context
-                                        .read<SignUpBloc>()
-                                        .add(const CloseSignUpScreen());
+                                        .read<AuthenticationBloc>()
+                                        .add(SkipSignUp());
+                                    context.pop();
                                   },
                                   style: ButtonStyle(
                                     foregroundColor:
@@ -106,23 +114,6 @@ class SignUpScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: HsDimens.spacing24),
-                          child: SecondaryButton(
-                            contentAlignment: MainAxisAlignment.start,
-                            label: HatSpaceStrings.current.emailSignUp,
-                            iconUrl: Assets.icons.envelope,
-                            overrideIconColor: false,
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              padding:
-                                  MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                      const EdgeInsets.all(HsDimens.spacing16)),
-                            ),
-                            onPressed: () {},
-                          )),
                       Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: HsDimens.spacing24,
