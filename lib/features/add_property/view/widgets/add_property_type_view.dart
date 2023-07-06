@@ -78,13 +78,13 @@ class _AddPropertyTypeViewState extends State<AddPropertyTypeView> {
                   const SizedBox(width: HsDimens.spacing16),
                   Expanded(
                       child: ValueListenableBuilder<PropertyTypes>(
-                        valueListenable: _propertyType,
-                        builder: (context, value, child) => _PropertyTypeCardView(
-                          type: PropertyTypes.apartment,
-                          isSelected: value == PropertyTypes.apartment,
-                          onSelected: _onPropertyTypeChanged,
-                        ),
-                      ))
+                    valueListenable: _propertyType,
+                    builder: (context, value, child) => _PropertyTypeCardView(
+                      type: PropertyTypes.apartment,
+                      isSelected: value == PropertyTypes.apartment,
+                      onSelected: _onPropertyTypeChanged,
+                    ),
+                  ))
                 ],
               ),
             ),
@@ -134,44 +134,41 @@ class _PropertyTypeCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.only(top: HsDimens.spacing20),
-          elevation: 6,
-          color: isSelected ? HSColor.accent : HSColor.neutral2,
-          shape: RoundedRectangleBorder(
-              side: BorderSide(
-                  width: 1.5,
-                  color: isSelected ? HSColor.onAccent : Colors.transparent),
-              borderRadius: BorderRadius.circular(HsDimens.radius8)),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(HsDimens.radius8),
-            onTap: () => onSelected(type),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: HsDimens.spacing16, vertical: HsDimens.spacing24),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(type.getIconPath(),
-                      width: HsDimens.size48, height: HsDimens.size48),
-                  const SizedBox(
-                    height: HsDimens.spacing16,
-                  ),
-                  Text(type.displayName,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(
-                                  fontSize: FontStyleGuide.fontSize16,
-                                  fontWeight: FontWeight.w700))
-                ],
+      shadowColor: Colors.transparent,
+      margin: const EdgeInsets.only(top: HsDimens.spacing20),
+      elevation: 6,
+      color: isSelected ? HSColor.accent : HSColor.neutral2,
+      shape: RoundedRectangleBorder(
+          side: BorderSide(
+              width: 1.5,
+              color: isSelected ? HSColor.onAccent : Colors.transparent),
+          borderRadius: BorderRadius.circular(HsDimens.radius8)),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(HsDimens.radius8),
+        onTap: () => onSelected(type),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: HsDimens.spacing16, vertical: HsDimens.spacing24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.asset(type.getIconPath(),
+                  width: HsDimens.size48, height: HsDimens.size48),
+              const SizedBox(
+                height: HsDimens.spacing16,
               ),
-            ),
-          ));
+              Text(type.displayName,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontSize: FontStyleGuide.fontSize16,
+                      fontWeight: FontWeight.w700))
+            ],
+          ),
+        ),
+      ));
 }
 
 class _DatePickerView extends StatelessWidget {
