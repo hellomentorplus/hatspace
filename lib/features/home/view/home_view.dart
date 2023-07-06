@@ -181,7 +181,7 @@ class HomePageBodyState extends State<HomePageBody> {
                     // TODO add action
                   },
                   icon: SvgPicture.asset(
-                    Assets.icons.icAgent,
+                    Assets.icons.notification,
                     colorFilter: ColorFilter.mode(
                         Theme.of(context).colorScheme.onPrimary,
                         BlendMode.srcIn),
