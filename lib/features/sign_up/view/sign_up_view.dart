@@ -16,17 +16,23 @@ import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => BlocProvider<SignUpBloc>(
+    create: (context) => SignUpBloc(),
+    child: const SignUpBody(),
+  );
+}
+
+class SignUpBody extends StatelessWidget {
+  const SignUpBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state is SignUpStart) {
           context.showLoading();
-        }
-
-        if (state is FirstLaunchScreen && state.isFirstLaunch == false) {
-          // dismiss this page and return to home
-          context.pop();
         }
 
         if (state is UserCancelled || state is AuthenticationFailed) {
@@ -59,7 +65,7 @@ class SignUpScreen extends StatelessWidget {
                 filter: ImageFilter.blur(
                     sigmaX: 4,
                     sigmaY:
-                        4), // Adjust the sigma values for desired blur intensity
+                    4), // Adjust the sigma values for desired blur intensity
                 child: Container(
                   color: Colors.black
                       .withOpacity(0.3), // Adjust the opacity and color
@@ -70,106 +76,105 @@ class SignUpScreen extends StatelessWidget {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                  Expanded(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                TextOnlyButton(
-                                  label: HatSpaceStrings.current.skip
-                                      .toUpperCase(),
-                                  onPressed: () {
-                                    context
-                                        .read<SignUpBloc>()
-                                        .add(const CloseSignUpScreen());
-                                  },
-                                  style: ButtonStyle(
-                                    foregroundColor:
+                      Expanded(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    TextOnlyButton(
+                                      label: HatSpaceStrings.current.skip
+                                          .toUpperCase(),
+                                      onPressed: () {
+                                        context.read<AuthenticationBloc>().add(SkipSignUp());
+                                        context.pop();
+                                      },
+                                      style: ButtonStyle(
+                                        foregroundColor:
                                         MaterialStateProperty.all<Color>(
-                                      colorScheme.onPrimary,
+                                          colorScheme.onPrimary,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              ]),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                bottom: HsDimens.spacing80),
-                            child: SvgPicture.asset(Assets.images.logo,
-                                width: HsDimens.size118,
-                                height: HsDimens.size64),
-                          ),
-                        ]),
-                  ),
-                  Expanded(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: HsDimens.spacing24),
-                          child: SecondaryButton(
-                            contentAlignment: MainAxisAlignment.start,
-                            label: HatSpaceStrings.current.emailSignUp,
-                            iconUrl: Assets.icons.envelope,
-                            overrideIconColor: false,
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              padding:
-                                  MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                      const EdgeInsets.all(HsDimens.spacing16)),
-                            ),
-                            onPressed: () {},
-                          )),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: HsDimens.spacing24,
-                              vertical: HsDimens.spacing16),
-                          child: SecondaryButton(
-                            contentAlignment: MainAxisAlignment.start,
-                            label: HatSpaceStrings.current.facebookSignUp,
-                            iconUrl: Assets.icons.facebook,
-                            overrideIconColor: false,
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              padding:
-                                  MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                      const EdgeInsets.all(HsDimens.spacing16)),
-                            ),
-                            onPressed: () {
-                              context
-                                  .read<SignUpBloc>()
-                                  .add(const SignUpWithFacebook());
-                            },
-                          )),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: HsDimens.spacing24),
-                          child: SecondaryButton(
-                            contentAlignment: MainAxisAlignment.start,
-                            label: HatSpaceStrings.current.googleSignUp,
-                            iconUrl: Assets.icons.google,
-                            overrideIconColor: false,
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white),
-                              padding:
-                                  MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                      const EdgeInsets.all(HsDimens.spacing16)),
-                            ),
-                            onPressed: () {
-                              context
-                                  .read<SignUpBloc>()
-                                  .add(const SignUpWithGoogle());
-                            },
-                          )),
-                    ],
-                  ))
-                ])),
+                                  ]),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: HsDimens.spacing80),
+                                child: SvgPicture.asset(Assets.images.logo,
+                                    width: HsDimens.size118,
+                                    height: HsDimens.size64),
+                              ),
+                            ]),
+                      ),
+                      Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: HsDimens.spacing24),
+                                  child: SecondaryButton(
+                                    contentAlignment: MainAxisAlignment.start,
+                                    label: HatSpaceStrings.current.emailSignUp,
+                                    iconUrl: Assets.icons.envelope,
+                                    overrideIconColor: false,
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(
+                                          Colors.white),
+                                      padding:
+                                      MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                          const EdgeInsets.all(HsDimens.spacing16)),
+                                    ),
+                                    onPressed: () {},
+                                  )),
+                              Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: HsDimens.spacing24,
+                                      vertical: HsDimens.spacing16),
+                                  child: SecondaryButton(
+                                    contentAlignment: MainAxisAlignment.start,
+                                    label: HatSpaceStrings.current.facebookSignUp,
+                                    iconUrl: Assets.icons.facebook,
+                                    overrideIconColor: false,
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(
+                                          Colors.white),
+                                      padding:
+                                      MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                          const EdgeInsets.all(HsDimens.spacing16)),
+                                    ),
+                                    onPressed: () {
+                                      context
+                                          .read<SignUpBloc>()
+                                          .add(const SignUpWithFacebook());
+                                    },
+                                  )),
+                              Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: HsDimens.spacing24),
+                                  child: SecondaryButton(
+                                    contentAlignment: MainAxisAlignment.start,
+                                    label: HatSpaceStrings.current.googleSignUp,
+                                    iconUrl: Assets.icons.google,
+                                    overrideIconColor: false,
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(
+                                          Colors.white),
+                                      padding:
+                                      MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                          const EdgeInsets.all(HsDimens.spacing16)),
+                                    ),
+                                    onPressed: () {
+                                      context
+                                          .read<SignUpBloc>()
+                                          .add(const SignUpWithGoogle());
+                                    },
+                                  )),
+                            ],
+                          ))
+                    ])),
           ],
         ),
       ),
