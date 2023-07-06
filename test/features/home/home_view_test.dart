@@ -32,7 +32,6 @@ import 'home_view_test.mocks.dart';
   StorageService,
   AuthenticationService,
   AuthenticationBloc,
-
   PropertyService,
   GetPropertiesCubit,
   HomeInteractionCubit

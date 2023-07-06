@@ -89,8 +89,7 @@ void main() {
             .thenAnswer((_) => Future.value(false));
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.explore),
-      expect: () =>
-          [ isA<OpenLoginBottomSheetModal>()]);
+      expect: () => [isA<OpenLoginBottomSheetModal>()]);
 
   blocTest(
       'Given user has not logged in, when user taps on Booking, then return OpenLoginBottomSheetModal',
@@ -100,8 +99,7 @@ void main() {
             .thenAnswer((_) => Future.value(false));
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.booking),
-      expect: () =>
-          [isA<OpenLoginBottomSheetModal>()]);
+      expect: () => [isA<OpenLoginBottomSheetModal>()]);
 
   blocTest(
       'Given user has not logged in, when user taps on Message, then return OpenLoginBottomSheetModal',
@@ -111,8 +109,7 @@ void main() {
             .thenAnswer((_) => Future.value(false));
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.message),
-      expect: () =>
-          [ isA<OpenLoginBottomSheetModal>()]);
+      expect: () => [isA<OpenLoginBottomSheetModal>()]);
 
   blocTest(
       'Given user has not logged in, when user taps on Profile, then return OpenLoginBottomSheetModal',
@@ -122,8 +119,7 @@ void main() {
             .thenAnswer((_) => Future.value(false));
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.profile),
-      expect: () =>
-          [ isA<OpenLoginBottomSheetModal>()]);
+      expect: () => [isA<OpenLoginBottomSheetModal>()]);
 
   blocTest(
       'Given user has not logged in, when user taps on Adding property, then return OpenLoginBottomSheetModal',
@@ -133,6 +129,5 @@ void main() {
             .thenAnswer((_) => Future.value(false));
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.addingProperty),
-      expect: () =>
-          [isA<OpenLoginBottomSheetModal>()]);
+      expect: () => [isA<OpenLoginBottomSheetModal>()]);
 }
