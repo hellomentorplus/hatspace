@@ -139,7 +139,6 @@ void main() {
 
     testWidgets('verify UI components', (widgetTester) async {
       const Widget widget = HomePageView();
-
       await widgetTester.multiBlocWrapAndPump([
         BlocProvider<AppConfigBloc>(
           create: (context) => appConfigBloc,

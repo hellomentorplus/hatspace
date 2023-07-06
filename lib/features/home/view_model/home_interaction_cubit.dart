@@ -15,7 +15,6 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
       HsSingleton.singleton.get<StorageService>();
   final AuthenticationService authenticationService =
       HsSingleton.singleton.get<AuthenticationService>();
-
   void onAddPropertyPressed() async {
     emit(StartValidateRole());
     try {

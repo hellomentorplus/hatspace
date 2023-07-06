@@ -16,7 +16,6 @@ class AuthenticationBloc
 
   final AuthenticationService authenticationService =
       HsSingleton.singleton.get<AuthenticationService>();
-
   AuthenticationBloc() : super(AuthenticationInitial()) {
     on<ValidateAuthentication>(_validateAuthentication);
 
