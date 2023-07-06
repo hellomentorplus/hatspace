@@ -10,13 +10,6 @@ class SignUpInitial extends SignUpState {
   List<Object> get props => [];
 }
 
-class FirstLaunchScreen extends SignUpState {
-  final bool isFirstLaunch;
-  const FirstLaunchScreen(this.isFirstLaunch);
-  @override
-  List<Object> get props => [isFirstLaunch];
-}
-
 class UserCancelled extends SignUpState {
   @override
   List<Object?> get props => [];

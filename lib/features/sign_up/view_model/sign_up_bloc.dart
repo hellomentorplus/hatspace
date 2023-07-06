@@ -5,11 +5,9 @@ import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
-
-const isFirstLaunchConst = 'isFirstLaunch';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;
@@ -19,19 +17,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
             HsSingleton.singleton.get<AuthenticationService>(),
         _storageService = HsSingleton.singleton.get<StorageService>(),
         super(const SignUpInitial()) {
-    on<CheckFirstLaunchSignUp>((event, emit) async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool? isLaunchFirstTime = prefs.getBool(isFirstLaunchConst);
-      if (isLaunchFirstTime == null) {
-        emit(const FirstLaunchScreen(true));
-      }
-    });
-    on<CloseSignUpScreen>((event, emit) async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool(isFirstLaunchConst, false);
-      emit(const FirstLaunchScreen(false));
-    });
-
     on<SignUpWithGoogle>((event, emit) async {
       try {
         emit(SignUpStart());
@@ -67,9 +52,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     if (listRoles.isEmpty) {
       emitter(const UserRolesUnavailable());
     } else {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool(isFirstLaunchConst, false);
-
       //Change state name from "UserRoleAvailable" to SignUpSuccess to make logic flow clearer
       emitter(const SignUpSuccess());
     }

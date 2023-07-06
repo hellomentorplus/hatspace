@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hatspace/features/add_property/view/add_property_view.dart';
 import 'package:hatspace/features/debug/view/widget_list/widget_catalog_screen.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
-import 'package:hatspace/features/sign_up/view/choosing_roles_view.dart';
-import 'package:hatspace/features/sign_up/view/sign_up_view.dart';
+import 'package:hatspace/features/sign_up/view/widgets/choosing_roles_view.dart';
+import 'package:hatspace/features/sign_up/view/sign_up_screen.dart';
 
 extension RouteExtension on BuildContext {
   void goToSignup() {
