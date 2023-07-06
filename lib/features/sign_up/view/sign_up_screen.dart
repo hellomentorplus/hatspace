@@ -18,16 +18,21 @@ class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
   @override
+  Widget build(BuildContext context) => BlocProvider<SignUpBloc>(
+        create: (context) => SignUpBloc(),
+        child: const SignUpBody(),
+      );
+}
+
+class SignUpBody extends StatelessWidget {
+  const SignUpBody({super.key});
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state is SignUpStart) {
           context.showLoading();
-        }
-
-        if (state is FirstLaunchScreen && state.isFirstLaunch == false) {
-          // dismiss this page and return to home
-          context.pop();
         }
 
         if (state is UserCancelled || state is AuthenticationFailed) {
@@ -83,8 +88,9 @@ class SignUpScreen extends StatelessWidget {
                                       .toUpperCase(),
                                   onPressed: () {
                                     context
-                                        .read<SignUpBloc>()
-                                        .add(const CloseSignUpScreen());
+                                        .read<AuthenticationBloc>()
+                                        .add(SkipSignUp());
+                                    context.pop();
                                   },
                                   style: ButtonStyle(
                                     foregroundColor:

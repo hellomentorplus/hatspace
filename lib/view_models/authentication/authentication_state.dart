@@ -9,6 +9,11 @@ class AuthenticationInitial extends AuthenticationState {
   List<Object> get props => [];
 }
 
+class RequestSignUp extends AuthenticationState {
+  @override
+  List<Object?> get props => [];
+}
+
 class AuthenticatedState extends AuthenticationState {
   final UserDetail userDetail;
 
