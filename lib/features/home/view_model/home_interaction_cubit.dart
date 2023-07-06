@@ -35,10 +35,9 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
   }
 
   void onBottomItemTapped(BottomBarItems item) async {
-    emit(StartOnTapBottomItems());
     bool isUserLoggedIn = await authenticationService.getIsUserLoggedIn();
     if (!isUserLoggedIn) {
-      return emit(OpenLoginBottomSheetModal());
+      return emit(OpenLoginBottomSheetModal(item));
     }
     switch (item) {
       case (BottomBarItems.addingProperty):

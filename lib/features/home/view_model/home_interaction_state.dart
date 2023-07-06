@@ -25,6 +25,8 @@ class StartOnTapBottomItems extends HomeInteractionState{
 }
 
 class OpenLoginBottomSheetModal extends HomeInteractionState{
+  final BottomBarItems item;
+  const OpenLoginBottomSheetModal(this.item);
   @override 
-  List<Object?> get props =>[];
+  List<Object?> get props =>[item];
 }
