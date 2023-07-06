@@ -116,6 +116,18 @@ class HomePageBodyState extends State<HomePageBody> {
               elevation: 0.0,
               actions: [
                 IconButton(
+                    onPressed: () {
+                      // TODO add action
+                    },
+                    icon: SvgPicture.asset(
+                      Assets.icons.icAgent,
+                      colorFilter: ColorFilter.mode(
+                          Theme.of(context).colorScheme.onPrimary,
+                          BlendMode.srcIn),
+                      width: HsDimens.size24,
+                      height: HsDimens.size24,
+                    )),
+                IconButton(
                   onPressed: () {
                     // TODO add action
                   },
