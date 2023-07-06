@@ -37,13 +37,6 @@ class MyAppBody extends StatefulWidget {
 
 class _MyAppBodyState extends State<MyAppBody> {
   @override
-  void initState() {
-    super.initState();
-
-    context.read<AuthenticationBloc>().add(ValidateAuthentication());
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: lightThemeData,

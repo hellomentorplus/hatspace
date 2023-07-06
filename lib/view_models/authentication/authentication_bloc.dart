@@ -44,7 +44,11 @@ class AuthenticationBloc
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? isLaunchFirstTime = prefs.getBool(isFirstLaunchConst);
     if (isLaunchFirstTime == null) {
+      // sign out from any previous login session
+      await authenticationService.signOut();
       emit(RequestSignUp());
+    } else {
+      add(ValidateAuthentication());
     }
   }
 

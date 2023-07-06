@@ -121,4 +121,12 @@ class AuthenticationService {
         email: firebaseUser.email,
         displayName: firebaseUser.displayName);
   }
+
+  Future<void> signOut() async {
+    Future.wait([
+      _googleSignIn.signOut(),
+      _facebookAuth.logOut(),
+      _firebaseAuth.signOut()
+    ]);
+  }
 }

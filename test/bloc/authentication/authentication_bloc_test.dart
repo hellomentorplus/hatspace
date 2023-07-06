@@ -4,6 +4,7 @@ import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'authentication_bloc_test.mocks.dart';
@@ -14,6 +15,8 @@ void main() {
 
   setUpAll(() {
     HsSingleton.singleton.registerSingleton<AuthenticationService>(authenticationService);
+
+    when(authenticationService.signOut()).thenAnswer((realInvocation) => Future.value());
   });
 
   blocTest<AuthenticationBloc, AuthenticationState>(
@@ -25,7 +28,11 @@ void main() {
       }),
       expect: () {
         return [RequestSignUp()];
-      });
+      },
+    verify: (bloc) {
+        verify(authenticationService.signOut()).called(1);
+    },
+  );
 
   blocTest<AuthenticationBloc, AuthenticationState>(
     'Return AnonymousState when trigger SkipSignUp Event',
