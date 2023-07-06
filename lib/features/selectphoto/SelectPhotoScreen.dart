@@ -1,10 +1,11 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
-import 'package:photo_manager/photo_manager.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:photo_manager/photo_manager.dart';
 
 class SelectPhotoScreen extends StatefulWidget {
   const SelectPhotoScreen({super.key});
@@ -26,23 +27,87 @@ class _SelectPhotoScreenState extends State<SelectPhotoScreen> {
     _scrollController.addListener(_scrollListener);
   }
 
-  Future<File> compressImage(File imageFile) async {
-    bool isImageTooLarge = await isLargerThan5MB(imageFile);
-    if (!isImageTooLarge) {
-      return imageFile;
+  Future<File?> compressImageWithFlutterImageCompress(File imageFile) async {
+    try {
+      bool isImageTooLarge = await isLargerThan5MB(imageFile);
+      if (!isImageTooLarge) {
+        return imageFile;
+      }
+
+      Uint8List? compressedFile = await FlutterImageCompress.compressWithFile(
+        imageFile.absolute.path,
+        quality: 80,
+      );
+
+      if (compressedFile == null) {
+        return null;
+      }
+
+      File? file = await saveImageDataToFile(compressedFile);
+
+      if (file != null) {
+        List<int> resultBytes = await file.readAsBytes();
+        double result = resultBytes.length / (1024 * 1024);
+        List<int> imageBytes = await imageFile.readAsBytes();
+        double initialSize = imageBytes.length / (1024 * 1024);
+        print('xxx - origional =${initialSize} MB, result=${result}MB\n');
+      }
+      return file;
+    } catch (e) {
+      print('xxx - compressImageWithFlutterImageCompress e=${e}\n');
+      return null;
     }
+  }
 
-    File compressedFile = await FlutterNativeImage.compressImage(
-      imageFile.path,
-      quality: 80,
-    );
+  Future<File?> saveImageDataToFile(Uint8List imageData) async {
+    try {
+      final Directory cacheDir = await getTemporaryDirectory();
+      final String filePath = '${cacheDir.path}/image.jpg';
+      final File imageFile = File(filePath);
+      await imageFile.writeAsBytes(imageData);
+      return imageFile;
+    } catch (e) {
+      print('xxx - saveImageDataToFile e=${e}\n');
+      return null;
+    }
+  }
 
-    List<int> compressedBytes = await compressedFile.readAsBytes();
-    double result = compressedBytes.length / (1024 * 1024);
-    List<int> imageBytes = await imageFile.readAsBytes();
-    double initialSize = imageBytes.length / (1024 * 1024);
-    print('xxx - origional =${initialSize} MB, result=${result}MB\n');
-    return compressedFile;
+  Future<void> deleteAllFilesInCacheDirectory() async {
+    try {
+      final Directory cacheDir = await getTemporaryDirectory();
+      final List<FileSystemEntity> files = cacheDir.listSync();
+      for (final file in files) {
+        if (file is File) {
+          await file.delete();
+        }
+      }
+    } catch (e) {
+      print('Error deleting cache files: $e');
+    }
+  }
+
+  Future<File?> compressImageWithFlutterNativeImage(File imageFile) async {
+    try {
+      bool isImageTooLarge = await isLargerThan5MB(imageFile);
+      if (!isImageTooLarge) {
+        return imageFile;
+      }
+
+      File compressedFile = await FlutterNativeImage.compressImage(
+        imageFile.path,
+        quality: 80,
+      );
+
+      List<int> compressedBytes = await compressedFile.readAsBytes();
+      double result = compressedBytes.length / (1024 * 1024);
+      List<int> imageBytes = await imageFile.readAsBytes();
+      double initialSize = imageBytes.length / (1024 * 1024);
+      print('xxx - origional =${initialSize} MB, result=${result}MB\n');
+      return compressedFile;
+    } catch (e) {
+      print('xxx - compressImageWithFlutterNativeImage e=${e}\n');
+      return null;
+    }
   }
 
   Future<bool> isLargerThan5MB(File imageFile) async {
@@ -62,14 +127,17 @@ class _SelectPhotoScreenState extends State<SelectPhotoScreen> {
     print('xxx - galleryList size=${galleryList.length}\n');
 
     final List<File> compressedAssets = [];
-    File compressedFile;
+    File? compressedFile;
     for (final asset in galleryList) {
       final file = await asset.file;
       if (file != null) {
-        compressedFile = await compressImage(file);
-        bool isImageTooLarge = await isLargerThan5MB(compressedFile);
-        if (!isImageTooLarge) {
-          compressedAssets.add(compressedFile);
+        compressedFile = await compressImageWithFlutterNativeImage(file);
+        // compressedFile = await compressImageWithFlutterImageCompress(file);
+        if (compressedFile != null) {
+          bool isImageTooLarge = await isLargerThan5MB(compressedFile);
+          if (!isImageTooLarge) {
+            compressedAssets.add(compressedFile);
+          }
         }
       }
     }
