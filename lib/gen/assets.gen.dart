@@ -18,8 +18,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/air_conditioners.svg
   String get airConditioners => 'assets/icons/air_conditioners.svg';
 
+  /// File path: assets/icons/bath.svg
+  String get bath => 'assets/icons/bath.svg';
+
+  /// File path: assets/icons/bed.svg
+  String get bed => 'assets/icons/bed.svg';
+
   /// File path: assets/icons/booking.svg
   String get booking => 'assets/icons/booking.svg';
+
+  /// File path: assets/icons/car.svg
+  String get car => 'assets/icons/car.svg';
 
   /// File path: assets/icons/check.svg
   String get check => 'assets/icons/check.svg';
@@ -33,8 +42,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/explore.svg
   String get explore => 'assets/icons/explore.svg';
 
+  /// File path: assets/icons/eye.svg
+  String get eye => 'assets/icons/eye.svg';
+
   /// File path: assets/icons/facebook.svg
   String get facebook => 'assets/icons/facebook.svg';
+
+  /// File path: assets/icons/favorite_active.svg
+  String get favoriteActive => 'assets/icons/favorite_active.svg';
+
+  /// File path: assets/icons/favorite_unactive.svg
+  String get favoriteUnactive => 'assets/icons/favorite_unactive.svg';
 
   /// File path: assets/icons/filter.svg
   String get filter => 'assets/icons/filter.svg';
@@ -85,12 +103,18 @@ class $AssetsIconsGen {
   List<String> get values => [
         add,
         airConditioners,
+        bath,
+        bed,
         booking,
+        car,
         check,
         electricStove,
         envelope,
         explore,
+        eye,
         facebook,
+        favoriteActive,
+        favoriteUnactive,
         filter,
         fridge,
         google,

@@ -855,6 +855,74 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Available`
+  String get available {
+    return Intl.message(
+      'Available',
+      name: 'available',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `pw`
+  String get pw {
+    return Intl.message(
+      'pw',
+      name: 'pw',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{number} views today`
+  String viewsToday(Object number) {
+    return Intl.message(
+      '$number views today',
+      name: 'viewsToday',
+      desc: '',
+      args: [number],
+    );
+  }
+
+  /// `{date}`
+  String dateFormatter(DateTime date) {
+    final DateFormat dateDateFormat =
+        DateFormat('MM/dd/yy', Intl.getCurrentLocale());
+    final String dateString = dateDateFormat.format(date);
+
+    return Intl.message(
+      '$dateString',
+      name: 'dateFormatter',
+      desc: '',
+      args: [dateString],
+    );
+  }
+
+  /// `{symbol}{currency}`
+  String currencyFormatter(String symbol, double currency) {
+    final NumberFormat currencyNumberFormat =
+        NumberFormat.decimalPattern(Intl.getCurrentLocale());
+    final String currencyString = currencyNumberFormat.format(currency);
+
+    return Intl.message(
+      '$symbol$currencyString',
+      name: 'currencyFormatter',
+      desc: '',
+      args: [symbol, currencyString],
+    );
+  }
+
+  /// `Available date:`
+  String get availableDateColon {
+    return Intl.message(
+      'Available date:',
+      name: 'availableDateColon',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

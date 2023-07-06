@@ -103,11 +103,14 @@ enum MinimumRentPeriod {
 }
 
 enum Currency {
-  aud;
+  aud(r'$');
 
   static Currency fromName(String name) =>
       values.firstWhere((element) => element.name == name.toLowerCase(),
           orElse: () => aud);
+
+  final String symbol;
+  const Currency(this.symbol);
 }
 
 class Price {

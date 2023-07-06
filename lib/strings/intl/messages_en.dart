@@ -32,10 +32,14 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': 'No State Available',
           })}";
 
-  static String m1(count) =>
+  static String m1(symbol, currency) => "${symbol}${currency}";
+
+  static String m2(date) => "${date}";
+
+  static String m3(count) =>
       "${Intl.plural(count, zero: 'No rent period', one: '1 Month', other: ' ${count} Months ')}";
 
-  static String m2(description) => "${Intl.select(description, {
+  static String m4(description) => "${Intl.select(description, {
             'tenant':
                 'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
             'homeowner':
@@ -43,13 +47,15 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': '',
           })}";
 
-  static String m3(role) => "${Intl.select(role, {
+  static String m5(role) => "${Intl.select(role, {
             'tenant': 'Tenant',
             'homeowner': 'Homeowner',
             'other': '',
           })}";
 
-  static String m4(name) => "👋 Hi ${name}";
+  static String m6(number) => "${number} views today";
+
+  static String m7(name) => "👋 Hi ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -64,7 +70,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "askFeaturesOwned": MessageLookupByLibrary.simpleMessage(
             "Which features your place has?"),
         "australiaState": m0,
+        "available": MessageLookupByLibrary.simpleMessage("Available"),
         "availableDate": MessageLookupByLibrary.simpleMessage("Available date"),
+        "availableDateColon":
+            MessageLookupByLibrary.simpleMessage("Available date:"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
@@ -77,6 +86,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
             "You can be tenant or homeowner, OR you can be both."),
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
+        "currencyFormatter": m1,
+        "dateFormatter": m2,
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
         "emailSignUp":
@@ -131,7 +142,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
-        "rentPeriod": m1,
+        "pw": MessageLookupByLibrary.simpleMessage("pw"),
+        "rentPeriod": m3,
         "requireAtLeast4Photos":
             MessageLookupByLibrary.simpleMessage("Require at least 4 photos *"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
@@ -152,12 +164,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
         "tv": MessageLookupByLibrary.simpleMessage("TV"),
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
-        "userRoleDescription": m2,
-        "userTitleRoles": m3,
+        "userRoleDescription": m4,
+        "userTitleRoles": m5,
+        "viewsToday": m6,
         "washingMachine":
             MessageLookupByLibrary.simpleMessage("Washing machine"),
         "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
-        "welcomeName": m4,
+        "welcomeName": m7,
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
         "wifi": MessageLookupByLibrary.simpleMessage("Wifi"),

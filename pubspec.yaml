@@ -69,6 +69,8 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.1
   intl_utils: ^2.7.0
+  network_image_mock: ^2.1.1
+
 
 
  
