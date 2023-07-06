@@ -1,9 +1,10 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SelectPhotoScreen extends StatefulWidget {
   const SelectPhotoScreen({super.key});
@@ -26,29 +27,30 @@ class _SelectPhotoScreenState extends State<SelectPhotoScreen> {
   }
 
   Future<File> compressImage(File imageFile) async {
-    double maxSizeBytes = 5.0; // 5MB
-
-    List<int> imageBytes = await imageFile.readAsBytes();
-    double initialSize = imageBytes.length / (1024 * 1024);
-
-    if (initialSize <= maxSizeBytes) {
-      // No need to compress if the image is already smaller than 5MB
+    bool isImageTooLarge = await isLargerThan5MB(imageFile);
+    if (!isImageTooLarge) {
       return imageFile;
     }
 
-    print('currentPage - a > 5MB ${initialSize} MB\n');
-
-    Uint8List? compressedBytes = await FlutterImageCompress.compressWithFile(
+    File compressedFile = await FlutterNativeImage.compressImage(
       imageFile.path,
-      quality: 98,
+      quality: 80,
     );
 
-    imageBytes = compressedBytes!.toList();
+    List<int> compressedBytes = await compressedFile.readAsBytes();
+    double result = compressedBytes.length / (1024 * 1024);
+    List<int> imageBytes = await imageFile.readAsBytes();
+    double initialSize = imageBytes.length / (1024 * 1024);
+    print('xxx - origional =${initialSize} MB, result=${result}MB\n');
+    return compressedFile;
+  }
 
-    File a =  File(imageFile.path)..writeAsBytesSync(imageBytes);
-    print('currentPage - a=${await a.length() / (1024*1024)} MB\n');
+  Future<bool> isLargerThan5MB(File imageFile) async {
+    double maxSizeBytes = 5.0; // 5MB
+    List<int> imageBytes = await imageFile.readAsBytes();
+    double initialSize = imageBytes.length / (1024 * 1024);
 
-    return a;
+    return initialSize > maxSizeBytes;
   }
 
   Future<void> loadPhotos({int page = 0, int perPage = 40}) async {
@@ -57,21 +59,23 @@ class _SelectPhotoScreenState extends State<SelectPhotoScreen> {
       page: page,
       pageCount: perPage,
     );
-    print('currentPage - galleryList size=${galleryList.length}\n');
+    print('xxx - galleryList size=${galleryList.length}\n');
 
     final List<File> compressedAssets = [];
-
-    await Future.wait(galleryList.map((asset) async {
+    File compressedFile;
+    for (final asset in galleryList) {
       final file = await asset.file;
       if (file != null) {
-        final compressedFile = await compressImage(file);
-        print('currentPage - compressedSize=${await compressedFile.length() / (1024*1024)} MB\n');
-        compressedAssets.add(compressedFile);
+        compressedFile = await compressImage(file);
+        bool isImageTooLarge = await isLargerThan5MB(compressedFile);
+        if (!isImageTooLarge) {
+          compressedAssets.add(compressedFile);
+        }
       }
-    }).toList());
+    }
 
     setState(() {
-      print('currentPage - compressedAssets size=${compressedAssets.length}\n');
+      print('xxx - compressedAssets size=${compressedAssets.length}\n');
       images.addAll(compressedAssets);
     });
   }
