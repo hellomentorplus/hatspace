@@ -923,6 +923,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Maximum 30 characters`
+  String get maximum30char {
+    return Intl.message(
+      'Maximum 30 characters',
+      name: 'maximum30char',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Only accept text`
+  String get nameWithInvalidChars {
+    return Intl.message(
+      'Only accept text',
+      name: 'nameWithInvalidChars',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

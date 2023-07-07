@@ -25,14 +25,30 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   }
 
   /// 2. Property info
-  AustraliaStates australiaState = AustraliaStates.invalid;
-  MinimumRentPeriod rentPeriod = MinimumRentPeriod.invalid;
-  // add more property infor fields
+  AustraliaStates _australiaState = AustraliaStates.invalid;
 
-  void saveState(AustraliaStates australiaState) =>
-      this.australiaState = australiaState;
-  void saveRentPeriod(MinimumRentPeriod rentPeriod) =>
-      this.rentPeriod = rentPeriod;
+  set australiaState(AustraliaStates australiaState) {
+    _australiaState = australiaState;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  AustraliaStates get australiaState => _australiaState;
+
+  MinimumRentPeriod _rentPeriod = MinimumRentPeriod.invalid;
+  set rentPeriod(MinimumRentPeriod rentPeriod) {
+    _rentPeriod = rentPeriod;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  MinimumRentPeriod get rentPeriod => _rentPeriod;
+
+  String _propertyName = '';
+  set propertyName(String name) {
+    _propertyName = name;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  String get propertyName => _propertyName;
 
   /// 3. Rooms
   int _bedrooms = 0;

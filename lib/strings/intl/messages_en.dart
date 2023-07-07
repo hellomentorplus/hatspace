@@ -123,9 +123,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "maximum30char":
+            MessageLookupByLibrary.simpleMessage("Maximum 30 characters"),
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
+        "nameWithInvalidChars":
+            MessageLookupByLibrary.simpleMessage("Only accept text"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Car spaces"),
