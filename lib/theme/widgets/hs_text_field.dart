@@ -62,6 +62,7 @@ class HatSpaceInputText extends StatelessWidget {
   final EdgeInsets _padding;
   final String? optional;
   final String? errorText;
+  final Widget? suffixIcon;
 
   const HatSpaceInputText(
       {required this.onChanged,
@@ -74,7 +75,8 @@ class HatSpaceInputText extends StatelessWidget {
       EdgeInsets? padding,
       this.errorText,
       this.inputFormatters,
-      this.focusNode})
+      this.focusNode,
+      this.suffixIcon})
       : _isRequired = isRequired ?? false,
         _alignment = alignment ?? CrossAxisAlignment.start,
         _padding = padding ?? const EdgeInsets.only(bottom: HsDimens.spacing4);
@@ -88,7 +90,7 @@ class HatSpaceInputText extends StatelessWidget {
         decoration: inputTextTheme.copyWith(
           hintText: placeholder,
           errorText: errorText,
-          suffixIcon: errorText == null || errorText?.isEmpty == true
+          suffixIcon: suffixIcon ?? (errorText == null || errorText?.isEmpty == true
               ? null
               : Padding(
                   padding: const EdgeInsets.all(HsDimens.spacing12),
@@ -97,8 +99,9 @@ class HatSpaceInputText extends StatelessWidget {
                     width: HsDimens.size24,
                     height: HsDimens.size24,
                   ),
-                ),
-          suffixIconConstraints: const BoxConstraints(
+                )),
+          // when external suffix icon is available, use default constraint
+          suffixIconConstraints:suffixIcon != null ? null : const BoxConstraints(
             maxHeight: HsDimens.size48,
             maxWidth: HsDimens.size48,
           ),
