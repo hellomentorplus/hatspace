@@ -202,8 +202,12 @@ class _DatePickerView extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           HsDatePicker(
-                              saveSelectDate: onSelectedDate,
-                              selectedDate: selectedDate)
+                            saveSelectDate: (date) {
+                              onSelectedDate(date);
+                              Navigator.pop(context); // Dismiss the dialog
+                            },
+                            selectedDate: selectedDate,
+                          )
                         ]));
               });
         },

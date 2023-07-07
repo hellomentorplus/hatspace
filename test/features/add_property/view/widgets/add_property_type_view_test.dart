@@ -171,11 +171,20 @@ void main() {
     await widgetTester.pump();
 
     expect(find.text('16 October, 2022'), findsOneWidget);
+    // HsDatePicker is dismissed
+    expect(find.byType(HsDatePicker), findsNothing);
+
+    await widgetTester.tap(find.text('16 October, 2022'));
+    await widgetTester.pump();
+    // tap again -> HsDatePicker is displayed
+    expect(find.byType(HsDatePicker), findsOneWidget);
 
     // when select a date before this date, then do not update
     await widgetTester.tap(find.text('14'));
     await widgetTester.pump();
 
+    // HsDatePicker is not dismissed
+    expect(find.byType(HsDatePicker), findsOneWidget);
     expect(find.text('16 October, 2022'), findsOneWidget);
     expect(find.text('14 October, 2022'), findsNothing);
   });
