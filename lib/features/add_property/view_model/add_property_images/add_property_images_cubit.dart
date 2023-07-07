@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/models/permission/permission_service.dart';
 import 'package:hatspace/models/permission/permission_status.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 part 'add_property_images_state.dart';
 
@@ -12,9 +13,24 @@ class AddPropertyImagesCubit extends Cubit<AddPropertyImagesState> {
 
   AddPropertyImagesCubit() : super(AddPropertyImagesInitial());
 
-  void requestPhotoPermission() async {
-    HsPermissionStatus status =
-        await _permissionService.requestPhotoPermission();
+  void cancelPhotoAccess() {
+    emit(CancelPhotoAccess());
+  }
+
+  void gotoSetting() {
+    emit(OpenSettingScreen());
+    openAppSettings();
+  }
+
+  void screenResumed() {
+    if (state is OpenSettingScreen) {
+      checkPhotoPermission();
+    }
+    // handle other state, such as: return from select photo screen
+  }
+
+  void checkPhotoPermission() async {
+    HsPermissionStatus status = await _permissionService.checkPhotoPermission();
 
     switch (status) {
       case HsPermissionStatus.granted:

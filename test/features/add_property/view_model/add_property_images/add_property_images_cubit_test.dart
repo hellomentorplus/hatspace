@@ -24,10 +24,10 @@ void main() {
     'then return PhotoPermissionGranted',
     build: () => AddPropertyImagesCubit(),
     setUp: () {
-      when(permissionService.requestPhotoPermission()).thenAnswer(
+      when(permissionService.checkPhotoPermission()).thenAnswer(
           (realInvocation) => Future.value(HsPermissionStatus.granted));
     },
-    act: (bloc) => bloc.requestPhotoPermission(),
+    act: (bloc) => bloc.checkPhotoPermission(),
     expect: () => [isA<PhotoPermissionGranted>()],
     tearDown: () => reset(permissionService),
   );
@@ -38,10 +38,10 @@ void main() {
     'then return PhotoPermissionGranted',
     build: () => AddPropertyImagesCubit(),
     setUp: () {
-      when(permissionService.requestPhotoPermission()).thenAnswer(
+      when(permissionService.checkPhotoPermission()).thenAnswer(
           (realInvocation) => Future.value(HsPermissionStatus.limited));
     },
-    act: (bloc) => bloc.requestPhotoPermission(),
+    act: (bloc) => bloc.checkPhotoPermission(),
     expect: () => [isA<PhotoPermissionGranted>()],
     tearDown: () => reset(permissionService),
   );
@@ -52,10 +52,10 @@ void main() {
     'then return PhotoPermissionDeniedForever',
     build: () => AddPropertyImagesCubit(),
     setUp: () {
-      when(permissionService.requestPhotoPermission()).thenAnswer(
+      when(permissionService.checkPhotoPermission()).thenAnswer(
           (realInvocation) => Future.value(HsPermissionStatus.deniedForever));
     },
-    act: (bloc) => bloc.requestPhotoPermission(),
+    act: (bloc) => bloc.checkPhotoPermission(),
     expect: () => [isA<PhotoPermissionDeniedForever>()],
     tearDown: () => reset(permissionService),
   );
@@ -66,10 +66,10 @@ void main() {
     'then return PhotoPermissionDenied',
     build: () => AddPropertyImagesCubit(),
     setUp: () {
-      when(permissionService.requestPhotoPermission()).thenAnswer(
+      when(permissionService.checkPhotoPermission()).thenAnswer(
           (realInvocation) => Future.value(HsPermissionStatus.denied));
     },
-    act: (bloc) => bloc.requestPhotoPermission(),
+    act: (bloc) => bloc.checkPhotoPermission(),
     expect: () => [isA<PhotoPermissionDenied>()],
     tearDown: () => reset(permissionService),
   );

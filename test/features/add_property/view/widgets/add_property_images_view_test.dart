@@ -142,7 +142,7 @@ void main() {
         'when taps on upload photo '
         'then permission service should request photo permission',
         (widgetTester) async {
-      const Widget widget = AddPropertyImagesContent();
+      const Widget widget = AddPropertyImagesBody();
 
       when(addPropertyImagesCubit.state)
           .thenAnswer((realInvocation) => PhotoPermissionDenied());
@@ -153,7 +153,7 @@ void main() {
         addPropertyImagesCubit,
         widget,
       );
-      await expectLater(find.byType(AddPropertyImagesContent), findsOneWidget);
+      await expectLater(find.byType(AddPropertyImagesBody), findsOneWidget);
 
       Finder svgPicture = find.descendant(
         of: find.byType(InkWell),
@@ -170,7 +170,7 @@ void main() {
       await widgetTester.tap(svgPicture);
       await widgetTester.pumpAndSettle();
 
-      verify(addPropertyImagesCubit.requestPhotoPermission()).called(1);
+      verify(addPropertyImagesCubit.checkPhotoPermission()).called(1);
     });
   });
 }

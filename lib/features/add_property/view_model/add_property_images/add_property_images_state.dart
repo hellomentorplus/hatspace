@@ -23,3 +23,13 @@ class PhotoPermissionDeniedForever extends AddPropertyImagesState {
   @override
   List<Object?> get props => [];
 }
+
+class CancelPhotoAccess extends AddPropertyImagesState {
+  @override
+  List<Object?> get props => [];
+}
+
+class OpenSettingScreen extends AddPropertyImagesState {
+  @override
+  List<Object?> get props => [];
+}
