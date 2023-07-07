@@ -32,7 +32,7 @@ enum ErrorType {
       case ErrorType.nameExceed30Chars:
         return name.length > 30;
       case ErrorType.nameContainsInvalidChars:
-        RegExp regExp = RegExp(r'^[A-Za-z]+$');
+        RegExp regExp = RegExp(r'^[A-Za-z .,]+$');
         return !regExp.hasMatch(name);
     }
   }
