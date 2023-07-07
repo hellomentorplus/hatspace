@@ -61,31 +61,32 @@ class _AddPropertyTypeViewState extends State<AddPropertyTypeView> {
                     child: Text(
                         HatSpaceStrings.current.chooseKindOfYourProperty,
                         style: Theme.of(context).textTheme.bodyMedium))),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  child: ValueListenableBuilder<PropertyTypes>(
-                    valueListenable: _propertyType,
-                    builder: (context, value, child) => _PropertyTypeCardView(
-                      type: PropertyTypes.house,
-                      isSelected: value == PropertyTypes.house,
-                      onSelected: _onPropertyTypeChanged,
+            IntrinsicHeight(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: ValueListenableBuilder<PropertyTypes>(
+                      valueListenable: _propertyType,
+                      builder: (context, value, child) => _PropertyTypeCardView(
+                        type: PropertyTypes.house,
+                        isSelected: value == PropertyTypes.house,
+                        onSelected: _onPropertyTypeChanged,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: HsDimens.spacing16),
-                Expanded(
-                    child: ValueListenableBuilder<PropertyTypes>(
-                  valueListenable: _propertyType,
-                  builder: (context, value, child) => _PropertyTypeCardView(
-                    type: PropertyTypes.apartment,
-                    isSelected: value == PropertyTypes.apartment,
-                    onSelected: _onPropertyTypeChanged,
-                  ),
-                ))
-              ],
+                  const SizedBox(width: HsDimens.spacing16),
+                  Expanded(
+                      child: ValueListenableBuilder<PropertyTypes>(
+                    valueListenable: _propertyType,
+                    builder: (context, value, child) => _PropertyTypeCardView(
+                      type: PropertyTypes.apartment,
+                      isSelected: value == PropertyTypes.apartment,
+                      onSelected: _onPropertyTypeChanged,
+                    ),
+                  ))
+                ],
+              ),
             ),
             Flexible(
               child: Padding(
@@ -132,47 +133,42 @@ class _PropertyTypeCardView extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) => AspectRatio(
-      aspectRatio: 1,
-      child: Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.only(top: HsDimens.spacing20),
-          elevation: 6,
-          color: isSelected ? HSColor.accent : HSColor.neutral2,
-          shape: RoundedRectangleBorder(
-              side: BorderSide(
-                  width: 1.5,
-                  color: isSelected ? HSColor.onAccent : Colors.transparent),
-              borderRadius: BorderRadius.circular(HsDimens.radius8)),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(HsDimens.radius8),
-            onTap: () => onSelected(type),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: HsDimens.spacing16, vertical: HsDimens.spacing36),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                      child: SvgPicture.asset(
-                    type.getIconPath(),
-                  )),
-                  const SizedBox(
-                    height: HsDimens.spacing16,
-                  ),
-                  Expanded(
-                      child: Text(type.displayName,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(fontWeight: FontWeight.w700)))
-                ],
+  Widget build(BuildContext context) => Card(
+      shadowColor: Colors.transparent,
+      margin: const EdgeInsets.only(top: HsDimens.spacing20),
+      elevation: 6,
+      color: isSelected ? HSColor.accent : HSColor.neutral2,
+      shape: RoundedRectangleBorder(
+          side: BorderSide(
+              width: 1.5,
+              color: isSelected ? HSColor.onAccent : Colors.transparent),
+          borderRadius: BorderRadius.circular(HsDimens.radius8)),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(HsDimens.radius8),
+        onTap: () => onSelected(type),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: HsDimens.spacing16, vertical: HsDimens.spacing24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.asset(type.getIconPath(),
+                  width: HsDimens.size48, height: HsDimens.size48),
+              const SizedBox(
+                height: HsDimens.spacing16,
               ),
-            ),
-          )));
+              Text(type.displayName,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontSize: FontStyleGuide.fontSize16,
+                      fontWeight: FontWeight.w700))
+            ],
+          ),
+        ),
+      ));
 }
 
 class _DatePickerView extends StatelessWidget {
