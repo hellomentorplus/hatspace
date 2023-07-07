@@ -112,5 +112,7 @@
   "availableDateColon": "Available date:",
   "enterPropertyName":"Enter property name",
   "maximum30char":"Maximum 30 characters",
-  "nameWithInvalidChars":"Only accept text"
+  "nameWithInvalidChars":"Only accept text",
+  "enterPrice":"Enter price",
+  "priceContainsNonNumber":"Only accept number"
 }

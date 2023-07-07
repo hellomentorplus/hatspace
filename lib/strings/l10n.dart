@@ -943,6 +943,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Enter price`
+  String get enterPrice {
+    return Intl.message(
+      'Enter price',
+      name: 'enterPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Only accept number`
+  String get priceContainsNonNumber {
+    return Intl.message(
+      'Only accept number',
+      name: 'priceContainsNonNumber',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

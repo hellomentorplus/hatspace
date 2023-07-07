@@ -50,6 +50,13 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   String get propertyName => _propertyName;
 
+  double? _price;
+  set price(double? price) {
+    _price = price;
+    validateNextButtonState(state.pageViewNumber);
+  }
+  double? get price => _price;
+
   /// 3. Rooms
   int _bedrooms = 0;
   int _bathrooms = 0;

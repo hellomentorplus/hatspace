@@ -92,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
         "emailSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Email"),
+        "enterPrice": MessageLookupByLibrary.simpleMessage("Enter price"),
         "enterPropertyName":
             MessageLookupByLibrary.simpleMessage("Enter property name"),
         "enterYourAddress":
@@ -144,6 +145,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "portableFans": MessageLookupByLibrary.simpleMessage("Portable Fans"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
+        "priceContainsNonNumber":
+            MessageLookupByLibrary.simpleMessage("Only accept number"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
         "pw": MessageLookupByLibrary.simpleMessage("pw"),
