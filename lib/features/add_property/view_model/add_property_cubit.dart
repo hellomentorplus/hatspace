@@ -55,7 +55,24 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     _price = price;
     validateNextButtonState(state.pageViewNumber);
   }
+
   double? get price => _price;
+
+  String _suburb = '';
+  set suburb(String value) {
+    _suburb = value;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  String get suburb => _suburb;
+
+  int? _postalCode;
+  set postalCode(int? value) {
+    _postalCode = value;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  int? get postalCode => _postalCode;
 
   /// 3. Rooms
   int _bedrooms = 0;

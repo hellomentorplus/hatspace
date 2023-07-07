@@ -111,8 +111,10 @@
   },
   "availableDateColon": "Available date:",
   "enterPropertyName":"Enter property name",
-  "maximum30char":"Maximum 30 characters",
-  "nameWithInvalidChars":"Only accept text",
+  "maximumChars":"Maximum {count} characters",
+  "textWithInvalidChars":"Only accept text",
   "enterPrice":"Enter price",
-  "priceContainsNonNumber":"Only accept number"
+  "numberFieldContainsNonNumber":"Only accept number",
+  "enterSuburb":"Enter suburb",
+  "enterPostalCode":"Enter postcode"
 }

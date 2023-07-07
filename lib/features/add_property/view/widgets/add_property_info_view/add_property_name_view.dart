@@ -11,6 +11,7 @@ enum ErrorType {
   nameContainsInvalidChars(false);
 
   final bool isPersistent;
+  final int maxCharCount = 30;
 
   const ErrorType(this.isPersistent);
 
@@ -19,9 +20,9 @@ enum ErrorType {
       case ErrorType.nameIsEmpty:
         return HatSpaceStrings.current.enterPropertyName;
       case ErrorType.nameExceed30Chars:
-        return HatSpaceStrings.current.maximum30char;
+        return HatSpaceStrings.current.maximumChars(maxCharCount);
       case ErrorType.nameContainsInvalidChars:
-        return HatSpaceStrings.current.nameWithInvalidChars;
+        return HatSpaceStrings.current.textWithInvalidChars;
     }
   }
 
@@ -30,7 +31,7 @@ enum ErrorType {
       case ErrorType.nameIsEmpty:
         return name.isEmpty;
       case ErrorType.nameExceed30Chars:
-        return name.length > 30;
+        return name.length > maxCharCount;
       case ErrorType.nameContainsInvalidChars:
         RegExp regExp = RegExp(r'^[A-Za-z .,]+$');
         return !regExp.hasMatch(name);

@@ -90,21 +90,24 @@ class HatSpaceInputText extends StatelessWidget {
         decoration: inputTextTheme.copyWith(
           hintText: placeholder,
           errorText: errorText,
-          suffixIcon: suffixIcon ?? (errorText == null || errorText?.isEmpty == true
-              ? null
-              : Padding(
-                  padding: const EdgeInsets.all(HsDimens.spacing12),
-                  child: SvgPicture.asset(
-                    Assets.icons.textFieldError,
-                    width: HsDimens.size24,
-                    height: HsDimens.size24,
-                  ),
-                )),
+          suffixIcon: suffixIcon ??
+              (errorText == null || errorText?.isEmpty == true
+                  ? null
+                  : Padding(
+                      padding: const EdgeInsets.all(HsDimens.spacing12),
+                      child: SvgPicture.asset(
+                        Assets.icons.textFieldError,
+                        width: HsDimens.size24,
+                        height: HsDimens.size24,
+                      ),
+                    )),
           // when external suffix icon is available, use default constraint
-          suffixIconConstraints:suffixIcon != null ? null : const BoxConstraints(
-            maxHeight: HsDimens.size48,
-            maxWidth: HsDimens.size48,
-          ),
+          suffixIconConstraints: suffixIcon != null
+              ? null
+              : const BoxConstraints(
+                  maxHeight: HsDimens.size48,
+                  maxWidth: HsDimens.size48,
+                ),
         ),
         inputFormatters: inputFormatters,
       )

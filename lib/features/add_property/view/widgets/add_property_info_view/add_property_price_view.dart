@@ -19,12 +19,15 @@ enum ErrorType {
   const ErrorType(this.isPersistent);
 
   String get text {
-    switch(this) {
-      case ErrorType.priceIsEmpty: return HatSpaceStrings.current.enterPrice;
-      case ErrorType.priceIsNotNumber: return HatSpaceStrings.current.priceContainsNonNumber;
+    switch (this) {
+      case ErrorType.priceIsEmpty:
+        return HatSpaceStrings.current.enterPrice;
+      case ErrorType.priceIsNotNumber:
+        return HatSpaceStrings.current.numberFieldContainsNonNumber;
     }
   }
 }
+
 class AddPropertyPriceView extends StatefulWidget {
   const AddPropertyPriceView({super.key});
 
@@ -61,6 +64,7 @@ class _AddPropertyPriceViewState extends State<AddPropertyPriceView> {
 
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<ErrorType?>(
@@ -71,38 +75,32 @@ class _AddPropertyPriceViewState extends State<AddPropertyPriceView> {
         label: HatSpaceStrings.current.price,
         isRequired: true,
         placeholder: HatSpaceStrings.current.enterYourPrice,
-          suffixIcon: Padding(
-              padding: const EdgeInsets.only(
-                  right: HsDimens.spacing8,
-                  left: HsDimens.spacing16,
-                  top: HsDimens.spacing8,
-                  bottom: HsDimens.spacing8),
-              child: Container(
-                  padding: const EdgeInsets.all(HsDimens.spacing8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: HSColor.neutral2),
-                  child: Text(
+        suffixIcon: Padding(
+            padding: const EdgeInsets.only(
+                right: HsDimens.spacing8,
+                left: HsDimens.spacing16,
+                top: HsDimens.spacing8,
+                bottom: HsDimens.spacing8),
+            child: Container(
+                padding: const EdgeInsets.all(HsDimens.spacing8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: HSColor.neutral2),
+                child: Text(
                     // TODO: implement property data
-                      '${Currency.aud.name.toUpperCase()} (\$)',
-                      style: textTheme.bodySmall
-                          ?.copyWith(fontWeight: FontWeight.w700)))),
-        inputFormatters: [
-          PriceInputTextFormatter(_error, _numberFormat)
-        ],
+                    '${Currency.aud.name.toUpperCase()} (\$)',
+                    style: textTheme.bodySmall
+                        ?.copyWith(fontWeight: FontWeight.w700)))),
+        inputFormatters: [PriceInputTextFormatter(_error, _numberFormat)],
         onChanged: (value) {
           try {
             final num number = _numberFormat.parse(value);
-            context
-                .read<AddPropertyCubit>()
-                .price = number.toDouble();
+            context.read<AddPropertyCubit>().price = number.toDouble();
           } catch (_) {
-            context
-                .read<AddPropertyCubit>()
-                .price = null;
+            context.read<AddPropertyCubit>().price = null;
           }
-
-        },),
+        },
+      ),
     );
   }
 }
@@ -114,7 +112,8 @@ class PriceInputTextFormatter extends TextInputFormatter {
   PriceInputTextFormatter(this.error, this.numberFormat);
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     if (newValue.text == oldValue.text) {
       // no change
       return newValue;
@@ -137,7 +136,7 @@ class PriceInputTextFormatter extends TextInputFormatter {
     num number;
     try {
       number = numberFormat.parse(numberText);
-    } catch(_) {
+    } catch (_) {
       error.value = ErrorType.priceIsNotNumber;
       return oldValue;
     }
@@ -155,7 +154,8 @@ class PriceInputTextFormatter extends TextInputFormatter {
     if (newText.contains('.')) {
       formattedNumber = '$formattedNumber.$decimalText';
     }
-    return TextEditingValue(text: formattedNumber, selection: TextSelection.collapsed(offset: formattedNumber.length));
+    return TextEditingValue(
+        text: formattedNumber,
+        selection: TextSelection.collapsed(offset: formattedNumber.length));
   }
-
 }
