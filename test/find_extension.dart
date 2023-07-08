@@ -24,31 +24,33 @@ extension HsFindExtension on CommonFinders {
     return true;
   }
 
-  Finder byTextWithColor(String hintText, Color hintColor) => byWidgetPredicate((widget) {
-    if (widget is! Text) {
-      return false;
-    }
+  Finder byTextWithColor(String hintText, Color hintColor) =>
+      byWidgetPredicate((widget) {
+        if (widget is! Text) {
+          return false;
+        }
 
-    if (widget.data != hintText) {
-      return false;
-    }
+        if (widget.data != hintText) {
+          return false;
+        }
 
-    if (widget.style?.color != hintColor) {
-      return false;
-    }
+        if (widget.style?.color != hintColor) {
+          return false;
+        }
 
-    return true;
-  });
+        return true;
+      });
 
-  Finder findHatSpaceInputTextWithLabel(String label) => byWidgetPredicate((widget) {
-    if (widget is! HatSpaceInputText) {
-      return false;
-    }
+  Finder findHatSpaceInputTextWithLabel(String label) =>
+      byWidgetPredicate((widget) {
+        if (widget is! HatSpaceInputText) {
+          return false;
+        }
 
-    if (widget.label != label) {
-      return false;
-    }
+        if (widget.label != label) {
+          return false;
+        }
 
-    return true;
-  });
+        return true;
+      });
 }

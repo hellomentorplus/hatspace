@@ -18,8 +18,10 @@ void main() async {
   final MockAddPropertyCubit addPropertyCubit = MockAddPropertyCubit();
 
   setUpAll(() {
-    when(addPropertyCubit.state).thenAnswer((realInvocation) => AddPropertyInitial());
-    when(addPropertyCubit.stream).thenAnswer((realInvocation) => Stream.empty());
+    when(addPropertyCubit.state)
+        .thenAnswer((realInvocation) => AddPropertyInitial());
+    when(addPropertyCubit.stream)
+        .thenAnswer((realInvocation) => Stream.empty());
   });
 
   test('test ErrorType Strings', () {
@@ -28,11 +30,14 @@ void main() async {
   });
 
   group('verify error on UI', () {
-    testWidgets('when text field is unfocus with empty text, then error is visible', (widgetTester) async {
+    testWidgets(
+        'when text field is unfocus with empty text, then error is visible',
+        (widgetTester) async {
       when(addPropertyCubit.price).thenAnswer((realInvocation) => null);
       const Widget widget = AddPropertyPriceView();
 
-      await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, widget);
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyCubit, widget);
 
       expect(find.byType(TextField), findsOneWidget);
 
@@ -41,19 +46,24 @@ void main() async {
       await widgetTester.pumpAndSettle();
 
       // then unfocus
-      final HatSpaceInputText inputText = widgetTester.widget(find.byType(HatSpaceInputText)) as HatSpaceInputText;
+      final HatSpaceInputText inputText = widgetTester
+          .widget(find.byType(HatSpaceInputText)) as HatSpaceInputText;
       inputText.focusNode?.unfocus();
       await widgetTester.pumpAndSettle();
 
       // error text is visible
-      expect(find.byTextWithColor('Enter price', const Color(0xFFD02D2D)), findsOneWidget);
+      expect(find.byTextWithColor('Enter price', const Color(0xFFD02D2D)),
+          findsOneWidget);
     });
 
-    testWidgets('when text field is unfocus with impersistent error, then error is gone', (widgetTester) async {
+    testWidgets(
+        'when text field is unfocus with impersistent error, then error is gone',
+        (widgetTester) async {
       when(addPropertyCubit.price).thenAnswer((realInvocation) => 25);
       const Widget widget = AddPropertyPriceView();
 
-      await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, widget);
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyCubit, widget);
 
       expect(find.byType(TextField), findsOneWidget);
 
@@ -61,25 +71,33 @@ void main() async {
       await widgetTester.enterText(find.byType(TextField), 'text');
       await widgetTester.pumpAndSettle();
       // error text is visible
-      expect(find.byTextWithColor('Only accept number', const Color(0xFFD02D2D)), findsOneWidget);
+      expect(
+          find.byTextWithColor('Only accept number', const Color(0xFFD02D2D)),
+          findsOneWidget);
 
       // then unfocus
-      final HatSpaceInputText inputText = widgetTester.widget(find.byType(HatSpaceInputText)) as HatSpaceInputText;
+      final HatSpaceInputText inputText = widgetTester
+          .widget(find.byType(HatSpaceInputText)) as HatSpaceInputText;
       inputText.focusNode?.unfocus();
       await widgetTester.pumpAndSettle();
 
       // error text is visible
-      expect(find.byTextWithColor('Only accept number', const Color(0xFFD02D2D)), findsNothing);
+      expect(
+          find.byTextWithColor('Only accept number', const Color(0xFFD02D2D)),
+          findsNothing);
     });
 
-    testWidgets('when tap text then remove text, then error is visible', (widgetTester) async {
+    testWidgets('when tap text then remove text, then error is visible',
+        (widgetTester) async {
       const Widget widget = AddPropertyPriceView();
 
-      await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, widget);
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyCubit, widget);
 
       expect(find.byType(TextField), findsOneWidget);
       // hint text visible
-      expect(find.byTextWithColor('Enter your price', const Color(0xFF8C8C8C)), findsOneWidget);
+      expect(find.byTextWithColor('Enter your price', const Color(0xFF8C8C8C)),
+          findsOneWidget);
 
       // now enter text
       await widgetTester.enterText(find.byType(TextField), '356');
@@ -89,13 +107,16 @@ void main() async {
       await widgetTester.enterText(find.byType(TextField), '');
       await widgetTester.pumpAndSettle();
       // error text is visible
-      expect(find.byTextWithColor('Enter price', const Color(0xFFD02D2D)), findsOneWidget);
+      expect(find.byTextWithColor('Enter price', const Color(0xFFD02D2D)),
+          findsOneWidget);
     });
 
-    testWidgets('when enter text not number or dot, then error is visible', (widgetTester) async {
+    testWidgets('when enter text not number or dot, then error is visible',
+        (widgetTester) async {
       const Widget widget = AddPropertyPriceView();
 
-      await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, widget);
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyCubit, widget);
 
       expect(find.byType(TextField), findsOneWidget);
 
@@ -104,13 +125,18 @@ void main() async {
       await widgetTester.pumpAndSettle();
 
       // error text is visible
-      expect(find.byTextWithColor('Only accept number', const Color(0xFFD02D2D)), findsOneWidget);
+      expect(
+          find.byTextWithColor('Only accept number', const Color(0xFFD02D2D)),
+          findsOneWidget);
     });
 
-    testWidgets('when enter text with number and dot, then error is not visible', (widgetTester) async {
+    testWidgets(
+        'when enter text with number and dot, then error is not visible',
+        (widgetTester) async {
       const Widget widget = AddPropertyPriceView();
 
-      await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, widget);
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyCubit, widget);
 
       expect(find.byType(TextField), findsOneWidget);
 
@@ -119,13 +145,18 @@ void main() async {
       await widgetTester.pumpAndSettle();
 
       // error text is visible
-      expect(find.byTextWithColor('Only accept number', const Color(0xFFD02D2D)), findsNothing);
+      expect(
+          find.byTextWithColor('Only accept number', const Color(0xFFD02D2D)),
+          findsNothing);
     });
 
-    testWidgets('when enter text with number and dot, and add dot after decimal dot, then error is visible', (widgetTester) async {
+    testWidgets(
+        'when enter text with number and dot, and add dot after decimal dot, then error is visible',
+        (widgetTester) async {
       const Widget widget = AddPropertyPriceView();
 
-      await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, widget);
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyCubit, widget);
 
       expect(find.byType(TextField), findsOneWidget);
 
@@ -134,13 +165,18 @@ void main() async {
       await widgetTester.pumpAndSettle();
 
       // error text is visible
-      expect(find.byTextWithColor('Only accept number', const Color(0xFFD02D2D)), findsNothing);
+      expect(
+          find.byTextWithColor('Only accept number', const Color(0xFFD02D2D)),
+          findsNothing);
     });
 
-    testWidgets('when enter text with number and dot, then number is formatted with thousand separations', (widgetTester) async {
+    testWidgets(
+        'when enter text with number and dot, then number is formatted with thousand separations',
+        (widgetTester) async {
       const Widget widget = AddPropertyPriceView();
 
-      await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, widget);
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyCubit, widget);
 
       expect(find.byType(TextField), findsOneWidget);
 

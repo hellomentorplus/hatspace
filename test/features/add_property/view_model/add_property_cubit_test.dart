@@ -146,87 +146,112 @@ void main() {
   );
 
   group('when set value into cubit, then revalidate current page', () {
-    blocTest<AddPropertyCubit, AddPropertyState>('set propertyType', build: () => AddPropertyCubit(),
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set propertyType',
+      build: () => AddPropertyCubit(),
       seed: () => const NextButtonEnable(3, false),
       act: (bloc) => bloc.propertyType = PropertyTypes.house,
       expect: () => [isA<NextButtonEnable>()],
       verify: (bloc) => expect(bloc.propertyType, PropertyTypes.house),
     );
 
-    blocTest<AddPropertyCubit, AddPropertyState>('set availableDate', build: () => AddPropertyCubit(),
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set availableDate',
+      build: () => AddPropertyCubit(),
       seed: () => const NextButtonEnable(3, false),
       act: (bloc) => bloc.availableDate = DateTime.now(),
       expect: () => [isA<NextButtonEnable>()],
     );
 
-    blocTest<AddPropertyCubit, AddPropertyState>('set australiaState', build: () => AddPropertyCubit(),
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set australiaState',
+      build: () => AddPropertyCubit(),
       seed: () => const NextButtonEnable(3, false),
       act: (bloc) => bloc.australiaState = AustraliaStates.nsw,
       expect: () => [isA<NextButtonEnable>()],
       verify: (bloc) => expect(bloc.australiaState, AustraliaStates.nsw),
     );
 
-    blocTest<AddPropertyCubit, AddPropertyState>('set rentPeriod', build: () => AddPropertyCubit(),
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set rentPeriod',
+      build: () => AddPropertyCubit(),
       seed: () => const NextButtonEnable(3, false),
       act: (bloc) => bloc.rentPeriod = MinimumRentPeriod.sixMonths,
       expect: () => [isA<NextButtonEnable>()],
       verify: (bloc) => expect(bloc.rentPeriod, MinimumRentPeriod.sixMonths),
     );
 
-    blocTest<AddPropertyCubit, AddPropertyState>('set propertyName', build: () => AddPropertyCubit(),
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set propertyName',
+      build: () => AddPropertyCubit(),
       seed: () => const NextButtonEnable(3, false),
       act: (bloc) => bloc.propertyName = 'this is property name',
       expect: () => [isA<NextButtonEnable>()],
       verify: (bloc) => expect(bloc.propertyName, 'this is property name'),
     );
 
-    blocTest<AddPropertyCubit, AddPropertyState>('set price', build: () => AddPropertyCubit(),
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set price',
+      build: () => AddPropertyCubit(),
       seed: () => const NextButtonEnable(3, false),
       act: (bloc) => bloc.price = 1500,
       expect: () => [isA<NextButtonEnable>()],
       verify: (bloc) => expect(bloc.price, 1500),
     );
 
-    blocTest<AddPropertyCubit, AddPropertyState>('set suburb', build: () => AddPropertyCubit(),
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set suburb',
+      build: () => AddPropertyCubit(),
       seed: () => const NextButtonEnable(3, false),
       act: (bloc) => bloc.suburb = 'suburb',
       expect: () => [isA<NextButtonEnable>()],
       verify: (bloc) => expect(bloc.suburb, 'suburb'),
     );
 
-    blocTest<AddPropertyCubit, AddPropertyState>('set postalCode', build: () => AddPropertyCubit(),
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set postalCode',
+      build: () => AddPropertyCubit(),
       seed: () => const NextButtonEnable(3, false),
       act: (bloc) => bloc.postalCode = 3000,
       expect: () => [isA<NextButtonEnable>()],
       verify: (bloc) => expect(bloc.postalCode, 3000),
     );
 
-    blocTest<AddPropertyCubit, AddPropertyState>('set bedrooms', build: () => AddPropertyCubit(),
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set bedrooms',
+      build: () => AddPropertyCubit(),
       seed: () => const NextButtonEnable(3, false),
       act: (bloc) => bloc.bedrooms = 3,
       expect: () => [isA<NextButtonEnable>()],
       verify: (bloc) => expect(bloc.bedrooms, 3),
     );
 
-    blocTest<AddPropertyCubit, AddPropertyState>('set bathrooms', build: () => AddPropertyCubit(),
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set bathrooms',
+      build: () => AddPropertyCubit(),
       seed: () => const NextButtonEnable(3, false),
       act: (bloc) => bloc.bathrooms = 3,
       expect: () => [isA<NextButtonEnable>()],
       verify: (bloc) => expect(bloc.bathrooms, 3),
     );
 
-    blocTest<AddPropertyCubit, AddPropertyState>('set parking', build: () => AddPropertyCubit(),
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set parking',
+      build: () => AddPropertyCubit(),
       seed: () => const NextButtonEnable(3, false),
       act: (bloc) => bloc.parking = 3,
       expect: () => [isA<NextButtonEnable>()],
       verify: (bloc) => expect(bloc.parking, 3),
     );
 
-    blocTest<AddPropertyCubit, AddPropertyState>('set features', build: () => AddPropertyCubit(),
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set features',
+      build: () => AddPropertyCubit(),
       seed: () => const NextButtonEnable(3, false),
       act: (bloc) => bloc.features = [Feature.fridge, Feature.airConditioners],
       expect: () => [isA<NextButtonEnable>()],
-      verify: (bloc) => expect(bloc.features, [Feature.fridge, Feature.airConditioners]),
+      verify: (bloc) =>
+          expect(bloc.features, [Feature.fridge, Feature.airConditioners]),
     );
   });
 
@@ -234,5 +259,4 @@ void main() {
     AddPropertyInitial addPropertyInitial = const AddPropertyInitial();
     expect(addPropertyInitial.props.length, 0);
   });
-
 }
