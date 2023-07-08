@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

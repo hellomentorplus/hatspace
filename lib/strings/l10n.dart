@@ -963,6 +963,66 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Maximum {count} characters`
+  String maximumChars(Object count) {
+    return Intl.message(
+      'Maximum $count characters',
+      name: 'maximumChars',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Only accept text`
+  String get textWithInvalidChars {
+    return Intl.message(
+      'Only accept text',
+      name: 'textWithInvalidChars',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter price`
+  String get enterPrice {
+    return Intl.message(
+      'Enter price',
+      name: 'enterPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Only accept number`
+  String get numberFieldContainsNonNumber {
+    return Intl.message(
+      'Only accept number',
+      name: 'numberFieldContainsNonNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter suburb`
+  String get enterSuburb {
+    return Intl.message(
+      'Enter suburb',
+      name: 'enterSuburb',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter postcode`
+  String get enterPostalCode {
+    return Intl.message(
+      'Enter postcode',
+      name: 'enterPostalCode',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

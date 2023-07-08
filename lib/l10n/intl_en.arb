@@ -110,8 +110,17 @@
     }
   },
   "availableDateColon": "Available date:",
+
   "login": "Login",
   "loginDescription": "You need to be logged in to view this content",
   "yesLoginNow": "Yes, login now",
-  "noLater": "No, later"
+  "noLater": "No, later",
+  "enterPropertyName":"Enter property name",
+  "maximumChars":"Maximum {count} characters",
+  "textWithInvalidChars":"Only accept text",
+  "enterPrice":"Enter price",
+  "numberFieldContainsNonNumber":"Only accept number",
+  "enterSuburb":"Enter suburb",
+  "enterPostalCode":"Enter postcode"
+
 }
