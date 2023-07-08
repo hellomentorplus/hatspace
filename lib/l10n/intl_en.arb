@@ -109,5 +109,12 @@
       }
     }
   },
-  "availableDateColon": "Available date:"
+  "availableDateColon": "Available date:",
+  "enterPropertyName":"Enter property name",
+  "maximumChars":"Maximum {count} characters",
+  "textWithInvalidChars":"Only accept text",
+  "enterPrice":"Enter price",
+  "numberFieldContainsNonNumber":"Only accept number",
+  "enterSuburb":"Enter suburb",
+  "enterPostalCode":"Enter postcode"
 }

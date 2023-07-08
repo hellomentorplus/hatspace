@@ -21,7 +21,7 @@ class AddPropertyStateView extends StatelessWidget {
         dislayName: (item) => item.displayName,
         selection: initial,
         onValueChanges: (value) {
-          context.read<AddPropertyCubit>().saveState(value);
+          context.read<AddPropertyCubit>().australiaState = value;
           context.pop();
         });
   }
