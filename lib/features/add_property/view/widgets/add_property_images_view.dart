@@ -43,9 +43,7 @@ class _AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('xxx - didChangeAppLifecycleState - state=$state');
     if (state == AppLifecycleState.resumed) {
-      print('xxx - didChangeAppLifecycleState - resume app');
       context.read<AddPropertyImagesCubit>().screenResumed();
     }
   }
@@ -54,7 +52,6 @@ class _AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
   Widget build(BuildContext context) {
     return BlocListener<AddPropertyImagesCubit, AddPropertyImagesState>(
       listener: (_, state) {
-        print('xxx - state=$state');
         if (state is PhotoPermissionDenied) {
           // do nothing
         }
