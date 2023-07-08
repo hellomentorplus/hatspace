@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/property_data.dart';
-import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
+
+part 'add_property_state.dart';
 
 enum NavigatePage { forward, reverse }
 

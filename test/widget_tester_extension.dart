@@ -120,21 +120,3 @@ class _DummyRouter extends StatelessWidget {
         ),
       );
 }
-
-extension TextFieldValidationExtension on CommonFinders {
-  Finder byTextWithColor(String hintText, Color hintColor) => byWidgetPredicate((widget) {
-    if (widget is! Text) {
-      return false;
-    }
-
-    if (widget.data != hintText) {
-      return false;
-    }
-
-    if (widget.style?.color != hintColor) {
-      return false;
-    }
-
-    return true;
-  });
-}
