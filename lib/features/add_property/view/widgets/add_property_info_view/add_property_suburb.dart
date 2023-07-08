@@ -4,8 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
-
-import '../../../view_model/add_property_cubit.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 
 enum ErrorType {
   isEmpty(true),
@@ -159,6 +158,7 @@ class PostalCodeTextInputFormatter extends TextInputFormatter {
     }
 
     RegExp regExp = RegExp(r'^[0-9]+$');
+
     if (!regExp.hasMatch(newValue.text)) {
       error.value = ErrorType.hasInvalidCharacters;
       return oldValue;

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/theme/widgets/hs_text_field.dart';
 
 extension HsFindExtension on CommonFinders {
   Finder svgPictureWithAssets(String assetName) => find.byWidgetPredicate(
@@ -33,6 +34,18 @@ extension HsFindExtension on CommonFinders {
     }
 
     if (widget.style?.color != hintColor) {
+      return false;
+    }
+
+    return true;
+  });
+
+  Finder findHatSpaceInputTextWithLabel(String label) => byWidgetPredicate((widget) {
+    if (widget is! HatSpaceInputText) {
+      return false;
+    }
+
+    if (widget.label != label) {
       return false;
     }
 
