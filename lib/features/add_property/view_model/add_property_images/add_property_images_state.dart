@@ -33,3 +33,8 @@ class OpenSettingScreen extends AddPropertyImagesState {
   @override
   List<Object?> get props => [];
 }
+
+class BottomSheetIsClosedByTapingOutside extends AddPropertyImagesState {
+  @override
+  List<Object?> get props => [];
+}

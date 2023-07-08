@@ -43,8 +43,9 @@ class _AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
+    print('xxx - didChangeAppLifecycleState - state=$state');
     if (state == AppLifecycleState.resumed) {
+      print('xxx - didChangeAppLifecycleState - resume app');
       context.read<AddPropertyImagesCubit>().screenResumed();
     }
   }
@@ -53,12 +54,17 @@ class _AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
   Widget build(BuildContext context) {
     return BlocListener<AddPropertyImagesCubit, AddPropertyImagesState>(
       listener: (_, state) {
+        print('xxx - state=$state');
         if (state is PhotoPermissionDenied) {
           // do nothing
         }
 
         if (state is PhotoPermissionDeniedForever) {
-          _showGoToSettingBottomSheet(context);
+          _showGoToSettingBottomSheet(context).then((result) {
+            if (result == null || !result) {
+              _dismissBottomSheet(context);
+            }
+          });
         }
 
         if (state is PhotoPermissionGranted) {
@@ -96,26 +102,27 @@ class _AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
     );
   }
 
-  _showGoToSettingBottomSheet(BuildContext context) {
-    return context.showHsBottomSheet(
-      hsWarningBottomSheetView: HsWarningBottomSheetView(
-        title: HatSpaceStrings.current.hatSpaceWouldLikeToPhotoAccess,
-        description: HatSpaceStrings
-            .current.plsGoToSettingsAndAllowPhotoAccessForHatSpace,
-        iconUrl: Assets.icons.photoAccess,
-        primaryButtonLabel: HatSpaceStrings.current.goToSetting,
-        primaryOnPressed: () {
-          _goToSetting(context);
-          Navigator.of(context).pop();
-        },
-        secondaryButtonLabel: HatSpaceStrings.current.cancelBtn,
-        secondaryOnPressed: () {
-          _cancelGotoSetting(context);
-          Navigator.of(context).pop();
-        },
-      ),
-      isDismissible: false,
-    );
+  Future<bool?> _showGoToSettingBottomSheet(BuildContext context) {
+    return context.showHsBottomSheet(HsWarningBottomSheetView(
+      title: HatSpaceStrings.current.hatSpaceWouldLikeToPhotoAccess,
+      description:
+          HatSpaceStrings.current.plsGoToSettingsAndAllowPhotoAccessForHatSpace,
+      iconUrl: Assets.icons.photoAccess,
+      primaryButtonLabel: HatSpaceStrings.current.goToSetting,
+      primaryOnPressed: () {
+        _goToSetting(context);
+        Navigator.of(context).pop();
+      },
+      secondaryButtonLabel: HatSpaceStrings.current.cancelBtn,
+      secondaryOnPressed: () {
+        _cancelGotoSetting(context);
+        Navigator.of(context).pop();
+      },
+    ));
+  }
+
+  void _dismissBottomSheet(BuildContext context) {
+    context.read<AddPropertyImagesCubit>().dismissBottomSheet();
   }
 
   void _cancelGotoSetting(BuildContext context) {

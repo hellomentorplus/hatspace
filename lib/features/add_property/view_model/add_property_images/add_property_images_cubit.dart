@@ -13,6 +13,12 @@ class AddPropertyImagesCubit extends Cubit<AddPropertyImagesState> {
 
   AddPropertyImagesCubit() : super(AddPropertyImagesInitial());
 
+  void dismissBottomSheet() {
+    if (state is! OpenSettingScreen && state is! CancelPhotoAccess) {
+      emit(BottomSheetIsClosedByTapingOutside());
+    }
+  }
+
   void cancelPhotoAccess() {
     emit(CancelPhotoAccess());
   }

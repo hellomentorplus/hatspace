@@ -4,11 +4,9 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 
 extension HsBottomSheet on BuildContext {
-  showHsBottomSheet(
-      {required HsWarningBottomSheetView hsWarningBottomSheetView,
-      bool isDismissible = true}) {
-    return showModalBottomSheet(
-        isDismissible: isDismissible,
+  Future<bool?> showHsBottomSheet(
+      HsWarningBottomSheetView hsWarningBottomSheetView) {
+    return showModalBottomSheet<bool>(
         useSafeArea: true,
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
