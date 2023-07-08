@@ -13,15 +13,15 @@ import 'add_property_price_view_test.mocks.dart';
 
 @GenerateMocks([AddPropertyCubit])
 void main() async {
-  await HatSpaceStrings.load(Locale('en'));
+  await HatSpaceStrings.load(const Locale('en'));
 
   final MockAddPropertyCubit addPropertyCubit = MockAddPropertyCubit();
 
   setUpAll(() {
     when(addPropertyCubit.state)
-        .thenAnswer((realInvocation) => AddPropertyInitial());
+        .thenAnswer((realInvocation) => const AddPropertyInitial());
     when(addPropertyCubit.stream)
-        .thenAnswer((realInvocation) => Stream.empty());
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   test('test ErrorType Strings', () {

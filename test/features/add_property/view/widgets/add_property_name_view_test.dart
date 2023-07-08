@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_name_view.dart';
@@ -15,15 +13,15 @@ import 'add_property_name_view_test.mocks.dart';
 
 @GenerateMocks([AddPropertyCubit])
 void main() async {
-  await HatSpaceStrings.load(Locale('en'));
+  await HatSpaceStrings.load(const Locale('en'));
 
   final MockAddPropertyCubit addPropertyCubit = MockAddPropertyCubit();
 
   setUpAll(() {
     when(addPropertyCubit.state)
-        .thenAnswer((realInvocation) => AddPropertyInitial());
+        .thenAnswer((realInvocation) => const AddPropertyInitial());
     when(addPropertyCubit.stream)
-        .thenAnswer((realInvocation) => Stream.empty());
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   group('Test ErrorType data', () {
