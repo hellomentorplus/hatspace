@@ -16,7 +16,6 @@ class HsWarningBottomSheetView extends StatelessWidget {
   final VoidCallback? textButtonOnPressed;
   final String? tertiaryButtonLabel;
   final VoidCallback? tertiaryButtonOnPressed;
-
   const HsWarningBottomSheetView({
     super.key,
     this.iconUrl,
@@ -57,12 +56,10 @@ class HsWarningBottomSheetView extends StatelessWidget {
     // Icon configuration
     if (title != null) {
       modalContent.add(Padding(
-        padding: const EdgeInsets.only(bottom: HsDimens.spacing12),
+        padding: const EdgeInsets.only(bottom: HsDimens.spacing4),
         child: Text(title!,
-            textAlign: TextAlign.center,
-            style: textTheme.displayLarge?.copyWith(
-              fontSize: FontStyleGuide.fontSize18,
-            )),
+            style: textTheme.displayLarge
+                ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
       ));
     }
     if (description != null) {
