@@ -10,9 +10,11 @@ import 'package:hatspace/features/add_property/view_model/add_property_cubit.dar
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
+import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 
 class AddPropertyView extends StatelessWidget {
   const AddPropertyView({super.key});
@@ -41,6 +43,23 @@ class AddPropertyPageBody extends StatelessWidget {
     const AddPropertyFeaturesView(),
     const AddPropertyImagesView()
   ];
+
+  Future<void> showLostDataModal(BuildContext context){
+    HsWarningBottomSheetView lostDataModal = HsWarningBottomSheetView(
+      title: HatSpaceStrings.current.lostDataTitle,
+      description: HatSpaceStrings.current.lostDataDescription,
+      primaryButtonLabel: HatSpaceStrings.current.no,
+      primaryOnPressed: (){
+        context.pop();
+      },
+      secondaryButtonLabel: HatSpaceStrings.current.yes,
+      secondaryOnPressed: (){
+      context.read<AddPropertyCubit>().onResetData();
+        context.pop();
+      }
+    );
+    return context.showHsBottomSheet(lostDataModal);
+  }
   AddPropertyPageBody({super.key});
   @override
   Widget build(BuildContext context) {
@@ -64,13 +83,22 @@ class AddPropertyPageBody extends StatelessWidget {
             appBar: AppBar(
               elevation: 0,
               backgroundColor: HSColor.background,
-              leading: IconButton(
+              leading: BlocListener<AddPropertyCubit, AddPropertyState>(
+                listener: (_, state) {
+                  if(state is OpenLostDataWarningModal){
+                    showLostDataModal(context).then((value){
+                      context.read<AddPropertyCubit>().onCloseLostDataModal();
+                    });
+                  }
+                },
+                child: IconButton(
                 icon: const Icon(Icons.close, color: HSColor.onSurface),
                 onPressed: () {
                   // HS-99 scenario 6
-                  context.popToRootHome();
+                  context.read<AddPropertyCubit>().onShowLostDataModal();
                 },
               ),
+              ) ,
               bottom: PreferredSize(
                   preferredSize: Size(size.width, 0),
                   child: BlocSelector<AddPropertyCubit, AddPropertyState, int>(

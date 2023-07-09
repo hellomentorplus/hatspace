@@ -119,5 +119,9 @@
   "enterPostalCode":"Enter postcode",
   "hatSpaceWouldLikeToPhotoAccess": "\"HATSpace\" Would Like to Photo Access",
   "plsGoToSettingsAndAllowPhotoAccessForHatSpace": "Please go to Settings and allow photos access for HATSpace.",
-  "goToSetting": "Go to Setting"
+  "goToSetting": "Go to Setting",
+  "lostDataTitle": "Lost Data",
+  "lostDataDescription": "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?",
+  "no": "No",
+  "yes": "Yes"
 }
