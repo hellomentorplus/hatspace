@@ -35,7 +35,6 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
   }
 
   void onBottomItemTapped(BottomBarItems item) async {
-    emit(StartOpenHsBottomSheetModal());
     bool isUserLoggedIn = await authenticationService.getIsUserLoggedIn();
     if (!isUserLoggedIn) {
       return emit(OpenLoginBottomSheetModal(item));
@@ -49,5 +48,9 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
         break;
       default:
     }
+  }
+
+  void onCloseModal(){
+    emit(CloseHsModal());
   }
 }

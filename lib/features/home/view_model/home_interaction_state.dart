@@ -35,3 +35,8 @@ class OpenLoginBottomSheetModal extends HomeInteractionState {
   @override
   List<Object?> get props => [item];
 }
+
+class CloseHsModal extends HomeInteractionState {
+  @override
+  List<Object?> get props => [];
+}

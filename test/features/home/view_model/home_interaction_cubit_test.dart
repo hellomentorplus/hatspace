@@ -90,7 +90,6 @@ void main() {
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.explore),
       expect: () => [
-            isA<StartOpenHsBottomSheetModal>(),
             isA<OpenLoginBottomSheetModal>()
           ]);
 
@@ -103,7 +102,6 @@ void main() {
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.booking),
       expect: () => [
-            isA<StartOpenHsBottomSheetModal>(),
             isA<OpenLoginBottomSheetModal>()
           ]);
 
@@ -116,7 +114,6 @@ void main() {
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.message),
       expect: () => [
-            isA<StartOpenHsBottomSheetModal>(),
             isA<OpenLoginBottomSheetModal>()
           ]);
 
@@ -129,7 +126,6 @@ void main() {
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.profile),
       expect: () => [
-            isA<StartOpenHsBottomSheetModal>(),
             isA<OpenLoginBottomSheetModal>()
           ]);
 
@@ -142,7 +138,17 @@ void main() {
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.addingProperty),
       expect: () => [
-            isA<StartOpenHsBottomSheetModal>(),
             isA<OpenLoginBottomSheetModal>()
           ]);
+  blocTest('Given user has not logged in, when user taps out, then return CloseHsModal', 
+  build: ()=> HomeInteractionCubit(),
+  setUp: (){
+         when(authenticationService.getIsUserLoggedIn())
+            .thenAnswer((_) => Future.value(false));
+  },
+  act: (bloc)=> bloc.onCloseModal(),
+  expect: ()=>[
+    isA<CloseHsModal>()
+  ] 
+  );
 }
