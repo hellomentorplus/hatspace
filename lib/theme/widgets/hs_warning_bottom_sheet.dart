@@ -55,7 +55,7 @@ class HsWarningBottomSheetView extends StatelessWidget {
     // Icon configuration
     if (title != null) {
       modalContent.add(Padding(
-        padding: const EdgeInsets.only(bottom: HsDimens.spacing4),
+        padding: const EdgeInsets.only(bottom: HsDimens.spacing24),
         child: Text(title!,
             style: textTheme.displayLarge
                 ?.copyWith(fontSize: FontStyleGuide.fontSize18),
