@@ -149,7 +149,7 @@ void main() {
   group('verify interaction', () {
     testWidgets(
         'given add_image screen is empty photo '
-        'when taps on upload photo '
+        'when tap on upload photo '
         'then permission service should request photo permission',
         (widgetTester) async {
       const Widget widget = AddPropertyImagesBody();
@@ -185,7 +185,7 @@ void main() {
 
     testWidgets(
         'given photo access bottom sheet is displayed '
-        'when taps on go to setting '
+        'when tap on go to setting '
         'then navigate to application setting screen', (widgetTester) async {
       const Widget widget = AddPropertyImagesBody();
 
@@ -214,7 +214,7 @@ void main() {
 
     testWidgets(
         'given photo access bottom sheet is displayed '
-        'when taps on cancel '
+        'when tap on cancel '
         'then bottom sheet is closed', (widgetTester) async {
       const Widget widget = AddPropertyImagesBody();
 

@@ -44,7 +44,7 @@ class AddPropertyImagesCubit extends Cubit<AddPropertyImagesState> {
     if (state is OpenSettingScreen) {
       checkPhotoPermission();
     }
-    // handle other state, such as: return from select photo screen
+    // handle other states
   }
 
   void checkPhotoPermission() async {
