@@ -5,7 +5,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
+// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal
 
 import 'package:flutter/widgets.dart';
 
@@ -15,17 +15,59 @@ class $AssetsIconsGen {
   /// File path: assets/icons/add.svg
   String get add => 'assets/icons/add.svg';
 
+  /// File path: assets/icons/air_conditioners.svg
+  String get airConditioners => 'assets/icons/air_conditioners.svg';
+
+  /// File path: assets/icons/bath.svg
+  String get bath => 'assets/icons/bath.svg';
+
+  /// File path: assets/icons/bed.svg
+  String get bed => 'assets/icons/bed.svg';
+
   /// File path: assets/icons/booking.svg
   String get booking => 'assets/icons/booking.svg';
+
+  /// File path: assets/icons/car.svg
+  String get car => 'assets/icons/car.svg';
+
+  /// File path: assets/icons/check.svg
+  String get check => 'assets/icons/check.svg';
+
+  /// File path: assets/icons/electric_stove.svg
+  String get electricStove => 'assets/icons/electric_stove.svg';
+
+  /// File path: assets/icons/envelope.svg
+  String get envelope => 'assets/icons/envelope.svg';
 
   /// File path: assets/icons/explore.svg
   String get explore => 'assets/icons/explore.svg';
 
+  /// File path: assets/icons/eye.svg
+  String get eye => 'assets/icons/eye.svg';
+
+  /// File path: assets/icons/facebook.svg
+  String get facebook => 'assets/icons/facebook.svg';
+
+  /// File path: assets/icons/favorite_active.svg
+  String get favoriteActive => 'assets/icons/favorite_active.svg';
+
+  /// File path: assets/icons/favorite_unactive.svg
+  String get favoriteUnactive => 'assets/icons/favorite_unactive.svg';
+
   /// File path: assets/icons/filter.svg
   String get filter => 'assets/icons/filter.svg';
 
+  /// File path: assets/icons/fridge.svg
+  String get fridge => 'assets/icons/fridge.svg';
+
+  /// File path: assets/icons/google.svg
+  String get google => 'assets/icons/google.svg';
+
   /// File path: assets/icons/ic_agent.svg
   String get icAgent => 'assets/icons/ic_agent.svg';
+
+  /// File path: assets/icons/kitchen.svg
+  String get kitchen => 'assets/icons/kitchen.svg';
 
   /// File path: assets/icons/message.svg
   String get message => 'assets/icons/message.svg';
@@ -33,23 +75,69 @@ class $AssetsIconsGen {
   /// File path: assets/icons/notification.svg
   String get notification => 'assets/icons/notification.svg';
 
+  /// File path: assets/icons/photo_access.svg
+  String get photoAccess => 'assets/icons/photo_access.svg';
+
+  /// File path: assets/icons/portable_fans.svg
+  String get portableFans => 'assets/icons/portable_fans.svg';
+
   /// File path: assets/icons/profile.svg
   String get profile => 'assets/icons/profile.svg';
 
   /// File path: assets/icons/search.svg
   String get search => 'assets/icons/search.svg';
 
+  /// File path: assets/icons/security_cameras.svg
+  String get securityCameras => 'assets/icons/security_cameras.svg';
+
+  /// File path: assets/icons/swimming_pool.svg
+  String get swimmingPool => 'assets/icons/swimming_pool.svg';
+
+  /// File path: assets/icons/text_field_error.svg
+  String get textFieldError => 'assets/icons/text_field_error.svg';
+
+  /// File path: assets/icons/tv.svg
+  String get tv => 'assets/icons/tv.svg';
+
+  /// File path: assets/icons/washing_machine.svg
+  String get washingMachine => 'assets/icons/washing_machine.svg';
+
+  /// File path: assets/icons/wifi.svg
+  String get wifi => 'assets/icons/wifi.svg';
+
   /// List of all assets
   List<String> get values => [
         add,
+        airConditioners,
+        bath,
+        bed,
         booking,
+        car,
+        check,
+        electricStove,
+        envelope,
         explore,
+        eye,
+        facebook,
+        favoriteActive,
+        favoriteUnactive,
         filter,
+        fridge,
+        google,
         icAgent,
+        kitchen,
         message,
         notification,
+        photoAccess,
+        portableFans,
         profile,
-        search
+        search,
+        securityCameras,
+        swimmingPool,
+        textFieldError,
+        tv,
+        washingMachine,
+        wifi
       ];
 }
 
@@ -119,6 +207,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/increment.svg
   String get increment => 'assets/images/increment.svg';
 
+  /// File path: assets/images/logo.svg
+  String get logo => 'assets/images/logo.svg';
+
   /// File path: assets/images/messages.svg
   String get messages => 'assets/images/messages.svg';
 
@@ -128,8 +219,15 @@ class $AssetsImagesGen {
   /// File path: assets/images/search-normal.svg
   String get searchNormal => 'assets/images/search-normal.svg';
 
+  /// File path: assets/images/signIn_background.png
+  AssetGenImage get signInBackground =>
+      const AssetGenImage('assets/images/signIn_background.png');
+
+  /// File path: assets/images/upload_photo.svg
+  String get uploadPhoto => 'assets/images/upload_photo.svg';
+
   /// List of all assets
-  List<String> get values => [
+  List<dynamic> get values => [
         apartment,
         arrowCalendarLeft,
         arrowCalendarRight,
@@ -151,9 +249,12 @@ class $AssetsImagesGen {
         google,
         house,
         increment,
+        logo,
         messages,
         profileCircle,
-        searchNormal
+        searchNormal,
+        signInBackground,
+        uploadPhoto
       ];
 }
 
@@ -222,16 +323,7 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
-  }
+  ImageProvider provider() => AssetImage(_assetName);
 
   String get path => _assetName;
 

@@ -50,7 +50,7 @@ void main() {
     when(mockFirebaseRemoteConfig.fetchAndActivate()).thenAnswer((_) {
       return Future.value(true);
     });
-    when(mockFirebaseRemoteConfig.getBool("debug_option_enabled"))
+    when(mockFirebaseRemoteConfig.getBool('debug_option_enabled'))
         .thenReturn(true);
     when(mockAppConfigBloc.stream).thenAnswer((realInvocation) {
       // Bloc's using stream to return states
@@ -65,11 +65,11 @@ void main() {
 
     when(mockSignUpBloc.stream).thenAnswer((realInvocation) {
       // Bloc's using stream to return states
-      return Stream.value(const FirstLaunchScreen(true));
+      return Stream.value(const SignUpInitial());
     });
     // whenListen(mockSignUpBloc, Stream.fromIterable([const FirstLaunchScreen(true)]));
     when(mockSignUpBloc.state).thenAnswer((realInvocation) {
-      return const FirstLaunchScreen(true);
+      return const SignUpInitial();
     });
 
     // SET UP FOR BLOC LISTENER

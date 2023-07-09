@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:hatspace/data/data.dart';
-import 'authentication_exception.dart';
+import 'package:hatspace/models/authentication/authentication_exception.dart';
 
 enum SignUpType { googleService, facebookService }
 
@@ -120,5 +120,13 @@ class AuthenticationService {
         phone: firebaseUser.phoneNumber,
         email: firebaseUser.email,
         displayName: firebaseUser.displayName);
+  }
+
+  Future<void> signOut() async {
+    Future.wait([
+      _googleSignIn.signOut(),
+      _facebookAuth.logOut(),
+      _firebaseAuth.signOut()
+    ]);
   }
 }

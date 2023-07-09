@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-
-import 'hs_buttons_settings.dart';
+import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
 class ButtonWithIconContent extends StatelessWidget {
   final IconPosition? iconPosition;
   final String label;
   final String iconUrl;
   final MainAxisAlignment contentAlignment;
+  final bool overrideIconColor;
+
   const ButtonWithIconContent({
-    super.key,
-    this.iconPosition,
     required this.label,
     required this.iconUrl,
     required this.contentAlignment,
+    this.overrideIconColor = true,
+    super.key,
+    this.iconPosition,
   });
 
   @override
@@ -25,9 +29,11 @@ class ButtonWithIconContent extends StatelessWidget {
         iconUrl,
         width: 24,
         height: 24,
-        colorFilter: ColorFilter.mode(
-            DefaultTextStyle.of(context).style.color ?? HSColor.primary,
-            BlendMode.srcIn),
+        colorFilter: overrideIconColor
+            ? ColorFilter.mode(
+                DefaultTextStyle.of(context).style.color ?? HSColor.primary,
+                BlendMode.srcIn)
+            : null,
         alignment: Alignment.center,
       ),
       Padding(
@@ -57,14 +63,17 @@ class PrimaryButton extends StatelessWidget {
   final IconPosition? iconPosition;
   final ButtonStyle? style;
   final MainAxisAlignment contentAlignment;
+  final bool overrideIconColor;
+
   const PrimaryButton({
-    Key? key,
     required this.label,
+    Key? key,
     this.iconUrl,
     this.onPressed,
     this.iconPosition = IconPosition.left,
     this.style,
     this.contentAlignment = MainAxisAlignment.center,
+    this.overrideIconColor = true,
   }) : super(key: key);
 
   @override
@@ -94,6 +103,7 @@ class PrimaryButton extends StatelessWidget {
         iconPosition: iconPosition,
         iconUrl: iconUrl!,
         label: label,
+        overrideIconColor: overrideIconColor,
       ),
     );
   }
@@ -106,15 +116,17 @@ class SecondaryButton extends StatelessWidget {
   final ButtonStyle? style;
   final VoidCallback? onPressed;
   final MainAxisAlignment contentAlignment;
+  final bool overrideIconColor;
 
   const SecondaryButton({
-    Key? key,
     required this.label,
+    Key? key,
     this.iconUrl,
     this.onPressed,
     this.iconPosition = IconPosition.left,
     this.style,
     this.contentAlignment = MainAxisAlignment.center,
+    this.overrideIconColor = true,
   }) : super(key: key);
 
   @override
@@ -142,6 +154,7 @@ class SecondaryButton extends StatelessWidget {
         iconPosition: iconPosition,
         iconUrl: iconUrl!,
         label: label,
+        overrideIconColor: overrideIconColor,
       ),
     );
   }
@@ -156,8 +169,8 @@ class TextOnlyButton extends StatelessWidget {
   final MainAxisAlignment contentAlignment;
 
   const TextOnlyButton({
-    Key? key,
     required this.label,
+    Key? key,
     this.onPressed,
     this.iconUrl,
     this.iconPosition = IconPosition.left,
@@ -202,15 +215,17 @@ class TertiaryButton extends StatelessWidget {
   final IconPosition? iconPosition;
   final ButtonStyle? style;
   final MainAxisAlignment contentAlignment;
+  final bool overrideIconColor;
 
   const TertiaryButton({
-    Key? key,
     required this.label,
+    Key? key,
     this.onPressed,
     this.iconUrl,
     this.iconPosition = IconPosition.left,
     this.contentAlignment = MainAxisAlignment.center,
     this.style,
+    this.overrideIconColor = true,
   }) : super(key: key);
 
   @override
@@ -239,6 +254,7 @@ class TertiaryButton extends StatelessWidget {
           iconPosition: iconPosition,
           iconUrl: iconUrl!,
           label: label,
+          overrideIconColor: overrideIconColor,
         ));
   }
 }
@@ -248,9 +264,9 @@ class RoundButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Color? textColor;
   const RoundButton(
-      {Key? key,
-      required this.iconUrl,
+      {required this.iconUrl,
       required this.onPressed,
+      Key? key,
       this.textColor})
       : super(key: key);
   @override
@@ -266,6 +282,36 @@ class RoundButton extends StatelessWidget {
             DefaultTextStyle.of(context).style.color ?? HSColor.neutral9,
             BlendMode.srcIn),
       ),
+    );
+  }
+}
+
+class HsDropDownButton extends StatelessWidget {
+  final String? value;
+  final VoidCallback onPressed;
+  final String? icon;
+  const HsDropDownButton(
+      {required this.onPressed,
+      super.key,
+      bool? isRequired,
+      this.icon,
+      this.value});
+  @override
+  Widget build(BuildContext context) {
+    return SecondaryButton(
+      // TODO: implement placeholder with enum of preriod
+      label: value ?? HatSpaceStrings.current.pleaseSelectValue,
+      iconUrl: icon,
+      iconPosition: IconPosition.right,
+      contentAlignment: MainAxisAlignment.spaceBetween,
+      style: secondaryButtonTheme.style?.copyWith(
+          textStyle: MaterialStatePropertyAll<TextStyle?>(
+            Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
+          ),
+          padding: const MaterialStatePropertyAll<EdgeInsets>(
+              EdgeInsets.fromLTRB(HsDimens.spacing16, HsDimens.spacing12,
+                  HsDimens.spacing12, HsDimens.spacing12))),
+      onPressed: onPressed,
     );
   }
 }

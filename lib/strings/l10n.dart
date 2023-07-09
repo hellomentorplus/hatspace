@@ -100,30 +100,30 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Sign up with Google`
+  /// `Continue with Google`
   String get googleSignUp {
     return Intl.message(
-      'Sign up with Google',
+      'Continue with Google',
       name: 'googleSignUp',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign up with Facebook`
+  /// `Continue with Facebook`
   String get facebookSignUp {
     return Intl.message(
-      'Sign up with Facebook',
+      'Continue with Facebook',
       name: 'facebookSignUp',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign up with email`
+  /// `Continue with Email`
   String get emailSignUp {
     return Intl.message(
-      'Sign up with email',
+      'Continue with Email',
       name: 'emailSignUp',
       desc: '',
       args: [],
@@ -312,10 +312,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `How many bedrooms, bathrooms, parking?`
+  /// `How many bedrooms, bathrooms, car spaces?`
   String get addBedroomViewInstructions {
     return Intl.message(
-      'How many bedrooms, bathrooms, parking?',
+      'How many bedrooms, bathrooms, car spaces?',
       name: 'addBedroomViewInstructions',
       desc: '',
       args: [],
@@ -342,10 +342,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Parkings`
+  /// `Car spaces`
   String get parkingText {
     return Intl.message(
-      'Parkings',
+      'Car spaces',
       name: 'parkingText',
       desc: '',
       args: [],
@@ -402,163 +402,37 @@ class HatSpaceStrings {
     );
   }
 
-  /// `New South Wales`
-  String get nsw {
-    return Intl.message(
-      'New South Wales',
-      name: 'nsw',
+  /// `{count, plural, zero{No rent period} one{1 Month} other { {count} Months }}`
+  String rentPeriod(num count) {
+    return Intl.plural(
+      count,
+      zero: 'No rent period',
+      one: '1 Month',
+      other: ' $count Months ',
+      name: 'rentPeriod',
       desc: '',
-      args: [],
+      args: [count],
     );
   }
 
-  /// `Victoria`
-  String get vic {
-    return Intl.message(
-      'Victoria',
-      name: 'vic',
+  /// `{ausState, select, vic{Victoria} nsw{New South Wales} qld{Queensland} wa{Western Australia} sa{South Australia} tas{Tasmania} act{Australian Capital Territory} nt{Northern Territory} other{No State Available}}`
+  String australiaState(Object ausState) {
+    return Intl.select(
+      ausState,
+      {
+        'vic': 'Victoria',
+        'nsw': 'New South Wales',
+        'qld': 'Queensland',
+        'wa': 'Western Australia',
+        'sa': 'South Australia',
+        'tas': 'Tasmania',
+        'act': 'Australian Capital Territory',
+        'nt': 'Northern Territory',
+        'other': 'No State Available',
+      },
+      name: 'australiaState',
       desc: '',
-      args: [],
-    );
-  }
-
-  /// `Queenland`
-  String get qld {
-    return Intl.message(
-      'Queenland',
-      name: 'qld',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Western Australia`
-  String get wa {
-    return Intl.message(
-      'Western Australia',
-      name: 'wa',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `South Australia`
-  String get sa {
-    return Intl.message(
-      'South Australia',
-      name: 'sa',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Tasmania`
-  String get tas {
-    return Intl.message(
-      'Tasmania',
-      name: 'tas',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Australian Capital Territory`
-  String get act {
-    return Intl.message(
-      'Australian Capital Territory',
-      name: 'act',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Northern Territory`
-  String get nt {
-    return Intl.message(
-      'Northern Territory',
-      name: 'nt',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `1 Months`
-  String get oneMonths {
-    return Intl.message(
-      '1 Months',
-      name: 'oneMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `3 Months`
-  String get threeMonths {
-    return Intl.message(
-      '3 Months',
-      name: 'threeMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `6 Months`
-  String get sixMonths {
-    return Intl.message(
-      '6 Months',
-      name: 'sixMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `9 Months`
-  String get nineMonths {
-    return Intl.message(
-      '9 Months',
-      name: 'nineMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `12 Months`
-  String get twelveMonths {
-    return Intl.message(
-      '12 Months',
-      name: 'twelveMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `18 Months`
-  String get eighteenMonths {
-    return Intl.message(
-      '18 Months',
-      name: 'eighteenMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `24 Months`
-  String get tweentyFourMonths {
-    return Intl.message(
-      '24 Months',
-      name: 'tweentyFourMonths',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `36 Months`
-  String get thirtySixMonths {
-    return Intl.message(
-      '36 Months',
-      name: 'thirtySixMonths',
-      desc: '',
-      args: [],
+      args: [ausState],
     );
   }
 
@@ -652,10 +526,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Optional`
+  /// `(Optional)`
   String get optional {
     return Intl.message(
-      'Optional',
+      '(Optional)',
       name: 'optional',
       desc: '',
       args: [],
@@ -772,6 +646,26 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Hi there 👋`
+  String get welcomeDefault {
+    return Intl.message(
+      'Hi there 👋',
+      name: 'welcomeDefault',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `👋 Hi {name}`
+  String welcomeName(Object name) {
+    return Intl.message(
+      '👋 Hi $name',
+      name: 'welcomeName',
+      desc: '',
+      args: [name],
+    );
+  }
+
   /// `Pleas select your state`
   String get pleaseSelectYourState {
     return Intl.message(
@@ -802,63 +696,321 @@ class HatSpaceStrings {
     );
   }
 
-  /// ` Lost Data`
-  String get lostData {
+  /// `Please select value`
+  String get pleaseSelectValue {
     return Intl.message(
-      ' Lost Data',
-      name: 'lostData',
+      'Please select value',
+      name: 'pleaseSelectValue',
       desc: '',
       args: [],
     );
   }
 
-  /// `Your data may be lost if you cancel adding new property. Are you sure you want to cancel?`
-  String get yourDataMayBeLost {
+  /// `Let's add some photos of your place`
+  String get letAddSomePhotosOfYourPlace {
     return Intl.message(
-      'Your data may be lost if you cancel adding new property. Are you sure you want to cancel?',
-      name: 'yourDataMayBeLost',
+      'Let\'s add some photos of your place',
+      name: 'letAddSomePhotosOfYourPlace',
       desc: '',
       args: [],
     );
   }
 
-  /// `Yes`
-  String get yes {
+  /// `Require at least 4 photos *`
+  String get requireAtLeast4Photos {
     return Intl.message(
-      'Yes',
-      name: 'yes',
+      'Require at least 4 photos *',
+      name: 'requireAtLeast4Photos',
       desc: '',
       args: [],
     );
   }
 
-  /// `No`
-  String get no {
+  /// `Fridge`
+  String get fridge {
     return Intl.message(
-      'No',
-      name: 'no',
+      'Fridge',
+      name: 'fridge',
       desc: '',
       args: [],
     );
   }
 
-  /// `Hi there 👋`
-  String get welcomeDefault {
+  /// `Washing machine`
+  String get washingMachine {
     return Intl.message(
-      'Hi there 👋',
-      name: 'welcomeDefault',
+      'Washing machine',
+      name: 'washingMachine',
       desc: '',
       args: [],
     );
   }
 
-  /// `👋 Hi {name}`
-  String welcomeName(Object name) {
+  /// `Swimming pool`
+  String get swimmingPool {
     return Intl.message(
-      '👋 Hi $name',
-      name: 'welcomeName',
+      'Swimming pool',
+      name: 'swimmingPool',
       desc: '',
-      args: [name],
+      args: [],
+    );
+  }
+
+  /// `Air conditioners`
+  String get airConditioners {
+    return Intl.message(
+      'Air conditioners',
+      name: 'airConditioners',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Electric stove`
+  String get electricStove {
+    return Intl.message(
+      'Electric stove',
+      name: 'electricStove',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `TV`
+  String get tv {
+    return Intl.message(
+      'TV',
+      name: 'tv',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wifi`
+  String get wifi {
+    return Intl.message(
+      'Wifi',
+      name: 'wifi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Security cameras`
+  String get securityCameras {
+    return Intl.message(
+      'Security cameras',
+      name: 'securityCameras',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kitchen`
+  String get kitchen {
+    return Intl.message(
+      'Kitchen',
+      name: 'kitchen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Portable Fans`
+  String get portableFans {
+    return Intl.message(
+      'Portable Fans',
+      name: 'portableFans',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Which features your place has?`
+  String get askFeaturesOwned {
+    return Intl.message(
+      'Which features your place has?',
+      name: 'askFeaturesOwned',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `House`
+  String get house {
+    return Intl.message(
+      'House',
+      name: 'house',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Apartment`
+  String get apartment {
+    return Intl.message(
+      'Apartment',
+      name: 'apartment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available`
+  String get available {
+    return Intl.message(
+      'Available',
+      name: 'available',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `pw`
+  String get pw {
+    return Intl.message(
+      'pw',
+      name: 'pw',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{number} views today`
+  String viewsToday(Object number) {
+    return Intl.message(
+      '$number views today',
+      name: 'viewsToday',
+      desc: '',
+      args: [number],
+    );
+  }
+
+  /// `{date}`
+  String dateFormatter(DateTime date) {
+    final DateFormat dateDateFormat =
+        DateFormat('MM/dd/yy', Intl.getCurrentLocale());
+    final String dateString = dateDateFormat.format(date);
+
+    return Intl.message(
+      '$dateString',
+      name: 'dateFormatter',
+      desc: '',
+      args: [dateString],
+    );
+  }
+
+  /// `{symbol}{currency}`
+  String currencyFormatter(String symbol, double currency) {
+    final NumberFormat currencyNumberFormat =
+        NumberFormat.decimalPattern(Intl.getCurrentLocale());
+    final String currencyString = currencyNumberFormat.format(currency);
+
+    return Intl.message(
+      '$symbol$currencyString',
+      name: 'currencyFormatter',
+      desc: '',
+      args: [symbol, currencyString],
+    );
+  }
+
+  /// `Available date:`
+  String get availableDateColon {
+    return Intl.message(
+      'Available date:',
+      name: 'availableDateColon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maximum {count} characters`
+  String maximumChars(Object count) {
+    return Intl.message(
+      'Maximum $count characters',
+      name: 'maximumChars',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Only accept text`
+  String get textWithInvalidChars {
+    return Intl.message(
+      'Only accept text',
+      name: 'textWithInvalidChars',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter price`
+  String get enterPrice {
+    return Intl.message(
+      'Enter price',
+      name: 'enterPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Only accept number`
+  String get numberFieldContainsNonNumber {
+    return Intl.message(
+      'Only accept number',
+      name: 'numberFieldContainsNonNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter suburb`
+  String get enterSuburb {
+    return Intl.message(
+      'Enter suburb',
+      name: 'enterSuburb',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter postcode`
+  String get enterPostalCode {
+    return Intl.message(
+      'Enter postcode',
+      name: 'enterPostalCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `"HATSpace" Would Like to Photo Access`
+  String get hatSpaceWouldLikeToPhotoAccess {
+    return Intl.message(
+      '"HATSpace" Would Like to Photo Access',
+      name: 'hatSpaceWouldLikeToPhotoAccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please go to Settings and allow photos access for HATSpace.`
+  String get plsGoToSettingsAndAllowPhotoAccessForHatSpace {
+    return Intl.message(
+      'Please go to Settings and allow photos access for HATSpace.',
+      name: 'plsGoToSettingsAndAllowPhotoAccessForHatSpace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to Setting`
+  String get goToSetting {
+    return Intl.message(
+      'Go to Setting',
+      name: 'goToSetting',
+      desc: '',
+      args: [],
     );
   }
 }

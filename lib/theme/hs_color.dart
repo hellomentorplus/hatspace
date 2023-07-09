@@ -27,8 +27,10 @@ class HSColor {
   static const Color statusInformational = Color(0xFF007AFF);
 
   static const Color requiredField = Color(0xFFFF3333); // new design color
+  static const Color neutral8 = Color(0xFF202020); // new design color
   static const Color neutral7 = Color(0xFF383838); // new design color
   static const Color neutral6 = Color(0xff595959); // new desgin color
+
   //New design color
   static const Color neutral9 = Color(0xFF141414);
 
@@ -38,9 +40,12 @@ class HSColor {
   static const Color neutral2 = Color(0xFFF3F3F3); // new design color
   static const Color neutral1 = Color(0xFFFFFFFF); // new design color
 
-  static const Color green06 = Color(0xFF32A854);
+  static const Color green06 = Color(0xFF32A854); // new design color
 
   static const Color black = Color(0xFF000000);
+
+  static const Color red05 = Color(0xFFFF3333); // new design color
+  static const Color red06 = Color(0xFFD02D2D); // new design color
 }
 
 const ColorScheme colorScheme = ColorScheme(

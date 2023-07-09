@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hatspace/features/add_bedroom/view/add_bedroom_view.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
 import 'package:hatspace/features/debug/view/widget_list/core_button_view.dart';
 import 'package:hatspace/features/debug/view/widget_list/pop_up_view.dart';
 import 'package:hatspace/features/debug/view/widget_list/toast_messages_view.dart';
@@ -8,18 +8,18 @@ class WidgetCatalogScreen extends StatelessWidget {
   WidgetCatalogScreen({super.key});
   // Add new item into ItemList
   final List<ItemList> itemList = [
-    ItemList("Core Button", CoreButtonView()),
+    ItemList('Core Button', CoreButtonView()),
     // TODO: ADD Toast Message View to show all toast message
-    ItemList("Toast Message", const ToastMessageViews()),
-    ItemList("Pop Up Process", const PopupView()),
-    ItemList("Add Bedroom View", const AddBedroomView()),
+    ItemList('Toast Message', const ToastMessageViews()),
+    ItemList('Pop Up Process', const PopupView()),
+    ItemList('Add Bedroom View', const AddPropertyRoomsView()),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: const Key("widget-for-debug"),
+      key: const Key('widget-for-debug'),
       appBar: AppBar(
-        title: const Text("Widget Catalog"),
+        title: const Text('Widget Catalog'),
       ),
       body: Container(
           padding: const EdgeInsets.all(10),

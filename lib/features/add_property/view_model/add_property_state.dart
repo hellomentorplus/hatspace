@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of 'add_property_cubit.dart';
 
 abstract class AddPropertyState extends Equatable {
   final int pageViewNumber;
@@ -27,8 +27,9 @@ class NextButtonEnable extends AddPropertyState {
   List<Object?> get props => [isActive];
 }
 
-class AddPropertyPageClosedState extends AddPropertyState {
-  const AddPropertyPageClosedState(super.pageViewNumber);
+class ExitAddPropertyFlow extends AddPropertyState {
+  const ExitAddPropertyFlow(super.pageViewNumber);
+
   @override
   List<Object?> get props => [];
 }

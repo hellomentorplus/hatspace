@@ -38,15 +38,15 @@ class ToastMessageContainer extends StatelessWidget {
   final String toastContent;
   final VoidCallback? onCloseTap;
   const ToastMessageContainer(
-      {super.key,
-      required this.toastType,
+      {required this.toastType,
       required this.toastTitle,
       required this.toastContent,
+      super.key,
       this.onCloseTap})
       : assert(toastContent.length <= maxLength,
-            "Toast content from `$toastContent` must not over 160 characters"),
+            'Toast content from `$toastContent` must not over 160 characters'),
         assert(toastTitle.length <= maxLength,
-            "Toast title `$toastTitle must not over 160 charaters ");
+            'Toast title `$toastTitle must not over 160 charaters ');
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -87,7 +87,7 @@ class ToastMessageContainer extends StatelessWidget {
                             ),
                           ),
                           GestureDetector(
-                              key: const Key("closeTap"),
+                              key: const Key('closeTap'),
                               onTap: onCloseTap,
                               child: SvgPicture.asset(
                                 toastType.closeIcon,

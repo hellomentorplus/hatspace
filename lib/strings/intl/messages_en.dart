@@ -20,7 +20,28 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(description) => "${Intl.select(description, {
+  static String m0(ausState) => "${Intl.select(ausState, {
+            'vic': 'Victoria',
+            'nsw': 'New South Wales',
+            'qld': 'Queensland',
+            'wa': 'Western Australia',
+            'sa': 'South Australia',
+            'tas': 'Tasmania',
+            'act': 'Australian Capital Territory',
+            'nt': 'Northern Territory',
+            'other': 'No State Available',
+          })}";
+
+  static String m1(symbol, currency) => "${symbol}${currency}";
+
+  static String m2(date) => "${date}";
+
+  static String m3(count) => "Maximum ${count} characters";
+
+  static String m4(count) =>
+      "${Intl.plural(count, zero: 'No rent period', one: '1 Month', other: ' ${count} Months ')}";
+
+  static String m5(description) => "${Intl.select(description, {
             'tenant':
                 'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
             'homeowner':
@@ -28,24 +49,33 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': '',
           })}";
 
-  static String m1(role) => "${Intl.select(role, {
+  static String m6(role) => "${Intl.select(role, {
             'tenant': 'Tenant',
             'homeowner': 'Homeowner',
             'other': '',
           })}";
 
-  static String m2(name) => "👋 Hi ${name}";
+  static String m7(number) => "${number} views today";
+
+  static String m8(name) => "👋 Hi ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "act": MessageLookupByLibrary.simpleMessage(
-            "Australian Capital Territory"),
         "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
-            "How many bedrooms, bathrooms, parking?"),
+            "How many bedrooms, bathrooms, car spaces?"),
+        "airConditioners":
+            MessageLookupByLibrary.simpleMessage("Air conditioners"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
+        "apartment": MessageLookupByLibrary.simpleMessage("Apartment"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
+        "askFeaturesOwned": MessageLookupByLibrary.simpleMessage(
+            "Which features your place has?"),
+        "australiaState": m0,
+        "available": MessageLookupByLibrary.simpleMessage("Available"),
         "availableDate": MessageLookupByLibrary.simpleMessage("Available date"),
+        "availableDateColon":
+            MessageLookupByLibrary.simpleMessage("Available date:"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
@@ -58,12 +88,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
             "You can be tenant or homeowner, OR you can be both."),
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
+        "currencyFormatter": m1,
+        "dateFormatter": m2,
         "description": MessageLookupByLibrary.simpleMessage("Description"),
-        "eighteenMonths": MessageLookupByLibrary.simpleMessage("18 Months"),
+        "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
         "emailSignUp":
-            MessageLookupByLibrary.simpleMessage("Sign up with email"),
+            MessageLookupByLibrary.simpleMessage("Continue with Email"),
+        "enterPostalCode":
+            MessageLookupByLibrary.simpleMessage("Enter postcode"),
+        "enterPrice": MessageLookupByLibrary.simpleMessage("Enter price"),
         "enterPropertyName":
             MessageLookupByLibrary.simpleMessage("Enter property name"),
+        "enterSuburb": MessageLookupByLibrary.simpleMessage("Enter suburb"),
         "enterYourAddress":
             MessageLookupByLibrary.simpleMessage("Enter your address"),
         "enterYourDescription":
@@ -77,72 +113,84 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter unit number"),
         "explore": MessageLookupByLibrary.simpleMessage("Explore"),
         "facebookSignUp":
-            MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
+            MessageLookupByLibrary.simpleMessage("Continue with Facebook"),
+        "fridge": MessageLookupByLibrary.simpleMessage("Fridge"),
+        "goToSetting": MessageLookupByLibrary.simpleMessage("Go to Setting"),
         "googleSignUp":
-            MessageLookupByLibrary.simpleMessage("Sign up with Google"),
+            MessageLookupByLibrary.simpleMessage("Continue with Google"),
+        "hatSpaceWouldLikeToPhotoAccess": MessageLookupByLibrary.simpleMessage(
+            "\"HATSpace\" Would Like to Photo Access"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
+        "house": MessageLookupByLibrary.simpleMessage("House"),
         "houseNumberAndStreetName":
             MessageLookupByLibrary.simpleMessage("House number + Street name"),
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
         "information": MessageLookupByLibrary.simpleMessage("Information"),
+        "kitchen": MessageLookupByLibrary.simpleMessage("Kitchen"),
+        "letAddSomePhotosOfYourPlace": MessageLookupByLibrary.simpleMessage(
+            "Let\'s add some photos of your place"),
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
-        "lostData": MessageLookupByLibrary.simpleMessage(" Lost Data"),
+        "maximumChars": m3,
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
-        "nineMonths": MessageLookupByLibrary.simpleMessage("9 Months"),
-        "no": MessageLookupByLibrary.simpleMessage("No"),
-        "nsw": MessageLookupByLibrary.simpleMessage("New South Wales"),
-        "nt": MessageLookupByLibrary.simpleMessage("Northern Territory"),
-        "oneMonths": MessageLookupByLibrary.simpleMessage("1 Months"),
-        "optional": MessageLookupByLibrary.simpleMessage("Optional"),
-        "parkingText": MessageLookupByLibrary.simpleMessage("Parkings"),
+        "numberFieldContainsNonNumber":
+            MessageLookupByLibrary.simpleMessage("Only accept number"),
+        "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
+        "parkingText": MessageLookupByLibrary.simpleMessage("Car spaces"),
         "pleaseEnterYourPlaceholder": MessageLookupByLibrary.simpleMessage(
             "Please Enter Your Placeholder"),
         "pleaseSelectRentPeriod":
             MessageLookupByLibrary.simpleMessage("Please select rent period"),
+        "pleaseSelectValue":
+            MessageLookupByLibrary.simpleMessage("Please select value"),
         "pleaseSelectYourState":
             MessageLookupByLibrary.simpleMessage("Pleas select your state"),
+        "plsGoToSettingsAndAllowPhotoAccessForHatSpace":
+            MessageLookupByLibrary.simpleMessage(
+                "Please go to Settings and allow photos access for HATSpace."),
+        "portableFans": MessageLookupByLibrary.simpleMessage("Portable Fans"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
-        "qld": MessageLookupByLibrary.simpleMessage("Queenland"),
-        "sa": MessageLookupByLibrary.simpleMessage("South Australia"),
+        "pw": MessageLookupByLibrary.simpleMessage("pw"),
+        "rentPeriod": m4,
+        "requireAtLeast4Photos":
+            MessageLookupByLibrary.simpleMessage("Require at least 4 photos *"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "searchHint":
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
+        "securityCameras":
+            MessageLookupByLibrary.simpleMessage("Security cameras"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signinErrorToastMessage": MessageLookupByLibrary.simpleMessage(
             "Unable to sign you in at the moment. Please try again later."),
         "signinErrorToastTitle":
             MessageLookupByLibrary.simpleMessage("Login Failed"),
-        "sixMonths": MessageLookupByLibrary.simpleMessage("6 Months"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
         "suburb": MessageLookupByLibrary.simpleMessage("Suburb"),
-        "tas": MessageLookupByLibrary.simpleMessage("Tasmania"),
-        "thirtySixMonths": MessageLookupByLibrary.simpleMessage("36 Months"),
-        "threeMonths": MessageLookupByLibrary.simpleMessage("3 Months"),
+        "swimmingPool": MessageLookupByLibrary.simpleMessage("Swimming pool"),
+        "textWithInvalidChars":
+            MessageLookupByLibrary.simpleMessage("Only accept text"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
-        "tweentyFourMonths": MessageLookupByLibrary.simpleMessage("24 Months"),
-        "twelveMonths": MessageLookupByLibrary.simpleMessage("12 Months"),
+        "tv": MessageLookupByLibrary.simpleMessage("TV"),
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
-        "userRoleDescription": m0,
-        "userTitleRoles": m1,
-        "vic": MessageLookupByLibrary.simpleMessage("Victoria"),
-        "wa": MessageLookupByLibrary.simpleMessage("Western Australia"),
+        "userRoleDescription": m5,
+        "userTitleRoles": m6,
+        "viewsToday": m7,
+        "washingMachine":
+            MessageLookupByLibrary.simpleMessage("Washing machine"),
         "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
-        "welcomeName": m2,
+        "welcomeName": m8,
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
-        "yes": MessageLookupByLibrary.simpleMessage("Yes"),
-        "yourAddress": MessageLookupByLibrary.simpleMessage("Your address"),
-        "yourDataMayBeLost": MessageLookupByLibrary.simpleMessage(
-            "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?")
+        "wifi": MessageLookupByLibrary.simpleMessage("Wifi"),
+        "yourAddress": MessageLookupByLibrary.simpleMessage("Your address")
       };
 }

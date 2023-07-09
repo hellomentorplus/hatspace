@@ -1,11 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
-
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+
 import 'add_property_cubit_test.mocks.dart';
 
 @GenerateMocks([AddPropertyCubit])
@@ -19,10 +19,10 @@ void main() {
         (realInvocation) => Stream.value(const AddPropertyInitial()));
   });
   blocTest(
-    "Given when user press NEXT button when it's enable, then update new state",
+    "Given when user press NEXT button when it's enable, then update Page view navigation, and update next button validation",
     build: () => AddPropertyCubit(),
     act: (bloc) => {bloc.navigatePage(NavigatePage.forward, 2)},
-    expect: () => [isA<PageViewNavigationState>()],
+    expect: () => [isA<PageViewNavigationState>(), isA<NextButtonEnable>()],
   );
 
   blocTest(
@@ -30,8 +30,7 @@ void main() {
     build: () => AddPropertyCubit(),
     act: (bloc) {
       bloc.navigatePage(NavigatePage.forward, 2);
-      bloc.enableNextButton();
-      bloc.validateState(0);
+      bloc.validateNextButtonState(0);
       bloc.navigatePage(NavigatePage.reverse, 2);
     },
     expect: () => [
@@ -43,36 +42,220 @@ void main() {
   );
 
   blocTest(
-    "Given when user enable next button, then update new state",
+    'Given page is What kind of place, when validate next button, then emit NextButton true',
     build: () => AddPropertyCubit(),
-    act: (bloc) => {bloc.enableNextButton()},
+    act: (bloc) {
+      bloc.validateNextButtonState(0);
+    },
     expect: () => [isA<NextButtonEnable>()],
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, true);
+      expect(nextButtonEnable.pageViewNumber, 0);
+    },
   );
 
   blocTest(
-    'Given when validate next button state true, then emit NextButton true',
+    'given page is rooms info, and no room added, when validate next button, then emit NextButton false',
     build: () => AddPropertyCubit(),
-    act: (bloc) {
-      bloc.enableNextButton();
-      bloc.validateState(0);
-    },
+    act: (bloc) => bloc.validateNextButtonState(2),
     expect: () => [isA<NextButtonEnable>()],
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, false);
+      expect(nextButtonEnable.pageViewNumber, 0);
+    },
   );
 
   blocTest(
-    'Given when validate next button state true, then emit NextButton true',
+    'given page is rooms info, and rooms are added, when validate next button, then emit NextButton false',
     build: () => AddPropertyCubit(),
     act: (bloc) {
-      bloc.closeAddPropertyPage();
+      // set rooms number
+      bloc.parking = 1;
+      bloc.bedrooms = 1;
+      bloc.validateNextButtonState(2);
     },
-    expect: () => [isA<AddPropertyPageClosedState>()],
+    expect: () => [isA<NextButtonEnable>()],
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, true);
+      expect(nextButtonEnable.pageViewNumber, 0);
+    },
   );
 
-  test("test initial state", () {
+  blocTest(
+    'given page is Feature list, and no feature added, when validate next button, then emit NextButton true by default',
+    build: () => AddPropertyCubit(),
+    act: (bloc) => bloc.validateNextButtonState(3),
+    expect: () => [isA<NextButtonEnable>()],
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, true);
+      expect(nextButtonEnable.pageViewNumber, 0);
+    },
+  );
+
+  blocTest(
+    'given page is Feature list, and features are added, when validate next button, then emit NextButton true',
+    build: () => AddPropertyCubit(),
+    act: (bloc) {
+      // set rooms number
+      bloc.features = [Feature.securityCameras];
+      bloc.validateNextButtonState(3);
+    },
+    expect: () => [isA<NextButtonEnable>()],
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, true);
+      expect(nextButtonEnable.pageViewNumber, 0);
+    },
+  );
+
+  blocTest<AddPropertyCubit, AddPropertyState>(
+    'given current page is 3, when back button pressed, then return to page 2',
+    build: () => AddPropertyCubit(),
+    act: (bloc) {
+      bloc.onBackPressed(4);
+    },
+    seed: () => const NextButtonEnable(3, true),
+    expect: () => [isA<PageViewNavigationState>(), isA<NextButtonEnable>()],
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.pageViewNumber, 2);
+    },
+  );
+
+  group('when set value into cubit, then revalidate current page', () {
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set propertyType',
+      build: () => AddPropertyCubit(),
+      seed: () => const NextButtonEnable(3, false),
+      act: (bloc) => bloc.propertyType = PropertyTypes.house,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) => expect(bloc.propertyType, PropertyTypes.house),
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set availableDate',
+      build: () => AddPropertyCubit(),
+      seed: () => const NextButtonEnable(3, false),
+      act: (bloc) => bloc.availableDate = DateTime.now(),
+      expect: () => [isA<NextButtonEnable>()],
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set australiaState',
+      build: () => AddPropertyCubit(),
+      seed: () => const NextButtonEnable(3, false),
+      act: (bloc) => bloc.australiaState = AustraliaStates.nsw,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) => expect(bloc.australiaState, AustraliaStates.nsw),
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set rentPeriod',
+      build: () => AddPropertyCubit(),
+      seed: () => const NextButtonEnable(3, false),
+      act: (bloc) => bloc.rentPeriod = MinimumRentPeriod.sixMonths,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) => expect(bloc.rentPeriod, MinimumRentPeriod.sixMonths),
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set propertyName',
+      build: () => AddPropertyCubit(),
+      seed: () => const NextButtonEnable(3, false),
+      act: (bloc) => bloc.propertyName = 'this is property name',
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) => expect(bloc.propertyName, 'this is property name'),
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set price',
+      build: () => AddPropertyCubit(),
+      seed: () => const NextButtonEnable(3, false),
+      act: (bloc) => bloc.price = 1500,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) => expect(bloc.price, 1500),
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set suburb',
+      build: () => AddPropertyCubit(),
+      seed: () => const NextButtonEnable(3, false),
+      act: (bloc) => bloc.suburb = 'suburb',
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) => expect(bloc.suburb, 'suburb'),
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set postalCode',
+      build: () => AddPropertyCubit(),
+      seed: () => const NextButtonEnable(3, false),
+      act: (bloc) => bloc.postalCode = 3000,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) => expect(bloc.postalCode, 3000),
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set bedrooms',
+      build: () => AddPropertyCubit(),
+      seed: () => const NextButtonEnable(3, false),
+      act: (bloc) => bloc.bedrooms = 3,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) => expect(bloc.bedrooms, 3),
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set bathrooms',
+      build: () => AddPropertyCubit(),
+      seed: () => const NextButtonEnable(3, false),
+      act: (bloc) => bloc.bathrooms = 3,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) => expect(bloc.bathrooms, 3),
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set parking',
+      build: () => AddPropertyCubit(),
+      seed: () => const NextButtonEnable(3, false),
+      act: (bloc) => bloc.parking = 3,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) => expect(bloc.parking, 3),
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'set features',
+      build: () => AddPropertyCubit(),
+      seed: () => const NextButtonEnable(3, false),
+      act: (bloc) => bloc.features = [Feature.fridge, Feature.airConditioners],
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) =>
+          expect(bloc.features, [Feature.fridge, Feature.airConditioners]),
+    );
+  });
+
+  test('test initial state', () {
     AddPropertyInitial addPropertyInitial = const AddPropertyInitial();
     expect(addPropertyInitial.props.length, 0);
-    AddPropertyPageClosedState propertyPageClosedState =
-        const AddPropertyPageClosedState(1);
-    expect(propertyPageClosedState.props.length, 0);
   });
 }

@@ -29,22 +29,24 @@ if (flutterVersionName == null) {
 
 //Facebook configuration
 
-def facebookProperties = new Properties()
-def facebookPropertiesFile = rootProject.file('appconfig.properties')
-if (facebookPropertiesFile.exists()) {
-    facebookPropertiesFile.withReader('UTF-8') { reader ->
-        facebookProperties.load(reader)
+def appSettings = new Properties()
+def appSettingsFile = rootProject.file('appconfig.properties')
+if (appSettingsFile.exists()) {
+    appSettingsFile.withReader('UTF-8') { reader ->
+        appSettings.load(reader)
     }
 }
-def facebookAppId = facebookProperties.getProperty('FACEBOOK_APP_ID')
+def facebookAppId = appSettings.getProperty('FACEBOOK_APP_ID')
 if(facebookAppId == null){
     throw new GradleException("Facebook App Id not found")
 }
 
-def facebookClientToken = facebookProperties.getProperty('FACEBOOK_CLIENT_TOKEN')
+def facebookClientToken = appSettings.getProperty('FACEBOOK_CLIENT_TOKEN')
 if(facebookClientToken == null){
     throw new GradleException("Facebook Client Token not found")
 }
+
+def env = appSettings.getProperty('ENV')
 
 apply plugin: 'com.android.application'
 // START: FlutterFire Configuration
@@ -83,6 +85,8 @@ android {
         resValue 'string','facebook_app_id',facebookAppId
         resValue 'string','facebook_client_token',facebookClientToken
         resValue 'string', 'fb_login_protocol_scheme',"fb$facebookAppId}"
+        resValue 'string', 'app_name', 'HATSpace'
+        manifestPlaceholders.appIcon = 'ic_launcher'
     }
 
     signingConfigs {
@@ -99,12 +103,21 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix '.dev'
+            resValue 'string', 'app_name', 'HATSpace Debug'
+            manifestPlaceholders.appIcon = 'ic_launcher'
         }
 
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
+
+            if (env == null) {
+                manifestPlaceholders.appIcon = 'ic_launcher'
+                resValue 'string', 'app_name', 'HATSpace'
+            } else {
+                resValue 'string', 'app_name', "HATSpace $env"
+                applicationIdSuffix ".$env"
+                manifestPlaceholders.appIcon = "ic_launcher_$env"
+            }
         }
     }
 }
@@ -112,6 +125,8 @@ android {
 flutter {
     source '../..'
 }
+
+
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
