@@ -116,5 +116,7 @@
   "enterPrice":"Enter price",
   "numberFieldContainsNonNumber":"Only accept number",
   "enterSuburb":"Enter suburb",
-  "enterPostalCode":"Enter postcode"
+  "enterPostalCode":"Enter postcode",
+  "upload":"Upload",
+  "allPhotos":"All Photos"
 }

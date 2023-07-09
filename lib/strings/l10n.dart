@@ -983,6 +983,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Upload`
+  String get upload {
+    return Intl.message(
+      'Upload',
+      name: 'upload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All Photos`
+  String get allPhotos {
+    return Intl.message(
+      'All Photos',
+      name: 'allPhotos',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

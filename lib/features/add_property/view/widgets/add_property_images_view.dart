@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/add_property/view/widgets/select_photo/select_photo_bottom_sheet.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_images_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -35,6 +36,7 @@ class AddPropertyImagesContent extends StatelessWidget {
 
         if (state is PhotoPermissionGranted) {
           // open photo screen
+          context.showSelectPhotoBottomSheet();
         }
       },
       child: SingleChildScrollView(

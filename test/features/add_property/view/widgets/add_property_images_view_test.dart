@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_images_view.dart';
+import 'package:hatspace/features/add_property/view/widgets/select_photo/select_photo_bottom_sheet.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_images_cubit.dart';
 import 'package:hatspace/models/permission/permission_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 
 import '../../../../widget_tester_extension.dart';
 import 'add_property_images_view_test.mocks.dart';
@@ -172,5 +174,27 @@ void main() {
 
       verify(addPropertyImagesCubit.requestPhotoPermission()).called(1);
     });
+  });
+
+  testWidgets(
+      'given state is PhotoPermissionGranted '
+      'when tap on Upload photo '
+      'then verify SelectPhotoBottomSheet is visible',
+      (WidgetTester widgetTester) async {
+    when(addPropertyImagesCubit.state)
+        .thenAnswer((realInvocation) => PhotoPermissionGranted());
+    when(addPropertyImagesCubit.stream)
+        .thenAnswer((realInvocation) => Stream.value(PhotoPermissionGranted()));
+
+    const Widget widget = AddPropertyImagesContent();
+
+    await mockNetworkImagesFor(
+        () => widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
+              addPropertyImagesCubit,
+              widget,
+            ));
+    await widgetTester.pumpAndSettle();
+
+    expect(find.byType(SelectPhotoBottomSheet), findsOneWidget);
   });
 }
