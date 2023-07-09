@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
@@ -41,61 +44,37 @@ class _SelectPhotoBottomSheetState extends State<SelectPhotoBottomSheet>
   @override
   Widget build(BuildContext context) => ClipRRect(
         borderRadius: BorderRadius.circular(HsDimens.radius10),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: HsDimens.spacing14,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TextOnlyButton(
-                  label: HatSpaceStrings.current.cancelBtn,
-                  onPressed: () {},
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            title: TabBar(
+                    labelColor: HSColor.black,
+                    labelStyle: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(fontWeight: FontWeight.w700),
+                    labelPadding: const EdgeInsets.symmetric(
+                        horizontal: HsDimens.spacing8,
+                        vertical: HsDimens.spacing6),
+                    indicatorColor: Colors.transparent,
+                    controller: tabController,
+                    tabs: PhotoTabs.values
+                        .map((e) => Text(e.labelDisplay))
+                        .toList()),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+                child: InkWell(
+                  onTap: () => context.pop(),
+                  child: SvgPicture.asset(Assets.icons.close),
                 ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(HsDimens.radius10),
-                        // TODO update border color
-                        border: Border.all(
-                            color: HSColor.black.withOpacity(0.4),
-                            width: HsDimens.size2)),
-                    child: TabBar(
-                        labelColor: HSColor.black,
-                        labelStyle: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(fontWeight: FontWeight.w700),
-                        labelPadding: const EdgeInsets.symmetric(
-                            horizontal: HsDimens.spacing8,
-                            vertical: HsDimens.spacing6),
-                        indicatorColor: Colors.transparent,
-                        controller: tabController,
-                        tabs: PhotoTabs.values
-                            .map((e) => Text(e.labelDisplay))
-                            .toList()),
-                  ),
-                ),
-                TextOnlyButton(
-                  label: HatSpaceStrings.current.upload,
-                  onPressed: null,
-                )
-              ],
+              )
+            ],
+          ),
+          body: TabBarView(
+              controller: tabController,
+              children: PhotoTabs.values.map((e) => e.tabView).toList(),
             ),
-            Divider(
-              color: HSColor.black.withOpacity(0.4),
-              height: 4,
-            ),
-            Expanded(
-              child: TabBarView(
-                controller: tabController,
-                children: PhotoTabs.values.map((e) => e.tabView).toList(),
-              ),
-            )
-          ],
         ),
       );
 }
@@ -115,8 +94,8 @@ class AllPhotosView extends StatelessWidget {
 }
 
 extension SelectPhotoBottomSheetExtension on BuildContext {
-  void showSelectPhotoBottomSheet() {
-    showModalBottomSheet(
+  Future<List<String>?> showSelectPhotoBottomSheet() {
+    return showModalBottomSheet<List<String>>(
       context: this,
       isScrollControlled: true,
       useSafeArea: true,

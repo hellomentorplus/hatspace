@@ -5,7 +5,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal
+// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
 import 'package:flutter/widgets.dart';
 
@@ -32,6 +32,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/check.svg
   String get check => 'assets/icons/check.svg';
+
+  /// File path: assets/icons/close.svg
+  String get close => 'assets/icons/close.svg';
 
   /// File path: assets/icons/electric_stove.svg
   String get electricStove => 'assets/icons/electric_stove.svg';
@@ -75,6 +78,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/notification.svg
   String get notification => 'assets/icons/notification.svg';
 
+  /// File path: assets/icons/photo_access.svg
+  String get photoAccess => 'assets/icons/photo_access.svg';
+
   /// File path: assets/icons/portable_fans.svg
   String get portableFans => 'assets/icons/portable_fans.svg';
 
@@ -111,6 +117,7 @@ class $AssetsIconsGen {
         booking,
         car,
         check,
+        close,
         electricStove,
         envelope,
         explore,
@@ -125,6 +132,7 @@ class $AssetsIconsGen {
         kitchen,
         message,
         notification,
+        photoAccess,
         portableFans,
         profile,
         search,
@@ -315,7 +323,16 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider() => AssetImage(_assetName);
+  ImageProvider provider({
+    AssetBundle? bundle,
+    String? package,
+  }) {
+    return AssetImage(
+      _assetName,
+      bundle: bundle,
+      package: package,
+    );
+  }
 
   String get path => _assetName;
 

@@ -25,8 +25,6 @@ void main() async {
     await mockNetworkImagesFor(() => widgetTester.wrapAndPump(widget));
 
     expect(find.text('All Photos'), findsOneWidget);
-    expect(find.text('Cancel'), findsOneWidget);
-    expect(find.text('Upload'), findsOneWidget);
   });
 
   testWidgets('verify layout on All Photo', (widgetTester) async {

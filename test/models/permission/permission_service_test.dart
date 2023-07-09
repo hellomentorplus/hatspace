@@ -75,7 +75,7 @@ void main() {
   void expectHsPermissionStatus(HsPermissionStatus expectedStatus) async {
     final HsPermissionService service = HsPermissionService();
 
-    HsPermissionStatus permission = await service.requestPhotoPermission();
+    HsPermissionStatus permission = await service.checkPhotoPermission();
 
     expect(permission, expectedStatus);
   }

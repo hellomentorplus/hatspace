@@ -116,8 +116,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "facebookSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Facebook"),
         "fridge": MessageLookupByLibrary.simpleMessage("Fridge"),
+        "goToSetting": MessageLookupByLibrary.simpleMessage("Go to Setting"),
         "googleSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Google"),
+        "hatSpaceWouldLikeToPhotoAccess": MessageLookupByLibrary.simpleMessage(
+            "\"HATSpace\" Would Like to Photo Access"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
         "house": MessageLookupByLibrary.simpleMessage("House"),
         "houseNumberAndStreetName":
@@ -147,6 +150,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please select value"),
         "pleaseSelectYourState":
             MessageLookupByLibrary.simpleMessage("Pleas select your state"),
+        "plsGoToSettingsAndAllowPhotoAccessForHatSpace":
+            MessageLookupByLibrary.simpleMessage(
+                "Please go to Settings and allow photos access for HATSpace."),
         "portableFans": MessageLookupByLibrary.simpleMessage("Portable Fans"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),

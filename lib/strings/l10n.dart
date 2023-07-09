@@ -1003,6 +1003,36 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `"HATSpace" Would Like to Photo Access`
+  String get hatSpaceWouldLikeToPhotoAccess {
+    return Intl.message(
+      '"HATSpace" Would Like to Photo Access',
+      name: 'hatSpaceWouldLikeToPhotoAccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please go to Settings and allow photos access for HATSpace.`
+  String get plsGoToSettingsAndAllowPhotoAccessForHatSpace {
+    return Intl.message(
+      'Please go to Settings and allow photos access for HATSpace.',
+      name: 'plsGoToSettingsAndAllowPhotoAccessForHatSpace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to Setting`
+  String get goToSetting {
+    return Intl.message(
+      'Go to Setting',
+      name: 'goToSetting',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
