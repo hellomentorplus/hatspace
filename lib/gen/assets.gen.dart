@@ -75,6 +75,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/notification.svg
   String get notification => 'assets/icons/notification.svg';
 
+  /// File path: assets/icons/photo_access.svg
+  String get photoAccess => 'assets/icons/photo_access.svg';
+
   /// File path: assets/icons/portable_fans.svg
   String get portableFans => 'assets/icons/portable_fans.svg';
 
@@ -125,6 +128,7 @@ class $AssetsIconsGen {
         kitchen,
         message,
         notification,
+        photoAccess,
         portableFans,
         profile,
         search,
