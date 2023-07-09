@@ -192,6 +192,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/error.svg
   String get error => 'assets/images/error.svg';
 
+  /// File path: assets/images/error_circle.svg
+  String get errorCircle => 'assets/images/error_circle.svg';
+
   /// File path: assets/images/facebook.svg
   String get facebook => 'assets/images/facebook.svg';
 
@@ -244,6 +247,7 @@ class $AssetsImagesGen {
         email,
         envelope,
         error,
+        errorCircle,
         facebook,
         facebookround,
         google,
