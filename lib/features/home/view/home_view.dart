@@ -109,7 +109,7 @@ class HomePageBodyState extends State<HomePageBody> {
                   context.read<HomeInteractionCubit>().onCloseModal();
                 });
               }
-              if(state is GotoSignUpScreen){
+              if (state is GotoSignUpScreen) {
                 context.goToSignup();
               }
             },

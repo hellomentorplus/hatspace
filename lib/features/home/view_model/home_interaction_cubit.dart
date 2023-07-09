@@ -50,7 +50,7 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
     }
   }
 
-  void goToSignUpScreen (){
+  void goToSignUpScreen() {
     emit(GotoSignUpScreen());
   }
 

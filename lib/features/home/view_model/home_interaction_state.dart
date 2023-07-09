@@ -36,8 +36,8 @@ class OpenLoginBottomSheetModal extends HomeInteractionState {
   List<Object?> get props => [item];
 }
 
-class GotoSignUpScreen extends HomeInteractionState{
-    @override
+class GotoSignUpScreen extends HomeInteractionState {
+  @override
   List<Object?> get props => [];
 }
 
