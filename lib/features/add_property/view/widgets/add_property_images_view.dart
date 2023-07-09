@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_images_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
@@ -56,16 +57,24 @@ class _AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
           // do nothing
         }
 
+        if (state is OpenSelectPhotoScreen) {
+          _showSelectPhotoBottomSheet(context).then((isShown) {
+            context
+                .read<AddPropertyImagesCubit>()
+                .dismissSelectPhotoPermissionBottomSheet(isShown);
+          });
+        }
+
         if (state is PhotoPermissionDeniedForever) {
-          _showGoToSettingBottomSheet(context).then((result) {
-            if (result == null || !result) {
-              _dismissBottomSheet(context);
-            }
+          _showGoToSettingBottomSheet(context).then((isShown) {
+            context
+                .read<AddPropertyImagesCubit>()
+                .dismissPhotoPermissionBottomSheet(isShown);
           });
         }
 
         if (state is PhotoPermissionGranted) {
-          // open photo screen
+          context.read<AddPropertyImagesCubit>().openSelectPhotoBottomSheet();
         }
       },
       child: SingleChildScrollView(
@@ -100,33 +109,41 @@ class _AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
   }
 
   Future<bool?> _showGoToSettingBottomSheet(BuildContext context) {
-    return context.showHsBottomSheet(HsWarningBottomSheetView(
+    return context.showHsBottomSheet<bool>(HsWarningBottomSheetView(
       title: HatSpaceStrings.current.hatSpaceWouldLikeToPhotoAccess,
       description:
           HatSpaceStrings.current.plsGoToSettingsAndAllowPhotoAccessForHatSpace,
       iconUrl: Assets.icons.photoAccess,
       primaryButtonLabel: HatSpaceStrings.current.goToSetting,
       primaryOnPressed: () {
-        _goToSetting(context);
-        Navigator.of(context).pop();
+        context.read<AddPropertyImagesCubit>().gotoSetting();
+        context.pop();
       },
       secondaryButtonLabel: HatSpaceStrings.current.cancelBtn,
       secondaryOnPressed: () {
-        _cancelGotoSetting(context);
-        Navigator.of(context).pop();
+        context.read<AddPropertyImagesCubit>().cancelPhotoAccess();
+        context.pop();
       },
     ));
   }
 
-  void _dismissBottomSheet(BuildContext context) {
-    context.read<AddPropertyImagesCubit>().dismissBottomSheet();
-  }
-
-  void _cancelGotoSetting(BuildContext context) {
-    context.read<AddPropertyImagesCubit>().cancelPhotoAccess();
-  }
-
-  void _goToSetting(BuildContext context) {
-    context.read<AddPropertyImagesCubit>().gotoSetting();
+  Future<bool?> _showSelectPhotoBottomSheet(BuildContext context) {
+    return showModalBottomSheet<bool>(
+        context: context,
+        builder: (_) {
+          return Container(
+            height: 200,
+            color: Colors.amber,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('Select Photo'),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

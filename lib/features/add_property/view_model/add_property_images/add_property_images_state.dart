@@ -29,12 +29,22 @@ class CancelPhotoAccess extends AddPropertyImagesState {
   List<Object?> get props => [];
 }
 
+class OpenSelectPhotoScreen extends AddPropertyImagesState {
+  @override
+  List<Object?> get props => [];
+}
+
 class OpenSettingScreen extends AddPropertyImagesState {
   @override
   List<Object?> get props => [];
 }
 
-class BottomSheetIsClosedByTapingOutside extends AddPropertyImagesState {
+class ClosePhotoPermissionBottomSheet extends AddPropertyImagesState {
+  @override
+  List<Object?> get props => [];
+}
+
+class CloseSelectPhotoBottomSheet extends AddPropertyImagesState {
   @override
   List<Object?> get props => [];
 }
