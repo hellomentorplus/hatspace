@@ -5,7 +5,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
+// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal
 
 import 'package:flutter/widgets.dart';
 
@@ -93,6 +93,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/swimming_pool.svg
   String get swimmingPool => 'assets/icons/swimming_pool.svg';
 
+  /// File path: assets/icons/text_field_error.svg
+  String get textFieldError => 'assets/icons/text_field_error.svg';
+
   /// File path: assets/icons/tv.svg
   String get tv => 'assets/icons/tv.svg';
 
@@ -131,6 +134,7 @@ class $AssetsIconsGen {
         search,
         securityCameras,
         swimmingPool,
+        textFieldError,
         tv,
         washingMachine,
         wifi
@@ -315,16 +319,7 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
-  }
+  ImageProvider provider() => AssetImage(_assetName);
 
   String get path => _assetName;
 

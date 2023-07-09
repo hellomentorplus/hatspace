@@ -110,6 +110,13 @@
     }
   },
   "availableDateColon": "Available date:",
+  "enterPropertyName":"Enter property name",
+  "maximumChars":"Maximum {count} characters",
+  "textWithInvalidChars":"Only accept text",
+  "enterPrice":"Enter price",
+  "numberFieldContainsNonNumber":"Only accept number",
+  "enterSuburb":"Enter suburb",
+  "enterPostalCode":"Enter postcode",
   "hatSpaceWouldLikeToPhotoAccess": "\"HATSpace\" Would Like to Photo Access",
   "plsGoToSettingsAndAllowPhotoAccessForHatSpace": "Please go to Settings and allow photos access for HATSpace.",
   "goToSetting": "Go to Setting"

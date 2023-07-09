@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_type_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -66,11 +65,13 @@ void main() {
     expect(find.text('Available date'), findsOneWidget);
     expect(find.text('15 October, 2022'), findsOneWidget);
 
-    final Card houseCard = widgetTester.widget(find.descendant(
-        of: find.byType(AspectRatio),
-        matching: find.ancestor(
-            of: find.svgPictureWithAssets('assets/images/house.svg'),
-            matching: find.byType(Card))));
+    final Card houseCard = widgetTester.widget(find.ancestor(
+      of: find.descendant(
+        of: find.byType(Card),
+        matching: find.svgPictureWithAssets('assets/images/house.svg'),
+      ),
+      matching: find.byType(Card),
+    ));
 
     expect(houseCard.color, const Color(0xffEBFAEF));
     expect(houseCard.shape, isA<RoundedRectangleBorder>());
@@ -89,13 +90,13 @@ void main() {
         addPropertyCubit, widget);
 
     await widgetTester.ensureVisible(find.descendant(
-        of: find.byType(AspectRatio),
+        of: find.byType(Card),
         matching: find.ancestor(
             of: find.svgPictureWithAssets('assets/images/apartment.svg'),
             matching: find.byType(InkWell))));
 
     await widgetTester.tap(find.descendant(
-        of: find.byType(AspectRatio),
+        of: find.byType(Card),
         matching: find.ancestor(
             of: find.svgPictureWithAssets('assets/images/apartment.svg'),
             matching: find.byType(InkWell))));
@@ -113,13 +114,13 @@ void main() {
         addPropertyCubit, widget);
 
     await widgetTester.ensureVisible(find.descendant(
-        of: find.byType(AspectRatio),
+        of: find.byType(Card),
         matching: find.ancestor(
             of: find.svgPictureWithAssets('assets/images/house.svg'),
             matching: find.byType(InkWell))));
 
     await widgetTester.tap(find.descendant(
-        of: find.byType(AspectRatio),
+        of: find.byType(Card),
         matching: find.ancestor(
             of: find.svgPictureWithAssets('assets/images/house.svg'),
             matching: find.byType(InkWell))));
@@ -139,13 +140,13 @@ void main() {
         addPropertyCubit, widget);
 
     await widgetTester.ensureVisible(find.descendant(
-        of: find.byType(AspectRatio),
+        of: find.byType(Card),
         matching: find.ancestor(
             of: find.svgPictureWithAssets('assets/images/apartment.svg'),
             matching: find.byType(InkWell))));
 
     await widgetTester.tap(find.descendant(
-        of: find.byType(AspectRatio),
+        of: find.byType(Card),
         matching: find.ancestor(
             of: find.svgPictureWithAssets('assets/images/apartment.svg'),
             matching: find.byType(InkWell))));
@@ -171,11 +172,20 @@ void main() {
     await widgetTester.pump();
 
     expect(find.text('16 October, 2022'), findsOneWidget);
+    // HsDatePicker is dismissed
+    expect(find.byType(HsDatePicker), findsNothing);
+
+    await widgetTester.tap(find.text('16 October, 2022'));
+    await widgetTester.pump();
+    // tap again -> HsDatePicker is displayed
+    expect(find.byType(HsDatePicker), findsOneWidget);
 
     // when select a date before this date, then do not update
     await widgetTester.tap(find.text('14'));
     await widgetTester.pump();
 
+    // HsDatePicker is not dismissed
+    expect(find.byType(HsDatePicker), findsOneWidget);
     expect(find.text('16 October, 2022'), findsOneWidget);
     expect(find.text('14 October, 2022'), findsNothing);
   });

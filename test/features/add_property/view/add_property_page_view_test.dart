@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view/add_property_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:hatspace/strings/l10n.dart';
 
 import 'package:intl/date_symbol_data_local.dart';

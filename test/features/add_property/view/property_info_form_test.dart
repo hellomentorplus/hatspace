@@ -6,7 +6,6 @@ import 'package:hatspace/features/add_property/view/widgets/add_property_info_vi
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_minimum_rent_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/property_info_form.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';

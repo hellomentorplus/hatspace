@@ -36,10 +36,12 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(date) => "${date}";
 
-  static String m3(count) =>
+  static String m3(count) => "Maximum ${count} characters";
+
+  static String m4(count) =>
       "${Intl.plural(count, zero: 'No rent period', one: '1 Month', other: ' ${count} Months ')}";
 
-  static String m4(description) => "${Intl.select(description, {
+  static String m5(description) => "${Intl.select(description, {
             'tenant':
                 'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
             'homeowner':
@@ -47,15 +49,15 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': '',
           })}";
 
-  static String m5(role) => "${Intl.select(role, {
+  static String m6(role) => "${Intl.select(role, {
             'tenant': 'Tenant',
             'homeowner': 'Homeowner',
             'other': '',
           })}";
 
-  static String m6(number) => "${number} views today";
+  static String m7(number) => "${number} views today";
 
-  static String m7(name) => "👋 Hi ${name}";
+  static String m8(name) => "👋 Hi ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -92,8 +94,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
         "emailSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Email"),
+        "enterPostalCode":
+            MessageLookupByLibrary.simpleMessage("Enter postcode"),
+        "enterPrice": MessageLookupByLibrary.simpleMessage("Enter price"),
         "enterPropertyName":
             MessageLookupByLibrary.simpleMessage("Enter property name"),
+        "enterSuburb": MessageLookupByLibrary.simpleMessage("Enter suburb"),
         "enterYourAddress":
             MessageLookupByLibrary.simpleMessage("Enter your address"),
         "enterYourDescription":
@@ -126,10 +132,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "maximumChars": m3,
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "numberFieldContainsNonNumber":
+            MessageLookupByLibrary.simpleMessage("Only accept number"),
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Car spaces"),
         "pleaseEnterYourPlaceholder": MessageLookupByLibrary.simpleMessage(
@@ -149,7 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
         "pw": MessageLookupByLibrary.simpleMessage("pw"),
-        "rentPeriod": m3,
+        "rentPeriod": m4,
         "requireAtLeast4Photos":
             MessageLookupByLibrary.simpleMessage("Require at least 4 photos *"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
@@ -167,16 +176,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
         "suburb": MessageLookupByLibrary.simpleMessage("Suburb"),
         "swimmingPool": MessageLookupByLibrary.simpleMessage("Swimming pool"),
+        "textWithInvalidChars":
+            MessageLookupByLibrary.simpleMessage("Only accept text"),
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
         "tv": MessageLookupByLibrary.simpleMessage("TV"),
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
-        "userRoleDescription": m4,
-        "userTitleRoles": m5,
-        "viewsToday": m6,
+        "userRoleDescription": m5,
+        "userTitleRoles": m6,
+        "viewsToday": m7,
         "washingMachine":
             MessageLookupByLibrary.simpleMessage("Washing machine"),
         "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
-        "welcomeName": m7,
+        "welcomeName": m8,
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
         "wifi": MessageLookupByLibrary.simpleMessage("Wifi"),

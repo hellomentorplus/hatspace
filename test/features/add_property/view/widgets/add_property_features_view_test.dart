@@ -5,7 +5,6 @@ import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_features_view.dart'
     as view;
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import '../../../../widget_tester_extension.dart';

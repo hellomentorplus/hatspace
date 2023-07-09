@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of 'add_property_cubit.dart';
 
 abstract class AddPropertyState extends Equatable {
   final int pageViewNumber;
