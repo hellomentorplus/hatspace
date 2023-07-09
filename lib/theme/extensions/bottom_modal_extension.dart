@@ -3,10 +3,9 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 
-extension HsBottomSheet on BuildContext {
-  showHsBottomSheet(
-      {required HsWarningBottomSheetView modal, VoidCallback? onClose}) {
-    return showModalBottomSheet(
+extension HsBottomSheet<T> on BuildContext {
+  Future<T?> showHsBottomSheet(HsWarningBottomSheetView modal) {
+    return showModalBottomSheet<T>(
         useSafeArea: true,
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
@@ -17,8 +16,6 @@ extension HsBottomSheet on BuildContext {
         context: this,
         builder: (_) {
           return SingleChildScrollView(child: modal);
-        }).whenComplete(() {
-      onClose!();
-    });
+        });
   }
 }

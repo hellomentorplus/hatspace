@@ -50,6 +50,10 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
     }
   }
 
+  void goToSignUpScreen (){
+    emit(GotoSignUpScreen());
+  }
+
   void onCloseModal() {
     emit(CloseHsModal());
   }

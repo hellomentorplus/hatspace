@@ -71,6 +71,23 @@ class HomePageBodyState extends State<HomePageBody> {
 
   final ValueNotifier<int> _selectedIndex = ValueNotifier<int>(0);
 
+  Future<void> showLoginModal(BuildContext context) {
+    HsWarningBottomSheetView loginModal = HsWarningBottomSheetView(
+        iconUrl: Assets.images.loginCircle,
+        title: HatSpaceStrings.current.login,
+        description: HatSpaceStrings.current.loginDescription,
+        primaryButtonLabel: HatSpaceStrings.current.yesLoginNow,
+        primaryOnPressed: () {
+          context.pop();
+          context.read<HomeInteractionCubit>().goToSignUpScreen();
+        },
+        secondaryButtonLabel: HatSpaceStrings.current.noLater,
+        secondaryOnPressed: () {
+          context.pop();
+        });
+    return context.showHsBottomSheet(loginModal);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -88,26 +105,12 @@ class HomePageBodyState extends State<HomePageBody> {
                 context.goToAddProperty();
               }
               if (state is OpenLoginBottomSheetModal) {
-                HsWarningBottomSheetView loginModal = HsWarningBottomSheetView(
-                  iconUrl: Assets.images.loginCircle,
-                  title: HatSpaceStrings.current.login,
-                  description: HatSpaceStrings.current.loginDescription,
-                  primaryButtonLabel: HatSpaceStrings.current.yesLoginNow,
-                  primaryOnPressed: () {
-                    context.pop();
-                    context.goToSignup();
-                  },
-                  secondaryButtonLabel: HatSpaceStrings.current.noLater,
-                  secondaryOnPressed: () {
-                    context.pop();
-                  },
-                );
-                context.showHsBottomSheet(
-                  modal: loginModal,
-                  onClose: () {
-                    context.read<HomeInteractionCubit>().onCloseModal();
-                  },
-                );
+                showLoginModal(context).then((value) {
+                  context.read<HomeInteractionCubit>().onCloseModal();
+                });
+              }
+              if(state is GotoSignUpScreen){
+                context.goToSignup();
               }
             },
           )

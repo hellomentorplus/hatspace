@@ -183,14 +183,7 @@ void main() {
         'Given user has not login, when user taps on BottomAppItems, then show HsWarningModalWith',
         (widgetTester) async {
       const Widget widget = HomePageView();
-      await widgetTester.multiBlocWrapAndPump([
-        BlocProvider<AppConfigBloc>(
-          create: (context) => appConfigBloc,
-        ),
-        BlocProvider<AuthenticationBloc>(
-          create: (context) => authenticationBloc,
-        )
-      ], widget);
+      await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
 
       when(authenticationService.getIsUserLoggedIn())
           .thenAnswer((_) => Future.value(false));
@@ -235,14 +228,7 @@ void main() {
         'Given HsModalLogin pop up when user taps on bottom item, then verify UI of modal ',
         (widgetTester) async {
       const Widget widget = HomePageView();
-      await widgetTester.multiBlocWrapAndPump([
-        BlocProvider<AppConfigBloc>(
-          create: (context) => appConfigBloc,
-        ),
-        BlocProvider<AuthenticationBloc>(
-          create: (context) => authenticationBloc,
-        )
-      ], widget);
+      await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
 
       when(authenticationService.getIsUserLoggedIn())
           .thenAnswer((_) => Future.value(false));
@@ -259,6 +245,26 @@ void main() {
       expect(
           find.widgetWithText(PrimaryButton, 'Yes, login now'), findsOneWidget);
       expect(find.widgetWithText(SecondaryButton, 'No, later'), findsOneWidget);
+    });
+
+    testWidgets(
+        'Given HsModalLogin pop up when user taps on bottom item, then verify interaction',
+        (widgetTester) async {
+      when(interactionCubit.state).thenAnswer(
+          (_) => const OpenLoginBottomSheetModal(BottomBarItems.explore));
+      when(interactionCubit.stream).thenAnswer((_) => Stream.value(
+          const OpenLoginBottomSheetModal(BottomBarItems.explore)));
+      const Widget widget = HomePageView();
+      await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
+      await expectLater(find.byType(HomePageView), findsOneWidget);
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+      // expect(find.widgetWithText(SecondaryButton, 'No, later'), findsOneWidget);
+      Finder closeBtn = find.widgetWithText(SecondaryButton, 'No, later');
+      await widgetTester.ensureVisible(closeBtn);
+      await widgetTester.tap(closeBtn);
+      await widgetTester.pumpAndSettle();
+      verify(interactionCubit.onCloseModal()).called(1);
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
     });
   });
 
