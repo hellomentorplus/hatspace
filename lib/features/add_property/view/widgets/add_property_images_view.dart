@@ -25,10 +25,10 @@ class AddPropertyImagesBody extends StatefulWidget {
   const AddPropertyImagesBody({Key? key}) : super(key: key);
 
   @override
-  _AddPropertyImagesBodyState createState() => _AddPropertyImagesBodyState();
+  AddPropertyImagesBodyState createState() => AddPropertyImagesBodyState();
 }
 
-class _AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
+class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
     with WidgetsBindingObserver {
   @override
   void initState() {
