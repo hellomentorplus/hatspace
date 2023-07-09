@@ -50,7 +50,7 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
     }
   }
 
-  void onCloseModal(){
+  void onCloseModal() {
     emit(CloseHsModal());
   }
 }

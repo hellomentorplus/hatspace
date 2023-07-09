@@ -89,7 +89,7 @@ class HomePageBodyState extends State<HomePageBody> {
                 context.goToAddProperty();
               }
               if (state is OpenLoginBottomSheetModal) {
-                HsWarningBottomSheetView loginModal =  HsWarningBottomSheetView(
+                HsWarningBottomSheetView loginModal = HsWarningBottomSheetView(
                   iconUrl: Assets.images.loginCircle,
                   title: HatSpaceStrings.current.login,
                   description: HatSpaceStrings.current.loginDescription,
@@ -104,11 +104,11 @@ class HomePageBodyState extends State<HomePageBody> {
                   },
                 );
                 context.showHsBottomSheet(
-                  modal:loginModal,
+                  modal: loginModal,
                   onClose: () {
                     context.read<HomeInteractionCubit>().onCloseModal();
                   },
-                  );
+                );
               }
             },
           )

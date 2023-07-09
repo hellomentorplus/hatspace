@@ -4,9 +4,8 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 
 extension HsBottomSheet on BuildContext {
-  showHsBottomSheet({
-    required HsWarningBottomSheetView modal, 
-    VoidCallback? onClose}) {
+  showHsBottomSheet(
+      {required HsWarningBottomSheetView modal, VoidCallback? onClose}) {
     return showModalBottomSheet(
         useSafeArea: true,
         isScrollControlled: true,
@@ -18,8 +17,8 @@ extension HsBottomSheet on BuildContext {
         context: this,
         builder: (_) {
           return SingleChildScrollView(child: modal);
-        }).whenComplete((){
-            onClose!();
-        });
+        }).whenComplete(() {
+      onClose!();
+    });
   }
 }
