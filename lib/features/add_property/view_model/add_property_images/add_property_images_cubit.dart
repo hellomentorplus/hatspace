@@ -27,9 +27,7 @@ class AddPropertyImagesCubit extends Cubit<AddPropertyImagesState> {
 
   void dismissSelectPhotoPermissionBottomSheet(bool? isShown) {
     if (isShown == null || !isShown) {
-      if (state is! OpenSettingScreen && state is! CancelPhotoAccess) {
-        emit(CloseSelectPhotoBottomSheet());
-      }
+      emit(CloseSelectPhotoBottomSheet());
     }
   }
 
@@ -38,8 +36,8 @@ class AddPropertyImagesCubit extends Cubit<AddPropertyImagesState> {
   }
 
   void gotoSetting() {
-    emit(OpenSettingScreen());
     openAppSettings();
+    emit(OpenSettingScreen());
   }
 
   void screenResumed() {
