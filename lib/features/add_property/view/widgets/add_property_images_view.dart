@@ -53,16 +53,17 @@ class _AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
   Widget build(BuildContext context) {
     return BlocListener<AddPropertyImagesCubit, AddPropertyImagesState>(
       listener: (_, state) {
-        if (state is PhotoPermissionDenied) {
-          // do nothing
-        }
-
-        if (state is OpenSelectPhotoScreen) {
+        if (state is PhotoPermissionGranted) {
           _showSelectPhotoBottomSheet(context).then((isShown) {
             context
                 .read<AddPropertyImagesCubit>()
                 .dismissSelectPhotoPermissionBottomSheet(isShown);
           });
+          context.read<AddPropertyImagesCubit>().openSelectPhotoBottomSheet();
+        }
+
+        if (state is PhotoPermissionDenied) {
+          // do nothing
         }
 
         if (state is PhotoPermissionDeniedForever) {
@@ -71,10 +72,6 @@ class _AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
                 .read<AddPropertyImagesCubit>()
                 .dismissPhotoPermissionBottomSheet(isShown);
           });
-        }
-
-        if (state is PhotoPermissionGranted) {
-          context.read<AddPropertyImagesCubit>().openSelectPhotoBottomSheet();
         }
       },
       child: SingleChildScrollView(
@@ -97,7 +94,6 @@ class _AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
               ),
               InkWell(
                 onTap: () {
-                  print('onTap');
                   context.read<AddPropertyImagesCubit>().checkPhotoPermission();
                 },
                 child: SvgPicture.asset(Assets.images.uploadPhoto),
@@ -129,6 +125,7 @@ class _AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
   }
 
   Future<bool?> _showSelectPhotoBottomSheet(BuildContext context) {
+    // will be replaced by hs-162
     return showModalBottomSheet<bool>(
         context: context,
         builder: (_) {

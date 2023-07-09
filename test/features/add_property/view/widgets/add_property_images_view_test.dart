@@ -57,15 +57,15 @@ void main() {
     });
 
     testWidgets(
-        'given state is OpenSelectPhotoScreen '
+        'given state is PhotoPermissionGranted '
         'when launching AddPropertyImagesView '
         'then show select photo bottom sheet', (widgetTester) async {
       const Widget widget = AddPropertyImagesBody();
 
       when(addPropertyImagesCubit.state)
-          .thenAnswer((_) => OpenSelectPhotoScreen());
+          .thenAnswer((_) => PhotoPermissionGranted());
       when(addPropertyImagesCubit.stream)
-          .thenAnswer((_) => Stream.value(OpenSelectPhotoScreen()));
+          .thenAnswer((_) => Stream.value(PhotoPermissionGranted()));
 
       await widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
           addPropertyImagesCubit, widget,
