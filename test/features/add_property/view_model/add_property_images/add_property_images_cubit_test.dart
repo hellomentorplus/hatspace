@@ -77,7 +77,6 @@ void main() {
   });
 
   group('onPhotoPermissionBottomSheetDismissed', () {
-
     blocTest<AddPropertyImagesCubit, AddPropertyImagesState>(
       'given state is PhotoPermissionDeniedForever,'
       'when dismissPhotoPermissionBottomSheet,'
@@ -111,8 +110,8 @@ void main() {
 
   blocTest<AddPropertyImagesCubit, AddPropertyImagesState>(
     'given state is PhotoPermissionDeniedForever,'
-        'when dismissSelectPhotoPermissionBottomSheet,'
-        'then return CloseSelectPhotoBottomSheet',
+    'when dismissSelectPhotoPermissionBottomSheet,'
+    'then return CloseSelectPhotoBottomSheet',
     build: () => AddPropertyImagesCubit(),
     seed: () => PhotoPermissionDeniedForever(),
     act: (bloc) => bloc.onSelectPhotoBottomSheetDismissed(),
