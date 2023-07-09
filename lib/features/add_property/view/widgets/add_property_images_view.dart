@@ -54,12 +54,11 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
     return BlocListener<AddPropertyImagesCubit, AddPropertyImagesState>(
       listener: (_, state) {
         if (state is PhotoPermissionGranted) {
-          _showSelectPhotoBottomSheet(context).then((isShown) {
+          _showSelectPhotoBottomSheet(context).then((result) {
             context
                 .read<AddPropertyImagesCubit>()
-                .dismissSelectPhotoPermissionBottomSheet(isShown);
+                .onSelectPhotoBottomSheetDismissed();
           });
-          context.read<AddPropertyImagesCubit>().openSelectPhotoBottomSheet();
         }
 
         if (state is PhotoPermissionDenied) {
@@ -67,10 +66,10 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
         }
 
         if (state is PhotoPermissionDeniedForever) {
-          _showGoToSettingBottomSheet(context).then((isShown) {
+          _showPhotoPermissionBottomSheet(context).then((result) {
             context
                 .read<AddPropertyImagesCubit>()
-                .dismissPhotoPermissionBottomSheet(isShown);
+                .onPhotoPermissionBottomSheetDismissed();
           });
         }
       },
@@ -105,8 +104,8 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
     );
   }
 
-  Future<bool?> _showGoToSettingBottomSheet(BuildContext context) {
-    return context.showHsBottomSheet<bool>(HsWarningBottomSheetView(
+  Future<void> _showPhotoPermissionBottomSheet(BuildContext context) {
+    return context.showHsBottomSheet<void>(HsWarningBottomSheetView(
       title: HatSpaceStrings.current.hatSpaceWouldLikeToPhotoAccess,
       description:
           HatSpaceStrings.current.plsGoToSettingsAndAllowPhotoAccessForHatSpace,
@@ -124,9 +123,9 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
     ));
   }
 
-  Future<bool?> _showSelectPhotoBottomSheet(BuildContext context) {
+  Future<void> _showSelectPhotoBottomSheet(BuildContext context) {
     // will be replaced by hs-162
-    return showModalBottomSheet<bool>(
+    return showModalBottomSheet<void>(
         context: context,
         builder: (_) {
           return Container(

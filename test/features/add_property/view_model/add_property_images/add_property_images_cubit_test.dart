@@ -76,109 +76,48 @@ void main() {
     );
   });
 
-  group('dismissPhotoPermissionBottomSheet', () {
-    blocTest<AddPropertyImagesCubit, AddPropertyImagesState>(
-      'given isShown is true,'
-      'when dismissPhotoPermissionBottomSheet,'
-      'then do nothing',
-      build: () => AddPropertyImagesCubit(),
-      seed: () => PhotoPermissionDeniedForever(),
-      act: (bloc) => bloc.dismissPhotoPermissionBottomSheet(true),
-      expect: () => [],
-    );
+  group('onPhotoPermissionBottomSheetDismissed', () {
 
     blocTest<AddPropertyImagesCubit, AddPropertyImagesState>(
-      'given isShown is false,'
+      'given state is PhotoPermissionDeniedForever,'
       'when dismissPhotoPermissionBottomSheet,'
       'then return ClosePhotoPermissionBottomSheet',
       build: () => AddPropertyImagesCubit(),
       seed: () => PhotoPermissionDeniedForever(),
-      act: (bloc) => bloc.dismissPhotoPermissionBottomSheet(false),
+      act: (bloc) => bloc.onPhotoPermissionBottomSheetDismissed(),
       expect: () => [isA<ClosePhotoPermissionBottomSheet>()],
     );
 
     blocTest<AddPropertyImagesCubit, AddPropertyImagesState>(
-      'given isShown is false and state is OpenSettingScreen,'
+      'given state is OpenSettingScreen,'
       'when dismissPhotoPermissionBottomSheet,'
       'then do nothing',
       build: () => AddPropertyImagesCubit(),
       seed: () => OpenSettingScreen(),
-      act: (bloc) => bloc.dismissPhotoPermissionBottomSheet(false),
+      act: (bloc) => bloc.onPhotoPermissionBottomSheetDismissed(),
       expect: () => [],
     );
 
     blocTest<AddPropertyImagesCubit, AddPropertyImagesState>(
-      'given isShown is null state is CancelPhotoAccess,'
+      'given state is CancelPhotoAccess,'
       'when dismissPhotoPermissionBottomSheet,'
       'then do nothing',
       build: () => AddPropertyImagesCubit(),
       seed: () => CancelPhotoAccess(),
-      act: (bloc) => bloc.dismissPhotoPermissionBottomSheet(false),
-      expect: () => [],
-    );
-
-    blocTest<AddPropertyImagesCubit, AddPropertyImagesState>(
-      'given isShown is null,'
-      'when dismissPhotoPermissionBottomSheet,'
-      'then return ClosePhotoPermissionBottomSheet',
-      build: () => AddPropertyImagesCubit(),
-      seed: () => PhotoPermissionDeniedForever(),
-      act: (bloc) => bloc.dismissPhotoPermissionBottomSheet(null),
-      expect: () => [isA<ClosePhotoPermissionBottomSheet>()],
-    );
-
-    blocTest<AddPropertyImagesCubit, AddPropertyImagesState>(
-      'given isShown is null and state is OpenSettingScreen,'
-      'when dismissPhotoPermissionBottomSheet,'
-      'then do nothing',
-      build: () => AddPropertyImagesCubit(),
-      seed: () => OpenSettingScreen(),
-      act: (bloc) => bloc.dismissPhotoPermissionBottomSheet(null),
-      expect: () => [],
-    );
-
-    blocTest<AddPropertyImagesCubit, AddPropertyImagesState>(
-      'given isShown is null state is CancelPhotoAccess,'
-      'when dismissPhotoPermissionBottomSheet,'
-      'then do nothing',
-      build: () => AddPropertyImagesCubit(),
-      seed: () => CancelPhotoAccess(),
-      act: (bloc) => bloc.dismissPhotoPermissionBottomSheet(null),
+      act: (bloc) => bloc.onPhotoPermissionBottomSheetDismissed(),
       expect: () => [],
     );
   });
 
-  group('dismissPhotoPermissionBottomSheet', () {
-    blocTest<AddPropertyImagesCubit, AddPropertyImagesState>(
-      'given isShown is true,'
-      'when dismissSelectPhotoPermissionBottomSheet,'
-      'then do nothing',
-      build: () => AddPropertyImagesCubit(),
-      seed: () => PhotoPermissionDeniedForever(),
-      act: (bloc) => bloc.dismissSelectPhotoPermissionBottomSheet(true),
-      expect: () => [],
-    );
-
-    blocTest<AddPropertyImagesCubit, AddPropertyImagesState>(
-      'given isShown is false,'
-      'when dismissSelectPhotoPermissionBottomSheet,'
-      'then return CloseSelectPhotoBottomSheet',
-      build: () => AddPropertyImagesCubit(),
-      seed: () => PhotoPermissionDeniedForever(),
-      act: (bloc) => bloc.dismissSelectPhotoPermissionBottomSheet(false),
-      expect: () => [isA<CloseSelectPhotoBottomSheet>()],
-    );
-
-    blocTest<AddPropertyImagesCubit, AddPropertyImagesState>(
-      'given isShown is null,'
-      'when dismissSelectPhotoPermissionBottomSheet,'
-      'then return CloseSelectPhotoBottomSheet',
-      build: () => AddPropertyImagesCubit(),
-      seed: () => PhotoPermissionDeniedForever(),
-      act: (bloc) => bloc.dismissSelectPhotoPermissionBottomSheet(null),
-      expect: () => [isA<CloseSelectPhotoBottomSheet>()],
-    );
-  });
+  blocTest<AddPropertyImagesCubit, AddPropertyImagesState>(
+    'given state is PhotoPermissionDeniedForever,'
+        'when dismissSelectPhotoPermissionBottomSheet,'
+        'then return CloseSelectPhotoBottomSheet',
+    build: () => AddPropertyImagesCubit(),
+    seed: () => PhotoPermissionDeniedForever(),
+    act: (bloc) => bloc.onSelectPhotoBottomSheetDismissed(),
+    expect: () => [isA<CloseSelectPhotoBottomSheet>()],
+  );
 
   blocTest<AddPropertyImagesCubit, AddPropertyImagesState>(
     'when cancelPhotoAccess,'
