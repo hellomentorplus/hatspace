@@ -97,6 +97,7 @@ class _AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
               ),
               InkWell(
                 onTap: () {
+                  print('onTap');
                   context.read<AddPropertyImagesCubit>().checkPhotoPermission();
                 },
                 child: SvgPicture.asset(Assets.images.uploadPhoto),
@@ -134,12 +135,12 @@ class _AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
           return Container(
             height: 200,
             color: Colors.amber,
-            child: Center(
+            child: const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  const Text('Select Photo'),
+                  Text('Select Photo'),
                 ],
               ),
             ),

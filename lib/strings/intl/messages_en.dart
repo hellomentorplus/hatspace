@@ -142,7 +142,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pleas select your state"),
         "plsGoToSettingsAndAllowPhotoAccessForHatSpace":
             MessageLookupByLibrary.simpleMessage(
-                "Please go to Settings and  allow photos access for  HATSpace."),
+                "Please go to Settings and allow photos access for HATSpace."),
         "portableFans": MessageLookupByLibrary.simpleMessage("Portable Fans"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),

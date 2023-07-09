@@ -934,10 +934,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Please go to Settings and  allow photos access for  HATSpace.`
+  /// `Please go to Settings and allow photos access for HATSpace.`
   String get plsGoToSettingsAndAllowPhotoAccessForHatSpace {
     return Intl.message(
-      'Please go to Settings and  allow photos access for  HATSpace.',
+      'Please go to Settings and allow photos access for HATSpace.',
       name: 'plsGoToSettingsAndAllowPhotoAccessForHatSpace',
       desc: '',
       args: [],
