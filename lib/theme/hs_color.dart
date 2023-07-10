@@ -49,14 +49,15 @@ class HSColor {
 }
 
 const ColorScheme colorScheme = ColorScheme(
-    brightness: Brightness.light,
-    primary: HSColor.primary,
-    onPrimary: HSColor.onPrimary,
-    secondary: HSColor.secondary,
-    onSecondary: HSColor.onSecondary,
-    error: HSColor.statusError,
-    onError: HSColor.neutral1,
-    background: HSColor.background,
-    onBackground: HSColor.onBackground,
-    surface: HSColor.surface,
-    onSurface: HSColor.onSurface);
+  brightness: Brightness.light,
+  primary: HSColor.primary,
+  onPrimary: HSColor.onPrimary,
+  secondary: HSColor.secondary,
+  onSecondary: HSColor.onSecondary,
+  error: HSColor.statusError,
+  onError: HSColor.neutral1,
+  background: HSColor.background,
+  onBackground: HSColor.onBackground,
+  surface: HSColor.surface,
+  onSurface: HSColor.onSurface,
+);
