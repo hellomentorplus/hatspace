@@ -5,7 +5,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal
+// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
 import 'package:flutter/widgets.dart';
 
@@ -204,6 +204,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/increment.svg
   String get increment => 'assets/images/increment.svg';
 
+  /// File path: assets/images/landlord_circle.svg
+  String get landlordCircle => 'assets/images/landlord_circle.svg';
+
   /// File path: assets/images/logo.svg
   String get logo => 'assets/images/logo.svg';
 
@@ -245,6 +248,7 @@ class $AssetsImagesGen {
         google,
         house,
         increment,
+        landlordCircle,
         logo,
         messages,
         profileCircle,
@@ -319,7 +323,16 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider() => AssetImage(_assetName);
+  ImageProvider provider({
+    AssetBundle? bundle,
+    String? package,
+  }) {
+    return AssetImage(
+      _assetName,
+      bundle: bundle,
+      package: package,
+    );
+  }
 
   String get path => _assetName;
 

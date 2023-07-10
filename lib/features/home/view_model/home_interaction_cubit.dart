@@ -8,6 +8,8 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 
 part 'home_interaction_state.dart';
 
+enum BottomBarItems { explore, booking, message, profile, addingProperty }
+
 class HomeInteractionCubit extends Cubit<HomeInteractionState> {
   HomeInteractionCubit() : super(HomeInitial());
 
@@ -28,10 +30,35 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
           emit(StartAddPropertyFlow());
         } else {
           // TODO handle when user is not a homeowner
+          emit(ShowAddRoleModal());
         }
       }
     } on UserNotFoundException catch (_) {
       // TODO handle case when user is not login
     }
+  }
+
+  void onBottomItemTapped(BottomBarItems item) async {
+    bool isUserLoggedIn = await authenticationService.getIsUserLoggedIn();
+    if (!isUserLoggedIn) {
+      // TODO: Open login bottom sheet modal
+    }
+    switch (item) {
+      case (BottomBarItems.addingProperty):
+        {
+          onAddPropertyPressed();
+        }
+        // TODO: Handle navigate to others items
+        break;
+      default:
+    }
+  }
+
+  void goToAddProperty() {
+    emit(StartAddPropertyFlow());
+  }
+
+  void onCloseModal() {
+    emit(CloseHsModal());
   }
 }

@@ -109,6 +109,9 @@
       }
     }
   },
+  "addHomeownerRole": "Add Homeowner role",
+  "addHomeownerRoleDescription": "Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?",
+  "later": "Later",
   "availableDateColon": "Available date:",
   "enterPropertyName":"Enter property name",
   "maximumChars":"Maximum {count} characters",

@@ -129,4 +129,8 @@ class AuthenticationService {
       _firebaseAuth.signOut()
     ]);
   }
+
+  Future<bool> getIsUserLoggedIn() async {
+    return _firebaseAuth.currentUser != null;
+  }
 }

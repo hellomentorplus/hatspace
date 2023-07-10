@@ -914,6 +914,36 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Add Homeowner role`
+  String get addHomeownerRole {
+    return Intl.message(
+      'Add Homeowner role',
+      name: 'addHomeownerRole',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?`
+  String get addHomeownerRoleDescription {
+    return Intl.message(
+      'Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?',
+      name: 'addHomeownerRoleDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Later`
+  String get later {
+    return Intl.message(
+      'Later',
+      name: 'later',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Available date:`
   String get availableDateColon {
     return Intl.message(

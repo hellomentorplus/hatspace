@@ -6,6 +6,8 @@ import 'package:hatspace/features/home/view/widgets/app_bar_bottom.dart';
 import 'package:hatspace/features/home/view/widgets/property_item_view.dart';
 import 'package:hatspace/features/home/view_model/get_properties_cubit.dart';
 import 'package:hatspace/features/home/view_model/home_interaction_cubit.dart';
+import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
+import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -69,6 +71,23 @@ class HomePageBodyState extends State<HomePageBody> {
 
   final ValueNotifier<int> _selectedIndex = ValueNotifier<int>(0);
 
+  Future<void> showAddRoleModal(BuildContext context) {
+    HsWarningBottomSheetView addRoleModal = HsWarningBottomSheetView(
+        iconUrl: Assets.images.landlordCircle,
+        title: HatSpaceStrings.current.addHomeownerRole,
+        description: HatSpaceStrings.current.addHomeownerRoleDescription,
+        primaryButtonLabel: HatSpaceStrings.current.addHomeownerRole,
+        primaryOnPressed: () {
+          context.pop();
+          context.read<HomeInteractionCubit>().goToAddProperty();
+        },
+        secondaryButtonLabel: HatSpaceStrings.current.later,
+        secondaryOnPressed: () {
+          context.pop();
+        });
+    return context.showHsBottomSheet(addRoleModal);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -84,6 +103,12 @@ class HomePageBodyState extends State<HomePageBody> {
             listener: (context, state) {
               if (state is StartAddPropertyFlow) {
                 context.goToAddProperty();
+              }
+
+              if (state is ShowAddRoleModal) {
+                showAddRoleModal(context).then((value) {
+                  context.read<HomeInteractionCubit>().onCloseModal();
+                });
               }
             },
           )
@@ -213,7 +238,7 @@ class HomePageBodyState extends State<HomePageBody> {
                                 onTap: () {
                                   context
                                       .read<HomeInteractionCubit>()
-                                      .onAddPropertyPressed();
+                                      .onBottomItemTapped(BottomBarItems.addingProperty);
                                 },
                                 child: Padding(
                                   padding:
