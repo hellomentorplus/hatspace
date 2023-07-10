@@ -211,10 +211,9 @@ class HomePageBodyState extends State<HomePageBody> {
                                 borderRadius:
                                     BorderRadius.circular(HsDimens.radius48),
                                 onTap: () {
-                                  // context
-                                  //     .read<HomeInteractionCubit>()
-                                  //     .onAddPropertyPressed();
-                                  context.goToAddProperty();
+                                  context
+                                      .read<HomeInteractionCubit>()
+                                      .onAddPropertyPressed();
                                 },
                                 child: Padding(
                                   padding:
