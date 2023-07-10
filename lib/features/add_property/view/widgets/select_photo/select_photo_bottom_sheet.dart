@@ -65,7 +65,11 @@ class _SelectPhotoBottomSheetState extends State<SelectPhotoBottomSheet>
                 child: InkWell(
                   onTap: () => context.pop(),
                   borderRadius: BorderRadius.circular(HsDimens.size24),
-                  child: SvgPicture.asset(Assets.icons.close, width: HsDimens.size24, height: HsDimens.size24,),
+                  child: SvgPicture.asset(
+                    Assets.icons.close,
+                    width: HsDimens.size24,
+                    height: HsDimens.size24,
+                  ),
                 ),
               )
             ],
