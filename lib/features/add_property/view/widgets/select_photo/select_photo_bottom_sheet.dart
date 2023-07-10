@@ -82,18 +82,77 @@ class _SelectPhotoBottomSheetState extends State<SelectPhotoBottomSheet>
       );
 }
 
-class AllPhotosView extends StatelessWidget {
+class AllPhotosView extends StatefulWidget {
   const AllPhotosView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => GridView(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4, childAspectRatio: 1, crossAxisSpacing: 1),
-        children: List.filled(
-            15,
-            Image.network(
-                'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D')),
-      );
+  _AllPhotosViewState createState() => _AllPhotosViewState();
+}
+
+class _AllPhotosViewState extends State<AllPhotosView> {
+  List<bool> isSelectedList = List.filled(15, false);
+  List<int> selectedIndices = [];
+  int selectedCount = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
+        childAspectRatio: 1,
+        crossAxisSpacing: 1,
+      ),
+      itemCount: 15,
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () {
+            setState(() {
+              if (isSelectedList[index]) {
+                isSelectedList[index] = false;
+                selectedIndices.remove(index);
+                selectedCount--;
+              } else if (selectedCount < 10) {
+                isSelectedList[index] = true;
+                selectedIndices.add(index);
+                selectedCount++;
+              }
+            });
+          },
+          child: Stack(
+            children: [
+              Image.network(
+                'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D',
+                fit: BoxFit.cover,
+              ),
+              if (isSelectedList[index]) ...[
+                Container(color: Colors.black.withOpacity(0.3)),
+                Center(
+                  child: Container(
+                    // color: Colors.black.withOpacity(0.3),
+                    decoration: ShapeDecoration(
+                      shape: const CircleBorder(),
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    width: HsDimens.size24,
+                    height: HsDimens.size24,
+                    padding:
+                    const EdgeInsets.symmetric(vertical: HsDimens.spacing4),
+                    child: Center(
+                      child: Text(
+                        (selectedIndices.indexOf(index) + 1).toString(),
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                            color: HSColor.neutral1, fontSize: HsDimens.size12),
+                      ),
+                    ),
+                  ),
+                ),
+              ]
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
 
 extension SelectPhotoBottomSheetExtension on BuildContext {
