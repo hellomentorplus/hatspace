@@ -34,16 +34,15 @@ class ExitAddPropertyFlow extends AddPropertyState {
   List<Object?> get props => [];
 }
 
-class OpenLostDataWarningModal extends AddPropertyState{
+class OpenLostDataWarningModal extends AddPropertyState {
   const OpenLostDataWarningModal(super.pageViewNumber);
   @override
   List<Object?> get props => [];
 }
 
-class CloseLostDataWarningModal extends AddPropertyState{
+class CloseLostDataWarningModal extends AddPropertyState {
   const CloseLostDataWarningModal(super.pageViewNumber);
 
   @override
   List<Object?> get props => [];
-
 }

@@ -5,11 +5,10 @@ import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view/add_property_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/strings/l10n.dart';
-
+import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-
 import '../../../widget_tester_extension.dart';
 import 'add_property_page_view_test.mocks.dart';
 
@@ -79,5 +78,34 @@ void main() {
 
     // screen will not be dismissed
     expect(find.byType(AddPropertyPageBody), findsNothing);
+  });
+
+  group('Verify lost warning data', () {
+    setUp(() {
+      when(addPropertyBloc.propertyType)
+          .thenAnswer((realInvocation) => PropertyTypes.house);
+      when(addPropertyBloc.availableDate)
+          .thenAnswer((realInvocation) => DateTime.now());
+      when(addPropertyBloc.state)
+          .thenAnswer((realInvocation) => const AddPropertyInitial());
+      when(addPropertyBloc.stream)
+          .thenAnswer((realInvocation) => const Stream.empty());
+    });
+    testWidgets(
+        'Given user is in add property flow'
+        'when user tap on X button icon'
+        'then verify lostDataModal', (widgetTester) async {
+      Widget addPropertyScreen = AddPropertyPageBody();
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyBloc, addPropertyScreen);
+      expectLater(find.byType(WillPopScope), findsOneWidget);
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+      Finder closeXButton = find.byType(IconButton);
+      expect(closeXButton.first, findsOneWidget);
+      await widgetTester.ensureVisible(closeXButton);
+      await widgetTester.tap(closeXButton);
+      await widgetTester.pumpAndSettle();
+      verify(addPropertyBloc.onShowLostDataModal()).called(1);
+    });
   });
 }

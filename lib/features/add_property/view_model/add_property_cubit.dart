@@ -155,21 +155,21 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   }
 
   // Show warning modal
-  void onResetData (){
+  void onResetData() {
     emit(const ExitAddPropertyFlow(0));
   }
-  void onShowLostDataModal(){
+
+  void onShowLostDataModal() {
     // check pageViewNumber != choosekindofplace screen
-    
-    if(state.pageViewNumber == 0){
+
+    if (state.pageViewNumber == 0) {
       emit(ExitAddPropertyFlow(state.pageViewNumber));
-    }else{
+    } else {
       emit(OpenLostDataWarningModal(state.pageViewNumber));
     }
   }
-  void onCloseLostDataModal(){
+
+  void onCloseLostDataModal() {
     emit(CloseLostDataWarningModal(state.pageViewNumber));
   }
-
 }
-

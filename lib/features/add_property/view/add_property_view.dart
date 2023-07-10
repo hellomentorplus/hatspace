@@ -44,23 +44,23 @@ class AddPropertyPageBody extends StatelessWidget {
     const AddPropertyImagesView()
   ];
 
-  Future<void> showLostDataModal(BuildContext context){
+  Future<void> showLostDataModal(BuildContext context) {
     HsWarningBottomSheetView lostDataModal = HsWarningBottomSheetView(
-      iconUrl: Assets.images.errorCircle,
-      title: HatSpaceStrings.current.lostDataTitle,
-      description: HatSpaceStrings.current.lostDataDescription,
-      primaryButtonLabel: HatSpaceStrings.current.no,
-      primaryOnPressed: (){
-        context.pop();
-      },
-      secondaryButtonLabel: HatSpaceStrings.current.yes,
-      secondaryOnPressed: (){
-      context.read<AddPropertyCubit>().onResetData();
-        context.pop();
-      }
-    );
+        iconUrl: Assets.images.errorCircle,
+        title: HatSpaceStrings.current.lostDataTitle,
+        description: HatSpaceStrings.current.lostDataDescription,
+        primaryButtonLabel: HatSpaceStrings.current.no,
+        primaryOnPressed: () {
+          context.pop();
+        },
+        secondaryButtonLabel: HatSpaceStrings.current.yes,
+        secondaryOnPressed: () {
+          context.read<AddPropertyCubit>().onResetData();
+          context.pop();
+        });
     return context.showHsBottomSheet(lostDataModal);
   }
+
   AddPropertyPageBody({super.key});
   @override
   Widget build(BuildContext context) {
@@ -86,20 +86,20 @@ class AddPropertyPageBody extends StatelessWidget {
               backgroundColor: HSColor.background,
               leading: BlocListener<AddPropertyCubit, AddPropertyState>(
                 listener: (_, state) {
-                  if(state is OpenLostDataWarningModal){
-                    showLostDataModal(context).then((value){
+                  if (state is OpenLostDataWarningModal) {
+                    showLostDataModal(context).then((value) {
                       context.read<AddPropertyCubit>().onCloseLostDataModal();
                     });
                   }
                 },
                 child: IconButton(
-                icon: const Icon(Icons.close, color: HSColor.onSurface),
-                onPressed: () {
-                  // HS-99 scenario 6
-                  context.read<AddPropertyCubit>().onShowLostDataModal();
-                },
+                  icon: const Icon(Icons.close, color: HSColor.onSurface),
+                  onPressed: () {
+                    // HS-99 scenario 6
+                    context.read<AddPropertyCubit>().onShowLostDataModal();
+                  },
+                ),
               ),
-              ) ,
               bottom: PreferredSize(
                   preferredSize: Size(size.width, 0),
                   child: BlocSelector<AddPropertyCubit, AddPropertyState, int>(
