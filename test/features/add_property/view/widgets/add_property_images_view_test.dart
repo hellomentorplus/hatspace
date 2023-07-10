@@ -69,9 +69,10 @@ void main() {
       when(addPropertyImagesCubit.stream)
           .thenAnswer((_) => Stream.value(PhotoPermissionGranted()));
 
-      await mockNetworkImagesFor(() => widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
-          addPropertyImagesCubit, widget,
-          infiniteAnimationWidget: true));
+      await mockNetworkImagesFor(() =>
+          widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
+              addPropertyImagesCubit, widget,
+              infiniteAnimationWidget: true));
       await widgetTester.pumpAndSettle();
       expect(find.byType(AddPropertyImagesBody), findsOneWidget);
 
