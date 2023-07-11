@@ -69,7 +69,8 @@ class HomePageBodyState extends State<HomePageBody> {
     detector.startListening();
   }
 
-  final ValueNotifier<BottomBarItems> _selectedIndex = ValueNotifier<BottomBarItems>(BottomBarItems.explore);
+  final ValueNotifier<BottomBarItems> _selectedIndex =
+      ValueNotifier<BottomBarItems>(BottomBarItems.explore);
 
   Future<void> showLoginModal(BuildContext context) {
     HsWarningBottomSheetView loginModal = HsWarningBottomSheetView(

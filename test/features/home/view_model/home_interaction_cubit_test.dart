@@ -94,7 +94,7 @@ void main() {
       'Given user has not logged in, when user taps on Booking, then return OpenLoginBottomSheetModal',
       build: () => HomeInteractionCubit(),
       setUp: () {
-      when(authenticationService.isUserLoggedIn).thenReturn(false);
+        when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.booking),
       expect: () => [isA<OpenLoginBottomSheetModal>()]);
@@ -103,7 +103,7 @@ void main() {
       'Given user has not logged in, when user taps on Message, then return OpenLoginBottomSheetModal',
       build: () => HomeInteractionCubit(),
       setUp: () {
-         when(authenticationService.isUserLoggedIn).thenReturn(false);
+        when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.message),
       expect: () => [isA<OpenLoginBottomSheetModal>()]);
@@ -112,7 +112,7 @@ void main() {
       'Given user has not logged in, when user taps on Profile, then return OpenLoginBottomSheetModal',
       build: () => HomeInteractionCubit(),
       setUp: () {
-       when(authenticationService.isUserLoggedIn).thenReturn(false);
+        when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.profile),
       expect: () => [isA<OpenLoginBottomSheetModal>()]);
@@ -121,7 +121,7 @@ void main() {
       'Given user has not logged in, when user taps on Adding property, then return OpenLoginBottomSheetModal',
       build: () => HomeInteractionCubit(),
       setUp: () {
-         when(authenticationService.isUserLoggedIn).thenReturn(false);
+        when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.addingProperty),
       expect: () => [isA<OpenLoginBottomSheetModal>()]);
@@ -129,7 +129,7 @@ void main() {
       'Given user has not logged in, when user taps out, then return CloseHsModal',
       build: () => HomeInteractionCubit(),
       setUp: () {
-         when(authenticationService.isUserLoggedIn).thenReturn(false);
+        when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
       act: (bloc) => bloc.onCloseModal(),
       expect: () => [isA<CloseHsModal>()]);
