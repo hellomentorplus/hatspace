@@ -19,11 +19,6 @@ class StartAddPropertyFlow extends HomeInteractionState {
   List<Object?> get props => [];
 }
 
-class StartOnTapBottomItems extends HomeInteractionState {
-  @override
-  List<Object?> get props => [];
-}
-
 class OpenLoginBottomSheetModal extends HomeInteractionState {
   final BottomBarItems item;
   const OpenLoginBottomSheetModal(this.item);
