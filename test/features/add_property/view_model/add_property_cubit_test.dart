@@ -302,14 +302,6 @@ void main() {
         expect: () => [isA<OpenLostDataWarningModal>()],
       );
 
-      blocTest<AddPropertyCubit, AddPropertyState>(
-        'do not show lost data warning modal on screen chooseKindOfPlace',
-        build: () => AddPropertyCubit(),
-        seed: () => const PageViewNavigationState(0),
-        act: (bloc) => bloc.onShowLostDataModal(),
-        expect: () => [isA<ExitAddPropertyFlow>()],
-      );
-
       blocTest<AddPropertyCubit, AddPropertyState>('close modal',
           build: () => AddPropertyCubit(),
           act: (bloc) => bloc.onCloseLostDataModal(),

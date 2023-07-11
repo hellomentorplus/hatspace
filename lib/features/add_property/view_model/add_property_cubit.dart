@@ -161,7 +161,6 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     // check pageViewNumber != choosekindofplace screen
     if (state.pageViewNumber == 0) {
       // TODO: update logic for chooseKindOfPlace
-      emit(ExitAddPropertyFlow(state.pageViewNumber));
     } else {
       emit(OpenLostDataWarningModal(state.pageViewNumber));
     }
