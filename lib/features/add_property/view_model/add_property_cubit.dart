@@ -154,7 +154,8 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   }
 
   // Show warning modal
-  void onResetData() => emit(const ExitAddPropertyFlow(0)); // handle logic to reset data
+  void onResetData() =>
+      emit(const ExitAddPropertyFlow(0)); // handle logic to reset data
 
   void onShowLostDataModal() {
     // check pageViewNumber != choosekindofplace screen
