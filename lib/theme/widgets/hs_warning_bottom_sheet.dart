@@ -51,6 +51,7 @@ class HsWarningBottomSheetView extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> modalContent = [];
     List<Widget> buttonGroup = [];
+    
     Widget button;
     // Icon configuration
     if (title != null) {
