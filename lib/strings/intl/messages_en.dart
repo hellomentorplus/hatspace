@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "How many bedrooms, bathrooms, car spaces?"),
         "airConditioners":
             MessageLookupByLibrary.simpleMessage("Air conditioners"),
+        "allPhotos": MessageLookupByLibrary.simpleMessage("All Photos"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "apartment": MessageLookupByLibrary.simpleMessage("Apartment"),
@@ -185,6 +186,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
         "tv": MessageLookupByLibrary.simpleMessage("TV"),
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
+        "upload": MessageLookupByLibrary.simpleMessage("Upload"),
         "userRoleDescription": m5,
         "userTitleRoles": m6,
         "viewsToday": m7,

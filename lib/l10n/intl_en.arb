@@ -117,6 +117,8 @@
   "numberFieldContainsNonNumber":"Only accept number",
   "enterSuburb":"Enter suburb",
   "enterPostalCode":"Enter postcode",
+  "upload":"Upload",
+  "allPhotos":"All Photos",
   "hatSpaceWouldLikeToPhotoAccess": "\"HATSpace\" Would Like to Photo Access",
   "plsGoToSettingsAndAllowPhotoAccessForHatSpace": "Please go to Settings and allow photos access for HATSpace.",
   "goToSetting": "Go to Setting",

@@ -33,6 +33,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/check.svg
   String get check => 'assets/icons/check.svg';
 
+  /// File path: assets/icons/close.svg
+  String get close => 'assets/icons/close.svg';
+
   /// File path: assets/icons/electric_stove.svg
   String get electricStove => 'assets/icons/electric_stove.svg';
 
@@ -114,6 +117,7 @@ class $AssetsIconsGen {
         booking,
         car,
         check,
+        close,
         electricStove,
         envelope,
         explore,
