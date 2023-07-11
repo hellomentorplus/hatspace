@@ -31,30 +31,26 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
           // TODO handle when user is not a homeowner
         }
       }
-    } on UserNotFoundException catch (_) {}
+    } on UserNotFoundException catch (_) {
+      // TODO handle case when user is not login
+    }
   }
 
   void onBottomItemTapped(BottomBarItems item) async {
-    bool isUserLoggedIn = await authenticationService.getIsUserLoggedIn();
+    bool isUserLoggedIn = authenticationService.isUserLoggedIn;
     if (!isUserLoggedIn) {
       return emit(OpenLoginBottomSheetModal(item));
     }
     switch (item) {
       case (BottomBarItems.addingProperty):
-        {
-          onAddPropertyPressed();
-        }
+        onAddPropertyPressed();
         // TODO: Handle navigate to others items
         break;
       default:
     }
   }
 
-  void goToSignUpScreen() {
-    emit(GotoSignUpScreen());
-  }
+  void goToSignUpScreen() => emit(GotoSignUpScreen());
 
-  void onCloseModal() {
-    emit(CloseHsModal());
-  }
+  void onCloseModal() => emit(CloseHsModal());
 }

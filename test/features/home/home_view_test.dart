@@ -185,8 +185,7 @@ void main() {
       const Widget widget = HomePageView();
       await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
 
-      when(authenticationService.getIsUserLoggedIn())
-          .thenAnswer((_) => Future.value(false));
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => false);
       // Verify on Explore
       await widgetTester.tap(find.text('Explore'));
       await widgetTester.pump();
@@ -230,8 +229,7 @@ void main() {
       const Widget widget = HomePageView();
       await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
 
-      when(authenticationService.getIsUserLoggedIn())
-          .thenAnswer((_) => Future.value(false));
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => false);
       // Verify on Explore
       await widgetTester.tap(find.text('Explore'));
       await widgetTester.pump();
