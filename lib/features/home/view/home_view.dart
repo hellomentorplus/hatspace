@@ -69,7 +69,7 @@ class HomePageBodyState extends State<HomePageBody> {
     detector.startListening();
   }
 
-  final ValueNotifier<int> _selectedIndex = ValueNotifier<int>(0);
+  final ValueNotifier<BottomBarItems> _selectedIndex = ValueNotifier<BottomBarItems>(BottomBarItems.explore);
 
   Future<void> showLoginModal(BuildContext context) {
     HsWarningBottomSheetView loginModal = HsWarningBottomSheetView(
@@ -205,30 +205,30 @@ class HomePageBodyState extends State<HomePageBody> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ValueListenableBuilder<int>(
+                        ValueListenableBuilder<BottomBarItems>(
                           valueListenable: _selectedIndex,
                           builder: (context, value, child) => _BottomBarItem(
                               icon: Assets.icons.explore,
                               label: HatSpaceStrings.current.explore,
-                              isSelected: value == 0,
+                              isSelected: value == BottomBarItems.explore,
                               onTap: () {
-                                _selectedIndex.value = 0;
+                                _selectedIndex.value = BottomBarItems.explore;
                                 context
                                     .read<HomeInteractionCubit>()
                                     .onBottomItemTapped(BottomBarItems.explore);
                               }),
                         ),
-                        ValueListenableBuilder<int>(
+                        ValueListenableBuilder<BottomBarItems>(
                           valueListenable: _selectedIndex,
                           builder: (context, value, child) => _BottomBarItem(
                               icon: Assets.icons.booking,
                               label: HatSpaceStrings.current.booking,
-                              isSelected: value == 1,
+                              isSelected: value == BottomBarItems.booking,
                               onTap: () {
                                 context
                                     .read<HomeInteractionCubit>()
                                     .onBottomItemTapped(BottomBarItems.booking);
-                                _selectedIndex.value = 1;
+                                _selectedIndex.value = BottomBarItems.booking;
                               }),
                         ),
                         Container(
@@ -264,30 +264,30 @@ class HomePageBodyState extends State<HomePageBody> {
                             }),
                           ),
                         ),
-                        ValueListenableBuilder<int>(
+                        ValueListenableBuilder<BottomBarItems>(
                           valueListenable: _selectedIndex,
                           builder: (context, value, child) => _BottomBarItem(
                               icon: Assets.icons.message,
                               label: HatSpaceStrings.current.message,
-                              isSelected: value == 2,
+                              isSelected: value == BottomBarItems.message,
                               onTap: () {
                                 context
                                     .read<HomeInteractionCubit>()
                                     .onBottomItemTapped(BottomBarItems.message);
-                                _selectedIndex.value = 2;
+                                _selectedIndex.value = BottomBarItems.message;
                               }),
                         ),
-                        ValueListenableBuilder<int>(
+                        ValueListenableBuilder<BottomBarItems>(
                           valueListenable: _selectedIndex,
                           builder: (context, value, child) => _BottomBarItem(
                               icon: Assets.icons.profile,
                               label: HatSpaceStrings.current.profile,
-                              isSelected: value == 3,
+                              isSelected: value == BottomBarItems.profile,
                               onTap: () {
                                 context
                                     .read<HomeInteractionCubit>()
                                     .onBottomItemTapped(BottomBarItems.profile);
-                                _selectedIndex.value = 3;
+                                _selectedIndex.value = BottomBarItems.profile;
                               }),
                         )
                       ],
