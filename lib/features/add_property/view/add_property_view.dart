@@ -46,7 +46,7 @@ class AddPropertyPageBody extends StatelessWidget {
 
   Future<void> showLostDataModal(BuildContext context) {
     HsWarningBottomSheetView lostDataModal = HsWarningBottomSheetView(
-        iconUrl: Assets.images.errorCircle,
+        iconUrl: Assets.images.circleWarning,
         title: HatSpaceStrings.current.lostDataTitle,
         description: HatSpaceStrings.current.lostDataDescription,
         primaryButtonLabel: HatSpaceStrings.current.no,
@@ -95,7 +95,6 @@ class AddPropertyPageBody extends StatelessWidget {
                 child: IconButton(
                   icon: const Icon(Icons.close, color: HSColor.onSurface),
                   onPressed: () {
-                    // HS-99 scenario 6
                     context.read<AddPropertyCubit>().onShowLostDataModal();
                   },
                 ),
