@@ -305,7 +305,7 @@ void main() {
       blocTest<AddPropertyCubit, AddPropertyState>('close modal',
           build: () => AddPropertyCubit(),
           act: (bloc) => bloc.onCloseLostDataModal(),
-          expect: () => [isA<CloseLostDataWarningModal>()]);
+          expect: () => [isA<NextButtonEnable>()]);
 
       blocTest<AddPropertyCubit, AddPropertyState>(
           'reset data and exit add property flow',
