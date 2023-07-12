@@ -19,7 +19,7 @@ void main() async {
   setUp(() {
     when(selectPhotoCubit.state).thenReturn(SelectPhotoInitial());
     when(selectPhotoCubit.stream)
-        .thenAnswer((realInvocation) => Stream.empty());
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   test('verify photo tab label', () {
