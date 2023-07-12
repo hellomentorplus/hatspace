@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_event.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
+import 'package:hatspace/data/data.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_bloc.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -14,8 +14,8 @@ class ChoosingRolesView extends StatelessWidget {
   const ChoosingRolesView({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ChooseRoleViewBloc>(
-      create: (context) => ChooseRoleViewBloc(),
+    return BlocProvider<ChooseRoleBloc>(
+      create: (context) => ChooseRoleBloc(),
       child: const ChoosingRoleViewBody(),
     );
   }
@@ -26,92 +26,87 @@ class ChoosingRoleViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    return BlocConsumer<ChooseRoleViewBloc, ChooseRoleViewState>(
-        listener: (context, state) {
-      if (state is ChoosingRoleSuccessState) {
-        context.pop();
-      }
-      if (state is ChoosingRoleFail) {
-        // TODO: Implement failure scenario
-      }
-    }, builder: (context, state) {
-      return Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: HSColor.background,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: HSColor.onSurface),
-              onPressed: () => {},
+    return BlocListener<ChooseRoleBloc, ChooseRoleState>(
+      listener: (context, state) {
+        if (state is SubmitRoleSucceedState) {
+          context.goToHome();
+        }
+        if (state is SubmitRoleFailedState) {
+          // TODO: Implement failure scenario
+        }
+      },
+      child: WillPopScope(
+        onWillPop: () async {
+          context.goToHome();
+          return true;
+        },
+        child: Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: HSColor.background,
+              actions: [
+                Container(
+                    margin: const EdgeInsets.only(right: HsDimens.spacing8),
+                    child: IconButton(
+                      icon: const Icon(Icons.close, color: HSColor.onSurface),
+                      onPressed: () => context.goToHome(),
+                    ))
+              ],
             ),
-            bottom: PreferredSize(
-              preferredSize: Size(size.width, 0),
-              child: LinearProgressIndicator(
-                backgroundColor: HSColor.neutral2,
-                color: HSColor.neutral6,
-                value: 0.75,
-                semanticsLabel:
-                    HatSpaceStrings.of(context).linearProgressIndicator,
-              ),
-            ),
-            title: Text(HatSpaceStrings.of(context).app_name),
-          ),
-          body: Padding(
-            padding:
-                const EdgeInsets.only(top: 33, left: 16, right: 16, bottom: 30),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        HatSpaceStrings.of(context).chooseUserRole,
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: Text(
-                          HatSpaceStrings.of(context).chooseUserRoleDescription,
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      ),
-                      ListView.builder(
-                          padding: const EdgeInsets.only(top: 32),
-                          shrinkWrap: true,
-                          itemCount: 2,
-                          itemBuilder: (BuildContext context, int position) {
-                            return UserRoleCardView(
-                              position: position,
-                            );
-                          }),
-                    ],
-                  ),
-                  Expanded(child: Container()),
-                  PrimaryButton(
-                      label: HatSpaceStrings.of(context).continueBtn,
-                      onPressed: state is UserRoleSelectedListState &&
-                              state.listRole.isNotEmpty
-                          ? () {
-                              context
-                                  .read<ChooseRoleViewBloc>()
-                                  .add(const OnSubmitRoleEvent());
-                            }
-                          : null),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 33),
-                    child: TextOnlyButton(
-                      label: HatSpaceStrings.of(context).cancelBtn,
-                      onPressed: () {
-                        Navigator.of(context)
-                            .popUntil((route) => route.isFirst);
-                      },
+            body: Padding(
+              padding: const EdgeInsets.only(
+                  top: HsDimens.spacing8,
+                  left: HsDimens.spacing24,
+                  right: HsDimens.spacing24,
+                  bottom: HsDimens.spacing44),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      HatSpaceStrings.current.chooseUserRole,
+                      style: Theme.of(context).textTheme.displayLarge,
                     ),
-                  ),
-                ]),
-          ));
-    });
+                    Padding(
+                      padding: const EdgeInsets.only(top: HsDimens.spacing8),
+                      child: Text(
+                        HatSpaceStrings.current.chooseUserRoleDescription,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ),
+                    Expanded(
+                        child: ListView.separated(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.only(top: HsDimens.spacing32),
+                      itemCount: Roles.values.length,
+                      itemBuilder: (BuildContext context, int position) {
+                        return UserRoleCardView(
+                          key: ValueKey(Roles.values[position]),
+                          role: Roles.values[position],
+                        );
+                      },
+                      separatorBuilder: (_, ___) => const SizedBox(
+                        height: HsDimens.spacing16,
+                      ),
+                    )),
+                    BlocBuilder<ChooseRoleBloc, ChooseRoleState>(
+                      builder: (innerCtx, state) {
+                        final bool enabled = state is SubmitRoleFailedState ||
+                            (state is ChoosingRoleState &&
+                                state.roles.isNotEmpty);
+                        return PrimaryButton(
+                          label: HatSpaceStrings.current.signUp,
+                          onPressed: enabled
+                            ? () {
+                                context
+                                    .read<ChooseRoleBloc>()
+                                    .add(const SubmitRoleEvent());
+                              }
+                            : null);
+                      },
+                    )
+                  ]),
+            )),
+      ),
+    );
   }
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/sign_up/view/widgets/user_role_card_view.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_bloc.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
-import 'package:hatspace/theme/hs_theme.dart';
 import 'package:mockito/annotations.dart';
 
 import '../../view_model/sign_up_bloc_test.mocks.dart';
@@ -20,21 +21,47 @@ void main() {
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationService);
   });
-  testWidgets('Check widgets on screen', (WidgetTester tester) async {
-    const widget = UserRoleCardView(position: 1);
+  testWidgets('[UI][Interaction] Validate role card',
+      (WidgetTester tester) async {
 
-    await tester.blocWrapAndPump(ChooseRoleViewBloc(), widget);
+    await tester.blocWrapAndPump(ChooseRoleBloc(), const UserRoleCardView(role: Roles.tenant));
 
-    InkWell inkWell = tester.widget(find.byType(InkWell));
-    expect(inkWell.onTap, isNotNull);
-
-    Card card = tester.widget(find.byType(Card));
-    expect(card.margin, const EdgeInsets.only(top: 16));
-    expect(card.elevation, 6);
+    expect(find.byType(SvgPicture), findsOneWidget);
+    expect(find.byType(Checkbox), findsOneWidget);
+    expect(find.text('Tenant'), findsOneWidget);
     expect(
-        card.shape,
-        const RoundedRectangleBorder(
-            side: BorderSide(color: HSColor.neutral5),
-            borderRadius: BorderRadius.all(Radius.circular(12))));
+        find.text(
+            'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.'),
+        findsOneWidget);
+
+    final Finder rolFinder = find.byType(UserRoleCardView);
+    expect(rolFinder, findsOneWidget);
+    final Card cardWidget = tester.widget(find.descendant(of: rolFinder, matching: find.byType(Card)));
+    final Checkbox checkBoxWidget = tester.widget(find.byType(Checkbox));
+    expect(checkBoxWidget.activeColor, const Color(0xFF32A854));
+    
+    expect(checkBoxWidget.value, false);
+    expect((cardWidget.shape as RoundedRectangleBorder).side.color,
+        Colors.transparent);
+    expect(cardWidget.color, const Color(0xFFF3F3F3));
+
+    await tester.tap(rolFinder);
+    await tester.pumpAndSettle();
+
+    final Checkbox checkBoxWidgetAfter = tester.widget(find.byType(Checkbox));
+    final Card cardWidgetAfter = tester.widget(find.descendant(of: rolFinder, matching: find.byType(Card)));
+    expect(checkBoxWidgetAfter.value, true);
+    expect(cardWidgetAfter.color, const Color(0xffEBFAEF));
+    expect((cardWidgetAfter.shape as RoundedRectangleBorder).side.color,
+        const Color(0xFF32A854));
+
+    await tester.tap(find.byType(Checkbox));
+    await tester.pumpAndSettle();
+
+    expect(checkBoxWidget.value, false);
+    expect((cardWidget.shape as RoundedRectangleBorder).side.color,
+        Colors.transparent);
+    expect(cardWidget.color, const Color(0xFFF3F3F3));
   });
+
 }

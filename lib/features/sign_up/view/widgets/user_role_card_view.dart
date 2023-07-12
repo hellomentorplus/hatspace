@@ -1,73 +1,86 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_event.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
-import 'package:hatspace/strings/l10n.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_bloc.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 import 'package:hatspace/data/data.dart';
 
-class UserRoleDetail {
-  String title;
-  String description;
-
-  UserRoleDetail(this.title, this.description);
-}
-
-extension RoleToDetail on Roles {
-  UserRoleDetail toUserRoleDetail(BuildContext context) {
-    final String title = HatSpaceStrings.of(context).userTitleRoles(name);
-    final String description =
-        HatSpaceStrings.of(context).userRoleDescription(name);
-
-    return UserRoleDetail(title, description);
-  }
-}
-
 class UserRoleCardView extends StatelessWidget {
-  final int position;
-  const UserRoleCardView({required this.position, super.key});
+  final Roles role;
+  const UserRoleCardView({required this.role, super.key});
   @override
   Widget build(BuildContext context) {
-    UserRoleDetail userRoleDetail =
-        Roles.values[position].toUserRoleDetail(context);
-
-    return BlocBuilder<ChooseRoleViewBloc, ChooseRoleViewState>(
+    return BlocBuilder<ChooseRoleBloc, ChooseRoleState>(
+      buildWhen: (prev, curr) => curr is ChoosingRoleState,
         builder: (context, state) {
+      final bool isSelected =
+          state is ChoosingRoleState && state.roles.contains(role);
       return InkWell(
-          onTap: () {
-            context
-                .read<ChooseRoleViewBloc>()
-                .add(OnChangeUserRoleEvent(position));
-          },
+          onTap: () => _onTapped.call(context),
           child: Card(
-              margin: const EdgeInsets.only(top: 16),
-              elevation: 6,
-              color: state is UserRoleSelectedListState
-                  ? state.listRole.contains(Roles.values[position])
-                      ? HSColor.neutral5
-                      : HSColor.neutral1
-                  : null,
-              shape: const RoundedRectangleBorder(
-                side: BorderSide(color: HSColor.neutral5),
-                borderRadius: BorderRadius.all(Radius.circular(12)),
+              margin: EdgeInsets.zero,
+              color: isSelected ? HSColor.accent : HSColor.neutral2,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                    width: 1.5,
+                    color: isSelected ? HSColor.primary : Colors.transparent),
+                borderRadius:
+                    const BorderRadius.all(Radius.circular(HsDimens.radius8)),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(HsDimens.spacing16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      userRoleDetail.title,
-                      style: Theme.of(context).textTheme.titleMedium,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SvgPicture.asset(role.iconSvgPath),
+                        const Spacer(),
+                        SizedBox(
+                          width: HsDimens.size24,
+                          height: HsDimens.size24,
+                          child: Checkbox(
+                              side: MaterialStateBorderSide.resolveWith(
+                                (states) => BorderSide(
+                                    width: HsDimens.size2,
+                                    color: isSelected
+                                        ? HSColor.primary
+                                        : HSColor.neutral4),
+                              ),
+                              activeColor: HSColor.primary,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(HsDimens.radius2)),
+                              value: isSelected,
+                              onChanged: (_) => _onTapped.call(context)),
+                        )
+                      ],
                     ),
-                    Text(userRoleDetail.description,
-                        style: Theme.of(context).textTheme.labelSmall)
+                    const SizedBox(height: HsDimens.spacing16),
+                    Text(
+                      role.title,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontStyleGuide.fwBold,
+                          ),
+                    ),
+                    const SizedBox(height: HsDimens.spacing4),
+                    Text(role.description,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(color: HSColor.neutral6))
                   ],
                 ),
               )));
     });
+  }
+
+  void _onTapped(BuildContext context) {
+    context.read<ChooseRoleBloc>().add(ChangeRoleEvent(role));
   }
 }

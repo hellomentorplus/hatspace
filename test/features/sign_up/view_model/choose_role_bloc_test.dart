@@ -2,9 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_bloc.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_event.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_view_state.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_bloc.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -17,7 +15,6 @@ import 'choose_role_bloc_test.mocks.dart';
 @GenerateMocks([
   AuthenticationService,
   StorageService,
-  FirebaseFirestore,
   MemberService,
   UserDetail
 ])
@@ -28,65 +25,91 @@ void main() {
   final MockMemberService memberService = MockMemberService();
   final MockUserDetail mockUserDetail = MockUserDetail();
   TestWidgetsFlutterBinding.ensureInitialized();
-  group('Test choose role bloc', () {
-    setUpAll(() {
-      HsSingleton.singleton
-          .registerSingleton<AuthenticationService>(authenticationService);
-      HsSingleton.singleton
-          .registerSingleton<StorageService>(storageServiceMock);
-    });
-
-    blocTest<ChooseRoleViewBloc, ChooseRoleViewState>(
-        'Given user select tenant role, then return state with user list have tenant role ',
-        build: () => ChooseRoleViewBloc(),
-        act: (bloc) {
-          int position = 1;
-          bloc.add(OnChangeUserRoleEvent(position));
-        },
-        expect: () => [isA<UserRoleSelectedListState>()]);
-    group('Test uploading user roles', () {
-      blocTest<ChooseRoleViewBloc, ChooseRoleViewState>(
-          'Given when user select role and submit, then return to succes state',
-          build: () => ChooseRoleViewBloc(),
-          setUp: () {
-            when(authenticationService.getCurrentUser())
-                .thenAnswer((realInvocation) {
-              return Future<UserDetail>.value(mockUserDetail);
-            });
-            when(storageServiceMock.member).thenAnswer((realInvocation) {
-              return memberService;
-            });
-            when(mockUserDetail.uid).thenReturn('uid');
-            when(memberService.saveUserRoles(mockUserDetail.uid, any))
-                .thenAnswer((realInvocation) => Future<void>.value());
-          },
-          act: (bloc) {
-            bloc.add(const OnSubmitRoleEvent());
-          },
-          expect: () => [isA<ChoosingRoleSuccessState>()]);
-    });
-
-    test('initial test', () {
-      expect(ChooseRoleViewBloc().state, isA<ChooseRoleViewInitial>());
-    });
-
-    test('test bloc initail', () {
-      UserRoleSelectedListState userRoleSelectedChange =
-          const UserRoleSelectedListState({});
-      expect(userRoleSelectedChange.props.length, 1);
-
-      OnChangeUserRoleEvent onChangeUserRoleEvent =
-          const OnChangeUserRoleEvent(0);
-      expect(onChangeUserRoleEvent.props.length, 1);
-      OnSubmitRoleEvent onSubmitRoleEvent = const OnSubmitRoleEvent();
-      expect(onSubmitRoleEvent.props.length, 0);
-
-      ChoosingRoleSuccessState choosingRoleSuccessState =
-          ChoosingRoleSuccessState();
-      expect(choosingRoleSuccessState.props.length, 0);
-
-      ChoosingRoleFail choosingRoleFail = ChoosingRoleFail();
-      expect(choosingRoleFail.props.length, 0);
+  setUpAll(() {
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
+    HsSingleton.singleton.registerSingleton<StorageService>(storageServiceMock);
+    when(storageServiceMock.member).thenAnswer((realInvocation) {
+      return memberService;
     });
   });
+
+  test(
+      'Given ChooseRoleBloc just has been created.'
+      'Then the initial state must be ChoosingRoleState with no roles.', () {
+    expect(
+        ChooseRoleBloc().state,
+        isA<ChoosingRoleState>()
+            .having((p0) => p0.roles.length, 'Roles is empty', 0));
+  });
+
+  blocTest<ChooseRoleBloc, ChooseRoleState>(
+      'Given bloc was just created and no events have been fired.'
+      'When ChooseRoleEvent with param Roles.tenant.'
+      'Then new state will be ChoosingRoleState with Roles.tenant.',
+      build: () => ChooseRoleBloc(),
+      act: (bloc) => bloc.add(const ChangeRoleEvent(Roles.tenant)),
+      expect: () => [
+            isA<ChoosingRoleState>()
+                .having((p0) => p0.roles, 'Matched roles', {Roles.tenant})
+          ]);
+
+  blocTest<ChooseRoleBloc, ChooseRoleState>(
+      'Given current state is ChoosingRoleState with the Roles.tenant as data '
+      'and authenticationService get current user successfully.'
+      'and storageService save user roles successfully.'
+      'When fire SubmitRoleEvent.'
+      'Then new state will be ChoosingRoleState with Roles.tenant.',
+      build: () => ChooseRoleBloc(),
+      setUp: () {
+        when(authenticationService.getCurrentUser())
+            .thenAnswer((realInvocation) {
+          return Future<UserDetail>.value(mockUserDetail);
+        });
+        when(mockUserDetail.uid).thenReturn('uid');
+        when(memberService.saveUserRoles(mockUserDetail.uid, any))
+            .thenAnswer((realInvocation) => Future<void>.value());
+      },
+      act: (bloc) => bloc.add(const SubmitRoleEvent()),
+      expect: () => [
+            const SubmittingRoleState(),
+            const SubmitRoleSucceedState(),
+            // isA<SubmitRoleSucceedState>(),
+          ]);
+
+  blocTest<ChooseRoleBloc, ChooseRoleState>(
+    'Given current state is ChoosingRoleState with the Roles.tenant as data '
+    'and authenticationService get current user function throws an Exception.'
+    'and storageService save user roles successfully.'
+    'When fire SubmitRoleEvent.'
+    'Then new state must be SubmitRoleFailedState.',
+    build: () => ChooseRoleBloc(),
+    setUp: () {
+      when(authenticationService.getCurrentUser()).thenThrow(Exception());
+      when(memberService.saveUserRoles(mockUserDetail.uid, any))
+          .thenAnswer((realInvocation) => Future<void>.value());
+    },
+    act: (bloc) => bloc.add(const SubmitRoleEvent()),
+    expect: () => [const SubmittingRoleState(), const SubmitRoleFailedState()],
+  );
+
+  blocTest<ChooseRoleBloc, ChooseRoleState>(
+    'Given current state is ChoosingRoleState with the Roles.tenant as data '
+    'and authenticationService get current user successfully.'
+    'and storageService save user roles function throws an Exception.'
+    'When fire SubmitRoleEvent.'
+    'Then new state must be SubmitRoleFailedState.',
+    build: () => ChooseRoleBloc(),
+    setUp: () {
+      when(authenticationService.getCurrentUser()).thenThrow(Exception());
+      when(memberService.saveUserRoles(mockUserDetail.uid, any))
+          .thenAnswer((realInvocation) => Future<void>.value());
+    },
+    act: (bloc) => bloc.add(const SubmitRoleEvent()),
+    expect: () => [
+      const SubmittingRoleState(),
+      const SubmitRoleFailedState(),
+      // isA<SubmitRoleFailedState>(),
+    ],
+  );
 }

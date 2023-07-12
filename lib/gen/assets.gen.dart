@@ -63,6 +63,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/google.svg
   String get google => 'assets/icons/google.svg';
 
+  /// File path: assets/icons/homeowner.svg
+  String get homeowner => 'assets/icons/homeowner.svg';
+
   /// File path: assets/icons/ic_agent.svg
   String get icAgent => 'assets/icons/ic_agent.svg';
 
@@ -89,6 +92,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/swimming_pool.svg
   String get swimmingPool => 'assets/icons/swimming_pool.svg';
+
+  /// File path: assets/icons/tenant.svg
+  String get tenant => 'assets/icons/tenant.svg';
 
   /// File path: assets/icons/tv.svg
   String get tv => 'assets/icons/tv.svg';
@@ -118,6 +124,7 @@ class $AssetsIconsGen {
         filter,
         fridge,
         google,
+        homeowner,
         icAgent,
         kitchen,
         message,
@@ -127,6 +134,7 @@ class $AssetsIconsGen {
         search,
         securityCameras,
         swimmingPool,
+        tenant,
         tv,
         washingMachine,
         wifi

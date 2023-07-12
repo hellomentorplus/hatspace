@@ -170,10 +170,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `You can be tenant or homeowner, OR you can be both.`
+  /// `You can be tenant or homeowner`
   String get chooseUserRoleDescription {
     return Intl.message(
-      'You can be tenant or homeowner, OR you can be both.',
+      'You can be tenant or homeowner',
       name: 'chooseUserRoleDescription',
       desc: '',
       args: [],
@@ -919,6 +919,16 @@ class HatSpaceStrings {
     return Intl.message(
       'Available date:',
       name: 'availableDateColon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up`
+  String get signUp {
+    return Intl.message(
+      'Sign up',
+      name: 'signUp',
       desc: '',
       args: [],
     );
