@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/gen/assets.gen.dart';
 
 final InputDecoration inputTextTheme = InputDecoration(
-    contentPadding: const EdgeInsets.fromLTRB(16, 13, 12, 13),
-    border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(
-          color: HSColor.black,
-        )),
-    hintStyle:
-        textTheme.bodyMedium?.copyWith(height: 1.0, color: HSColor.neutral5));
+  contentPadding: const EdgeInsets.fromLTRB(HsDimens.spacing16,
+      HsDimens.spacing12, HsDimens.spacing12, HsDimens.spacing12),
+  border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(HsDimens.radius8),
+      borderSide: const BorderSide(
+        color: HSColor.black,
+      )),
+  hintStyle:
+      textTheme.bodyMedium?.copyWith(height: 1.0, color: HSColor.neutral5),
+  errorMaxLines: 1,
+  errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(HsDimens.radius8),
+      borderSide: const BorderSide(
+        color: HSColor.red05,
+      )),
+  errorStyle: textTheme.bodySmall?.copyWith(color: HSColor.red06),
+);
 
 class HsLabel extends StatelessWidget {
   final String? label;
@@ -32,13 +44,16 @@ class HsLabel extends StatelessWidget {
             children: [
           TextSpan(
               text: _isRequired ? ' *' : optional,
-              style: textTheme.bodyMedium
+              style: textTheme.bodySmall
                   ?.copyWith(color: _isRequired ? HSColor.requiredField : null))
         ]));
   }
 }
 
 class HatSpaceInputText extends StatelessWidget {
+  final List<TextInputFormatter>? inputFormatters;
+  final FocusNode? focusNode;
+
   final String? label;
   final String? placeholder;
   final ValueChanged onChanged;
@@ -46,6 +61,9 @@ class HatSpaceInputText extends StatelessWidget {
   final CrossAxisAlignment _alignment;
   final EdgeInsets _padding;
   final String? optional;
+  final String? errorText;
+  final Widget? suffixIcon;
+
   const HatSpaceInputText(
       {required this.onChanged,
       super.key,
@@ -54,7 +72,11 @@ class HatSpaceInputText extends StatelessWidget {
       CrossAxisAlignment? alignment,
       bool? isRequired,
       this.optional,
-      EdgeInsets? padding})
+      EdgeInsets? padding,
+      this.errorText,
+      this.inputFormatters,
+      this.focusNode,
+      this.suffixIcon})
       : _isRequired = isRequired ?? false,
         _alignment = alignment ?? CrossAxisAlignment.start,
         _padding = padding ?? const EdgeInsets.only(bottom: HsDimens.spacing4);
@@ -62,9 +84,33 @@ class HatSpaceInputText extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> textField = [
       TextFormField(
-          onChanged: onChanged,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
-          decoration: inputTextTheme.copyWith(hintText: placeholder))
+        focusNode: focusNode,
+        onChanged: onChanged,
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
+        decoration: inputTextTheme.copyWith(
+          hintText: placeholder,
+          errorText: errorText,
+          suffixIcon: suffixIcon ??
+              (errorText == null || errorText?.isEmpty == true
+                  ? null
+                  : Padding(
+                      padding: const EdgeInsets.all(HsDimens.spacing12),
+                      child: SvgPicture.asset(
+                        Assets.icons.textFieldError,
+                        width: HsDimens.size24,
+                        height: HsDimens.size24,
+                      ),
+                    )),
+          // when external suffix icon is available, use default constraint
+          suffixIconConstraints: suffixIcon != null
+              ? null
+              : const BoxConstraints(
+                  maxHeight: HsDimens.size48,
+                  maxWidth: HsDimens.size48,
+                ),
+        ),
+        inputFormatters: inputFormatters,
+      )
     ];
     if (label != '') {
       textField.insert(

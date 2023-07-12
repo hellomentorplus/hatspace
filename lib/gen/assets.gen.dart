@@ -33,6 +33,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/check.svg
   String get check => 'assets/icons/check.svg';
 
+  /// File path: assets/icons/close.svg
+  String get close => 'assets/icons/close.svg';
+
   /// File path: assets/icons/electric_stove.svg
   String get electricStove => 'assets/icons/electric_stove.svg';
 
@@ -78,6 +81,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/notification.svg
   String get notification => 'assets/icons/notification.svg';
 
+  /// File path: assets/icons/photo_access.svg
+  String get photoAccess => 'assets/icons/photo_access.svg';
+
   /// File path: assets/icons/portable_fans.svg
   String get portableFans => 'assets/icons/portable_fans.svg';
 
@@ -95,6 +101,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/tenant.svg
   String get tenant => 'assets/icons/tenant.svg';
+
+  /// File path: assets/icons/text_field_error.svg
+  String get textFieldError => 'assets/icons/text_field_error.svg';
 
   /// File path: assets/icons/tv.svg
   String get tv => 'assets/icons/tv.svg';
@@ -114,6 +123,7 @@ class $AssetsIconsGen {
         booking,
         car,
         check,
+        close,
         electricStove,
         envelope,
         explore,
@@ -129,12 +139,14 @@ class $AssetsIconsGen {
         kitchen,
         message,
         notification,
+        photoAccess,
         portableFans,
         profile,
         search,
         securityCameras,
         swimmingPool,
         tenant,
+        textFieldError,
         tv,
         washingMachine,
         wifi

@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/property_data.dart';
-import 'package:hatspace/features/add_property/view_model/add_property_state.dart';
+
+part 'add_property_state.dart';
 
 enum NavigatePage { forward, reverse }
 
@@ -25,14 +27,54 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   }
 
   /// 2. Property info
-  AustraliaStates australiaState = AustraliaStates.invalid;
-  MinimumRentPeriod rentPeriod = MinimumRentPeriod.invalid;
-  // add more property infor fields
+  AustraliaStates _australiaState = AustraliaStates.invalid;
 
-  void saveState(AustraliaStates australiaState) =>
-      this.australiaState = australiaState;
-  void saveRentPeriod(MinimumRentPeriod rentPeriod) =>
-      this.rentPeriod = rentPeriod;
+  set australiaState(AustraliaStates australiaState) {
+    _australiaState = australiaState;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  AustraliaStates get australiaState => _australiaState;
+
+  MinimumRentPeriod _rentPeriod = MinimumRentPeriod.invalid;
+  set rentPeriod(MinimumRentPeriod rentPeriod) {
+    _rentPeriod = rentPeriod;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  MinimumRentPeriod get rentPeriod => _rentPeriod;
+
+  String _propertyName = '';
+  set propertyName(String name) {
+    _propertyName = name;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  String get propertyName => _propertyName;
+
+  double? _price;
+  set price(double? price) {
+    _price = price;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  double? get price => _price;
+
+  String _suburb = '';
+  set suburb(String value) {
+    _suburb = value;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  String get suburb => _suburb;
+
+  int? _postalCode;
+  set postalCode(int? value) {
+    _postalCode = value;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  int? get postalCode => _postalCode;
 
   /// 3. Rooms
   int _bedrooms = 0;

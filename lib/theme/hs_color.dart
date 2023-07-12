@@ -40,20 +40,24 @@ class HSColor {
   static const Color neutral2 = Color(0xFFF3F3F3); // new design color
   static const Color neutral1 = Color(0xFFFFFFFF); // new design color
 
-  static const Color green06 = Color(0xFF32A854);
+  static const Color green06 = Color(0xFF32A854); // new design color
 
   static const Color black = Color(0xFF000000);
+
+  static const Color red05 = Color(0xFFFF3333); // new design color
+  static const Color red06 = Color(0xFFD02D2D); // new design color
 }
 
 const ColorScheme colorScheme = ColorScheme(
-    brightness: Brightness.light,
-    primary: HSColor.primary,
-    onPrimary: HSColor.onPrimary,
-    secondary: HSColor.secondary,
-    onSecondary: HSColor.onSecondary,
-    error: HSColor.statusError,
-    onError: HSColor.neutral1,
-    background: HSColor.background,
-    onBackground: HSColor.onBackground,
-    surface: HSColor.surface,
-    onSurface: HSColor.onSurface);
+  brightness: Brightness.light,
+  primary: HSColor.primary,
+  onPrimary: HSColor.onPrimary,
+  secondary: HSColor.secondary,
+  onSecondary: HSColor.onSecondary,
+  error: HSColor.statusError,
+  onError: HSColor.neutral1,
+  background: HSColor.background,
+  onBackground: HSColor.onBackground,
+  surface: HSColor.surface,
+  onSurface: HSColor.onSurface,
+);

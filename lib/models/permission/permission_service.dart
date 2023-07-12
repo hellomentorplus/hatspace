@@ -5,7 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:hatspace/models/permission/permission_status.dart';
 
 class HsPermissionService {
-  Future<HsPermissionStatus> requestPhotoPermission() async {
+  Future<HsPermissionStatus> checkPhotoPermission() async {
     PermissionStatus status;
     if (defaultTargetPlatform == TargetPlatform.android) {
       final androidInfo = await DeviceInfoPlugin().androidInfo;

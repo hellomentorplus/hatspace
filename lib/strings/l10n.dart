@@ -933,6 +933,116 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Maximum {count} characters`
+  String maximumChars(Object count) {
+    return Intl.message(
+      'Maximum $count characters',
+      name: 'maximumChars',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Only accept text`
+  String get textWithInvalidChars {
+    return Intl.message(
+      'Only accept text',
+      name: 'textWithInvalidChars',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter price`
+  String get enterPrice {
+    return Intl.message(
+      'Enter price',
+      name: 'enterPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Only accept number`
+  String get numberFieldContainsNonNumber {
+    return Intl.message(
+      'Only accept number',
+      name: 'numberFieldContainsNonNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter suburb`
+  String get enterSuburb {
+    return Intl.message(
+      'Enter suburb',
+      name: 'enterSuburb',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter postcode`
+  String get enterPostalCode {
+    return Intl.message(
+      'Enter postcode',
+      name: 'enterPostalCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload`
+  String get upload {
+    return Intl.message(
+      'Upload',
+      name: 'upload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All Photos`
+  String get allPhotos {
+    return Intl.message(
+      'All Photos',
+      name: 'allPhotos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `"HATSpace" Would Like to Photo Access`
+  String get hatSpaceWouldLikeToPhotoAccess {
+    return Intl.message(
+      '"HATSpace" Would Like to Photo Access',
+      name: 'hatSpaceWouldLikeToPhotoAccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please go to Settings and allow photos access for HATSpace.`
+  String get plsGoToSettingsAndAllowPhotoAccessForHatSpace {
+    return Intl.message(
+      'Please go to Settings and allow photos access for HATSpace.',
+      name: 'plsGoToSettingsAndAllowPhotoAccessForHatSpace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to Setting`
+  String get goToSetting {
+    return Intl.message(
+      'Go to Setting',
+      name: 'goToSetting',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
