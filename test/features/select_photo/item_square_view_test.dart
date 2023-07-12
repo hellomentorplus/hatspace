@@ -12,6 +12,7 @@ import 'package:hatspace/models/photo/photo_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:photo_manager/photo_manager.dart';
 
 import '../../widget_tester_extension.dart';
 import 'item_square_view_test.mocks.dart';
@@ -38,6 +39,11 @@ void main() {
   });
 
   testWidgets('verify bloc used in this widget', (widgetTester) async {
+    when(selectPhotoCubit.state).thenReturn(PhotosLoaded([
+      AssetEntity(
+          id: 'id', typeInt: AssetType.image.index, width: 10, height: 10)
+    ]));
+
     const Widget widget = ImageSquareView(index: 0);
 
     await widgetTester.blocWrapAndPump<SelectPhotoCubit>(
