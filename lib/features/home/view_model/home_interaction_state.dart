@@ -18,3 +18,20 @@ class StartAddPropertyFlow extends HomeInteractionState {
   @override
   List<Object?> get props => [];
 }
+
+class OpenLoginBottomSheetModal extends HomeInteractionState {
+  final BottomBarItems item;
+  const OpenLoginBottomSheetModal(this.item);
+  @override
+  List<Object?> get props => [item];
+}
+
+class GotoSignUpScreen extends HomeInteractionState {
+  @override
+  List<Object?> get props => [];
+}
+
+class CloseHsModal extends HomeInteractionState {
+  @override
+  List<Object?> get props => [];
+}
