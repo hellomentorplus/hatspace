@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:hatspace/features/add_property/view/widgets/select_photo/select_photo_bottom_sheet.dart';
+import 'package:hatspace/features/select_photo/view/select_photo_bottom_sheet.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
-import '../../../../widget_tester_extension.dart';
+import '../../widget_tester_extension.dart';
 
 void main() async {
   await HatSpaceStrings.load(const Locale('en'));
