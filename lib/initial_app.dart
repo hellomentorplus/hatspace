@@ -49,9 +49,7 @@ class _MyAppBodyState extends State<MyAppBody> {
             }            
           },
           // Always initialise HomePageView
-          // child: const HomePageView()),
-          /// DONG : Un-comment HomePageView and Remove below later after tested
-          child: const ChoosingRolesView()),
+          child: const HomePageView()),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         HatSpaceStrings.delegate

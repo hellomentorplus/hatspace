@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/sign_up/view/widgets/user_role_card_view.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_bloc.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_cubit.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
@@ -24,7 +24,7 @@ void main() {
   testWidgets('[UI][Interaction] Validate role card',
       (WidgetTester tester) async {
 
-    await tester.blocWrapAndPump(ChooseRoleBloc(), const UserRoleCardView(role: Roles.tenant));
+    await tester.blocWrapAndPump(ChooseRoleCubit(), const UserRoleCardView(role: Roles.tenant));
 
     expect(find.byType(SvgPicture), findsOneWidget);
     expect(find.byType(Checkbox), findsOneWidget);

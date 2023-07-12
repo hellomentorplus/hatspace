@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/sign_up/view/widgets/choosing_roles_view.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_bloc.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_cubit.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
@@ -16,7 +16,7 @@ import 'package:mockito/mockito.dart';
 import '../../../../widget_tester_extension.dart';
 import 'choosing_roles_view_test.mocks.dart';
 
-@GenerateMocks([ChooseRoleBloc])
+@GenerateMocks([ChooseRoleCubit])
 @GenerateNiceMocks([
   MockSpec<AppConfigBloc>(),
   MockSpec<StorageService>(),
@@ -24,7 +24,7 @@ import 'choosing_roles_view_test.mocks.dart';
   MockSpec<AuthenticationBloc>(),
 ])
 void main() {
-  MockChooseRoleBloc mockChooseRoleViewBloc = MockChooseRoleBloc();
+  MockChooseRoleCubit mockChooseRoleViewCubit = MockChooseRoleCubit();
   MockAppConfigBloc mockAppConfigBloc = MockAppConfigBloc();
   MockStorageService mockStorageService = MockStorageService();
   MockAuthenticationService mockAuthenticationService =
@@ -42,13 +42,13 @@ void main() {
       'When user goes to choose role screen'
       'Then user will see required text, all available role options (un-ticked) and close button',
       (WidgetTester tester) async {
-    when(mockChooseRoleViewBloc.state)
+    when(mockChooseRoleViewCubit.state)
         .thenAnswer((realInvocation) => const ChoosingRoleState());
-    when(mockChooseRoleViewBloc.stream).thenAnswer(
+    when(mockChooseRoleViewCubit.stream).thenAnswer(
         (realInvocation) => Stream.value(const ChoosingRoleState()));
 
-    await tester.blocWrapAndPump<ChooseRoleBloc>(
-        mockChooseRoleViewBloc, const ChoosingRoleViewBody());
+    await tester.blocWrapAndPump<ChooseRoleCubit>(
+        mockChooseRoleViewCubit, const ChoosingRoleViewBody());
 
     expect(find.text('Choose your role'), findsOneWidget);
     expect(find.text('You can be tenant or homeowner'), findsOneWidget);
@@ -83,7 +83,7 @@ void main() {
       'When user tap on close button'
       'Then user will goes to home screen', (WidgetTester tester) async {
     await tester.multiBlocWrapAndPump([
-      BlocProvider<ChooseRoleBloc>(create: (context) => mockChooseRoleViewBloc),
+      BlocProvider<ChooseRoleCubit>(create: (context) => mockChooseRoleViewCubit),
       BlocProvider<AppConfigBloc>(create: (context) => mockAppConfigBloc),
       BlocProvider<AuthenticationBloc>(
           create: (context) => mockAuthenticationBloc),
@@ -102,13 +102,13 @@ void main() {
       'When user is on the screen and do nothing'
       'Then the first role will be highlighted as Green color with ticked icon, but not second role and the sign up button was enabled.',
       (WidgetTester tester) async {
-    when(mockChooseRoleViewBloc.state).thenAnswer(
+    when(mockChooseRoleViewCubit.state).thenAnswer(
         (realInvocation) => const ChoosingRoleState(roles: {Roles.tenant}));
-    when(mockChooseRoleViewBloc.stream).thenAnswer((realInvocation) =>
+    when(mockChooseRoleViewCubit.stream).thenAnswer((realInvocation) =>
         Stream.value(const ChoosingRoleState(roles: {Roles.tenant})));
 
-    await tester.blocWrapAndPump<ChooseRoleBloc>(
-        mockChooseRoleViewBloc, const ChoosingRoleViewBody());
+    await tester.blocWrapAndPump<ChooseRoleCubit>(
+        mockChooseRoleViewCubit, const ChoosingRoleViewBody());
 
     final Finder tenantFinder = find.byKey(const ValueKey(Roles.tenant));
     expect(tenantFinder, findsOneWidget);
@@ -140,13 +140,13 @@ void main() {
       'When user is on the screen and do nothing'
       'Then all roles will be highlighted as Green color with ticked icon and the sign up button was enabled.',
       (WidgetTester tester) async {
-    when(mockChooseRoleViewBloc.state).thenAnswer(
+    when(mockChooseRoleViewCubit.state).thenAnswer(
         (realInvocation) => const ChoosingRoleState(roles: {Roles.tenant}));
-    when(mockChooseRoleViewBloc.stream).thenAnswer((realInvocation) =>
+    when(mockChooseRoleViewCubit.stream).thenAnswer((realInvocation) =>
         Stream.value(const ChoosingRoleState(roles: {Roles.tenant})));
 
-    await tester.blocWrapAndPump<ChooseRoleBloc>(
-        mockChooseRoleViewBloc, const ChoosingRoleViewBody());
+    await tester.blocWrapAndPump<ChooseRoleCubit>(
+        mockChooseRoleViewCubit, const ChoosingRoleViewBody());
 
     final Finder tenantFinder = find.byKey(const ValueKey(Roles.tenant));
     expect(tenantFinder, findsOneWidget);
@@ -178,13 +178,13 @@ void main() {
       'When user tap on the sign up button'
       'Then SubmitRoleEvent event will be fired.',
       (WidgetTester tester) async {
-    when(mockChooseRoleViewBloc.stream).thenAnswer(
+    when(mockChooseRoleViewCubit.stream).thenAnswer(
         (_) => Stream.value(const ChoosingRoleState(roles: {Roles.tenant})));
-    when(mockChooseRoleViewBloc.state)
+    when(mockChooseRoleViewCubit.state)
         .thenAnswer((_) => const ChoosingRoleState(roles: {Roles.tenant}));
 
     await tester.multiBlocWrapAndPump([
-      BlocProvider<ChooseRoleBloc>(create: (context) => mockChooseRoleViewBloc),
+      BlocProvider<ChooseRoleCubit>(create: (context) => mockChooseRoleViewCubit),
       BlocProvider<AppConfigBloc>(create: (context) => mockAppConfigBloc),
       BlocProvider<AuthenticationBloc>(
           create: (context) => mockAuthenticationBloc),
@@ -199,20 +199,20 @@ void main() {
     await tester.tap(signUpBtnFinder);
     await tester.pump();
 
-    verify(mockChooseRoleViewBloc.add(const SubmitRoleEvent())).called(1);
+    verify(mockChooseRoleViewCubit.submitUserRoles()).called(1);
   });
 
   testWidgets(
     'Given user was in Choose Role screen, have selected roles and pressed on Sign up button '
     'When SubmitRoleSucceedState state was emitted'
     'Then navigate user out of this screen.', (WidgetTester tester) async {
-    when(mockChooseRoleViewBloc.stream).thenAnswer(
+    when(mockChooseRoleViewCubit.stream).thenAnswer(
         (_) => Stream.value(const SubmitRoleSucceedState()));
-    when(mockChooseRoleViewBloc.state)
+    when(mockChooseRoleViewCubit.state)
         .thenAnswer((_) => const SubmitRoleSucceedState());
 
     await tester.multiBlocWrapAndPump([
-      BlocProvider<ChooseRoleBloc>(create: (context) => mockChooseRoleViewBloc),
+      BlocProvider<ChooseRoleCubit>(create: (context) => mockChooseRoleViewCubit),
       BlocProvider<AppConfigBloc>(create: (context) => mockAppConfigBloc),
       BlocProvider<AuthenticationBloc>(
           create: (context) => mockAuthenticationBloc),

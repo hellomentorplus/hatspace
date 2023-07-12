@@ -1,4 +1,4 @@
-part of 'choose_role_bloc.dart';
+part of 'choose_role_cubit.dart';
 
 abstract class ChooseRoleState extends Equatable {
   const ChooseRoleState();

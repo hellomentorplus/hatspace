@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_bloc.dart';
+import 'package:hatspace/features/sign_up/view_model/choose_role_cubit.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -14,8 +14,8 @@ class ChoosingRolesView extends StatelessWidget {
   const ChoosingRolesView({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ChooseRoleBloc>(
-      create: (context) => ChooseRoleBloc(),
+    return BlocProvider<ChooseRoleCubit>(
+      create: (context) => ChooseRoleCubit(),
       child: const ChoosingRoleViewBody(),
     );
   }
@@ -26,7 +26,7 @@ class ChoosingRoleViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ChooseRoleBloc, ChooseRoleState>(
+    return BlocListener<ChooseRoleCubit, ChooseRoleState>(
       listener: (context, state) {
         if (state is SubmitRoleSucceedState) {
           context.goToHome();
@@ -88,7 +88,7 @@ class ChoosingRoleViewBody extends StatelessWidget {
                         height: HsDimens.spacing16,
                       ),
                     )),
-                    BlocBuilder<ChooseRoleBloc, ChooseRoleState>(
+                    BlocBuilder<ChooseRoleCubit, ChooseRoleState>(
                       builder: (innerCtx, state) {
                         final bool enabled = state is SubmitRoleFailedState ||
                             (state is ChoosingRoleState &&
@@ -98,8 +98,8 @@ class ChoosingRoleViewBody extends StatelessWidget {
                           onPressed: enabled
                             ? () {
                                 context
-                                    .read<ChooseRoleBloc>()
-                                    .add(const SubmitRoleEvent());
+                                    .read<ChooseRoleCubit>()
+                                    .submitUserRoles();
                               }
                             : null);
                       },
