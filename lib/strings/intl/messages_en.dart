@@ -136,12 +136,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "lostDataDescription": MessageLookupByLibrary.simpleMessage(
             "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?"),
         "lostDataTitle": MessageLookupByLibrary.simpleMessage("Lost Data"),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "loginDescription": MessageLookupByLibrary.simpleMessage(
+            "You need to be logged in to view this content"),
         "maximumChars": m3,
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "noLater": MessageLookupByLibrary.simpleMessage("No, later"),
         "numberFieldContainsNonNumber":
             MessageLookupByLibrary.simpleMessage("Only accept number"),
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
@@ -198,6 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
         "wifi": MessageLookupByLibrary.simpleMessage("Wifi"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
+        "yesLoginNow": MessageLookupByLibrary.simpleMessage("Yes, login now"),
         "yourAddress": MessageLookupByLibrary.simpleMessage("Your address")
       };
 }
