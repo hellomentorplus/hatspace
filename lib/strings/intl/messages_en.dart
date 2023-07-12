@@ -133,12 +133,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
-        "lostDataDescription": MessageLookupByLibrary.simpleMessage(
-            "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?"),
-        "lostDataTitle": MessageLookupByLibrary.simpleMessage("Lost Data"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginDescription": MessageLookupByLibrary.simpleMessage(
             "You need to be logged in to view this content"),
+        "lostDataDescription": MessageLookupByLibrary.simpleMessage(
+            "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?"),
+        "lostDataTitle": MessageLookupByLibrary.simpleMessage("Lost Data"),
         "maximumChars": m3,
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "minimumRentPeriod":

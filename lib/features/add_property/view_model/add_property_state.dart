@@ -39,10 +39,3 @@ class OpenLostDataWarningModal extends AddPropertyState {
   @override
   List<Object?> get props => [];
 }
-
-class CloseLostDataWarningModal extends AddPropertyState {
-  const CloseLostDataWarningModal(super.pageViewNumber);
-
-  @override
-  List<Object?> get props => [];
-}
