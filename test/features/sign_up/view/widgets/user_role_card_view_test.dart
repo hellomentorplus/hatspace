@@ -23,8 +23,8 @@ void main() {
   });
   testWidgets('[UI][Interaction] Validate role card',
       (WidgetTester tester) async {
-
-    await tester.blocWrapAndPump(ChooseRoleCubit(), const UserRoleCardView(role: Roles.tenant));
+    await tester.blocWrapAndPump(
+        ChooseRoleCubit(), const UserRoleCardView(role: Roles.tenant));
 
     expect(find.byType(SvgPicture), findsOneWidget);
     expect(find.byType(Checkbox), findsOneWidget);
@@ -36,10 +36,11 @@ void main() {
 
     final Finder rolFinder = find.byType(UserRoleCardView);
     expect(rolFinder, findsOneWidget);
-    final Card cardWidget = tester.widget(find.descendant(of: rolFinder, matching: find.byType(Card)));
+    final Card cardWidget = tester
+        .widget(find.descendant(of: rolFinder, matching: find.byType(Card)));
     final Checkbox checkBoxWidget = tester.widget(find.byType(Checkbox));
     expect(checkBoxWidget.activeColor, const Color(0xFF32A854));
-    
+
     expect(checkBoxWidget.value, false);
     expect((cardWidget.shape as RoundedRectangleBorder).side.color,
         Colors.transparent);
@@ -49,7 +50,8 @@ void main() {
     await tester.pumpAndSettle();
 
     final Checkbox checkBoxWidgetAfter = tester.widget(find.byType(Checkbox));
-    final Card cardWidgetAfter = tester.widget(find.descendant(of: rolFinder, matching: find.byType(Card)));
+    final Card cardWidgetAfter = tester
+        .widget(find.descendant(of: rolFinder, matching: find.byType(Card)));
     expect(checkBoxWidgetAfter.value, true);
     expect(cardWidgetAfter.color, const Color(0xffEBFAEF));
     expect((cardWidgetAfter.shape as RoundedRectangleBorder).side.color,
@@ -63,5 +65,4 @@ void main() {
         Colors.transparent);
     expect(cardWidget.color, const Color(0xFFF3F3F3));
   });
-
 }

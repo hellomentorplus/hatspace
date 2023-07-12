@@ -83,7 +83,8 @@ void main() {
       'When user tap on close button'
       'Then user will goes to home screen', (WidgetTester tester) async {
     await tester.multiBlocWrapAndPump([
-      BlocProvider<ChooseRoleCubit>(create: (context) => mockChooseRoleViewCubit),
+      BlocProvider<ChooseRoleCubit>(
+          create: (context) => mockChooseRoleViewCubit),
       BlocProvider<AppConfigBloc>(create: (context) => mockAppConfigBloc),
       BlocProvider<AuthenticationBloc>(
           create: (context) => mockAuthenticationBloc),
@@ -176,15 +177,15 @@ void main() {
   testWidgets(
       'Given user was in Choose Role screen and have selected first role'
       'When user tap on the sign up button'
-      'Then SubmitRoleEvent event will be fired.',
-      (WidgetTester tester) async {
+      'Then SubmitRoleEvent event will be fired.', (WidgetTester tester) async {
     when(mockChooseRoleViewCubit.stream).thenAnswer(
         (_) => Stream.value(const ChoosingRoleState(roles: {Roles.tenant})));
     when(mockChooseRoleViewCubit.state)
         .thenAnswer((_) => const ChoosingRoleState(roles: {Roles.tenant}));
 
     await tester.multiBlocWrapAndPump([
-      BlocProvider<ChooseRoleCubit>(create: (context) => mockChooseRoleViewCubit),
+      BlocProvider<ChooseRoleCubit>(
+          create: (context) => mockChooseRoleViewCubit),
       BlocProvider<AppConfigBloc>(create: (context) => mockAppConfigBloc),
       BlocProvider<AuthenticationBloc>(
           create: (context) => mockAuthenticationBloc),
@@ -203,22 +204,22 @@ void main() {
   });
 
   testWidgets(
-    'Given user was in Choose Role screen, have selected roles and pressed on Sign up button '
-    'When SubmitRoleSucceedState state was emitted'
-    'Then navigate user out of this screen.', (WidgetTester tester) async {
-    when(mockChooseRoleViewCubit.stream).thenAnswer(
-        (_) => Stream.value(const SubmitRoleSucceedState()));
+      'Given user was in Choose Role screen, have selected roles and pressed on Sign up button '
+      'When SubmitRoleSucceedState state was emitted'
+      'Then navigate user out of this screen.', (WidgetTester tester) async {
+    when(mockChooseRoleViewCubit.stream)
+        .thenAnswer((_) => Stream.value(const SubmitRoleSucceedState()));
     when(mockChooseRoleViewCubit.state)
         .thenAnswer((_) => const SubmitRoleSucceedState());
 
     await tester.multiBlocWrapAndPump([
-      BlocProvider<ChooseRoleCubit>(create: (context) => mockChooseRoleViewCubit),
+      BlocProvider<ChooseRoleCubit>(
+          create: (context) => mockChooseRoleViewCubit),
       BlocProvider<AppConfigBloc>(create: (context) => mockAppConfigBloc),
       BlocProvider<AuthenticationBloc>(
           create: (context) => mockAuthenticationBloc),
     ], const ChoosingRoleViewBody(), useRouter: true);
 
     expect(find.byType(ChoosingRoleViewBody), findsNothing);
-    
   });
 }

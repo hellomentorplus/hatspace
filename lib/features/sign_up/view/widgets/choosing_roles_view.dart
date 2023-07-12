@@ -94,14 +94,14 @@ class ChoosingRoleViewBody extends StatelessWidget {
                             (state is ChoosingRoleState &&
                                 state.roles.isNotEmpty);
                         return PrimaryButton(
-                          label: HatSpaceStrings.current.signUp,
-                          onPressed: enabled
-                            ? () {
-                                context
-                                    .read<ChooseRoleCubit>()
-                                    .submitUserRoles();
-                              }
-                            : null);
+                            label: HatSpaceStrings.current.signUp,
+                            onPressed: enabled
+                                ? () {
+                                    context
+                                        .read<ChooseRoleCubit>()
+                                        .submitUserRoles();
+                                  }
+                                : null);
                       },
                     )
                   ]),

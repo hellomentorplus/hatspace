@@ -8,8 +8,10 @@ import 'package:equatable/equatable.dart';
 part 'choose_role_state.dart';
 
 class ChooseRoleCubit extends Cubit<ChooseRoleState> {
-  final StorageService _storageService = HsSingleton.singleton.get<StorageService>();
-  final AuthenticationService _authenticationService = HsSingleton.singleton.get<AuthenticationService>();
+  final StorageService _storageService =
+      HsSingleton.singleton.get<StorageService>();
+  final AuthenticationService _authenticationService =
+      HsSingleton.singleton.get<AuthenticationService>();
   final Set<Roles> listRoles = {};
 
   ChooseRoleCubit() : super(const ChoosingRoleState());

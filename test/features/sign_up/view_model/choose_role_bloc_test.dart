@@ -11,12 +11,8 @@ import 'package:mockito/mockito.dart';
 
 import 'choose_role_bloc_test.mocks.dart';
 
-@GenerateMocks([
-  AuthenticationService,
-  StorageService,
-  MemberService,
-  UserDetail
-])
+@GenerateMocks(
+    [AuthenticationService, StorageService, MemberService, UserDetail])
 void main() {
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
