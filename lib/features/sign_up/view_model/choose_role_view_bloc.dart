@@ -32,7 +32,7 @@ class ChooseRoleViewBloc
 
     on<OnSubmitRoleEvent>((event, emit) async {
       UserDetail user = await _authenticationService.getCurrentUser();
-      _storageService.member.saveMemeber(user.uid, listRoles, user.displayName!);
+      _storageService.member.saveMember(user.uid, listRoles, user.displayName!);
       emit(ChoosingRoleSuccessState());
     });
   }
