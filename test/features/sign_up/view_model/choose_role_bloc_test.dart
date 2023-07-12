@@ -69,7 +69,6 @@ void main() {
       expect: () => [
             const SubmittingRoleState(),
             const SubmitRoleSucceedState(),
-            // isA<SubmitRoleSucceedState>(),
           ]);
 
   blocTest<ChooseRoleCubit, ChooseRoleState>(
@@ -104,7 +103,6 @@ void main() {
     expect: () => [
       const SubmittingRoleState(),
       const SubmitRoleFailedState(),
-      // isA<SubmitRoleFailedState>(),
     ],
   );
 }
