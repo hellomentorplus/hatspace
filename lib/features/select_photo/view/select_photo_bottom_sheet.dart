@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/features/select_photo/view/widgets/item_square_view.dart';
+import 'package:hatspace/features/select_photo/view_model/select_photo_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -28,14 +31,25 @@ enum PhotoTabs {
   }
 }
 
-class SelectPhotoBottomSheet extends StatefulWidget {
+class SelectPhotoBottomSheet extends StatelessWidget {
   const SelectPhotoBottomSheet({Key? key}) : super(key: key);
 
   @override
-  State<SelectPhotoBottomSheet> createState() => _SelectPhotoBottomSheetState();
+  Widget build(BuildContext context) => BlocProvider<SelectPhotoCubit>(
+        create: (context) => SelectPhotoCubit()..loadPhotos(),
+        child: const _SelectPhotoBottomSheet(),
+      );
 }
 
-class _SelectPhotoBottomSheetState extends State<SelectPhotoBottomSheet>
+class _SelectPhotoBottomSheet extends StatefulWidget {
+  const _SelectPhotoBottomSheet({Key? key}) : super(key: key);
+
+  @override
+  State<_SelectPhotoBottomSheet> createState() =>
+      _SelectPhotoBottomSheetState();
+}
+
+class _SelectPhotoBottomSheetState extends State<_SelectPhotoBottomSheet>
     with TickerProviderStateMixin {
   late final TabController tabController =
       TabController(length: 1, vsync: this);
@@ -93,6 +107,22 @@ class _AllPhotosViewState extends State<AllPhotosView> {
   List<bool> isSelectedList = List.filled(15, false);
   List<int> selectedIndices = [];
   int selectedCount = 0;
+
+  // @override
+  // Widget build(BuildContext context) =>
+  //     BlocBuilder<SelectPhotoCubit, SelectPhotoState>(
+  //       builder: (context, state) => state is PhotosLoaded
+  //           ? GridView(
+  //           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  //               crossAxisCount: 4,
+  //               childAspectRatio: 1,
+  //               crossAxisSpacing: 1),
+  //           children: List.generate(
+  //             state.photos.length,
+  //                 (index) => ImageSquareView(index: index),
+  //           ))
+  //           : const SizedBox(),
+  //     );
 
   @override
   Widget build(BuildContext context) {

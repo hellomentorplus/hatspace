@@ -47,11 +47,11 @@ class HsWarningBottomSheetView extends StatelessWidget {
             'textButtonOnPressed can not be null'),
         assert(tertiaryButtonLabel == null || tertiaryButtonOnPressed != null,
             'tertiaryButtonOnPressed can not be null');
-
   @override
   Widget build(BuildContext context) {
     List<Widget> modalContent = [];
     List<Widget> buttonGroup = [];
+
     Widget button;
     // Icon configuration
     if (title != null) {
@@ -59,7 +59,8 @@ class HsWarningBottomSheetView extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: HsDimens.spacing4),
         child: Text(title!,
             style: textTheme.displayLarge
-                ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
+                ?.copyWith(fontSize: FontStyleGuide.fontSize18, height: 1.5),
+            textAlign: TextAlign.center),
       ));
     }
     if (description != null) {

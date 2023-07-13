@@ -5,8 +5,9 @@ import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
-
 part 'home_interaction_state.dart';
+
+enum BottomBarItems { explore, booking, message, profile, addingProperty }
 
 class HomeInteractionCubit extends Cubit<HomeInteractionState> {
   HomeInteractionCubit() : super(HomeInitial());
@@ -34,4 +35,22 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
       // TODO handle case when user is not login
     }
   }
+
+  void onBottomItemTapped(BottomBarItems item) async {
+    bool isUserLoggedIn = authenticationService.isUserLoggedIn;
+    if (!isUserLoggedIn) {
+      return emit(OpenLoginBottomSheetModal(item));
+    }
+    switch (item) {
+      case (BottomBarItems.addingProperty):
+        onAddPropertyPressed();
+        // TODO: Handle navigate to others items
+        break;
+      default:
+    }
+  }
+
+  void goToSignUpScreen() => emit(GotoSignUpScreen());
+
+  void onCloseModal() => emit(CloseHsModal());
 }

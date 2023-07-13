@@ -133,11 +133,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "loginDescription": MessageLookupByLibrary.simpleMessage(
+            "You need to be logged in to view this content"),
         "maximumChars": m3,
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "noLater": MessageLookupByLibrary.simpleMessage("No, later"),
         "numberFieldContainsNonNumber":
             MessageLookupByLibrary.simpleMessage("Only accept number"),
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
@@ -193,6 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
         "wifi": MessageLookupByLibrary.simpleMessage("Wifi"),
+        "yesLoginNow": MessageLookupByLibrary.simpleMessage("Yes, login now"),
         "yourAddress": MessageLookupByLibrary.simpleMessage("Your address")
       };
 }
