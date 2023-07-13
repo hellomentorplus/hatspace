@@ -28,7 +28,6 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
         if (roles.contains(Roles.homeowner)) {
           emit(StartAddPropertyFlow());
         } else {
-          // TODO handle when user is not a homeowner
           emit(ShowAddRoleModal());
         }
       }
@@ -38,35 +37,20 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
   }
 
   void onBottomItemTapped(BottomBarItems item) async {
-    bool isUserLoggedIn = await authenticationService.getIsUserLoggedIn();
+    bool isUserLoggedIn = authenticationService.isUserLoggedIn;
     if (!isUserLoggedIn) {
-      // TODO: Open login bottom sheet modal
+      return emit(OpenLoginBottomSheetModal(item));
     }
     switch (item) {
       case (BottomBarItems.addingProperty):
-        {
-          onAddPropertyPressed();
-        }
-
-        bool isUserLoggedIn = authenticationService.isUserLoggedIn;
-        if (!isUserLoggedIn) {
-          return emit(OpenLoginBottomSheetModal(item));
-        }
-        switch (item) {
-          case (BottomBarItems.addingProperty):
-            onAddPropertyPressed();
-
-            // TODO: Handle navigate to others items
-            break;
-          default:
-        }
+        onAddPropertyPressed();
+        // TODO: Handle navigate to others items
+        break;
+      default:
     }
   }
 
-  void goToAddProperty() {
-    emit(StartAddPropertyFlow());
-  }
-
+  void goToAddProperty() => emit(StartAddPropertyFlow());
   void goToSignUpScreen() => emit(GotoSignUpScreen());
   void onCloseModal() => emit(CloseHsModal());
 }

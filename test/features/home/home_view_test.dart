@@ -293,6 +293,20 @@ void main() {
     });
   });
 
+  // Verify "Add Homeowner Role" bottom sheet modal
+  group('Verify "Add Homeowner Role" bottom sheet modal', () {
+     setUp(() {
+        when(getPropertiesCubit.state)
+            .thenAnswer((_) => const GetPropertiesInitialState());
+        when(getPropertiesCubit.stream)
+            .thenAnswer((_) => Stream.value(const GetPropertiesInitialState()));
+        when(interactionCubit.state).thenAnswer(
+            (_) => const OpenLoginBottomSheetModal(BottomBarItems.explore));
+        when(interactionCubit.stream).thenAnswer((_) => Stream.value(
+            const OpenLoginBottomSheetModal(BottomBarItems.explore)));
+      });
+  });
+
   group('[Properties] Property list', () {
     /// Set up other blocs/cubits that don't related to property list
     setUpAll(() {
