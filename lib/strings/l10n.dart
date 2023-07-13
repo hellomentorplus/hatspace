@@ -954,6 +954,46 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Login`
+  String get login {
+    return Intl.message(
+      'Login',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You need to be logged in to view this content`
+  String get loginDescription {
+    return Intl.message(
+      'You need to be logged in to view this content',
+      name: 'loginDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes, login now`
+  String get yesLoginNow {
+    return Intl.message(
+      'Yes, login now',
+      name: 'yesLoginNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No, later`
+  String get noLater {
+    return Intl.message(
+      'No, later',
+      name: 'noLater',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Maximum {count} characters`
   String maximumChars(Object count) {
     return Intl.message(
@@ -1009,6 +1049,26 @@ class HatSpaceStrings {
     return Intl.message(
       'Enter postcode',
       name: 'enterPostalCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload`
+  String get upload {
+    return Intl.message(
+      'Upload',
+      name: 'upload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All Photos`
+  String get allPhotos {
+    return Intl.message(
+      'All Photos',
+      name: 'allPhotos',
       desc: '',
       args: [],
     );

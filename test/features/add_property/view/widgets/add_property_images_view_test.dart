@@ -3,12 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_images_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_images_cubit.dart';
+import 'package:hatspace/features/select_photo/view/select_photo_bottom_sheet.dart';
 import 'package:hatspace/models/permission/permission_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 
 import '../../../../widget_tester_extension.dart';
 import 'add_property_images_view_test.mocks.dart';
@@ -67,17 +69,20 @@ void main() {
       when(addPropertyImagesCubit.stream)
           .thenAnswer((_) => Stream.value(PhotoPermissionGranted()));
 
-      await widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
-          addPropertyImagesCubit, widget,
-          infiniteAnimationWidget: true);
-      await expectLater(find.byType(AddPropertyImagesBody), findsOneWidget);
+      await mockNetworkImagesFor(() =>
+          widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
+              addPropertyImagesCubit, widget,
+              infiniteAnimationWidget: true));
+      await widgetTester.pumpAndSettle();
+      expect(find.byType(AddPropertyImagesBody), findsOneWidget);
 
-      expect(find.text('Select Photo'), findsOneWidget);
       expect(
           find.ancestor(
               of: find.text('"HATSpace" Would Like to Photo Access'),
               matching: find.byType(HsWarningBottomSheetView)),
           findsNothing);
+      expect(find.byType(SelectPhotoBottomSheet), findsOneWidget);
+      expect(find.text('All Photos'), findsOneWidget);
     });
 
     testWidgets(
@@ -241,5 +246,27 @@ void main() {
       expect(find.byType(AddPropertyImagesBody), findsOneWidget);
       expect(find.byType(HsWarningBottomSheetView), findsNothing);
     });
+  });
+
+  testWidgets(
+      'given state is PhotoPermissionGranted '
+      'when tap on Upload photo '
+      'then verify SelectPhotoBottomSheet is visible',
+      (WidgetTester widgetTester) async {
+    when(addPropertyImagesCubit.state)
+        .thenAnswer((realInvocation) => PhotoPermissionGranted());
+    when(addPropertyImagesCubit.stream)
+        .thenAnswer((realInvocation) => Stream.value(PhotoPermissionGranted()));
+
+    const Widget widget = AddPropertyImagesBody();
+
+    await mockNetworkImagesFor(
+        () => widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
+              addPropertyImagesCubit,
+              widget,
+            ));
+    await widgetTester.pumpAndSettle();
+
+    expect(find.byType(SelectPhotoBottomSheet), findsOneWidget);
   });
 }

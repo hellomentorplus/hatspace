@@ -69,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?"),
         "airConditioners":
             MessageLookupByLibrary.simpleMessage("Air conditioners"),
+        "allPhotos": MessageLookupByLibrary.simpleMessage("All Photos"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "apartment": MessageLookupByLibrary.simpleMessage("Apartment"),
@@ -137,11 +138,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "loginDescription": MessageLookupByLibrary.simpleMessage(
+            "You need to be logged in to view this content"),
         "maximumChars": m3,
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "noLater": MessageLookupByLibrary.simpleMessage("No, later"),
         "numberFieldContainsNonNumber":
             MessageLookupByLibrary.simpleMessage("Only accept number"),
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
@@ -186,6 +191,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
         "tv": MessageLookupByLibrary.simpleMessage("TV"),
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
+        "upload": MessageLookupByLibrary.simpleMessage("Upload"),
         "userRoleDescription": m5,
         "userTitleRoles": m6,
         "viewsToday": m7,
@@ -196,6 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
         "wifi": MessageLookupByLibrary.simpleMessage("Wifi"),
+        "yesLoginNow": MessageLookupByLibrary.simpleMessage("Yes, login now"),
         "yourAddress": MessageLookupByLibrary.simpleMessage("Your address")
       };
 }

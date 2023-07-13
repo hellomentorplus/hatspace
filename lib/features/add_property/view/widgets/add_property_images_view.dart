@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_images_cubit.dart';
+import 'package:hatspace/features/select_photo/view/select_photo_bottom_sheet.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -53,14 +54,6 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
   Widget build(BuildContext context) {
     return BlocListener<AddPropertyImagesCubit, AddPropertyImagesState>(
       listener: (_, state) {
-        if (state is PhotoPermissionGranted) {
-          _showSelectPhotoBottomSheet(context).then((result) {
-            context
-                .read<AddPropertyImagesCubit>()
-                .onSelectPhotoBottomSheetDismissed();
-          });
-        }
-
         if (state is PhotoPermissionDenied) {
           // do nothing
         }
@@ -71,6 +64,13 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
                 .read<AddPropertyImagesCubit>()
                 .onPhotoPermissionBottomSheetDismissed();
           });
+        }
+
+        if (state is PhotoPermissionGranted) {
+          // open photo screen
+          context.showSelectPhotoBottomSheet().then((result) => context
+              .read<AddPropertyImagesCubit>()
+              .onSelectPhotoBottomSheetDismissed(result));
         }
       },
       child: SingleChildScrollView(
@@ -121,26 +121,5 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
         context.pop();
       },
     ));
-  }
-
-  Future<void> _showSelectPhotoBottomSheet(BuildContext context) {
-    // will be replaced by hs-162
-    return showModalBottomSheet<void>(
-        context: context,
-        builder: (_) {
-          return Container(
-            height: 200,
-            color: Colors.amber,
-            child: const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text('Select Photo'),
-                ],
-              ),
-            ),
-          );
-        });
   }
 }

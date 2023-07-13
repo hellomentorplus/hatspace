@@ -33,6 +33,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/check.svg
   String get check => 'assets/icons/check.svg';
 
+  /// File path: assets/icons/close.svg
+  String get close => 'assets/icons/close.svg';
+
   /// File path: assets/icons/electric_stove.svg
   String get electricStove => 'assets/icons/electric_stove.svg';
 
@@ -114,6 +117,7 @@ class $AssetsIconsGen {
         booking,
         car,
         check,
+        close,
         electricStove,
         envelope,
         explore,
@@ -207,6 +211,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/landlord_circle.svg
   String get landlordCircle => 'assets/images/landlord_circle.svg';
 
+  /// File path: assets/images/login_circle.svg
+  String get loginCircle => 'assets/images/login_circle.svg';
+
   /// File path: assets/images/logo.svg
   String get logo => 'assets/images/logo.svg';
 
@@ -249,6 +256,7 @@ class $AssetsImagesGen {
         house,
         increment,
         landlordCircle,
+        loginCircle,
         logo,
         messages,
         profileCircle,
