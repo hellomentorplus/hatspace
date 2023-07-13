@@ -2,8 +2,8 @@ import 'package:clock/clock.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hatspace/models/permission/permission_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
-
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/photo/photo_service.dart';
 
 abstract class HsSingleton {
   static final singleton = _HsSingletonImpl();
@@ -32,6 +32,10 @@ class _HsSingletonImpl implements HsSingleton {
 
     if (!_singleton.isRegistered<Clock>()) {
       _singleton.registerSingleton(const Clock());
+    }
+
+    if (!_singleton.isRegistered<PhotoService>()) {
+      _singleton.registerSingleton(PhotoService());
     }
   }
 
