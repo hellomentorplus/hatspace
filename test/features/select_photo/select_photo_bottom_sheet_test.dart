@@ -35,7 +35,7 @@ void main() async {
   testWidgets('verify common layout on select photo', (widgetTester) async {
     const Widget widget = SelectPhotoBottomSheet();
 
-    await mockNetworkImagesFor(() => widgetTester.wrapAndPump(widget));
+    await widgetTester.wrapAndPump(widget);
 
     expect(find.text('All Photos'), findsOneWidget);
   });
