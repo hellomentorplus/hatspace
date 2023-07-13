@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/features/select_photo/view/widgets/item_square_view.dart';
+import 'package:hatspace/features/select_photo/view_model/select_photo_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -28,14 +31,25 @@ enum PhotoTabs {
   }
 }
 
-class SelectPhotoBottomSheet extends StatefulWidget {
+class SelectPhotoBottomSheet extends StatelessWidget {
   const SelectPhotoBottomSheet({Key? key}) : super(key: key);
 
   @override
-  State<SelectPhotoBottomSheet> createState() => _SelectPhotoBottomSheetState();
+  Widget build(BuildContext context) => BlocProvider<SelectPhotoCubit>(
+        create: (context) => SelectPhotoCubit()..loadPhotos(),
+        child: const _SelectPhotoBottomSheet(),
+      );
 }
 
-class _SelectPhotoBottomSheetState extends State<SelectPhotoBottomSheet>
+class _SelectPhotoBottomSheet extends StatefulWidget {
+  const _SelectPhotoBottomSheet({Key? key}) : super(key: key);
+
+  @override
+  State<_SelectPhotoBottomSheet> createState() =>
+      _SelectPhotoBottomSheetState();
+}
+
+class _SelectPhotoBottomSheetState extends State<_SelectPhotoBottomSheet>
     with TickerProviderStateMixin {
   late final TabController tabController =
       TabController(length: 1, vsync: this);
@@ -86,13 +100,19 @@ class AllPhotosView extends StatelessWidget {
   const AllPhotosView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => GridView(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4, childAspectRatio: 1, crossAxisSpacing: 1),
-        children: List.filled(
-            15,
-            Image.network(
-                'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D')),
+  Widget build(BuildContext context) =>
+      BlocBuilder<SelectPhotoCubit, SelectPhotoState>(
+        builder: (context, state) => state is PhotosLoaded
+            ? GridView(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    childAspectRatio: 1,
+                    crossAxisSpacing: 1),
+                children: List.generate(
+                  state.photos.length,
+                  (index) => ImageSquareView(index: index),
+                ))
+            : const SizedBox(),
       );
 }
 
