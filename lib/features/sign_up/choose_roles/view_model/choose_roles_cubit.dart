@@ -5,16 +5,16 @@ import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:equatable/equatable.dart';
 
-part 'choose_role_state.dart';
+part 'choose_roles_state.dart';
 
-class ChooseRoleCubit extends Cubit<ChooseRoleState> {
+class ChooseRolesCubit extends Cubit<ChooseRolesState> {
   final StorageService _storageService =
       HsSingleton.singleton.get<StorageService>();
   final AuthenticationService _authenticationService =
       HsSingleton.singleton.get<AuthenticationService>();
   final Set<Roles> listRoles = {};
 
-  ChooseRoleCubit() : super(const ChoosingRoleState());
+  ChooseRolesCubit() : super(const ChoosingRolesState());
 
   void changeRole(Roles role) {
     if (listRoles.contains(role)) {
@@ -22,7 +22,7 @@ class ChooseRoleCubit extends Cubit<ChooseRoleState> {
     } else {
       listRoles.add(role);
     }
-    emit(ChoosingRoleState(roles: Set.from(listRoles)));
+    emit(ChoosingRolesState(roles: Set.from(listRoles)));
   }
 
   Future<void> submitUserRoles() async {

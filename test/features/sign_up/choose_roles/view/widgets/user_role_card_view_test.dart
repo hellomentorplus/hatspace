@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/features/sign_up/view/widgets/user_role_card_view.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_cubit.dart';
+import 'package:hatspace/features/sign_up/choose_roles/view/widgets/user_role_card_view.dart';
+import 'package:hatspace/features/sign_up/choose_roles/view_model/choose_roles_cubit.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
 
-import '../../view_model/sign_up_bloc_test.mocks.dart';
-import '../../../../widget_tester_extension.dart';
+import '../../../../../widget_tester_extension.dart';
+import 'user_role_card_view_test.mocks.dart';
 
 @GenerateMocks([StorageService, AuthenticationService])
 void main() {
@@ -24,7 +24,7 @@ void main() {
   testWidgets('[UI][Interaction] Validate role card',
       (WidgetTester tester) async {
     await tester.blocWrapAndPump(
-        ChooseRoleCubit(), const UserRoleCardView(role: Roles.tenant));
+        ChooseRolesCubit(), const UserRoleCardView(role: Roles.tenant));
 
     expect(find.byType(SvgPicture), findsOneWidget);
     expect(find.byType(Checkbox), findsOneWidget);

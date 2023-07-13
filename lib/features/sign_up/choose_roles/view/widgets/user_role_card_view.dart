@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_cubit.dart';
+import 'package:hatspace/features/sign_up/choose_roles/view_model/choose_roles_cubit.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 import 'package:hatspace/data/data.dart';
@@ -12,11 +12,11 @@ class UserRoleCardView extends StatelessWidget {
   const UserRoleCardView({required this.role, super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChooseRoleCubit, ChooseRoleState>(
-        buildWhen: (prev, curr) => curr is ChoosingRoleState,
+    return BlocBuilder<ChooseRolesCubit, ChooseRolesState>(
+        buildWhen: (prev, curr) => curr is ChoosingRolesState,
         builder: (context, state) {
           final bool isSelected =
-              state is ChoosingRoleState && state.roles.contains(role);
+              state is ChoosingRolesState && state.roles.contains(role);
           return InkWell(
               onTap: () => _onTapped.call(context),
               child: Card(
@@ -83,6 +83,6 @@ class UserRoleCardView extends StatelessWidget {
   }
 
   void _onTapped(BuildContext context) {
-    context.read<ChooseRoleCubit>().changeRole(role);
+    context.read<ChooseRolesCubit>().changeRole(role);
   }
 }

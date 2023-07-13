@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/features/sign_up/view_model/choose_role_cubit.dart';
+import 'package:hatspace/features/sign_up/choose_roles/view_model/choose_roles_cubit.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -33,29 +33,29 @@ void main() {
       'Given ChooseRoleBloc just has been created.'
       'Then the initial state must be ChoosingRoleState with no roles.', () {
     expect(
-        ChooseRoleCubit().state,
-        isA<ChoosingRoleState>()
+        ChooseRolesCubit().state,
+        isA<ChoosingRolesState>()
             .having((p0) => p0.roles.length, 'Roles is empty', 0));
   });
 
-  blocTest<ChooseRoleCubit, ChooseRoleState>(
+  blocTest<ChooseRolesCubit, ChooseRolesState>(
       'Given bloc was just created and no events have been fired.'
       'When ChooseRoleEvent with param Roles.tenant.'
       'Then new state will be ChoosingRoleState with Roles.tenant.',
-      build: () => ChooseRoleCubit(),
+      build: () => ChooseRolesCubit(),
       act: (bloc) => bloc.changeRole(Roles.tenant),
       expect: () => [
-            isA<ChoosingRoleState>()
+            isA<ChoosingRolesState>()
                 .having((p0) => p0.roles, 'Matched roles', {Roles.tenant})
           ]);
 
-  blocTest<ChooseRoleCubit, ChooseRoleState>(
+  blocTest<ChooseRolesCubit, ChooseRolesState>(
       'Given current state is ChoosingRoleState with the Roles.tenant as data '
       'and authenticationService get current user successfully.'
       'and storageService save user roles successfully.'
       'When fire SubmitRoleEvent.'
       'Then new state will be ChoosingRoleState with Roles.tenant.',
-      build: () => ChooseRoleCubit(),
+      build: () => ChooseRolesCubit(),
       setUp: () {
         when(authenticationService.getCurrentUser())
             .thenAnswer((realInvocation) {
@@ -71,13 +71,13 @@ void main() {
             const SubmitRoleSucceedState(),
           ]);
 
-  blocTest<ChooseRoleCubit, ChooseRoleState>(
+  blocTest<ChooseRolesCubit, ChooseRolesState>(
     'Given current state is ChoosingRoleState with the Roles.tenant as data '
     'and authenticationService get current user function throws an Exception.'
     'and storageService save user roles successfully.'
     'When fire SubmitRoleEvent.'
     'Then new state must be SubmitRoleFailedState.',
-    build: () => ChooseRoleCubit(),
+    build: () => ChooseRolesCubit(),
     setUp: () {
       when(authenticationService.getCurrentUser()).thenThrow(Exception());
       when(memberService.saveUserRoles(mockUserDetail.uid, any))
@@ -87,13 +87,13 @@ void main() {
     expect: () => [const SubmittingRoleState(), const SubmitRoleFailedState()],
   );
 
-  blocTest<ChooseRoleCubit, ChooseRoleState>(
+  blocTest<ChooseRolesCubit, ChooseRolesState>(
     'Given current state is ChoosingRoleState with the Roles.tenant as data '
     'and authenticationService get current user successfully.'
     'and storageService save user roles function throws an Exception.'
     'When fire SubmitRoleEvent.'
     'Then new state must be SubmitRoleFailedState.',
-    build: () => ChooseRoleCubit(),
+    build: () => ChooseRolesCubit(),
     setUp: () {
       when(authenticationService.getCurrentUser()).thenThrow(Exception());
       when(memberService.saveUserRoles(mockUserDetail.uid, any))
