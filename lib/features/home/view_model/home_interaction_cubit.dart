@@ -50,7 +50,16 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
     }
   }
 
-  void goToAddProperty() => emit(StartAddPropertyFlow());
+  void onAddHomeownerRole() async {
+    UserDetail user = await authenticationService.getCurrentUser();
+    List<Roles> userRoles = await storageService.member.getUserRoles(user.uid);
+    Roles newRole = Roles.homeowner;
+    Set<Roles> updatedRoles = userRoles.toSet();
+    updatedRoles.add(newRole);
+    await storageService.member.saveUserRoles(user.uid, updatedRoles);
+    emit(StartAddPropertyFlow());
+  }
+
   void goToSignUpScreen() => emit(GotoSignUpScreen());
   void onCloseModal() => emit(CloseHsModal());
 }

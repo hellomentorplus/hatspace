@@ -97,7 +97,7 @@ class HomePageBodyState extends State<HomePageBody> {
         primaryButtonLabel: HatSpaceStrings.current.addHomeownerRole,
         primaryOnPressed: () {
           context.pop();
-          context.read<HomeInteractionCubit>().goToAddProperty();
+          context.read<HomeInteractionCubit>().onAddHomeownerRole();
         },
         secondaryButtonLabel: HatSpaceStrings.current.later,
         secondaryOnPressed: () {
