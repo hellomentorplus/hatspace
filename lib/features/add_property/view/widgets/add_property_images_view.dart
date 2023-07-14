@@ -107,8 +107,9 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
   Future<void> _showPhotoPermissionBottomSheet(BuildContext context) {
     return context.showHsBottomSheet<void>(HsWarningBottomSheetView(
       title: HatSpaceStrings.current.hatSpaceWouldLikeToPhotoAccess,
-      description:
-          HatSpaceStrings.current.plsGoToSettingsAndAllowPhotoAccessForHatSpace,
+      description: TextSpan(
+          text: HatSpaceStrings
+              .current.plsGoToSettingsAndAllowPhotoAccessForHatSpace),
       iconUrl: Assets.icons.photoAccess,
       primaryButtonLabel: HatSpaceStrings.current.goToSetting,
       primaryOnPressed: () {

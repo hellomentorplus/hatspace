@@ -7,7 +7,7 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 class HsWarningBottomSheetView extends StatelessWidget {
   final String? iconUrl;
   final String? title;
-  final String? description;
+  final TextSpan? description;
   final String? primaryButtonLabel; // return false value
   final VoidCallback? primaryOnPressed;
   final String? secondaryButtonLabel; // return true value
@@ -64,11 +64,11 @@ class HsWarningBottomSheetView extends StatelessWidget {
       ));
     }
     if (description != null) {
-      modalContent.add(Text(description!,
+      modalContent.add(Text.rich(description!,
           overflow: TextOverflow.ellipsis,
           maxLines: 3,
           textAlign: TextAlign.center));
-    }
+    } 
     if (iconUrl != null) {
       Widget iconContent = Padding(
         padding: const EdgeInsets.only(bottom: HsDimens.spacing24),

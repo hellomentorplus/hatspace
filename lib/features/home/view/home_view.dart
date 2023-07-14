@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide SearchBar;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/home/view/widgets/app_bar_bottom.dart';
 import 'package:hatspace/features/home/view/widgets/property_item_view.dart';
@@ -76,7 +77,7 @@ class HomePageBodyState extends State<HomePageBody> {
     HsWarningBottomSheetView loginModal = HsWarningBottomSheetView(
         iconUrl: Assets.images.loginCircle,
         title: HatSpaceStrings.current.login,
-        description: HatSpaceStrings.current.loginDescription,
+        description: TextSpan(text: HatSpaceStrings.current.loginDescription),
         primaryButtonLabel: HatSpaceStrings.current.yesLoginNow,
         primaryOnPressed: () {
           context.pop();
@@ -90,10 +91,17 @@ class HomePageBodyState extends State<HomePageBody> {
   }
 
   Future<void> showAddRoleModal(BuildContext context) {
+    final String sentence = HatSpaceStrings.current.addHomeownerRoleDescription;
+    final String keyword =
+        HatSpaceStrings.current.userTitleRoles(Roles.homeowner);
+    const TextStyle keywordStyle = TextStyle(
+      fontWeight: FontWeight.w700,
+    );
+
     HsWarningBottomSheetView addRoleModal = HsWarningBottomSheetView(
         iconUrl: Assets.images.landlordCircle,
         title: HatSpaceStrings.current.addHomeownerRole,
-        description: HatSpaceStrings.current.addHomeownerRoleDescription,
+        description: _generateSpanByKeyword(sentence, keyword, keywordStyle),
         primaryButtonLabel: HatSpaceStrings.current.addHomeownerRole,
         primaryOnPressed: () {
           context.pop();
@@ -319,6 +327,49 @@ class HomePageBodyState extends State<HomePageBody> {
                     ),
                   ),
                 ))));
+  }
+
+  TextSpan _generateSpanByKeyword(
+      String sentence, String keyword, TextStyle style) {
+    final List<String> strings = sentence.split(keyword);
+
+    if (strings.isEmpty) {
+      // keyword is not found in sentence
+      return TextSpan(text: sentence);
+    } else if (strings.length == 1) {
+      // keyword is in the start or end of the sentence
+      if (sentence.startsWith(keyword)) {
+        return TextSpan(children: [
+          TextSpan(text: keyword, style: style),
+          TextSpan(text: ' ${sentence.replaceFirst(keyword, '').trim()}')
+        ]);
+      } else {
+        return TextSpan(children: [
+          TextSpan(
+            text: sentence.replaceAll(keyword, ''),
+          ),
+          TextSpan(text: ' $keyword', style: style)
+        ]);
+      }
+    } else {
+      List<TextSpan> children = [];
+      final TextSpan keywordSpan = TextSpan(text: keyword, style: style);
+
+      if (sentence.startsWith(keyword)) {
+        children.add(keywordSpan);
+      } else {
+        for (String s in strings) {
+          children.add(TextSpan(text: s));
+          children.add(keywordSpan);
+        }
+
+        if (!sentence.endsWith(keyword)) {
+          children.removeLast();
+        }
+      }
+
+      return TextSpan(children: children);
+    }
   }
 }
 
