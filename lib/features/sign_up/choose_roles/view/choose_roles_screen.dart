@@ -20,13 +20,13 @@ class ChooseRolesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ChooseRolesCubit>(
       create: (context) => ChooseRolesCubit(),
-      child: const ChoosingRolesViewBody(),
+      child: const ChooseRolesViewBody(),
     );
   }
 }
 
-class ChoosingRolesViewBody extends StatelessWidget {
-  const ChoosingRolesViewBody({super.key});
+class ChooseRolesViewBody extends StatelessWidget {
+  const ChooseRolesViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +41,7 @@ class ChoosingRolesViewBody extends StatelessWidget {
       },
       child: WillPopScope(
         onWillPop: () async {
-          context.read<AuthenticationBloc>().add(SkipSignUp());
-          context.pop();
+          _cancelChoosingRoles(context);
           return true;
         },
         child: Scaffold(
@@ -51,21 +50,18 @@ class ChoosingRolesViewBody extends StatelessWidget {
               backgroundColor: HSColor.background,
               actions: [
                 GestureDetector(
-                  onTap: () {
-                    context.read<AuthenticationBloc>().add(SkipSignUp());
-                    context.pop();
-                  },
+                  onTap: () => _cancelChoosingRoles(context),
                   child: Container(
-                    margin: const EdgeInsets.only(
-                      top: HsDimens.spacing8,
-                      bottom: HsDimens.spacing8,
-                      right: HsDimens.spacing16,
-                    ),
-                    child: SvgPicture.asset(
-                      Assets.icons.close,
-                      width: HsDimens.size32, height: HsDimens.size32,
-                    )
-                  ),
+                      margin: const EdgeInsets.only(
+                        top: HsDimens.spacing8,
+                        bottom: HsDimens.spacing8,
+                        right: HsDimens.spacing16,
+                      ),
+                      child: SvgPicture.asset(
+                        Assets.icons.close,
+                        width: HsDimens.size32,
+                        height: HsDimens.size32,
+                      )),
                 )
               ],
             ),
@@ -124,5 +120,10 @@ class ChoosingRolesViewBody extends StatelessWidget {
             )),
       ),
     );
+  }
+
+  void _cancelChoosingRoles(BuildContext context) {
+    context.read<AuthenticationBloc>().add(SkipSignUp());
+    context.pop();
   }
 }

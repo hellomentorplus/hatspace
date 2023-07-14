@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/sign_up/choose_roles/view/choose_roles_screen.dart';
@@ -50,7 +49,7 @@ void main() {
         (realInvocation) => Stream.value(const ChoosingRolesState()));
 
     await tester.blocWrapAndPump<ChooseRolesCubit>(
-        mockChooseRoleViewCubit, const ChoosingRolesViewBody());
+        mockChooseRoleViewCubit, const ChooseRolesViewBody());
 
     expect(find.text('Choose your role'), findsOneWidget);
     expect(find.text('You can be tenant or homeowner'), findsOneWidget);
@@ -71,8 +70,8 @@ void main() {
     expect(homeOwnerFinder, findsOneWidget);
     expect(
         find.ancestor(
-            of: find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
-                widget, 'assets/icons/close.svg')),
+            of: find.byWidgetPredicate((widget) =>
+                validateSvgPictureWithAssets(widget, 'assets/icons/close.svg')),
             matching: find.byType(GestureDetector)),
         findsOneWidget);
 
@@ -86,32 +85,31 @@ void main() {
   testWidgets(
       'Given user is in choose role screen'
       'When user tap on close button'
-      'Then user will goes to home screen', (WidgetTester tester) async {
+      'Then user will get out of this screen and log out',
+      (WidgetTester tester) async {
+    when(mockChooseRoleViewCubit.state)
+        .thenAnswer((realInvocation) => const ChoosingRolesState());
+    when(mockChooseRoleViewCubit.stream).thenAnswer(
+        (realInvocation) => Stream.value(const ChoosingRolesState()));
     await tester.multiBlocWrapAndPump([
       BlocProvider<ChooseRolesCubit>(
           create: (context) => mockChooseRoleViewCubit),
       BlocProvider<AppConfigBloc>(create: (context) => mockAppConfigBloc),
       BlocProvider<AuthenticationBloc>(
           create: (context) => mockAuthenticationBloc),
-    ], const ChoosingRolesViewBody());
+    ], const ChooseRolesViewBody());
 
-    expect(
-        find.ancestor(
-            of: find.byWidgetPredicate((widget) =>
-                validateSvgPictureWithAssets(widget, 'assets/icons/close.svg')),
-            matching: find.byType(GestureDetector)),
-        findsOneWidget);
+    expect(find.byType(ChooseRolesViewBody), findsOneWidget);
+    final Finder closeBtnFinder = find.ancestor(
+        of: find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, 'assets/icons/close.svg')),
+        matching: find.byType(GestureDetector));
+    expect(closeBtnFinder, findsOneWidget);
+    await tester.tap(closeBtnFinder);
+    await tester.pumpAndSettle();
 
-    // final closeBtnFinder = find.ancestor(
-    //     of: find.byWidgetPredicate((widget) =>
-    //         validateSvgPictureWithAssets(widget, 'assets/icons/close.svg')),
-    //     matching: find.byType(GestureDetector));
-    // expect(closeBtnFinder, findsOneWidget);
-    // await tester.tap(closeBtnFinder);
-    // await tester.pumpAndSettle();
-
-    // expect(find.byType(ChoosingRolesViewBody), findsNothing);
-    // verify(mockAuthenticationBloc.add(SkipSignUp())).called(1);
+    expect(find.byType(ChooseRolesViewBody), findsNothing);
+    verify(mockAuthenticationBloc.add(SkipSignUp())).called(1);
   });
 
   testWidgets(
@@ -125,7 +123,7 @@ void main() {
         Stream.value(const ChoosingRolesState(roles: {Roles.tenant})));
 
     await tester.blocWrapAndPump<ChooseRolesCubit>(
-        mockChooseRoleViewCubit, const ChoosingRolesViewBody());
+        mockChooseRoleViewCubit, const ChooseRolesViewBody());
 
     final Finder tenantFinder = find.byKey(const ValueKey(Roles.tenant));
     expect(tenantFinder, findsOneWidget);
@@ -163,7 +161,7 @@ void main() {
         Stream.value(const ChoosingRolesState(roles: {Roles.tenant})));
 
     await tester.blocWrapAndPump<ChooseRolesCubit>(
-        mockChooseRoleViewCubit, const ChoosingRolesViewBody());
+        mockChooseRoleViewCubit, const ChooseRolesViewBody());
 
     final Finder tenantFinder = find.byKey(const ValueKey(Roles.tenant));
     expect(tenantFinder, findsOneWidget);
@@ -205,7 +203,7 @@ void main() {
       BlocProvider<AppConfigBloc>(create: (context) => mockAppConfigBloc),
       BlocProvider<AuthenticationBloc>(
           create: (context) => mockAuthenticationBloc),
-    ], const ChoosingRolesViewBody());
+    ], const ChooseRolesViewBody());
 
     final Finder signUpBtnFinder = find.ancestor(
         of: find.text('Sign up'), matching: find.byType(PrimaryButton));
@@ -234,9 +232,8 @@ void main() {
       BlocProvider<AppConfigBloc>(create: (context) => mockAppConfigBloc),
       BlocProvider<AuthenticationBloc>(
           create: (context) => mockAuthenticationBloc),
-    ], const ChoosingRolesViewBody());
+    ], const ChooseRolesViewBody());
 
-    expect(find.byType(ChoosingRolesViewBody), findsNothing);
-    verify(mockAuthenticationBloc.add(SkipSignUp())).called(1);
+    expect(find.byType(ChooseRolesViewBody), findsNothing);
   });
 }
