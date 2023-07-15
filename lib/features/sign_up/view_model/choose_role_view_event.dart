@@ -16,3 +16,9 @@ class OnSubmitRoleEvent extends ChooseRoleViewEvent {
   @override
   List<Object> get props => [];
 }
+
+class OnCancelChooseRole extends ChooseRoleViewEvent {
+  const OnCancelChooseRole();
+  @override
+  List<Object> get props => [];
+}

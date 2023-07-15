@@ -35,5 +35,10 @@ class ChooseRoleViewBloc
       _storageService.member.saveMember(user.uid, listRoles, user.displayName!);
       emit(ChoosingRoleSuccessState());
     });
+
+    on<OnCancelChooseRole>((event, emit) async {
+      await _authenticationService.signOut();
+      emit(ChoosingRoleFail());
+    });
   }
 }

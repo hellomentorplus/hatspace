@@ -9,6 +9,7 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 import 'package:hatspace/features/sign_up/view/widgets/user_role_card_view.dart';
+import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 
 class ChoosingRolesView extends StatelessWidget {
   const ChoosingRolesView({super.key});
@@ -34,6 +35,8 @@ class ChoosingRoleViewBody extends StatelessWidget {
       }
       if (state is ChoosingRoleFail) {
         // TODO: Implement failure scenario
+        context.read<AuthenticationBloc>().add(ValidateAuthentication());
+        Navigator.of(context).popUntil((route) => route.isFirst);
       }
     }, builder: (context, state) {
       return Scaffold(
@@ -105,8 +108,9 @@ class ChoosingRoleViewBody extends StatelessWidget {
                     child: TextOnlyButton(
                       label: HatSpaceStrings.of(context).cancelBtn,
                       onPressed: () {
-                        Navigator.of(context)
-                            .popUntil((route) => route.isFirst);
+                        context
+                            .read<ChooseRoleViewBloc>()
+                            .add(const OnCancelChooseRole());
                       },
                     ),
                   ),

@@ -46,9 +46,12 @@ class MemberService {
         .set({rolesKey: roles.map((e) => e.name).toList()});
   }
 
-  Future<void> saveMember(String uid, Set<Roles> roles, String displayName) async{
+  Future<void> saveMember(
+      String uid, Set<Roles> roles, String displayName) async {
     Member member = Member(listRoles: roles, displayName: displayName);
-    await _firestore.collection(memberCollection)
-    .doc(uid).set(member.convertToMap());
+    await _firestore
+        .collection(memberCollection)
+        .doc(uid)
+        .set(member.convertToMap());
   }
 }
