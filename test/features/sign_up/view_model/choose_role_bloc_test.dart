@@ -49,6 +49,7 @@ void main() {
           'Given when user select role and submit, then return to succes state',
           build: () => ChooseRoleViewBloc(),
           setUp: () {
+            when(mockUserDetail.displayName).thenReturn('displayName');
             when(authenticationService.getCurrentUser())
                 .thenAnswer((realInvocation) {
               return Future<UserDetail>.value(mockUserDetail);
@@ -64,6 +65,14 @@ void main() {
             bloc.add(const OnSubmitRoleEvent());
           },
           expect: () => [isA<ChoosingRoleSuccessState>()]);
+
+      blocTest<ChooseRoleViewBloc, ChooseRoleViewState>(
+          'Given user does not want to select role'
+          'When use cancel choose role progress'
+          'Then return ChooseRoleFail',
+          build: () => ChooseRoleViewBloc(),
+          act: (bloc) => bloc.add(const OnCancelChooseRole()),
+          expect: () => [isA<ChoosingRoleFail>()]);
     });
 
     test('initial test', () {
