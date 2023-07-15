@@ -7,9 +7,8 @@ class Member {
   final String displayName;
 
   Member({required this.listRoles, required this.displayName});
-  
   //Allow to convert to Map type, which is used to store on Firestore
-  Map<String,dynamic> convertToMap() {
+  Map<String, dynamic> convertToMap() {
     return {
       _rolesKey: listRoles.map((e) => e.name).toList(),
       _displayNameKey: displayName
