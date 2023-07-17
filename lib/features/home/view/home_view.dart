@@ -9,7 +9,9 @@ import 'package:hatspace/features/home/view_model/home_interaction_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:shake/shake.dart';
 
@@ -67,7 +69,25 @@ class HomePageBodyState extends State<HomePageBody> {
     detector.startListening();
   }
 
-  final ValueNotifier<int> _selectedIndex = ValueNotifier<int>(0);
+  final ValueNotifier<BottomBarItems> _selectedIndex =
+      ValueNotifier<BottomBarItems>(BottomBarItems.explore);
+
+  Future<void> showLoginModal(BuildContext context) {
+    HsWarningBottomSheetView loginModal = HsWarningBottomSheetView(
+        iconUrl: Assets.images.loginCircle,
+        title: HatSpaceStrings.current.login,
+        description: HatSpaceStrings.current.loginDescription,
+        primaryButtonLabel: HatSpaceStrings.current.yesLoginNow,
+        primaryOnPressed: () {
+          context.pop();
+          context.read<HomeInteractionCubit>().goToSignUpScreen();
+        },
+        secondaryButtonLabel: HatSpaceStrings.current.noLater,
+        secondaryOnPressed: () {
+          context.pop();
+        });
+    return context.showHsBottomSheet(loginModal);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +104,14 @@ class HomePageBodyState extends State<HomePageBody> {
             listener: (context, state) {
               if (state is StartAddPropertyFlow) {
                 context.goToAddProperty();
+              }
+              if (state is OpenLoginBottomSheetModal) {
+                showLoginModal(context).then((value) {
+                  context.read<HomeInteractionCubit>().onCloseModal();
+                });
+              }
+              if (state is GotoSignUpScreen) {
+                context.goToSignup();
               }
             },
           )
@@ -178,23 +206,31 @@ class HomePageBodyState extends State<HomePageBody> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ValueListenableBuilder<int>(
+                        ValueListenableBuilder<BottomBarItems>(
                           valueListenable: _selectedIndex,
                           builder: (context, value, child) => _BottomBarItem(
-                            icon: Assets.icons.explore,
-                            label: HatSpaceStrings.current.explore,
-                            isSelected: value == 0,
-                            onTap: () => _selectedIndex.value = 0,
-                          ),
+                              icon: Assets.icons.explore,
+                              label: HatSpaceStrings.current.explore,
+                              isSelected: value == BottomBarItems.explore,
+                              onTap: () {
+                                _selectedIndex.value = BottomBarItems.explore;
+                                context
+                                    .read<HomeInteractionCubit>()
+                                    .onBottomItemTapped(BottomBarItems.explore);
+                              }),
                         ),
-                        ValueListenableBuilder<int>(
+                        ValueListenableBuilder<BottomBarItems>(
                           valueListenable: _selectedIndex,
                           builder: (context, value, child) => _BottomBarItem(
-                            icon: Assets.icons.booking,
-                            label: HatSpaceStrings.current.booking,
-                            isSelected: value == 1,
-                            onTap: () => _selectedIndex.value = 1,
-                          ),
+                              icon: Assets.icons.booking,
+                              label: HatSpaceStrings.current.booking,
+                              isSelected: value == BottomBarItems.booking,
+                              onTap: () {
+                                context
+                                    .read<HomeInteractionCubit>()
+                                    .onBottomItemTapped(BottomBarItems.booking);
+                                _selectedIndex.value = BottomBarItems.booking;
+                              }),
                         ),
                         Container(
                           decoration: ShapeDecoration(
@@ -213,7 +249,8 @@ class HomePageBodyState extends State<HomePageBody> {
                                 onTap: () {
                                   context
                                       .read<HomeInteractionCubit>()
-                                      .onAddPropertyPressed();
+                                      .onBottomItemTapped(
+                                          BottomBarItems.addingProperty);
                                 },
                                 child: Padding(
                                   padding:
@@ -228,23 +265,31 @@ class HomePageBodyState extends State<HomePageBody> {
                             }),
                           ),
                         ),
-                        ValueListenableBuilder<int>(
+                        ValueListenableBuilder<BottomBarItems>(
                           valueListenable: _selectedIndex,
                           builder: (context, value, child) => _BottomBarItem(
-                            icon: Assets.icons.message,
-                            label: HatSpaceStrings.current.message,
-                            isSelected: value == 2,
-                            onTap: () => _selectedIndex.value = 2,
-                          ),
+                              icon: Assets.icons.message,
+                              label: HatSpaceStrings.current.message,
+                              isSelected: value == BottomBarItems.message,
+                              onTap: () {
+                                context
+                                    .read<HomeInteractionCubit>()
+                                    .onBottomItemTapped(BottomBarItems.message);
+                                _selectedIndex.value = BottomBarItems.message;
+                              }),
                         ),
-                        ValueListenableBuilder<int>(
+                        ValueListenableBuilder<BottomBarItems>(
                           valueListenable: _selectedIndex,
                           builder: (context, value, child) => _BottomBarItem(
-                            icon: Assets.icons.profile,
-                            label: HatSpaceStrings.current.profile,
-                            isSelected: value == 3,
-                            onTap: () => _selectedIndex.value = 3,
-                          ),
+                              icon: Assets.icons.profile,
+                              label: HatSpaceStrings.current.profile,
+                              isSelected: value == BottomBarItems.profile,
+                              onTap: () {
+                                context
+                                    .read<HomeInteractionCubit>()
+                                    .onBottomItemTapped(BottomBarItems.profile);
+                                _selectedIndex.value = BottomBarItems.profile;
+                              }),
                         )
                       ],
                     ),

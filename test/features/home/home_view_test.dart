@@ -5,13 +5,17 @@ import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/home/data/property_item_data.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
+
 import 'package:hatspace/features/home/view/widgets/property_item_view.dart';
 import 'package:hatspace/features/home/view_model/get_properties_cubit.dart';
 import 'package:hatspace/features/home/view_model/home_interaction_cubit.dart';
+import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:hatspace/theme/widgets/hs_buttons.dart';
+import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -19,6 +23,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
+import '../../find_extension.dart';
 import '../../widget_tester_extension.dart';
 import 'home_view_test.mocks.dart';
 
@@ -101,6 +106,10 @@ void main() {
 
         expect(find.byType(BlocListener<AppConfigBloc, AppConfigState>),
             findsOneWidget);
+        expect(
+            find.byType(
+                BlocListener<HomeInteractionCubit, HomeInteractionState>),
+            findsOneWidget);
       });
 
       testWidgets('verify UI components', (widgetTester) async {
@@ -151,6 +160,136 @@ void main() {
       expect(find.text('👋 Hi displayName'), findsOneWidget);
       expect(find.text('Search rental, location...'), findsOneWidget);
       expect(find.byType(BottomAppBar), findsOneWidget);
+    });
+
+    // Verify Login Bottom sheet modal
+  });
+
+  // Verify login bottom sheet modal
+  group('Verify login bottom sheet modal', () {
+    setUp(() {
+      when(authenticationBloc.state)
+          .thenAnswer((realInvocation) => AnonymousState());
+      when(authenticationBloc.stream)
+          .thenAnswer((realInvocation) => Stream.value(AnonymousState()));
+    });
+
+    tearDown(() {
+      reset(authenticationBloc);
+      reset(appConfigBloc);
+    });
+
+    testWidgets(
+        'Given user has not login, when user taps on BottomAppItems, then show HsWarningModalWith',
+        (widgetTester) async {
+      const Widget widget = HomePageView();
+      await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
+
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => false);
+      // Verify on Explore
+      await widgetTester.tap(find.text('Explore'));
+      await widgetTester.pump();
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+      // verify tap out
+      await widgetTester.tapAt(const Offset(20, 20));
+      await widgetTester.pump();
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+
+      //verify tap on Booking
+      await widgetTester.tap(find.text('Booking'));
+      await widgetTester.pump();
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+      // verify tap out
+      await widgetTester.tapAt(const Offset(20, 20));
+      await widgetTester.pump();
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+
+      //verify tap on Message
+      await widgetTester.tap(find.text('Message'));
+      await widgetTester.pump();
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+      // verify tap out
+      await widgetTester.tapAt(const Offset(20, 20));
+      await widgetTester.pump();
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+
+      //verify tap on Profile
+      await widgetTester.tap(find.text('Profile'));
+      await widgetTester.pump();
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+      // verify tap out
+      await widgetTester.tapAt(const Offset(20, 20));
+      await widgetTester.pump();
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+    });
+
+    testWidgets(
+        'Given HsModalLogin pop up when user taps on bottom item, then verify UI of modal ',
+        (widgetTester) async {
+      const Widget widget = HomePageView();
+      await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
+
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => false);
+      // Verify on Explore
+      await widgetTester.tap(find.text('Explore'));
+      await widgetTester.pump();
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+      //verify UI
+      expect(find.text('Login'), findsOneWidget);
+      expect(find.text('You need to be logged in to view this content'),
+          findsOneWidget);
+      expect(
+          find.svgPictureWithAssets(Assets.images.loginCircle), findsOneWidget);
+      expect(
+          find.widgetWithText(PrimaryButton, 'Yes, login now'), findsOneWidget);
+      expect(find.widgetWithText(SecondaryButton, 'No, later'), findsOneWidget);
+    });
+
+    group('verify login modal iteraction', () {
+      setUp(() {
+        when(getPropertiesCubit.state)
+            .thenAnswer((_) => const GetPropertiesInitialState());
+        when(getPropertiesCubit.stream)
+            .thenAnswer((_) => Stream.value(const GetPropertiesInitialState()));
+        when(interactionCubit.state).thenAnswer(
+            (_) => const OpenLoginBottomSheetModal(BottomBarItems.explore));
+        when(interactionCubit.stream).thenAnswer((_) => Stream.value(
+            const OpenLoginBottomSheetModal(BottomBarItems.explore)));
+      });
+      testWidgets(
+          'Given HsModalLogin pop up displayed'
+          'when user tap on cancel button'
+          'then dismiss modal', (widgetTester) async {
+        const Widget widget = HomePageBody();
+        await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
+        await expectLater(find.byType(HomePageBody), findsOneWidget);
+        expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+        // expect(find.widgetWithText(SecondaryButton, 'No, later'), findsOneWidget);
+        Finder closeBtn = find.widgetWithText(SecondaryButton, 'No, later');
+        await widgetTester.ensureVisible(closeBtn);
+        await widgetTester.tap(closeBtn);
+        await widgetTester.pumpAndSettle();
+        verify(interactionCubit.onCloseModal()).called(1);
+        expect(find.byType(HsWarningBottomSheetView), findsNothing);
+      });
+
+      testWidgets(
+          'Given HsModalLogin pop up displayed'
+          'when user tap on go to sign up button'
+          'then dismiss modal, and move to signup', (widgetTester) async {
+        const Widget widget = HomePageBody();
+        await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
+        await expectLater(find.byType(HomePageBody), findsOneWidget);
+        expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+        // expect(find.widgetWithText(SecondaryButton, 'No, later'), findsOneWidget);
+        Finder goToLoginBtn =
+            find.widgetWithText(PrimaryButton, 'Yes, login now');
+        await widgetTester.ensureVisible(goToLoginBtn);
+        await widgetTester.tap(goToLoginBtn);
+        await widgetTester.pumpAndSettle();
+        verify(interactionCubit.goToSignUpScreen()).called(1);
+        expect(find.byType(HsWarningBottomSheetView), findsNothing);
+      });
     });
   });
 

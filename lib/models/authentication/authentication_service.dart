@@ -144,4 +144,6 @@ class AuthenticationService {
       _firebaseAuth.signOut()
     ]);
   }
+
+  bool get isUserLoggedIn => _firebaseAuth.currentUser != null;
 }

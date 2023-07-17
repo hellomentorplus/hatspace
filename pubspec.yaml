@@ -53,6 +53,9 @@ dependencies:
   permission_handler: ^10.3.0
   device_info_plus: ^9.0.2
   clock: ^1.1.1
+  photo_manager: ^2.6.0
+  path_provider: ^2.0.15
+  flutter_native_image: ^0.0.6+1
 
 dev_dependencies:
   flutter_test:
