@@ -125,5 +125,6 @@
   "allPhotos":"All Photos",
   "hatSpaceWouldLikeToPhotoAccess": "\"HATSpace\" Would Like to Photo Access",
   "plsGoToSettingsAndAllowPhotoAccessForHatSpace": "Please go to Settings and allow photos access for HATSpace.",
-  "goToSetting": "Go to Setting"
+  "goToSetting": "Go to Setting",
+  "uploadPhotoCount":"Upload ({count}) photos"
 }

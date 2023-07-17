@@ -1073,6 +1073,16 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Upload ({count}) photos`
+  String uploadPhotoCount(Object count) {
+    return Intl.message(
+      'Upload ($count) photos',
+      name: 'uploadPhotoCount',
+      desc: '',
+      args: [count],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
