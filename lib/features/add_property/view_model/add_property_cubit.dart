@@ -11,17 +11,20 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   /// Defines all value needed for a property
   /// 1. Choose kind of place
+  bool isPropertyScreenInteracted = false;
   PropertyTypes _type = PropertyTypes.house;
   DateTime _availableDate = DateTime.now();
 
   PropertyTypes get propertyType => _type;
   set propertyType(PropertyTypes type) {
+    isPropertyScreenInteracted = true;
     _type = type;
     validateNextButtonState(state.pageViewNumber);
   }
 
   DateTime get availableDate => _availableDate;
   set availableDate(DateTime dateTime) {
+    isPropertyScreenInteracted = true;
     _availableDate = dateTime;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -149,7 +152,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     if (state.pageViewNumber > 0) {
       navigatePage(NavigatePage.reverse, totalPages);
     } else if (state.pageViewNumber == 0) {
-      emit(ExitAddPropertyFlow(state.pageViewNumber));
+      onShowLostDataModal();
     }
   }
 
@@ -160,7 +163,12 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   void onShowLostDataModal() {
     // check pageViewNumber != choosekindofplace screen
     if (state.pageViewNumber == 0) {
-      // TODO: update logic for chooseKindOfPlace
+      // verify whether isPropertyTypeScreen get interacted
+      if (isPropertyScreenInteracted) {
+        emit(OpenLostDataWarningModal(state.pageViewNumber));
+      } else {
+        emit(ExitAddPropertyFlow(state.pageViewNumber));
+      }
     } else {
       emit(OpenLostDataWarningModal(state.pageViewNumber));
     }
