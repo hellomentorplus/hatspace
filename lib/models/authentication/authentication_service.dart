@@ -31,8 +31,10 @@ class AuthenticationService {
     });
   }
 
-  final StreamController<UserDetail?> _userDetailStreamController = StreamController.broadcast();
-  Stream<UserDetail?> get authenticationState => _userDetailStreamController.stream;
+  final StreamController<UserDetail?> _userDetailStreamController =
+      StreamController.broadcast();
+  Stream<UserDetail?> get authenticationState =>
+      _userDetailStreamController.stream;
 
   Future<UserDetail> signUp({required SignUpType signUpType}) async {
     UserDetail userDetail;

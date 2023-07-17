@@ -10,8 +10,6 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
-import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
-
 import 'package:hatspace/features/sign_up/choose_roles/view/widgets/user_role_card_view.dart';
 
 class ChooseRolesScreen extends StatelessWidget {

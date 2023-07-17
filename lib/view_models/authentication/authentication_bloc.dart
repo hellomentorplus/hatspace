@@ -30,7 +30,8 @@ class AuthenticationBloc
 
   void _validateAuthentication(
       ValidateAuthentication event, Emitter<AuthenticationState> emit) async {
-    _streamSubscription ??= authenticationService.authenticationState.listen((event) {
+    _streamSubscription ??=
+        authenticationService.authenticationState.listen((event) {
       if (event == null) {
         emit(AnonymousState());
       } else {
