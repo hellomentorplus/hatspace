@@ -109,7 +109,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byType(ChooseRolesViewBody), findsNothing);
-    verify(mockAuthenticationBloc.add(SkipSignUp())).called(1);
+    verify(mockChooseRoleViewCubit.onCancelRole()).called(1);
   });
 
   testWidgets(

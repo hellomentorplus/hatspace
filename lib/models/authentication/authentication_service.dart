@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -17,7 +19,20 @@ class AuthenticationService {
     FacebookAuth? facebookAuth,
   })  : _googleSignIn = googleSignIn ?? GoogleSignIn(),
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _facebookAuth = facebookAuth ?? FacebookAuth.instance;
+        _facebookAuth = facebookAuth ?? FacebookAuth.instance {
+    _firebaseAuth.authStateChanges().listen((event) {
+      if (event != null) {
+        UserDetail userDetail = UserDetail(
+            uid: event.uid, email: event.email, phone: event.phoneNumber);
+        _userDetailStreamController.add(userDetail);
+      } else {
+        _userDetailStreamController.add(null);
+      }
+    });
+  }
+
+  final StreamController<UserDetail?> _userDetailStreamController = StreamController.broadcast();
+  Stream<UserDetail?> get authenticationState => _userDetailStreamController.stream;
 
   Future<UserDetail> signUp({required SignUpType signUpType}) async {
     UserDetail userDetail;

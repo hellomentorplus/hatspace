@@ -25,6 +25,10 @@ class ChooseRolesCubit extends Cubit<ChooseRolesState> {
     emit(ChoosingRolesState(roles: Set.from(listRoles)));
   }
 
+  void onCancelRole() {
+    _authenticationService.signOut();
+  }
+
   Future<void> submitUserRoles() async {
     try {
       emit(const SubmittingRoleState());

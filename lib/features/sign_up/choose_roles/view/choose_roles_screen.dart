@@ -123,7 +123,7 @@ class ChooseRolesViewBody extends StatelessWidget {
   }
 
   void _cancelChoosingRoles(BuildContext context) {
-    context.read<AuthenticationBloc>().add(SkipSignUp());
+    context.read<ChooseRolesCubit>().onCancelRole();
     context.pop();
   }
 }
