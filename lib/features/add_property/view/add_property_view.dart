@@ -157,7 +157,9 @@ class BottomController extends StatelessWidget {
               label: HatSpaceStrings.of(context).back,
               onPressed: () {
                 if (state.pageViewNumber == 0) {
-                  context.read<AddPropertyCubit>().onBackPressed(state.pageViewNumber);
+                  context
+                      .read<AddPropertyCubit>()
+                      .onBackPressed(state.pageViewNumber);
                 } else {
                   context
                       .read<AddPropertyCubit>()
