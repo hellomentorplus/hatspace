@@ -141,7 +141,6 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
         break;
       // TODO add validation logic for other screens
     }
-
     emit(NextButtonEnable(state.pageViewNumber, nextButtonEnable));
   }
 
@@ -152,5 +151,23 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     } else if (state.pageViewNumber == 0) {
       emit(ExitAddPropertyFlow(state.pageViewNumber));
     }
+  }
+
+  // Show warning modal
+  void onResetData() =>
+      emit(const ExitAddPropertyFlow(0)); // handle logic to reset data
+
+  void onShowLostDataModal() {
+    // check pageViewNumber != choosekindofplace screen
+    if (state.pageViewNumber == 0) {
+      // TODO: update logic for chooseKindOfPlace
+    } else {
+      emit(OpenLostDataWarningModal(state.pageViewNumber));
+    }
+  }
+
+  void onCloseLostDataModal() {
+    // Verify next button enable again
+    validateNextButtonState(state.pageViewNumber);
   }
 }

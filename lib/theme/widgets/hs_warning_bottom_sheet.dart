@@ -117,15 +117,15 @@ class HsWarningBottomSheetView extends StatelessWidget {
               }));
       buttonGroup.add(button);
     }
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-          vertical: HsDimens.spacing32, horizontal: HsDimens.spacing24),
+    return SafeArea(
+        child: Padding(
+      padding: const EdgeInsets.all(HsDimens.spacing32),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.max,
           children: modalContent +
               [const SizedBox(height: HsDimens.spacing24)] +
               buttonGroup),
-    );
+    ));
   }
 }
