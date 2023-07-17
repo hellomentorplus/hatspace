@@ -252,6 +252,67 @@ void main() {
       verify: (bloc) =>
           expect(bloc.features, [Feature.fridge, Feature.airConditioners]),
     );
+
+    group('lost data modal', () {
+      blocTest<AddPropertyCubit, AddPropertyState>(
+        'show lost data warning modal on screen addPropertyInfo',
+        build: () => AddPropertyCubit(),
+        seed: () => const PageViewNavigationState(1),
+        act: (bloc) => bloc.onShowLostDataModal(),
+        expect: () => [isA<OpenLostDataWarningModal>()],
+      );
+
+      blocTest<AddPropertyCubit, AddPropertyState>(
+        'show lost data warning modal on screen addPropertyFeatures ',
+        build: () => AddPropertyCubit(),
+        seed: () => const PageViewNavigationState(2),
+        act: (bloc) => bloc.onShowLostDataModal(),
+        expect: () => [isA<OpenLostDataWarningModal>()],
+      );
+
+      blocTest<AddPropertyCubit, AddPropertyState>(
+        'show lost data warning modal on screen addPropertyFeatures ',
+        build: () => AddPropertyCubit(),
+        seed: () => const PageViewNavigationState(3),
+        act: (bloc) => bloc.onShowLostDataModal(),
+        expect: () => [isA<OpenLostDataWarningModal>()],
+      );
+
+      blocTest<AddPropertyCubit, AddPropertyState>(
+        'show lost data warning modal on screen addImageScreen ',
+        build: () => AddPropertyCubit(),
+        seed: () => const PageViewNavigationState(4),
+        act: (bloc) => bloc.onShowLostDataModal(),
+        expect: () => [isA<OpenLostDataWarningModal>()],
+      );
+
+      blocTest<AddPropertyCubit, AddPropertyState>(
+        'show lost data warning modal on screen preview photo ',
+        build: () => AddPropertyCubit(),
+        seed: () => const PageViewNavigationState(4),
+        act: (bloc) => bloc.onShowLostDataModal(),
+        expect: () => [isA<OpenLostDataWarningModal>()],
+      );
+
+      blocTest<AddPropertyCubit, AddPropertyState>(
+        'show lost data warning modal on screen preview property',
+        build: () => AddPropertyCubit(),
+        seed: () => const PageViewNavigationState(5),
+        act: (bloc) => bloc.onShowLostDataModal(),
+        expect: () => [isA<OpenLostDataWarningModal>()],
+      );
+
+      blocTest<AddPropertyCubit, AddPropertyState>('close modal',
+          build: () => AddPropertyCubit(),
+          act: (bloc) => bloc.onCloseLostDataModal(),
+          expect: () => [isA<NextButtonEnable>()]);
+
+      blocTest<AddPropertyCubit, AddPropertyState>(
+          'reset data and exit add property flow',
+          build: () => AddPropertyCubit(),
+          act: (bloc) => bloc.onResetData(),
+          expect: () => [isA<ExitAddPropertyFlow>()]);
+    });
   });
 
   test('test initial state', () {
