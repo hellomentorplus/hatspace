@@ -17,7 +17,7 @@
   "inbox": "Inbox",
   "profile": "Profile",
   "chooseUserRole": "Choose your role",
-  "chooseUserRoleDescription": "You can be tenant or homeowner, OR you can be both.",
+  "chooseUserRoleDescription": "You can be tenant or homeowner",
   "userTitleRoles": "{role,select,tenant{Tenant} homeowner{Homeowner} other{}}",
   "userRoleDescription": "{description, select, tenant{You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.} homeowner{You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.} other{}}",
   "continueBtn": "Continue",
@@ -110,6 +110,7 @@
     }
   },
   "availableDateColon": "Available date:",
+  "signUp": "Sign up",
   "login": "Login",
   "loginDescription": "You need to be logged in to view this content",
   "yesLoginNow": "Yes, login now",
