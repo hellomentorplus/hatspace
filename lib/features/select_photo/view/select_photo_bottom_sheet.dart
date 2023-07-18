@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/features/select_photo/view/widgets/item_square_view.dart';
+import 'package:hatspace/features/select_photo/view_model/photo_selection_cubit.dart';
 import 'package:hatspace/features/select_photo/view_model/select_photo_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 enum PhotoTabs {
   allPhotos,
@@ -35,8 +37,15 @@ class SelectPhotoBottomSheet extends StatelessWidget {
   const SelectPhotoBottomSheet({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => BlocProvider<SelectPhotoCubit>(
-        create: (context) => SelectPhotoCubit()..loadPhotos(),
+  Widget build(BuildContext context) => MultiBlocProvider(
+        providers: [
+          BlocProvider<SelectPhotoCubit>(
+            create: (context) => SelectPhotoCubit()..loadPhotos(),
+          ),
+          BlocProvider<PhotoSelectionCubit>(
+            create: (context) => PhotoSelectionCubit(),
+          )
+        ],
         child: const _SelectPhotoBottomSheet(),
       );
 }
@@ -96,24 +105,72 @@ class _SelectPhotoBottomSheetState extends State<_SelectPhotoBottomSheet>
       );
 }
 
-class AllPhotosView extends StatelessWidget {
+class AllPhotosView extends StatefulWidget {
   const AllPhotosView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) =>
-      BlocBuilder<SelectPhotoCubit, SelectPhotoState>(
-        builder: (context, state) => state is PhotosLoaded
-            ? GridView(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    childAspectRatio: 1,
-                    crossAxisSpacing: 1),
-                children: List.generate(
-                  state.photos.length,
-                  (index) => ImageSquareView(index: index),
-                ))
-            : const SizedBox(),
-      );
+  State<AllPhotosView> createState() => _AllPhotosViewState();
+}
+
+class _AllPhotosViewState extends State<AllPhotosView> {
+  List<bool> isSelectedList = [];
+  List<int> selectedIndices = [];
+  int selectedCount = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(child: BlocBuilder<SelectPhotoCubit, SelectPhotoState>(
+          builder: (context, state) {
+            if (state is PhotosLoaded) {
+              if (isSelectedList.isEmpty) {
+                isSelectedList = List.filled(state.photos.length, false);
+              }
+              return GridView(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      childAspectRatio: 1,
+                      crossAxisSpacing: 1),
+                  children: List.generate(
+                    state.photos.length,
+                    (index) => ImageSquareView(index: index),
+                  ));
+            }
+
+            return const SizedBox();
+          },
+        )),
+        BlocBuilder<PhotoSelectionCubit, PhotoSelectionState>(
+          builder: (context, state) {
+            int count = 0;
+            bool uploadEnable = false;
+
+            if (state is PhotoSelectionUpdated) {
+              count = state.count;
+              uploadEnable = state.enableUpload;
+            }
+
+            return SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: HsDimens.spacing16,
+                    vertical: HsDimens.spacing8),
+                child: PrimaryButton(
+                  label: HatSpaceStrings.current.uploadPhotoCount(count),
+                  onPressed: uploadEnable
+                      ? () {
+                          // TODO handle upload button
+                        }
+                      : null,
+                ),
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
 }
 
 extension SelectPhotoBottomSheetExtension on BuildContext {
