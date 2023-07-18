@@ -646,10 +646,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Hi there 👋`
+  /// `👋 Hi there`
   String get welcomeDefault {
     return Intl.message(
-      'Hi there 👋',
+      '👋 Hi there',
       name: 'welcomeDefault',
       desc: '',
       args: [],

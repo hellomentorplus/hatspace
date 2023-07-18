@@ -93,7 +93,7 @@ void main() {
         create: (context) => authenticationBloc,
       )
     ], widget);
-    expect(find.text('Hi there 👋'), findsOneWidget);
+    expect(find.text('👋 Hi there'), findsOneWidget);
   });
 
   testWidgets('Check home screen title when user login',

@@ -124,7 +124,7 @@ void main() {
           )
         ], widget);
         expect(find.byType(AppBar), findsOneWidget);
-        expect(find.text('Hi there 👋'), findsOneWidget);
+        expect(find.text('👋 Hi there'), findsOneWidget);
         expect(find.text('Search rental, location...'), findsOneWidget);
         expect(find.byType(BottomAppBar), findsOneWidget);
       });
