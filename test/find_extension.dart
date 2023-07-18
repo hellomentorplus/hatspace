@@ -55,40 +55,40 @@ extension HsFindExtension on CommonFinders {
       });
 
   Finder containerWithImageFile(String path) => byWidgetPredicate((widget) {
-    if (widget is! Container) {
-      return false;
-    }
+        if (widget is! Container) {
+          return false;
+        }
 
-    final Decoration? decoration = widget.decoration;
+        final Decoration? decoration = widget.decoration;
 
-    if (decoration == null) {
-      return false;
-    }
+        if (decoration == null) {
+          return false;
+        }
 
-    if (decoration is! BoxDecoration) {
-      return false;
-    }
+        if (decoration is! BoxDecoration) {
+          return false;
+        }
 
-    DecorationImage? decorationImage = decoration.image;
+        DecorationImage? decorationImage = decoration.image;
 
-    if (decorationImage == null) {
-      return false;
-    }
+        if (decorationImage == null) {
+          return false;
+        }
 
-    if (decorationImage.image is! FileImage) {
-      return false;
-    }
+        if (decorationImage.image is! FileImage) {
+          return false;
+        }
 
-    ImageProvider imageProvider = decorationImage.image;
+        ImageProvider imageProvider = decorationImage.image;
 
-    if (imageProvider is! FileImage) {
-      return false;
-    }
+        if (imageProvider is! FileImage) {
+          return false;
+        }
 
-    if (imageProvider.file.path != path) {
-      return false;
-    }
+        if (imageProvider.file.path != path) {
+          return false;
+        }
 
-    return true;
-  });
+        return true;
+      });
 }

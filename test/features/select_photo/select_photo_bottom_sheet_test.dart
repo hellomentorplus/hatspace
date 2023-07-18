@@ -25,7 +25,8 @@ void main() async {
         .thenAnswer((realInvocation) => const Stream.empty());
 
     when(photoSelectionCubit.state).thenReturn(PhotoSelectionInitial());
-    when(photoSelectionCubit.stream).thenAnswer((realInvocation) => const Stream.empty());
+    when(photoSelectionCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   test('verify photo tab label', () {
@@ -56,9 +57,13 @@ void main() async {
     const Widget widget = AllPhotosView();
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
-      BlocProvider<SelectPhotoCubit>(create: (context) => selectPhotoCubit,),
-      BlocProvider<PhotoSelectionCubit>(create: (context) => photoSelectionCubit,)
-    ], widget));
+          BlocProvider<SelectPhotoCubit>(
+            create: (context) => selectPhotoCubit,
+          ),
+          BlocProvider<PhotoSelectionCubit>(
+            create: (context) => photoSelectionCubit,
+          )
+        ], widget));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(GridView), findsOneWidget);
@@ -84,9 +89,13 @@ void main() async {
     const Widget widget = AllPhotosView();
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
-      BlocProvider<SelectPhotoCubit>(create: (context) => selectPhotoCubit,),
-      BlocProvider<PhotoSelectionCubit>(create: (context) => photoSelectionCubit,)
-    ], widget));
+          BlocProvider<SelectPhotoCubit>(
+            create: (context) => selectPhotoCubit,
+          ),
+          BlocProvider<PhotoSelectionCubit>(
+            create: (context) => photoSelectionCubit,
+          )
+        ], widget));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(GridView), findsNothing);

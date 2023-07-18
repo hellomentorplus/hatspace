@@ -19,7 +19,13 @@ import '../../find_extension.dart';
 import '../../widget_tester_extension.dart';
 import 'item_square_view_test.mocks.dart';
 
-@GenerateMocks([PhotoService, SelectPhotoCubit, ImageThumbnailCubit, File, PhotoSelectionCubit])
+@GenerateMocks([
+  PhotoService,
+  SelectPhotoCubit,
+  ImageThumbnailCubit,
+  File,
+  PhotoSelectionCubit
+])
 void main() {
   final MockPhotoService photoService = MockPhotoService();
   final MockSelectPhotoCubit selectPhotoCubit = MockSelectPhotoCubit();
@@ -39,8 +45,10 @@ void main() {
     when(file.length()).thenAnswer((realInvocation) => Future.value(10));
     when(file.readAsBytes())
         .thenAnswer((realInvocation) => generateImageBytes());
-    when(photoSelectionCubit.state).thenAnswer((realInvocation) => PhotoSelectionInitial());
-    when(photoSelectionCubit.stream).thenAnswer((realInvocation) => const Stream.empty());
+    when(photoSelectionCubit.state)
+        .thenAnswer((realInvocation) => PhotoSelectionInitial());
+    when(photoSelectionCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   testWidgets('verify bloc used in this widget', (widgetTester) async {

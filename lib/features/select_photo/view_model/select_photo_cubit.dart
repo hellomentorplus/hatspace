@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -20,7 +19,8 @@ class SelectPhotoCubit extends Cubit<SelectPhotoState> {
     _galleryList = await PhotoManager.getAssetListRange(
         type: RequestType.image, start: 0, end: totalCount);
 
-    _galleryList.removeWhere((element) => element.width == 0 || element.height == 0);
+    _galleryList
+        .removeWhere((element) => element.width == 0 || element.height == 0);
 
     emit(PhotosLoaded(_galleryList));
   }

@@ -8,8 +8,7 @@ class PhotoService {
   Future<File> createThumbnail(File original, {int targetBytes = 200}) async {
     // try to search for this thumbnail in thumbnail folder
     Directory directory = await getApplicationDocumentsDirectory();
-    final String fileName =
-        original.path.replaceAll('/', '_');
+    final String fileName = original.path.replaceAll('/', '_');
     final String compressFilePath = '${directory.path}/thumbnail/$fileName';
     File compressedFile = File(compressFilePath);
 
@@ -30,8 +29,7 @@ class PhotoService {
       int percentage = (targetBytes * 100 * 1024) ~/ imageBytes;
 
       if (percentage < 100) {
-        compressedFile = await FlutterNativeImage.compressImage(
-            original.path,
+        compressedFile = await FlutterNativeImage.compressImage(original.path,
             percentage: percentage);
 
         final int compressedBytes = compressedFile.lengthSync();
