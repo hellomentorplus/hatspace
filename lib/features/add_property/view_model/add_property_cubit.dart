@@ -9,6 +9,7 @@ enum NavigatePage { forward, reverse }
 class AddPropertyCubit extends Cubit<AddPropertyState> {
   AddPropertyCubit() : super(const AddPropertyInitial());
   bool isAddPropertyFlowInteracted = false;
+
   /// Defines all value needed for a property
   /// 1. Choose kind of place
   PropertyTypes _type = PropertyTypes.house;

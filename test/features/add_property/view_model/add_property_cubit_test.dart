@@ -259,7 +259,7 @@ void main() {
           build: () => AddPropertyCubit(),
           seed: () => const PageViewNavigationState(0),
           act: (bloc) {
-            bloc.isPropertyScreenInteracted = true;
+            bloc.isAddPropertyFlowInteracted = true;
             bloc.onShowLostDataModal();
           },
           expect: () => [isA<OpenLostDataWarningModal>()]);
