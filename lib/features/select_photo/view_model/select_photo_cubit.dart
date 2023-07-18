@@ -19,6 +19,9 @@ class SelectPhotoCubit extends Cubit<SelectPhotoState> {
     _galleryList = await PhotoManager.getAssetListRange(
         type: RequestType.image, start: 0, end: totalCount);
 
+    _galleryList
+        .removeWhere((element) => element.width == 0 || element.height == 0);
+
     emit(PhotosLoaded(_galleryList));
   }
 }

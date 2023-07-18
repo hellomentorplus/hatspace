@@ -1084,6 +1084,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Upload {n, plural, =0{({n}) photo} =1{({n}) photo} other{({n}) photos}}`
+  String uploadPhotoCount(num n) {
+    return Intl.message(
+      'Upload ${Intl.plural(n, zero: '($n) photo', one: '($n) photo', other: '($n) photos')}',
+      name: 'uploadPhotoCount',
+      desc: '',
+      args: [n],
+    );
+  }
+
   /// `Lost Data`
   String get lostDataTitle {
     return Intl.message(
