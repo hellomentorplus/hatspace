@@ -61,6 +61,8 @@ void main() {
           message: 'Success',
           accessToken: mockAccessToken));
     });
+    when(firebaseAuth.authStateChanges())
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   test('given facebook login success', () {

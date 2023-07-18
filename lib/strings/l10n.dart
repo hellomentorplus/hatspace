@@ -170,10 +170,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `You can be tenant or homeowner, OR you can be both.`
+  /// `You can be tenant or homeowner`
   String get chooseUserRoleDescription {
     return Intl.message(
-      'You can be tenant or homeowner, OR you can be both.',
+      'You can be tenant or homeowner',
       name: 'chooseUserRoleDescription',
       desc: '',
       args: [],
@@ -924,6 +924,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Sign up`
+  String get signUp {
+    return Intl.message(
+      'Sign up',
+      name: 'signUp',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Login`
   String get login {
     return Intl.message(
@@ -1081,6 +1091,46 @@ class HatSpaceStrings {
       name: 'uploadPhotoCount',
       desc: '',
       args: [count],
+    );
+  }
+
+  /// `Lost Data`
+  String get lostDataTitle {
+    return Intl.message(
+      'Lost Data',
+      name: 'lostDataTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your data may be lost if you cancel adding new property. Are you sure you want to cancel?`
+  String get lostDataDescription {
+    return Intl.message(
+      'Your data may be lost if you cancel adding new property. Are you sure you want to cancel?',
+      name: 'lostDataDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
     );
   }
 }

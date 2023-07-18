@@ -66,6 +66,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/google.svg
   String get google => 'assets/icons/google.svg';
 
+  /// File path: assets/icons/homeowner.svg
+  String get homeowner => 'assets/icons/homeowner.svg';
+
   /// File path: assets/icons/ic_agent.svg
   String get icAgent => 'assets/icons/ic_agent.svg';
 
@@ -95,6 +98,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/swimming_pool.svg
   String get swimmingPool => 'assets/icons/swimming_pool.svg';
+
+  /// File path: assets/icons/tenant.svg
+  String get tenant => 'assets/icons/tenant.svg';
 
   /// File path: assets/icons/text_field_error.svg
   String get textFieldError => 'assets/icons/text_field_error.svg';
@@ -128,6 +134,7 @@ class $AssetsIconsGen {
         filter,
         fridge,
         google,
+        homeowner,
         icAgent,
         kitchen,
         message,
@@ -138,6 +145,7 @@ class $AssetsIconsGen {
         search,
         securityCameras,
         swimmingPool,
+        tenant,
         textFieldError,
         tv,
         washingMachine,
@@ -171,6 +179,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/chevron_right.svg
   String get chevronRight => 'assets/images/chevron_right.svg';
+
+  /// File path: assets/images/circle_warning.svg
+  String get circleWarning => 'assets/images/circle_warning.svg';
 
   /// File path: assets/images/close-clear.svg
   String get closeClear => 'assets/images/close-clear.svg';
@@ -240,6 +251,7 @@ class $AssetsImagesGen {
         chervonDown,
         chevronLeft,
         chevronRight,
+        circleWarning,
         closeClear,
         closeDark,
         closeIcon,
