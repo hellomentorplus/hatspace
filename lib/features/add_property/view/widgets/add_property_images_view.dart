@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,10 +7,13 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_image_selected_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_images_cubit.dart';
 import 'package:hatspace/features/select_photo/view/select_photo_bottom_sheet.dart';
+import 'package:hatspace/features/select_photo/view_model/photo_selection_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
+import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/widgets/hs_dotted_container.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 
 class AddPropertyImagesView extends StatelessWidget {
@@ -86,10 +91,10 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
           });
         }
       },
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: HsDimens.spacing16, vertical: HsDimens.spacing24),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: HsDimens.spacing16, vertical: HsDimens.spacing24),
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -105,6 +110,9 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
                 height: HsDimens.spacing20,
               ),
               BlocBuilder<AddPropertyImageSelectedCubit, AddPropertyImageSelectedState>(builder: (context, state) {
+                if (state is PhotoSelectionReturned) {
+                  return _PhotoPreviewView(paths: state.paths);
+                }
                 return InkWell(
                   onTap: () {
                     context.read<AddPropertyImagesCubit>().checkPhotoPermission();
@@ -138,3 +146,37 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
     ));
   }
 }
+
+class _PhotoPreviewView extends StatelessWidget {
+  final List<String> paths;
+  const _PhotoPreviewView({required this.paths, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => Column(
+    children: [
+      // first photo, large full display
+      AspectRatio(
+        aspectRatio: 343/220,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(HsDimens.radius8),
+              child: Image.file(File(paths.first), fit: BoxFit.cover,))),
+      const SizedBox(height: HsDimens.spacing8,),
+      GridView(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        childAspectRatio: 1.0,
+        crossAxisSpacing: HsDimens.spacing8,
+        mainAxisSpacing: HsDimens.spacing8
+      ),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        children: paths.sublist(1).map<Widget>((e) => ClipRRect(
+          borderRadius: BorderRadius.circular(HsDimens.radius8),
+            child: Image.file(File(e), fit: BoxFit.cover,)))
+            .toList()..add(const HsDottedContainer(
+
+        )),
+      )
+    ],
+  );
+}
+

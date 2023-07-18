@@ -39,6 +39,7 @@ class HsDimens {
   static const double gridSpacing = 4.0;
 
   // sizes
+  static const double size1 = 1.0;
   static const double size2 = 2.0;
   static const double size6 = 6.0;
   static const double size12 = 12.0;

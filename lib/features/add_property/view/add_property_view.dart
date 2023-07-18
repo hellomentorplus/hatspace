@@ -124,7 +124,8 @@ class AddPropertyPageBody extends StatelessWidget {
               itemBuilder: (context, index) {
                 return pages[index];
               },
-            )),
+            ),
+        ),
       ),
     );
   }

@@ -8,3 +8,13 @@ class AddPropertyImageSelectedInitial extends AddPropertyImageSelectedState {
   @override
   List<Object> get props => [];
 }
+
+class PhotoSelectionReturned extends AddPropertyImageSelectedState {
+  final List<String> paths;
+
+  const PhotoSelectionReturned({required this.paths});
+
+  @override
+  List<Object?> get props => [...paths];
+
+}
