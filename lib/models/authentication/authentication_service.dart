@@ -140,7 +140,7 @@ class AuthenticationService {
   }
 
   Future<void> signOut() async {
-    Future.wait([
+    await Future.wait([
       _googleSignIn.signOut(),
       _facebookAuth.logOut(),
       _firebaseAuth.signOut()
