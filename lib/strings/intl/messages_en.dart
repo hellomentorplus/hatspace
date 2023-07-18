@@ -41,7 +41,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m4(count) =>
       "${Intl.plural(count, zero: 'No rent period', one: '1 Month', other: ' ${count} Months ')}";
 
-  static String m5(description) => "${Intl.select(description, {
+  static String m5(n) =>
+      "Upload ${Intl.plural(n, zero: '(${n}) photo', one: '(${n}) photo', other: '(${n}) photos')}";
+
+  static String m6(description) => "${Intl.select(description, {
             'tenant':
                 'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
             'homeowner':
@@ -49,15 +52,15 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': '',
           })}";
 
-  static String m6(role) => "${Intl.select(role, {
+  static String m7(role) => "${Intl.select(role, {
             'tenant': 'Tenant',
             'homeowner': 'Homeowner',
             'other': '',
           })}";
 
-  static String m7(number) => "${number} views today";
+  static String m8(number) => "${number} views today";
 
-  static String m8(name) => "👋 Hi ${name}";
+  static String m9(name) => "👋 Hi ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -192,13 +195,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "tv": MessageLookupByLibrary.simpleMessage("TV"),
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
-        "userRoleDescription": m5,
-        "userTitleRoles": m6,
-        "viewsToday": m7,
+        "uploadPhotoCount": m5,
+        "userRoleDescription": m6,
+        "userTitleRoles": m7,
+        "viewsToday": m8,
         "washingMachine":
             MessageLookupByLibrary.simpleMessage("Washing machine"),
         "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
-        "welcomeName": m8,
+        "welcomeName": m9,
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
         "wifi": MessageLookupByLibrary.simpleMessage("Wifi"),

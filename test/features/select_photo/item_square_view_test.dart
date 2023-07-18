@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:hatspace/features/select_photo/view/widgets/item_square_view.dart';
 import 'package:hatspace/features/select_photo/view_model/image_thumbnail_cubit.dart';
+import 'package:hatspace/features/select_photo/view_model/photo_selection_cubit.dart';
 import 'package:hatspace/features/select_photo/view_model/select_photo_cubit.dart';
 import 'package:hatspace/models/photo/photo_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
@@ -14,14 +15,22 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:photo_manager/photo_manager.dart';
 
+import '../../find_extension.dart';
 import '../../widget_tester_extension.dart';
 import 'item_square_view_test.mocks.dart';
 
-@GenerateMocks([PhotoService, SelectPhotoCubit, ImageThumbnailCubit, File])
+@GenerateMocks([
+  PhotoService,
+  SelectPhotoCubit,
+  ImageThumbnailCubit,
+  File,
+  PhotoSelectionCubit
+])
 void main() {
   final MockPhotoService photoService = MockPhotoService();
   final MockSelectPhotoCubit selectPhotoCubit = MockSelectPhotoCubit();
   final MockImageThumbnailCubit imageThumbnailCubit = MockImageThumbnailCubit();
+  final MockPhotoSelectionCubit photoSelectionCubit = MockPhotoSelectionCubit();
   final MockFile file = MockFile();
 
   setUpAll(() {
@@ -36,6 +45,10 @@ void main() {
     when(file.length()).thenAnswer((realInvocation) => Future.value(10));
     when(file.readAsBytes())
         .thenAnswer((realInvocation) => generateImageBytes());
+    when(photoSelectionCubit.state)
+        .thenAnswer((realInvocation) => PhotoSelectionInitial());
+    when(photoSelectionCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   testWidgets('verify bloc used in this widget', (widgetTester) async {
@@ -68,9 +81,14 @@ void main() {
 
       const Widget widget = ImageSquareBody();
 
-      await widgetTester.blocWrapAndPump<ImageThumbnailCubit>(
-          imageThumbnailCubit, widget,
-          infiniteAnimationWidget: true);
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<ImageThumbnailCubit>(
+          create: (context) => imageThumbnailCubit,
+        ),
+        BlocProvider<PhotoSelectionCubit>(
+          create: (context) => photoSelectionCubit,
+        )
+      ], widget, infiniteAnimationWidget: true);
 
       expect(find.byType(SizedBox), findsOneWidget);
     });
@@ -86,11 +104,16 @@ void main() {
 
       const Widget widget = ImageSquareBody();
 
-      await widgetTester.blocWrapAndPump<ImageThumbnailCubit>(
-          imageThumbnailCubit, widget,
-          infiniteAnimationWidget: true);
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<ImageThumbnailCubit>(
+          create: (context) => imageThumbnailCubit,
+        ),
+        BlocProvider<PhotoSelectionCubit>(
+          create: (context) => photoSelectionCubit,
+        )
+      ], widget, infiniteAnimationWidget: true);
 
-      expect(find.byType(Image), findsOneWidget);
+      expect(find.containerWithImageFile('path'), findsOneWidget);
     });
   });
 }
