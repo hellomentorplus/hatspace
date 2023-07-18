@@ -197,7 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewsToday": m7,
         "washingMachine":
             MessageLookupByLibrary.simpleMessage("Washing machine"),
-        "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
+        "welcomeDefault": MessageLookupByLibrary.simpleMessage("👋 Hi there"),
         "welcomeName": m8,
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
