@@ -41,7 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m4(count) =>
       "${Intl.plural(count, zero: 'No rent period', one: '1 Month', other: ' ${count} Months ')}";
 
-  static String m5(count) => "Upload (${count}) photos";
+  static String m5(n) =>
+      "Upload ${Intl.plural(n, zero: '(${n}) photo', one: '(${n}) photo', other: '(${n}) photos')}";
 
   static String m6(description) => "${Intl.select(description, {
             'tenant':
