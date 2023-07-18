@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_image_selected_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_images_cubit.dart';
 import 'package:hatspace/features/select_photo/view/select_photo_bottom_sheet.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -15,8 +16,15 @@ class AddPropertyImagesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AddPropertyImagesCubit>(
-      create: (context) => AddPropertyImagesCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AddPropertyImagesCubit>(
+          create: (context) => AddPropertyImagesCubit(),
+        ),
+        BlocProvider<AddPropertyImageSelectedCubit>(
+          create: (context) => AddPropertyImageSelectedCubit(),
+        )
+      ],
       child: const AddPropertyImagesBody(),
     );
   }
@@ -68,9 +76,14 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
 
         if (state is PhotoPermissionGranted) {
           // open photo screen
-          context.showSelectPhotoBottomSheet().then((result) => context
-              .read<AddPropertyImagesCubit>()
-              .onSelectPhotoBottomSheetDismissed(result));
+          context.showSelectPhotoBottomSheet().then((result) {
+            context
+                .read<AddPropertyImagesCubit>()
+                .onSelectPhotoBottomSheetDismissed(result);
+
+            context.read<AddPropertyImageSelectedCubit>()
+                .onPhotosSelected(result);
+          });
         }
       },
       child: SingleChildScrollView(
@@ -91,12 +104,14 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
               const SizedBox(
                 height: HsDimens.spacing20,
               ),
-              InkWell(
-                onTap: () {
-                  context.read<AddPropertyImagesCubit>().checkPhotoPermission();
-                },
-                child: SvgPicture.asset(Assets.images.uploadPhoto),
-              ),
+              BlocBuilder<AddPropertyImageSelectedCubit, AddPropertyImageSelectedState>(builder: (context, state) {
+                return InkWell(
+                  onTap: () {
+                    context.read<AddPropertyImagesCubit>().checkPhotoPermission();
+                  },
+                  child: SvgPicture.asset(Assets.images.uploadPhoto),
+                );
+              },),
             ],
           ),
         ),

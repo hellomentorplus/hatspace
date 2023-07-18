@@ -25,7 +25,7 @@ class ImageThumbnailCubit extends Cubit<ImageThumbnailState> {
     final File thumbnail = await _photoService.createThumbnail(file);
     if (!isClosed) {
       emit(ThumbnailLoaded(
-          thumbnail: thumbnail, width: entity.width, height: entity.height));
+          thumbnail: thumbnail, originalPath: file.path, width: entity.width, height: entity.height));
     }
   }
 }
