@@ -23,3 +23,18 @@ class PhotosLoaded extends SelectPhotoState {
   @override
   List<Object?> get props => [Pipe.createSync()];
 }
+
+class OpenLostDataBottomSheet extends SelectPhotoState {
+  @override
+  List<Object> get props => [];
+}
+
+class CloseLostDataBottomSheet extends SelectPhotoState {
+  @override
+  List<Object> get props => [];
+}
+
+class CloseSelectPhotoScreen extends SelectPhotoState {
+  @override
+  List<Object> get props => [];
+}
