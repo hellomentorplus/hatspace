@@ -12,6 +12,7 @@ import 'package:hatspace/features/home/view_model/home_interaction_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
+import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
@@ -33,6 +34,7 @@ import 'home_view_test.mocks.dart';
   AuthenticationService,
   AuthenticationBloc,
   PropertyService,
+  MemberService,
   GetPropertiesCubit,
   HomeInteractionCubit
 ])
@@ -45,6 +47,7 @@ void main() {
   final MockAuthenticationBloc authenticationBloc = MockAuthenticationBloc();
   final MockPropertyService propertyService = MockPropertyService();
   final MockGetPropertiesCubit getPropertiesCubit = MockGetPropertiesCubit();
+  final MockMemberService memberService = MockMemberService();
   final MockHomeInteractionCubit interactionCubit = MockHomeInteractionCubit();
   late final List<BlocProvider<StateStreamableSource<Object?>>>
       requiredHomeBlocs;
@@ -74,6 +77,7 @@ void main() {
         (realInvocation) => Stream.value(const AppConfigInitialState()));
     when(appConfigBloc.state).thenReturn(const AppConfigInitialState());
     when(storageService.property).thenReturn(propertyService);
+    when(storageService.member).thenReturn(memberService);
   });
 
   group(
@@ -293,18 +297,89 @@ void main() {
     });
   });
 
-  // Verify "Add Homeowner Role" bottom sheet modal
-  group('Verify "Add Homeowner Role" bottom sheet modal', () {
-     setUp(() {
-        when(getPropertiesCubit.state)
-            .thenAnswer((_) => const GetPropertiesInitialState());
-        when(getPropertiesCubit.stream)
-            .thenAnswer((_) => Stream.value(const GetPropertiesInitialState()));
-        when(interactionCubit.state).thenAnswer(
-            (_) => const OpenLoginBottomSheetModal(BottomBarItems.explore));
-        when(interactionCubit.stream).thenAnswer((_) => Stream.value(
-            const OpenLoginBottomSheetModal(BottomBarItems.explore)));
-      });
+  group('Test Add Property button when user is not homeowner', () {
+    setUp(() {
+      final UserDetail userDetail =
+          UserDetail(uid: 'uid', displayName: 'displayName');
+      when(authenticationBloc.state)
+          .thenAnswer((realInvocation) => AuthenticatedState(userDetail));
+      when(authenticationBloc.stream).thenAnswer(
+          (realInvocation) => Stream.value(AuthenticatedState(userDetail)));
+      when(getPropertiesCubit.state)
+          .thenAnswer((_) => const GetPropertiesInitialState());
+      when(getPropertiesCubit.stream)
+          .thenAnswer((_) => Stream.value(const GetPropertiesInitialState()));
+    });
+
+    tearDown(() {
+      reset(authenticationBloc);
+      reset(appConfigBloc);
+    });
+
+    testWidgets(
+        'Given user is at homepage, logged in and role is tenant'
+        'User taps on Add_Property button on bottom bar navigation'
+        'Then show bottom sheet update “Homeowner” role', (widgetTester) async {
+      const Widget widget = HomePageBody();
+      await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
+      await expectLater(find.byType(HomePageBody), findsOneWidget);
+
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
+      when(memberService.getUserRoles(any))
+          .thenAnswer((realInvocation) => Future.value([Roles.tenant]));
+      when(interactionCubit.state).thenAnswer((_) => ShowAddRoleModal());
+      when(interactionCubit.stream)
+          .thenAnswer((_) => Stream.value(ShowAddRoleModal()));
+
+      // Verify tap on add property button
+      await widgetTester.tap(find.ancestor(
+          of: find.svgPictureWithAssets(Assets.icons.add),
+          matching: find.byType(InkWell)));
+      await widgetTester.pumpAndSettle();
+      verify(
+          interactionCubit.onBottomItemTapped(BottomBarItems.addingProperty));
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+
+      //verify UI
+      expect(find.text('Add Homeowner role'), findsOneWidget);
+      expect(
+          find.text(
+              'Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?'),
+          findsOneWidget);
+      expect(find.svgPictureWithAssets(Assets.images.landlordCircle),
+          findsOneWidget);
+      expect(find.widgetWithText(PrimaryButton, 'Add Homeowner role'),
+          findsOneWidget);
+      expect(find.widgetWithText(SecondaryButton, 'Later'), findsOneWidget);
+    });
+
+    testWidgets(
+        'Given bottom sheet update “Homeowner” role displayed'
+        'When users tap on button “Later”'
+        'Then close bottom sheet update “Homeowner” role',
+        (widgetTester) async {
+      when(interactionCubit.state).thenAnswer((_) => ShowAddRoleModal());
+      when(interactionCubit.stream)
+          .thenAnswer((_) => Stream.value(ShowAddRoleModal()));
+
+      const Widget widget = HomePageBody();
+      await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
+      await expectLater(find.byType(HomePageBody), findsOneWidget);
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+
+      Finder closeBtn = find.widgetWithText(SecondaryButton, 'Later');
+      await widgetTester.ensureVisible(closeBtn);
+      await widgetTester.tap(closeBtn);
+      await widgetTester.pumpAndSettle();
+      verify(interactionCubit.onCloseModal()).called(1);
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+    });
+
+    testWidgets(
+        'Given bottom sheet update “Homeowner” role displayed'
+        'Then HAT system add role ”Homeowner” for this user'
+        'Then navigate user to screen “Choose kind of place”',
+        (widgetTester) async {});
   });
 
   group('[Properties] Property list', () {
