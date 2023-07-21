@@ -75,7 +75,9 @@ void main() async {
             isFalse);
 
         // given string contains number, then return false
-        expect(ErrorType.nameContainsInvalidChars.check('text with number 1  to 9'),
+        expect(
+            ErrorType.nameContainsInvalidChars
+                .check('text with number 1  to 9'),
             isFalse);
 
         // given string contains invalid char, then return true
