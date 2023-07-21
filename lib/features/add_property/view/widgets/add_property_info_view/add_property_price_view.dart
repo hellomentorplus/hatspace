@@ -141,6 +141,11 @@ class PriceInputTextFormatter extends TextInputFormatter {
       return oldValue;
     }
 
+    if (number.toInt().toString().length > 8) {
+      // max digits allow
+      return oldValue;
+    }
+
     if (decimalText.isNotEmpty) {
       final RegExp regExp = RegExp(r'^[0-9]+$');
       if (!regExp.hasMatch(decimalText)) {
