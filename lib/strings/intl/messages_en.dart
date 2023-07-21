@@ -79,7 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "available": MessageLookupByLibrary.simpleMessage("Available"),
         "availableDate": MessageLookupByLibrary.simpleMessage("Available date"),
         "availableDateColon":
-            MessageLookupByLibrary.simpleMessage("Available date:"),
+            MessageLookupByLibrary.simpleMessage("Available: "),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
