@@ -23,7 +23,8 @@ class AddPropertySuburbView extends StatefulWidget {
   State<AddPropertySuburbView> createState() => _AddPropertySuburbViewState();
 }
 
-class _AddPropertySuburbViewState extends State<AddPropertySuburbView> {
+class _AddPropertySuburbViewState extends State<AddPropertySuburbView>
+    with AutomaticKeepAliveClientMixin<AddPropertySuburbView> {
   final FocusNode _suburbFocusNode = FocusNode();
   final FocusNode _postalCodeFocusNode = FocusNode();
 
@@ -61,6 +62,7 @@ class _AddPropertySuburbViewState extends State<AddPropertySuburbView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,6 +101,9 @@ class _AddPropertySuburbViewState extends State<AddPropertySuburbView> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class SuburbTextInputFormatter extends TextInputFormatter {
