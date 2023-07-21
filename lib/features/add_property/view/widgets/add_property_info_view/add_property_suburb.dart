@@ -62,6 +62,7 @@ class _AddPropertySuburbViewState extends State<AddPropertySuburbView>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,

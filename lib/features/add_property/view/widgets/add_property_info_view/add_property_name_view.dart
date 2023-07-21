@@ -55,7 +55,6 @@ class _AddPropertyNameViewState extends State<AddPropertyNameView>
   void initState() {
     super.initState();
 
-    print('SUESI new state for add property name');
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
         ErrorType? error = _error.value;
@@ -79,6 +78,7 @@ class _AddPropertyNameViewState extends State<AddPropertyNameView>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ValueListenableBuilder(
       valueListenable: _error,
       builder: (context, error, child) => HatSpaceInputText(

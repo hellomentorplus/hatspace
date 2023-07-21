@@ -68,6 +68,7 @@ class _AddPropertyPriceViewState extends State<AddPropertyPriceView>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ValueListenableBuilder<ErrorType?>(
       valueListenable: _error,
       builder: (context, value, child) => HatSpaceInputText(
