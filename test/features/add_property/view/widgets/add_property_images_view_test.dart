@@ -338,6 +338,8 @@ void main() {
         'given allow add image is true,'
         'when load UI,'
         'then show Add Image view', (widgetTester) async {
+          when(addPropertyImagesCubit.state).thenReturn(AddPropertyImagesInitial());
+          when(addPropertyImagesCubit.stream).thenAnswer((realInvocation) => Stream.empty());
       when(addPropertyImageSelectedCubit.state).thenReturn(
           PhotoSelectionReturned(
               paths: List.filled(9, 'path'), allowAddImage: true));
