@@ -35,7 +35,7 @@ class AddPropertyPriceView extends StatefulWidget {
   State<AddPropertyPriceView> createState() => _AddPropertyPriceViewState();
 }
 
-class _AddPropertyPriceViewState extends State<AddPropertyPriceView> {
+class _AddPropertyPriceViewState extends State<AddPropertyPriceView> with AutomaticKeepAliveClientMixin<AddPropertyPriceView> {
   final FocusNode _focusNode = FocusNode();
   final ValueNotifier<ErrorType?> _error = ValueNotifier(null);
   final NumberFormat _numberFormat = NumberFormat('#,###.##');
@@ -103,6 +103,9 @@ class _AddPropertyPriceViewState extends State<AddPropertyPriceView> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class PriceInputTextFormatter extends TextInputFormatter {

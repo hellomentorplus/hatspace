@@ -46,7 +46,7 @@ class AddPropertyNameView extends StatefulWidget {
   State<AddPropertyNameView> createState() => _AddPropertyNameViewState();
 }
 
-class _AddPropertyNameViewState extends State<AddPropertyNameView> {
+class _AddPropertyNameViewState extends State<AddPropertyNameView> with AutomaticKeepAliveClientMixin<AddPropertyNameView> {
   final ValueNotifier<ErrorType?> _error = ValueNotifier(null);
   final FocusNode _focusNode = FocusNode();
 
@@ -54,6 +54,7 @@ class _AddPropertyNameViewState extends State<AddPropertyNameView> {
   void initState() {
     super.initState();
 
+    print('SUESI new state for add property name');
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
         ErrorType? error = _error.value;
@@ -92,6 +93,9 @@ class _AddPropertyNameViewState extends State<AddPropertyNameView> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class PropertyNameInputFormatter extends TextInputFormatter {
