@@ -1,5 +1,6 @@
 class HsDimens {
   // lineheight and margin
+  static const double spacing2 = 2.0;
   static const double spacing4 = 4.0;
   static const double spacing6 = 6.0;
   static const double spacing8 = 8.0;

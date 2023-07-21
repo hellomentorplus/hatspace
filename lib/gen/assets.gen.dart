@@ -5,7 +5,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
+// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal
 
 import 'package:flutter/widgets.dart';
 
@@ -35,6 +35,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/close.svg
   String get close => 'assets/icons/close.svg';
+
+  /// File path: assets/icons/close_circle.svg
+  String get closeCircle => 'assets/icons/close_circle.svg';
 
   /// File path: assets/icons/electric_stove.svg
   String get electricStove => 'assets/icons/electric_stove.svg';
@@ -124,6 +127,7 @@ class $AssetsIconsGen {
         car,
         check,
         close,
+        closeCircle,
         electricStove,
         envelope,
         explore,
@@ -192,6 +196,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/close_icon.svg
   String get closeIcon => 'assets/images/close_icon.svg';
 
+  /// File path: assets/images/dash_border.svg
+  String get dashBorder => 'assets/images/dash_border.svg';
+
   /// File path: assets/images/decrement.svg
   String get decrement => 'assets/images/decrement.svg';
 
@@ -238,6 +245,9 @@ class $AssetsImagesGen {
   AssetGenImage get signInBackground =>
       const AssetGenImage('assets/images/signIn_background.png');
 
+  /// File path: assets/images/upload.svg
+  String get upload => 'assets/images/upload.svg';
+
   /// File path: assets/images/upload_photo.svg
   String get uploadPhoto => 'assets/images/upload_photo.svg';
 
@@ -255,6 +265,7 @@ class $AssetsImagesGen {
         closeClear,
         closeDark,
         closeIcon,
+        dashBorder,
         decrement,
         email,
         envelope,
@@ -270,6 +281,7 @@ class $AssetsImagesGen {
         profileCircle,
         searchNormal,
         signInBackground,
+        upload,
         uploadPhoto
       ];
 }
@@ -339,16 +351,7 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
-  }
+  ImageProvider provider() => AssetImage(_assetName);
 
   String get path => _assetName;
 

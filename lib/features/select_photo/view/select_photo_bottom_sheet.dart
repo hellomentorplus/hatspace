@@ -160,9 +160,10 @@ class _AllPhotosViewState extends State<AllPhotosView> {
                   label: HatSpaceStrings.current.uploadPhotoCount(count),
                   onPressed: uploadEnable
                       ? () {
-                    if (state is PhotoSelectionUpdated) {
-                      Navigator.of(context).pop(state.selectedItems.toList());
-                    }
+                          if (state is PhotoSelectionUpdated) {
+                            Navigator.of(context)
+                                .pop(state.selectedItems.toList());
+                          }
                         }
                       : null,
                 ),

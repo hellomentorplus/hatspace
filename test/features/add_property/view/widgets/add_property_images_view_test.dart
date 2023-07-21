@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_images_view.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_image_selected_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_images_cubit.dart';
 import 'package:hatspace/features/select_photo/view/select_photo_bottom_sheet.dart';
+import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/permission/permission_service.dart';
+import 'package:hatspace/models/photo/photo_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
@@ -12,22 +16,37 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
+import '../../../../find_extension.dart';
 import '../../../../widget_tester_extension.dart';
 import 'add_property_images_view_test.mocks.dart';
 
-@GenerateMocks([AddPropertyImagesCubit, HsPermissionService])
+@GenerateMocks([
+  AddPropertyImagesCubit,
+  HsPermissionService,
+  PhotoService,
+  AddPropertyImageSelectedCubit
+])
 void main() {
   final MockAddPropertyImagesCubit addPropertyImagesCubit =
       MockAddPropertyImagesCubit();
   final MockHsPermissionService permissionService = MockHsPermissionService();
+  final MockPhotoService photoService = MockPhotoService();
+  final MockAddPropertyImageSelectedCubit addPropertyImageSelectedCubit =
+      MockAddPropertyImageSelectedCubit();
 
   setUpAll(() {
     when(addPropertyImagesCubit.state)
         .thenAnswer((_) => AddPropertyImagesInitial());
-    when(addPropertyImagesCubit.stream)
-        .thenAnswer((_) => Stream.value(AddPropertyImagesInitial()));
+    when(addPropertyImagesCubit.stream).thenAnswer((_) => const Stream.empty());
+
+    when(addPropertyImageSelectedCubit.state)
+        .thenReturn(AddPropertyImageSelectedInitial());
+    when(addPropertyImageSelectedCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+
     HsSingleton.singleton
         .registerSingleton<HsPermissionService>(permissionService);
+    HsSingleton.singleton.registerSingleton<PhotoService>(photoService);
   });
 
   tearDown(() {
@@ -69,10 +88,14 @@ void main() {
       when(addPropertyImagesCubit.stream)
           .thenAnswer((_) => Stream.value(PhotoPermissionGranted()));
 
-      await mockNetworkImagesFor(() =>
-          widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
-              addPropertyImagesCubit, widget,
-              infiniteAnimationWidget: true));
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+            BlocProvider<AddPropertyImagesCubit>(
+              create: (context) => addPropertyImagesCubit,
+            ),
+            BlocProvider<AddPropertyImageSelectedCubit>(
+              create: (context) => addPropertyImageSelectedCubit,
+            )
+          ], widget, infiniteAnimationWidget: true));
       await widgetTester.pumpAndSettle();
       expect(find.byType(AddPropertyImagesBody), findsOneWidget);
 
@@ -96,8 +119,14 @@ void main() {
       when(addPropertyImagesCubit.stream)
           .thenAnswer((_) => Stream.value(PhotoPermissionDenied()));
 
-      await widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
-          addPropertyImagesCubit, widget);
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AddPropertyImagesCubit>(
+          create: (context) => addPropertyImagesCubit,
+        ),
+        BlocProvider<AddPropertyImageSelectedCubit>(
+          create: (context) => addPropertyImageSelectedCubit,
+        )
+      ], widget);
       await expectLater(find.byType(AddPropertyImagesBody), findsOneWidget);
 
       expect(find.text('Select Photo'), findsNothing);
@@ -119,8 +148,15 @@ void main() {
       when(addPropertyImagesCubit.stream)
           .thenAnswer((_) => Stream.value(PhotoPermissionDeniedForever()));
 
-      await widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
-        addPropertyImagesCubit,
+      await widgetTester.multiBlocWrapAndPump(
+        [
+          BlocProvider<AddPropertyImagesCubit>(
+            create: (context) => addPropertyImagesCubit,
+          ),
+          BlocProvider<AddPropertyImageSelectedCubit>(
+            create: (context) => addPropertyImageSelectedCubit,
+          )
+        ],
         widget,
       );
       await expectLater(find.byType(AddPropertyImagesBody), findsOneWidget);
@@ -164,8 +200,15 @@ void main() {
       when(addPropertyImagesCubit.stream)
           .thenAnswer((_) => Stream.value(AddPropertyImagesInitial()));
 
-      await widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
-        addPropertyImagesCubit,
+      await widgetTester.multiBlocWrapAndPump(
+        [
+          BlocProvider<AddPropertyImagesCubit>(
+            create: (context) => addPropertyImagesCubit,
+          ),
+          BlocProvider<AddPropertyImageSelectedCubit>(
+            create: (context) => addPropertyImageSelectedCubit,
+          )
+        ],
         widget,
       );
       await expectLater(find.byType(AddPropertyImagesBody), findsOneWidget);
@@ -199,8 +242,15 @@ void main() {
       when(addPropertyImagesCubit.stream)
           .thenAnswer((_) => Stream.value(PhotoPermissionDeniedForever()));
 
-      await widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
-        addPropertyImagesCubit,
+      await widgetTester.multiBlocWrapAndPump(
+        [
+          BlocProvider<AddPropertyImagesCubit>(
+            create: (context) => addPropertyImagesCubit,
+          ),
+          BlocProvider<AddPropertyImageSelectedCubit>(
+            create: (context) => addPropertyImageSelectedCubit,
+          )
+        ],
         widget,
       );
       await expectLater(find.byType(AddPropertyImagesBody), findsOneWidget);
@@ -228,8 +278,15 @@ void main() {
       when(addPropertyImagesCubit.stream)
           .thenAnswer((_) => Stream.value(PhotoPermissionDeniedForever()));
 
-      await widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
-        addPropertyImagesCubit,
+      await widgetTester.multiBlocWrapAndPump(
+        [
+          BlocProvider<AddPropertyImagesCubit>(
+            create: (context) => addPropertyImagesCubit,
+          ),
+          BlocProvider<AddPropertyImageSelectedCubit>(
+            create: (context) => addPropertyImageSelectedCubit,
+          )
+        ],
         widget,
       );
       await expectLater(find.byType(AddPropertyImagesBody), findsOneWidget);
@@ -260,13 +317,73 @@ void main() {
 
     const Widget widget = AddPropertyImagesBody();
 
-    await mockNetworkImagesFor(
-        () => widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
-              addPropertyImagesCubit,
-              widget,
-            ));
+    await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+          [
+            BlocProvider<AddPropertyImagesCubit>(
+              create: (context) => addPropertyImagesCubit,
+            ),
+            BlocProvider<AddPropertyImageSelectedCubit>(
+              create: (context) => addPropertyImageSelectedCubit,
+            )
+          ],
+          widget,
+        ));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(SelectPhotoBottomSheet), findsOneWidget);
+  });
+
+  group('Test with selected image', () {
+    testWidgets(
+        'given allow add image is true,'
+        'when load UI,'
+        'then show Add Image view', (widgetTester) async {
+      when(addPropertyImageSelectedCubit.state).thenReturn(
+          PhotoSelectionReturned(
+              paths: List.filled(9, 'path'), allowAddImage: true));
+
+      const Widget widget = AddPropertyImagesBody();
+
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+            BlocProvider<AddPropertyImagesCubit>(
+              create: (context) => addPropertyImagesCubit,
+            ),
+            BlocProvider<AddPropertyImageSelectedCubit>(
+              create: (context) => addPropertyImageSelectedCubit,
+            )
+          ], widget));
+
+      expect(find.svgPictureWithAssets(Assets.images.upload), findsOneWidget);
+      expect(find.byType(ImagePreviewView), findsNWidgets(9));
+    });
+
+    testWidgets(
+        'given allow add image is false,'
+        'when load UI,'
+        'then do not show Add Image view', (widgetTester) async {
+      when(addPropertyImageSelectedCubit.state).thenReturn(
+          PhotoSelectionReturned(
+              paths: List.filled(10, 'path'), allowAddImage: false));
+      when(addPropertyImageSelectedCubit.stream)
+          .thenAnswer((realInvocation) => const Stream.empty());
+      when(addPropertyImagesCubit.stream)
+          .thenAnswer((realInvocation) => const Stream.empty());
+      when(addPropertyImagesCubit.state)
+          .thenAnswer((realInvocation) => AddPropertyImagesInitial());
+
+      const Widget widget = AddPropertyImagesBody();
+
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+            BlocProvider<AddPropertyImagesCubit>(
+              create: (context) => addPropertyImagesCubit,
+            ),
+            BlocProvider<AddPropertyImageSelectedCubit>(
+              create: (context) => addPropertyImageSelectedCubit,
+            )
+          ], widget));
+
+      expect(find.svgPictureWithAssets(Assets.images.upload), findsNothing);
+      expect(find.byType(ImagePreviewView), findsNWidgets(10));
+    });
   });
 }

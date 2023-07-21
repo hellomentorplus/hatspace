@@ -21,7 +21,10 @@ class ThumbnailLoaded extends ImageThumbnailState {
   final int height;
 
   const ThumbnailLoaded(
-      {required this.thumbnail, required this.originalPath, required this.width, required this.height});
+      {required this.thumbnail,
+      required this.originalPath,
+      required this.width,
+      required this.height});
 
   @override
   List<Object?> get props => [thumbnail];
