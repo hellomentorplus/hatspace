@@ -23,7 +23,8 @@ class AddPropertySuburbView extends StatefulWidget {
   State<AddPropertySuburbView> createState() => _AddPropertySuburbViewState();
 }
 
-class _AddPropertySuburbViewState extends State<AddPropertySuburbView> with AutomaticKeepAliveClientMixin<AddPropertySuburbView>{
+class _AddPropertySuburbViewState extends State<AddPropertySuburbView>
+    with AutomaticKeepAliveClientMixin<AddPropertySuburbView> {
   final FocusNode _suburbFocusNode = FocusNode();
   final FocusNode _postalCodeFocusNode = FocusNode();
 

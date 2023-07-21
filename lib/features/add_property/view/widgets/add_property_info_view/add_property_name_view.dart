@@ -46,7 +46,8 @@ class AddPropertyNameView extends StatefulWidget {
   State<AddPropertyNameView> createState() => _AddPropertyNameViewState();
 }
 
-class _AddPropertyNameViewState extends State<AddPropertyNameView> with AutomaticKeepAliveClientMixin<AddPropertyNameView> {
+class _AddPropertyNameViewState extends State<AddPropertyNameView>
+    with AutomaticKeepAliveClientMixin<AddPropertyNameView> {
   final ValueNotifier<ErrorType?> _error = ValueNotifier(null);
   final FocusNode _focusNode = FocusNode();
 
