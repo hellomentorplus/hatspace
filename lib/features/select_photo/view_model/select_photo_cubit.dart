@@ -25,15 +25,7 @@ class SelectPhotoCubit extends Cubit<SelectPhotoState> {
     emit(PhotosLoaded(_galleryList));
   }
 
-  void openLostDataBottomSheet() {
-    emit(OpenLostDataBottomSheet());
-  }
-
   void closeSelectPhotoScreen() {
     emit(CloseSelectPhotoScreen());
-  }
-
-  void closeLostDataBottomSheet() {
-    emit(CloseLostDataBottomSheet());
   }
 }

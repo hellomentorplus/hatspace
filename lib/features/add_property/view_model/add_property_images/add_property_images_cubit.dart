@@ -31,6 +31,10 @@ class AddPropertyImagesCubit extends Cubit<AddPropertyImagesState> {
     emit(OpenSelectPhotoScreen());
   }
 
+  void closeSelectPhotoBottomSheet() {
+    emit(CloseSelectPhotoBottomSheet());
+  }
+
   void gotoSetting() {
     openAppSettings();
     emit(OpenSettingScreen());

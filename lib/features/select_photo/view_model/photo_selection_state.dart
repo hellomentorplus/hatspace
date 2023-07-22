@@ -18,3 +18,7 @@ class PhotoSelectionUpdated extends PhotoSelectionState {
 
   int get count => selectedItems.length;
 }
+
+class OpenLostDataBottomSheet extends PhotoSelectionState {}
+
+class CloseLostDataBottomSheet extends PhotoSelectionState {}

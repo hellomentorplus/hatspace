@@ -66,36 +66,6 @@ class _SelectPhotoBottomSheetState extends State<_SelectPhotoBottomSheet>
   late final TabController tabController =
       TabController(length: 1, vsync: this);
 
-  void _openLostDataBottomSheet(BuildContext context) {
-    context.read<SelectPhotoCubit>().openLostDataBottomSheet();
-  }
-
-  void _closeLostDataBottomSheet(BuildContext context) {
-    context.read<SelectPhotoCubit>().closeLostDataBottomSheet();
-  }
-
-  void _closeSelectPhotoScreenWithoutSavingPhoto(BuildContext context) {
-    context.read<SelectPhotoCubit>().closeSelectPhotoScreen();
-  }
-
-  Future<void> showLostDataBottomSheet(BuildContext context) {
-    HsWarningBottomSheetView lostDataModal = HsWarningBottomSheetView(
-        iconUrl: Assets.images.circleWarning,
-        title: HatSpaceStrings.current.lostDataTitle,
-        description: HatSpaceStrings.current.lostDataDescription,
-        primaryButtonLabel: HatSpaceStrings.current.no,
-        primaryOnPressed: () {
-          _closeLostDataBottomSheet(context);
-          context.pop();
-        },
-        secondaryButtonLabel: HatSpaceStrings.current.yes,
-        secondaryOnPressed: () {
-          _closeSelectPhotoScreenWithoutSavingPhoto(context);
-          context.pop();
-        });
-    return context.showHsBottomSheet(lostDataModal);
-  }
-
   @override
   Widget build(BuildContext context) =>
       BlocListener<SelectPhotoCubit, SelectPhotoState>(
@@ -126,16 +96,18 @@ class _SelectPhotoBottomSheetState extends State<_SelectPhotoBottomSheet>
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
-                  child: BlocListener<SelectPhotoCubit, SelectPhotoState>(
+                  child: BlocListener<PhotoSelectionCubit, PhotoSelectionState>(
                     listener: (context, state) {
                       if (state is OpenLostDataBottomSheet) {
-                        showLostDataBottomSheet(context).then((value) {
-                          _closeLostDataBottomSheet(context);
-                        });
+                        showLostDataBottomSheet(context);
+                      }
+
+                      if (state is CloseLostDataBottomSheet) {
+                        context.pop();
                       }
                     },
                     child: InkWell(
-                      onTap: () => _openLostDataBottomSheet(context),
+                      onTap: () => _closeLostDataBottomSheet(context),
                       borderRadius: BorderRadius.circular(HsDimens.size24),
                       child: SvgPicture.asset(
                         Assets.icons.close,
@@ -156,75 +128,95 @@ class _SelectPhotoBottomSheetState extends State<_SelectPhotoBottomSheet>
       );
 }
 
-class AllPhotosView extends StatefulWidget {
+class AllPhotosView extends StatelessWidget {
   const AllPhotosView({Key? key}) : super(key: key);
 
   @override
-  State<AllPhotosView> createState() => _AllPhotosViewState();
-}
-
-class _AllPhotosViewState extends State<AllPhotosView> {
-  List<bool> isSelectedList = [];
-  List<int> selectedIndices = [];
-  int selectedCount = 0;
-
-  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(child: BlocBuilder<SelectPhotoCubit, SelectPhotoState>(
-          builder: (context, state) {
-            if (state is PhotosLoaded) {
-              if (isSelectedList.isEmpty) {
-                isSelectedList = List.filled(state.photos.length, false);
+    return WillPopScope(
+      onWillPop: () async {
+        _closeLostDataBottomSheet(context);
+        return true;
+      },
+      child: Column(
+        children: [
+          Expanded(child: BlocBuilder<SelectPhotoCubit, SelectPhotoState>(
+            builder: (context, state) {
+              if (state is PhotosLoaded) {
+                return GridView(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4,
+                            childAspectRatio: 1,
+                            crossAxisSpacing: 1),
+                    children: List.generate(
+                      state.photos.length,
+                      (index) => ImageSquareView(index: index),
+                    ));
               }
-              return GridView(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      childAspectRatio: 1,
-                      crossAxisSpacing: 1),
-                  children: List.generate(
-                    state.photos.length,
-                    (index) => ImageSquareView(index: index),
-                  ));
-            }
 
-            return const SizedBox();
-          },
-        )),
-        BlocBuilder<PhotoSelectionCubit, PhotoSelectionState>(
-          builder: (context, state) {
-            int count = 0;
-            bool uploadEnable = false;
+              return const SizedBox();
+            },
+          )),
+          BlocBuilder<PhotoSelectionCubit, PhotoSelectionState>(
+            builder: (context, state) {
+              int count = 0;
+              bool uploadEnable = false;
 
-            if (state is PhotoSelectionUpdated) {
-              count = state.count;
-              uploadEnable = state.enableUpload;
-            }
+              if (state is PhotoSelectionUpdated) {
+                count = state.count;
+                uploadEnable = state.enableUpload;
+              }
 
-            return SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: HsDimens.spacing16,
-                    vertical: HsDimens.spacing8),
-                child: PrimaryButton(
-                  label: HatSpaceStrings.current.uploadPhotoCount(count),
-                  onPressed: uploadEnable
-                      ? () {
-                          if (state is PhotoSelectionUpdated) {
-                            Navigator.of(context)
-                                .pop(state.selectedItems.toList());
+              return SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: HsDimens.spacing16,
+                      vertical: HsDimens.spacing8),
+                  child: PrimaryButton(
+                    label: HatSpaceStrings.current.uploadPhotoCount(count),
+                    onPressed: uploadEnable
+                        ? () {
+                            if (state is PhotoSelectionUpdated) {
+                              Navigator.of(context)
+                                  .pop(state.selectedItems.toList());
+                            }
                           }
-                        }
-                      : null,
+                        : null,
+                  ),
                 ),
-              ),
-            );
-          },
-        ),
-      ],
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
+}
+
+void _closeLostDataBottomSheet(BuildContext context) {
+  context.read<PhotoSelectionCubit>().onClosePhotoBottomSheetTapped();
+}
+
+void _closeSelectPhotoBottomSheetWithoutSavingPhoto(BuildContext context) {
+  context.read<SelectPhotoCubit>().closeSelectPhotoScreen();
+}
+
+Future<void> showLostDataBottomSheet(BuildContext context) {
+  HsWarningBottomSheetView lostDataModal = HsWarningBottomSheetView(
+      iconUrl: Assets.images.circleWarning,
+      title: HatSpaceStrings.current.lostDataTitle,
+      description: HatSpaceStrings.current.lostDataDescription,
+      primaryButtonLabel: HatSpaceStrings.current.no,
+      primaryOnPressed: () {
+        context.pop();
+      },
+      secondaryButtonLabel: HatSpaceStrings.current.yes,
+      secondaryOnPressed: () {
+        _closeSelectPhotoBottomSheetWithoutSavingPhoto(context);
+        context.pop();
+      });
+  return context.showHsBottomSheet(lostDataModal);
 }
 
 extension SelectPhotoBottomSheetExtension on BuildContext {
