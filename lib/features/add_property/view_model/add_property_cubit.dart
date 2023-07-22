@@ -17,7 +17,9 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   PropertyTypes get propertyType => _type;
   set propertyType(PropertyTypes type) {
+    if(_type != type){
     isAddPropertyFlowInteracted = true;
+    }
     _type = type;
     validateNextButtonState(state.pageViewNumber);
   }
