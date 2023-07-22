@@ -107,7 +107,7 @@ class _SelectPhotoBottomSheetState extends State<_SelectPhotoBottomSheet>
                       }
                     },
                     child: InkWell(
-                      onTap: () => _closeLostDataBottomSheet(context),
+                      onTap: () => _closeSelectPhotoBottomSheet(context),
                       borderRadius: BorderRadius.circular(HsDimens.size24),
                       child: SvgPicture.asset(
                         Assets.icons.close,
@@ -135,7 +135,7 @@ class AllPhotosView extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        _closeLostDataBottomSheet(context);
+        _closeSelectPhotoBottomSheet(context);
         return true;
       },
       child: Column(
@@ -194,8 +194,8 @@ class AllPhotosView extends StatelessWidget {
   }
 }
 
-void _closeLostDataBottomSheet(BuildContext context) {
-  context.read<PhotoSelectionCubit>().onClosePhotoBottomSheetTapped();
+void _closeSelectPhotoBottomSheet(BuildContext context) {
+  context.read<PhotoSelectionCubit>().onCloseSelectPhotoBottomSheetTapped();
 }
 
 void _closeSelectPhotoBottomSheetWithoutSavingPhoto(BuildContext context) {
