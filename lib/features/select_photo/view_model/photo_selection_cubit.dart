@@ -18,13 +18,5 @@ class PhotoSelectionCubit extends Cubit<PhotoSelectionState> {
     emit(PhotoSelectionUpdated(_selectionStates, _selectionStates.length >= 4));
   }
 
-  void onCloseSelectPhotoBottomSheetTapped() {
-    emit((_selectionStates.isEmpty
-        ? CloseLostDataBottomSheet()
-        : OpenLostDataBottomSheet()));
-  }
-
-  void closeLostDataBottomSheet() {
-    emit(CloseLostDataBottomSheet());
-  }
+  int get selectedItemCount => _selectionStates.length;
 }

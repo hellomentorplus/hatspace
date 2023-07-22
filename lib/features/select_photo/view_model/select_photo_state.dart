@@ -23,8 +23,3 @@ class PhotosLoaded extends SelectPhotoState {
   @override
   List<Object?> get props => [Pipe.createSync()];
 }
-
-class CloseSelectPhotoScreen extends SelectPhotoState {
-  @override
-  List<Object> get props => [];
-}

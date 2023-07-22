@@ -24,8 +24,4 @@ class SelectPhotoCubit extends Cubit<SelectPhotoState> {
 
     emit(PhotosLoaded(_galleryList));
   }
-
-  void closeSelectPhotoScreen() {
-    emit(CloseSelectPhotoScreen());
-  }
 }
