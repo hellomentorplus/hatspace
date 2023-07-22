@@ -20,6 +20,8 @@ void main() {
 
     when(authenticationService.signOut())
         .thenAnswer((realInvocation) => Future.value());
+
+    when(authenticationService.authenticationState).thenAnswer((realInvocation) => Stream.empty());
   });
 
   blocTest<AuthenticationBloc, AuthenticationState>(

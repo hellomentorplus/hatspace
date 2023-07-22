@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/features/sign_up/choose_roles/view/choose_roles_screen.dart';
 import 'package:hatspace/features/sign_up/view/sign_up_screen.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -41,6 +42,8 @@ void main() {
       }
       return null;
     });
+
+    when(authenticationService.authenticationState).thenAnswer((realInvocation) => Stream.empty());
   });
 
   setUp(() {
@@ -158,6 +161,10 @@ void main() {
       reset(authenticationBloc);
     });
 
+    setUp(() {
+      when(authenticationService.authenticationState).thenAnswer((realInvocation) => Stream.empty());
+    });
+
     testWidgets('when state is SignUpStart, then show loading screen',
         (widgetTester) async {
       when(mockSignUpBloc.state).thenAnswer((realInvocation) => SignUpStart());
@@ -252,8 +259,8 @@ void main() {
         ),
       ], widget, infiniteAnimationWidget: true, useRouter: true);
 
-      // expect to send event to authentication bloc
-      verify(authenticationBloc.add(ValidateAuthentication())).called(1);
+      // expect to dismiss this view
+          expect(find.byType(SignUpBody), findsNothing);
     });
 
     testWidgets(
@@ -280,8 +287,8 @@ void main() {
         ),
       ], widget, infiniteAnimationWidget: true, useRouter: true);
 
-      // expect to send event to authentication bloc
-      verify(authenticationBloc.add(ValidateAuthentication())).called(1);
+      // expect to not see this screen anymore
+      expect(find.byType(SignUpBody), findsNothing);
     });
   });
 }

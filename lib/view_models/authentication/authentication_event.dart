@@ -14,7 +14,7 @@ class SkipSignUp extends AuthenticationEvent {
   List<Object?> get props => [];
 }
 
-class ValidateAuthentication extends AuthenticationEvent {
+class _ValidateAuthentication extends AuthenticationEvent {
   @override
   List<Object?> get props => [];
 }
