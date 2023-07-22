@@ -124,4 +124,16 @@ void main() {
       'roles': ['tenant', 'homeowner']
     })).called(1);
   });
+
+  test('verify API calls when saveUserMember', () async {
+    StorageService storageService = StorageService();
+    await storageService.member
+        .saveMember('uid', {Roles.homeowner}, 'displayName');
+    verify(firestore.collection('members')).called(1);
+    verify(collectionReference.doc('uid')).called(1);
+    verify(documentReference.set({
+      'displayName': 'displayName',
+      'roles': ['homeowner']
+    })).called(1);
+  });
 }

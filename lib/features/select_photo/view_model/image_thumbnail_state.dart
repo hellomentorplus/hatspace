@@ -16,11 +16,15 @@ class ThumbnailError extends ImageThumbnailState {
 
 class ThumbnailLoaded extends ImageThumbnailState {
   final File thumbnail;
+  final String originalPath;
   final int width;
   final int height;
 
   const ThumbnailLoaded(
-      {required this.thumbnail, required this.width, required this.height});
+      {required this.thumbnail,
+      required this.originalPath,
+      required this.width,
+      required this.height});
 
   @override
   List<Object?> get props => [thumbnail];

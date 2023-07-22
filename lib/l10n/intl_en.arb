@@ -63,7 +63,7 @@
   "information": "Information",
   "yourAddress": "Your address",
   "pleaseEnterYourPlaceholder": "Please Enter Your Placeholder",
-  "welcomeDefault": "Hi there 👋",
+  "welcomeDefault": "👋 Hi there",
   "welcomeName": "👋 Hi {name}",
   "pleaseSelectYourState": "Pleas select your state",
   "pleaseSelectRentPeriod": "Please select rent period",
@@ -109,7 +109,7 @@
       }
     }
   },
-  "availableDateColon": "Available date:",
+  "availableDateColon": "Available: ",
   "signUp": "Sign up",
   "login": "Login",
   "loginDescription": "You need to be logged in to view this content",

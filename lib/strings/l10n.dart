@@ -646,10 +646,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Hi there 👋`
+  /// `👋 Hi there`
   String get welcomeDefault {
     return Intl.message(
-      'Hi there 👋',
+      '👋 Hi there',
       name: 'welcomeDefault',
       desc: '',
       args: [],
@@ -914,10 +914,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Available date:`
+  /// `Available: `
   String get availableDateColon {
     return Intl.message(
-      'Available date:',
+      'Available: ',
       name: 'availableDateColon',
       desc: '',
       args: [],

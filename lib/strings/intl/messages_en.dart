@@ -79,7 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "available": MessageLookupByLibrary.simpleMessage("Available"),
         "availableDate": MessageLookupByLibrary.simpleMessage("Available date"),
         "availableDateColon":
-            MessageLookupByLibrary.simpleMessage("Available date:"),
+            MessageLookupByLibrary.simpleMessage("Available: "),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
@@ -201,7 +201,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewsToday": m8,
         "washingMachine":
             MessageLookupByLibrary.simpleMessage("Washing machine"),
-        "welcomeDefault": MessageLookupByLibrary.simpleMessage("Hi there 👋"),
+        "welcomeDefault": MessageLookupByLibrary.simpleMessage("👋 Hi there"),
         "welcomeName": m9,
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
