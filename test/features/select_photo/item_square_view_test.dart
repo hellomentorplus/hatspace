@@ -98,7 +98,8 @@ void main() {
         'when load ImageSquareBody, '
         'then show Image', (widgetTester) async {
       when(imageThumbnailCubit.state).thenAnswer((realInvocation) =>
-          ThumbnailLoaded(thumbnail: file, width: 10, height: 10));
+          ThumbnailLoaded(
+              thumbnail: file, width: 10, height: 10, originalPath: 'path'));
       when(imageThumbnailCubit.stream)
           .thenAnswer((realInvocation) => const Stream.empty());
 

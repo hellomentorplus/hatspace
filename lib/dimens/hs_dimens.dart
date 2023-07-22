@@ -1,5 +1,6 @@
 class HsDimens {
   // lineheight and margin
+  static const double spacing2 = 2.0;
   static const double spacing4 = 4.0;
   static const double spacing6 = 6.0;
   static const double spacing8 = 8.0;
@@ -39,6 +40,7 @@ class HsDimens {
   static const double gridSpacing = 4.0;
 
   // sizes
+  static const double size1 = 1.0;
   static const double size2 = 2.0;
   static const double size6 = 6.0;
   static const double size12 = 12.0;

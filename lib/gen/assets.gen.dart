@@ -36,6 +36,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/close.svg
   String get close => 'assets/icons/close.svg';
 
+  /// File path: assets/icons/close_circle.svg
+  String get closeCircle => 'assets/icons/close_circle.svg';
+
   /// File path: assets/icons/electric_stove.svg
   String get electricStove => 'assets/icons/electric_stove.svg';
 
@@ -124,6 +127,7 @@ class $AssetsIconsGen {
         car,
         check,
         close,
+        closeCircle,
         electricStove,
         envelope,
         explore,
@@ -238,6 +242,9 @@ class $AssetsImagesGen {
   AssetGenImage get signInBackground =>
       const AssetGenImage('assets/images/signIn_background.png');
 
+  /// File path: assets/images/upload.svg
+  String get upload => 'assets/images/upload.svg';
+
   /// File path: assets/images/upload_photo.svg
   String get uploadPhoto => 'assets/images/upload_photo.svg';
 
@@ -270,6 +277,7 @@ class $AssetsImagesGen {
         profileCircle,
         searchNormal,
         signInBackground,
+        upload,
         uploadPhoto
       ];
 }

@@ -74,9 +74,11 @@ void main() async {
                 .check('text and space and comma, and dot.'),
             isFalse);
 
-        // given string contains number, then return true
-        expect(ErrorType.nameContainsInvalidChars.check('text with number 1'),
-            isTrue);
+        // given string contains number, then return false
+        expect(
+            ErrorType.nameContainsInvalidChars
+                .check('text with number 1  to 9'),
+            isFalse);
 
         // given string contains invalid char, then return true
         expect(

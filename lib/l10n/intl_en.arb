@@ -109,7 +109,7 @@
       }
     }
   },
-  "availableDateColon": "Available date:",
+  "availableDateColon": "Available: ",
   "signUp": "Sign up",
   "login": "Login",
   "loginDescription": "You need to be logged in to view this content",

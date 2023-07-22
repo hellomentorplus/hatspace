@@ -38,8 +38,8 @@ void main() {
     expect(find.text(propertyData.ownerName!), findsOneWidget);
     expect(find.text(r'$2,000'), findsOneWidget);
     expect(find.text(propertyData.type.displayName), findsOneWidget);
-    expect(find.text('Available date:01/02/23', findRichText: true),
-        findsOneWidget);
+    expect(
+        find.text('Available: 01/02/23', findRichText: true), findsOneWidget);
     expect(
         find.text(propertyData.numberOfBathrooms.toString()), findsOneWidget);
     expect(find.text(propertyData.numberOfBedrooms.toString()), findsOneWidget);

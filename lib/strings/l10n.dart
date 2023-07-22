@@ -914,10 +914,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Available date:`
+  /// `Available: `
   String get availableDateColon {
     return Intl.message(
-      'Available date:',
+      'Available: ',
       name: 'availableDateColon',
       desc: '',
       args: [],
