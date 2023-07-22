@@ -23,7 +23,7 @@ class AddPropertyImagesCubit extends Cubit<AddPropertyImagesState> {
     emit(CancelPhotoAccess());
   }
 
-  void onSelectPhotoBottomSheetDismissed(List<String>? result) {
+  void onSelectPhotoBottomSheetDismissed() {
     emit(CloseSelectPhotoBottomSheet());
   }
 

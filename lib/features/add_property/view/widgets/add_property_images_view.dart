@@ -81,7 +81,7 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
           context.showSelectPhotoBottomSheet().then((result) {
             context
                 .read<AddPropertyImagesCubit>()
-                .onSelectPhotoBottomSheetDismissed(result);
+                .onSelectPhotoBottomSheetDismissed();
 
             context
                 .read<AddPropertyImageSelectedCubit>()
