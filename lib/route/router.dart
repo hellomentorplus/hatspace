@@ -37,8 +37,8 @@ extension RouteExtension on BuildContext {
         ));
   }
 
-  void pop() {
-    Navigator.of(this).pop();
+  void pop<T>({T? result}) {
+    Navigator.of(this).pop<T>(result);
   }
 
   void popToRootHome() {

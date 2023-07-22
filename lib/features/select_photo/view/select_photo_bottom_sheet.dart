@@ -145,10 +145,12 @@ class _AllPhotosViewState extends State<AllPhotosView> {
           builder: (context, state) {
             int count = 0;
             bool uploadEnable = false;
+            Set<String> images = {};
 
             if (state is PhotoSelectionUpdated) {
               count = state.count;
               uploadEnable = state.enableUpload;
+              images = state.selectedItems;
             }
 
             return SafeArea(
@@ -160,7 +162,7 @@ class _AllPhotosViewState extends State<AllPhotosView> {
                   label: HatSpaceStrings.current.uploadPhotoCount(count),
                   onPressed: uploadEnable
                       ? () {
-                          // TODO handle upload button
+                          context.pop<List<String>>(result: images.toList());
                         }
                       : null,
                 ),
