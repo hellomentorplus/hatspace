@@ -77,54 +77,55 @@ class AddPropertyPageBody extends StatelessWidget {
           context.pop();
         },
         child: Scaffold(
-            bottomNavigationBar: BottomController(
-              pageController: pageController,
-              totalPages: pages.length,
-            ),
-            appBar: AppBar(
-              elevation: 0,
-              backgroundColor: HSColor.background,
-              leading: BlocListener<AddPropertyCubit, AddPropertyState>(
-                listener: (_, state) {
-                  if (state is OpenLostDataWarningModal) {
-                    showLostDataModal(context).then((value) {
-                      context.read<AddPropertyCubit>().onCloseLostDataModal();
-                    });
-                  }
+          bottomNavigationBar: BottomController(
+            pageController: pageController,
+            totalPages: pages.length,
+          ),
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: HSColor.background,
+            leading: BlocListener<AddPropertyCubit, AddPropertyState>(
+              listener: (_, state) {
+                if (state is OpenLostDataWarningModal) {
+                  showLostDataModal(context).then((value) {
+                    context.read<AddPropertyCubit>().onCloseLostDataModal();
+                  });
+                }
+              },
+              child: IconButton(
+                icon: const Icon(Icons.close, color: HSColor.onSurface),
+                onPressed: () {
+                  context.read<AddPropertyCubit>().onShowLostDataModal();
                 },
-                child: IconButton(
-                  icon: const Icon(Icons.close, color: HSColor.onSurface),
-                  onPressed: () {
-                    context.read<AddPropertyCubit>().onShowLostDataModal();
-                  },
-                ),
               ),
-              bottom: PreferredSize(
-                  preferredSize: Size(size.width, 0),
-                  child: BlocSelector<AddPropertyCubit, AddPropertyState, int>(
-                    selector: (state) => state.pageViewNumber,
-                    builder: (context, state) {
-                      return LinearProgressIndicator(
-                        backgroundColor: HSColor.neutral2,
-                        color: HSColor.primary,
-                        value: (state + 1) / pages.length,
-                        semanticsLabel:
-                            HatSpaceStrings.of(context).linearProgressIndicator,
-                      );
-                    },
-                  )),
             ),
-            body: PageView.builder(
-              onPageChanged: (value) {
-                onProgressIndicatorState.value = value;
-              },
-              itemCount: pages.length,
-              physics: const NeverScrollableScrollPhysics(),
-              controller: pageController,
-              itemBuilder: (context, index) {
-                return pages[index];
-              },
-            )),
+            bottom: PreferredSize(
+                preferredSize: Size(size.width, 0),
+                child: BlocSelector<AddPropertyCubit, AddPropertyState, int>(
+                  selector: (state) => state.pageViewNumber,
+                  builder: (context, state) {
+                    return LinearProgressIndicator(
+                      backgroundColor: HSColor.neutral2,
+                      color: HSColor.primary,
+                      value: (state + 1) / pages.length,
+                      semanticsLabel:
+                          HatSpaceStrings.of(context).linearProgressIndicator,
+                    );
+                  },
+                )),
+          ),
+          body: PageView.builder(
+            onPageChanged: (value) {
+              onProgressIndicatorState.value = value;
+            },
+            itemCount: pages.length,
+            physics: const NeverScrollableScrollPhysics(),
+            controller: pageController,
+            itemBuilder: (context, index) {
+              return pages[index];
+            },
+          ),
+        ),
       ),
     );
   }

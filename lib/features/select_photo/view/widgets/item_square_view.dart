@@ -40,7 +40,7 @@ class ImageSquareBody extends StatelessWidget {
             onTap: () {
               context
                   .read<PhotoSelectionCubit>()
-                  .updateSelection(state.thumbnail.path);
+                  .updateSelection(state.originalPath);
             },
             child: Stack(
               alignment: Alignment.center,
@@ -59,7 +59,7 @@ class ImageSquareBody extends StatelessWidget {
                   selector: (selectionState) {
                     if (selectionState is PhotoSelectionUpdated) {
                       final int? index =
-                          selectionState.getItemSelection(state.thumbnail.path);
+                          selectionState.getItemSelection(state.originalPath);
                       return index;
                     }
 
