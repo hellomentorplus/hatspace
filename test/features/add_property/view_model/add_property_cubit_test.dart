@@ -255,6 +255,25 @@ void main() {
 
     group('lost data modal', () {
       blocTest<AddPropertyCubit, AddPropertyState>(
+          'show lost data warning modal on screen addPropertyType when user interacted on the screen',
+          build: () => AddPropertyCubit(),
+          seed: () => const PageViewNavigationState(0),
+          act: (bloc) {
+            bloc.isAddPropertyFlowInteracted = true;
+            bloc.onShowLostDataModal();
+          },
+          expect: () => [isA<OpenLostDataWarningModal>()]);
+
+      blocTest<AddPropertyCubit, AddPropertyState>(
+          'DO NOT show lost data warning modal on screen addPropertyType when user has NOT interacted on the screen',
+          build: () => AddPropertyCubit(),
+          seed: () => const PageViewNavigationState(0),
+          act: (bloc) {
+            bloc.onShowLostDataModal();
+          },
+          expect: () => [isA<ExitAddPropertyFlow>()]);
+
+      blocTest<AddPropertyCubit, AddPropertyState>(
         'show lost data warning modal on screen addPropertyInfo',
         build: () => AddPropertyCubit(),
         seed: () => const PageViewNavigationState(1),
@@ -280,14 +299,6 @@ void main() {
 
       blocTest<AddPropertyCubit, AddPropertyState>(
         'show lost data warning modal on screen addImageScreen ',
-        build: () => AddPropertyCubit(),
-        seed: () => const PageViewNavigationState(4),
-        act: (bloc) => bloc.onShowLostDataModal(),
-        expect: () => [isA<OpenLostDataWarningModal>()],
-      );
-
-      blocTest<AddPropertyCubit, AddPropertyState>(
-        'show lost data warning modal on screen preview photo ',
         build: () => AddPropertyCubit(),
         seed: () => const PageViewNavigationState(4),
         act: (bloc) => bloc.onShowLostDataModal(),

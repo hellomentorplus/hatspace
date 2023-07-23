@@ -8,6 +8,7 @@ enum NavigatePage { forward, reverse }
 
 class AddPropertyCubit extends Cubit<AddPropertyState> {
   AddPropertyCubit() : super(const AddPropertyInitial());
+  bool isAddPropertyFlowInteracted = false;
 
   /// Defines all value needed for a property
   /// 1. Choose kind of place
@@ -16,12 +17,16 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   PropertyTypes get propertyType => _type;
   set propertyType(PropertyTypes type) {
+    if (_type != type) {
+      isAddPropertyFlowInteracted = true;
+    }
     _type = type;
     validateNextButtonState(state.pageViewNumber);
   }
 
   DateTime get availableDate => _availableDate;
   set availableDate(DateTime dateTime) {
+    isAddPropertyFlowInteracted = true;
     _availableDate = dateTime;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -30,6 +35,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   AustraliaStates _australiaState = AustraliaStates.invalid;
 
   set australiaState(AustraliaStates australiaState) {
+    isAddPropertyFlowInteracted = true;
     _australiaState = australiaState;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -38,6 +44,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   MinimumRentPeriod _rentPeriod = MinimumRentPeriod.invalid;
   set rentPeriod(MinimumRentPeriod rentPeriod) {
+    isAddPropertyFlowInteracted = true;
     _rentPeriod = rentPeriod;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -46,6 +53,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   String _propertyName = '';
   set propertyName(String name) {
+    isAddPropertyFlowInteracted = true;
     _propertyName = name;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -54,6 +62,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   double? _price;
   set price(double? price) {
+    isAddPropertyFlowInteracted = true;
     _price = price;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -62,6 +71,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   String _suburb = '';
   set suburb(String value) {
+    isAddPropertyFlowInteracted = true;
     _suburb = value;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -70,6 +80,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   int? _postalCode;
   set postalCode(int? value) {
+    isAddPropertyFlowInteracted = true;
     _postalCode = value;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -86,16 +97,19 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   int get parking => _parking;
 
   set bedrooms(int count) {
+    isAddPropertyFlowInteracted = true;
     _bedrooms = count;
     validateNextButtonState(state.pageViewNumber);
   }
 
   set bathrooms(int count) {
+    isAddPropertyFlowInteracted = true;
     _bathrooms = count;
     validateNextButtonState(state.pageViewNumber);
   }
 
   set parking(int count) {
+    isAddPropertyFlowInteracted = true;
     _parking = count;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -104,6 +118,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   List<Feature> _features = [];
   List<Feature> get features => _features;
   set features(List<Feature> list) {
+    isAddPropertyFlowInteracted = true;
     _features = list;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -149,7 +164,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     if (state.pageViewNumber > 0) {
       navigatePage(NavigatePage.reverse, totalPages);
     } else if (state.pageViewNumber == 0) {
-      emit(ExitAddPropertyFlow(state.pageViewNumber));
+      onShowLostDataModal();
     }
   }
 
@@ -160,7 +175,12 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   void onShowLostDataModal() {
     // check pageViewNumber != choosekindofplace screen
     if (state.pageViewNumber == 0) {
-      // TODO: update logic for chooseKindOfPlace
+      // verify whether isPropertyTypeScreen get interacted
+      if (isAddPropertyFlowInteracted) {
+        emit(OpenLostDataWarningModal(state.pageViewNumber));
+      } else {
+        emit(ExitAddPropertyFlow(state.pageViewNumber));
+      }
     } else {
       emit(OpenLostDataWarningModal(state.pageViewNumber));
     }

@@ -80,7 +80,6 @@ void main() {
     // screen will not be dismissed
     expect(find.byType(AddPropertyPageBody), findsNothing);
   });
-
   group('Verify lost warning data', () {
     setUp(() {
       when(addPropertyBloc.propertyType)
@@ -150,6 +149,18 @@ void main() {
       await widgetTester.pumpAndSettle();
       verify(addPropertyBloc.onResetData()).called(1);
       expect(find.byType(HsWarningBottomSheetView), findsNothing);
+    });
+
+    testWidgets(
+        'Given user at page 0 and already interacted with screen, when user taps back button, then show lost data modal',
+        (widgetTester) async {
+      Widget addPropertyScreen = AddPropertyPageBody();
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyBloc, addPropertyScreen);
+      expectLater(find.byType(WillPopScope), findsOneWidget);
+      Finder backButton = find.widgetWithText(TextOnlyButton, 'Back');
+      await widgetTester.tap(backButton);
+      verify(addPropertyBloc.onBackPressed(0)).called(1);
     });
   });
 }
