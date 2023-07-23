@@ -69,6 +69,34 @@ class _SelectPhotoBodyState extends State<SelectPhotoBody>
   late final TabController tabController =
       TabController(length: 1, vsync: this);
 
+  void _closeSelectPhotoBottomSheet(BuildContext context) {
+    int selectedItemCount = context.read<PhotoSelectionCubit>().selectedItemCount;
+    context
+        .read<LostDataBottomSheetCubit>()
+        .onCloseSelectPhotoBottomSheetTapped(selectedItemCount);
+  }
+
+  void _closeSelectPhotoBottomSheetWithoutSavingPhoto(BuildContext context) {
+    context.read<LostDataBottomSheetCubit>().closeSelectPhotoBottomSheet();
+  }
+
+  Future<void> showLostDataBottomSheet(BuildContext context) {
+    HsWarningBottomSheetView lostDataModal = HsWarningBottomSheetView(
+        iconUrl: Assets.images.circleWarning,
+        title: HatSpaceStrings.current.lostDataTitle,
+        description: HatSpaceStrings.current.lostDataDescription,
+        primaryButtonLabel: HatSpaceStrings.current.no,
+        primaryOnPressed: () {
+          context.pop();
+        },
+        secondaryButtonLabel: HatSpaceStrings.current.yes,
+        secondaryOnPressed: () {
+          _closeSelectPhotoBottomSheetWithoutSavingPhoto(context);
+          context.pop();
+        });
+    return context.showHsBottomSheet(lostDataModal);
+  }
+
   @override
   Widget build(BuildContext context) => ClipRRect(
         borderRadius: BorderRadius.circular(HsDimens.radius10),
@@ -192,34 +220,6 @@ class AllPhotosView extends StatelessWidget {
       ],
     );
   }
-}
-
-void _closeSelectPhotoBottomSheet(BuildContext context) {
-  int selectedItemCount = context.read<PhotoSelectionCubit>().selectedItemCount;
-  context
-      .read<LostDataBottomSheetCubit>()
-      .onCloseSelectPhotoBottomSheetTapped(selectedItemCount);
-}
-
-void _closeSelectPhotoBottomSheetWithoutSavingPhoto(BuildContext context) {
-  context.read<LostDataBottomSheetCubit>().closeSelectPhotoBottomSheet();
-}
-
-Future<void> showLostDataBottomSheet(BuildContext context) {
-  HsWarningBottomSheetView lostDataModal = HsWarningBottomSheetView(
-      iconUrl: Assets.images.circleWarning,
-      title: HatSpaceStrings.current.lostDataTitle,
-      description: HatSpaceStrings.current.lostDataDescription,
-      primaryButtonLabel: HatSpaceStrings.current.no,
-      primaryOnPressed: () {
-        context.pop();
-      },
-      secondaryButtonLabel: HatSpaceStrings.current.yes,
-      secondaryOnPressed: () {
-        _closeSelectPhotoBottomSheetWithoutSavingPhoto(context);
-        context.pop();
-      });
-  return context.showHsBottomSheet(lostDataModal);
 }
 
 extension SelectPhotoBottomSheetExtension on BuildContext {
