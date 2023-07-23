@@ -70,7 +70,8 @@ class _SelectPhotoBodyState extends State<SelectPhotoBody>
       TabController(length: 1, vsync: this);
 
   void _closeSelectPhotoBottomSheet(BuildContext context) {
-    int selectedItemCount = context.read<PhotoSelectionCubit>().selectedItemCount;
+    int selectedItemCount =
+        context.read<PhotoSelectionCubit>().selectedItemCount;
     context
         .read<LostDataBottomSheetCubit>()
         .onCloseSelectPhotoBottomSheetTapped(selectedItemCount);
