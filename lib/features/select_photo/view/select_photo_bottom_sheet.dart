@@ -73,9 +73,7 @@ class _SelectPhotoBodyState extends State<SelectPhotoBody>
   Widget build(BuildContext context) =>
       BlocListener<LostDataBottomSheetCubit, LostDataBottomSheetState>(
         listener: (context, state) {
-          print("xxx BlocListener state - $state");
           if (state is OpenLostDataBottomSheet) {
-            print("xxx state - OpenLostDataBottomSheet");
             showLostDataBottomSheet(context);
           }
 
@@ -211,7 +209,6 @@ void _closeSelectPhotoBottomSheetWithoutSavingPhoto(BuildContext context) {
 }
 
 Future<void> showLostDataBottomSheet(BuildContext context) {
-  print("showLostDataBottomSheet");
   HsWarningBottomSheetView lostDataModal = HsWarningBottomSheetView(
       iconUrl: Assets.images.circleWarning,
       title: HatSpaceStrings.current.lostDataTitle,
