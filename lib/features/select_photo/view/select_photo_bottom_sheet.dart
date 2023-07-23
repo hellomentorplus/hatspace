@@ -70,44 +70,42 @@ class _SelectPhotoBodyState extends State<SelectPhotoBody>
       TabController(length: 1, vsync: this);
 
   @override
-  Widget build(BuildContext context) =>
-      BlocListener<LostDataBottomSheetCubit, LostDataBottomSheetState>(
-        listener: (context, state) {
-          if (state is OpenLostDataBottomSheet) {
-            showLostDataBottomSheet(context);
-          }
+  Widget build(BuildContext context) => ClipRRect(
+        borderRadius: BorderRadius.circular(HsDimens.radius10),
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            title: TabBar(
+                labelColor: HSColor.black,
+                labelStyle: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(fontWeight: FontWeight.w700),
+                labelPadding: const EdgeInsets.symmetric(
+                    horizontal: HsDimens.spacing8, vertical: HsDimens.spacing6),
+                indicatorColor: Colors.transparent,
+                controller: tabController,
+                tabs:
+                    PhotoTabs.values.map((e) => Text(e.labelDisplay)).toList()),
+            actions: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+                child: BlocListener<LostDataBottomSheetCubit,
+                    LostDataBottomSheetState>(
+                  listener: (context, state) {
+                    if (state is OpenLostDataBottomSheet) {
+                      showLostDataBottomSheet(context);
+                    }
 
-          if (state is CloseLostDataBottomSheet) {
-            context.pop();
-          }
+                    if (state is CloseLostDataBottomSheet) {
+                      context.pop();
+                    }
 
-          if (state is ExitSelectPhoto) {
-            context.pop();
-          }
-        },
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(HsDimens.radius10),
-          child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Theme.of(context).colorScheme.background,
-              title: TabBar(
-                  labelColor: HSColor.black,
-                  labelStyle: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(fontWeight: FontWeight.w700),
-                  labelPadding: const EdgeInsets.symmetric(
-                      horizontal: HsDimens.spacing8,
-                      vertical: HsDimens.spacing6),
-                  indicatorColor: Colors.transparent,
-                  controller: tabController,
-                  tabs: PhotoTabs.values
-                      .map((e) => Text(e.labelDisplay))
-                      .toList()),
-              actions: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+                    if (state is ExitSelectPhoto) {
+                      context.pop();
+                    }
+                  },
                   child: InkWell(
                     onTap: () {
                       _closeSelectPhotoBottomSheet(context);
@@ -119,13 +117,13 @@ class _SelectPhotoBodyState extends State<SelectPhotoBody>
                       height: HsDimens.size24,
                     ),
                   ),
-                )
-              ],
-            ),
-            body: TabBarView(
-              controller: tabController,
-              children: PhotoTabs.values.map((e) => e.tabView).toList(),
-            ),
+                ),
+              )
+            ],
+          ),
+          body: TabBarView(
+            controller: tabController,
+            children: PhotoTabs.values.map((e) => e.tabView).toList(),
           ),
         ),
       );
