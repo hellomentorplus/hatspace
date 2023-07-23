@@ -53,62 +53,67 @@ class SelectPhotoBottomSheet extends StatelessWidget {
             create: (context) => LostDataBottomSheetCubit(),
           )
         ],
-        child: const _SelectPhotoBottomSheet(),
+        child: const SelectPhotoBody(),
       );
 }
 
-class _SelectPhotoBottomSheet extends StatefulWidget {
-  const _SelectPhotoBottomSheet({Key? key}) : super(key: key);
+class SelectPhotoBody extends StatefulWidget {
+  const SelectPhotoBody({Key? key}) : super(key: key);
 
   @override
-  State<_SelectPhotoBottomSheet> createState() =>
-      _SelectPhotoBottomSheetState();
+  State<SelectPhotoBody> createState() => _SelectPhotoBodyState();
 }
 
-class _SelectPhotoBottomSheetState extends State<_SelectPhotoBottomSheet>
+class _SelectPhotoBodyState extends State<SelectPhotoBody>
     with TickerProviderStateMixin {
   late final TabController tabController =
       TabController(length: 1, vsync: this);
 
   @override
-  Widget build(BuildContext context) => ClipRRect(
-        borderRadius: BorderRadius.circular(HsDimens.radius10),
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.background,
-            title: TabBar(
-                labelColor: HSColor.black,
-                labelStyle: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(fontWeight: FontWeight.w700),
-                labelPadding: const EdgeInsets.symmetric(
-                    horizontal: HsDimens.spacing8, vertical: HsDimens.spacing6),
-                indicatorColor: Colors.transparent,
-                controller: tabController,
-                tabs:
-                    PhotoTabs.values.map((e) => Text(e.labelDisplay)).toList()),
-            actions: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
-                child: BlocListener<LostDataBottomSheetCubit,
-                    LostDataBottomSheetState>(
-                  listener: (context, state) {
-                    if (state is OpenLostDataBottomSheet) {
-                      showLostDataBottomSheet(context);
-                    }
+  Widget build(BuildContext context) =>
+      BlocListener<LostDataBottomSheetCubit, LostDataBottomSheetState>(
+        listener: (context, state) {
+          print("xxx BlocListener state - $state");
+          if (state is OpenLostDataBottomSheet) {
+            print("xxx state - OpenLostDataBottomSheet");
+            showLostDataBottomSheet(context);
+          }
 
-                    if (state is CloseLostDataBottomSheet) {
-                      context.pop();
-                    }
+          if (state is CloseLostDataBottomSheet) {
+            context.pop();
+          }
 
-                    if (state is ExitSelectPhoto) {
-                      context.pop();
-                    }
-                  },
+          if (state is ExitSelectPhoto) {
+            context.pop();
+          }
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(HsDimens.radius10),
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Theme.of(context).colorScheme.background,
+              title: TabBar(
+                  labelColor: HSColor.black,
+                  labelStyle: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(fontWeight: FontWeight.w700),
+                  labelPadding: const EdgeInsets.symmetric(
+                      horizontal: HsDimens.spacing8,
+                      vertical: HsDimens.spacing6),
+                  indicatorColor: Colors.transparent,
+                  controller: tabController,
+                  tabs: PhotoTabs.values
+                      .map((e) => Text(e.labelDisplay))
+                      .toList()),
+              actions: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
                   child: InkWell(
-                    onTap: () => _closeSelectPhotoBottomSheet(context),
+                    onTap: () {
+                      _closeSelectPhotoBottomSheet(context);
+                    },
                     borderRadius: BorderRadius.circular(HsDimens.size24),
                     child: SvgPicture.asset(
                       Assets.icons.close,
@@ -116,13 +121,13 @@ class _SelectPhotoBottomSheetState extends State<_SelectPhotoBottomSheet>
                       height: HsDimens.size24,
                     ),
                   ),
-                ),
-              )
-            ],
-          ),
-          body: TabBarView(
-            controller: tabController,
-            children: PhotoTabs.values.map((e) => e.tabView).toList(),
+                )
+              ],
+            ),
+            body: TabBarView(
+              controller: tabController,
+              children: PhotoTabs.values.map((e) => e.tabView).toList(),
+            ),
           ),
         ),
       );
@@ -206,6 +211,7 @@ void _closeSelectPhotoBottomSheetWithoutSavingPhoto(BuildContext context) {
 }
 
 Future<void> showLostDataBottomSheet(BuildContext context) {
+  print("showLostDataBottomSheet");
   HsWarningBottomSheetView lostDataModal = HsWarningBottomSheetView(
       iconUrl: Assets.images.circleWarning,
       title: HatSpaceStrings.current.lostDataTitle,
