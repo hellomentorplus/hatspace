@@ -121,9 +121,15 @@ class _SelectPhotoBodyState extends State<SelectPhotoBody>
               )
             ],
           ),
-          body: TabBarView(
-            controller: tabController,
-            children: PhotoTabs.values.map((e) => e.tabView).toList(),
+          body: WillPopScope(
+            onWillPop: () async {
+              _closeSelectPhotoBottomSheet(context);
+              return true;
+            },
+            child: TabBarView(
+              controller: tabController,
+              children: PhotoTabs.values.map((e) => e.tabView).toList(),
+            ),
           ),
         ),
       );
@@ -134,63 +140,56 @@ class AllPhotosView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        _closeSelectPhotoBottomSheet(context);
-        return true;
-      },
-      child: Column(
-        children: [
-          Expanded(child: BlocBuilder<SelectPhotoCubit, SelectPhotoState>(
-            builder: (context, state) {
-              if (state is PhotosLoaded) {
-                return GridView(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
-                            childAspectRatio: 1,
-                            crossAxisSpacing: 1),
-                    children: List.generate(
-                      state.photos.length,
-                      (index) => ImageSquareView(index: index),
-                    ));
-              }
+    return Column(
+      children: [
+        Expanded(child: BlocBuilder<SelectPhotoCubit, SelectPhotoState>(
+          builder: (context, state) {
+            if (state is PhotosLoaded) {
+              return GridView(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      childAspectRatio: 1,
+                      crossAxisSpacing: 1),
+                  children: List.generate(
+                    state.photos.length,
+                    (index) => ImageSquareView(index: index),
+                  ));
+            }
 
-              return const SizedBox();
-            },
-          )),
-          BlocBuilder<PhotoSelectionCubit, PhotoSelectionState>(
-            builder: (context, state) {
-              int count = 0;
-              bool uploadEnable = false;
+            return const SizedBox();
+          },
+        )),
+        BlocBuilder<PhotoSelectionCubit, PhotoSelectionState>(
+          builder: (context, state) {
+            int count = 0;
+            bool uploadEnable = false;
 
-              if (state is PhotoSelectionUpdated) {
-                count = state.count;
-                uploadEnable = state.enableUpload;
-              }
+            if (state is PhotoSelectionUpdated) {
+              count = state.count;
+              uploadEnable = state.enableUpload;
+            }
 
-              return SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: HsDimens.spacing16,
-                      vertical: HsDimens.spacing8),
-                  child: PrimaryButton(
-                    label: HatSpaceStrings.current.uploadPhotoCount(count),
-                    onPressed: uploadEnable
-                        ? () {
-                            if (state is PhotoSelectionUpdated) {
-                              Navigator.of(context)
-                                  .pop(state.selectedItems.toList());
-                            }
+            return SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: HsDimens.spacing16,
+                    vertical: HsDimens.spacing8),
+                child: PrimaryButton(
+                  label: HatSpaceStrings.current.uploadPhotoCount(count),
+                  onPressed: uploadEnable
+                      ? () {
+                          if (state is PhotoSelectionUpdated) {
+                            Navigator.of(context)
+                                .pop(state.selectedItems.toList());
                           }
-                        : null,
-                  ),
+                        }
+                      : null,
                 ),
-              );
-            },
-          ),
-        ],
-      ),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }
