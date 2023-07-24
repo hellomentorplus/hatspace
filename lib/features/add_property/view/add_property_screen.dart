@@ -4,7 +4,7 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_features_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_images_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
-import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/property_info_form.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_info_form_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_type_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -40,7 +40,7 @@ class AddPropertyPageBody extends StatelessWidget {
   // Number of Pages for PageView
   final List<Widget> pages = [
     const AddPropertyTypeView(),
-    PropertyInforForm(),
+    AddPropertyInforFormView(),
     const AddPropertyRoomsView(),
     const AddPropertyFeaturesView(),
     const AddPropertyImagesView()
