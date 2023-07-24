@@ -22,8 +22,8 @@ void main() {
 
   testWidgets('Test AddPropertyView UI', (WidgetTester widgetTester) async {
     await HatSpaceStrings.load(const Locale.fromSubtags(languageCode: 'en'));
-    Widget propertyInforForm = AddPropertyInforFormView();
-    await widgetTester.wrapAndPump(propertyInforForm);
+    Widget propertyInfoForm = AddPropertyInfoFormView();
+    await widgetTester.wrapAndPump(propertyInfoForm);
     Text header = widgetTester.widget(find.text('Information'));
     expect(header.style, textTheme.displayLarge);
 

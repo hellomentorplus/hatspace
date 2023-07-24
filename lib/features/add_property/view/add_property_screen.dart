@@ -40,7 +40,7 @@ class AddPropertyPageBody extends StatelessWidget {
   // Number of Pages for PageView
   final List<Widget> pages = [
     const AddPropertyTypeView(),
-    AddPropertyInforFormView(),
+    AddPropertyInfoFormView(),
     const AddPropertyRoomsView(),
     const AddPropertyFeaturesView(),
     const AddPropertyImagesView()

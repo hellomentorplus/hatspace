@@ -12,8 +12,8 @@ import 'package:hatspace/features/add_property/view/widgets/add_property_info_vi
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
-class AddPropertyInforFormView extends StatelessWidget {
-  AddPropertyInforFormView({super.key});
+class AddPropertyInfoFormView extends StatelessWidget {
+  AddPropertyInfoFormView({super.key});
   final List<Widget> itemList = [
     Text(HatSpaceStrings.current.information, style: textTheme.displayLarge),
     const AddPropertyNameView(),
