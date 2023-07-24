@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hatspace/features/add_property/view/add_property_view.dart';
+import 'package:hatspace/features/add_property/view/add_property_screen.dart';
 import 'package:hatspace/features/debug/view/widget_list/widget_catalog_screen.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/sign_up/choose_roles/view/choose_roles_screen.dart';

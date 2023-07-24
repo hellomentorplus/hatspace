@@ -21,7 +21,9 @@ class PageViewNavigationState extends AddPropertyState {
 
 class NextButtonEnable extends AddPropertyState {
   final bool isActive;
-  const NextButtonEnable(super.pageViewNumber, this.isActive);
+  final ButtonLabel btnLabel;
+  final bool showRightChevron;
+  const NextButtonEnable(super.pageViewNumber, this.isActive, this.btnLabel, this.showRightChevron);
 
   @override
   List<Object?> get props => [isActive];

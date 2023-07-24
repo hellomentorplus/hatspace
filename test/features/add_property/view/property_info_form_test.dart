@@ -14,7 +14,7 @@ import 'package:hatspace/theme/widgets/hs_modal_view.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import '../../../widget_tester_extension.dart';
-import 'add_property_page_view_test.mocks.dart';
+import 'add_property_screen_test.mocks.dart';
 
 @GenerateMocks([AddPropertyCubit])
 void main() {
