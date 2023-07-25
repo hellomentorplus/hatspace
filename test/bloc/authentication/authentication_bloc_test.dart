@@ -22,7 +22,7 @@ void main() {
         .thenAnswer((realInvocation) => Future.value());
 
     when(authenticationService.authenticationState)
-        .thenAnswer((realInvocation) => Stream.empty());
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   blocTest<AuthenticationBloc, AuthenticationState>(

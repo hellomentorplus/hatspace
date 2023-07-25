@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/sign_up/choose_roles/view/choose_roles_screen.dart';
 import 'package:hatspace/features/sign_up/view/sign_up_screen.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -44,7 +43,7 @@ void main() {
     });
 
     when(authenticationService.authenticationState)
-        .thenAnswer((realInvocation) => Stream.empty());
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   setUp(() {
@@ -164,7 +163,7 @@ void main() {
 
     setUp(() {
       when(authenticationService.authenticationState)
-          .thenAnswer((realInvocation) => Stream.empty());
+          .thenAnswer((realInvocation) => const Stream.empty());
     });
 
     testWidgets('when state is SignUpStart, then show loading screen',
