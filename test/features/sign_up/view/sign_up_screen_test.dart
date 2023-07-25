@@ -43,7 +43,8 @@ void main() {
       return null;
     });
 
-    when(authenticationService.authenticationState).thenAnswer((realInvocation) => Stream.empty());
+    when(authenticationService.authenticationState)
+        .thenAnswer((realInvocation) => Stream.empty());
   });
 
   setUp(() {
@@ -162,7 +163,8 @@ void main() {
     });
 
     setUp(() {
-      when(authenticationService.authenticationState).thenAnswer((realInvocation) => Stream.empty());
+      when(authenticationService.authenticationState)
+          .thenAnswer((realInvocation) => Stream.empty());
     });
 
     testWidgets('when state is SignUpStart, then show loading screen',
@@ -260,7 +262,7 @@ void main() {
       ], widget, infiniteAnimationWidget: true, useRouter: true);
 
       // expect to dismiss this view
-          expect(find.byType(SignUpBody), findsNothing);
+      expect(find.byType(SignUpBody), findsNothing);
     });
 
     testWidgets(
