@@ -49,14 +49,14 @@ void main() {
       expect: () => [isA<StartValidateRole>()]);
 
   blocTest(
-    'Given user has role tenant only, when handle Add Property, then return nothing',
+    'Given user has role tenant only, when handle Add Property, then return RequestHomeOwnerRole ',
     build: () => HomeInteractionCubit(),
     setUp: () {
       when(memberService.getUserRoles(any))
           .thenAnswer((_) => Future.value([Roles.tenant]));
     },
     act: (bloc) => bloc.onAddPropertyPressed(),
-    expect: () => [isA<StartValidateRole>()],
+    expect: () => [isA<StartValidateRole>(), isA<RequestHomeOwnerRole>()],
   );
 
   blocTest(

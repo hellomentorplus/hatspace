@@ -28,6 +28,7 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
         if (roles.contains(Roles.homeowner)) {
           emit(StartAddPropertyFlow());
         } else {
+          emit(RequestHomeOwnerRole());
           // TODO handle when user is not a homeowner
         }
       }
@@ -41,6 +42,7 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
     if (!isUserLoggedIn) {
       return emit(OpenLoginBottomSheetModal(item));
     }
+
     switch (item) {
       case (BottomBarItems.addingProperty):
         onAddPropertyPressed();

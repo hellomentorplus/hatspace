@@ -131,5 +131,9 @@
   "lostDataTitle": "Lost Data",
   "lostDataDescription": "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?",
   "no": "No",
-  "yes": "Yes"
+  "yes": "Yes",
+  "addHomeOwnerRoleTitle":"Add Homeowner role",
+  "addHomeOwnerRoleContent":"Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?",
+  "addHomeOwnerPrimaryBtnLabel":"Add Homeowner role",
+  "addHomeOwnerSecondaryBtnLabel":"Later"
 }
