@@ -4,7 +4,7 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_features_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_images_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
-import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/property_info_form.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_info_form_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_type_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -18,6 +18,7 @@ import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 
 class AddPropertyView extends StatelessWidget {
   const AddPropertyView({super.key});
+
   @override
   Widget build(Object context) {
     return MultiBlocProvider(
@@ -35,10 +36,11 @@ class AddPropertyPageBody extends StatelessWidget {
   final PageController pageController =
       PageController(initialPage: 0, keepPage: true);
   final ValueNotifier<int> onProgressIndicatorState = ValueNotifier(0);
+
   // Number of Pages for PageView
   final List<Widget> pages = [
     const AddPropertyTypeView(),
-    PropertyInforForm(),
+    AddPropertyInfoFormView(),
     const AddPropertyRoomsView(),
     const AddPropertyFeaturesView(),
     const AddPropertyImagesView()
@@ -62,6 +64,7 @@ class AddPropertyPageBody extends StatelessWidget {
   }
 
   AddPropertyPageBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -134,8 +137,10 @@ class AddPropertyPageBody extends StatelessWidget {
 class BottomController extends StatelessWidget {
   final PageController pageController;
   final int totalPages;
+
   const BottomController(
       {required this.pageController, required this.totalPages, super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddPropertyCubit, AddPropertyState>(
@@ -172,17 +177,21 @@ class BottomController extends StatelessWidget {
                       MaterialStatePropertyAll<Color>(HSColor.onSurface)),
               iconUrl: Assets.images.chevronLeft,
             ),
-            PrimaryButton(
-                label: HatSpaceStrings.of(context).next,
-                onPressed: (state is NextButtonEnable && state.isActive)
-                    ? () {
-                        context
-                            .read<AddPropertyCubit>()
-                            .navigatePage(NavigatePage.forward, totalPages);
-                      }
-                    : null,
-                iconUrl: Assets.images.chevronRight,
-                iconPosition: IconPosition.right)
+            if (state is NextButtonEnable)
+              PrimaryButton(
+                  label: state.btnLabel.label,
+                  onPressed: (state.isActive)
+                      ? () {
+                          context
+                              .read<AddPropertyCubit>()
+                              .navigatePage(NavigatePage.forward, totalPages);
+                        }
+                      : null,
+                  iconUrl: (state.showRightChevron)
+                      ? Assets.images.chevronRight
+                      : null,
+                  iconPosition:
+                      (state.showRightChevron) ? IconPosition.right : null),
           ],
         ),
       );
