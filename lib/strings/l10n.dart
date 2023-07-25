@@ -1173,6 +1173,16 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Preview & Submit`
+  String get previewAndSubmit {
+    return Intl.message(
+      'Preview & Submit',
+      name: 'previewAndSubmit',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
