@@ -41,6 +41,9 @@ void main() {
       }
       return null;
     });
+
+    when(authenticationService.authenticationState)
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   setUp(() {
@@ -158,6 +161,11 @@ void main() {
       reset(authenticationBloc);
     });
 
+    setUp(() {
+      when(authenticationService.authenticationState)
+          .thenAnswer((realInvocation) => const Stream.empty());
+    });
+
     testWidgets('when state is SignUpStart, then show loading screen',
         (widgetTester) async {
       when(mockSignUpBloc.state).thenAnswer((realInvocation) => SignUpStart());
@@ -252,8 +260,8 @@ void main() {
         ),
       ], widget, infiniteAnimationWidget: true, useRouter: true);
 
-      // expect to send event to authentication bloc
-      verify(authenticationBloc.add(ValidateAuthentication())).called(1);
+      // expect to dismiss this view
+      expect(find.byType(SignUpBody), findsNothing);
     });
 
     testWidgets(
@@ -280,8 +288,8 @@ void main() {
         ),
       ], widget, infiniteAnimationWidget: true, useRouter: true);
 
-      // expect to send event to authentication bloc
-      verify(authenticationBloc.add(ValidateAuthentication())).called(1);
+      // expect to not see this screen anymore
+      expect(find.byType(SignUpBody), findsNothing);
     });
   });
 }
