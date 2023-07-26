@@ -187,5 +187,28 @@ void main() async {
       // number is formatted
       expect(find.text('1,256,931.3625698'), findsOneWidget);
     });
+
+    testWidgets(
+        'when enter text with number longer than 8 digits, then return old value',
+        (widgetTester) async {
+      const Widget widget = AddPropertyPriceView();
+
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyCubit, widget);
+
+      expect(find.byType(TextField), findsOneWidget);
+
+      // now enter text
+      await widgetTester.enterText(find.byType(TextField), '12345678');
+      await widgetTester.pumpAndSettle();
+
+      // number is formatted
+      expect(find.text('12,345,678'), findsOneWidget);
+
+      // new number
+      await widgetTester.enterText(find.byType(TextField), '123456789098');
+      // keep old number
+      expect(find.text('12,345,678'), findsOneWidget);
+    });
   });
 }

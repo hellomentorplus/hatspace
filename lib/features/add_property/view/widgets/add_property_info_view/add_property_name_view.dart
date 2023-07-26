@@ -33,7 +33,7 @@ enum ErrorType {
       case ErrorType.nameExceed30Chars:
         return name.length > maxCharCount;
       case ErrorType.nameContainsInvalidChars:
-        RegExp regExp = RegExp(r'^[A-Za-z .,]+$');
+        RegExp regExp = RegExp(r'^[A-Za-z .,0-9]+$');
         return !regExp.hasMatch(name);
     }
   }
@@ -46,7 +46,8 @@ class AddPropertyNameView extends StatefulWidget {
   State<AddPropertyNameView> createState() => _AddPropertyNameViewState();
 }
 
-class _AddPropertyNameViewState extends State<AddPropertyNameView> {
+class _AddPropertyNameViewState extends State<AddPropertyNameView>
+    with AutomaticKeepAliveClientMixin<AddPropertyNameView> {
   final ValueNotifier<ErrorType?> _error = ValueNotifier(null);
   final FocusNode _focusNode = FocusNode();
 
@@ -77,6 +78,7 @@ class _AddPropertyNameViewState extends State<AddPropertyNameView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ValueListenableBuilder(
       valueListenable: _error,
       builder: (context, error, child) => HatSpaceInputText(
@@ -92,6 +94,9 @@ class _AddPropertyNameViewState extends State<AddPropertyNameView> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class PropertyNameInputFormatter extends TextInputFormatter {

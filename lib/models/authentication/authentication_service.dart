@@ -23,7 +23,10 @@ class AuthenticationService {
     _firebaseAuth.authStateChanges().listen((event) {
       if (event != null) {
         UserDetail userDetail = UserDetail(
-            uid: event.uid, email: event.email, phone: event.phoneNumber);
+            displayName: event.displayName,
+            uid: event.uid,
+            email: event.email,
+            phone: event.phoneNumber);
         _userDetailStreamController.add(userDetail);
       } else {
         _userDetailStreamController.add(null);

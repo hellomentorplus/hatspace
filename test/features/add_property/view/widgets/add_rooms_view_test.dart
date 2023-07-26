@@ -56,10 +56,10 @@ void main() {
   });
 
   testWidgets('validate bedrooms interaction', (widgetTester) async {
-    when(addPropertyCubit.stream).thenAnswer(
-        (realInvocation) => Stream.value(const NextButtonEnable(2, false)));
-    when(addPropertyCubit.state)
-        .thenAnswer((realInvocation) => const NextButtonEnable(2, false));
+    when(addPropertyCubit.stream).thenAnswer((realInvocation) =>
+        Stream.value(const NextButtonEnable(2, false, ButtonLabel.next, true)));
+    when(addPropertyCubit.state).thenAnswer((realInvocation) =>
+        const NextButtonEnable(2, false, ButtonLabel.next, true));
 
     const Widget widget = AddPropertyRoomsView();
 
@@ -124,10 +124,10 @@ void main() {
   });
 
   testWidgets('validate bathrooms interaction', (widgetTester) async {
-    when(addPropertyCubit.stream).thenAnswer(
-        (realInvocation) => Stream.value(const NextButtonEnable(2, false)));
-    when(addPropertyCubit.state)
-        .thenAnswer((realInvocation) => const NextButtonEnable(2, false));
+    when(addPropertyCubit.stream).thenAnswer((realInvocation) =>
+        Stream.value(const NextButtonEnable(2, false, ButtonLabel.next, true)));
+    when(addPropertyCubit.state).thenAnswer((realInvocation) =>
+        const NextButtonEnable(2, false, ButtonLabel.next, true));
 
     const Widget widget = AddPropertyRoomsView();
 
@@ -192,10 +192,10 @@ void main() {
   });
 
   testWidgets('validate parking interaction', (widgetTester) async {
-    when(addPropertyCubit.stream).thenAnswer(
-        (realInvocation) => Stream.value(const NextButtonEnable(2, false)));
-    when(addPropertyCubit.state)
-        .thenAnswer((realInvocation) => const NextButtonEnable(2, false));
+    when(addPropertyCubit.stream).thenAnswer((realInvocation) =>
+        Stream.value(const NextButtonEnable(2, false, ButtonLabel.next, true)));
+    when(addPropertyCubit.state).thenAnswer((realInvocation) =>
+        const NextButtonEnable(2, false, ButtonLabel.next, true));
 
     const Widget widget = AddPropertyRoomsView();
 

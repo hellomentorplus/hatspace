@@ -914,10 +914,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Available date:`
+  /// `Available: `
   String get availableDateColon {
     return Intl.message(
-      'Available date:',
+      'Available: ',
       name: 'availableDateColon',
       desc: '',
       args: [],
@@ -1129,6 +1129,16 @@ class HatSpaceStrings {
     return Intl.message(
       'Yes',
       name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preview & Submit`
+  String get previewAndSubmit {
+    return Intl.message(
+      'Preview & Submit',
+      name: 'previewAndSubmit',
       desc: '',
       args: [],
     );

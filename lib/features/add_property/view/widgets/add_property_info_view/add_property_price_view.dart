@@ -35,7 +35,8 @@ class AddPropertyPriceView extends StatefulWidget {
   State<AddPropertyPriceView> createState() => _AddPropertyPriceViewState();
 }
 
-class _AddPropertyPriceViewState extends State<AddPropertyPriceView> {
+class _AddPropertyPriceViewState extends State<AddPropertyPriceView>
+    with AutomaticKeepAliveClientMixin<AddPropertyPriceView> {
   final FocusNode _focusNode = FocusNode();
   final ValueNotifier<ErrorType?> _error = ValueNotifier(null);
   final NumberFormat _numberFormat = NumberFormat('#,###.##');
@@ -67,6 +68,7 @@ class _AddPropertyPriceViewState extends State<AddPropertyPriceView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ValueListenableBuilder<ErrorType?>(
       valueListenable: _error,
       builder: (context, value, child) => HatSpaceInputText(
@@ -103,6 +105,9 @@ class _AddPropertyPriceViewState extends State<AddPropertyPriceView> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class PriceInputTextFormatter extends TextInputFormatter {
@@ -138,6 +143,11 @@ class PriceInputTextFormatter extends TextInputFormatter {
       number = numberFormat.parse(numberText);
     } catch (_) {
       error.value = ErrorType.priceIsNotNumber;
+      return oldValue;
+    }
+
+    if (number.toInt().toString().length > 8) {
+      // max digits allow
       return oldValue;
     }
 

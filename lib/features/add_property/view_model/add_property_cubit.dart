@@ -2,12 +2,29 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/property_data.dart';
 
+import 'package:hatspace/strings/l10n.dart';
+
 part 'add_property_state.dart';
 
 enum NavigatePage { forward, reverse }
 
+enum ButtonLabel {
+  next,
+  previewAndSubmit;
+
+  String get label {
+    switch (this) {
+      case ButtonLabel.next:
+        return HatSpaceStrings.current.next;
+      case ButtonLabel.previewAndSubmit:
+        return HatSpaceStrings.current.previewAndSubmit;
+    }
+  }
+}
+
 class AddPropertyCubit extends Cubit<AddPropertyState> {
   AddPropertyCubit() : super(const AddPropertyInitial());
+  bool isAddPropertyFlowInteracted = false;
 
   /// Defines all value needed for a property
   /// 1. Choose kind of place
@@ -15,13 +32,19 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   DateTime _availableDate = DateTime.now();
 
   PropertyTypes get propertyType => _type;
+
   set propertyType(PropertyTypes type) {
+    if (_type != type) {
+      isAddPropertyFlowInteracted = true;
+    }
     _type = type;
     validateNextButtonState(state.pageViewNumber);
   }
 
   DateTime get availableDate => _availableDate;
+
   set availableDate(DateTime dateTime) {
+    isAddPropertyFlowInteracted = true;
     _availableDate = dateTime;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -30,6 +53,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   AustraliaStates _australiaState = AustraliaStates.invalid;
 
   set australiaState(AustraliaStates australiaState) {
+    isAddPropertyFlowInteracted = true;
     _australiaState = australiaState;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -37,7 +61,9 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   AustraliaStates get australiaState => _australiaState;
 
   MinimumRentPeriod _rentPeriod = MinimumRentPeriod.invalid;
+
   set rentPeriod(MinimumRentPeriod rentPeriod) {
+    isAddPropertyFlowInteracted = true;
     _rentPeriod = rentPeriod;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -45,7 +71,9 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   MinimumRentPeriod get rentPeriod => _rentPeriod;
 
   String _propertyName = '';
+
   set propertyName(String name) {
+    isAddPropertyFlowInteracted = true;
     _propertyName = name;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -53,7 +81,9 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   String get propertyName => _propertyName;
 
   double? _price;
+
   set price(double? price) {
+    isAddPropertyFlowInteracted = true;
     _price = price;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -61,7 +91,9 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   double? get price => _price;
 
   String _suburb = '';
+
   set suburb(String value) {
+    isAddPropertyFlowInteracted = true;
     _suburb = value;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -69,7 +101,9 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   String get suburb => _suburb;
 
   int? _postalCode;
+
   set postalCode(int? value) {
+    isAddPropertyFlowInteracted = true;
     _postalCode = value;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -82,28 +116,36 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   int _parking = 0;
 
   int get bedrooms => _bedrooms;
+
   int get bathrooms => _bathrooms;
+
   int get parking => _parking;
 
   set bedrooms(int count) {
+    isAddPropertyFlowInteracted = true;
     _bedrooms = count;
     validateNextButtonState(state.pageViewNumber);
   }
 
   set bathrooms(int count) {
+    isAddPropertyFlowInteracted = true;
     _bathrooms = count;
     validateNextButtonState(state.pageViewNumber);
   }
 
   set parking(int count) {
+    isAddPropertyFlowInteracted = true;
     _parking = count;
     validateNextButtonState(state.pageViewNumber);
   }
 
   /// 4. Features
   List<Feature> _features = [];
+
   List<Feature> get features => _features;
+
   set features(List<Feature> list) {
+    isAddPropertyFlowInteracted = true;
     _features = list;
     validateNextButtonState(state.pageViewNumber);
   }
@@ -125,6 +167,8 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   /// Validate next button
   void validateNextButtonState(int pageNumber) {
     bool nextButtonEnable = false;
+    bool showRightChevron = true;
+    ButtonLabel label = ButtonLabel.next;
     switch (pageNumber) {
       case 0: // choose kind of place
         nextButtonEnable = true;
@@ -139,9 +183,14 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
       case 3: // features
         nextButtonEnable = true;
         break;
+      case 4: // add images
+        label = ButtonLabel.previewAndSubmit;
+        showRightChevron = false;
+        break;
       // TODO add validation logic for other screens
     }
-    emit(NextButtonEnable(state.pageViewNumber, nextButtonEnable));
+    emit(NextButtonEnable(
+        state.pageViewNumber, nextButtonEnable, label, showRightChevron));
   }
 
   /// handle back button
@@ -149,7 +198,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     if (state.pageViewNumber > 0) {
       navigatePage(NavigatePage.reverse, totalPages);
     } else if (state.pageViewNumber == 0) {
-      emit(ExitAddPropertyFlow(state.pageViewNumber));
+      onShowLostDataModal();
     }
   }
 
@@ -160,7 +209,12 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   void onShowLostDataModal() {
     // check pageViewNumber != choosekindofplace screen
     if (state.pageViewNumber == 0) {
-      // TODO: update logic for chooseKindOfPlace
+      // verify whether isPropertyTypeScreen get interacted
+      if (isAddPropertyFlowInteracted) {
+        emit(OpenLostDataWarningModal(state.pageViewNumber));
+      } else {
+        emit(ExitAddPropertyFlow(state.pageViewNumber));
+      }
     } else {
       emit(OpenLostDataWarningModal(state.pageViewNumber));
     }

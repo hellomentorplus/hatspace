@@ -114,7 +114,7 @@ void main() {
     'then return CloseSelectPhotoBottomSheet',
     build: () => AddPropertyImagesCubit(),
     seed: () => PhotoPermissionDeniedForever(),
-    act: (bloc) => bloc.onSelectPhotoBottomSheetDismissed(null),
+    act: (bloc) => bloc.onSelectPhotoBottomSheetDismissed(),
     expect: () => [isA<CloseSelectPhotoBottomSheet>()],
   );
 

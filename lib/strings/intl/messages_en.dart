@@ -79,7 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "available": MessageLookupByLibrary.simpleMessage("Available"),
         "availableDate": MessageLookupByLibrary.simpleMessage("Available date"),
         "availableDateColon":
-            MessageLookupByLibrary.simpleMessage("Available date:"),
+            MessageLookupByLibrary.simpleMessage("Available: "),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
@@ -166,6 +166,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Please go to Settings and allow photos access for HATSpace."),
         "portableFans": MessageLookupByLibrary.simpleMessage("Portable Fans"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
+        "previewAndSubmit":
+            MessageLookupByLibrary.simpleMessage("Preview & Submit"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
