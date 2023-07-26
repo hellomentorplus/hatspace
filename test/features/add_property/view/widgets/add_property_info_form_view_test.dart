@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_state_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_minimum_rent_view.dart';
-import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/property_info_form.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_info_form_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -13,8 +13,8 @@ import 'package:hatspace/theme/widgets/hs_modal_selection_view.dart';
 import 'package:hatspace/theme/widgets/hs_modal_view.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import '../../../widget_tester_extension.dart';
-import 'add_property_page_view_test.mocks.dart';
+import '../../../../widget_tester_extension.dart';
+import '../add_property_screen_test.mocks.dart';
 
 @GenerateMocks([AddPropertyCubit])
 void main() {
@@ -22,8 +22,8 @@ void main() {
 
   testWidgets('Test AddPropertyView UI', (WidgetTester widgetTester) async {
     await HatSpaceStrings.load(const Locale.fromSubtags(languageCode: 'en'));
-    Widget propertyInforForm = PropertyInforForm();
-    await widgetTester.wrapAndPump(propertyInforForm);
+    Widget propertyInfoForm = AddPropertyInfoFormView();
+    await widgetTester.wrapAndPump(propertyInfoForm);
     Text header = widgetTester.widget(find.text('Information'));
     expect(header.style, textTheme.displayLarge);
 

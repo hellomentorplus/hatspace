@@ -168,6 +168,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "portableFans": MessageLookupByLibrary.simpleMessage("Portable Fans"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
         "preview": MessageLookupByLibrary.simpleMessage("Preview"),
+        "previewAndSubmit":
+            MessageLookupByLibrary.simpleMessage("Preview & Submit"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "propertyFeatures":
