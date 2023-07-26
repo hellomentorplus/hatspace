@@ -89,15 +89,15 @@ void main() {
 
     when(authenticationBloc.state).thenReturn(AuthenticationInitial());
     when(authenticationBloc.stream)
-        .thenAnswer((realInvocation) => Stream.empty());
+        .thenAnswer((realInvocation) => const Stream.empty());
 
-    when(getPropertiesCubit.state).thenReturn(GetPropertiesInitialState());
+    when(getPropertiesCubit.state).thenReturn(const GetPropertiesInitialState());
     when(getPropertiesCubit.stream)
-        .thenAnswer((realInvocation) => Stream.empty());
+        .thenAnswer((realInvocation) => const Stream.empty());
 
     when(interactionCubit.state).thenReturn(HomeInitial());
     when(interactionCubit.stream)
-        .thenAnswer((realInvocation) => Stream.empty());
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   tearDown(() {
@@ -459,7 +459,7 @@ void main() {
         when(authenticationBloc.state)
             .thenAnswer((realInvocation) => AuthenticationInitial());
         when(authenticationBloc.stream)
-            .thenAnswer((realInvocation) => Stream.empty());
+            .thenAnswer((realInvocation) => const Stream.empty());
       });
 
       testWidgets(

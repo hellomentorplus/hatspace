@@ -1,11 +1,10 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
-
-import '../../../models/authentication/authentication_exception.dart';
+import 'package:hatspace/models/authentication/authentication_exception.dart';
 
 part 'add_home_owner_role_state.dart';
 

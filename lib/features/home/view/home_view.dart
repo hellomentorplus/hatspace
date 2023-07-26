@@ -14,10 +14,8 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:shake/shake.dart';
-
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
-
-import '../view_model/add_home_owner_role_cubit.dart';
+import 'package:hatspace/features/home/view_model/add_home_owner_role_cubit.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({super.key});
