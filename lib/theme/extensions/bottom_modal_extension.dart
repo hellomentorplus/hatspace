@@ -18,4 +18,13 @@ extension HsBottomSheet on BuildContext {
           return SingleChildScrollView(child: modal);
         });
   }
+
+  void dismissHsBottomSheet() {
+    Navigator.maybeOf(this)?.popUntil((route) {
+      if (route.settings.name == null) {
+        return false;
+      }
+      return true;
+    });
+  }
 }

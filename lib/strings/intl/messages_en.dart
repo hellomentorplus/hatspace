@@ -66,6 +66,14 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
             "How many bedrooms, bathrooms, car spaces?"),
+        "addHomeOwnerPrimaryBtnLabel":
+            MessageLookupByLibrary.simpleMessage("Add Homeowner role"),
+        "addHomeOwnerRoleContent": MessageLookupByLibrary.simpleMessage(
+            "Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?"),
+        "addHomeOwnerRoleTitle":
+            MessageLookupByLibrary.simpleMessage("Add Homeowner role"),
+        "addHomeOwnerSecondaryBtnLabel":
+            MessageLookupByLibrary.simpleMessage("Later"),
         "airConditioners":
             MessageLookupByLibrary.simpleMessage("Air conditioners"),
         "allPhotos": MessageLookupByLibrary.simpleMessage("All Photos"),

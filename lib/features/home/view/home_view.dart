@@ -14,8 +14,8 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:shake/shake.dart';
-
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
+import 'package:hatspace/features/home/view_model/add_home_owner_role_cubit.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({super.key});
@@ -30,6 +30,9 @@ class HomePageView extends StatelessWidget {
         BlocProvider<GetPropertiesCubit>(
           create: (context) => GetPropertiesCubit()..getProperties(),
         ),
+        BlocProvider<AddHomeOwnerRoleCubit>(
+          create: (context) => AddHomeOwnerRoleCubit(),
+        )
       ],
       child: const HomePageBody(),
     );
@@ -89,6 +92,27 @@ class HomePageBodyState extends State<HomePageBody> {
     return context.showHsBottomSheet(loginModal);
   }
 
+  Future<void> showRequestHomeOwnerRoleBottomSheet() {
+    return context
+        .showHsBottomSheet(HsWarningBottomSheetView(
+      iconUrl: Assets.icons.requestHomeownerRole,
+      title: HatSpaceStrings.current.addHomeOwnerRoleTitle,
+      description: HatSpaceStrings.current.addHomeOwnerRoleContent,
+      primaryButtonLabel: HatSpaceStrings.current.addHomeOwnerPrimaryBtnLabel,
+      primaryOnPressed: () {
+        context.read<AddHomeOwnerRoleCubit>().addHomeOwnerRole();
+      },
+      secondaryButtonLabel:
+          HatSpaceStrings.current.addHomeOwnerSecondaryBtnLabel,
+      secondaryOnPressed: () {
+        context.dismissHsBottomSheet();
+      },
+    ))
+        .then((value) {
+      context.read<HomeInteractionCubit>().onCloseModal();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -112,6 +136,26 @@ class HomePageBodyState extends State<HomePageBody> {
               }
               if (state is GotoSignUpScreen) {
                 context.goToSignup();
+              }
+
+              if (state is RequestHomeOwnerRole) {
+                showRequestHomeOwnerRoleBottomSheet();
+              }
+            },
+          ),
+          BlocListener<AddHomeOwnerRoleCubit, AddHomeOwnerRoleState>(
+            listener: (context, state) {
+              if (state is AddHomeOwnerRoleSucceeded) {
+                // check current state is RequestHomeOwnerRole
+                final homeInteractionState =
+                    context.read<HomeInteractionCubit>().state;
+
+                if (homeInteractionState is RequestHomeOwnerRole) {
+                  context.pop();
+                  context
+                      .read<HomeInteractionCubit>()
+                      .onBottomItemTapped(BottomBarItems.addingProperty);
+                }
               }
             },
           )
