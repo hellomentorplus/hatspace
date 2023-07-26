@@ -6,8 +6,8 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
-class AddPropertyReviewView extends StatelessWidget {
-  const AddPropertyReviewView({super.key});
+class AddPropertyPreviewView extends StatelessWidget {
+  const AddPropertyPreviewView({super.key});
 
   @override
   Widget build(BuildContext context) {

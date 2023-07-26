@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
-import 'package:hatspace/features/add_property/view/widgets/add_property_review_view.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_preview_view.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:network_image_mock/network_image_mock.dart';
@@ -19,7 +19,7 @@ void main() {
       'User will see all information they have inputted before.',
       (WidgetTester widgetTester) async {
     await mockNetworkImagesFor(
-        () => widgetTester.wrapAndPump(const AddPropertyReviewView()));
+        () => widgetTester.wrapAndPump(const AddPropertyPreviewView()));
     expect(find.text('House'), findsOneWidget);
     expect(
         find.text('Available: 06/06/23', findRichText: true), findsOneWidget);
