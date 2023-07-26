@@ -91,7 +91,8 @@ void main() {
     when(authenticationBloc.stream)
         .thenAnswer((realInvocation) => const Stream.empty());
 
-    when(getPropertiesCubit.state).thenReturn(const GetPropertiesInitialState());
+    when(getPropertiesCubit.state)
+        .thenReturn(const GetPropertiesInitialState());
     when(getPropertiesCubit.stream)
         .thenAnswer((realInvocation) => const Stream.empty());
 
