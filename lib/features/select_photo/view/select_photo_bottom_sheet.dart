@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/features/select_photo/view/widgets/item_square_view.dart';
+import 'package:hatspace/features/select_photo/view_model/lost_data_bottom_sheet_cubit.dart';
 import 'package:hatspace/features/select_photo/view_model/photo_selection_cubit.dart';
 import 'package:hatspace/features/select_photo/view_model/select_photo_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
+
+import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 
 enum PhotoTabs {
   allPhotos,
@@ -44,24 +48,55 @@ class SelectPhotoBottomSheet extends StatelessWidget {
           ),
           BlocProvider<PhotoSelectionCubit>(
             create: (context) => PhotoSelectionCubit(),
+          ),
+          BlocProvider<LostDataBottomSheetCubit>(
+            create: (context) => LostDataBottomSheetCubit(),
           )
         ],
-        child: const _SelectPhotoBottomSheet(),
+        child: const SelectPhotoBody(),
       );
 }
 
-class _SelectPhotoBottomSheet extends StatefulWidget {
-  const _SelectPhotoBottomSheet({Key? key}) : super(key: key);
+class SelectPhotoBody extends StatefulWidget {
+  const SelectPhotoBody({Key? key}) : super(key: key);
 
   @override
-  State<_SelectPhotoBottomSheet> createState() =>
-      _SelectPhotoBottomSheetState();
+  State<SelectPhotoBody> createState() => _SelectPhotoBodyState();
 }
 
-class _SelectPhotoBottomSheetState extends State<_SelectPhotoBottomSheet>
+class _SelectPhotoBodyState extends State<SelectPhotoBody>
     with TickerProviderStateMixin {
   late final TabController tabController =
       TabController(length: 1, vsync: this);
+
+  void _closeSelectPhotoBottomSheet(BuildContext context) {
+    int selectedItemCount =
+        context.read<PhotoSelectionCubit>().selectedItemCount;
+    context
+        .read<LostDataBottomSheetCubit>()
+        .onCloseSelectPhotoBottomSheetTapped(selectedItemCount);
+  }
+
+  void _closeSelectPhotoBottomSheetWithoutSavingPhoto(BuildContext context) {
+    context.read<LostDataBottomSheetCubit>().closeSelectPhotoBottomSheet();
+  }
+
+  Future<void> showLostDataBottomSheet(BuildContext context) {
+    HsWarningBottomSheetView lostDataModal = HsWarningBottomSheetView(
+        iconUrl: Assets.images.circleWarning,
+        title: HatSpaceStrings.current.lostDataTitle,
+        description: HatSpaceStrings.current.lostDataDescription,
+        primaryButtonLabel: HatSpaceStrings.current.no,
+        primaryOnPressed: () {
+          context.pop();
+        },
+        secondaryButtonLabel: HatSpaceStrings.current.yes,
+        secondaryOnPressed: () {
+          _closeSelectPhotoBottomSheetWithoutSavingPhoto(context);
+          context.pop();
+        });
+    return context.showHsBottomSheet(lostDataModal);
+  }
 
   @override
   Widget build(BuildContext context) => ClipRRect(
@@ -85,37 +120,52 @@ class _SelectPhotoBottomSheetState extends State<_SelectPhotoBottomSheet>
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
-                child: InkWell(
-                  onTap: () => context.pop(),
-                  borderRadius: BorderRadius.circular(HsDimens.size24),
-                  child: SvgPicture.asset(
-                    Assets.icons.close,
-                    width: HsDimens.size24,
-                    height: HsDimens.size24,
+                child: BlocListener<LostDataBottomSheetCubit,
+                    LostDataBottomSheetState>(
+                  listener: (context, state) {
+                    if (state is OpenLostDataBottomSheet) {
+                      showLostDataBottomSheet(context);
+                    }
+
+                    if (state is CloseLostDataBottomSheet) {
+                      context.pop();
+                    }
+
+                    if (state is ExitSelectPhoto) {
+                      context.pop();
+                    }
+                  },
+                  child: InkWell(
+                    onTap: () {
+                      _closeSelectPhotoBottomSheet(context);
+                    },
+                    borderRadius: BorderRadius.circular(HsDimens.size24),
+                    child: SvgPicture.asset(
+                      Assets.icons.close,
+                      width: HsDimens.size24,
+                      height: HsDimens.size24,
+                    ),
                   ),
                 ),
               )
             ],
           ),
-          body: TabBarView(
-            controller: tabController,
-            children: PhotoTabs.values.map((e) => e.tabView).toList(),
+          body: WillPopScope(
+            onWillPop: () async {
+              _closeSelectPhotoBottomSheet(context);
+              return false;
+            },
+            child: TabBarView(
+              controller: tabController,
+              children: PhotoTabs.values.map((e) => e.tabView).toList(),
+            ),
           ),
         ),
       );
 }
 
-class AllPhotosView extends StatefulWidget {
+class AllPhotosView extends StatelessWidget {
   const AllPhotosView({Key? key}) : super(key: key);
-
-  @override
-  State<AllPhotosView> createState() => _AllPhotosViewState();
-}
-
-class _AllPhotosViewState extends State<AllPhotosView> {
-  List<bool> isSelectedList = [];
-  List<int> selectedIndices = [];
-  int selectedCount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -124,9 +174,6 @@ class _AllPhotosViewState extends State<AllPhotosView> {
         Expanded(child: BlocBuilder<SelectPhotoCubit, SelectPhotoState>(
           builder: (context, state) {
             if (state is PhotosLoaded) {
-              if (isSelectedList.isEmpty) {
-                isSelectedList = List.filled(state.photos.length, false);
-              }
               return GridView(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,

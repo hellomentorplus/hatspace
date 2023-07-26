@@ -93,6 +93,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/profile.svg
   String get profile => 'assets/icons/profile.svg';
 
+  /// File path: assets/icons/request_homeowner_role.svg
+  String get requestHomeownerRole => 'assets/icons/request_homeowner_role.svg';
+
   /// File path: assets/icons/search.svg
   String get search => 'assets/icons/search.svg';
 
@@ -146,6 +149,7 @@ class $AssetsIconsGen {
         photoAccess,
         portableFans,
         profile,
+        requestHomeownerRole,
         search,
         securityCameras,
         swimmingPool,
