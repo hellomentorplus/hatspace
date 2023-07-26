@@ -48,7 +48,8 @@ void main() {
   final MockPropertyService propertyService = MockPropertyService();
   final MockGetPropertiesCubit getPropertiesCubit = MockGetPropertiesCubit();
   final MockHomeInteractionCubit interactionCubit = MockHomeInteractionCubit();
-  final MockAddHomeOwnerRoleCubit  addHomeOwnerRoleCubit = MockAddHomeOwnerRoleCubit();
+  final MockAddHomeOwnerRoleCubit addHomeOwnerRoleCubit =
+      MockAddHomeOwnerRoleCubit();
   late final List<BlocProvider<StateStreamableSource<Object?>>>
       requiredHomeBlocs;
 
@@ -83,18 +84,22 @@ void main() {
     when(storageService.property).thenReturn(propertyService);
 
     when(addHomeOwnerRoleCubit.state).thenReturn(AddHomeOwnerRoleInitial());
-    when(addHomeOwnerRoleCubit.stream).thenAnswer((realInvocation) => const Stream.empty());
+    when(addHomeOwnerRoleCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
 
     when(authenticationBloc.state).thenReturn(AuthenticationInitial());
-    when(authenticationBloc.stream).thenAnswer((realInvocation) => Stream.empty());
+    when(authenticationBloc.stream)
+        .thenAnswer((realInvocation) => Stream.empty());
 
     when(getPropertiesCubit.state).thenReturn(GetPropertiesInitialState());
-    when(getPropertiesCubit.stream).thenAnswer((realInvocation) => Stream.empty());
+    when(getPropertiesCubit.stream)
+        .thenAnswer((realInvocation) => Stream.empty());
 
     when(interactionCubit.state).thenReturn(HomeInitial());
-    when(interactionCubit.stream).thenAnswer((realInvocation) => Stream.empty());
+    when(interactionCubit.stream)
+        .thenAnswer((realInvocation) => Stream.empty());
   });
-  
+
   tearDown(() {
     reset(appConfigBloc);
     reset(storageService);
@@ -446,50 +451,71 @@ void main() {
       expect(propertyWidget2.property.id, fakeData[1].id);
     });
   });
-  
-  group('Add HomeOwner role', () {
-    setUp(() {
-      when(authenticationBloc.state).thenAnswer((realInvocation) => AuthenticationInitial());
-      when(authenticationBloc.stream).thenAnswer((realInvocation) => Stream.empty());
 
-    });
+  group(
+    'Add HomeOwner role',
+    () {
+      setUp(() {
+        when(authenticationBloc.state)
+            .thenAnswer((realInvocation) => AuthenticationInitial());
+        when(authenticationBloc.stream)
+            .thenAnswer((realInvocation) => Stream.empty());
+      });
 
-    testWidgets('given HomeInteractionState is RequestHomeOwnerRole,'
-        'when launch Home View'
-        'then show Add Homeowner role bottom sheet', (widgetTester) async {
-      when(interactionCubit.state).thenReturn(RequestHomeOwnerRole());
-      when(interactionCubit.stream).thenAnswer((realInvocation) => Stream.value(RequestHomeOwnerRole()));
+      testWidgets(
+          'given HomeInteractionState is RequestHomeOwnerRole,'
+          'when launch Home View'
+          'then show Add Homeowner role bottom sheet', (widgetTester) async {
+        when(interactionCubit.state).thenReturn(RequestHomeOwnerRole());
+        when(interactionCubit.stream).thenAnswer(
+            (realInvocation) => Stream.value(RequestHomeOwnerRole()));
 
-      const Widget widget = HomePageBody();
-      
-      await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
-      
-      expect(find.text('Add Homeowner role'), findsNWidgets(2));
-      expect(find.text('Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?'), findsOneWidget);
-      expect(find.text('Later'), findsOneWidget);
-      
-      expect(find.svgPictureWithAssets(Assets.icons.requestHomeownerRole), findsOneWidget);
-    });
+        const Widget widget = HomePageBody();
 
-    testWidgets('given Request homeowner role  is visible,'
-        'when AddHomeOwnerRoleState is AddHomeOwnerRoleSucceeded,'
-        'then dismiss Request homeowner role bottomsheet', (widgetTester) async{
-      when(interactionCubit.state).thenReturn(RequestHomeOwnerRole());
-      when(interactionCubit.stream).thenAnswer((realInvocation) => Stream.value(RequestHomeOwnerRole()));
+        await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
 
-      when(addHomeOwnerRoleCubit.state).thenReturn(AddHomeOwnerRoleSucceeded());
-      when(addHomeOwnerRoleCubit.stream).thenAnswer((realInvocation) => Stream.value(AddHomeOwnerRoleSucceeded()));
+        expect(find.text('Add Homeowner role'), findsNWidgets(2));
+        expect(
+            find.text(
+                'Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?'),
+            findsOneWidget);
+        expect(find.text('Later'), findsOneWidget);
 
-      const Widget widget = HomePageBody();
+        expect(find.svgPictureWithAssets(Assets.icons.requestHomeownerRole),
+            findsOneWidget);
+      });
 
-      await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
+      testWidgets(
+          'given Request homeowner role  is visible,'
+          'when AddHomeOwnerRoleState is AddHomeOwnerRoleSucceeded,'
+          'then dismiss Request homeowner role bottomsheet',
+          (widgetTester) async {
+        when(interactionCubit.state).thenReturn(RequestHomeOwnerRole());
+        when(interactionCubit.stream).thenAnswer(
+            (realInvocation) => Stream.value(RequestHomeOwnerRole()));
 
-      expect(find.text('Add Homeowner role'), findsNothing);
-      expect(find.text('Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?'), findsNothing);
-      expect(find.text('Later'), findsNothing);
+        when(addHomeOwnerRoleCubit.state)
+            .thenReturn(AddHomeOwnerRoleSucceeded());
+        when(addHomeOwnerRoleCubit.stream).thenAnswer(
+            (realInvocation) => Stream.value(AddHomeOwnerRoleSucceeded()));
 
-      expect(find.svgPictureWithAssets(Assets.icons.requestHomeownerRole), findsNothing);
-      verify(interactionCubit.onBottomItemTapped(BottomBarItems.addingProperty)).called(1);
-    });
-  },);
+        const Widget widget = HomePageBody();
+
+        await widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, widget);
+
+        expect(find.text('Add Homeowner role'), findsNothing);
+        expect(
+            find.text(
+                'Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?'),
+            findsNothing);
+        expect(find.text('Later'), findsNothing);
+
+        expect(find.svgPictureWithAssets(Assets.icons.requestHomeownerRole),
+            findsNothing);
+        verify(interactionCubit
+                .onBottomItemTapped(BottomBarItems.addingProperty))
+            .called(1);
+      });
+    },
+  );
 }

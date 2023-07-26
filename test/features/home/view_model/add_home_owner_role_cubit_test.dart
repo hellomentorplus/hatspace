@@ -14,39 +14,49 @@ import 'add_home_owner_role_cubit_test.mocks.dart';
 
 @GenerateMocks([AuthenticationService, StorageService, MemberService])
 void main() {
-  final MockAuthenticationService authenticationService  = MockAuthenticationService();
+  final MockAuthenticationService authenticationService =
+      MockAuthenticationService();
   final MockStorageService storageService = MockStorageService();
   final MockMemberService memberService = MockMemberService();
 
   setUpAll(() {
-    HsSingleton.singleton.registerSingleton<AuthenticationService>(authenticationService);
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
 
     when(storageService.member).thenReturn(memberService);
   });
 
-  blocTest('given user detail not found,'
-      'when addHomeOwnerRole,'
-      'then return AddHomeOwnerRoleError', build: () => AddHomeOwnerRoleCubit(),
+  blocTest(
+    'given user detail not found,'
+    'when addHomeOwnerRole,'
+    'then return AddHomeOwnerRoleError',
+    build: () => AddHomeOwnerRoleCubit(),
     setUp: () {
-      when(authenticationService.getCurrentUser()).thenThrow(UserNotFoundException());
+      when(authenticationService.getCurrentUser())
+          .thenThrow(UserNotFoundException());
     },
     act: (bloc) => bloc.addHomeOwnerRole(),
     expect: () => [isA<AddHomeOwnerRoleError>()],
   );
 
-  blocTest('given user detail available,'
-      'when addHomeOwnerRole,'
-      'then return AddHomeOwnerRoleSucceeded,'
-      'and save homeowner role to user', build: () => AddHomeOwnerRoleCubit(),
+  blocTest(
+    'given user detail available,'
+    'when addHomeOwnerRole,'
+    'then return AddHomeOwnerRoleSucceeded,'
+    'and save homeowner role to user',
+    build: () => AddHomeOwnerRoleCubit(),
     setUp: () {
-      when(authenticationService.getCurrentUser()).thenAnswer((realInvocation) => Future.value(UserDetail(uid: 'uid')));
-      when(memberService.getUserRoles(any)).thenAnswer((realInvocation) => Future.value([Roles.tenant]));
+      when(authenticationService.getCurrentUser())
+          .thenAnswer((realInvocation) => Future.value(UserDetail(uid: 'uid')));
+      when(memberService.getUserRoles(any))
+          .thenAnswer((realInvocation) => Future.value([Roles.tenant]));
     },
     act: (bloc) => bloc.addHomeOwnerRole(),
     expect: () => [isA<AddHomeOwnerRoleSucceeded>()],
     verify: (bloc) {
-      verify(memberService.saveUserRoles('uid', {Roles.tenant, Roles.homeowner})).called(1);
+      verify(memberService
+          .saveUserRoles('uid', {Roles.tenant, Roles.homeowner})).called(1);
     },
   );
 }
