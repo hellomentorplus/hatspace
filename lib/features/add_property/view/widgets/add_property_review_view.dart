@@ -50,7 +50,7 @@ class AddPropertyReviewView extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: HatSpaceStrings.current
-                                .dateFormatter(DateTime.now()),
+                                .dateFormatter(DateTime(2023, 6, 6)),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium

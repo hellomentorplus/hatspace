@@ -22,7 +22,7 @@ void main() {
         () => widgetTester.wrapAndPump(const AddPropertyReviewView()));
     expect(find.text('House'), findsOneWidget);
     expect(
-        find.text('Available: 07/25/23', findRichText: true), findsOneWidget);
+        find.text('Available: 06/06/23', findRichText: true), findsOneWidget);
     expect(find.text('Single room for rent in Bankstown'), findsOneWidget);
     expect(find.text('Gateway, Island'), findsOneWidget);
     expect(find.text(r'$30,000 pw', findRichText: true), findsOneWidget);
