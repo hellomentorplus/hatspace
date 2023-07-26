@@ -208,8 +208,8 @@ class AllPhotosView extends StatelessWidget {
                   onPressed: uploadEnable
                       ? () {
                           if (state is PhotoSelectionUpdated) {
-                            Navigator.of(context)
-                                .pop(state.selectedItems.toList());
+                            context.pop<List<String>>(
+                                result: state.selectedItems.toList());
                           }
                         }
                       : null,
