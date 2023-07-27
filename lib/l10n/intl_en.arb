@@ -136,5 +136,8 @@
   "addHomeOwnerRoleContent":"Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?",
   "addHomeOwnerPrimaryBtnLabel":"Add Homeowner role",
   "addHomeOwnerSecondaryBtnLabel":"Later",
+  "preview": "Preview",
+  "location": "Location",
+  "propertyFeatures": "Property features",
   "previewAndSubmit": "Preview & Submit"
 }

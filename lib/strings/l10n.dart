@@ -1174,6 +1174,36 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Preview`
+  String get preview {
+    return Intl.message(
+      'Preview',
+      name: 'preview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Location`
+  String get location {
+    return Intl.message(
+      'Location',
+      name: 'location',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Property features`
+  String get propertyFeatures {
+    return Intl.message(
+      'Property features',
+      name: 'propertyFeatures',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Preview & Submit`
   String get previewAndSubmit {
     return Intl.message(

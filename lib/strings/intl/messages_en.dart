@@ -144,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "location": MessageLookupByLibrary.simpleMessage("Location"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginDescription": MessageLookupByLibrary.simpleMessage(
             "You need to be logged in to view this content"),
@@ -174,10 +175,13 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Please go to Settings and allow photos access for HATSpace."),
         "portableFans": MessageLookupByLibrary.simpleMessage("Portable Fans"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
+        "preview": MessageLookupByLibrary.simpleMessage("Preview"),
         "previewAndSubmit":
             MessageLookupByLibrary.simpleMessage("Preview & Submit"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "propertyFeatures":
+            MessageLookupByLibrary.simpleMessage("Property features"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
         "pw": MessageLookupByLibrary.simpleMessage("pw"),
         "rentPeriod": m4,
