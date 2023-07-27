@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_image_selected_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_images_cubit.dart';
 import 'package:hatspace/features/select_photo/view/select_photo_bottom_sheet.dart';
@@ -45,6 +46,11 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+
+    final List<String> selectedPhotos = context.read<AddPropertyCubit>().photos;
+    context
+        .read<AddPropertyImageSelectedCubit>()
+        .onPhotosSelected(selectedPhotos);
   }
 
   @override
@@ -86,6 +92,12 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
             context
                 .read<AddPropertyImageSelectedCubit>()
                 .onPhotosSelected(result);
+
+            if (result != null) {
+              context
+                  .read<AddPropertyCubit>()
+                  .photos = result;
+            }
           });
         }
       },
