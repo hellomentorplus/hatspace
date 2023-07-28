@@ -246,17 +246,16 @@ void main() {
     );
 
     blocTest<AddPropertyCubit, AddPropertyState>(
-      'given no photos available, when validateNextButtonState, then return NextButtonEnable false',
-      build: () => AddPropertyCubit(),
-      act: (bloc) => bloc.validateNextButtonState(4),
-      expect: () => [isA<NextButtonEnable>()],
-      verify: (bloc) {
-        NextButtonEnable state = bloc.state as NextButtonEnable;
+        'given no photos available, when validateNextButtonState, then return NextButtonEnable false',
+        build: () => AddPropertyCubit(),
+        act: (bloc) => bloc.validateNextButtonState(4),
+        expect: () => [isA<NextButtonEnable>()],
+        verify: (bloc) {
+          NextButtonEnable state = bloc.state as NextButtonEnable;
 
-        expect(state.isActive, false);
-        expect(state.btnLabel, ButtonLabel.previewAndSubmit);
-      }
-    );
+          expect(state.isActive, false);
+          expect(state.btnLabel, ButtonLabel.previewAndSubmit);
+        });
 
     blocTest<AddPropertyCubit, AddPropertyState>(
         'when added photos, then emit NextButtonEnable true',
@@ -267,8 +266,7 @@ void main() {
           NextButtonEnable state = bloc.state as NextButtonEnable;
 
           expect(state.isActive, isTrue);
-        }
-    );
+        });
 
     blocTest<AddPropertyCubit, AddPropertyState>(
         'when clear all photos, then emit NextButtonEnable false',
@@ -280,8 +278,7 @@ void main() {
           NextButtonEnable state = bloc.state as NextButtonEnable;
 
           expect(state.isActive, isFalse);
-        }
-    );
+        });
 
     group('lost data modal', () {
       blocTest<AddPropertyCubit, AddPropertyState>(

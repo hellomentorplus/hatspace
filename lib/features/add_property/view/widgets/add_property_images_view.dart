@@ -94,9 +94,7 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
                 .onPhotosSelected(result);
 
             if (result != null) {
-              context
-                  .read<AddPropertyCubit>()
-                  .photos = result;
+              context.read<AddPropertyCubit>().photos = result;
             }
           });
         }
