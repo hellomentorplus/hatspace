@@ -3,10 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-
-import 'add_property_cubit_test.mocks.dart';
 
 void main() {
   initializeDateFormatting();
