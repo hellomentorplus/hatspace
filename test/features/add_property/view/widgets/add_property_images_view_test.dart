@@ -47,9 +47,9 @@ void main() {
     when(addPropertyImageSelectedCubit.stream)
         .thenAnswer((realInvocation) => const Stream.empty());
 
-    when(addPropertyCubit.state).thenReturn(AddPropertyInitial());
+    when(addPropertyCubit.state).thenReturn(const AddPropertyInitial());
     when(addPropertyCubit.stream)
-        .thenAnswer((realInvocation) => Stream.empty());
+        .thenAnswer((realInvocation) => const Stream.empty());
 
     when(addPropertyCubit.photos).thenAnswer((realInvocation) => []);
 
