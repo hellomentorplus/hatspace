@@ -1143,6 +1143,96 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Other information`
+  String get otherInformation {
+    return Intl.message(
+      'Other information',
+      name: 'otherInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log out`
+  String get logOut {
+    return Intl.message(
+      'Log out',
+      name: 'logOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete account`
+  String get deleteAccount {
+    return Intl.message(
+      'Delete account',
+      name: 'deleteAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favorite lists`
+  String get favoriteLists {
+    return Intl.message(
+      'Favorite lists',
+      name: 'favoriteLists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My properties`
+  String get myProperties {
+    return Intl.message(
+      'My properties',
+      name: 'myProperties',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My account`
+  String get myAccount {
+    return Intl.message(
+      'My account',
+      name: 'myAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View profile`
+  String get viewProfile {
+    return Intl.message(
+      'View profile',
+      name: 'viewProfile',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

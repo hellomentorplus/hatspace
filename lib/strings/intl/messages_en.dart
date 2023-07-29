@@ -94,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
         "currencyFormatter": m1,
         "dateFormatter": m2,
+        "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
         "emailSignUp":
@@ -118,6 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "explore": MessageLookupByLibrary.simpleMessage("Explore"),
         "facebookSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Facebook"),
+        "favoriteLists": MessageLookupByLibrary.simpleMessage("Favorite lists"),
         "fridge": MessageLookupByLibrary.simpleMessage("Fridge"),
         "goToSetting": MessageLookupByLibrary.simpleMessage("Go to Setting"),
         "googleSignUp":
@@ -131,11 +133,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
         "information": MessageLookupByLibrary.simpleMessage("Information"),
         "kitchen": MessageLookupByLibrary.simpleMessage("Kitchen"),
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
         "letAddSomePhotosOfYourPlace": MessageLookupByLibrary.simpleMessage(
             "Let\'s add some photos of your place"),
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginDescription": MessageLookupByLibrary.simpleMessage(
             "You need to be logged in to view this content"),
@@ -146,12 +150,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "message": MessageLookupByLibrary.simpleMessage("Message"),
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
+        "myAccount": MessageLookupByLibrary.simpleMessage("My account"),
+        "myProperties": MessageLookupByLibrary.simpleMessage("My properties"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noLater": MessageLookupByLibrary.simpleMessage("No, later"),
         "numberFieldContainsNonNumber":
             MessageLookupByLibrary.simpleMessage("Only accept number"),
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
+        "otherInformation":
+            MessageLookupByLibrary.simpleMessage("Other information"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Car spaces"),
         "pleaseEnterYourPlaceholder": MessageLookupByLibrary.simpleMessage(
             "Please Enter Your Placeholder"),
@@ -180,6 +188,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
         "securityCameras":
             MessageLookupByLibrary.simpleMessage("Security cameras"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),
         "signinErrorToastMessage": MessageLookupByLibrary.simpleMessage(
@@ -200,6 +209,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadPhotoCount": m5,
         "userRoleDescription": m6,
         "userTitleRoles": m7,
+        "viewProfile": MessageLookupByLibrary.simpleMessage("View profile"),
         "viewsToday": m8,
         "washingMachine":
             MessageLookupByLibrary.simpleMessage("Washing machine"),

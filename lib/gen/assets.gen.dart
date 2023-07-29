@@ -18,6 +18,12 @@ class $AssetsIconsGen {
   /// File path: assets/icons/air_conditioners.svg
   String get airConditioners => 'assets/icons/air_conditioners.svg';
 
+  /// File path: assets/icons/apartment.svg
+  String get apartment => 'assets/icons/apartment.svg';
+
+  /// File path: assets/icons/arrow_right.svg
+  String get arrowRight => 'assets/icons/arrow_right.svg';
+
   /// File path: assets/icons/bath.svg
   String get bath => 'assets/icons/bath.svg';
 
@@ -39,6 +45,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/close_circle.svg
   String get closeCircle => 'assets/icons/close_circle.svg';
 
+  /// File path: assets/icons/delete.svg
+  String get delete => 'assets/icons/delete.svg';
+
   /// File path: assets/icons/electric_stove.svg
   String get electricStove => 'assets/icons/electric_stove.svg';
 
@@ -53,6 +62,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/facebook.svg
   String get facebook => 'assets/icons/facebook.svg';
+
+  /// File path: assets/icons/favorite.svg
+  String get favorite => 'assets/icons/favorite.svg';
 
   /// File path: assets/icons/favorite_active.svg
   String get favoriteActive => 'assets/icons/favorite_active.svg';
@@ -75,8 +87,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_agent.svg
   String get icAgent => 'assets/icons/ic_agent.svg';
 
+  /// File path: assets/icons/info.svg
+  String get info => 'assets/icons/info.svg';
+
   /// File path: assets/icons/kitchen.svg
   String get kitchen => 'assets/icons/kitchen.svg';
+
+  /// File path: assets/icons/language.svg
+  String get language => 'assets/icons/language.svg';
+
+  /// File path: assets/icons/logout.svg
+  String get logout => 'assets/icons/logout.svg';
 
   /// File path: assets/icons/message.svg
   String get message => 'assets/icons/message.svg';
@@ -121,6 +142,8 @@ class $AssetsIconsGen {
   List<String> get values => [
         add,
         airConditioners,
+        apartment,
+        arrowRight,
         bath,
         bed,
         booking,
@@ -128,11 +151,13 @@ class $AssetsIconsGen {
         check,
         close,
         closeCircle,
+        delete,
         electricStove,
         envelope,
         explore,
         eye,
         facebook,
+        favorite,
         favoriteActive,
         favoriteUnactive,
         filter,
@@ -140,7 +165,10 @@ class $AssetsIconsGen {
         google,
         homeowner,
         icAgent,
+        info,
         kitchen,
+        language,
+        logout,
         message,
         notification,
         photoAccess,
@@ -248,6 +276,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/upload_photo.svg
   String get uploadPhoto => 'assets/images/upload_photo.svg';
 
+  /// File path: assets/images/user_default_avatar.svg
+  String get userDefaultAvatar => 'assets/images/user_default_avatar.svg';
+
   /// List of all assets
   List<dynamic> get values => [
         apartment,
@@ -278,7 +309,8 @@ class $AssetsImagesGen {
         searchNormal,
         signInBackground,
         upload,
-        uploadPhoto
+        uploadPhoto,
+        userDefaultAvatar
       ];
 }
 
