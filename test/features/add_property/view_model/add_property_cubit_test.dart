@@ -115,6 +115,55 @@ void main() {
     },
   );
 
+  blocTest(
+    'given page is add image, and no images are added, when validate next button, then emit NextButton false',
+    build: () => AddPropertyCubit(),
+    setUp: () => const NextButtonEnable(4, true, ButtonLabel.next, true),
+    act: (bloc) {
+      bloc.photos = [];
+      bloc.validateNextButtonState(4);
+    },
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, isFalse);
+    },
+  );
+
+  blocTest(
+    'given page is add image, and less than 4 images are added, when validate next button, then emit NextButton false',
+    build: () => AddPropertyCubit(),
+    act: (bloc) {
+      bloc.photos = ['1photo'];
+      bloc.validateNextButtonState(4);
+    },
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, isFalse);
+    },
+  );
+
+  blocTest(
+    'given page is add image, and 4 images are added, when validate next button, then emit NextButton false',
+    build: () => AddPropertyCubit(),
+    act: (bloc) {
+      bloc.photos = ['1photo', '2photo', '3photo', '4photo'];
+      bloc.validateNextButtonState(4);
+    },
+    verify: (bloc) {
+      AddPropertyState state = bloc.state;
+      expect(state, isA<NextButtonEnable>());
+
+      NextButtonEnable nextButtonEnable = state as NextButtonEnable;
+      expect(nextButtonEnable.isActive, isTrue);
+    },
+  );
+
   blocTest<AddPropertyCubit, AddPropertyState>(
     'given current page is 3, when back button pressed, then return to page 2',
     build: () => AddPropertyCubit(),

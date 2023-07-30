@@ -208,7 +208,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
       case 4: // add images
         label = ButtonLabel.previewAndSubmit;
         showRightChevron = false;
-        nextButtonEnable = _photos.isNotEmpty;
+        nextButtonEnable = _photos.length >= 4;
         break;
       // TODO add validation logic for other screens
     }
