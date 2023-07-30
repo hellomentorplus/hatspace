@@ -177,7 +177,7 @@ class BottomController extends StatelessWidget {
               style: const ButtonStyle(
                   foregroundColor:
                       MaterialStatePropertyAll<Color>(HSColor.onSurface)),
-              iconUrl: Assets.images.chevronLeft,
+              iconUrl: Assets.icons.chevronLeft,
             ),
             if (state is NextButtonEnable)
               PrimaryButton(
@@ -190,7 +190,7 @@ class BottomController extends StatelessWidget {
                         }
                       : null,
                   iconUrl: (state.showRightChevron)
-                      ? Assets.images.chevronRight
+                      ? Assets.icons.chevronRight
                       : null,
                   iconPosition:
                       (state.showRightChevron) ? IconPosition.right : null),

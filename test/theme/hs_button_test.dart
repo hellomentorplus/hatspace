@@ -70,7 +70,7 @@ void main() {
       final Builder primaryButton = Builder(builder: (BuildContext context) {
         return PrimaryButton(
           label: 'Continue',
-          iconUrl: Assets.images.facebook,
+          iconUrl: Assets.images.facebookWhite,
           style: Theme.of(context).elevatedButtonTheme.style,
         );
       });
@@ -127,7 +127,7 @@ void main() {
         (WidgetTester tester) async {
       PrimaryButton primaryButton = PrimaryButton(
         label: 'Continue',
-        iconUrl: Assets.images.facebook,
+        iconUrl: Assets.images.facebookWhite,
         iconPosition: IconPosition.right,
         contentAlignment: MainAxisAlignment.start,
       );
@@ -149,7 +149,7 @@ void main() {
       expect(
           reason: 'Button content has the correct image passed on',
           buttonContent.iconUrl,
-          Assets.images.facebook);
+          Assets.images.facebookWhite);
     });
   });
 
@@ -210,7 +210,7 @@ void main() {
       final Builder secondaryButton = Builder(builder: (BuildContext context) {
         return SecondaryButton(
           label: 'Continue',
-          iconUrl: Assets.images.facebook,
+          iconUrl: Assets.images.facebookWhite,
           style: Theme.of(context).outlinedButtonTheme.style,
         );
       });
@@ -267,7 +267,7 @@ void main() {
         (WidgetTester tester) async {
       SecondaryButton secondaryButton = SecondaryButton(
         label: 'Continue',
-        iconUrl: Assets.images.facebook,
+        iconUrl: Assets.images.facebookWhite,
         iconPosition: IconPosition.right,
         contentAlignment: MainAxisAlignment.start,
       );
@@ -289,7 +289,7 @@ void main() {
       expect(
           reason: 'Button content has the correct image passed on',
           buttonContent.iconUrl,
-          Assets.images.facebook);
+          Assets.images.facebookWhite);
     });
   });
 
@@ -348,7 +348,7 @@ void main() {
       final Builder textOnlyButton = Builder(builder: (BuildContext context) {
         return TextOnlyButton(
           label: 'Continue',
-          iconUrl: Assets.images.facebook,
+          iconUrl: Assets.images.facebookWhite,
           style: Theme.of(context).textButtonTheme.style,
         );
       });
@@ -399,7 +399,7 @@ void main() {
         (WidgetTester tester) async {
       TextOnlyButton textOnlyButton = TextOnlyButton(
         label: 'Continue',
-        iconUrl: Assets.images.facebook,
+        iconUrl: Assets.images.facebookWhite,
         iconPosition: IconPosition.right,
         contentAlignment: MainAxisAlignment.start,
       );
@@ -421,7 +421,7 @@ void main() {
       expect(
           reason: 'Button content has the correct image passed on',
           buttonContent.iconUrl,
-          Assets.images.facebook);
+          Assets.images.facebookWhite);
     });
   });
 
@@ -477,7 +477,7 @@ void main() {
     testWidgets('Test TertiaryButton with icon', (WidgetTester tester) async {
       TertiaryButton outlinedButton = TertiaryButton(
         label: 'Continue',
-        iconUrl: Assets.images.facebook,
+        iconUrl: Assets.images.facebookWhite,
       );
 
       await tester.wrapAndPump(outlinedButton);
@@ -532,7 +532,7 @@ void main() {
         (WidgetTester tester) async {
       TertiaryButton outlinedButton = TertiaryButton(
         label: 'Continue',
-        iconUrl: Assets.images.facebook,
+        iconUrl: Assets.images.facebookWhite,
         iconPosition: IconPosition.right,
         contentAlignment: MainAxisAlignment.start,
       );
@@ -554,7 +554,7 @@ void main() {
       expect(
           reason: 'Button content has the correct image passed on',
           buttonContent.iconUrl,
-          Assets.images.facebook);
+          Assets.images.facebookWhite);
     });
   });
 
@@ -612,7 +612,7 @@ void main() {
       (WidgetTester tester) async {
     int count = 0;
     Widget roundButton = RoundButton(
-        iconUrl: Assets.images.increment,
+        iconUrl: Assets.icons.increment,
         onPressed: () {
           count = 1;
         });

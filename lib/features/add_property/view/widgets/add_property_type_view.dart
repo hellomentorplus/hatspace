@@ -208,7 +208,7 @@ class _DatePickerView extends StatelessWidget {
               });
         },
         label: DateFormat('dd MMMM, yyyy').format(selectedDate),
-        iconUrl: Assets.images.calendar,
+        iconUrl: Assets.icons.calendar,
         iconPosition: IconPosition.right,
         contentAlignment: MainAxisAlignment.spaceBetween,
         style: ButtonStyle(

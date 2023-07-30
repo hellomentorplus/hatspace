@@ -27,7 +27,7 @@ class HsModalSelectionView<T> extends StatelessWidget {
           valueListenable: selection,
           builder: (_, value, child) {
             return HsDropDownButton(
-                icon: Assets.images.chervonDown,
+                icon: Assets.icons.chervonDown,
                 isRequired: true,
                 value: dislayName(value),
                 onPressed: () {

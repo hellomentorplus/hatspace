@@ -131,7 +131,7 @@ class ProfileBody extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: HsDimens.spacing12),
-              SvgPicture.asset(Assets.icons.arrowRight)
+              SvgPicture.asset(Assets.icons.chevronRight)
             ],
           ),
         ),
@@ -229,7 +229,7 @@ class _OptionView extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium),
                 const SizedBox(width: HsDimens.spacing8)
               ],
-              SvgPicture.asset(Assets.icons.arrowRight),
+              SvgPicture.asset(Assets.icons.chevronRight),
             ],
           ),
         ))

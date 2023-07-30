@@ -12,8 +12,8 @@ HeaderStyle hsDatePickerHeaderTheme = HeaderStyle(
   titleCentered: true,
   formatButtonVisible: false,
   titleTextStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-  leftChevronIcon: SvgPicture.asset(Assets.images.arrowCalendarLeft),
-  rightChevronIcon: SvgPicture.asset(Assets.images.arrowCalendarRight),
+  leftChevronIcon: SvgPicture.asset(Assets.icons.arrowCalendarLeft),
+  rightChevronIcon: SvgPicture.asset(Assets.icons.arrowCalendarRight),
 );
 
 CalendarStyle hsDatePickerCalenderTheme = CalendarStyle(

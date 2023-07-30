@@ -108,7 +108,7 @@ class _AddBedroomCounter extends StatelessWidget {
               return Row(
                 children: [
                   RoundButton(
-                      iconUrl: Assets.images.decrement,
+                      iconUrl: Assets.icons.decrement,
                       onPressed: checkCounterAdded(value)
                           ? () => counter.value -= 1
                           : null),
@@ -122,7 +122,7 @@ class _AddBedroomCounter extends StatelessWidget {
                     ),
                   ),
                   RoundButton(
-                      iconUrl: Assets.images.increment,
+                      iconUrl: Assets.icons.increment,
                       onPressed: checkCounterMaxReached(value)
                           ? null
                           : () => counter.value += 1),

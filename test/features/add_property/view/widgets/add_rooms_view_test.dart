@@ -46,12 +46,12 @@ void main() {
     // 3 minus icon
     expect(
         find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
-            widget, 'assets/images/decrement.svg')),
+            widget, 'assets/icons/decrement.svg')),
         findsNWidgets(3));
     // 3 plus icon
     expect(
         find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
-            widget, 'assets/images/increment.svg')),
+            widget, 'assets/icons/increment.svg')),
         findsNWidgets(3));
   });
 
@@ -72,7 +72,7 @@ void main() {
                 (widget) => findRowForLabel(widget, 'Bedrooms')),
             matching: find.byWidgetPredicate((widget) =>
                 validateSvgPictureWithAssets(
-                    widget, 'assets/images/increment.svg'))),
+                    widget, 'assets/icons/increment.svg'))),
         findsOneWidget);
 
     await widgetTester.ensureVisible(find.descendant(
@@ -80,7 +80,7 @@ void main() {
             .byWidgetPredicate((widget) => findRowForLabel(widget, 'Bedrooms')),
         matching: find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(
-                widget, 'assets/images/increment.svg'))));
+                widget, 'assets/icons/increment.svg'))));
 
     // tap on increase button in widget row of Bedrooms
     await widgetTester.tap(find.descendant(
@@ -88,7 +88,7 @@ void main() {
             .byWidgetPredicate((widget) => findRowForLabel(widget, 'Bedrooms')),
         matching: find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(
-                widget, 'assets/images/increment.svg'))));
+                widget, 'assets/icons/increment.svg'))));
     await widgetTester.pump();
 
     // validate that the number in row of Bedrooms is now 1
@@ -108,7 +108,7 @@ void main() {
             .byWidgetPredicate((widget) => findRowForLabel(widget, 'Bedrooms')),
         matching: find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(
-                widget, 'assets/images/decrement.svg'))));
+                widget, 'assets/icons/decrement.svg'))));
     await widgetTester.pump();
 
     // validate that the number in row of Bedrooms is now 0
@@ -140,7 +140,7 @@ void main() {
                 (widget) => findRowForLabel(widget, 'Bathrooms')),
             matching: find.byWidgetPredicate((widget) =>
                 validateSvgPictureWithAssets(
-                    widget, 'assets/images/increment.svg'))),
+                    widget, 'assets/icons/increment.svg'))),
         findsOneWidget);
 
     await widgetTester.ensureVisible(find.descendant(
@@ -148,7 +148,7 @@ void main() {
             (widget) => findRowForLabel(widget, 'Bathrooms')),
         matching: find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(
-                widget, 'assets/images/increment.svg'))));
+                widget, 'assets/icons/increment.svg'))));
 
     // tap on increase button in widget row of Bedrooms
     await widgetTester.tap(find.descendant(
@@ -156,7 +156,7 @@ void main() {
             (widget) => findRowForLabel(widget, 'Bathrooms')),
         matching: find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(
-                widget, 'assets/images/increment.svg'))));
+                widget, 'assets/icons/increment.svg'))));
     await widgetTester.pump();
 
     // validate that the number in row of Bathrooms is now 1
@@ -176,7 +176,7 @@ void main() {
             (widget) => findRowForLabel(widget, 'Bathrooms')),
         matching: find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(
-                widget, 'assets/images/decrement.svg'))));
+                widget, 'assets/icons/decrement.svg'))));
     await widgetTester.pump();
 
     // validate that the number in row of Bathrooms is now 0
@@ -208,7 +208,7 @@ void main() {
                 (widget) => findRowForLabel(widget, 'Car spaces')),
             matching: find.byWidgetPredicate((widget) =>
                 validateSvgPictureWithAssets(
-                    widget, 'assets/images/increment.svg'))),
+                    widget, 'assets/icons/increment.svg'))),
         findsOneWidget);
 
     await widgetTester.ensureVisible(find.descendant(
@@ -216,7 +216,7 @@ void main() {
             (widget) => findRowForLabel(widget, 'Car spaces')),
         matching: find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(
-                widget, 'assets/images/increment.svg'))));
+                widget, 'assets/icons/increment.svg'))));
 
     // tap on increase button in widget row of Parkings
     await widgetTester.tap(find.descendant(
@@ -224,7 +224,7 @@ void main() {
             (widget) => findRowForLabel(widget, 'Car spaces')),
         matching: find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(
-                widget, 'assets/images/increment.svg'))));
+                widget, 'assets/icons/increment.svg'))));
     await widgetTester.pump();
 
     // validate that the number in row of Parkings is now 1
@@ -244,7 +244,7 @@ void main() {
             (widget) => findRowForLabel(widget, 'Car spaces')),
         matching: find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(
-                widget, 'assets/images/decrement.svg'))));
+                widget, 'assets/icons/decrement.svg'))));
     await widgetTester.pump();
 
     // validate that the number in row of Parkings is now 0
