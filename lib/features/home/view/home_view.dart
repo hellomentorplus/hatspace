@@ -16,6 +16,7 @@ import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:shake/shake.dart';
 
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
+import 'package:hatspace/features/profile/my_profile_screen.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({super.key});
@@ -289,6 +290,8 @@ class HomePageBodyState extends State<HomePageBody> {
                                     .read<HomeInteractionCubit>()
                                     .onBottomItemTapped(BottomBarItems.profile);
                                 _selectedIndex.value = BottomBarItems.profile;
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => MyProfileScreen()));
                               }),
                         )
                       ],

@@ -172,6 +172,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/calendar.svg
   String get calendar => 'assets/images/calendar.svg';
 
+  /// File path: assets/images/camera_circle.svg
+  String get cameraCircle => 'assets/images/camera_circle.svg';
+
   /// File path: assets/images/check.svg
   String get check => 'assets/images/check.svg';
 
@@ -254,6 +257,7 @@ class $AssetsImagesGen {
         arrowCalendarLeft,
         arrowCalendarRight,
         calendar,
+        cameraCircle,
         check,
         chervonDown,
         chevronLeft,
