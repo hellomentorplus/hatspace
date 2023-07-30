@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_images_view.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_image_selected_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_images_cubit.dart';
 import 'package:hatspace/features/select_photo/view/select_photo_bottom_sheet.dart';
@@ -24,7 +25,8 @@ import 'add_property_images_view_test.mocks.dart';
   AddPropertyImagesCubit,
   HsPermissionService,
   PhotoService,
-  AddPropertyImageSelectedCubit
+  AddPropertyImageSelectedCubit,
+  AddPropertyCubit
 ])
 void main() {
   final MockAddPropertyImagesCubit addPropertyImagesCubit =
@@ -33,6 +35,7 @@ void main() {
   final MockPhotoService photoService = MockPhotoService();
   final MockAddPropertyImageSelectedCubit addPropertyImageSelectedCubit =
       MockAddPropertyImageSelectedCubit();
+  final MockAddPropertyCubit addPropertyCubit = MockAddPropertyCubit();
 
   setUpAll(() {
     when(addPropertyImagesCubit.state)
@@ -43,6 +46,12 @@ void main() {
         .thenReturn(AddPropertyImageSelectedInitial());
     when(addPropertyImageSelectedCubit.stream)
         .thenAnswer((realInvocation) => const Stream.empty());
+
+    when(addPropertyCubit.state).thenReturn(const AddPropertyInitial());
+    when(addPropertyCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+
+    when(addPropertyCubit.photos).thenAnswer((realInvocation) => []);
 
     HsSingleton.singleton
         .registerSingleton<HsPermissionService>(permissionService);
@@ -62,8 +71,17 @@ void main() {
         (widgetTester) async {
       const Widget widget = AddPropertyImagesView();
 
-      await widgetTester.blocWrapAndPump<AddPropertyImagesCubit>(
-          addPropertyImagesCubit, widget);
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AddPropertyCubit>(
+          create: (context) => addPropertyCubit,
+        ),
+        BlocProvider<AddPropertyImagesCubit>(
+          create: (context) => addPropertyImagesCubit,
+        ),
+        BlocProvider<AddPropertyImageSelectedCubit>(
+          create: (context) => addPropertyImageSelectedCubit,
+        )
+      ], widget);
 
       expect(find.byType(Text), findsNWidgets(2));
       expect(find.text('Let\'s add some photos of your place'), findsOneWidget);
@@ -89,6 +107,9 @@ void main() {
           .thenAnswer((_) => Stream.value(PhotoPermissionGranted()));
 
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+            BlocProvider<AddPropertyCubit>(
+              create: (context) => addPropertyCubit,
+            ),
             BlocProvider<AddPropertyImagesCubit>(
               create: (context) => addPropertyImagesCubit,
             ),
@@ -120,6 +141,9 @@ void main() {
           .thenAnswer((_) => Stream.value(PhotoPermissionDenied()));
 
       await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AddPropertyCubit>(
+          create: (context) => addPropertyCubit,
+        ),
         BlocProvider<AddPropertyImagesCubit>(
           create: (context) => addPropertyImagesCubit,
         ),
@@ -150,6 +174,9 @@ void main() {
 
       await widgetTester.multiBlocWrapAndPump(
         [
+          BlocProvider<AddPropertyCubit>(
+            create: (context) => addPropertyCubit,
+          ),
           BlocProvider<AddPropertyImagesCubit>(
             create: (context) => addPropertyImagesCubit,
           ),
@@ -202,6 +229,9 @@ void main() {
 
       await widgetTester.multiBlocWrapAndPump(
         [
+          BlocProvider<AddPropertyCubit>(
+            create: (context) => addPropertyCubit,
+          ),
           BlocProvider<AddPropertyImagesCubit>(
             create: (context) => addPropertyImagesCubit,
           ),
@@ -244,6 +274,9 @@ void main() {
 
       await widgetTester.multiBlocWrapAndPump(
         [
+          BlocProvider<AddPropertyCubit>(
+            create: (context) => addPropertyCubit,
+          ),
           BlocProvider<AddPropertyImagesCubit>(
             create: (context) => addPropertyImagesCubit,
           ),
@@ -280,6 +313,9 @@ void main() {
 
       await widgetTester.multiBlocWrapAndPump(
         [
+          BlocProvider<AddPropertyCubit>(
+            create: (context) => addPropertyCubit,
+          ),
           BlocProvider<AddPropertyImagesCubit>(
             create: (context) => addPropertyImagesCubit,
           ),
@@ -319,6 +355,9 @@ void main() {
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
           [
+            BlocProvider<AddPropertyCubit>(
+              create: (context) => addPropertyCubit,
+            ),
             BlocProvider<AddPropertyImagesCubit>(
               create: (context) => addPropertyImagesCubit,
             ),
@@ -348,6 +387,9 @@ void main() {
       const Widget widget = AddPropertyImagesBody();
 
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+            BlocProvider<AddPropertyCubit>(
+              create: (context) => addPropertyCubit,
+            ),
             BlocProvider<AddPropertyImagesCubit>(
               create: (context) => addPropertyImagesCubit,
             ),
@@ -377,6 +419,9 @@ void main() {
       const Widget widget = AddPropertyImagesBody();
 
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+            BlocProvider<AddPropertyCubit>(
+              create: (context) => addPropertyCubit,
+            ),
             BlocProvider<AddPropertyImagesCubit>(
               create: (context) => addPropertyImagesCubit,
             ),

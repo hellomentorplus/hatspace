@@ -66,6 +66,14 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addBedroomViewInstructions": MessageLookupByLibrary.simpleMessage(
             "How many bedrooms, bathrooms, car spaces?"),
+        "addHomeOwnerPrimaryBtnLabel":
+            MessageLookupByLibrary.simpleMessage("Add Homeowner role"),
+        "addHomeOwnerRoleContent": MessageLookupByLibrary.simpleMessage(
+            "Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?"),
+        "addHomeOwnerRoleTitle":
+            MessageLookupByLibrary.simpleMessage("Add Homeowner role"),
+        "addHomeOwnerSecondaryBtnLabel":
+            MessageLookupByLibrary.simpleMessage("Later"),
         "airConditioners":
             MessageLookupByLibrary.simpleMessage("Air conditioners"),
         "allPhotos": MessageLookupByLibrary.simpleMessage("All Photos"),
@@ -139,6 +147,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "linearProgressIndicator":
             MessageLookupByLibrary.simpleMessage("Linear progress indicator"),
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "location": MessageLookupByLibrary.simpleMessage("Location"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginDescription": MessageLookupByLibrary.simpleMessage(
@@ -174,10 +183,13 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Please go to Settings and allow photos access for HATSpace."),
         "portableFans": MessageLookupByLibrary.simpleMessage("Portable Fans"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
+        "preview": MessageLookupByLibrary.simpleMessage("Preview"),
         "previewAndSubmit":
             MessageLookupByLibrary.simpleMessage("Preview & Submit"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "propertyFeatures":
+            MessageLookupByLibrary.simpleMessage("Property features"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
         "pw": MessageLookupByLibrary.simpleMessage("pw"),
         "rentPeriod": m4,

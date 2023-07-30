@@ -1233,6 +1233,76 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Add Homeowner role`
+  String get addHomeOwnerRoleTitle {
+    return Intl.message(
+      'Add Homeowner role',
+      name: 'addHomeOwnerRoleTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?`
+  String get addHomeOwnerRoleContent {
+    return Intl.message(
+      'Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?',
+      name: 'addHomeOwnerRoleContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Homeowner role`
+  String get addHomeOwnerPrimaryBtnLabel {
+    return Intl.message(
+      'Add Homeowner role',
+      name: 'addHomeOwnerPrimaryBtnLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Later`
+  String get addHomeOwnerSecondaryBtnLabel {
+    return Intl.message(
+      'Later',
+      name: 'addHomeOwnerSecondaryBtnLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preview`
+  String get preview {
+    return Intl.message(
+      'Preview',
+      name: 'preview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Location`
+  String get location {
+    return Intl.message(
+      'Location',
+      name: 'location',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Property features`
+  String get propertyFeatures {
+    return Intl.message(
+      'Property features',
+      name: 'propertyFeatures',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

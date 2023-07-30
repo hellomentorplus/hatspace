@@ -3,21 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 
-import 'add_property_cubit_test.mocks.dart';
-
-@GenerateMocks([AddPropertyCubit])
 void main() {
-  final MockAddPropertyCubit addPropertyCubit = MockAddPropertyCubit();
   initializeDateFormatting();
-  setUp(() {
-    when(addPropertyCubit.state)
-        .thenAnswer((realInvocation) => const AddPropertyInitial());
-    when(addPropertyCubit.stream).thenAnswer(
-        (realInvocation) => Stream.value(const AddPropertyInitial()));
-  });
   blocTest(
     "Given when user press NEXT button when it's enable, then update Page view navigation, and update next button validation",
     build: () => AddPropertyCubit(),
@@ -252,6 +240,41 @@ void main() {
       verify: (bloc) =>
           expect(bloc.features, [Feature.fridge, Feature.airConditioners]),
     );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+        'given no photos available, when validateNextButtonState, then return NextButtonEnable false',
+        build: () => AddPropertyCubit(),
+        act: (bloc) => bloc.validateNextButtonState(4),
+        expect: () => [isA<NextButtonEnable>()],
+        verify: (bloc) {
+          NextButtonEnable state = bloc.state as NextButtonEnable;
+
+          expect(state.isActive, false);
+          expect(state.btnLabel, ButtonLabel.previewAndSubmit);
+        });
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+        'when added photos, then emit NextButtonEnable true',
+        build: () => AddPropertyCubit(),
+        act: (bloc) => bloc.photos = ['path'],
+        expect: () => [isA<NextButtonEnable>()],
+        verify: (bloc) {
+          NextButtonEnable state = bloc.state as NextButtonEnable;
+
+          expect(state.isActive, isTrue);
+        });
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+        'when clear all photos, then emit NextButtonEnable false',
+        build: () => AddPropertyCubit(),
+        seed: () => const NextButtonEnable(4, true, ButtonLabel.next, true),
+        act: (bloc) => bloc.photos = [],
+        expect: () => [isA<NextButtonEnable>()],
+        verify: (bloc) {
+          NextButtonEnable state = bloc.state as NextButtonEnable;
+
+          expect(state.isActive, isFalse);
+        });
 
     group('lost data modal', () {
       blocTest<AddPropertyCubit, AddPropertyState>(
