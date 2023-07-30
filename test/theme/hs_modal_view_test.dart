@@ -26,7 +26,7 @@ void main() {
     // verify title
     expect(find.text('State'), findsOneWidget);
     // verify close icon
-    expect(find.svgPictureWithAssets(Assets.images.closeIcon), findsOneWidget);
+    expect(find.svgPictureWithAssets(Assets.icons.closeIcon), findsOneWidget);
     Positioned positioned = widgetTester.widget(find.byType(Positioned));
     expect(positioned.right, HsDimens.spacing24);
 
@@ -34,37 +34,37 @@ void main() {
     await widgetTester.tap(find.text('Western Australia', skipOffstage: false));
     await widgetTester.pumpAndSettle();
     expect(modalView.modalNotifier.value, AustraliaStates.wa);
-    expect(find.svgPictureWithAssets(Assets.images.check), findsOneWidget);
+    expect(find.svgPictureWithAssets(Assets.icons.check), findsOneWidget);
 
     // verify interaction on qld
     await widgetTester.tap(find.text('Queensland', skipOffstage: false));
     await widgetTester.pumpAndSettle();
     expect(modalView.modalNotifier.value, AustraliaStates.qld);
-    expect(find.svgPictureWithAssets(Assets.images.check), findsOneWidget);
+    expect(find.svgPictureWithAssets(Assets.icons.check), findsOneWidget);
 
     // verify interaction on sa
     await widgetTester.tap(find.text('South Australia', skipOffstage: false));
     await widgetTester.pumpAndSettle();
     expect(modalView.modalNotifier.value, AustraliaStates.sa);
-    expect(find.svgPictureWithAssets(Assets.images.check), findsOneWidget);
+    expect(find.svgPictureWithAssets(Assets.icons.check), findsOneWidget);
 
     // verify interaction on nsw tap
     await widgetTester.tap(find.text('New South Wales', skipOffstage: false));
     await widgetTester.pumpAndSettle();
     expect(modalView.modalNotifier.value, AustraliaStates.nsw);
-    expect(find.svgPictureWithAssets(Assets.images.check), findsOneWidget);
+    expect(find.svgPictureWithAssets(Assets.icons.check), findsOneWidget);
 
     // verify interaction on vic
     await widgetTester.tap(find.text('Victoria', skipOffstage: false));
     await widgetTester.pumpAndSettle();
     expect(modalView.modalNotifier.value, AustraliaStates.vic);
-    expect(find.svgPictureWithAssets(Assets.images.check), findsOneWidget);
+    expect(find.svgPictureWithAssets(Assets.icons.check), findsOneWidget);
 
     // verify interaction on tasmaina
     await widgetTester.tap(find.text('Tasmania', skipOffstage: false));
     await widgetTester.pumpAndSettle();
     expect(modalView.modalNotifier.value, AustraliaStates.tas);
-    expect(find.svgPictureWithAssets(Assets.images.check), findsOneWidget);
+    expect(find.svgPictureWithAssets(Assets.icons.check), findsOneWidget);
 
     // verify interaction on Australian Capital Territory
     await widgetTester.dragUntilVisible(
@@ -74,7 +74,7 @@ void main() {
     await widgetTester.tap(find.text('Australian Capital Territory'));
     await widgetTester.pumpAndSettle();
     expect(modalView.modalNotifier.value, AustraliaStates.act);
-    expect(find.svgPictureWithAssets(Assets.images.check), findsOneWidget);
+    expect(find.svgPictureWithAssets(Assets.icons.check), findsOneWidget);
   });
   // due to
 }

@@ -20,14 +20,14 @@ enum ToastType {
   String _getIcon() {
     switch (this) {
       case ToastType.errorToast:
-        return Assets.images.error;
+        return Assets.icons.error;
     }
   }
 
   String _getCloseIcon() {
     switch (this) {
       case ToastType.errorToast:
-        return Assets.images.closeDark;
+        return Assets.icons.closeCircleDark;
     }
   }
 }

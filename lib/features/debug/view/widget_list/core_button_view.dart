@@ -43,7 +43,7 @@ class CoreButtonView extends StatelessWidget {
     SecondaryButton(
       label: 'Sign up with Facebook',
       contentAlignment: MainAxisAlignment.center,
-      iconUrl: Assets.images.facebook,
+      iconUrl: Assets.images.facebookWhite,
       onPressed: (() {}),
     ),
 
@@ -51,18 +51,18 @@ class CoreButtonView extends StatelessWidget {
     SecondaryButton(
       label: 'Sign up with Facebook',
       contentAlignment: MainAxisAlignment.start,
-      iconUrl: Assets.images.facebook,
+      iconUrl: Assets.images.facebookWhite,
     ),
     SecondaryButton(
       label: 'Sign up with Facebook',
-      iconUrl: Assets.images.facebook,
+      iconUrl: Assets.images.facebookWhite,
       iconPosition: IconPosition.right,
       onPressed: () {},
     ),
 
     TextOnlyButton(
       label: 'Skip',
-      iconUrl: Assets.images.closeIcon,
+      iconUrl: Assets.icons.closeIcon,
       onPressed: (() {}),
     ),
 
@@ -70,7 +70,7 @@ class CoreButtonView extends StatelessWidget {
     TertiaryButton(
       label: 'Button',
       onPressed: () {},
-      iconUrl: Assets.images.calendar,
+      iconUrl: Assets.icons.calendar,
       iconPosition: IconPosition.right,
       contentAlignment: MainAxisAlignment.start,
     ),
@@ -107,9 +107,25 @@ class CoreButtonView extends StatelessWidget {
           },
         ),
       ),
-      iconUrl: Assets.images.calendar,
+      iconUrl: Assets.icons.calendar,
       iconPosition: IconPosition.right,
       contentAlignment: MainAxisAlignment.start,
+    ),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        TextOnlyButton(
+          label: 'Back',
+          onPressed: () {},
+          iconUrl: Assets.images.facebookRound,
+        ),
+        PrimaryButton(
+            label: 'Next',
+            iconUrl: Assets.icons.email,
+            onPressed: () {},
+            iconPosition: IconPosition.right)
+      ],
     )
   ];
 
@@ -120,38 +136,17 @@ class CoreButtonView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Core button UI'),
       ),
-      body: Column(
-        children: [
-          ListView.separated(
-            padding: const EdgeInsets.all(10),
-            shrinkWrap: true,
-            itemCount: buttonsList.length,
-            itemBuilder: (context, index) {
-              return Container(
-                child: buttonsList[index],
-              );
-            },
-            separatorBuilder: (context, index) {
-              return sizedBox;
-            },
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TextOnlyButton(
-                label: 'Back',
-                onPressed: () {},
-                iconUrl: Assets.images.facebookround,
-              ),
-              PrimaryButton(
-                  label: 'Next',
-                  iconUrl: Assets.images.email,
-                  onPressed: () {},
-                  iconPosition: IconPosition.right)
-            ],
-          )
-        ],
+      body: ListView.separated(
+        padding: const EdgeInsets.all(10),
+        itemCount: buttonsList.length,
+        itemBuilder: (context, index) {
+          return Container(
+            child: buttonsList[index],
+          );
+        },
+        separatorBuilder: (context, index) {
+          return sizedBox;
+        },
       ),
     );
   }

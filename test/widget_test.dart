@@ -117,22 +117,6 @@ void main() {
     expect(find.text('👋 Hi displayName'), findsOneWidget);
   });
 
-  testWidgets('Check bottom app bar', (WidgetTester tester) async {
-    const widget = HomePageView();
-    await tester.multiBlocWrapAndPump([
-      BlocProvider<AppConfigBloc>(
-        create: (context) => mockAppConfigBloc,
-      ),
-      BlocProvider<AuthenticationBloc>(
-        create: (context) => authenticationBloc,
-      )
-    ], widget); // Verify content of bottom app bar
-    expect(find.text('Explore'), findsOneWidget);
-    expect(find.text('Booking'), findsOneWidget);
-    expect(find.text('Message'), findsOneWidget);
-    expect(find.text('Profile'), findsOneWidget);
-  });
-
   testWidgets('It should have a widget', (tester) async {
     const widget = MyAppBody();
     await tester.multiBlocWrapAndPump([

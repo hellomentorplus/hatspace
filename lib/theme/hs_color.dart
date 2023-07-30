@@ -46,6 +46,10 @@ class HSColor {
 
   static const Color red05 = Color(0xFFFF3333); // new design color
   static const Color red06 = Color(0xFFD02D2D); // new design color
+
+  static const Color orange05 = Color(0xFFFDA33A); // new design color
+
+  static const Color blue05 = Color(0xFF2C6ECB); // new design color
 }
 
 const ColorScheme colorScheme = ColorScheme(
