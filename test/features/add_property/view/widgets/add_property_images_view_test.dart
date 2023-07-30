@@ -38,6 +38,12 @@ void main() {
   final MockAddPropertyCubit addPropertyCubit = MockAddPropertyCubit();
 
   setUpAll(() {
+    HsSingleton.singleton
+        .registerSingleton<HsPermissionService>(permissionService);
+    HsSingleton.singleton.registerSingleton<PhotoService>(photoService);
+  });
+
+  setUp((){
     when(addPropertyImagesCubit.state)
         .thenAnswer((_) => AddPropertyImagesInitial());
     when(addPropertyImagesCubit.stream).thenAnswer((_) => const Stream.empty());
@@ -52,15 +58,14 @@ void main() {
         .thenAnswer((realInvocation) => const Stream.empty());
 
     when(addPropertyCubit.photos).thenAnswer((realInvocation) => []);
-
-    HsSingleton.singleton
-        .registerSingleton<HsPermissionService>(permissionService);
-    HsSingleton.singleton.registerSingleton<PhotoService>(photoService);
   });
 
   tearDown(() {
     reset(addPropertyImagesCubit);
     reset(permissionService);
+    reset(addPropertyCubit);
+    reset(addPropertyImageSelectedCubit);
+    reset(photoService);
   });
 
   group('verify UI Add image screen by state', () {
@@ -211,6 +216,38 @@ void main() {
           find.ancestor(
               of: find.text('Cancel'), matching: find.byType(SecondaryButton)),
           findsOneWidget);
+    });
+
+    testWidgets(
+        'given state is PhotoSelectionReturned '
+            'when launching '
+            'then show photos with cover photo', (widgetTester) async {
+      const Widget widget = AddPropertyImagesBody();
+
+      when(addPropertyImagesCubit.state).thenReturn(AddPropertyImagesInitial());
+      when(addPropertyImagesCubit.stream).thenAnswer((realInvocation) => Stream.empty());
+
+      when(addPropertyImageSelectedCubit.state)
+          .thenAnswer((_) => const PhotoSelectionReturned(paths: ['photo'], allowAddImage: true));
+      when(addPropertyImageSelectedCubit.stream)
+          .thenAnswer((_) => Stream.value(const PhotoSelectionReturned(paths: ['photo'], allowAddImage: true)));
+
+      await widgetTester.multiBlocWrapAndPump(
+        [
+          BlocProvider<AddPropertyCubit>(
+            create: (context) => addPropertyCubit,
+          ),
+          BlocProvider<AddPropertyImagesCubit>(
+            create: (context) => addPropertyImagesCubit,
+          ),
+          BlocProvider<AddPropertyImageSelectedCubit>(
+            create: (context) => addPropertyImageSelectedCubit,
+          )
+        ],
+        widget,
+      );
+      expect(find.byType(GridView), findsOneWidget);
+      expect(find.text('Cover photo'), findsOneWidget);
     });
   });
 

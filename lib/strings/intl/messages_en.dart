@@ -100,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
             "You can be tenant or homeowner"),
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
+        "coverPhoto": MessageLookupByLibrary.simpleMessage("Cover photo"),
         "currencyFormatter": m1,
         "dateFormatter": m2,
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),

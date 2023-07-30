@@ -1303,6 +1303,16 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Cover photo`
+  String get coverPhoto {
+    return Intl.message(
+      'Cover photo',
+      name: 'coverPhoto',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
