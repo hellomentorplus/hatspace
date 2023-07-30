@@ -15,7 +15,7 @@ void main() {
     Widget hsWarningBottomSheetView = HsWarningBottomSheetView(
       title: 'title',
       description: 'description',
-      iconUrl: Assets.images.check,
+      iconUrl: Assets.icons.check,
       primaryButtonLabel: 'Primary Button',
       primaryOnPressed: () {},
       secondaryButtonLabel: 'Secondary button',

@@ -17,4 +17,6 @@ class PhotoSelectionCubit extends Cubit<PhotoSelectionState> {
 
     emit(PhotoSelectionUpdated(_selectionStates, _selectionStates.length >= 4));
   }
+
+  int get selectedItemCount => _selectionStates.length;
 }

@@ -53,6 +53,7 @@ void main() {
     when(user.email).thenReturn('email@gmail.com');
     when(user.phoneNumber).thenReturn('123456');
     when(user.displayName).thenReturn('displayName');
+    when(user.photoURL).thenReturn('photoUrl');
 
     when(mockAccessToken.token).thenReturn('mock token');
     when(mockFacebookAuth.login()).thenAnswer((_) async {

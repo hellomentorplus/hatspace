@@ -158,7 +158,7 @@ class FeatureItemView extends StatelessWidget {
                 Positioned(
                     right: HsDimens.spacing8,
                     top: HsDimens.spacing8,
-                    child: SvgPicture.asset(Assets.icons.check))
+                    child: SvgPicture.asset(Assets.icons.checkCircular))
               ]
             ],
           ),

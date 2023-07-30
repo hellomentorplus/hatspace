@@ -194,7 +194,7 @@ void main() {
 
       final nextBtnWidget = widgetTester.widget<PrimaryButton>(nextBtn);
       expect(nextBtnWidget.onPressed, isNotNull);
-      expect(nextBtnWidget.iconUrl, Assets.images.chevronRight);
+      expect(nextBtnWidget.iconUrl, Assets.icons.chevronRight);
       expect(nextBtnWidget.iconPosition, IconPosition.right);
     });
 
@@ -227,7 +227,7 @@ void main() {
 
       final nextBtnWidget = widgetTester.widget<PrimaryButton>(nextBtn);
       expect(nextBtnWidget.onPressed, isNotNull);
-      expect(nextBtnWidget.iconUrl, Assets.images.chevronRight);
+      expect(nextBtnWidget.iconUrl, Assets.icons.chevronRight);
       expect(nextBtnWidget.iconPosition, IconPosition.right);
     });
 
@@ -260,7 +260,7 @@ void main() {
 
       final nextBtnWidget = widgetTester.widget<PrimaryButton>(nextBtn);
       expect(nextBtnWidget.onPressed, isNotNull);
-      expect(nextBtnWidget.iconUrl, Assets.images.chevronRight);
+      expect(nextBtnWidget.iconUrl, Assets.icons.chevronRight);
       expect(nextBtnWidget.iconPosition, IconPosition.right);
     });
 
@@ -294,7 +294,7 @@ void main() {
 
       final nextBtnWidget = widgetTester.widget<PrimaryButton>(nextBtn);
       expect(nextBtnWidget.onPressed, isNull);
-      expect(nextBtnWidget.iconUrl, Assets.images.chevronRight);
+      expect(nextBtnWidget.iconUrl, Assets.icons.chevronRight);
       expect(nextBtnWidget.iconPosition, IconPosition.right);
     });
 
@@ -327,7 +327,7 @@ void main() {
 
       final nextBtnWidget = widgetTester.widget<PrimaryButton>(nextBtn);
       expect(nextBtnWidget.onPressed, isNotNull);
-      expect(nextBtnWidget.iconUrl, Assets.images.chevronRight);
+      expect(nextBtnWidget.iconUrl, Assets.icons.chevronRight);
       expect(nextBtnWidget.iconPosition, IconPosition.right);
     });
 

@@ -18,6 +18,15 @@ class $AssetsIconsGen {
   /// File path: assets/icons/air_conditioners.svg
   String get airConditioners => 'assets/icons/air_conditioners.svg';
 
+  /// File path: assets/icons/apartment.svg
+  String get apartment => 'assets/icons/apartment.svg';
+
+  /// File path: assets/icons/arrow_calendar_left.svg
+  String get arrowCalendarLeft => 'assets/icons/arrow_calendar_left.svg';
+
+  /// File path: assets/icons/arrow_calendar_right.svg
+  String get arrowCalendarRight => 'assets/icons/arrow_calendar_right.svg';
+
   /// File path: assets/icons/bath.svg
   String get bath => 'assets/icons/bath.svg';
 
@@ -27,11 +36,29 @@ class $AssetsIconsGen {
   /// File path: assets/icons/booking.svg
   String get booking => 'assets/icons/booking.svg';
 
+  /// File path: assets/icons/calendar.svg
+  String get calendar => 'assets/icons/calendar.svg';
+
   /// File path: assets/icons/car.svg
   String get car => 'assets/icons/car.svg';
 
   /// File path: assets/icons/check.svg
   String get check => 'assets/icons/check.svg';
+
+  /// File path: assets/icons/check_circular.svg
+  String get checkCircular => 'assets/icons/check_circular.svg';
+
+  /// File path: assets/icons/chervon-down.svg
+  String get chervonDown => 'assets/icons/chervon-down.svg';
+
+  /// File path: assets/icons/chevron_left.svg
+  String get chevronLeft => 'assets/icons/chevron_left.svg';
+
+  /// File path: assets/icons/chevron_right.svg
+  String get chevronRight => 'assets/icons/chevron_right.svg';
+
+  /// File path: assets/icons/close-clear.svg
+  String get closeClear => 'assets/icons/close-clear.svg';
 
   /// File path: assets/icons/close.svg
   String get close => 'assets/icons/close.svg';
@@ -39,11 +66,29 @@ class $AssetsIconsGen {
   /// File path: assets/icons/close_circle.svg
   String get closeCircle => 'assets/icons/close_circle.svg';
 
+  /// File path: assets/icons/close_circle_dark.svg
+  String get closeCircleDark => 'assets/icons/close_circle_dark.svg';
+
+  /// File path: assets/icons/close_icon.svg
+  String get closeIcon => 'assets/icons/close_icon.svg';
+
+  /// File path: assets/icons/decrement.svg
+  String get decrement => 'assets/icons/decrement.svg';
+
+  /// File path: assets/icons/delete.svg
+  String get delete => 'assets/icons/delete.svg';
+
   /// File path: assets/icons/electric_stove.svg
   String get electricStove => 'assets/icons/electric_stove.svg';
 
+  /// File path: assets/icons/email.svg
+  String get email => 'assets/icons/email.svg';
+
   /// File path: assets/icons/envelope.svg
   String get envelope => 'assets/icons/envelope.svg';
+
+  /// File path: assets/icons/error.svg
+  String get error => 'assets/icons/error.svg';
 
   /// File path: assets/icons/explore.svg
   String get explore => 'assets/icons/explore.svg';
@@ -53,6 +98,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/facebook.svg
   String get facebook => 'assets/icons/facebook.svg';
+
+  /// File path: assets/icons/favorite.svg
+  String get favorite => 'assets/icons/favorite.svg';
 
   /// File path: assets/icons/favorite_active.svg
   String get favoriteActive => 'assets/icons/favorite_active.svg';
@@ -75,11 +123,26 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_agent.svg
   String get icAgent => 'assets/icons/ic_agent.svg';
 
+  /// File path: assets/icons/increment.svg
+  String get increment => 'assets/icons/increment.svg';
+
+  /// File path: assets/icons/info.svg
+  String get info => 'assets/icons/info.svg';
+
   /// File path: assets/icons/kitchen.svg
   String get kitchen => 'assets/icons/kitchen.svg';
 
+  /// File path: assets/icons/language.svg
+  String get language => 'assets/icons/language.svg';
+
+  /// File path: assets/icons/logout.svg
+  String get logout => 'assets/icons/logout.svg';
+
   /// File path: assets/icons/message.svg
   String get message => 'assets/icons/message.svg';
+
+  /// File path: assets/icons/messages.svg
+  String get messages => 'assets/icons/messages.svg';
 
   /// File path: assets/icons/notification.svg
   String get notification => 'assets/icons/notification.svg';
@@ -90,8 +153,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/portable_fans.svg
   String get portableFans => 'assets/icons/portable_fans.svg';
 
+  /// File path: assets/icons/profile-circle.svg
+  String get profileCircle => 'assets/icons/profile-circle.svg';
+
   /// File path: assets/icons/profile.svg
   String get profile => 'assets/icons/profile.svg';
+
+  /// File path: assets/icons/request_homeowner_role.svg
+  String get requestHomeownerRole => 'assets/icons/request_homeowner_role.svg';
+
+  /// File path: assets/icons/search-normal.svg
+  String get searchNormal => 'assets/icons/search-normal.svg';
 
   /// File path: assets/icons/search.svg
   String get search => 'assets/icons/search.svg';
@@ -121,18 +193,34 @@ class $AssetsIconsGen {
   List<String> get values => [
         add,
         airConditioners,
+        apartment,
+        arrowCalendarLeft,
+        arrowCalendarRight,
         bath,
         bed,
         booking,
+        calendar,
         car,
         check,
+        checkCircular,
+        chervonDown,
+        chevronLeft,
+        chevronRight,
+        closeClear,
         close,
         closeCircle,
+        closeCircleDark,
+        closeIcon,
+        decrement,
+        delete,
         electricStove,
+        email,
         envelope,
+        error,
         explore,
         eye,
         facebook,
+        favorite,
         favoriteActive,
         favoriteUnactive,
         filter,
@@ -140,12 +228,20 @@ class $AssetsIconsGen {
         google,
         homeowner,
         icAgent,
+        increment,
+        info,
         kitchen,
+        language,
+        logout,
         message,
+        messages,
         notification,
         photoAccess,
         portableFans,
+        profileCircle,
         profile,
+        requestHomeownerRole,
+        searchNormal,
         search,
         securityCameras,
         swimmingPool,
@@ -163,59 +259,17 @@ class $AssetsImagesGen {
   /// File path: assets/images/apartment.svg
   String get apartment => 'assets/images/apartment.svg';
 
-  /// File path: assets/images/arrow_calendar_left.svg
-  String get arrowCalendarLeft => 'assets/images/arrow_calendar_left.svg';
-
-  /// File path: assets/images/arrow_calendar_right.svg
-  String get arrowCalendarRight => 'assets/images/arrow_calendar_right.svg';
-
-  /// File path: assets/images/calendar.svg
-  String get calendar => 'assets/images/calendar.svg';
-
   /// File path: assets/images/camera_circle.svg
   String get cameraCircle => 'assets/images/camera_circle.svg';
-
-  /// File path: assets/images/check.svg
-  String get check => 'assets/images/check.svg';
-
-  /// File path: assets/images/chervon-down.svg
-  String get chervonDown => 'assets/images/chervon-down.svg';
-
-  /// File path: assets/images/chevron_left.svg
-  String get chevronLeft => 'assets/images/chevron_left.svg';
-
-  /// File path: assets/images/chevron_right.svg
-  String get chevronRight => 'assets/images/chevron_right.svg';
 
   /// File path: assets/images/circle_warning.svg
   String get circleWarning => 'assets/images/circle_warning.svg';
 
-  /// File path: assets/images/close-clear.svg
-  String get closeClear => 'assets/images/close-clear.svg';
+  /// File path: assets/images/facebook_round.svg
+  String get facebookRound => 'assets/images/facebook_round.svg';
 
-  /// File path: assets/images/close-dark.svg
-  String get closeDark => 'assets/images/close-dark.svg';
-
-  /// File path: assets/images/close_icon.svg
-  String get closeIcon => 'assets/images/close_icon.svg';
-
-  /// File path: assets/images/decrement.svg
-  String get decrement => 'assets/images/decrement.svg';
-
-  /// File path: assets/images/email.svg
-  String get email => 'assets/images/email.svg';
-
-  /// File path: assets/images/envelope.svg
-  String get envelope => 'assets/images/envelope.svg';
-
-  /// File path: assets/images/error.svg
-  String get error => 'assets/images/error.svg';
-
-  /// File path: assets/images/facebook.svg
-  String get facebook => 'assets/images/facebook.svg';
-
-  /// File path: assets/images/facebookround.svg
-  String get facebookround => 'assets/images/facebookround.svg';
+  /// File path: assets/images/facebook_white.svg
+  String get facebookWhite => 'assets/images/facebook_white.svg';
 
   /// File path: assets/images/google.svg
   String get google => 'assets/images/google.svg';
@@ -223,23 +277,11 @@ class $AssetsImagesGen {
   /// File path: assets/images/house.svg
   String get house => 'assets/images/house.svg';
 
-  /// File path: assets/images/increment.svg
-  String get increment => 'assets/images/increment.svg';
-
   /// File path: assets/images/login_circle.svg
   String get loginCircle => 'assets/images/login_circle.svg';
 
   /// File path: assets/images/logo.svg
   String get logo => 'assets/images/logo.svg';
-
-  /// File path: assets/images/messages.svg
-  String get messages => 'assets/images/messages.svg';
-
-  /// File path: assets/images/profile-circle.svg
-  String get profileCircle => 'assets/images/profile-circle.svg';
-
-  /// File path: assets/images/search-normal.svg
-  String get searchNormal => 'assets/images/search-normal.svg';
 
   /// File path: assets/images/signIn_background.png
   AssetGenImage get signInBackground =>
@@ -251,38 +293,24 @@ class $AssetsImagesGen {
   /// File path: assets/images/upload_photo.svg
   String get uploadPhoto => 'assets/images/upload_photo.svg';
 
+  /// File path: assets/images/user_default_avatar.svg
+  String get userDefaultAvatar => 'assets/images/user_default_avatar.svg';
+
   /// List of all assets
   List<dynamic> get values => [
         apartment,
-        arrowCalendarLeft,
-        arrowCalendarRight,
-        calendar,
         cameraCircle,
-        check,
-        chervonDown,
-        chevronLeft,
-        chevronRight,
         circleWarning,
-        closeClear,
-        closeDark,
-        closeIcon,
-        decrement,
-        email,
-        envelope,
-        error,
-        facebook,
-        facebookround,
+        facebookRound,
+        facebookWhite,
         google,
         house,
-        increment,
         loginCircle,
         logo,
-        messages,
-        profileCircle,
-        searchNormal,
         signInBackground,
         upload,
-        uploadPhoto
+        uploadPhoto,
+        userDefaultAvatar
       ];
 }
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_features_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_images_view.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_preview_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_info_form_view.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_type_view.dart';
@@ -43,7 +44,8 @@ class AddPropertyPageBody extends StatelessWidget {
     AddPropertyInfoFormView(),
     const AddPropertyRoomsView(),
     const AddPropertyFeaturesView(),
-    const AddPropertyImagesView()
+    const AddPropertyImagesView(),
+    const AddPropertyPreviewView()
   ];
 
   Future<void> showLostDataModal(BuildContext context) {
@@ -175,7 +177,7 @@ class BottomController extends StatelessWidget {
               style: const ButtonStyle(
                   foregroundColor:
                       MaterialStatePropertyAll<Color>(HSColor.onSurface)),
-              iconUrl: Assets.images.chevronLeft,
+              iconUrl: Assets.icons.chevronLeft,
             ),
             if (state is NextButtonEnable)
               PrimaryButton(
@@ -188,7 +190,7 @@ class BottomController extends StatelessWidget {
                         }
                       : null,
                   iconUrl: (state.showRightChevron)
-                      ? Assets.images.chevronRight
+                      ? Assets.icons.chevronRight
                       : null,
                   iconPosition:
                       (state.showRightChevron) ? IconPosition.right : null),

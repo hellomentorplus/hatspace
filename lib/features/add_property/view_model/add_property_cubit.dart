@@ -110,6 +110,20 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   int? get postalCode => _postalCode;
 
+  String _unitNumber = '';
+  String get unitNumber => _unitNumber;
+  set unitNumber(String s) {
+    _unitNumber = s;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  String _address = '';
+  String get address => _address;
+  set address(String a) {
+    _address = a;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
   /// 3. Rooms
   int _bedrooms = 0;
   int _bathrooms = 0;
@@ -150,6 +164,14 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     validateNextButtonState(state.pageViewNumber);
   }
 
+  /// 5. Photos
+  List<String> _photos = [];
+  List<String> get photos => _photos;
+  set photos(List<String> list) {
+    _photos = list;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
   /// navigate to next page
   final List<bool> activePageList = [];
 
@@ -186,6 +208,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
       case 4: // add images
         label = ButtonLabel.previewAndSubmit;
         showRightChevron = false;
+        nextButtonEnable = _photos.isNotEmpty;
         break;
       // TODO add validation logic for other screens
     }

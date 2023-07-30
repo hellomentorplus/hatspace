@@ -5,12 +5,33 @@ import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
-part 'home_interaction_state.dart';
+part 'dashboard_interaction_state.dart';
 
-enum BottomBarItems { explore, booking, message, profile, addingProperty }
+enum BottomBarItems {
+  explore,
+  booking,
+  message,
+  profile,
+  addingProperty;
 
-class HomeInteractionCubit extends Cubit<HomeInteractionState> {
-  HomeInteractionCubit() : super(HomeInitial());
+  int get pageIndex {
+    switch (this) {
+      case BottomBarItems.explore:
+        return 0;
+      case BottomBarItems.booking:
+        return 1;
+      case BottomBarItems.message:
+        return 2;
+      case BottomBarItems.profile:
+        return 3;
+      default:
+        return -1;
+    }
+  }
+}
+
+class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
+  DashboardInteractionCubit() : super(DashboardInitial());
 
   final StorageService storageService =
       HsSingleton.singleton.get<StorageService>();
@@ -28,6 +49,7 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
         if (roles.contains(Roles.homeowner)) {
           emit(StartAddPropertyFlow());
         } else {
+          emit(RequestHomeOwnerRole());
           // TODO handle when user is not a homeowner
         }
       }
@@ -41,12 +63,13 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
     if (!isUserLoggedIn) {
       return emit(OpenLoginBottomSheetModal(item));
     }
+
     switch (item) {
       case (BottomBarItems.addingProperty):
         onAddPropertyPressed();
-        // TODO: Handle navigate to others items
         break;
       default:
+        emit(OpenPage(item));
     }
   }
 

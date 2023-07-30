@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/features/home/view/home_view.dart';
+import 'package:hatspace/features/dashboard/dashboard_screen.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -41,14 +41,14 @@ class _MyAppBodyState extends State<MyAppBody> {
     return MaterialApp(
       theme: lightThemeData,
       home: BlocListener<AuthenticationBloc, AuthenticationState>(
-          // Listen when FirstLauch will be navigate to Home Screen.
+          // Listen when FirstLaunch will be navigate to Home Screen.
           listener: (context, state) {
             if (state is RequestSignUp) {
               context.goToSignup();
             }
           },
           // Always initialise HomePageView
-          child: const HomePageView()),
+          child: const DashboardScreen()),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         HatSpaceStrings.delegate

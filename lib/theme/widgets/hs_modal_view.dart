@@ -30,7 +30,7 @@ class HsModalView<T> extends StatelessWidget {
     int index,
   ) {
     if (selectedValue == itemList[index]) {
-      return SvgPicture.asset(Assets.images.check);
+      return SvgPicture.asset(Assets.icons.check);
     } else {
       return const SizedBox.shrink();
     }
@@ -56,7 +56,7 @@ class HsModalView<T> extends StatelessWidget {
                         Positioned(
                             right: HsDimens.spacing24,
                             child: IconButton(
-                              icon: SvgPicture.asset(Assets.images.closeIcon),
+                              icon: SvgPicture.asset(Assets.icons.closeIcon),
                               onPressed: () => context.pop(),
                             )),
                         Center(

@@ -26,8 +26,7 @@ void main() {
     await widgetTester.wrapAndPump(rentView);
     // find drop down button
     expect(find.byType(HsDropDownButton), findsOneWidget);
-    expect(
-        find.svgPictureWithAssets(Assets.images.chervonDown), findsOneWidget);
+    expect(find.svgPictureWithAssets(Assets.icons.chervonDown), findsOneWidget);
     await widgetTester.tap(find.byType(HsDropDownButton));
     await widgetTester.pump();
     // Find Hs_modal with label

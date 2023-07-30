@@ -1143,6 +1143,246 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Other information`
+  String get otherInformation {
+    return Intl.message(
+      'Other information',
+      name: 'otherInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log out`
+  String get logOut {
+    return Intl.message(
+      'Log out',
+      name: 'logOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete account`
+  String get deleteAccount {
+    return Intl.message(
+      'Delete account',
+      name: 'deleteAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favorite lists`
+  String get favoriteLists {
+    return Intl.message(
+      'Favorite lists',
+      name: 'favoriteLists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My properties`
+  String get myProperties {
+    return Intl.message(
+      'My properties',
+      name: 'myProperties',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My account`
+  String get myAccount {
+    return Intl.message(
+      'My account',
+      name: 'myAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View profile`
+  String get viewProfile {
+    return Intl.message(
+      'View profile',
+      name: 'viewProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Homeowner role`
+  String get addHomeOwnerRoleTitle {
+    return Intl.message(
+      'Add Homeowner role',
+      name: 'addHomeOwnerRoleTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?`
+  String get addHomeOwnerRoleContent {
+    return Intl.message(
+      'Tenant can not use this feature. Would you like to add the role Homeowner to the list of roles?',
+      name: 'addHomeOwnerRoleContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Homeowner role`
+  String get addHomeOwnerPrimaryBtnLabel {
+    return Intl.message(
+      'Add Homeowner role',
+      name: 'addHomeOwnerPrimaryBtnLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Later`
+  String get addHomeOwnerSecondaryBtnLabel {
+    return Intl.message(
+      'Later',
+      name: 'addHomeOwnerSecondaryBtnLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preview`
+  String get preview {
+    return Intl.message(
+      'Preview',
+      name: 'preview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Location`
+  String get location {
+    return Intl.message(
+      'Location',
+      name: 'location',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Property features`
+  String get propertyFeatures {
+    return Intl.message(
+      'Property features',
+      name: 'propertyFeatures',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Display name`
+  String get displayName {
+    return Intl.message(
+      'Display name',
+      name: 'displayName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full name`
+  String get fullName {
+    return Intl.message(
+      'Full name',
+      name: 'fullName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get email {
+    return Intl.message(
+      'Email',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone number`
+  String get phoneNumber {
+    return Intl.message(
+      'Phone number',
+      name: 'phoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date of Birth`
+  String get dateOfBirth {
+    return Intl.message(
+      'Date of Birth',
+      name: 'dateOfBirth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not updated`
+  String get notUpdated {
+    return Intl.message(
+      'Not updated',
+      name: 'notUpdated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Profile`
+  String get myProfile {
+    return Intl.message(
+      'My Profile',
+      name: 'myProfile',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
