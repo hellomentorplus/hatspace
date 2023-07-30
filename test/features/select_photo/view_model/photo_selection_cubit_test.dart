@@ -3,7 +3,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:hatspace/features/select_photo/view_model/photo_selection_cubit.dart';
 
 void main() {
-  blocTest('given path is not in list, when updateSelection, then path is added, and enableUpload is true',
+  blocTest(
+    'given path is not in list, when updateSelection, then path is added, and enableUpload is true',
     build: () => PhotoSelectionCubit(),
     act: (bloc) => bloc.updateSelection('thumbnail'),
     expect: () => [isA<PhotoSelectionUpdated>()],
@@ -15,7 +16,8 @@ void main() {
     },
   );
 
-  blocTest('given path is in list, when updateSelection, then path is removed',
+  blocTest(
+    'given path is in list, when updateSelection, then path is removed',
     build: () => PhotoSelectionCubit()..updateSelection('thumbnail'),
     act: (bloc) => bloc.updateSelection('thumbnail'),
     expect: () => [isA<PhotoSelectionUpdated>()],
