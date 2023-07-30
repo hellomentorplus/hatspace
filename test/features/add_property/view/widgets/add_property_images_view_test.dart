@@ -43,7 +43,7 @@ void main() {
     HsSingleton.singleton.registerSingleton<PhotoService>(photoService);
   });
 
-  setUp((){
+  setUp(() {
     when(addPropertyImagesCubit.state)
         .thenAnswer((_) => AddPropertyImagesInitial());
     when(addPropertyImagesCubit.stream).thenAnswer((_) => const Stream.empty());
@@ -220,17 +220,18 @@ void main() {
 
     testWidgets(
         'given state is PhotoSelectionReturned '
-            'when launching '
-            'then show photos with cover photo', (widgetTester) async {
+        'when launching '
+        'then show photos with cover photo', (widgetTester) async {
       const Widget widget = AddPropertyImagesBody();
 
       when(addPropertyImagesCubit.state).thenReturn(AddPropertyImagesInitial());
-      when(addPropertyImagesCubit.stream).thenAnswer((realInvocation) => Stream.empty());
+      when(addPropertyImagesCubit.stream)
+          .thenAnswer((realInvocation) => Stream.empty());
 
-      when(addPropertyImageSelectedCubit.state)
-          .thenAnswer((_) => const PhotoSelectionReturned(paths: ['photo'], allowAddImage: true));
-      when(addPropertyImageSelectedCubit.stream)
-          .thenAnswer((_) => Stream.value(const PhotoSelectionReturned(paths: ['photo'], allowAddImage: true)));
+      when(addPropertyImageSelectedCubit.state).thenAnswer((_) =>
+          const PhotoSelectionReturned(paths: ['photo'], allowAddImage: true));
+      when(addPropertyImageSelectedCubit.stream).thenAnswer((_) => Stream.value(
+          const PhotoSelectionReturned(paths: ['photo'], allowAddImage: true)));
 
       await widgetTester.multiBlocWrapAndPump(
         [
