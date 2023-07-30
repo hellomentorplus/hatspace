@@ -15,6 +15,7 @@ class _AddPropertyUnitViewState extends State<AddPropertyUnitView>
     with AutomaticKeepAliveClientMixin<AddPropertyUnitView> {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       HatSpaceInputText(
         label: HatSpaceStrings.of(context).unitNumber,

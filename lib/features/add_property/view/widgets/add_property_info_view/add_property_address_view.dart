@@ -16,6 +16,7 @@ class _AddPropertyAddressViewState extends State<AddPropertyAddressView>
     with AutomaticKeepAliveClientMixin<AddPropertyAddressView> {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
