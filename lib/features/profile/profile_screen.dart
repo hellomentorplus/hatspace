@@ -204,7 +204,6 @@ class _OptionView extends StatelessWidget {
       {required this.iconPath,
       required this.title,
       required this.onPressed,
-      super.key,
       this.suffixText});
 
   @override
