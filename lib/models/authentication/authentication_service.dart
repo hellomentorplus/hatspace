@@ -139,7 +139,8 @@ class AuthenticationService {
         uid: firebaseUser.uid,
         phone: firebaseUser.phoneNumber,
         email: firebaseUser.email,
-        displayName: firebaseUser.displayName);
+        displayName: firebaseUser.displayName,
+        avatar: firebaseUser.photoURL);
   }
 
   Future<void> signOut() async {

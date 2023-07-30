@@ -8,8 +8,8 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class ProfileView extends StatelessWidget {
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,34 +49,36 @@ class ProfileBody extends StatelessWidget {
                     color: HSColor.neutral2,
                     borderRadius: BorderRadius.circular(HsDimens.size64)),
                 clipBehavior: Clip.hardEdge,
-                child: BlocBuilder<GetUserDetailCubit, GetUserDetailState>(
-                    buildWhen: (_, current) {
-                  return current is GetUserDetailSucceedState ||
-                      current is GetUserDetailFailedState;
-                }, builder: (_, state) {
-                  if (state is GetUserDetailSucceedState &&
-                      state.user.avatar != null &&
-                      state.user.avatar!.isNotEmpty) {
-                    return Image.network(state.user.avatar!, fit: BoxFit.cover);
-                  }
-                  return SvgPicture.asset(Assets.images.userDefaultAvatar,
-                      fit: BoxFit.none);
-                }),
+                child: BlocSelector<GetUserDetailCubit, GetUserDetailState, String?>(
+                  selector: (state) {
+                    if (state is GetUserDetailSucceedState
+                        && state.user.avatar != null
+                        && state.user.avatar!.isNotEmpty) {
+                      return state.user.avatar;
+                    }
+
+                    return null;
+                  },
+                  builder: (context, state) {
+                    return state != null
+                        ? Image.network(state, fit: BoxFit.cover,)
+                        : SvgPicture.asset(Assets.images.userDefaultAvatar, fit: BoxFit.none,);
+                  },
+                )
               ),
               const SizedBox(width: HsDimens.spacing16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BlocBuilder<GetUserDetailCubit, GetUserDetailState>(
-                        buildWhen: (_, current) {
-                      return current is GetUserDetailSucceedState ||
-                          current is GetUserDetailFailedState;
-                    }, builder: (_, state) {
-                      String name = '';
-                      if (state is GetUserDetailSucceedState) {
-                        name = state.user.displayName ?? '';
-                      }
+                    BlocSelector<GetUserDetailCubit, GetUserDetailState, String>(
+                      selector: (state) {
+                        if (state is GetUserDetailSucceedState) {
+                          return state.user.displayName ?? '';
+                        }
+
+                        return '';
+                    }, builder: (_, name) {
                       return Text(name,
                           style: Theme.of(context)
                               .textTheme

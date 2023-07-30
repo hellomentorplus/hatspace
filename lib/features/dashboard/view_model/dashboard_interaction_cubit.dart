@@ -5,12 +5,22 @@ import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
-part 'home_interaction_state.dart';
+part 'dashboard_interaction_state.dart';
 
-enum BottomBarItems { explore, booking, message, profile, addingProperty }
+enum BottomBarItems { explore, booking, message, profile, addingProperty;
+  int get pageIndex {
+    switch(this) {
+      case BottomBarItems.explore: return 0;
+      case BottomBarItems.booking: return 1;
+      case BottomBarItems.message: return 2;
+      case BottomBarItems.profile: return 3;
+      default: return -1;
+    }
+  }
+}
 
-class HomeInteractionCubit extends Cubit<HomeInteractionState> {
-  HomeInteractionCubit() : super(HomeInitial());
+class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
+  DashboardInteractionCubit() : super(DashboardInitial());
 
   final StorageService storageService =
       HsSingleton.singleton.get<StorageService>();
@@ -46,9 +56,9 @@ class HomeInteractionCubit extends Cubit<HomeInteractionState> {
     switch (item) {
       case (BottomBarItems.addingProperty):
         onAddPropertyPressed();
-        // TODO: Handle navigate to others items
         break;
       default:
+        emit(OpenPage(item));
     }
   }
 

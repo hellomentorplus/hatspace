@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:hatspace/gen/assets.gen.dart';
-import 'package:hatspace/features/home/view_model/home_interaction_cubit.dart';
+import 'package:hatspace/features/dashboard/view_model/dashboard_interaction_cubit.dart';
 
 class AddPropertyButton extends StatelessWidget {
   const AddPropertyButton({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class AddPropertyButton extends StatelessWidget {
           child: InkWell(
             customBorder: const CircleBorder(),
             onTap: () {
-              context.read<HomeInteractionCubit>().onAddPropertyPressed();
+              context.read<DashboardInteractionCubit>().onAddPropertyPressed();
             },
             child: Padding(
               padding: const EdgeInsets.all(12.0),

@@ -45,13 +45,13 @@ void main() {
 
     // 3 minus icon
     expect(
-        find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
-            widget, 'assets/icons/decrement.svg')),
+        find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, 'assets/icons/decrement.svg')),
         findsNWidgets(3));
     // 3 plus icon
     expect(
-        find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
-            widget, 'assets/icons/increment.svg')),
+        find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, 'assets/icons/increment.svg')),
         findsNWidgets(3));
   });
 

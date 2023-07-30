@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/features/profile/profile_screen.dart';
+import 'package:hatspace/features/profile/profile_view.dart';
 import 'package:hatspace/features/profile/view_model/get_user_detail_cubit.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
@@ -36,7 +36,7 @@ void main() {
   });
 
   testWidgets('Verify UI', (widgetTester) async {
-    await widgetTester.wrapAndPump(const ProfileScreen());
+    await widgetTester.wrapAndPump(const ProfileView());
 
     expect(find.text('My account'), findsOneWidget);
     expect(find.text('Settings'), findsOneWidget);

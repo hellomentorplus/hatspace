@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/features/home/view_model/home_interaction_cubit.dart';
+import 'package:hatspace/features/dashboard/view_model/dashboard_interaction_cubit.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
@@ -10,7 +10,7 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'home_interaction_cubit_test.mocks.dart';
+import 'dashboard_interaction_cubit_test.mocks.dart';
 
 @GenerateMocks([StorageService, AuthenticationService, MemberService])
 void main() {
@@ -40,7 +40,7 @@ void main() {
 
   blocTest(
       'given user is not logged in, when handle Add Property, then return nothing',
-      build: () => HomeInteractionCubit(),
+      build: () => DashboardInteractionCubit(),
       setUp: () {
         when(authenticationService.getCurrentUser())
             .thenThrow(UserNotFoundException());
@@ -50,7 +50,7 @@ void main() {
 
   blocTest(
     'Given user has role tenant only, when handle Add Property, then return RequestHomeOwnerRole ',
-    build: () => HomeInteractionCubit(),
+    build: () => DashboardInteractionCubit(),
     setUp: () {
       when(memberService.getUserRoles(any))
           .thenAnswer((_) => Future.value([Roles.tenant]));
@@ -61,7 +61,7 @@ void main() {
 
   blocTest(
     'Given user has role homeowner only, when handle Add Property, then return StartAddPropertyFlow',
-    build: () => HomeInteractionCubit(),
+    build: () => DashboardInteractionCubit(),
     setUp: () {
       when(memberService.getUserRoles(any))
           .thenAnswer((_) => Future.value([Roles.homeowner]));
@@ -72,7 +72,7 @@ void main() {
 
   blocTest(
     'Given user has role homeowner and tenant, when handle Add Property, then return StartAddPropertyFlow',
-    build: () => HomeInteractionCubit(),
+    build: () => DashboardInteractionCubit(),
     setUp: () {
       when(memberService.getUserRoles(any))
           .thenAnswer((_) => Future.value([Roles.homeowner, Roles.tenant]));
@@ -83,7 +83,7 @@ void main() {
 
   blocTest(
       'Given user has not logged in, when user taps on Explore, then return OpenLoginBottomSheetModal',
-      build: () => HomeInteractionCubit(),
+      build: () => DashboardInteractionCubit(),
       setUp: () {
         when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
@@ -92,7 +92,7 @@ void main() {
 
   blocTest(
       'Given user has not logged in, when user taps on Booking, then return OpenLoginBottomSheetModal',
-      build: () => HomeInteractionCubit(),
+      build: () => DashboardInteractionCubit(),
       setUp: () {
         when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
@@ -101,7 +101,7 @@ void main() {
 
   blocTest(
       'Given user has not logged in, when user taps on Message, then return OpenLoginBottomSheetModal',
-      build: () => HomeInteractionCubit(),
+      build: () => DashboardInteractionCubit(),
       setUp: () {
         when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
@@ -110,7 +110,7 @@ void main() {
 
   blocTest(
       'Given user has not logged in, when user taps on Profile, then return OpenLoginBottomSheetModal',
-      build: () => HomeInteractionCubit(),
+      build: () => DashboardInteractionCubit(),
       setUp: () {
         when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
@@ -119,7 +119,7 @@ void main() {
 
   blocTest(
       'Given user has not logged in, when user taps on Adding property, then return OpenLoginBottomSheetModal',
-      build: () => HomeInteractionCubit(),
+      build: () => DashboardInteractionCubit(),
       setUp: () {
         when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
@@ -127,7 +127,7 @@ void main() {
       expect: () => [isA<OpenLoginBottomSheetModal>()]);
   blocTest(
       'Given user has not logged in, when user taps out, then return CloseHsModal',
-      build: () => HomeInteractionCubit(),
+      build: () => DashboardInteractionCubit(),
       setUp: () {
         when(authenticationService.isUserLoggedIn).thenReturn(false);
       },

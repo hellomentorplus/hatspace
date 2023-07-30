@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hatspace/features/add_property/view/widgets/add_property_rooms_view.dart';
 import 'package:hatspace/features/debug/view/widget_list/core_button_view.dart';
 import 'package:hatspace/features/debug/view/widget_list/pop_up_view.dart';
 import 'package:hatspace/features/debug/view/widget_list/toast_messages_view.dart';
