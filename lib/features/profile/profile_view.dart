@@ -43,41 +43,47 @@ class ProfileBody extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                width: HsDimens.size64,
-                height: HsDimens.size64,
-                decoration: BoxDecoration(
-                    color: HSColor.neutral2,
-                    borderRadius: BorderRadius.circular(HsDimens.size64)),
-                clipBehavior: Clip.hardEdge,
-                child: BlocSelector<GetUserDetailCubit, GetUserDetailState, String?>(
-                  selector: (state) {
-                    if (state is GetUserDetailSucceedState
-                        && state.user.avatar != null
-                        && state.user.avatar!.isNotEmpty) {
-                      return state.user.avatar;
-                    }
+                  width: HsDimens.size64,
+                  height: HsDimens.size64,
+                  decoration: BoxDecoration(
+                      color: HSColor.neutral2,
+                      borderRadius: BorderRadius.circular(HsDimens.size64)),
+                  clipBehavior: Clip.hardEdge,
+                  child: BlocSelector<GetUserDetailCubit, GetUserDetailState,
+                      String?>(
+                    selector: (state) {
+                      if (state is GetUserDetailSucceedState &&
+                          state.user.avatar != null &&
+                          state.user.avatar!.isNotEmpty) {
+                        return state.user.avatar;
+                      }
 
-                    return null;
-                  },
-                  builder: (context, state) {
-                    return state != null
-                        ? Image.network(state, fit: BoxFit.cover,)
-                        : SvgPicture.asset(Assets.images.userDefaultAvatar, fit: BoxFit.none,);
-                  },
-                )
-              ),
+                      return null;
+                    },
+                    builder: (context, state) {
+                      return state != null
+                          ? Image.network(
+                              state,
+                              fit: BoxFit.cover,
+                            )
+                          : SvgPicture.asset(
+                              Assets.images.userDefaultAvatar,
+                              fit: BoxFit.none,
+                            );
+                    },
+                  )),
               const SizedBox(width: HsDimens.spacing16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BlocSelector<GetUserDetailCubit, GetUserDetailState, String>(
-                      selector: (state) {
-                        if (state is GetUserDetailSucceedState) {
-                          return state.user.displayName ?? '';
-                        }
+                    BlocSelector<GetUserDetailCubit, GetUserDetailState,
+                        String>(selector: (state) {
+                      if (state is GetUserDetailSucceedState) {
+                        return state.user.displayName ?? '';
+                      }
 
-                        return '';
+                      return '';
                     }, builder: (_, name) {
                       return Text(name,
                           style: Theme.of(context)

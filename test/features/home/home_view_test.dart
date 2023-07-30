@@ -174,8 +174,7 @@ void main() {
   });
 
   // Verify login bottom sheet modal
-  group('Verify login bottom sheet modal', ()
-  {
+  group('Verify login bottom sheet modal', () {
     setUp(() {
       when(authenticationBloc.state)
           .thenAnswer((realInvocation) => AnonymousState());
@@ -187,7 +186,6 @@ void main() {
       reset(authenticationBloc);
       reset(appConfigBloc);
     });
-
 
     group('[Properties] Property list', () {
       /// Set up other blocs/cubits that don't related to property list
@@ -201,14 +199,13 @@ void main() {
         when(authenticationBloc.state).thenReturn(AnonymousState());
 
         when(appConfigBloc.stream).thenAnswer(
-                (realInvocation) =>
-                Stream.value(const AppConfigInitialState()));
+            (realInvocation) => Stream.value(const AppConfigInitialState()));
         when(appConfigBloc.state).thenReturn(const AppConfigInitialState());
       });
       testWidgets(
           'Given cubit state is initial'
-              'When user firstly goes to home screen'
-              'Then user does not see list of property', (widgetTester) async {
+          'When user firstly goes to home screen'
+          'Then user does not see list of property', (widgetTester) async {
         when(getPropertiesCubit.stream)
             .thenAnswer((_) => Stream.value(const GetPropertiesInitialState()));
         when(getPropertiesCubit.state)
@@ -222,8 +219,8 @@ void main() {
 
       testWidgets(
           'Given cubit state is loading'
-              'When user firstly goes to home screen'
-              'Then user does not see list of property', (widgetTester) async {
+          'When user firstly goes to home screen'
+          'Then user does not see list of property', (widgetTester) async {
         when(getPropertiesCubit.stream)
             .thenAnswer((_) => Stream.value(const GetPropertiesFailedState()));
         when(getPropertiesCubit.state)
@@ -237,11 +234,10 @@ void main() {
 
       testWidgets(
           'Given cubit state is success but does not have data'
-              'When user firstly goes to home screen'
-              'Then user does not see list of property', (widgetTester) async {
-        when(getPropertiesCubit.stream)
-            .thenAnswer((_) =>
-            Stream.value(const GetPropertiesSucceedState([])));
+          'When user firstly goes to home screen'
+          'Then user does not see list of property', (widgetTester) async {
+        when(getPropertiesCubit.stream).thenAnswer(
+            (_) => Stream.value(const GetPropertiesSucceedState([])));
         when(getPropertiesCubit.state)
             .thenAnswer((_) => const GetPropertiesSucceedState([]));
 
@@ -253,8 +249,8 @@ void main() {
 
       testWidgets(
           'Given cubit state is success and have data'
-              'When user firstly goes to home screen'
-              'Then user will see list of property', (widgetTester) async {
+          'When user firstly goes to home screen'
+          'Then user will see list of property', (widgetTester) async {
         final List<PropertyItemData> fakeData = [
           PropertyItemData(
               id: 'id',
@@ -289,23 +285,21 @@ void main() {
               isFavorited: true,
               currency: Currency.aud),
         ];
-        when(getPropertiesCubit.stream)
-            .thenAnswer((_) =>
-            Stream.value(GetPropertiesSucceedState(fakeData)));
+        when(getPropertiesCubit.stream).thenAnswer(
+            (_) => Stream.value(GetPropertiesSucceedState(fakeData)));
         when(getPropertiesCubit.state)
             .thenAnswer((_) => GetPropertiesSucceedState(fakeData));
 
         const HomePageBody home = HomePageBody();
         await mockNetworkImagesFor(
-                () =>
-                widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, home));
+            () => widgetTester.multiBlocWrapAndPump(requiredHomeBlocs, home));
         await widgetTester.pumpAndSettle();
 
         final Finder propertiesListViewFinder = find.byType(ListView);
         expect(propertiesListViewFinder, findsOneWidget);
 
         final PropertyItemView propertyWidget1 =
-        widgetTester.widget(find.byKey(ValueKey(fakeData.first.id)));
+            widgetTester.widget(find.byKey(ValueKey(fakeData.first.id)));
         expect(propertyWidget1.property.id, fakeData.first.id);
 
         await widgetTester.drag(
@@ -313,7 +307,7 @@ void main() {
         await widgetTester.pump();
 
         final PropertyItemView propertyWidget2 =
-        widgetTester.widget(find.byKey(ValueKey(fakeData[1].id)));
+            widgetTester.widget(find.byKey(ValueKey(fakeData[1].id)));
         expect(propertyWidget2.property.id, fakeData[1].id);
       });
     });
