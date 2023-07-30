@@ -226,7 +226,7 @@ void main() {
 
       when(addPropertyImagesCubit.state).thenReturn(AddPropertyImagesInitial());
       when(addPropertyImagesCubit.stream)
-          .thenAnswer((realInvocation) => Stream.empty());
+          .thenAnswer((realInvocation) => const Stream.empty());
 
       when(addPropertyImageSelectedCubit.state).thenAnswer((_) =>
           const PhotoSelectionReturned(paths: ['photo'], allowAddImage: true));
