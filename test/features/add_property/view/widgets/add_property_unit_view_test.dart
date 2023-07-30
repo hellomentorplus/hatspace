@@ -14,8 +14,10 @@ void main() {
   final MockAddPropertyCubit addPropertyCubit = MockAddPropertyCubit();
 
   setUp(() {
-    when(addPropertyCubit.state).thenAnswer((realInvocation) => const AddPropertyInitial());
-    when(addPropertyCubit.stream).thenAnswer((realInvocation) => const Stream.empty());
+    when(addPropertyCubit.state)
+        .thenAnswer((realInvocation) => const AddPropertyInitial());
+    when(addPropertyCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   tearDown(() {
@@ -28,19 +30,23 @@ void main() {
     await widgetTester.wrapAndPump(widget);
 
     expect(find.byType(HatSpaceInputText), findsOneWidget);
-    expect(find.text('Unit number(Optional)', findRichText: true), findsOneWidget);
+    expect(
+        find.text('Unit number(Optional)', findRichText: true), findsOneWidget);
     expect(find.text('Enter unit number'), findsOneWidget);
   });
 
   group('verify to set unitNumber value when value  change', () {
-    testWidgets('given unit number is blank,'
+    testWidgets(
+        'given unit number is blank,'
         'when change to not blank,'
         'then cubit unitNumber is updated', (widgetTester) async {
       const Widget widget = AddPropertyUnitView();
 
-      await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, widget);
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyCubit, widget);
 
-      await widgetTester.enterText(find.byType(HatSpaceInputText), 'unit number text');
+      await widgetTester.enterText(
+          find.byType(HatSpaceInputText), 'unit number text');
       await widgetTester.pumpAndSettle();
 
       expect(find.text('unit number text'), findsOneWidget);

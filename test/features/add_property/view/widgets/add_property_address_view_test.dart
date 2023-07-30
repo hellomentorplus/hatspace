@@ -14,8 +14,10 @@ void main() {
   final MockAddPropertyCubit addPropertyCubit = MockAddPropertyCubit();
 
   setUp(() {
-    when(addPropertyCubit.state).thenAnswer((realInvocation) => const AddPropertyInitial());
-    when(addPropertyCubit.stream).thenAnswer((realInvocation) => const Stream.empty());
+    when(addPropertyCubit.state)
+        .thenAnswer((realInvocation) => const AddPropertyInitial());
+    when(addPropertyCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   tearDown(() {
@@ -33,14 +35,17 @@ void main() {
   });
 
   group('verify to set unitNumber value when value  change', () {
-    testWidgets('given address is blank,'
+    testWidgets(
+        'given address is blank,'
         'when change to not blank,'
         'then cubit address is updated', (widgetTester) async {
       const Widget widget = AddPropertyAddressView();
 
-      await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, widget);
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyCubit, widget);
 
-      await widgetTester.enterText(find.byType(HatSpaceInputText), 'address text');
+      await widgetTester.enterText(
+          find.byType(HatSpaceInputText), 'address text');
       await widgetTester.pumpAndSettle();
 
       expect(find.text('address text'), findsOneWidget);
