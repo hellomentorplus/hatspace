@@ -18,20 +18,10 @@ class GetUserDetailCubit extends Cubit<GetUserDetailState> {
     try {
       emit(const GettingUserDetailState());
       final UserDetail user = await _authenticationService.getCurrentUser();
-      emit(GetUserDetailSucceedState(user));
-      await _getUserRoles(user.uid);
+      final roles = await _storageService.member.getUserRoles(user.uid);
+      emit(GetUserDetailSucceedState(user, roles));
     } catch (_) {
       emit(const GetUserDetailFailedState());
-    }
-  }
-
-  Future<void> _getUserRoles(String uid) async {
-    try {
-      emit(const GettingUserRolesState());
-      final roles = await _storageService.member.getUserRoles(uid);
-      emit(GetUserRolesSucceedState(roles));
-    } catch (_) {
-      emit(const GetUserRolesFailedState());
     }
   }
 }

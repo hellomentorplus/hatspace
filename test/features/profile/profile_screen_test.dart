@@ -83,10 +83,10 @@ void main() {
       (widgetTester) async {
     when(user.avatar).thenReturn(null);
     when(user.displayName).thenReturn(null);
-    when(getUserDetailCubit.stream)
-        .thenAnswer((_) => Stream.value(GetUserDetailSucceedState(user)));
+    when(getUserDetailCubit.stream).thenAnswer(
+        (_) => Stream.value(GetUserDetailSucceedState(user, const [])));
     when(getUserDetailCubit.state)
-        .thenAnswer((_) => GetUserDetailSucceedState(user));
+        .thenAnswer((_) => GetUserDetailSucceedState(user, const []));
 
     await mockNetworkImagesFor(() =>
         widgetTester.blocWrapAndPump<GetUserDetailCubit>(
@@ -108,10 +108,10 @@ void main() {
       (widgetTester) async {
     when(user.avatar).thenReturn('avatar.jpg');
     when(user.displayName).thenReturn('This is user name');
-    when(getUserDetailCubit.stream)
-        .thenAnswer((_) => Stream.value(GetUserDetailSucceedState(user)));
+    when(getUserDetailCubit.stream).thenAnswer(
+        (_) => Stream.value(GetUserDetailSucceedState(user, const [])));
     when(getUserDetailCubit.state)
-        .thenAnswer((_) => GetUserDetailSucceedState(user));
+        .thenAnswer((_) => GetUserDetailSucceedState(user, const []));
 
     await mockNetworkImagesFor(() =>
         widgetTester.blocWrapAndPump<GetUserDetailCubit>(
@@ -136,10 +136,14 @@ void main() {
 
   testWidgets('when user have roles, then all user roles will be displayed',
       (widgetTester) async {
+    when(user.avatar).thenReturn('avatar.jpg');
+    when(user.displayName).thenReturn('This is user name');
+
     when(getUserDetailCubit.stream).thenAnswer((_) => Stream.value(
-        const GetUserRolesSucceedState([Roles.tenant, Roles.homeowner])));
-    when(getUserDetailCubit.state).thenAnswer(
-        (_) => const GetUserRolesSucceedState([Roles.tenant, Roles.homeowner]));
+        GetUserDetailSucceedState(
+            user, const [Roles.tenant, Roles.homeowner])));
+    when(getUserDetailCubit.state).thenAnswer((_) =>
+        GetUserDetailSucceedState(user, const [Roles.tenant, Roles.homeowner]));
 
     await mockNetworkImagesFor(() =>
         widgetTester.blocWrapAndPump<GetUserDetailCubit>(
@@ -153,43 +157,38 @@ void main() {
 
   testWidgets('when user does not has roles, then no role was displayed',
       (widgetTester) async {
-    when(getUserDetailCubit.stream)
-        .thenAnswer((_) => Stream.value(const GetUserRolesSucceedState([])));
-    when(getUserDetailCubit.state)
-        .thenAnswer((_) => const GetUserRolesSucceedState([]));
+    when(user.avatar).thenReturn('avatar.jpg');
+    when(user.displayName).thenReturn('This is user name');
 
-    await _pumpAndVerifyNoRoles(widgetTester, getUserDetailCubit);
+    when(getUserDetailCubit.stream).thenAnswer(
+        (_) => Stream.value(GetUserDetailSucceedState(user, const [])));
+    when(getUserDetailCubit.state)
+        .thenAnswer((_) => GetUserDetailSucceedState(user, const []));
+
+    await mockNetworkImagesFor(() =>
+        widgetTester.blocWrapAndPump<GetUserDetailCubit>(
+            getUserDetailCubit, const ProfileBody()));
+
+    expect(find.byType(ProfileBody), findsOneWidget);
+
+    expect(find.text(Roles.tenant.title), findsNothing);
+    expect(find.text(Roles.homeowner.title), findsNothing);
   });
 
   testWidgets('when get user roles failed, then no role was displayed',
       (widgetTester) async {
     when(getUserDetailCubit.stream)
-        .thenAnswer((_) => Stream.value(const GetUserRolesFailedState()));
+        .thenAnswer((_) => Stream.value(const GetUserDetailFailedState()));
     when(getUserDetailCubit.state)
-        .thenAnswer((_) => const GetUserRolesFailedState());
+        .thenAnswer((_) => const GetUserDetailFailedState());
 
-    await _pumpAndVerifyNoRoles(widgetTester, getUserDetailCubit);
+    await mockNetworkImagesFor(() =>
+        widgetTester.blocWrapAndPump<GetUserDetailCubit>(
+            getUserDetailCubit, const ProfileBody()));
+
+    expect(find.byType(ProfileBody), findsOneWidget);
+
+    expect(find.text(Roles.tenant.title), findsNothing);
+    expect(find.text(Roles.homeowner.title), findsNothing);
   });
-
-  testWidgets('when getting user roles, then no role was displayed',
-      (widgetTester) async {
-    when(getUserDetailCubit.stream)
-        .thenAnswer((_) => Stream.value(const GettingUserRolesState()));
-    when(getUserDetailCubit.state)
-        .thenAnswer((_) => const GettingUserRolesState());
-
-    await _pumpAndVerifyNoRoles(widgetTester, getUserDetailCubit);
-  });
-}
-
-Future<void> _pumpAndVerifyNoRoles(
-    WidgetTester widgetTester, GetUserDetailCubit getUserDetailCubit) async {
-  await mockNetworkImagesFor(() =>
-      widgetTester.blocWrapAndPump<GetUserDetailCubit>(
-          getUserDetailCubit, const ProfileBody()));
-
-  expect(find.byType(ProfileBody), findsOneWidget);
-
-  expect(find.text(Roles.tenant.title), findsNothing);
-  expect(find.text(Roles.homeowner.title), findsNothing);
 }

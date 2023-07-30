@@ -26,19 +26,6 @@ void main() {
     when(storageService.member).thenReturn(memberService);
   });
 
-  blocTest<GetUserDetailCubit, GetUserDetailState>(
-      'Given GetUserDetailCubit was just created. '
-      'When user do nothing. '
-      'Then state will be GetPropertiesInitialState.',
-      build: () => GetUserDetailCubit(),
-      verify: (bloc) {
-        expect(bloc.state is GetUserDetailInitialState, true);
-        expect(() => (bloc.state as GetUserDetailSucceedState).user,
-            throwsA(isA<TypeError>()));
-        expect(() => (bloc.state as GetUserRolesSucceedState).roles,
-            throwsA(isA<TypeError>()));
-      });
-
   blocTest(
       'Given authentication service can not get user detail. '
       'When get user detail from Authentication service. '
@@ -55,7 +42,7 @@ void main() {
   blocTest(
       'Given authentication service returns user detail successfully and member service failed to return user roles. '
       'When get user information. '
-      'Then emit state with orders : GettingUserDetailState -> GetUserDetailSucceedState -> GettingUserRolesState -> GetUserRolesFailedState.',
+      'Then emit state with orders : GettingUserDetailState -> GetUserDetailFailedState.',
       build: () => GetUserDetailCubit(),
       setUp: () {
         when(authenticationService.getCurrentUser())
@@ -66,15 +53,13 @@ void main() {
       act: (bloc) => bloc.getUserInformation(),
       expect: () => [
             isA<GettingUserDetailState>(),
-            isA<GetUserDetailSucceedState>(),
-            isA<GettingUserRolesState>(),
-            isA<GetUserRolesFailedState>()
+            isA<GetUserDetailFailedState>(),
           ]);
 
   blocTest(
       'Given get user detail successfully and get user roles successfully. '
       'When get user role from Storage service. '
-      'Then emit state with orders : GettingUserDetailState -> GetUserDetailSucceedState -> GettingUserRolesState -> GetUserRolesSucceedState.',
+      'Then emit state with orders : GettingUserDetailState -> GetUserDetailSucceedState.',
       build: () => GetUserDetailCubit(),
       setUp: () {
         final MockUserDetail mockUser = MockUserDetail();
@@ -87,7 +72,5 @@ void main() {
       expect: () => [
             isA<GettingUserDetailState>(),
             isA<GetUserDetailSucceedState>(),
-            isA<GettingUserRolesState>(),
-            isA<GetUserRolesSucceedState>()
           ]);
 }

@@ -17,28 +17,13 @@ class GettingUserDetailState extends GetUserDetailState {
 
 class GetUserDetailSucceedState extends GetUserDetailState {
   final UserDetail user;
-  const GetUserDetailSucceedState(this.user);
+  final List<Roles> roles;
+  const GetUserDetailSucceedState(this.user, this.roles);
 
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [user, ...roles];
 }
 
 class GetUserDetailFailedState extends GetUserDetailState {
   const GetUserDetailFailedState();
-}
-
-class GettingUserRolesState extends GetUserDetailState {
-  const GettingUserRolesState();
-}
-
-class GetUserRolesSucceedState extends GetUserDetailState {
-  final List<Roles> roles;
-  const GetUserRolesSucceedState(this.roles);
-
-  @override
-  List<Object?> get props => roles;
-}
-
-class GetUserRolesFailedState extends GetUserDetailState {
-  const GetUserRolesFailedState();
 }
