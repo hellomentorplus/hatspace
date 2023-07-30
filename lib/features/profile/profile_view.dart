@@ -97,43 +97,42 @@ class ProfileBody extends StatelessWidget {
                     Text(HatSpaceStrings.current.viewProfile,
                         style: Theme.of(context).textTheme.bodyMedium),
                     const SizedBox(height: HsDimens.spacing6),
-                    BlocBuilder<GetUserDetailCubit, GetUserDetailState>(
-                        buildWhen: (previous, current) {
-                      return current is GetUserRolesSucceedState ||
-                          current is GetUserRolesFailedState;
-                    }, builder: (_, state) {
-                      if (state is GetUserRolesSucceedState) {
-                        return Wrap(
-                          spacing: HsDimens.spacing4,
-                          runSpacing: HsDimens.spacing4,
-                          children: state.roles
-                              .map((role) => Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: HsDimens.spacing8,
-                                      vertical: HsDimens.spacing4,
-                                    ),
-                                    decoration: ShapeDecoration(
-                                      shape: const StadiumBorder(),
-                                      color: (() {
-                                        switch (role) {
-                                          case Roles.tenant:
-                                            return HSColor.blue05;
-                                          case Roles.homeowner:
-                                            return HSColor.orange05;
-                                        }
-                                      }()),
-                                    ),
-                                    child: Text(role.title,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall
-                                            ?.copyWith(
-                                                color: HSColor.neutral1)),
-                                  ))
-                              .toList(),
-                        );
+                    BlocSelector<GetUserDetailCubit, GetUserDetailState,
+                        List<Roles>>(selector: (state) {
+                      if (state is GetUserDetailSucceedState) {
+                        return state.roles;
                       }
-                      return const SizedBox();
+
+                      return [];
+                    }, builder: (_, roles) {
+                      return Wrap(
+                        spacing: HsDimens.spacing4,
+                        runSpacing: HsDimens.spacing4,
+                        children: roles
+                            .map((role) => Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: HsDimens.spacing8,
+                                    vertical: HsDimens.spacing4,
+                                  ),
+                                  decoration: ShapeDecoration(
+                                    shape: const StadiumBorder(),
+                                    color: (() {
+                                      switch (role) {
+                                        case Roles.tenant:
+                                          return HSColor.blue05;
+                                        case Roles.homeowner:
+                                          return HSColor.orange05;
+                                      }
+                                    }()),
+                                  ),
+                                  child: Text(role.title,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(color: HSColor.neutral1)),
+                                ))
+                            .toList(),
+                      );
                     }),
                   ],
                 ),
