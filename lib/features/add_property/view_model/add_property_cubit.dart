@@ -110,6 +110,20 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   int? get postalCode => _postalCode;
 
+  String _unitNumber = '';
+  String get unitNumber => _unitNumber;
+  set unitNumber(String s) {
+    _unitNumber = s;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
+  String _address = '';
+  String get address => _address;
+  set address(String a) {
+    _address = a;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
   /// 3. Rooms
   int _bedrooms = 0;
   int _bathrooms = 0;
