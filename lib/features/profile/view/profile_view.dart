@@ -41,7 +41,7 @@ class ProfileBody extends StatelessWidget {
         const SizedBox(height: HsDimens.spacing20),
         InkWell(
           onTap: () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: (_) => MyProfileScreen())),
+              .push(MaterialPageRoute(builder: (_) => const MyProfileScreen())),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: HsDimens.spacing16),
             child: Row(
