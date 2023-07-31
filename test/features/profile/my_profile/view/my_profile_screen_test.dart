@@ -29,8 +29,8 @@ void main() {
   });
 
   testWidgets('Verify UI', (widgetTester) async {
-
-    when(authenticationService.getCurrentUser()).thenAnswer((_) => Future.value(user));
+    when(authenticationService.getCurrentUser())
+        .thenAnswer((_) => Future.value(user));
 
     await widgetTester.blocWrapAndPump<MyProfileCubit>(
         myProfileCubit, const MyProfileScreen());

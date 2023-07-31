@@ -11,7 +11,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
-
 import '../../../widget_tester_extension.dart';
 import '../../add_property/view/widgets/add_rooms_view_test.dart';
 import 'profile_screen_test.mocks.dart';

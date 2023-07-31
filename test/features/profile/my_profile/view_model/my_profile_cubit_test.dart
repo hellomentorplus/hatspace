@@ -30,8 +30,10 @@ void main() {
             .thenThrow(Exception('Failed to fetch user'));
       },
       act: (bloc) => bloc.getUserInformation(),
-      expect: () =>
-          [isA<GettingUserInformationState>(), isA<GetUserInformationFailedState>()]);
+      expect: () => [
+            isA<GettingUserInformationState>(),
+            isA<GetUserInformationFailedState>()
+          ]);
 
   blocTest<MyProfileCubit, MyProfileState>(
       'Given authentication service returns user detail successfully. '
@@ -47,7 +49,7 @@ void main() {
             isA<GettingUserInformationState>(),
             isA<GetUserInformationSucceedState>()
           ]);
-  
+
   blocTest<MyProfileCubit, MyProfileState>(
       'Given MyProfileCubit was just created. '
       'When user do nothing. '
@@ -56,5 +58,4 @@ void main() {
       verify: (bloc) {
         expect(bloc.state is MyProfileInitialState, true);
       });
-
 }

@@ -25,151 +25,142 @@ class MyProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(HatSpaceStrings.current.myProfile,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(fontWeight: FontStyleGuide.fwBold)),
-            actions: [
-              IconButton(
-                  padding: const EdgeInsets.only(right: HsDimens.spacing8),
-                  onPressed: () {
-                    /// TODO : Handle edit button press
-                  },
-                  icon: Text(HatSpaceStrings.current.edit,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontStyleGuide.fwBold,
-                          color: HSColor.primary))),
-            ],
-            backgroundColor: HSColor.neutral1,
-            automaticallyImplyLeading: false,
-            leading: IconButton(
-              onPressed: () => context.pop(),
-              icon: SvgPicture.asset(Assets.icons.arrowCalendarLeft),
-            ),
-            elevation: 0,
-            bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(1.0),
-                child: Container(
-                  color: HSColor.neutral2,
-                  height: 1.0,
-                )),
+    return Builder(builder: (context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(HatSpaceStrings.current.myProfile,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontWeight: FontStyleGuide.fwBold)),
+          actions: [
+            IconButton(
+                padding: const EdgeInsets.only(right: HsDimens.spacing8),
+                onPressed: () {
+                  /// TODO : Handle edit button press
+                },
+                icon: Text(HatSpaceStrings.current.edit,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontStyleGuide.fwBold,
+                        color: HSColor.primary))),
+          ],
+          backgroundColor: HSColor.neutral1,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            onPressed: () => context.pop(),
+            icon: SvgPicture.asset(Assets.icons.arrowCalendarLeft),
           ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: HsDimens.spacing16),
-              child: Column(
-                children: [
-                  const SizedBox(height: HsDimens.spacing32),
-                  Stack(
-                    children: [
-                      Container(
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: HSColor.neutral2,
-                          ),
-                          clipBehavior: Clip.hardEdge,
-                          height: HsDimens.size104,
-                          width: HsDimens.size104,
-                          child:
-                              BlocSelector<MyProfileCubit, MyProfileState, String?>(
-                            selector: (state) {
-                              if (state is GetUserInformationSucceedState) {
-                                return state.user.avatar;
-                              }
-                              return '';
-                            },
-                            builder: (context, avatar) {
-                              return avatar != null && avatar.isNotEmpty
-                                  ? Image.network(
-                                      avatar,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : SvgPicture.asset(
-                                      Assets.images.userDefaultAvatar,
-                                      fit: BoxFit.none,
-                                    );
-                            },
-                          )),
-                      Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: SvgPicture.asset(Assets.images.cameraCircle))
-                    ],
-                  ),
-                  const SizedBox(height: HsDimens.spacing32),
-                  BlocSelector<MyProfileCubit, MyProfileState, String>(
+          elevation: 0,
+          bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(1.0),
+              child: Container(
+                color: HSColor.neutral2,
+                height: 1.0,
+              )),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: HsDimens.spacing16),
+            child: Column(
+              children: [
+                const SizedBox(height: HsDimens.spacing32),
+                Stack(
+                  children: [
+                    Container(
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: HSColor.neutral2,
+                        ),
+                        clipBehavior: Clip.hardEdge,
+                        height: HsDimens.size104,
+                        width: HsDimens.size104,
+                        child: BlocSelector<MyProfileCubit, MyProfileState,
+                            String?>(
+                          selector: (state) {
+                            if (state is GetUserInformationSucceedState) {
+                              return state.user.avatar;
+                            }
+                            return '';
+                          },
+                          builder: (context, avatar) {
+                            return avatar != null && avatar.isNotEmpty
+                                ? Image.network(
+                                    avatar,
+                                    fit: BoxFit.cover,
+                                  )
+                                : SvgPicture.asset(
+                                    Assets.images.userDefaultAvatar,
+                                    fit: BoxFit.none,
+                                  );
+                          },
+                        )),
+                    Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: SvgPicture.asset(Assets.images.cameraCircle))
+                  ],
+                ),
+                const SizedBox(height: HsDimens.spacing32),
+                BlocSelector<MyProfileCubit, MyProfileState, String>(
                     selector: (state) {
-                      if (state is GetUserInformationSucceedState) {
-                        return state.user.displayName ?? '';
-                      }
-                      return '';
-                    },
-                    builder: (context, displayName) {
-                      return _InformationView(
-                        title: HatSpaceStrings.current.displayName,
-                        value: displayName,
-                      );
-                    }
-                  ),
-                  BlocSelector<MyProfileCubit, MyProfileState, String>(
+                  if (state is GetUserInformationSucceedState) {
+                    return state.user.displayName ?? '';
+                  }
+                  return '';
+                }, builder: (context, displayName) {
+                  return _InformationView(
+                    title: HatSpaceStrings.current.displayName,
+                    value: displayName,
+                  );
+                }),
+                BlocSelector<MyProfileCubit, MyProfileState, String>(
                     selector: (state) {
-                      return '';
-                    },
-                    builder: (context, fullName) {
-                      return _InformationView(
-                        title: HatSpaceStrings.current.fullName,
-                        value: fullName,
-                      );
-                    }
-                  ),
-                  BlocSelector<MyProfileCubit, MyProfileState, String>(
+                  return '';
+                }, builder: (context, fullName) {
+                  return _InformationView(
+                    title: HatSpaceStrings.current.fullName,
+                    value: fullName,
+                  );
+                }),
+                BlocSelector<MyProfileCubit, MyProfileState, String>(
                     selector: (state) {
-                      if (state is GetUserInformationSucceedState) {
-                        return state.user.email ?? '';
-                      }
-                      return '';
-                    },
-                    builder: (context, email) {
-                      return _InformationView(
-                        title: HatSpaceStrings.current.email,
-                        value: email,
-                      );
-                    }
-                  ),
-                  BlocSelector<MyProfileCubit, MyProfileState, String>(
+                  if (state is GetUserInformationSucceedState) {
+                    return state.user.email ?? '';
+                  }
+                  return '';
+                }, builder: (context, email) {
+                  return _InformationView(
+                    title: HatSpaceStrings.current.email,
+                    value: email,
+                  );
+                }),
+                BlocSelector<MyProfileCubit, MyProfileState, String>(
                     selector: (state) {
-                      if (state is GetUserInformationSucceedState) {
-                        return state.user.phone ?? '';
-                      }
-                      return '';
-                    }, builder: (context, phone) {
-                      return _InformationView(
-                        title: HatSpaceStrings.current.phoneNumber,
-                        value: phone,
-                      );
-                    }),
-                  BlocSelector<MyProfileCubit, MyProfileState, String>(
+                  if (state is GetUserInformationSucceedState) {
+                    return state.user.phone ?? '';
+                  }
+                  return '';
+                }, builder: (context, phone) {
+                  return _InformationView(
+                    title: HatSpaceStrings.current.phoneNumber,
+                    value: phone,
+                  );
+                }),
+                BlocSelector<MyProfileCubit, MyProfileState, String>(
                     selector: (state) {
-                      return '';
-                    }, 
-                    builder: (context, birth) {
-                      return _InformationView(
-                        title: HatSpaceStrings.current.dateOfBirth,
-                        value: birth,
-                      );
-                    }),
-                ],
-              ),
+                  return '';
+                }, builder: (context, birth) {
+                  return _InformationView(
+                    title: HatSpaceStrings.current.dateOfBirth,
+                    value: birth,
+                  );
+                }),
+              ],
             ),
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 }
 
@@ -190,18 +181,16 @@ class _InformationView extends StatelessWidget {
                 .bodySmall
                 ?.copyWith(color: HSColor.neutral6)),
         const SizedBox(height: HsDimens.spacing4),
-        if (value != null && value!.isNotEmpty)...[
+        if (value != null && value!.isNotEmpty) ...[
           Text(value!,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(fontWeight: FontWeight.w500)),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.w500)),
         ] else ...[
           Text(HatSpaceStrings.current.notUpdated,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(fontWeight: FontWeight.w500, color: HSColor.neutral5)),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w500, color: HSColor.neutral5)),
         ],
         const SizedBox(height: HsDimens.spacing12),
         const Divider(color: HSColor.neutral2, thickness: 1, height: 1)

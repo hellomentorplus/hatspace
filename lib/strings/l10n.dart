@@ -1304,6 +1304,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Cover photo`
+  String get coverPhoto {
+    return Intl.message(
+      'Cover photo',
+      name: 'coverPhoto',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Display name`
   String get displayName {
     return Intl.message(
