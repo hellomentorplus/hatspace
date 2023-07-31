@@ -149,5 +149,6 @@
   "preview": "Preview",
   "location": "Location",
   "propertyFeatures": "Property features",
-  "previewAndSubmit": "Preview & Submit"
+  "previewAndSubmit": "Preview & Submit",
+  "coverPhoto":"Cover photo"
 }
