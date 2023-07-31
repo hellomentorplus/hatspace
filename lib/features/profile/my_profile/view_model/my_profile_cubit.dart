@@ -12,10 +12,12 @@ class MyProfileCubit extends Cubit<MyProfileState> {
   MyProfileCubit() : super(const MyProfileInitialState());
 
   void getUserInformation() async {
-    emit(const GettingUserInformationState());
-    _authenticationService.getCurrentUser().then(
-      (user) => emit(GetUserInformationSucceedState(user)),
-      onError: (_) => emit(const GetUserInformationFailedState()),
-    );
+    try {
+      emit(const GettingUserInformationState());
+      final UserDetail user = await _authenticationService.getCurrentUser();
+      emit(GetUserInformationSucceedState(user));
+    } catch (_) {
+      emit(const GetUserInformationFailedState());
+    }
   }
 }

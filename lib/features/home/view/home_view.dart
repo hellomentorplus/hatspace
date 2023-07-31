@@ -5,7 +5,6 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/home/view/widgets/app_bar_bottom.dart';
 import 'package:hatspace/features/home/view/widgets/property_item_view.dart';
 import 'package:hatspace/features/home/view_model/get_properties_cubit.dart';
-import 'package:hatspace/features/profile/my_profile/view/my_profile_screen.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -78,9 +77,6 @@ class HomePageBodyState extends State<HomePageBody> {
           IconButton(
             onPressed: () {
               // TODO add action
-              /// DONG : Remove later
-              Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => const MyProfileScreen()));
             },
             icon: SvgPicture.asset(
               Assets.icons.notification,

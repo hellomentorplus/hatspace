@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/profile/my_profile/view_model/my_profile_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
@@ -37,7 +38,7 @@ class MyProfileBody extends StatelessWidget {
               IconButton(
                   padding: const EdgeInsets.only(right: HsDimens.spacing8),
                   onPressed: () {
-                    /// TODO : Handle edt button presses
+                    /// TODO : Handle edit button press
                   },
                   icon: Text(HatSpaceStrings.current.edit,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -47,7 +48,7 @@ class MyProfileBody extends StatelessWidget {
             backgroundColor: HSColor.neutral1,
             automaticallyImplyLeading: false,
             leading: IconButton(
-              onPressed: () {},
+              onPressed: () => context.pop(),
               icon: SvgPicture.asset(Assets.icons.arrowCalendarLeft),
             ),
             elevation: 0,
@@ -117,9 +118,6 @@ class MyProfileBody extends StatelessWidget {
                   ),
                   BlocSelector<MyProfileCubit, MyProfileState, String>(
                     selector: (state) {
-                      if (state is GetUserInformationSucceedState) {
-                        return state.user.displayName ?? '';
-                      }
                       return '';
                     },
                     builder: (context, fullName) {
@@ -157,14 +155,12 @@ class MyProfileBody extends StatelessWidget {
                     }),
                   BlocSelector<MyProfileCubit, MyProfileState, String>(
                     selector: (state) {
-                      if (state is GetUserInformationSucceedState) {
-                        return state.user.phone ?? '';
-                      }
                       return '';
-                    }, builder: (context, phone) {
+                    }, 
+                    builder: (context, birth) {
                       return _InformationView(
                         title: HatSpaceStrings.current.dateOfBirth,
-                        value: 'abc',
+                        value: birth,
                       );
                     }),
                 ],
@@ -194,14 +190,19 @@ class _InformationView extends StatelessWidget {
                 .bodySmall
                 ?.copyWith(color: HSColor.neutral6)),
         const SizedBox(height: HsDimens.spacing4),
-        Text(
-            value != null && value!.isNotEmpty
-                ? value!
-                : HatSpaceStrings.current.notUpdated,
+        if (value != null && value!.isNotEmpty)...[
+          Text(value!,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium
                 ?.copyWith(fontWeight: FontWeight.w500)),
+        ] else ...[
+          Text(HatSpaceStrings.current.notUpdated,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(fontWeight: FontWeight.w500, color: HSColor.neutral5)),
+        ],
         const SizedBox(height: HsDimens.spacing12),
         const Divider(color: HSColor.neutral2, thickness: 1, height: 1)
       ],
