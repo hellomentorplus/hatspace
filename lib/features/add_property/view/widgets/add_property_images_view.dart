@@ -12,6 +12,7 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
+import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 
 class AddPropertyImagesView extends StatelessWidget {
@@ -176,9 +177,22 @@ class _PhotoPreviewView extends StatelessWidget {
           // first photo, large full display
           AspectRatio(
               aspectRatio: 343 / 220,
-              child: ImagePreviewView(
-                  path: paths.first,
-                  closePadding: const EdgeInsets.all(HsDimens.spacing8))),
+              child: Stack(
+                children: [
+                  ImagePreviewView(
+                      path: paths.first,
+                      closePadding: const EdgeInsets.all(HsDimens.spacing8)),
+                  Container(
+                    decoration: const ShapeDecoration(
+                        shape: StadiumBorder(), color: HSColor.neutral1),
+                    margin: const EdgeInsets.all(HsDimens.spacing8),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: HsDimens.spacing8,
+                        vertical: HsDimens.spacing4),
+                    child: Text(HatSpaceStrings.current.coverPhoto),
+                  )
+                ],
+              )),
           const SizedBox(
             height: HsDimens.spacing8,
           ),
