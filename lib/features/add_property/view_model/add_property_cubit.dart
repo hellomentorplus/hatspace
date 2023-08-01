@@ -124,6 +124,13 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     validateNextButtonState(state.pageViewNumber);
   }
 
+  String _description = '';
+  String get description => _description;
+  set description(String d) {
+    _description = d;
+    validateNextButtonState(state.pageViewNumber);
+  }
+
   /// 3. Rooms
   int _bedrooms = 0;
   int _bathrooms = 0;
@@ -197,13 +204,20 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
         break;
       case 1: // property info
         // TODO add validation logic for property info
-        nextButtonEnable = true;
+        nextButtonEnable = _propertyName.isNotEmpty
+            && _price != null
+            && _rentPeriod != MinimumRentPeriod.invalid
+            && _australiaState != AustraliaStates.invalid
+            && _address.isNotEmpty
+            && _suburb.isNotEmpty
+            && _postalCode != null;;
         break;
       case 2: // rooms
         nextButtonEnable = _bedrooms + _bathrooms + _parking > 0;
         break;
       case 3: // features
         nextButtonEnable = true;
+
         break;
       case 4: // add images
         label = ButtonLabel.previewAndSubmit;
