@@ -155,7 +155,6 @@ class _DashboardBodyState extends State<DashboardBody> {
               }
 
               if (state is PhotoPermissionGranted) {
-                print("PhotoPermissionGranted");
                 context.goToAddProperty();
               }
 
