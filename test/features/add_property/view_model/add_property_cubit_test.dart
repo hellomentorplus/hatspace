@@ -157,8 +157,8 @@ void main() {
   group('Validate when page is Property info', () {
     blocTest<AddPropertyCubit, AddPropertyState>(
       'given property name is empty,'
-        'when validate next button,'
-        'then return false',
+      'when validate next button,'
+      'then return false',
       build: () => AddPropertyCubit(),
       seed: () => const PageViewNavigationState(1),
       act: (bloc) => bloc.propertyName = '',
@@ -171,8 +171,8 @@ void main() {
 
     blocTest<AddPropertyCubit, AddPropertyState>(
       'given price is null,'
-        'when validate next button,'
-        'then return false',
+      'when validate next button,'
+      'then return false',
       build: () => AddPropertyCubit(),
       seed: () => const PageViewNavigationState(1),
       act: (bloc) => bloc.price = null,
@@ -185,8 +185,8 @@ void main() {
 
     blocTest<AddPropertyCubit, AddPropertyState>(
       'given rental period is invalid,'
-          'when validate next button,'
-          'then return false',
+      'when validate next button,'
+      'then return false',
       build: () => AddPropertyCubit(),
       seed: () => const PageViewNavigationState(1),
       act: (bloc) => bloc.rentPeriod = MinimumRentPeriod.invalid,
@@ -199,8 +199,8 @@ void main() {
 
     blocTest<AddPropertyCubit, AddPropertyState>(
       'given state is invalid,'
-          'when validate next button,'
-          'then return false',
+      'when validate next button,'
+      'then return false',
       build: () => AddPropertyCubit(),
       seed: () => const PageViewNavigationState(1),
       act: (bloc) => bloc.australiaState = AustraliaStates.invalid,
@@ -213,8 +213,8 @@ void main() {
 
     blocTest<AddPropertyCubit, AddPropertyState>(
       'given address is empty,'
-          'when validate next button,'
-          'then return false',
+      'when validate next button,'
+      'then return false',
       build: () => AddPropertyCubit(),
       seed: () => const PageViewNavigationState(1),
       act: (bloc) => bloc.address = '',
@@ -227,8 +227,8 @@ void main() {
 
     blocTest<AddPropertyCubit, AddPropertyState>(
       'given suburb is empty,'
-          'when validate next button,'
-          'then return false',
+      'when validate next button,'
+      'then return false',
       build: () => AddPropertyCubit(),
       seed: () => const PageViewNavigationState(1),
       act: (bloc) => bloc.suburb = '',
@@ -241,8 +241,8 @@ void main() {
 
     blocTest<AddPropertyCubit, AddPropertyState>(
       'given postal code is null,'
-          'when validate next button,'
-          'then return false',
+      'when validate next button,'
+      'then return false',
       build: () => AddPropertyCubit(),
       seed: () => const PageViewNavigationState(1),
       act: (bloc) => bloc.postalCode = null,
@@ -255,8 +255,8 @@ void main() {
 
     blocTest<AddPropertyCubit, AddPropertyState>(
       'given all info are provided,'
-          'when validate next button,'
-          'then return true',
+      'when validate next button,'
+      'then return true',
       build: () => AddPropertyCubit(),
       seed: () => const PageViewNavigationState(1),
       act: (bloc) {

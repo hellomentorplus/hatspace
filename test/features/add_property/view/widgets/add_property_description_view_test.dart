@@ -14,44 +14,52 @@ void main() {
 
   setUp(() {
     when(addPropertyCubit.state).thenReturn(AddPropertyInitial());
-    when(addPropertyCubit.stream).thenAnswer((realInvocation) => Stream.empty());
+    when(addPropertyCubit.stream)
+        .thenAnswer((realInvocation) => Stream.empty());
   });
 
   tearDown(() {
     reset(addPropertyCubit);
   });
 
-  testWidgets('given description field is empty,'
+  testWidgets(
+      'given description field is empty,'
       'when load UI,'
       'then counter is 0', (widgetTester) async {
     final Widget widget = AddPropertyDescriptionView();
 
-    await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, widget);
+    await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+        addPropertyCubit, widget);
 
     expect(find.text('0/4000'), findsOneWidget);
   });
 
-  testWidgets('given description field has 6 chars,'
+  testWidgets(
+      'given description field has 6 chars,'
       'when load UI,'
-      'then counter is 6/4000', (widgetTester) async  {
+      'then counter is 6/4000', (widgetTester) async {
     final Widget widget = AddPropertyDescriptionView();
 
-    await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, widget);
+    await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+        addPropertyCubit, widget);
     await widgetTester.enterText(find.byType(TextFormField), 'abcdef');
     await widgetTester.pumpAndSettle();
 
     expect(find.text('6/4000'), findsOneWidget);
   });
 
-  testWidgets('given description field has more than 4000 chars,'
+  testWidgets(
+      'given description field has more than 4000 chars,'
       'when load UI,'
       'then counter is 4000/4000,'
-      'and new char is not added', (widgetTester) async  {
+      'and new char is not added', (widgetTester) async {
     final Widget widget = AddPropertyDescriptionView();
 
-    await widgetTester.blocWrapAndPump<AddPropertyCubit>(addPropertyCubit, SingleChildScrollView(
-      child: widget,
-    ));
+    await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+        addPropertyCubit,
+        SingleChildScrollView(
+          child: widget,
+        ));
 
     String maxChars = List.filled(4000, 'a').toString();
     await widgetTester.enterText(find.byType(TextFormField), maxChars);

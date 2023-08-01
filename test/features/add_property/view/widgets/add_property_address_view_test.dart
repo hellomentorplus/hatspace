@@ -54,9 +54,9 @@ void main() {
 
     testWidgets(
         'given address is blank,'
-            'when focus out,'
-            'then show error', (widgetTester) async {
-          when(addPropertyCubit.address).thenReturn('');
+        'when focus out,'
+        'then show error', (widgetTester) async {
+      when(addPropertyCubit.address).thenReturn('');
       const Widget widget = AddPropertyAddressView();
 
       await widgetTester.blocWrapAndPump<AddPropertyCubit>(
@@ -78,8 +78,8 @@ void main() {
 
     testWidgets(
         'given address is not blank,'
-            'when clear address text,'
-            'then show error', (widgetTester) async {
+        'when clear address text,'
+        'then show error', (widgetTester) async {
       const Widget widget = AddPropertyAddressView();
 
       await widgetTester.blocWrapAndPump<AddPropertyCubit>(
@@ -91,8 +91,7 @@ void main() {
 
       expect(find.text('address text'), findsOneWidget);
 
-      await widgetTester.enterText(
-          find.byType(HatSpaceInputText), '');
+      await widgetTester.enterText(find.byType(HatSpaceInputText), '');
       await widgetTester.pumpAndSettle();
       expect(find.text('address text'), findsNothing);
       // 1 hint, 1 error
