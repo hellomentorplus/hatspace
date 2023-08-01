@@ -7,6 +7,7 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 class MyProfileScreen extends StatelessWidget {
   const MyProfileScreen({super.key});
@@ -34,15 +35,16 @@ class MyProfileBody extends StatelessWidget {
                   .bodyMedium
                   ?.copyWith(fontWeight: FontStyleGuide.fwBold)),
           actions: [
-            TextButton(
+            TextOnlyButton(
+                label: HatSpaceStrings.current.edit,
                 onPressed: () {
                   /// TODO : Handle edit button press
                 },
-                style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                child: Text(HatSpaceStrings.current.edit,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontWeight: FontStyleGuide.fwBold,
-                        color: HSColor.primary)))
+                        color: HSColor.primary))),
           ],
           backgroundColor: HSColor.neutral1,
           automaticallyImplyLeading: false,
