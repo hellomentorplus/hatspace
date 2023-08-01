@@ -37,6 +37,7 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
       HsSingleton.singleton.get<StorageService>();
   final AuthenticationService authenticationService =
       HsSingleton.singleton.get<AuthenticationService>();
+        BottomBarItems pressedBottomBarItem = BottomBarItems.explore;
   void onAddPropertyPressed() async {
     emit(StartValidateRole());
     try {
@@ -59,15 +60,21 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
   }
 
   void onBottomItemTapped(BottomBarItems item) async {
+    pressedBottomBarItem = item;
     bool isUserLoggedIn = authenticationService.isUserLoggedIn;
     if (!isUserLoggedIn) {
       return emit(OpenLoginBottomSheetModal(item));
     }
-
     switch (item) {
       case (BottomBarItems.addingProperty):
         onAddPropertyPressed();
         break;
+      case (BottomBarItems.booking):
+        emit(const OpenPage(BottomBarItems.booking)); break;
+      case (BottomBarItems.message): 
+        emit(const OpenPage(BottomBarItems.message)); break;
+      case (BottomBarItems.profile):
+      emit(const OpenPage(BottomBarItems.profile)); break;
       default:
         emit(OpenPage(item));
     }
@@ -75,5 +82,5 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
 
   void goToSignUpScreen() => emit(GotoSignUpScreen());
 
-  void onCloseModal() => emit(CloseHsModal());
+  void onCloseModal(item) => emit(CloseHsModal());
 }

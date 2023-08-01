@@ -9,6 +9,7 @@ import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/message/message_view.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
+import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:shake/shake.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -105,7 +106,7 @@ class _DashboardBodyState extends State<DashboardBody> {
       },
     ))
         .then((value) {
-      context.read<DashboardInteractionCubit>().onCloseModal();
+      context.read<DashboardInteractionCubit>().onCloseModal(value);
     });
   }
 
@@ -126,7 +127,7 @@ class _DashboardBodyState extends State<DashboardBody> {
               }
               if (state is OpenLoginBottomSheetModal) {
                 showLoginModal(context).then((value) {
-                  context.read<DashboardInteractionCubit>().onCloseModal();
+                  context.read<DashboardInteractionCubit>().onCloseModal(state.item);
                 });
               }
               if (state is GotoSignUpScreen) {
@@ -143,6 +144,17 @@ class _DashboardBodyState extends State<DashboardBody> {
               }
             },
           ),
+          BlocListener<AuthenticationBloc, AuthenticationState>(
+            listener: (context, state){
+              if(state is AuthenticatedState){
+                DashboardInteractionState dashBoardState = context.read<DashboardInteractionCubit>().state;
+                BottomBarItems item = context.read<DashboardInteractionCubit>().pressedBottomBarItem;
+                if(dashBoardState is CloseHsModal){
+                  context.read<DashboardInteractionCubit>().onBottomItemTapped(item);
+                }
+              }
+            }
+            ),
           BlocListener<AddHomeOwnerRoleCubit, AddHomeOwnerRoleState>(
             listener: (context, state) {
               if (state is AddHomeOwnerRoleSucceeded) {
