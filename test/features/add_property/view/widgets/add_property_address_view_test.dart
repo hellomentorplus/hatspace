@@ -34,7 +34,7 @@ void main() {
     expect(find.text('Enter your address'), findsOneWidget);
   });
 
-  group('verify to set unitNumber value when value  change', () {
+  group('verify to set address value when value  change', () {
     testWidgets(
         'given address is blank,'
         'when change to not blank,'
@@ -50,6 +50,53 @@ void main() {
 
       expect(find.text('address text'), findsOneWidget);
       verify(addPropertyCubit.address = 'address text').called(1);
+    });
+
+    testWidgets(
+        'given address is blank,'
+            'when focus out,'
+            'then show error', (widgetTester) async {
+          when(addPropertyCubit.address).thenReturn('');
+      const Widget widget = AddPropertyAddressView();
+
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyCubit, widget);
+
+      // focus on the text field
+      await widgetTester.tap(find.byType(TextField));
+      await widgetTester.pumpAndSettle();
+
+      // then unfocus
+      final HatSpaceInputText inputText = widgetTester
+          .widget(find.byType(HatSpaceInputText)) as HatSpaceInputText;
+      inputText.focusNode?.unfocus();
+      await widgetTester.pumpAndSettle();
+
+      // 1 hint, 1 error
+      expect(find.text('Enter your address'), findsNWidgets(2));
+    });
+
+    testWidgets(
+        'given address is not blank,'
+            'when clear address text,'
+            'then show error', (widgetTester) async {
+      const Widget widget = AddPropertyAddressView();
+
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyCubit, widget);
+
+      await widgetTester.enterText(
+          find.byType(HatSpaceInputText), 'address text');
+      await widgetTester.pumpAndSettle();
+
+      expect(find.text('address text'), findsOneWidget);
+
+      await widgetTester.enterText(
+          find.byType(HatSpaceInputText), '');
+      await widgetTester.pumpAndSettle();
+      expect(find.text('address text'), findsNothing);
+      // 1 hint, 1 error
+      expect(find.text('Enter your address'), findsNWidgets(2));
     });
   });
 }

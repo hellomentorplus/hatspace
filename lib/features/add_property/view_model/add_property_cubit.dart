@@ -211,14 +211,12 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
             _address.isNotEmpty &&
             _suburb.isNotEmpty &&
             _postalCode != null;
-        ;
         break;
       case 2: // rooms
         nextButtonEnable = _bedrooms + _bathrooms + _parking > 0;
         break;
       case 3: // features
         nextButtonEnable = true;
-
         break;
       case 4: // add images
         label = ButtonLabel.previewAndSubmit;
