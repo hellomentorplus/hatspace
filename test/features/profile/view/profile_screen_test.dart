@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/features/profile/profile_view.dart';
+import 'package:hatspace/features/profile/my_profile/view/my_profile_screen.dart';
+import 'package:hatspace/features/profile/view/profile_view.dart';
 import 'package:hatspace/features/profile/view_model/get_user_detail_cubit.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
@@ -11,9 +12,8 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
-import '../../widget_tester_extension.dart';
-
-import '../add_property/view/widgets/add_rooms_view_test.dart';
+import '../../../widget_tester_extension.dart';
+import '../../add_property/view/widgets/add_rooms_view_test.dart';
 import 'profile_screen_test.mocks.dart';
 
 @GenerateMocks(
@@ -190,5 +190,31 @@ void main() {
 
     expect(find.text(Roles.tenant.title), findsNothing);
     expect(find.text(Roles.homeowner.title), findsNothing);
+  });
+
+  testWidgets(
+      'When user tap on user information panel, the app will move user to My Profile Screen',
+      (widgetTester) async {
+    when(getUserDetailCubit.stream)
+        .thenAnswer((_) => Stream.value(const GetUserDetailInitialState()));
+    when(getUserDetailCubit.state)
+        .thenAnswer((_) => const GetUserDetailInitialState());
+
+    await widgetTester.blocWrapAndPump<GetUserDetailCubit>(
+        getUserDetailCubit, const ProfileBody());
+
+    expect(find.byType(ProfileBody), findsOneWidget);
+
+    final Finder informationPanel = find.ancestor(
+        of: find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, defaultUserAvatar)),
+        matching: find.byType(InkWell));
+    expect(informationPanel, findsOneWidget);
+
+    await widgetTester.tap(informationPanel);
+    await widgetTester.pumpAndSettle();
+
+    expect(find.byType(ProfileBody), findsNothing);
+    expect(find.byType(MyProfileScreen), findsOneWidget);
   });
 }

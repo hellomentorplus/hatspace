@@ -259,6 +259,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/apartment.svg
   String get apartment => 'assets/images/apartment.svg';
 
+  /// File path: assets/images/camera_circle.svg
+  String get cameraCircle => 'assets/images/camera_circle.svg';
+
   /// File path: assets/images/circle_warning.svg
   String get circleWarning => 'assets/images/circle_warning.svg';
 
@@ -296,6 +299,7 @@ class $AssetsImagesGen {
   /// List of all assets
   List<dynamic> get values => [
         apartment,
+        cameraCircle,
         circleWarning,
         facebookRound,
         facebookWhite,

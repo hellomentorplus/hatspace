@@ -150,5 +150,13 @@
   "location": "Location",
   "propertyFeatures": "Property features",
   "previewAndSubmit": "Preview & Submit",
-  "coverPhoto":"Cover photo"
+  "coverPhoto":"Cover photo",
+  "displayName": "Display name",
+  "fullName": "Full name",
+  "email": "Email",
+  "phoneNumber": "Phone number",
+  "dateOfBirth": "Date of Birth",
+  "notUpdated": "Not updated",
+  "edit": "Edit",
+  "myProfile": "My Profile"
 }
