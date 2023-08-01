@@ -34,15 +34,15 @@ class MyProfileBody extends StatelessWidget {
                   .bodyMedium
                   ?.copyWith(fontWeight: FontStyleGuide.fwBold)),
           actions: [
-            IconButton(
-                padding: const EdgeInsets.only(right: HsDimens.spacing8),
+            TextButton(
                 onPressed: () {
                   /// TODO : Handle edit button press
                 },
-                icon: Text(HatSpaceStrings.current.edit,
+                style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                child: Text(HatSpaceStrings.current.edit,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontWeight: FontStyleGuide.fwBold,
-                        color: HSColor.primary))),
+                        color: HSColor.primary)))
           ],
           backgroundColor: HSColor.neutral1,
           automaticallyImplyLeading: false,
@@ -52,10 +52,10 @@ class MyProfileBody extends StatelessWidget {
           ),
           elevation: 0,
           bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(1.0),
+              preferredSize: const Size.fromHeight(HsDimens.size1),
               child: Container(
                 color: HSColor.neutral2,
-                height: 1.0,
+                height: HsDimens.size1,
               )),
         ),
         body: SingleChildScrollView(
@@ -115,6 +115,7 @@ class MyProfileBody extends StatelessWidget {
                 }),
                 BlocSelector<MyProfileCubit, MyProfileState, String>(
                     selector: (state) {
+                  /// TODO : Currently UserDetail doesn't has fullName field. Will need to update it later after UserDetail was updated
                   return '';
                 }, builder: (context, fullName) {
                   return _InformationView(
@@ -194,7 +195,10 @@ class _InformationView extends StatelessWidget {
                   fontWeight: FontWeight.w500, color: HSColor.neutral5)),
         ],
         const SizedBox(height: HsDimens.spacing12),
-        const Divider(color: HSColor.neutral2, thickness: 1, height: 1)
+        const Divider(
+            color: HSColor.neutral2,
+            thickness: HsDimens.size1,
+            height: HsDimens.size1)
       ],
     );
   }

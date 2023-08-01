@@ -18,6 +18,9 @@ class GettingUserInformationState extends MyProfileState {
 class GetUserInformationSucceedState extends MyProfileState {
   final UserDetail user;
   const GetUserInformationSucceedState(this.user);
+
+  @override
+  List<Object?> get props => [user];
 }
 
 class GetUserInformationFailedState extends MyProfileState {
