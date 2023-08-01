@@ -27,6 +27,7 @@ class _AddPropertyAddressViewState extends State<AddPropertyAddressView>
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -44,7 +45,8 @@ class _AddPropertyAddressViewState extends State<AddPropertyAddressView>
               _isEmpty.value = value.isEmpty;
               context.read<AddPropertyCubit>().address = value;
             },
-            errorText: isEmpty ? HatSpaceStrings.current.enterYourAddress : null,
+            errorText:
+                isEmpty ? HatSpaceStrings.current.enterYourAddress : null,
           ),
         ),
         const SizedBox(

@@ -204,13 +204,14 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
         break;
       case 1: // property info
         // TODO add validation logic for property info
-        nextButtonEnable = _propertyName.isNotEmpty
-            && _price != null
-            && _rentPeriod != MinimumRentPeriod.invalid
-            && _australiaState != AustraliaStates.invalid
-            && _address.isNotEmpty
-            && _suburb.isNotEmpty
-            && _postalCode != null;;
+        nextButtonEnable = _propertyName.isNotEmpty &&
+            _price != null &&
+            _rentPeriod != MinimumRentPeriod.invalid &&
+            _australiaState != AustraliaStates.invalid &&
+            _address.isNotEmpty &&
+            _suburb.isNotEmpty &&
+            _postalCode != null;
+        ;
         break;
       case 2: // rooms
         nextButtonEnable = _bedrooms + _bathrooms + _parking > 0;

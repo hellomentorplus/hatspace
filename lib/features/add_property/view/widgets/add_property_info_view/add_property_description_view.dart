@@ -22,8 +22,9 @@ class AddPropertyDescriptionView extends StatelessWidget {
             HsLabel(
                 label: HatSpaceStrings.current.description, isRequired: false),
             ValueListenableBuilder<int>(
-              valueListenable: _textCount,
-                builder: (context, value, child) => Text('$value/$_maxTextCount'))
+                valueListenable: _textCount,
+                builder: (context, value, child) =>
+                    Text('$value/$_maxTextCount'))
           ],
         ),
         const SizedBox(
