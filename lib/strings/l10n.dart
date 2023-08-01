@@ -1393,6 +1393,16 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Continue with Apple`
+  String get appleSignUp {
+    return Intl.message(
+      'Continue with Apple',
+      name: 'appleSignUp',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

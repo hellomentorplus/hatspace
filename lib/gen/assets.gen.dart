@@ -21,6 +21,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/apartment.svg
   String get apartment => 'assets/icons/apartment.svg';
 
+  /// File path: assets/icons/apple.svg
+  String get apple => 'assets/icons/apple.svg';
+
   /// File path: assets/icons/arrow_calendar_left.svg
   String get arrowCalendarLeft => 'assets/icons/arrow_calendar_left.svg';
 
@@ -194,6 +197,7 @@ class $AssetsIconsGen {
         add,
         airConditioners,
         apartment,
+        apple,
         arrowCalendarLeft,
         arrowCalendarRight,
         bath,

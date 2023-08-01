@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -291,5 +292,75 @@ void main() {
       // expect to not see this screen anymore
       expect(find.byType(SignUpBody), findsNothing);
     });
+  });
+
+  testWidgets('Given user is on iOS device, the Apple signup button will be shown', (WidgetTester tester) async {
+    const Widget widget = SignUpBody();
+
+    debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+
+    await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
+
+    // Look for SKIP button
+    expect(find.text('Continue with Apple'), findsOneWidget);
+
+    // Look for app logo
+    expect(find.byWidgetPredicate((widget) {
+      if (widget is! SvgPicture) {
+        return false;
+      }
+
+      final SvgPicture svgPicture = widget;
+      final BytesLoader bytesLoader = svgPicture.bytesLoader;
+
+      if (bytesLoader is! SvgAssetLoader) {
+        return false;
+      }
+
+      final SvgAssetLoader svgAssetLoader = bytesLoader;
+
+      if (svgAssetLoader.assetName != 'assets/icons/apple.svg') {
+        return false;
+      }
+
+      return true;
+    }), findsOneWidget);
+    debugDefaultTargetPlatformOverride = null;
+  });
+
+  testWidgets(
+      'Given user is on Android device, the Apple signup button will not be shown',
+      (WidgetTester tester) async {
+    const Widget widget = SignUpBody();
+
+    debugDefaultTargetPlatformOverride = TargetPlatform.android;
+
+    await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
+
+    // Look for SKIP button
+    expect(find.text('Continue with Apple'), findsNothing);
+
+    // Look for app logo
+    expect(find.byWidgetPredicate((widget) {
+      if (widget is! SvgPicture) {
+        return false;
+      }
+
+      final SvgPicture svgPicture = widget;
+      final BytesLoader bytesLoader = svgPicture.bytesLoader;
+
+      if (bytesLoader is! SvgAssetLoader) {
+        return false;
+      }
+
+      final SvgAssetLoader svgAssetLoader = bytesLoader;
+
+      if (svgAssetLoader.assetName != 'assets/icons/apple.svg') {
+        return false;
+      }
+
+      return true;
+    }), findsNothing);
+    debugDefaultTargetPlatformOverride = null;
   });
 }
