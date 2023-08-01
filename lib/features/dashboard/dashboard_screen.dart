@@ -40,7 +40,8 @@ class DashboardBody extends StatefulWidget {
   State<DashboardBody> createState() => _DashboardBodyState();
 }
 
-class _DashboardBodyState extends State<DashboardBody> {
+class _DashboardBodyState extends State<DashboardBody>
+    with WidgetsBindingObserver {
   late ShakeDetector detector;
   final ValueNotifier<BottomBarItems> _selectedIndex =
       ValueNotifier<BottomBarItems>(BottomBarItems.explore);
@@ -49,13 +50,27 @@ class _DashboardBodyState extends State<DashboardBody> {
       PageController(initialPage: 0, keepPage: true);
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     try {
       detector.stopListening();
     } catch (e) {
       // do nothing
     }
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      context.read<DashboardInteractionCubit>().onScreenResumed();
+    }
   }
 
   void onShakeToAction(BuildContext context, AppConfigState state) {
@@ -109,25 +124,31 @@ class _DashboardBodyState extends State<DashboardBody> {
     });
   }
 
-  Future<void> _showPhotoPermissionBottomSheet(BuildContext context) {
-    return context.showHsBottomSheet<void>(HsWarningBottomSheetView(
+  Future<void> _showPhotoPermissionBottomSheet() {
+    return context
+        .showHsBottomSheet<void>(HsWarningBottomSheetView(
       title: HatSpaceStrings.current.hatSpaceWouldLikeToPhotoAccess,
       description:
           HatSpaceStrings.current.plsGoToSettingsAndAllowPhotoAccessForHatSpace,
       iconUrl: Assets.icons.photoAccess,
       primaryButtonLabel: HatSpaceStrings.current.goToSetting,
       primaryOnPressed: () {
+        context.read<DashboardInteractionCubit>().gotoSetting();
         context.pop();
       },
       secondaryButtonLabel: HatSpaceStrings.current.cancelBtn,
       secondaryOnPressed: () {
-        context.pop();
+        context.read<DashboardInteractionCubit>().cancelPhotoAccess();
+        context.dismissHsBottomSheet();
       },
-    ));
+    ))
+        .then((value) {
+      context.read<DashboardInteractionCubit>().onDismissModal();
+    });
   }
 
   @override
-  Widget build(BuildContext context) => MultiBlocListener(
+  Widget build(BuildContext buildContext) => MultiBlocListener(
         listeners: [
           BlocListener<AppConfigBloc, AppConfigState>(
               listener: (context, state) {
@@ -156,6 +177,9 @@ class _DashboardBodyState extends State<DashboardBody> {
 
               if (state is PhotoPermissionGranted) {
                 context.goToAddProperty();
+                context
+                    .read<DashboardInteractionCubit>()
+                    .onNavigateToAddPropertyFlow();
               }
 
               if (state is PhotoPermissionDenied) {
@@ -163,7 +187,7 @@ class _DashboardBodyState extends State<DashboardBody> {
               }
 
               if (state is PhotoPermissionDeniedForever) {
-                _showPhotoPermissionBottomSheet(context);
+                _showPhotoPermissionBottomSheet();
               }
 
               if (state is OpenPage) {

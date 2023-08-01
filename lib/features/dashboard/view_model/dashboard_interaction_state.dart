@@ -66,3 +66,23 @@ class PhotoPermissionDeniedForever extends DashboardInteractionState {
   @override
   List<Object?> get props => [];
 }
+
+class CancelPhotoAccess extends DashboardInteractionState {
+  @override
+  List<Object?> get props => [];
+}
+
+class OpenSettingScreen extends DashboardInteractionState {
+  @override
+  List<Object?> get props => [];
+}
+
+class DismissPhotoPermissionBottomSheet extends DashboardInteractionState {
+  @override
+  List<Object?> get props => [];
+}
+
+class NavigateToAddPropertyFlow extends DashboardInteractionState {
+  @override
+  List<Object?> get props => [];
+}
