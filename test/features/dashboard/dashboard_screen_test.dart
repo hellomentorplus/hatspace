@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/dashboard/dashboard_screen.dart';
 import 'package:hatspace/features/dashboard/view_model/add_home_owner_role_cubit.dart';
 import 'package:hatspace/features/dashboard/view_model/dashboard_interaction_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/permission/permission_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -25,7 +28,8 @@ import 'dashboard_screen_test.mocks.dart';
   AuthenticationService,
   AuthenticationBloc,
   DashboardInteractionCubit,
-  AddHomeOwnerRoleCubit
+  AddHomeOwnerRoleCubit,
+  HsPermissionService,
 ])
 void main() {
   final MockAppConfigBloc appConfigBloc = MockAppConfigBloc();
@@ -37,11 +41,15 @@ void main() {
   final MockStorageService storageService = MockStorageService();
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
+  final MockHsPermissionService hsPermissionService = MockHsPermissionService();
+  initializeDateFormatting();
 
   setUpAll(() {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationService);
+    HsSingleton.singleton
+        .registerSingleton<HsPermissionService>(hsPermissionService);
   });
 
   setUp(() {
@@ -70,7 +78,7 @@ void main() {
   });
 
   testWidgets(
-      'Given user has not login, when user taps on BottomAppItems, then show HsWarningModalWith',
+      'Given user has not login, when user taps on BottomAppItems, then show LoginBottomSheetModal',
       (widgetTester) async {
     const Widget widget = DashboardScreen();
     await widgetTester.multiBlocWrapAndPump([
@@ -329,4 +337,120 @@ void main() {
       });
     },
   );
+
+  group('Request Photo permission', () {
+    testWidgets(
+        'given DashboardInteractionState is PhotoPermissionGranted, '
+        'when launch dashboard screen'
+        'then no HsWarningBottomSheetView is shown and navigate to another screen',
+        (widgetTester) async {
+      when(interactionCubit.state).thenReturn(PhotoPermissionGranted());
+      when(interactionCubit.stream).thenAnswer(
+          (realInvocation) => Stream.value(PhotoPermissionGranted()));
+
+      const Widget widget = DashboardBody();
+
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        ),
+        BlocProvider<AddHomeOwnerRoleCubit>(
+          create: (context) => addHomeOwnerRoleCubit,
+        )
+      ], widget);
+
+      // no bottom sheet
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+      // expect navigate to add property flow -> no dashboard screen
+      expect(find.byType(DashboardBody), findsNothing);
+    });
+
+    testWidgets(
+        'given DashboardInteractionState is PhotoPermissionDenied, '
+        'when launch dashboard screen'
+        'then no HsWarningBottomSheetView is shown and still on dashboard screen',
+        (widgetTester) async {
+      when(interactionCubit.state).thenReturn(PhotoPermissionDenied());
+      when(interactionCubit.stream).thenAnswer(
+          (realInvocation) => Stream.value(PhotoPermissionDenied()));
+
+      const Widget widget = DashboardBody();
+
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        ),
+        BlocProvider<AddHomeOwnerRoleCubit>(
+          create: (context) => addHomeOwnerRoleCubit,
+        )
+      ], widget);
+
+      // no bottom sheet
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+      // expect navigate to add property flow -> no dashboard screen
+      expect(find.byType(DashboardBody), findsOneWidget);
+    });
+
+    testWidgets(
+        'given DashboardInteractionState is PhotoPermissionDeniedForever, '
+        'when launch dashboard screen'
+        'then Goto Setting BottomSheet is shown', (widgetTester) async {
+      when(interactionCubit.state).thenReturn(PhotoPermissionDeniedForever());
+      when(interactionCubit.stream).thenAnswer(
+          (realInvocation) => Stream.value(PhotoPermissionDeniedForever()));
+
+      const Widget widget = DashboardBody();
+
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        ),
+        BlocProvider<AddHomeOwnerRoleCubit>(
+          create: (context) => addHomeOwnerRoleCubit,
+        )
+      ], widget);
+
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+      SvgPicture uploadPhoto = widgetTester.widget(find.descendant(
+          of: find.byType(HsWarningBottomSheetView),
+          matching: find.byType(SvgPicture)));
+      BytesLoader bytesLoader = uploadPhoto.bytesLoader;
+      expect(bytesLoader, isA<SvgAssetLoader>());
+      expect((bytesLoader as SvgAssetLoader).assetName,
+          'assets/icons/photo_access.svg');
+      expect(
+          find.text('"HATSpace" Would Like to Photo Access'), findsOneWidget);
+      expect(
+          find.text(
+              'Please go to Settings and allow photos access for HATSpace.'),
+          findsOneWidget);
+      expect(
+          find.ancestor(
+              of: find.text('Go to Setting'),
+              matching: find.byType(PrimaryButton)),
+          findsOneWidget);
+      expect(
+          find.ancestor(
+              of: find.text('Cancel'), matching: find.byType(SecondaryButton)),
+          findsOneWidget);
+    });
+  });
 }

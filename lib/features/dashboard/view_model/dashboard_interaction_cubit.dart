@@ -3,8 +3,11 @@ import 'package:equatable/equatable.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/permission/permission_service.dart';
+import 'package:hatspace/models/permission/permission_status.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+
 part 'dashboard_interaction_state.dart';
 
 enum BottomBarItems {
@@ -37,6 +40,9 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
       HsSingleton.singleton.get<StorageService>();
   final AuthenticationService authenticationService =
       HsSingleton.singleton.get<AuthenticationService>();
+  final HsPermissionService _permissionService =
+      HsSingleton.singleton.get<HsPermissionService>();
+
   void onAddPropertyPressed() async {
     emit(StartValidateRole());
     try {
@@ -47,7 +53,7 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
 
       if (!isClosed) {
         if (roles.contains(Roles.homeowner)) {
-          emit(StartAddPropertyFlow());
+          checkPhotoPermission();
         } else {
           emit(RequestHomeOwnerRole());
           // TODO handle when user is not a homeowner
@@ -76,4 +82,26 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
   void goToSignUpScreen() => emit(GotoSignUpScreen());
 
   void onCloseModal() => emit(CloseHsModal());
+
+  void checkPhotoPermission() async {
+    HsPermissionStatus status = await _permissionService.checkPhotoPermission();
+
+    switch (status) {
+      case HsPermissionStatus.granted:
+      case HsPermissionStatus.limited:
+        if (!isClosed) {
+          emit(PhotoPermissionGranted());
+        }
+        break;
+      case HsPermissionStatus.deniedForever:
+        if (!isClosed) {
+          emit(PhotoPermissionDeniedForever());
+        }
+        break;
+      default:
+        if (!isClosed) {
+          emit(PhotoPermissionDenied());
+        }
+    }
+  }
 }
