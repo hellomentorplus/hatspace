@@ -109,6 +109,23 @@ class _DashboardBodyState extends State<DashboardBody> {
     });
   }
 
+  Future<void> _showPhotoPermissionBottomSheet(BuildContext context) {
+    return context.showHsBottomSheet<void>(HsWarningBottomSheetView(
+      title: HatSpaceStrings.current.hatSpaceWouldLikeToPhotoAccess,
+      description:
+          HatSpaceStrings.current.plsGoToSettingsAndAllowPhotoAccessForHatSpace,
+      iconUrl: Assets.icons.photoAccess,
+      primaryButtonLabel: HatSpaceStrings.current.goToSetting,
+      primaryOnPressed: () {
+        context.pop();
+      },
+      secondaryButtonLabel: HatSpaceStrings.current.cancelBtn,
+      secondaryOnPressed: () {
+        context.pop();
+      },
+    ));
+  }
+
   @override
   Widget build(BuildContext context) => MultiBlocListener(
         listeners: [
@@ -135,6 +152,18 @@ class _DashboardBodyState extends State<DashboardBody> {
 
               if (state is RequestHomeOwnerRole) {
                 showRequestHomeOwnerRoleBottomSheet();
+              }
+
+              if (state is PhotoPermissionGranted) {
+                context.goToAddProperty();
+              }
+
+              if (state is PhotoPermissionDenied) {
+                // do nothing
+              }
+
+              if (state is PhotoPermissionDeniedForever) {
+                _showPhotoPermissionBottomSheet(context);
               }
 
               if (state is OpenPage) {
