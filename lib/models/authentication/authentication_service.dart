@@ -22,8 +22,8 @@ class AuthenticationService {
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
         _facebookAuth = facebookAuth ?? FacebookAuth.instance;
 
-  void initialiseUserDetialStream(){
-    _streamSubscription =  _firebaseAuth.authStateChanges().listen((event) {
+  void initialiseUserDetialStream() {
+    _streamSubscription = _firebaseAuth.authStateChanges().listen((event) {
       if (event != null) {
         UserDetail userDetail = UserDetail(
             displayName: event.displayName,
@@ -37,7 +37,7 @@ class AuthenticationService {
     });
   }
 
-  void closeUserDetialStream(){
+  void closeUserDetialStream() {
     _streamSubscription?.cancel();
   }
 

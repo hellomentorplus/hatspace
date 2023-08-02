@@ -106,7 +106,7 @@ class _DashboardBodyState extends State<DashboardBody> {
       },
     ))
         .then((value) {
-      context.read<DashboardInteractionCubit>().onCloseModal(value);
+      context.read<DashboardInteractionCubit>().onCloseModal();
     });
   }
 
@@ -127,7 +127,7 @@ class _DashboardBodyState extends State<DashboardBody> {
               }
               if (state is OpenLoginBottomSheetModal) {
                 showLoginModal(context).then((value) {
-                  context.read<DashboardInteractionCubit>().onCloseModal(state.item);
+                  context.read<DashboardInteractionCubit>().onCloseModal();
                 });
               }
               if (state is GotoSignUpScreen) {
@@ -145,23 +145,27 @@ class _DashboardBodyState extends State<DashboardBody> {
             },
           ),
           BlocListener<AuthenticationBloc, AuthenticationState>(
-            listener: (context, state){
-              if(state is AuthenticatedState){
-                DashboardInteractionState dashBoardState = context.read<DashboardInteractionCubit>().state;
-                BottomBarItems item = context.read<DashboardInteractionCubit>().pressedBottomBarItem;
-                if(dashBoardState is CloseHsModal){
-                  context.read<DashboardInteractionCubit>().onBottomItemTapped(item);
-                }
+              listener: (context, state) {
+            if (state is AuthenticatedState) {
+              DashboardInteractionState dashBoardState =
+                  context.read<DashboardInteractionCubit>().state;
+              BottomBarItems item = context
+                  .read<DashboardInteractionCubit>()
+                  .pressedBottomBarItem;
+              // check prev state is close login modal
+              if (dashBoardState is CloseHsModal) {
+                context
+                    .read<DashboardInteractionCubit>()
+                    .onBottomItemTapped(item);
               }
             }
-            ),
+          }),
           BlocListener<AddHomeOwnerRoleCubit, AddHomeOwnerRoleState>(
             listener: (context, state) {
               if (state is AddHomeOwnerRoleSucceeded) {
                 // check current state is RequestHomeOwnerRole
                 final homeInteractionState =
                     context.read<DashboardInteractionCubit>().state;
-
                 if (homeInteractionState is RequestHomeOwnerRole) {
                   context.pop();
                   context
