@@ -453,4 +453,77 @@ void main() {
           findsOneWidget);
     });
   });
+
+  group('Verify navigate to expected screen', () {
+    testWidgets('Given user login success after tapping "Booking" section',
+        (WidgetTester widgetTester) async {
+      when(interactionCubit.state)
+          .thenReturn(const OpenPage(BottomBarItems.booking));
+      when(interactionCubit.stream).thenAnswer((realInvocation) =>
+          Stream.value(const OpenPage(BottomBarItems.booking)));
+      const Widget widget = DashboardBody();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        ),
+        BlocProvider<AddHomeOwnerRoleCubit>(
+          create: (context) => addHomeOwnerRoleCubit,
+        )
+      ], widget);
+      expect(find.text('Booking View'), findsOneWidget);
+    });
+
+    testWidgets('Given user login success after tapping "Message" section',
+        (WidgetTester widgetTester) async {
+      when(interactionCubit.state)
+          .thenReturn(const OpenPage(BottomBarItems.message));
+      when(interactionCubit.stream).thenAnswer((realInvocation) =>
+          Stream.value(const OpenPage(BottomBarItems.message)));
+      const Widget widget = DashboardBody();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        ),
+        BlocProvider<AddHomeOwnerRoleCubit>(
+          create: (context) => addHomeOwnerRoleCubit,
+        )
+      ], widget);
+      expect(find.text('Message View'), findsOneWidget);
+    });
+    testWidgets('Given user login success after tapping "Profile" section',
+        (WidgetTester widgetTester) async {
+      when(interactionCubit.state)
+          .thenReturn(const OpenPage(BottomBarItems.profile));
+      when(interactionCubit.stream).thenAnswer((realInvocation) =>
+          Stream.value(const OpenPage(BottomBarItems.profile)));
+      const Widget widget = DashboardBody();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        ),
+        BlocProvider<AddHomeOwnerRoleCubit>(
+          create: (context) => addHomeOwnerRoleCubit,
+        )
+      ], widget);
+      expect(find.text('My account'), findsOneWidget);
+    });
+  });
 }
