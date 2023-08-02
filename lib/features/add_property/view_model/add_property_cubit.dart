@@ -111,27 +111,21 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   int? get postalCode => _postalCode;
 
   String _unitNumber = '';
-
   String get unitNumber => _unitNumber;
-
   set unitNumber(String s) {
     _unitNumber = s;
     validateNextButtonState(state.pageViewNumber);
   }
 
   String _address = '';
-
   String get address => _address;
-
   set address(String a) {
     _address = a;
     validateNextButtonState(state.pageViewNumber);
   }
 
   String _description = '';
-
   String get description => _description;
-
   set description(String d) {
     _description = d;
     validateNextButtonState(state.pageViewNumber);
@@ -179,9 +173,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   /// 5. Photos
   List<String> _photos = [];
-
   List<String> get photos => _photos;
-
   set photos(List<String> list) {
     _photos = list;
     validateNextButtonState(state.pageViewNumber);
