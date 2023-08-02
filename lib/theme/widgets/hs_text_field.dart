@@ -56,7 +56,7 @@ class HatSpaceInputText extends StatelessWidget {
 
   final String? label;
   final String? placeholder;
-  final ValueChanged onChanged;
+  final ValueChanged<String> onChanged;
   final bool? _isRequired;
   final CrossAxisAlignment _alignment;
   final EdgeInsets _padding;

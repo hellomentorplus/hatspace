@@ -22,9 +22,15 @@ void main() {
       bloc.navigatePage(NavigatePage.reverse, 2);
     },
     expect: () => [
+      // start page view navigation forward
       isA<PageViewNavigationState>(),
+      // validate next button when page view navigation complete
       isA<NextButtonEnable>(),
+      // when validate next button is called
+      isA<NextButtonEnable>(),
+      // start page view navigation reverse
       isA<PageViewNavigationState>(),
+      // validate next button when page view navigation complete
       isA<NextButtonEnable>()
     ],
   );
@@ -147,6 +153,131 @@ void main() {
       expect(nextButtonEnable.isActive, isFalse);
     },
   );
+
+  group('Validate when page is Property info', () {
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given property name is empty,'
+      'when validate next button,'
+      'then return false',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) => bloc.propertyName = '',
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isFalse);
+      },
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given price is null,'
+      'when validate next button,'
+      'then return false',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) => bloc.price = null,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isFalse);
+      },
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given rental period is invalid,'
+      'when validate next button,'
+      'then return false',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) => bloc.rentPeriod = MinimumRentPeriod.invalid,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isFalse);
+      },
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given state is invalid,'
+      'when validate next button,'
+      'then return false',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) => bloc.australiaState = AustraliaStates.invalid,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isFalse);
+      },
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given address is empty,'
+      'when validate next button,'
+      'then return false',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) => bloc.address = '',
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isFalse);
+      },
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given suburb is empty,'
+      'when validate next button,'
+      'then return false',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) => bloc.suburb = '',
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isFalse);
+      },
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given postal code is null,'
+      'when validate next button,'
+      'then return false',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) => bloc.postalCode = null,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isFalse);
+      },
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given all info are provided,'
+      'when validate next button,'
+      'then return true',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) {
+        bloc.propertyName = 'propertyName';
+        bloc.price = 120;
+        bloc.rentPeriod = MinimumRentPeriod.sixMonths;
+        bloc.australiaState = AustraliaStates.vic;
+        bloc.address = 'address';
+        bloc.suburb = 'suburb';
+        bloc.postalCode = 1345;
+      },
+      expect: () => [
+        const NextButtonEnable(1, false, ButtonLabel.next, true),
+        const NextButtonEnable(1, true, ButtonLabel.next, true),
+      ],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isTrue);
+      },
+    );
+  });
 
   blocTest(
     'given page is add image, and 4 images are added, when validate next button, then emit NextButton false',

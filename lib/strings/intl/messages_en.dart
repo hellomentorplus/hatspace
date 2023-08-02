@@ -103,9 +103,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "coverPhoto": MessageLookupByLibrary.simpleMessage("Cover photo"),
         "currencyFormatter": m1,
         "dateFormatter": m2,
+        "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of Birth"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "displayName": MessageLookupByLibrary.simpleMessage("Display name"),
+        "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
+        "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Email"),
         "enterPostalCode":
@@ -130,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Continue with Facebook"),
         "favoriteLists": MessageLookupByLibrary.simpleMessage("Favorite lists"),
         "fridge": MessageLookupByLibrary.simpleMessage("Fridge"),
+        "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
         "goToSetting": MessageLookupByLibrary.simpleMessage("Go to Setting"),
         "googleSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Google"),
@@ -161,16 +166,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "myAccount": MessageLookupByLibrary.simpleMessage("My account"),
+        "myProfile": MessageLookupByLibrary.simpleMessage("My Profile"),
         "myProperties": MessageLookupByLibrary.simpleMessage("My properties"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noLater": MessageLookupByLibrary.simpleMessage("No, later"),
+        "notUpdated": MessageLookupByLibrary.simpleMessage("Not updated"),
         "numberFieldContainsNonNumber":
             MessageLookupByLibrary.simpleMessage("Only accept number"),
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
         "otherInformation":
             MessageLookupByLibrary.simpleMessage("Other information"),
         "parkingText": MessageLookupByLibrary.simpleMessage("Car spaces"),
+        "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone number"),
         "pleaseEnterYourPlaceholder": MessageLookupByLibrary.simpleMessage(
             "Please Enter Your Placeholder"),
         "pleaseSelectRentPeriod":
