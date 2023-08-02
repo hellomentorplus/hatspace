@@ -159,9 +159,6 @@ class _DashboardBodyState extends State<DashboardBody>
           }),
           BlocListener<DashboardInteractionCubit, DashboardInteractionState>(
             listener: (context, state) {
-              if (state is StartAddPropertyFlow) {
-                context.goToAddProperty();
-              }
               if (state is OpenLoginBottomSheetModal) {
                 showLoginModal(context).then((value) {
                   context.read<DashboardInteractionCubit>().onCloseModal();

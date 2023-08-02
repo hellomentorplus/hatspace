@@ -14,11 +14,6 @@ class StartValidateRole extends DashboardInteractionState {
   List<Object?> get props => [];
 }
 
-class StartAddPropertyFlow extends DashboardInteractionState {
-  @override
-  List<Object?> get props => [];
-}
-
 class RequestHomeOwnerRole extends DashboardInteractionState {
   @override
   List<Object?> get props => [];
