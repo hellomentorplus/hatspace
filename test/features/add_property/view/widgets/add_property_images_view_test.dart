@@ -6,7 +6,6 @@ import 'package:hatspace/features/add_property/view/widgets/add_property_images_
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_image_selected_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
-import 'package:hatspace/models/permission/permission_service.dart';
 import 'package:hatspace/models/photo/photo_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
