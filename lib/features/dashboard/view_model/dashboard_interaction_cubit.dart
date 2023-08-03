@@ -7,6 +7,7 @@ import 'package:hatspace/models/permission/permission_service.dart';
 import 'package:hatspace/models/permission/permission_status.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 part 'dashboard_interaction_state.dart';
 
@@ -122,4 +123,25 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
       onBottomItemTapped(pressedBottomBarItem);
     }
   }
+  void cancelPhotoAccess() => emit(CancelPhotoAccess());
+
+  void gotoSetting() {
+    openAppSettings();
+    emit(OpenSettingScreen());
+  }
+
+  void onDismissModal() {
+    if (state is! OpenSettingScreen && state is! CancelPhotoAccess) {
+      emit(DismissPhotoPermissionBottomSheet());
+    }
+  }
+
+  void onScreenResumed() {
+    if (state is OpenSettingScreen) {
+      checkPhotoPermission();
+    }
+    // handle other states
+  }
+
+  void onNavigateToAddPropertyFlow() => emit(NavigateToAddPropertyFlow());
 }
