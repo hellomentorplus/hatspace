@@ -1,6 +1,12 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/property_data.dart';
+import 'package:hatspace/models/storage/storage_service.dart';
+import 'package:hatspace/singleton/hs_singleton.dart';
 
 import 'package:hatspace/strings/l10n.dart';
 
@@ -29,6 +35,8 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   AddPropertyCubit() : super(const AddPropertyInitial());
 
   bool isAddPropertyFlowInteracted = false;
+
+  final StorageService _storageService = HsSingleton.singleton.get<StorageService>();
 
   /// Defines all value needed for a property
   /// 1. Choose kind of place
@@ -280,9 +288,57 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     emit(StartSubmitPropertyDetails(state.pageViewNumber));
 
     // other steps
-    await Future.delayed(const Duration(seconds: 3));
+    // upload photos
+    final String folder = _generateFolderName();
+    List<String> uploadedPhotos = [];
+    for (String path in photos) {
+      await _storageService.files.uploadFile(
+        folder: folder,
+        path: path,
+        onError: (e) {
+          debugPrint('Error $e');
+        },
+        onComplete: (url) {
+          uploadedPhotos.add(url);
+          // do nothing here
+        },
+      );
+    }
+
+    final Property property = Property(
+        type: _type,
+        name: _propertyName,
+        price: Price(
+          rentPrice: _price!,
+          currency: Currency.aud,
+        ), description: _description,
+        address: AddressDetail(
+            suburb: _suburb,
+            postcode: _postalCode!,
+            state: _australiaState,
+            streetName: _address,
+            streetNo: _address,
+            unitNo: _unitNumber
+        ), additionalDetail: AdditionalDetail(
+        bedrooms: _bedrooms,
+        bathrooms: _bathrooms,
+        parkings: _parking,
+        additional: _features.map((e) => e.name).toList()
+    ), photos: uploadedPhotos,
+        minimumRentPeriod: _rentPeriod,
+        location: const GeoPoint(0.0, 0.0), // TODO convert address into Geopoint
+        availableDate: Timestamp.fromDate(_availableDate));
+
+    await _storageService.property.addProperty(property);
 
     // complete upload
     emit(EndSubmitPropertyDetails(state.pageViewNumber));
+  }
+
+  String _generateFolderName() {
+    const chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+
+    return String.fromCharCodes(Iterable.generate(
+        18, (_) => chars.codeUnitAt(Random().nextInt(chars.length))));
   }
 }
