@@ -1,10 +1,15 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
+import 'package:hatspace/models/authentication/authentication_exception.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/photo/photo_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 
@@ -37,6 +42,8 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   bool isAddPropertyFlowInteracted = false;
 
   final StorageService _storageService = HsSingleton.singleton.get<StorageService>();
+  final AuthenticationService _authenticationService = HsSingleton.singleton.get<AuthenticationService>();
+  final PhotoService _photoService = HsSingleton.singleton.get<PhotoService>();
 
   /// Defines all value needed for a property
   /// 1. Choose kind of place
@@ -292,19 +299,28 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     final String folder = _generateFolderName();
     List<String> uploadedPhotos = [];
     for (String path in photos) {
+      // compress file
+      File file5mb = await _photoService.createThumbnail(File(path),
+          targetBytes: 5*1024*1024); // target 5MB
+
       await _storageService.files.uploadFile(
         folder: folder,
-        path: path,
+        path: file5mb.path,
         onError: (e) {
           debugPrint('Error $e');
         },
         onComplete: (url) {
           uploadedPhotos.add(url);
-          // do nothing here
         },
       );
+
+      // delete this file
+      await file5mb.delete();
     }
 
+    // add this ID into user's list of properties
+    try {
+      final UserDetail user = await _authenticationService.getCurrentUser();
     final Property property = Property(
         type: _type,
         name: _propertyName,
@@ -327,10 +343,15 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     ), photos: uploadedPhotos,
         minimumRentPeriod: _rentPeriod,
         location: const GeoPoint(0.0, 0.0), // TODO convert address into Geopoint
-        availableDate: Timestamp.fromDate(_availableDate));
+        availableDate: Timestamp.fromDate(_availableDate),
+        ownerUid: user.uid);
 
-    await _storageService.property.addProperty(property);
+    final String id = await _storageService.property.addProperty(property);
 
+      _storageService.member.addMemberProperties(user.uid, id);
+    } on UserNotFoundException catch (_) {
+      // do nothing
+    }
     // complete upload
     emit(EndSubmitPropertyDetails(state.pageViewNumber));
   }

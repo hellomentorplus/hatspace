@@ -8,6 +8,7 @@ class MemberService {
   final String memberCollection = 'members';
   final String rolesKey = 'roles';
   final String displayNameKey = 'displayName';
+  final String propertiesKey = 'properties';
 
   MemberService(FirebaseFirestore firestore) : _firestore = firestore;
 
@@ -52,6 +53,79 @@ class MemberService {
     await _firestore
         .collection(memberCollection)
         .doc(uid)
-        .set(member.convertToMap());
+        .set(member.convertToMap(),
+        SetOptions(merge: true, mergeFields: [roles, displayName]));
+  }
+
+  Future<void> addMemberProperties(String uid, String propertyId) async {
+    // use Set to avoid duplicated property ID
+    final Set<String> currentProperties = (await getMemberProperties(uid))
+        .toSet()
+      ..add(propertyId);
+
+    await _firestore.collection(memberCollection).doc(uid).set({
+      propertiesKey: currentProperties
+    }, SetOptions(merge: true));
+  }
+
+  Future<List<String>> getMemberProperties(String uid) async {
+    final DocumentSnapshot<Map<String, dynamic>> snapshot =
+    await _firestore
+        .collection(memberCollection)
+        .doc(uid)
+        .get(const GetOptions(source: Source.serverAndCache));
+
+    if (!snapshot.exists) {
+      return [];
+    }
+
+    final Map<String, dynamic>? data = snapshot.data();
+
+    if (data == null) {
+      return [];
+    }
+
+    if (data[propertiesKey] == null) {
+      return [];
+    }
+
+    final dynamic props = data[propertiesKey];
+
+    if (props is! List<dynamic>) {
+      return [];
+    }
+
+    return props.map((e) => e.toString()).toList();
+  }
+
+  Future<String> getMemberDisplayName(String uid) async {
+
+    final DocumentSnapshot<Map<String, dynamic>> snapshot =
+    await _firestore
+        .collection(memberCollection)
+        .doc(uid)
+        .get(const GetOptions(source: Source.serverAndCache));
+
+    if (!snapshot.exists) {
+      return '';
+    }
+
+    final Map<String, dynamic>? data = snapshot.data();
+
+    if (data == null) {
+      return '';
+    }
+
+    if (data[displayNameKey] == null) {
+      return '';
+    }
+
+    final dynamic name = data[displayNameKey];
+
+    if (name is! String) {
+      return '';
+    }
+
+    return name;
   }
 }

@@ -9,7 +9,7 @@ class PhotoService {
     // try to search for this thumbnail in thumbnail folder
     Directory directory = await getApplicationDocumentsDirectory();
     final String fileName = original.path.replaceAll('/', '_');
-    final String compressFilePath = '${directory.path}/thumbnail/$fileName';
+    final String compressFilePath = '${directory.path}/thumbnail/$targetBytes/$fileName';
     File compressedFile = File(compressFilePath);
 
     if (compressedFile.existsSync() && compressedFile.lengthSync() > 0) {
