@@ -158,5 +158,6 @@
   "dateOfBirth": "Date of Birth",
   "notUpdated": "Not updated",
   "edit": "Edit",
-  "myProfile": "My Profile"
+  "myProfile": "My Profile",
+  "submit":"Submit"
 }

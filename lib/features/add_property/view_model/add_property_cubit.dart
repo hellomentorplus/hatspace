@@ -10,7 +10,8 @@ enum NavigatePage { forward, reverse }
 
 enum ButtonLabel {
   next,
-  previewAndSubmit;
+  previewAndSubmit,
+  submit;
 
   String get label {
     switch (this) {
@@ -18,6 +19,8 @@ enum ButtonLabel {
         return HatSpaceStrings.current.next;
       case ButtonLabel.previewAndSubmit:
         return HatSpaceStrings.current.previewAndSubmit;
+      case ButtonLabel.submit:
+        return HatSpaceStrings.current.submit;
     }
   }
 }
@@ -224,6 +227,10 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
         showRightChevron = false;
         nextButtonEnable = _photos.length >= 4;
         break;
+      case 5: // preview
+      showRightChevron = false;
+      nextButtonEnable = true;
+      label = ButtonLabel.submit;
       // TODO add validation logic for other screens
     }
     emit(NextButtonEnable(

@@ -219,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
+        "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "suburb": MessageLookupByLibrary.simpleMessage("Suburb"),
         "swimmingPool": MessageLookupByLibrary.simpleMessage("Swimming pool"),
         "textWithInvalidChars":
