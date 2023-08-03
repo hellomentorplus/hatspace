@@ -187,14 +187,20 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   final List<bool> activePageList = [];
 
   void navigatePage(NavigatePage navType, int totalPages) {
-    if (navType == NavigatePage.forward &&
-        state.pageViewNumber < totalPages - 1) {
-      emit(PageViewNavigationState(state.pageViewNumber + 1));
+    if (navType == NavigatePage.forward && state.pageViewNumber == totalPages - 1) {
+      // handle submit logic
+      _submitPropertyDetails();
+    } else {
+      // normal navigation
+      if (navType == NavigatePage.forward &&
+          state.pageViewNumber < totalPages - 1) {
+        emit(PageViewNavigationState(state.pageViewNumber + 1));
+      }
+      if (navType == NavigatePage.reverse && state.pageViewNumber > 0) {
+        emit(PageViewNavigationState(state.pageViewNumber - 1));
+      }
+      validateNextButtonState(state.pageViewNumber);
     }
-    if (navType == NavigatePage.reverse && state.pageViewNumber > 0) {
-      emit(PageViewNavigationState(state.pageViewNumber - 1));
-    }
-    validateNextButtonState(state.pageViewNumber);
   }
 
   /// Validate next button
@@ -267,5 +273,16 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   void onCloseLostDataModal() {
     // Verify next button enable again
     validateNextButtonState(state.pageViewNumber);
+  }
+
+  void _submitPropertyDetails() async {
+    // show loading
+    emit(StartSubmitPropertyDetails(state.pageViewNumber));
+
+    // other steps
+    await Future.delayed(const Duration(seconds: 3));
+
+    // complete upload
+    emit(EndSubmitPropertyDetails(state.pageViewNumber));
   }
 }

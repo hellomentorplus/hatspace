@@ -13,6 +13,7 @@ import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/pop_up/pop_up_controller.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
@@ -147,8 +148,20 @@ class BottomController extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AddPropertyCubit, AddPropertyState>(
         listener: (context, state) {
-      pageController.animateToPage(state.pageViewNumber,
-          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+          if (state is PageViewNavigationState) {
+            pageController.animateToPage(state.pageViewNumber,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeIn);
+          }
+
+          if (state is StartSubmitPropertyDetails) {
+            context.showLoading();
+          }
+
+          if (state is EndSubmitPropertyDetails) {
+            context.dismissLoading();
+            context.goToPropertyDetail();
+          }
     }, builder: (context, state) {
       return BottomAppBar(
         color: HSColor.background,
@@ -179,21 +192,24 @@ class BottomController extends StatelessWidget {
                       MaterialStatePropertyAll<Color>(HSColor.onSurface)),
               iconUrl: Assets.icons.chevronLeft,
             ),
-            if (state is NextButtonEnable)
+            if (state is NextButtonEnable || state is StartSubmitPropertyDetails)
               PrimaryButton(
-                  label: state.btnLabel.label,
-                  onPressed: (state.isActive)
+                  label: state is NextButtonEnable
+                      ? state.btnLabel.label
+                      : ButtonLabel.submit.label,
+                  onPressed: (state is NextButtonEnable && state.isActive)
                       ? () {
                           context
                               .read<AddPropertyCubit>()
                               .navigatePage(NavigatePage.forward, totalPages);
                         }
                       : null,
-                  iconUrl: (state.showRightChevron)
+                  iconUrl: (state is NextButtonEnable && state.showRightChevron)
                       ? Assets.icons.chevronRight
                       : null,
                   iconPosition:
-                      (state.showRightChevron) ? IconPosition.right : null),
+                      (state is NextButtonEnable && state.showRightChevron)
+                          ? IconPosition.right : null),
           ],
         ),
       );
