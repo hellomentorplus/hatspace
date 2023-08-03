@@ -52,6 +52,11 @@ class CloseHsModal extends DashboardInteractionState {
   List<Object?> get props => [];
 }
 
+class CloseLoginModal extends DashboardInteractionState {
+  @override
+  List<Object?> get props => [];
+}
+
 class PhotoPermissionGranted extends DashboardInteractionState {
   @override
   List<Object?> get props => [];

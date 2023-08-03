@@ -66,9 +66,9 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
   }
 
   void onBottomItemTapped(BottomBarItems item) async {
-    pressedBottomBarItem = item;
     bool isUserLoggedIn = authenticationService.isUserLoggedIn;
     if (!isUserLoggedIn) {
+      pressedBottomBarItem = item;
       return emit(OpenLoginBottomSheetModal(item));
     }
     switch (item) {
@@ -91,6 +91,8 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
 
   void goToSignUpScreen() => emit(GotoSignUpScreen());
 
+  void onCloseLoginModal() => emit(CloseLoginModal());
+
   void onCloseModal() => emit(CloseHsModal());
 
   void checkPhotoPermission() async {
@@ -112,6 +114,12 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
         if (!isClosed) {
           emit(PhotoPermissionDenied());
         }
+    }
+  }
+
+  void navigateToExpectedScreen() {
+    if (state is CloseLoginModal) {
+      onBottomItemTapped(pressedBottomBarItem);
     }
   }
 }

@@ -144,7 +144,7 @@ class _DashboardBodyState extends State<DashboardBody> {
               }
               if (state is OpenLoginBottomSheetModal) {
                 showLoginModal(context).then((value) {
-                  context.read<DashboardInteractionCubit>().onCloseModal();
+                  context.read<DashboardInteractionCubit>().onCloseLoginModal();
                 });
               }
               if (state is GotoSignUpScreen) {
@@ -176,17 +176,9 @@ class _DashboardBodyState extends State<DashboardBody> {
           BlocListener<AuthenticationBloc, AuthenticationState>(
               listener: (context, state) {
             if (state is AuthenticatedState) {
-              DashboardInteractionState dashBoardState =
-                  context.read<DashboardInteractionCubit>().state;
-              BottomBarItems item = context
+              context
                   .read<DashboardInteractionCubit>()
-                  .pressedBottomBarItem;
-              // check prev state is close login modal
-              if (dashBoardState is CloseHsModal) {
-                context
-                    .read<DashboardInteractionCubit>()
-                    .onBottomItemTapped(item);
-              }
+                  .navigateToExpectedScreen();
             }
           }),
           BlocListener<AddHomeOwnerRoleCubit, AddHomeOwnerRoleState>(

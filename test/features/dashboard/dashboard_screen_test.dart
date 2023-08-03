@@ -210,7 +210,7 @@ void main() {
       await widgetTester.ensureVisible(closeBtn);
       await widgetTester.tap(closeBtn);
       await widgetTester.pumpAndSettle();
-      verify(interactionCubit.onCloseModal()).called(1);
+      verify(interactionCubit.onCloseLoginModal()).called(1);
       expect(find.byType(HsWarningBottomSheetView), findsNothing);
     });
 
