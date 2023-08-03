@@ -232,6 +232,7 @@ void main() {
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.addingProperty),
       expect: () => [isA<OpenLoginBottomSheetModal>()]);
+
   blocTest(
       'Given user has not logged in, when user taps out, then return CloseHsModal',
       build: () => DashboardInteractionCubit(),
@@ -240,4 +241,133 @@ void main() {
       },
       act: (bloc) => bloc.onCloseModal(),
       expect: () => [isA<CloseHsModal>()]);
+
+  blocTest(
+    'when cancelPhotoAccess,'
+    'then return CancelPhotoAccess',
+    build: () => DashboardInteractionCubit(),
+    act: (bloc) => bloc.cancelPhotoAccess(),
+    expect: () => [isA<CancelPhotoAccess>()],
+  );
+
+  blocTest(
+    'when gotoSetting,'
+    'then return OpenSettingScreen',
+    build: () => DashboardInteractionCubit(),
+    setUp: () => TestWidgetsFlutterBinding.ensureInitialized(),
+    act: (bloc) => bloc.gotoSetting(),
+    expect: () => [isA<OpenSettingScreen>()],
+  );
+
+  blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+    'given state is OpenSettingScreen,'
+    'when onDismissModal,'
+    'then do nothing',
+    build: () => DashboardInteractionCubit(),
+    seed: () => OpenSettingScreen(),
+    act: (bloc) => bloc.onDismissModal(),
+    expect: () => [],
+  );
+
+  blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+    'given state is CancelPhotoAccess,'
+    'when onDismissModal,'
+    'then return nothing',
+    build: () => DashboardInteractionCubit(),
+    seed: () => CancelPhotoAccess(),
+    act: (bloc) => bloc.onDismissModal(),
+    expect: () => [],
+  );
+
+  blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+    'given state is PhotoPermissionGranted,'
+    'when onDismissModal,'
+    'then return DismissPhotoPermissionBottomSheet',
+    build: () => DashboardInteractionCubit(),
+    seed: () => PhotoPermissionGranted(),
+    act: (bloc) => bloc.onDismissModal(),
+    expect: () => [isA<DismissPhotoPermissionBottomSheet>()],
+  );
+
+  blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+    'given state is CancelPhotoAccess,'
+    'when onDismissModal,'
+    'then return nothing',
+    build: () => DashboardInteractionCubit(),
+    seed: () => CancelPhotoAccess(),
+    act: (bloc) => bloc.onDismissModal(),
+    expect: () => [],
+  );
+
+  blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+    'given last state is OpenSettingScreen and photo permission returns PhotoPermissionGranted,'
+    'when onScreenResumed,'
+    'then return PhotoPermissionGranted',
+    build: () => DashboardInteractionCubit(),
+    setUp: () {
+      when(hsPermissionService.checkPhotoPermission()).thenAnswer(
+          (realInvocation) => Future.value(HsPermissionStatus.granted));
+    },
+    seed: () => OpenSettingScreen(),
+    act: (bloc) => bloc.onScreenResumed(),
+    verify: (_) {
+      verify(hsPermissionService.checkPhotoPermission()).called(1);
+    },
+    expect: () => [isA<PhotoPermissionGranted>()],
+  );
+
+  blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+    'given last state is OpenSettingScreen and photo permission returns PhotoPermissionDenied,'
+    'when onScreenResumed,'
+    'then return PhotoPermissionDenied',
+    build: () => DashboardInteractionCubit(),
+    setUp: () {
+      when(hsPermissionService.checkPhotoPermission()).thenAnswer(
+          (realInvocation) => Future.value(HsPermissionStatus.denied));
+    },
+    seed: () => OpenSettingScreen(),
+    act: (bloc) => bloc.onScreenResumed(),
+    verify: (_) {
+      verify(hsPermissionService.checkPhotoPermission()).called(1);
+    },
+    expect: () => [isA<PhotoPermissionDenied>()],
+  );
+
+  blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+    'given last state is OpenSettingScreen and photo permission returns PhotoPermissionDeniedForever,'
+    'when onScreenResumed,'
+    'then return PhotoPermissionDeniedForever',
+    build: () => DashboardInteractionCubit(),
+    setUp: () {
+      when(hsPermissionService.checkPhotoPermission()).thenAnswer(
+          (realInvocation) => Future.value(HsPermissionStatus.deniedForever));
+    },
+    seed: () => OpenSettingScreen(),
+    act: (bloc) => bloc.onScreenResumed(),
+    verify: (_) {
+      verify(hsPermissionService.checkPhotoPermission()).called(1);
+    },
+    expect: () => [isA<PhotoPermissionDeniedForever>()],
+  );
+
+  blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+    'given last state is DismissPhotoPermissionBottomSheet,'
+    'when onScreenResumed,'
+    'then return nothing',
+    build: () => DashboardInteractionCubit(),
+    seed: () => DismissPhotoPermissionBottomSheet(),
+    act: (bloc) => bloc.onScreenResumed(),
+    verify: (_) {
+      verifyNever(hsPermissionService.checkPhotoPermission());
+    },
+    expect: () => [],
+  );
+
+  blocTest(
+    'when onNavigateToAddPropertyFlow,'
+    'then return NavigateToAddPropertyFlow',
+    build: () => DashboardInteractionCubit(),
+    act: (bloc) => bloc.onNavigateToAddPropertyFlow(),
+    expect: () => [isA<NavigateToAddPropertyFlow>()],
+  );
 }
