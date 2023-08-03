@@ -14,19 +14,40 @@ class AddPropertyAddressView extends StatefulWidget {
 
 class _AddPropertyAddressViewState extends State<AddPropertyAddressView>
     with AutomaticKeepAliveClientMixin<AddPropertyAddressView> {
+  final FocusNode _focusNode = FocusNode();
+  final ValueNotifier<bool> _isEmpty = ValueNotifier(false);
+
+  @override
+  void initState() {
+    super.initState();
+
+    _focusNode.addListener(() {
+      if (!_focusNode.hasFocus) {
+        _isEmpty.value = context.read<AddPropertyCubit>().address.isEmpty;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HatSpaceInputText(
-          label: HatSpaceStrings.current.streetAddress,
-          isRequired: true,
-          placeholder: HatSpaceStrings.current.enterYourAddress,
-          onChanged: (value) {
-            context.read<AddPropertyCubit>().address = value;
-          },
+        ValueListenableBuilder<bool>(
+          valueListenable: _isEmpty,
+          builder: (context, isEmpty, child) => HatSpaceInputText(
+            focusNode: _focusNode,
+            label: HatSpaceStrings.current.streetAddress,
+            isRequired: true,
+            placeholder: HatSpaceStrings.current.enterYourAddress,
+            onChanged: (value) {
+              _isEmpty.value = value.isEmpty;
+              context.read<AddPropertyCubit>().address = value;
+            },
+            errorText:
+                isEmpty ? HatSpaceStrings.current.enterYourAddress : null,
+          ),
         ),
         const SizedBox(
           height: 8,

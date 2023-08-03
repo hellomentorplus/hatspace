@@ -6,14 +6,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_image_selected_cubit.dart';
-import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_images_cubit.dart';
 import 'package:hatspace/features/select_photo/view/select_photo_bottom_sheet.dart';
 import 'package:hatspace/gen/assets.gen.dart';
-import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
-import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 
 class AddPropertyImagesView extends StatelessWidget {
   const AddPropertyImagesView({Key? key}) : super(key: key);
@@ -22,9 +18,6 @@ class AddPropertyImagesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AddPropertyImagesCubit>(
-          create: (context) => AddPropertyImagesCubit(),
-        ),
         BlocProvider<AddPropertyImageSelectedCubit>(
           create: (context) => AddPropertyImageSelectedCubit(),
         )
@@ -41,12 +34,10 @@ class AddPropertyImagesBody extends StatefulWidget {
   AddPropertyImagesBodyState createState() => AddPropertyImagesBodyState();
 }
 
-class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
-    with WidgetsBindingObserver {
+class AddPropertyImagesBodyState extends State<AddPropertyImagesBody> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
 
     final List<String> selectedPhotos = context.read<AddPropertyCubit>().photos;
     context
@@ -55,52 +46,7 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
   }
 
   @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      context.read<AddPropertyImagesCubit>().screenResumed();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocListener<AddPropertyImagesCubit, AddPropertyImagesState>(
-      listener: (_, state) {
-        if (state is PhotoPermissionDenied) {
-          // do nothing
-        }
-
-        if (state is PhotoPermissionDeniedForever) {
-          _showPhotoPermissionBottomSheet(context).then((result) {
-            context
-                .read<AddPropertyImagesCubit>()
-                .onPhotoPermissionBottomSheetDismissed();
-          });
-        }
-
-        if (state is PhotoPermissionGranted) {
-          // open photo screen
-          context.showSelectPhotoBottomSheet().then((result) {
-            context
-                .read<AddPropertyImagesCubit>()
-                .onSelectPhotoBottomSheetDismissed();
-
-            context
-                .read<AddPropertyImageSelectedCubit>()
-                .onPhotosSelected(result);
-
-            if (result != null) {
-              context.read<AddPropertyCubit>().photos = result;
-            }
-          });
-        }
-      },
-      child: Padding(
+  Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: HsDimens.spacing16, vertical: HsDimens.spacing24),
         child: SingleChildScrollView(
@@ -129,9 +75,16 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
                   }
                   return InkWell(
                     onTap: () {
-                      context
-                          .read<AddPropertyImagesCubit>()
-                          .checkPhotoPermission();
+                      // open photo screen
+                      context.showSelectPhotoBottomSheet().then((result) {
+                        context
+                            .read<AddPropertyImageSelectedCubit>()
+                            .onPhotosSelected(result);
+
+                        if (result != null) {
+                          context.read<AddPropertyCubit>().photos = result;
+                        }
+                      });
                     },
                     child: SvgPicture.asset(Assets.images.uploadPhoto),
                   );
@@ -140,33 +93,13 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody>
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Future<void> _showPhotoPermissionBottomSheet(BuildContext context) {
-    return context.showHsBottomSheet<void>(HsWarningBottomSheetView(
-      title: HatSpaceStrings.current.hatSpaceWouldLikeToPhotoAccess,
-      description:
-          HatSpaceStrings.current.plsGoToSettingsAndAllowPhotoAccessForHatSpace,
-      iconUrl: Assets.icons.photoAccess,
-      primaryButtonLabel: HatSpaceStrings.current.goToSetting,
-      primaryOnPressed: () {
-        context.read<AddPropertyImagesCubit>().gotoSetting();
-        context.pop();
-      },
-      secondaryButtonLabel: HatSpaceStrings.current.cancelBtn,
-      secondaryOnPressed: () {
-        context.read<AddPropertyImagesCubit>().cancelPhotoAccess();
-        context.pop();
-      },
-    ));
-  }
+      );
 }
 
 class _PhotoPreviewView extends StatelessWidget {
   final List<String> paths;
   final bool moreUpload;
+
   const _PhotoPreviewView(
       {required this.paths, required this.moreUpload, Key? key})
       : super(key: key);
@@ -228,6 +161,7 @@ class _PhotoPreviewView extends StatelessWidget {
 class ImagePreviewView extends StatelessWidget {
   final String path;
   final EdgeInsets? closePadding;
+
   const ImagePreviewView({required this.path, this.closePadding, Key? key})
       : super(key: key);
 
