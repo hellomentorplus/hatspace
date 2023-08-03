@@ -24,6 +24,7 @@ enum ButtonLabel {
 
 class AddPropertyCubit extends Cubit<AddPropertyState> {
   AddPropertyCubit() : super(const AddPropertyInitial());
+
   bool isAddPropertyFlowInteracted = false;
 
   /// Defines all value needed for a property
