@@ -14,15 +14,19 @@ import 'package:mockito/mockito.dart';
 
 import 'dashboard_interaction_cubit_test.mocks.dart';
 
-@GenerateMocks(
-    [StorageService, AuthenticationService, MemberService, HsPermissionService])
+@GenerateMocks([
+  StorageService,
+  AuthenticationService,
+  MemberService,
+  HsPermissionService,
+  DashboardInteractionCubit
+])
 void main() {
   final MockStorageService storageService = MockStorageService();
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
   final MockMemberService memberService = MockMemberService();
   final MockHsPermissionService hsPermissionService = MockHsPermissionService();
-
   setUpAll(() {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
     HsSingleton.singleton
@@ -370,4 +374,122 @@ void main() {
     act: (bloc) => bloc.onNavigateToAddPropertyFlow(),
     expect: () => [isA<NavigateToAddPropertyFlow>()],
   );
+
+  group('On Tap Bottom items interaction flow', () {
+    blocTest(
+        'when on tap Booking item'
+        'then return OpenPage of booking item state',
+        setUp: () {
+          when(authenticationService.isUserLoggedIn).thenReturn(true);
+        },
+        build: () => DashboardInteractionCubit(),
+        act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.booking),
+        expect: () => [const OpenPage(BottomBarItems.booking)]);
+
+    blocTest(
+        'when on tap Message item'
+        'then return OpenPage of message state',
+        setUp: () {
+          when(authenticationService.isUserLoggedIn).thenReturn(true);
+        },
+        build: () => DashboardInteractionCubit(),
+        act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.message),
+        expect: () => [const OpenPage(BottomBarItems.message)]);
+
+    blocTest(
+        'when on tap profile item'
+        'then return OpenPage of profile state',
+        setUp: () {
+          when(authenticationService.isUserLoggedIn).thenReturn(true);
+        },
+        build: () => DashboardInteractionCubit(),
+        act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.profile),
+        expect: () => [const OpenPage(BottomBarItems.profile)]);
+
+    blocTest(
+        'when on tap profile item'
+        'then return OpenScreen state',
+        setUp: () {
+          when(authenticationService.isUserLoggedIn).thenReturn(true);
+        },
+        build: () => DashboardInteractionCubit(),
+        act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.profile),
+        expect: () => [const OpenPage(BottomBarItems.profile)]);
+
+    // Navigate expected screen after login success from login modal
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+      'when user login success after being navigated by tapping Booking'
+      'then navigate to Booking screen',
+      setUp: () {
+        when(authenticationService.isUserLoggedIn).thenReturn(true);
+      },
+      seed: () => CloseLoginModal(),
+      build: () => DashboardInteractionCubit(),
+      act: (bloc) {
+        bloc.pressedBottomBarItem = BottomBarItems.booking;
+        return bloc.navigateToExpectedScreen();
+      },
+      expect: () => [const OpenPage(BottomBarItems.booking)],
+    );
+
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+      'when user login success after being navigated by tapping Message'
+      'then navigate to Message screen',
+      setUp: () {
+        when(authenticationService.isUserLoggedIn).thenReturn(true);
+      },
+      seed: () => CloseLoginModal(),
+      build: () => DashboardInteractionCubit(),
+      act: (bloc) {
+        bloc.pressedBottomBarItem = BottomBarItems.message;
+        return bloc.navigateToExpectedScreen();
+      },
+      expect: () => [const OpenPage(BottomBarItems.message)],
+    );
+
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+      'when user login success after being navigated by tapping Profile'
+      'then navigate to Profile screen',
+      setUp: () {
+        when(authenticationService.isUserLoggedIn).thenReturn(true);
+      },
+      seed: () => CloseLoginModal(),
+      build: () => DashboardInteractionCubit(),
+      act: (bloc) {
+        bloc.pressedBottomBarItem = BottomBarItems.profile;
+        return bloc.navigateToExpectedScreen();
+      },
+      expect: () => [const OpenPage(BottomBarItems.profile)],
+    );
+
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+      'when user login success after being navigated by tapping Explore'
+      'then navigate to Explore screen',
+      setUp: () {
+        when(authenticationService.isUserLoggedIn).thenReturn(true);
+      },
+      seed: () => CloseLoginModal(),
+      build: () => DashboardInteractionCubit(),
+      act: (bloc) {
+        bloc.pressedBottomBarItem = BottomBarItems.explore;
+        return bloc.navigateToExpectedScreen();
+      },
+      expect: () => [const OpenPage(BottomBarItems.explore)],
+    );
+
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+      'when user login success after being navigated by tapping Explore'
+      'then navigate to Explore screen',
+      setUp: () {
+        when(authenticationService.isUserLoggedIn).thenReturn(true);
+      },
+      seed: () => CloseLoginModal(),
+      build: () => DashboardInteractionCubit(),
+      act: (bloc) {
+        bloc.pressedBottomBarItem = BottomBarItems.explore;
+        return bloc.navigateToExpectedScreen();
+      },
+      expect: () => [const OpenPage(BottomBarItems.explore)],
+    );
+  });
 }

@@ -123,6 +123,7 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
       onBottomItemTapped(pressedBottomBarItem);
     }
   }
+
   void cancelPhotoAccess() => emit(CancelPhotoAccess());
 
   void gotoSetting() {
