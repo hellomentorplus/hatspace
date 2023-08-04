@@ -10,6 +10,7 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/permission/permission_service.dart';
 import 'package:hatspace/models/permission/permission_status.dart';
+import 'package:hatspace/models/photo/photo_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
@@ -34,6 +35,7 @@ import 'dashboard_screen_test.mocks.dart';
   AddHomeOwnerRoleCubit,
   HsPermissionService,
   MemberService,
+  PhotoService,
 ])
 void main() {
   final MockAppConfigBloc appConfigBloc = MockAppConfigBloc();
@@ -48,6 +50,7 @@ void main() {
   final MockHsPermissionService hsPermissionService = MockHsPermissionService();
   final MockMemberService memberService = MockMemberService();
   initializeDateFormatting();
+  final MockPhotoService photoService = MockPhotoService();
 
   setUpAll(() {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
@@ -55,6 +58,8 @@ void main() {
         .registerSingleton<AuthenticationService>(authenticationService);
     HsSingleton.singleton
         .registerSingleton<HsPermissionService>(hsPermissionService);
+    HsSingleton.singleton.registerSingleton<PhotoService>(photoService);
+
     when(storageService.member).thenReturn(memberService);
   });
 

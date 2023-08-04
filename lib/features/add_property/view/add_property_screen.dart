@@ -148,20 +148,19 @@ class BottomController extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AddPropertyCubit, AddPropertyState>(
         listener: (context, state) {
-          if (state is PageViewNavigationState) {
-            pageController.animateToPage(state.pageViewNumber,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeIn);
-          }
+      if (state is PageViewNavigationState) {
+        pageController.animateToPage(state.pageViewNumber,
+            duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+      }
 
-          if (state is StartSubmitPropertyDetails) {
-            context.showLoading();
-          }
+      if (state is StartSubmitPropertyDetails) {
+        context.showLoading();
+      }
 
-          if (state is EndSubmitPropertyDetails) {
-            context.dismissLoading();
-            context.goToPropertyDetail();
-          }
+      if (state is EndSubmitPropertyDetails) {
+        context.dismissLoading();
+        context.goToPropertyDetail();
+      }
     }, builder: (context, state) {
       return BottomAppBar(
         color: HSColor.background,
@@ -192,7 +191,8 @@ class BottomController extends StatelessWidget {
                       MaterialStatePropertyAll<Color>(HSColor.onSurface)),
               iconUrl: Assets.icons.chevronLeft,
             ),
-            if (state is NextButtonEnable || state is StartSubmitPropertyDetails)
+            if (state is NextButtonEnable ||
+                state is StartSubmitPropertyDetails)
               PrimaryButton(
                   label: state is NextButtonEnable
                       ? state.btnLabel.label
@@ -209,7 +209,8 @@ class BottomController extends StatelessWidget {
                       : null,
                   iconPosition:
                       (state is NextButtonEnable && state.showRightChevron)
-                          ? IconPosition.right : null),
+                          ? IconPosition.right
+                          : null),
           ],
         ),
       );

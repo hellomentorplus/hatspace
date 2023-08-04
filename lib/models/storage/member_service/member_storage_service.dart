@@ -53,24 +53,22 @@ class MemberService {
     await _firestore
         .collection(memberCollection)
         .doc(uid)
-        .set(member.convertToMap(),
-        SetOptions(merge: true, mergeFields: [roles, displayName]));
+        .set(member.convertToMap(), SetOptions(merge: true));
   }
 
   Future<void> addMemberProperties(String uid, String propertyId) async {
     // use Set to avoid duplicated property ID
-    final Set<String> currentProperties = (await getMemberProperties(uid))
-        .toSet()
-      ..add(propertyId);
+    final Set<String> currentProperties =
+        (await getMemberProperties(uid)).toSet()..add(propertyId);
 
-    await _firestore.collection(memberCollection).doc(uid).set({
-      propertiesKey: currentProperties
-    }, SetOptions(merge: true));
+    await _firestore
+        .collection(memberCollection)
+        .doc(uid)
+        .set({propertiesKey: currentProperties}, SetOptions(merge: true));
   }
 
   Future<List<String>> getMemberProperties(String uid) async {
-    final DocumentSnapshot<Map<String, dynamic>> snapshot =
-    await _firestore
+    final DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestore
         .collection(memberCollection)
         .doc(uid)
         .get(const GetOptions(source: Source.serverAndCache));
@@ -99,9 +97,7 @@ class MemberService {
   }
 
   Future<String> getMemberDisplayName(String uid) async {
-
-    final DocumentSnapshot<Map<String, dynamic>> snapshot =
-    await _firestore
+    final DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestore
         .collection(memberCollection)
         .doc(uid)
         .get(const GetOptions(source: Source.serverAndCache));

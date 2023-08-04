@@ -5,6 +5,10 @@ import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view/add_property_screen.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/photo/photo_service.dart';
+import 'package:hatspace/models/storage/storage_service.dart';
+import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
@@ -15,11 +19,24 @@ import 'package:mockito/mockito.dart';
 import '../../../widget_tester_extension.dart';
 import 'add_property_screen_test.mocks.dart';
 
-@GenerateMocks([AddPropertyCubit])
+@GenerateMocks(
+    [AddPropertyCubit, StorageService, AuthenticationService, PhotoService])
 void main() {
   HatSpaceStrings.load(const Locale('en'));
-  final MockAddPropertyCubit addPropertyBloc = MockAddPropertyCubit();
   initializeDateFormatting();
+
+  final MockAddPropertyCubit addPropertyBloc = MockAddPropertyCubit();
+  final MockStorageService storageService = MockStorageService();
+  final MockAuthenticationService authenticationService =
+      MockAuthenticationService();
+  final MockPhotoService photoService = MockPhotoService();
+
+  setUpAll(() {
+    HsSingleton.singleton.registerSingleton<StorageService>(storageService);
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
+    HsSingleton.singleton.registerSingleton<PhotoService>(photoService);
+  });
 
   setUp(() {
     when(addPropertyBloc.state)

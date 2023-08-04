@@ -39,7 +39,11 @@ extension RouteExtension on BuildContext {
   }
 
   void goToPropertyDetail() {
-    Navigator.pushReplacement(this, MaterialPageRoute(builder: (context) => const PropertyDetailScreen(),));
+    Navigator.pushReplacement(
+        this,
+        MaterialPageRoute(
+          builder: (context) => const PropertyDetailScreen(),
+        ));
   }
 
   void pop<T>({T? result}) {

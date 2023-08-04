@@ -43,9 +43,8 @@ class PropertyService {
   }
 
   Future<String> addProperty(Property property) async {
-    DocumentReference documentReference = _firestore
-        .collection(propertyCollection)
-        .doc();
+    DocumentReference documentReference =
+        _firestore.collection(propertyCollection).doc();
 
     await documentReference.set(property.convertObjectToMap());
 

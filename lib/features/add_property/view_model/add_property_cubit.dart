@@ -41,8 +41,10 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   bool isAddPropertyFlowInteracted = false;
 
-  final StorageService _storageService = HsSingleton.singleton.get<StorageService>();
-  final AuthenticationService _authenticationService = HsSingleton.singleton.get<AuthenticationService>();
+  final StorageService _storageService =
+      HsSingleton.singleton.get<StorageService>();
+  final AuthenticationService _authenticationService =
+      HsSingleton.singleton.get<AuthenticationService>();
   final PhotoService _photoService = HsSingleton.singleton.get<PhotoService>();
 
   /// Defines all value needed for a property
@@ -202,7 +204,8 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   final List<bool> activePageList = [];
 
   void navigatePage(NavigatePage navType, int totalPages) {
-    if (navType == NavigatePage.forward && state.pageViewNumber == totalPages - 1) {
+    if (navType == NavigatePage.forward &&
+        state.pageViewNumber == totalPages - 1) {
       // handle submit logic
       _submitPropertyDetails();
     } else {
@@ -249,9 +252,9 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
         nextButtonEnable = _photos.length >= 4;
         break;
       case 5: // preview
-      showRightChevron = false;
-      nextButtonEnable = true;
-      label = ButtonLabel.submit;
+        showRightChevron = false;
+        nextButtonEnable = true;
+        label = ButtonLabel.submit;
       // TODO add validation logic for other screens
     }
     emit(NextButtonEnable(
@@ -301,7 +304,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     for (String path in photos) {
       // compress file
       File file5mb = await _photoService.createThumbnail(File(path),
-          targetBytes: 5*1024*1024); // target 5MB
+          targetBytes: 5 * 1024 * 1024); // target 5MB
 
       await _storageService.files.uploadFile(
         folder: folder,
@@ -315,40 +318,42 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
       );
 
       // delete this file
-      await file5mb.delete();
+      file5mb.deleteSync();
     }
 
     // add this ID into user's list of properties
     try {
       final UserDetail user = await _authenticationService.getCurrentUser();
-    final Property property = Property(
-        type: _type,
-        name: _propertyName,
-        price: Price(
-          rentPrice: _price!,
-          currency: Currency.aud,
-        ), description: _description,
-        address: AddressDetail(
-            suburb: _suburb,
-            postcode: _postalCode!,
-            state: _australiaState,
-            streetName: _address,
-            streetNo: _address,
-            unitNo: _unitNumber
-        ), additionalDetail: AdditionalDetail(
-        bedrooms: _bedrooms,
-        bathrooms: _bathrooms,
-        parkings: _parking,
-        additional: _features.map((e) => e.name).toList()
-    ), photos: uploadedPhotos,
-        minimumRentPeriod: _rentPeriod,
-        location: const GeoPoint(0.0, 0.0), // TODO convert address into Geopoint
-        availableDate: Timestamp.fromDate(_availableDate),
-        ownerUid: user.uid);
+      final Property property = Property(
+          type: _type,
+          name: _propertyName,
+          price: Price(
+            rentPrice: _price!,
+            currency: Currency.aud,
+          ),
+          description: _description,
+          address: AddressDetail(
+              suburb: _suburb,
+              postcode: _postalCode!,
+              state: _australiaState,
+              streetName: _address,
+              streetNo: _address,
+              unitNo: _unitNumber),
+          additionalDetail: AdditionalDetail(
+              bedrooms: _bedrooms,
+              bathrooms: _bathrooms,
+              parkings: _parking,
+              additional: _features.map((e) => e.name).toList()),
+          photos: uploadedPhotos,
+          minimumRentPeriod: _rentPeriod,
+          location:
+              const GeoPoint(0.0, 0.0), // TODO convert address into Geopoint
+          availableDate: Timestamp.fromDate(_availableDate),
+          ownerUid: user.uid);
 
-    final String id = await _storageService.property.addProperty(property);
+      final String id = await _storageService.property.addProperty(property);
 
-      _storageService.member.addMemberProperties(user.uid, id);
+      await _storageService.member.addMemberProperties(user.uid, id);
     } on UserNotFoundException catch (_) {
       // do nothing
     }
@@ -357,7 +362,8 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   }
 
   String _generateFolderName() {
-    const chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    const chars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 
     return String.fromCharCodes(Iterable.generate(
         18, (_) => chars.codeUnitAt(Random().nextInt(chars.length))));

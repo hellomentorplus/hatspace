@@ -4,16 +4,17 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 
 class FileService {
-  final _storage = FirebaseStorage.instance;
+  final FirebaseStorage _storage;
+
+  FileService(FirebaseStorage storage) : _storage = storage;
 
   final String _propertyPhotos = 'properties';
 
-  Future<void> uploadFile({
-    required String folder,
-    required String path,
-    required ValueChanged<Exception> onError,
-    required ValueChanged<String> onComplete
-  }) async {
+  Future<void> uploadFile(
+      {required String folder,
+      required String path,
+      required ValueChanged<Exception> onError,
+      required ValueChanged<String> onComplete}) async {
     // get filename
     final String fileName = path.split('/').last;
 
