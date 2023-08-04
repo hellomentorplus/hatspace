@@ -120,7 +120,12 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
 
   void navigateToExpectedScreen() {
     if (state is CloseLoginModal) {
-      onBottomItemTapped(pressedBottomBarItem);
+      if(pressedBottomBarItem == BottomBarItems.addingProperty){
+        // TODO: Adding Property navigate flow
+      }else{
+         onBottomItemTapped(pressedBottomBarItem);
+      }
+     
     }
   }
 
