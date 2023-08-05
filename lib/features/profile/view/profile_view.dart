@@ -134,7 +134,7 @@ class ProfileBody extends StatelessWidget {
 }
 
 class _UserInformationView extends StatelessWidget {
-  const _UserInformationView({super.key});
+  const _UserInformationView();
 
   @override
   Widget build(BuildContext context) {
