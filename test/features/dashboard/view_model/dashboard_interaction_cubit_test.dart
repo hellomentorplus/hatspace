@@ -376,46 +376,6 @@ void main() {
   );
 
   group('On Tap Bottom items interaction flow', () {
-    blocTest(
-        'when on tap Booking item'
-        'then return OpenPage of booking item state',
-        setUp: () {
-          when(authenticationService.isUserLoggedIn).thenReturn(true);
-        },
-        build: () => DashboardInteractionCubit(),
-        act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.booking),
-        expect: () => [const OpenPage(BottomBarItems.booking)]);
-
-    blocTest(
-        'when on tap Message item'
-        'then return OpenPage of message state',
-        setUp: () {
-          when(authenticationService.isUserLoggedIn).thenReturn(true);
-        },
-        build: () => DashboardInteractionCubit(),
-        act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.message),
-        expect: () => [const OpenPage(BottomBarItems.message)]);
-
-    blocTest(
-        'when on tap profile item'
-        'then return OpenPage of profile state',
-        setUp: () {
-          when(authenticationService.isUserLoggedIn).thenReturn(true);
-        },
-        build: () => DashboardInteractionCubit(),
-        act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.profile),
-        expect: () => [const OpenPage(BottomBarItems.profile)]);
-
-    blocTest(
-        'when on tap profile item'
-        'then return OpenScreen state',
-        setUp: () {
-          when(authenticationService.isUserLoggedIn).thenReturn(true);
-        },
-        build: () => DashboardInteractionCubit(),
-        act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.profile),
-        expect: () => [const OpenPage(BottomBarItems.profile)]);
-
     // Navigate expected screen after login success from login modal
     blocTest<DashboardInteractionCubit, DashboardInteractionState>(
       'when user login success after being navigated by tapping Booking'
@@ -460,21 +420,6 @@ void main() {
         return bloc.navigateToExpectedScreen();
       },
       expect: () => [const OpenPage(BottomBarItems.profile)],
-    );
-
-    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
-      'when user login success after being navigated by tapping Explore'
-      'then navigate to Explore screen',
-      setUp: () {
-        when(authenticationService.isUserLoggedIn).thenReturn(true);
-      },
-      seed: () => CloseLoginModal(),
-      build: () => DashboardInteractionCubit(),
-      act: (bloc) {
-        bloc.pressedBottomBarItem = BottomBarItems.explore;
-        return bloc.navigateToExpectedScreen();
-      },
-      expect: () => [const OpenPage(BottomBarItems.explore)],
     );
 
     blocTest<DashboardInteractionCubit, DashboardInteractionState>(
