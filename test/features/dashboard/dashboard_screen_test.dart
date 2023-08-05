@@ -24,7 +24,7 @@ import 'package:mockito/mockito.dart';
 
 import '../../find_extension.dart';
 import '../../widget_tester_extension.dart';
-import '../dashboard/dashboard_screen_test.mocks.dart';
+import 'dashboard_screen_test.mocks.dart';
 
 @GenerateMocks([
   AppConfigBloc,
