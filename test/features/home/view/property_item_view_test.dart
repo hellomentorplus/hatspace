@@ -75,7 +75,8 @@ void main() {
                   .firstWidget<Container>(imgFinder)
                   .decoration as BoxDecoration)
               .image!
-              .image as CachedNetworkImageProvider).url;
+              .image as CachedNetworkImageProvider)
+          .url;
       final int currentPage = pageViewWidget.controller.page!.round();
 
       /// Compare rendering image's url with data url

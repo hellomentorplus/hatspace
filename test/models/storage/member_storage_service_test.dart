@@ -138,7 +138,7 @@ void main() {
     verify(documentReference.set({
       'displayName': 'displayName',
       'roles': ['homeowner'],
-      'avatar':'avatar'
+      'avatar': 'avatar'
     }, any))
         .called(1);
   });

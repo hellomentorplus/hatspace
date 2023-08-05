@@ -9,6 +9,7 @@ class MemberService {
   final String rolesKey = 'roles';
   final String displayNameKey = 'displayName';
   final String propertiesKey = 'properties';
+  final String avatarKey = 'avatar';
 
   MemberService(FirebaseFirestore firestore) : _firestore = firestore;
 
@@ -124,5 +125,34 @@ class MemberService {
     }
 
     return name;
+  }
+
+  Future<String?> getMemberAvatar(String uid) async {
+    final DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestore
+        .collection(memberCollection)
+        .doc(uid)
+        .get(const GetOptions(source: Source.serverAndCache));
+
+    if (!snapshot.exists) {
+      return null;
+    }
+
+    final Map<String, dynamic>? data = snapshot.data();
+
+    if (data == null) {
+      return null;
+    }
+
+    if (data[avatarKey] == null) {
+      return null;
+    }
+
+    final dynamic avatar = data[avatarKey];
+
+    if (avatar is! String) {
+      return null;
+    }
+
+    return avatar;
   }
 }
