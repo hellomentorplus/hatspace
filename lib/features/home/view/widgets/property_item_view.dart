@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/home/data/property_item_data.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
@@ -12,131 +13,138 @@ class PropertyItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _PropertyImgsCarousel(
-          photos: property.photos,
-          ownerName: property.ownerName,
-          ownerAvatar: property.ownerAvatar,
-          availableDate: property.availableDate,
-          isFavorited: property.isFavorited,
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: HsDimens.spacing8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                      child: Row(
-                    children: [
-                      Text(
-                        HatSpaceStrings.current.currencyFormatter(
-                            property.currency.symbol, property.price),
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(fontWeight: FontWeight.w700),
-                      ),
-                      const SizedBox(width: HsDimens.spacing4),
-                      Padding(
-                        padding: const EdgeInsets.only(top: HsDimens.radius8),
-                        child: Text(
-                          HatSpaceStrings.current.pw,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(color: HSColor.neutral6),
-                        ),
-                      )
-                    ],
-                  )),
-                  Padding(
-                    padding: const EdgeInsets.only(top: HsDimens.radius8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SvgPicture.asset(
-                          Assets.icons.eye,
-                          colorFilter: const ColorFilter.mode(
-                              HSColor.neutral6, BlendMode.srcIn),
-                        ),
-                        const SizedBox(
-                          width: HsDimens.spacing4,
-                        ),
-                        Text(
-                          HatSpaceStrings.current
-                              .viewsToday(property.numberOfViewsToday),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.end,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(color: HSColor.neutral6),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: HsDimens.spacing4,
-              ),
-              Text(
-                property.state,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: HSColor.neutral6),
-              ),
-              const SizedBox(
-                height: HsDimens.spacing8,
-              ),
-              Row(
-                children: [
-                  _PropertyFeatureView(
-                    iconSvgUrl: Assets.icons.bed,
-                    quantity: property.numberOfBedrooms,
-                  ),
-                  const SizedBox(
-                    width: HsDimens.spacing8,
-                  ),
-                  _PropertyFeatureView(
-                    iconSvgUrl: Assets.icons.bath,
-                    quantity: property.numberOfBathrooms,
-                  ),
-                  const SizedBox(
-                    width: HsDimens.spacing8,
-                  ),
-                  _PropertyFeatureView(
-                    iconSvgUrl: Assets.icons.car,
-                    quantity: property.numberOfParkings,
-                  ),
-                  Container(
-                    height: HsDimens.spacing4,
-                    width: HsDimens.spacing4,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: HsDimens.spacing12),
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: HSColor.neutral4),
-                  ),
-                  Expanded(
-                    child: Text(
-                      property.type.displayName,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: HSColor.green06, fontWeight: FontWeight.w500),
-                    ),
-                  )
-                ],
-              )
-            ],
+    return InkWell(
+      onTap: () {
+        context.goToPropertyDetail(
+          id: property.id
+        );
+      },
+      child: Column(
+        children: [
+          _PropertyImgsCarousel(
+            photos: property.photos,
+            ownerName: property.ownerName,
+            ownerAvatar: property.ownerAvatar,
+            availableDate: property.availableDate,
+            isFavorited: property.isFavorited,
           ),
-        )
-      ],
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: HsDimens.spacing8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                        child: Row(
+                      children: [
+                        Text(
+                          HatSpaceStrings.current.currencyFormatter(
+                              property.currency.symbol, property.price),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                        const SizedBox(width: HsDimens.spacing4),
+                        Padding(
+                          padding: const EdgeInsets.only(top: HsDimens.radius8),
+                          child: Text(
+                            HatSpaceStrings.current.pw,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(color: HSColor.neutral6),
+                          ),
+                        )
+                      ],
+                    )),
+                    Padding(
+                      padding: const EdgeInsets.only(top: HsDimens.radius8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SvgPicture.asset(
+                            Assets.icons.eye,
+                            colorFilter: const ColorFilter.mode(
+                                HSColor.neutral6, BlendMode.srcIn),
+                          ),
+                          const SizedBox(
+                            width: HsDimens.spacing4,
+                          ),
+                          Text(
+                            HatSpaceStrings.current
+                                .viewsToday(property.numberOfViewsToday),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.end,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(color: HSColor.neutral6),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: HsDimens.spacing4,
+                ),
+                Text(
+                  property.state,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: HSColor.neutral6),
+                ),
+                const SizedBox(
+                  height: HsDimens.spacing8,
+                ),
+                Row(
+                  children: [
+                    _PropertyFeatureView(
+                      iconSvgUrl: Assets.icons.bed,
+                      quantity: property.numberOfBedrooms,
+                    ),
+                    const SizedBox(
+                      width: HsDimens.spacing8,
+                    ),
+                    _PropertyFeatureView(
+                      iconSvgUrl: Assets.icons.bath,
+                      quantity: property.numberOfBathrooms,
+                    ),
+                    const SizedBox(
+                      width: HsDimens.spacing8,
+                    ),
+                    _PropertyFeatureView(
+                      iconSvgUrl: Assets.icons.car,
+                      quantity: property.numberOfParkings,
+                    ),
+                    Container(
+                      height: HsDimens.spacing4,
+                      width: HsDimens.spacing4,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: HsDimens.spacing12),
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle, color: HSColor.neutral4),
+                    ),
+                    Expanded(
+                      child: Text(
+                        property.type.displayName,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: HSColor.green06, fontWeight: FontWeight.w500),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

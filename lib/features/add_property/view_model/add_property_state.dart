@@ -54,8 +54,9 @@ class StartSubmitPropertyDetails extends AddPropertyState {
 }
 
 class EndSubmitPropertyDetails extends AddPropertyState {
-  const EndSubmitPropertyDetails(super.pageViewNumber);
+  final String id;
+  const EndSubmitPropertyDetails(super.pageViewNumber, this.id);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [id];
 }

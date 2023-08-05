@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PropertyDetailScreen extends StatelessWidget {
-  const PropertyDetailScreen({Key? key}) : super(key: key);
+  final String id;
+  const PropertyDetailScreen({required this.id, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(

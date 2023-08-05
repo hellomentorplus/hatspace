@@ -38,12 +38,18 @@ extension RouteExtension on BuildContext {
         ));
   }
 
-  void goToPropertyDetail() {
-    Navigator.pushReplacement(
-        this,
-        MaterialPageRoute(
-          builder: (context) => const PropertyDetailScreen(),
-        ));
+  void goToPropertyDetail({required String id, bool replacement = false}) {
+    if (replacement) {
+      Navigator.pushReplacement(
+          this,
+          MaterialPageRoute(
+            builder: (context) => PropertyDetailScreen(id: id),
+          ));
+    } else {
+      Navigator.push(this, MaterialPageRoute(
+        builder: (context) => PropertyDetailScreen(id: id),
+      ));
+    }
   }
 
   void pop<T>({T? result}) {
