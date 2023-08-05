@@ -52,6 +52,7 @@ class HsDimens {
   static const double size48 = 48.0;
   static const double size64 = 64.0;
   static const double size66 = 66.0;
+  static const double size68 = 68.0;
   static const double size104 = 104.0;
   static const double size118 = 118.0;
 
