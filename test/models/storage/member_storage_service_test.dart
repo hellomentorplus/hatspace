@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -9,6 +10,7 @@ import 'member_storage_service_test.mocks.dart';
 
 @GenerateMocks([
   FirebaseFirestore,
+  FirebaseStorage,
   CollectionReference,
   DocumentReference,
   DocumentSnapshot
@@ -21,9 +23,11 @@ void main() {
       MockDocumentReference();
   final MockDocumentSnapshot<Map<String, dynamic>> documentSnapshot =
       MockDocumentSnapshot();
+  final MockFirebaseStorage storage = MockFirebaseStorage();
 
   setUpAll(() {
     StorageService.firestore = firestore;
+    StorageService.storage = storage;
   });
 
   setUp(() {
@@ -125,7 +129,7 @@ void main() {
     })).called(1);
   });
 
-  test('verify API calls when saveUserMember', () async {
+  test('verify API calls when saveMember', () async {
     StorageService storageService = StorageService();
     await storageService.member
         .saveMember('uid', {Roles.homeowner}, 'displayName');
@@ -133,7 +137,8 @@ void main() {
     verify(collectionReference.doc('uid')).called(1);
     verify(documentReference.set({
       'displayName': 'displayName',
-      'roles': ['homeowner']
-    })).called(1);
+      'roles': ['homeowner'],
+    }, any))
+        .called(1);
   });
 }

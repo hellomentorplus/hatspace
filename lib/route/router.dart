@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/features/add_property/view/add_property_screen.dart';
 import 'package:hatspace/features/debug/view/widget_list/widget_catalog_screen.dart';
+import 'package:hatspace/features/property_detail/property_detail_screen.dart';
 import 'package:hatspace/features/sign_up/choose_roles/view/choose_roles_screen.dart';
 import 'package:hatspace/features/sign_up/view/sign_up_screen.dart';
 import 'package:hatspace/features/dashboard/dashboard_screen.dart';
@@ -34,6 +35,14 @@ extension RouteExtension on BuildContext {
         this,
         MaterialPageRoute(
           builder: (context) => const AddPropertyView(),
+        ));
+  }
+
+  void goToPropertyDetail() {
+    Navigator.pushReplacement(
+        this,
+        MaterialPageRoute(
+          builder: (context) => const PropertyDetailScreen(),
         ));
   }
 
