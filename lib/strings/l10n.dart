@@ -1393,6 +1393,36 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `All your data will be kept within 30 days before being deleted pernamently. Are you sure you want to delete your account?`
+  String get deleteAccountWarning {
+    return Intl.message(
+      'All your data will be kept within 30 days before being deleted pernamently. Are you sure you want to delete your account?',
+      name: 'deleteAccountWarning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submit`
+  String get submit {
+    return Intl.message(
+      'Submit',
+      name: 'submit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete account?`
+  String get deleteAccountQuestionMark {
+    return Intl.message(
+      'Delete account?',
+      name: 'deleteAccountQuestionMark',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
