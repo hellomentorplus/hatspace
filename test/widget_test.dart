@@ -12,6 +12,7 @@ import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/initial_app.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/permission/permission_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
@@ -27,7 +28,8 @@ import 'widget_tester_extension.dart';
   SignUpBloc,
   StorageService,
   AuthenticationService,
-  AuthenticationBloc
+  AuthenticationBloc,
+  HsPermissionService,
 ])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -41,11 +43,14 @@ void main() {
   final MockStorageService storageService = MockStorageService();
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
+  final MockHsPermissionService hsPermissionService = MockHsPermissionService();
 
   setUpAll(() async {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationService);
+    HsSingleton.singleton
+        .registerSingleton<HsPermissionService>(hsPermissionService);
 
     when(mockFirebaseRemoteConfig.fetchAndActivate()).thenAnswer((_) {
       return Future.value(true);

@@ -1,6 +1,17 @@
+import 'dart:io';
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
+import 'package:hatspace/models/authentication/authentication_exception.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/photo/photo_service.dart';
+import 'package:hatspace/models/storage/storage_service.dart';
+import 'package:hatspace/singleton/hs_singleton.dart';
 
 import 'package:hatspace/strings/l10n.dart';
 
@@ -10,7 +21,8 @@ enum NavigatePage { forward, reverse }
 
 enum ButtonLabel {
   next,
-  previewAndSubmit;
+  previewAndSubmit,
+  submit;
 
   String get label {
     switch (this) {
@@ -18,13 +30,22 @@ enum ButtonLabel {
         return HatSpaceStrings.current.next;
       case ButtonLabel.previewAndSubmit:
         return HatSpaceStrings.current.previewAndSubmit;
+      case ButtonLabel.submit:
+        return HatSpaceStrings.current.submit;
     }
   }
 }
 
 class AddPropertyCubit extends Cubit<AddPropertyState> {
   AddPropertyCubit() : super(const AddPropertyInitial());
+
   bool isAddPropertyFlowInteracted = false;
+
+  final StorageService _storageService =
+      HsSingleton.singleton.get<StorageService>();
+  final AuthenticationService _authenticationService =
+      HsSingleton.singleton.get<AuthenticationService>();
+  final PhotoService _photoService = HsSingleton.singleton.get<PhotoService>();
 
   /// Defines all value needed for a property
   /// 1. Choose kind of place
@@ -184,13 +205,20 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   void navigatePage(NavigatePage navType, int totalPages) {
     if (navType == NavigatePage.forward &&
-        state.pageViewNumber < totalPages - 1) {
-      emit(PageViewNavigationState(state.pageViewNumber + 1));
+        state.pageViewNumber == totalPages - 1) {
+      // handle submit logic
+      _submitPropertyDetails();
+    } else {
+      // normal navigation
+      if (navType == NavigatePage.forward &&
+          state.pageViewNumber < totalPages - 1) {
+        emit(PageViewNavigationState(state.pageViewNumber + 1));
+      }
+      if (navType == NavigatePage.reverse && state.pageViewNumber > 0) {
+        emit(PageViewNavigationState(state.pageViewNumber - 1));
+      }
+      validateNextButtonState(state.pageViewNumber);
     }
-    if (navType == NavigatePage.reverse && state.pageViewNumber > 0) {
-      emit(PageViewNavigationState(state.pageViewNumber - 1));
-    }
-    validateNextButtonState(state.pageViewNumber);
   }
 
   /// Validate next button
@@ -223,6 +251,10 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
         showRightChevron = false;
         nextButtonEnable = _photos.length >= 4;
         break;
+      case 5: // preview
+        showRightChevron = false;
+        nextButtonEnable = true;
+        label = ButtonLabel.submit;
       // TODO add validation logic for other screens
     }
     emit(NextButtonEnable(
@@ -259,5 +291,81 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   void onCloseLostDataModal() {
     // Verify next button enable again
     validateNextButtonState(state.pageViewNumber);
+  }
+
+  void _submitPropertyDetails() async {
+    // show loading
+    emit(StartSubmitPropertyDetails(state.pageViewNumber));
+
+    // other steps
+    // upload photos
+    final String folder = _generateFolderName();
+    List<String> uploadedPhotos = [];
+    for (String path in photos) {
+      // compress file
+      File file5mb = await _photoService.createThumbnail(File(path),
+          targetBytes: 5 * 1024 * 1024); // target 5MB
+
+      await _storageService.files.uploadFile(
+        folder: folder,
+        path: file5mb.path,
+        onError: (e) {
+          debugPrint('Error $e');
+        },
+        onComplete: (url) {
+          uploadedPhotos.add(url);
+        },
+      );
+
+      // delete this file
+      file5mb.deleteSync();
+    }
+
+    // add this ID into user's list of properties
+    try {
+      final UserDetail user = await _authenticationService.getCurrentUser();
+      final Property property = Property(
+          type: _type,
+          name: _propertyName,
+          price: Price(
+            rentPrice: _price!,
+            currency: Currency.aud,
+          ),
+          description: _description,
+          address: AddressDetail(
+              suburb: _suburb,
+              postcode: _postalCode!,
+              state: _australiaState,
+              streetName: _address,
+              streetNo: _address,
+              unitNo: _unitNumber),
+          additionalDetail: AdditionalDetail(
+              bedrooms: _bedrooms,
+              bathrooms: _bathrooms,
+              parkings: _parking,
+              additional: _features.map((e) => e.name).toList()),
+          photos: uploadedPhotos,
+          minimumRentPeriod: _rentPeriod,
+          location:
+              const GeoPoint(0.0, 0.0), // TODO convert address into Geopoint
+          availableDate: Timestamp.fromDate(_availableDate),
+          ownerUid: user.uid);
+
+      final String id = await _storageService.property.addProperty(property);
+
+      await _storageService.member.addMemberProperties(user.uid, id);
+    } on UserNotFoundException catch (_) {
+      // do nothing
+    }
+    // complete upload
+    emit(EndSubmitPropertyDetails(state.pageViewNumber));
+  }
+
+  String _generateFolderName() {
+    const chars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+
+    return String.fromCharCodes(Iterable.generate(
+        18, (_) => chars.codeUnitAt(Random().nextInt(chars.length))));
   }
 }

@@ -45,3 +45,17 @@ class OpenLostDataWarningModal extends AddPropertyState {
   @override
   List<Object?> get props => [];
 }
+
+class StartSubmitPropertyDetails extends AddPropertyState {
+  const StartSubmitPropertyDetails(super.pageViewNumber);
+
+  @override
+  List<Object?> get props => [];
+}
+
+class EndSubmitPropertyDetails extends AddPropertyState {
+  const EndSubmitPropertyDetails(super.pageViewNumber);
+
+  @override
+  List<Object?> get props => [];
+}
