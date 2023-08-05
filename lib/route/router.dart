@@ -46,9 +46,11 @@ extension RouteExtension on BuildContext {
             builder: (context) => PropertyDetailScreen(id: id),
           ));
     } else {
-      Navigator.push(this, MaterialPageRoute(
-        builder: (context) => PropertyDetailScreen(id: id),
-      ));
+      Navigator.push(
+          this,
+          MaterialPageRoute(
+            builder: (context) => PropertyDetailScreen(id: id),
+          ));
     }
   }
 

@@ -132,12 +132,13 @@ void main() {
   test('verify API calls when saveMember', () async {
     StorageService storageService = StorageService();
     await storageService.member
-        .saveMember('uid', {Roles.homeowner}, 'displayName');
+        .saveMember('uid', {Roles.homeowner}, 'displayName', 'avatar');
     verify(firestore.collection('members')).called(1);
     verify(collectionReference.doc('uid')).called(1);
     verify(documentReference.set({
       'displayName': 'displayName',
       'roles': ['homeowner'],
+      'avatar':'avatar'
     }, any))
         .called(1);
   });

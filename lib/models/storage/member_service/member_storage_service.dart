@@ -48,8 +48,9 @@ class MemberService {
   }
 
   Future<void> saveMember(
-      String uid, Set<Roles> roles, String displayName) async {
-    Member member = Member(listRoles: roles, displayName: displayName);
+      String uid, Set<Roles> roles, String displayName, String? avatar) async {
+    Member member =
+        Member(listRoles: roles, displayName: displayName, avatar: avatar);
     await _firestore
         .collection(memberCollection)
         .doc(uid)
