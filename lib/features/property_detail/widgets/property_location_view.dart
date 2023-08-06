@@ -11,28 +11,28 @@ class PropertyLocationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.all(HsDimens.spacing16),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          HatSpaceStrings.current.location,
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium
-              ?.copyWith(fontSize: 18, color: HSColor.neutral9),
+        padding: const EdgeInsets.all(HsDimens.spacing16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              HatSpaceStrings.current.location,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(fontSize: 18, color: HSColor.neutral9),
+            ),
+            const SizedBox(
+              height: HsDimens.spacing8,
+            ),
+            Text(
+              locationDetail,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: HSColor.neutral7),
+            )
+          ],
         ),
-        const SizedBox(
-          height: HsDimens.spacing8,
-        ),
-        Text(
-          locationDetail,
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium
-              ?.copyWith(color: HSColor.neutral7),
-        )
-      ],
-    ),
-  );
+      );
 }

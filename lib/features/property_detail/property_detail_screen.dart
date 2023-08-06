@@ -32,305 +32,311 @@ class PropertyDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocProvider<PropertyDetailCubit>(
         create: (context) => PropertyDetailCubit()..loadDetail(id),
-        child: Scaffold(
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Stack(
-                  children: [
-                    BlocSelector<PropertyDetailCubit, PropertyDetailState,
-                        List<String>>(
-                      selector: (state) {
-                        if (state is PropertyDetailLoaded) {
-                          return state.photos;
-                        }
-                        return [];
-                      },
-                      builder: (context, photos) => HsPropertyImagesCarousel(
-                        photos: photos,
-                        ownerAndDateOverlay: false,
-                        aspectRatio: 375 / 280,
-                      ),
+        child: PropertyDetailBody(),
+      );
+}
+
+class PropertyDetailBody extends StatelessWidget {
+  const PropertyDetailBody({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Stack(
+                children: [
+                  BlocSelector<PropertyDetailCubit, PropertyDetailState,
+                      List<String>>(
+                    selector: (state) {
+                      if (state is PropertyDetailLoaded) {
+                        return state.photos;
+                      }
+                      return [];
+                    },
+                    builder: (context, photos) => HsPropertyImagesCarousel(
+                      photos: photos,
+                      ownerAndDateOverlay: false,
+                      aspectRatio: 375 / 280,
                     ),
-                    SafeArea(
-                        child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: HsDimens.spacing16,
-                          horizontal: HsDimens.spacing8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () => context.pop(),
-                            child: SvgPicture.asset(
-                              Assets.icons.backCircle,
-                              width: HsDimens.size32,
-                              height: HsDimens.size32,
-                            ),
-                          ),
-                          SvgPicture.asset(
-                            Assets.icons.favoriteCircle,
+                  ),
+                  SafeArea(
+                      child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: HsDimens.spacing16,
+                        horizontal: HsDimens.spacing8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: () => context.pop(),
+                          child: SvgPicture.asset(
+                            Assets.icons.backCircle,
                             width: HsDimens.size32,
                             height: HsDimens.size32,
-                          )
-                        ],
-                      ),
-                    )),
+                          ),
+                        ),
+                        SvgPicture.asset(
+                          Assets.icons.favoriteCircle,
+                          width: HsDimens.size32,
+                          height: HsDimens.size32,
+                        )
+                      ],
+                    ),
+                  )),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: HsDimens.spacing16,
+                    left: HsDimens.spacing16,
+                    right: HsDimens.spacing16,
+                    bottom: HsDimens.spacing4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    BlocSelector<PropertyDetailCubit, PropertyDetailState,
+                        String>(
+                      selector: (state) {
+                        if (state is PropertyDetailLoaded) {
+                          return state.type;
+                        }
+                        return '';
+                      },
+                      builder: (context, type) {
+                        return Text(
+                          type,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context).colorScheme.primary),
+                        );
+                      },
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SvgPicture.asset(
+                          Assets.icons.eye,
+                          width: HsDimens.size24,
+                          height: HsDimens.size24,
+                        ),
+                        const SizedBox(
+                          width: HsDimens.size4,
+                        ),
+                        Text(
+                          // TODO implement view count
+                          HatSpaceStrings.current.viewsToday(0),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: HSColor.neutral6),
+                        )
+                      ],
+                    )
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: HsDimens.spacing16,
-                      left: HsDimens.spacing16,
-                      right: HsDimens.spacing16,
-                      bottom: HsDimens.spacing4),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      BlocSelector<PropertyDetailCubit, PropertyDetailState,
-                          String>(
-                        selector: (state) {
-                          if (state is PropertyDetailLoaded) {
-                            return state.type;
-                          }
-                          return '';
-                        },
-                        builder: (context, type) {
-                          return Text(
-                            type,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                          );
-                        },
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SvgPicture.asset(
-                            Assets.icons.eye,
-                            width: HsDimens.size24,
-                            height: HsDimens.size24,
-                          ),
-                          const SizedBox(
-                            width: HsDimens.size4,
-                          ),
-                          Text(
-                            // TODO implement view count
-                            HatSpaceStrings.current.viewsToday(0),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(color: HSColor.neutral6),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: HsDimens.spacing16,
-                      right: HsDimens.spacing16,
-                      bottom: HsDimens.spacing4),
-                  child: BlocSelector<PropertyDetailCubit, PropertyDetailState,
-                      String>(
-                    selector: (state) {
-                      if (state is PropertyDetailLoaded) {
-                        return state.name;
-                      }
-
-                      return '';
-                    },
-                    builder: (context, propertyName) {
-                      return Text(
-                        propertyName,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge
-                            ?.copyWith(color: HSColor.neutral9),
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: HsDimens.spacing16,
-                      right: HsDimens.spacing16,
-                      bottom: HsDimens.spacing8),
-                  child: BlocSelector<PropertyDetailCubit, PropertyDetailState,
-                      String>(
-                    selector: (state) {
-                      if (state is PropertyDetailLoaded) {
-                        return state.suburb;
-                      }
-                      return '';
-                    },
-                    builder: (context, suburb) {
-                      return Text(
-                        suburb,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(color: HSColor.neutral6),
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: HsDimens.spacing16,
-                      right: HsDimens.spacing16,
-                      bottom: HsDimens.spacing16),
-                  child: BlocSelector<PropertyDetailCubit, PropertyDetailState,
-                      RoomsCount>(
-                    selector: (state) {
-                      if (state is PropertyDetailLoaded) {
-                        return RoomsCount(
-                            bedrooms: state.bedrooms,
-                            bathrooms: state.bathrooms,
-                            cars: state.carspaces);
-                      }
-
-                      return RoomsCount(cars: 0, bedrooms: 0, bathrooms: 0);
-                    },
-                    builder: (context, rooms) {
-                      return RoomListingCountView(
-                        bedrooms: rooms.bedrooms,
-                        bathrooms: rooms.bathrooms,
-                        cars: rooms.cars,
-                      );
-                    },
-                  ),
-                ),
-                // owner info
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: HsDimens.spacing16,
-                      right: HsDimens.spacing16,
-                      bottom: HsDimens.spacing16),
-                  child: Row(
-                    children: [
-                      BlocSelector<PropertyDetailCubit, PropertyDetailState,
-                          String?>(
-                        selector: (state) {
-                          if (state is PropertyDetailLoaded) {
-                            return state.ownerAvatar;
-                          }
-
-                          return null;
-                        },
-                        builder: (context, avatar) {
-                          return ClipRRect(
-                            borderRadius:
-                                BorderRadius.circular(HsDimens.radius24),
-                            // TODO what to show when avatar is null?
-                            child: avatar == null
-                                ? const SizedBox()
-                                : CachedNetworkImage(
-                                    imageUrl: avatar,
-                                    width: HsDimens.size24,
-                                    height: HsDimens.size24,
-                                  ),
-                          );
-                        },
-                      ),
-                      const SizedBox(
-                        width: HsDimens.spacing8,
-                      ),
-                      BlocSelector<PropertyDetailCubit, PropertyDetailState,
-                          String>(
-                        selector: (state) {
-                          if (state is PropertyDetailLoaded) {
-                            return state.ownerName;
-                          }
-
-                          return '';
-                        },
-                        builder: (context, ownerName) {
-                          return Text(
-                            ownerName,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(color: HSColor.neutral6),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: HsDimens.spacing16,
-                      right: HsDimens.spacing16,
-                      bottom: HsDimens.spacing8),
-                  child: BlocSelector<PropertyDetailCubit, PropertyDetailState,
-                      String>(
-                    selector: (state) {
-                      if (state is PropertyDetailLoaded) {
-                        return state.description;
-                      }
-                      return '';
-                    },
-                    builder: (context, description) {
-                      return PropertyDescriptionView(
-                        description: description,
-                        maxLine: 3,
-                      );
-                    },
-                  ),
-                ),
-                const Divider(
-                  height: HsDimens.size4,
-                  thickness: HsDimens.size4,
-                  color: HSColor.neutral2,
-                ),
-                BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                  builder: (context, state) {
-                    if (state is AuthenticatedState) {
-                      return BlocSelector<PropertyDetailCubit,
-                          PropertyDetailState, String>(
-                        selector: (state) {
-                          if (state is PropertyDetailLoaded) {
-                            return state.fullAddress;
-                          }
-                          return '';
-                        },
-                        builder: (context, address) => PropertyLocationView(
-                          locationDetail: address,
-                        ),
-                      );
-                    }
-
-                    return const SizedBox();
-                  },
-                ),
-                const Divider(
-                  height: HsDimens.size4,
-                  thickness: HsDimens.size4,
-                  color: HSColor.neutral2,
-                ),
-                BlocSelector<PropertyDetailCubit, PropertyDetailState,
-                    List<Feature>>(
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: HsDimens.spacing16,
+                    right: HsDimens.spacing16,
+                    bottom: HsDimens.spacing4),
+                child: BlocSelector<PropertyDetailCubit, PropertyDetailState,
+                    String>(
                   selector: (state) {
                     if (state is PropertyDetailLoaded) {
-                      return state.features;
+                      return state.name;
                     }
 
-                    return [];
+                    return '';
                   },
-                  builder: (context, features) {
-                    return PropertyFeaturesView(features: features);
+                  builder: (context, propertyName) {
+                    return Text(
+                      propertyName,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayLarge
+                          ?.copyWith(color: HSColor.neutral9),
+                    );
                   },
-                )
-              ],
-            ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: HsDimens.spacing16,
+                    right: HsDimens.spacing16,
+                    bottom: HsDimens.spacing8),
+                child: BlocSelector<PropertyDetailCubit, PropertyDetailState,
+                    String>(
+                  selector: (state) {
+                    if (state is PropertyDetailLoaded) {
+                      return state.suburb;
+                    }
+                    return '';
+                  },
+                  builder: (context, suburb) {
+                    return Text(
+                      suburb,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: HSColor.neutral6),
+                    );
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: HsDimens.spacing16,
+                    right: HsDimens.spacing16,
+                    bottom: HsDimens.spacing16),
+                child: BlocSelector<PropertyDetailCubit, PropertyDetailState,
+                    RoomsCount>(
+                  selector: (state) {
+                    if (state is PropertyDetailLoaded) {
+                      return RoomsCount(
+                          bedrooms: state.bedrooms,
+                          bathrooms: state.bathrooms,
+                          cars: state.carspaces);
+                    }
+
+                    return RoomsCount(cars: 0, bedrooms: 0, bathrooms: 0);
+                  },
+                  builder: (context, rooms) {
+                    return RoomListingCountView(
+                      bedrooms: rooms.bedrooms,
+                      bathrooms: rooms.bathrooms,
+                      cars: rooms.cars,
+                    );
+                  },
+                ),
+              ),
+              // owner info
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: HsDimens.spacing16,
+                    right: HsDimens.spacing16,
+                    bottom: HsDimens.spacing16),
+                child: Row(
+                  children: [
+                    BlocSelector<PropertyDetailCubit, PropertyDetailState,
+                        String?>(
+                      selector: (state) {
+                        if (state is PropertyDetailLoaded) {
+                          return state.ownerAvatar;
+                        }
+
+                        return null;
+                      },
+                      builder: (context, avatar) {
+                        return ClipRRect(
+                          borderRadius:
+                              BorderRadius.circular(HsDimens.radius24),
+                          // TODO what to show when avatar is null?
+                          child: avatar == null
+                              ? const SizedBox()
+                              : CachedNetworkImage(
+                                  imageUrl: avatar,
+                                  width: HsDimens.size24,
+                                  height: HsDimens.size24,
+                                ),
+                        );
+                      },
+                    ),
+                    const SizedBox(
+                      width: HsDimens.spacing8,
+                    ),
+                    BlocSelector<PropertyDetailCubit, PropertyDetailState,
+                        String>(
+                      selector: (state) {
+                        if (state is PropertyDetailLoaded) {
+                          return state.ownerName;
+                        }
+
+                        return '';
+                      },
+                      builder: (context, ownerName) {
+                        return Text(
+                          ownerName,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: HSColor.neutral6),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: HsDimens.spacing16,
+                    right: HsDimens.spacing16,
+                    bottom: HsDimens.spacing8),
+                child: BlocSelector<PropertyDetailCubit, PropertyDetailState,
+                    String>(
+                  selector: (state) {
+                    if (state is PropertyDetailLoaded) {
+                      return state.description;
+                    }
+                    return '';
+                  },
+                  builder: (context, description) {
+                    return PropertyDescriptionView(
+                      description: description,
+                      maxLine: 3,
+                    );
+                  },
+                ),
+              ),
+              const Divider(
+                height: HsDimens.size4,
+                thickness: HsDimens.size4,
+                color: HSColor.neutral2,
+              ),
+              BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                builder: (context, state) {
+                  if (state is AuthenticatedState) {
+                    return BlocSelector<PropertyDetailCubit,
+                        PropertyDetailState, String>(
+                      selector: (state) {
+                        if (state is PropertyDetailLoaded) {
+                          return state.fullAddress;
+                        }
+                        return '';
+                      },
+                      builder: (context, address) => PropertyLocationView(
+                        locationDetail: address,
+                      ),
+                    );
+                  }
+
+                  return const SizedBox();
+                },
+              ),
+              const Divider(
+                height: HsDimens.size4,
+                thickness: HsDimens.size4,
+                color: HSColor.neutral2,
+              ),
+              BlocSelector<PropertyDetailCubit, PropertyDetailState,
+                  List<Feature>>(
+                selector: (state) {
+                  if (state is PropertyDetailLoaded) {
+                    return state.features;
+                  }
+
+                  return [];
+                },
+                builder: (context, features) {
+                  return PropertyFeaturesView(features: features);
+                },
+              )
+            ],
           ),
         ),
       );
