@@ -102,16 +102,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
         "coverPhoto": MessageLookupByLibrary.simpleMessage("Cover photo"),
         "currencyFormatter": m1,
+        "date": MessageLookupByLibrary.simpleMessage("Date"),
         "dateFormatter": m2,
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of Birth"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "details": MessageLookupByLibrary.simpleMessage("Details"),
         "displayName": MessageLookupByLibrary.simpleMessage("Display name"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Email"),
+        "end": MessageLookupByLibrary.simpleMessage("End"),
         "enterPostalCode":
             MessageLookupByLibrary.simpleMessage("Enter postcode"),
         "enterPrice": MessageLookupByLibrary.simpleMessage("Enter price"),
@@ -172,6 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noLater": MessageLookupByLibrary.simpleMessage("No, later"),
         "notUpdated": MessageLookupByLibrary.simpleMessage("Not updated"),
+        "notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "numberFieldContainsNonNumber":
             MessageLookupByLibrary.simpleMessage("Only accept number"),
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
@@ -217,6 +221,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signinErrorToastTitle":
             MessageLookupByLibrary.simpleMessage("Login Failed"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "start": MessageLookupByLibrary.simpleMessage("Start"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),

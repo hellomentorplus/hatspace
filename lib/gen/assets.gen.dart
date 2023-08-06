@@ -78,6 +78,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/delete.svg
   String get delete => 'assets/icons/delete.svg';
 
+  /// File path: assets/icons/edit.svg
+  String get edit => 'assets/icons/edit.svg';
+
   /// File path: assets/icons/electric_stove.svg
   String get electricStove => 'assets/icons/electric_stove.svg';
 
@@ -147,6 +150,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/notification.svg
   String get notification => 'assets/icons/notification.svg';
 
+  /// File path: assets/icons/phone.svg
+  String get phone => 'assets/icons/phone.svg';
+
   /// File path: assets/icons/photo_access.svg
   String get photoAccess => 'assets/icons/photo_access.svg';
 
@@ -213,6 +219,7 @@ class $AssetsIconsGen {
         closeIcon,
         decrement,
         delete,
+        edit,
         electricStove,
         email,
         envelope,
@@ -236,6 +243,7 @@ class $AssetsIconsGen {
         message,
         messages,
         notification,
+        phone,
         photoAccess,
         portableFans,
         profileCircle,
