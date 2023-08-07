@@ -40,7 +40,7 @@ void main() {
           [isA<GettingUserDetailState>(), isA<GetUserDetailFailedState>()]);
 
   blocTest<ProfileCubit, ProfileState>(
-      'Given get user detail successfully successfully. '
+      'Given get user detail successfully. '
       'When get user role from Storage service. '
       'Then emit state with orders : GettingUserDetailState -> GetUserDetailSucceedState.',
       build: () => ProfileCubit(),
@@ -67,7 +67,7 @@ void main() {
       });
 
   blocTest<ProfileCubit, ProfileState>(
-      'Given get user detail successfully successfully. '
+      'Given get user detail successfully. '
       'When user delete their account successfully. '
       'Then emit state with orders : GetUserDetailSucceedState -> DeleteAccountSucceedState.',
       build: () => ProfileCubit(),

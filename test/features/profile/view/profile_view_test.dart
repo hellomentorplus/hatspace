@@ -291,7 +291,7 @@ void main() {
   testWidgets(
       'Given delete account feature works as expected'
       'When user delete their account'
-      'Then the app will navigate user to Login Screen', (widgetTester) async {
+      'Then the app will navigate user to SignUp Screen', (widgetTester) async {
     when(profileCubit.stream)
         .thenAnswer((_) => Stream.value(const DeleteAccountSucceedState()));
     when(profileCubit.state)
