@@ -28,7 +28,7 @@ class AuthenticationBloc
 
   void _validateAuthentication(
       _ValidateAuthentication event, Emitter<AuthenticationState> emit) async {
-    authenticationService.initialiseUserDetialStream();
+    authenticationService.initialiseUserDetailStream();
     await emit.forEach(
       authenticationService.authenticationState,
       onData: (data) {
