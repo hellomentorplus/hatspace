@@ -7,8 +7,8 @@ import 'package:hatspace/features/sign_up/view/sign_up_screen.dart';
 import 'package:hatspace/features/dashboard/dashboard_screen.dart';
 
 extension RouteExtension on BuildContext {
-  void goToSignup() {
-    Navigator.of(this).push(MaterialPageRoute(builder: ((context) {
+  Future<T?> goToSignup<T extends Object?>() {
+    return Navigator.of(this).push(MaterialPageRoute(builder: ((context) {
       return const SignUpScreen();
     })));
   }

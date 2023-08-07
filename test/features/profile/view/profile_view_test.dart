@@ -20,8 +20,12 @@ import '../../../widget_tester_extension.dart';
 import '../../add_property/view/widgets/add_rooms_view_test.dart';
 import 'profile_view_test.mocks.dart';
 
-@GenerateMocks(
-    [ProfileCubit, AuthenticationService, MemberService, StorageService])
+@GenerateMocks([
+  ProfileCubit,
+  AuthenticationService,
+  MemberService,
+  StorageService,
+])
 @GenerateNiceMocks([MockSpec<UserDetail>()])
 void main() {
   final MockProfileCubit profileCubit = MockProfileCubit();

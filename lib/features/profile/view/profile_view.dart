@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/dashboard/view_model/dashboard_interaction_cubit.dart';
 import 'package:hatspace/features/profile/my_profile/view/my_profile_screen.dart';
 import 'package:hatspace/features/profile/view_model/profile_cubit.dart';
-import 'package:hatspace/features/sign_up/view/sign_up_screen.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -45,8 +45,9 @@ class ProfileBody extends StatelessWidget {
         const SizedBox(height: HsDimens.spacing20),
         BlocConsumer<ProfileCubit, ProfileState>(listener: (_, state) {
           if (state is DeleteAccountSucceedState) {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => const SignUpScreen()));
+            context.goToSignup().then((_) => context
+                .read<DashboardInteractionCubit>()
+                .onBottomItemTapped(BottomBarItems.explore));
           }
         }, builder: (_, state) {
           if (state is DeleteAccountSucceedState) {
