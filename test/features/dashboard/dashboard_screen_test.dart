@@ -120,7 +120,7 @@ void main() {
     testWidgets(
         'given user logged in and is on dashboard screen'
         'when tap on explore item '
-        'then then HomePageView is shown', (widgetTester) async {
+        'then HomePageView is shown', (widgetTester) async {
       when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
 
       const Widget widget = DashboardScreen();
@@ -174,7 +174,7 @@ void main() {
     testWidgets(
         'given user logged in and is on dashboard screen'
         'when tap on booking item '
-        'then then BookingView is shown', (widgetTester) async {
+        'then BookingView is shown', (widgetTester) async {
       when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
 
       const Widget widget = DashboardScreen();
@@ -228,7 +228,7 @@ void main() {
     testWidgets(
         'given user logged in and is on dashboard screen'
         'when tap on message item '
-        'then then MessageView is shown', (widgetTester) async {
+        'then MessageView is shown', (widgetTester) async {
       when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
 
       const Widget widget = DashboardScreen();
@@ -283,7 +283,7 @@ void main() {
     testWidgets(
         'given user logged in and is on dashboard screen'
         'when tap on profile item '
-        'then then ProfileView is shown', (widgetTester) async {
+        'then ProfileView is shown', (widgetTester) async {
       when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
 
       const Widget widget = DashboardScreen();
