@@ -66,17 +66,21 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
   }
 
   void onBottomItemTapped(BottomBarItems item) async {
-    bool isUserLoggedIn = authenticationService.isUserLoggedIn;
-    if (!isUserLoggedIn) {
-      return emit(OpenLoginBottomSheetModal(item));
-    }
+    if (item == BottomBarItems.explore) {
+      emit(OpenPage(item));
+    } else {
+      bool isUserLoggedIn = authenticationService.isUserLoggedIn;
+      if (!isUserLoggedIn) {
+        return emit(OpenLoginBottomSheetModal(item));
+      }
 
-    switch (item) {
-      case (BottomBarItems.addingProperty):
-        onAddPropertyPressed();
-        break;
-      default:
-        emit(OpenPage(item));
+      switch (item) {
+        case (BottomBarItems.addingProperty):
+          onAddPropertyPressed();
+          break;
+        default:
+          emit(OpenPage(item));
+      }
     }
   }
 
