@@ -11,6 +11,7 @@ class HsWarningBottomSheetView extends StatelessWidget {
   final String? primaryButtonLabel; // return false value
   final VoidCallback? primaryOnPressed;
   final String? secondaryButtonLabel; // return true value
+  final ButtonStyle? secondaryButtonStyle;
   final VoidCallback? secondaryOnPressed;
   final String? textButtonLabel;
   final VoidCallback? textButtonOnPressed;
@@ -24,6 +25,7 @@ class HsWarningBottomSheetView extends StatelessWidget {
     this.primaryButtonLabel,
     this.primaryOnPressed,
     this.secondaryButtonLabel,
+    this.secondaryButtonStyle,
     this.secondaryOnPressed,
     this.textButtonLabel,
     this.textButtonOnPressed,
@@ -91,6 +93,7 @@ class HsWarningBottomSheetView extends StatelessWidget {
       button = Padding(
           padding: const EdgeInsets.only(bottom: HsDimens.spacing16),
           child: SecondaryButton(
+              style: secondaryButtonStyle,
               label: secondaryButtonLabel ?? '',
               onPressed: () {
                 secondaryOnPressed!();
