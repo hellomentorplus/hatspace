@@ -32,7 +32,7 @@ class PropertyDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocProvider<PropertyDetailCubit>(
         create: (context) => PropertyDetailCubit()..loadDetail(id),
-        child: const PropertyDetailBody(),
+        child: const PropertyDetailBody(), 
       );
 }
 
