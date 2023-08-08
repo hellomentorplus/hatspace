@@ -193,13 +193,22 @@ void main() {
   );
 
   blocTest(
-      'Given user has not logged in, when user taps on Explore, then return OpenLoginBottomSheetModal',
+      'Given user has not logged in, when user taps on Explore, then return OpenPage',
       build: () => DashboardInteractionCubit(),
       setUp: () {
         when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.explore),
-      expect: () => [isA<OpenLoginBottomSheetModal>()]);
+      expect: () => [isA<OpenPage>()]);
+
+  blocTest(
+      'Given user has logged in, when user taps on Explore, then return OpenPage',
+      build: () => DashboardInteractionCubit(),
+      setUp: () {
+        when(authenticationService.isUserLoggedIn).thenReturn(false);
+      },
+      act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.explore),
+      expect: () => [isA<OpenPage>()]);
 
   blocTest(
       'Given user has not logged in, when user taps on Booking, then return OpenLoginBottomSheetModal',

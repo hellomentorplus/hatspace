@@ -67,7 +67,12 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
   }
 
   void onBottomItemTapped(BottomBarItems item) async {
-    bool isUserLoggedIn = authenticationService.isUserLoggedIn;
+   
+
+    if (item == BottomBarItems.explore) {
+      emit(OpenPage(item));
+    } else {
+      bool isUserLoggedIn = authenticationService.isUserLoggedIn;
     if (!isUserLoggedIn) {
       pressedBottomBarItem = item;
       return emit(OpenLoginBottomSheetModal(item));
@@ -87,6 +92,7 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
         break;
       default:
         emit(OpenPage(item));
+  }
     }
   }
 

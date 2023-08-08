@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/features/profile/view_model/get_user_detail_cubit.dart';
+import 'package:hatspace/features/profile/view_model/profile_cubit.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -9,7 +9,7 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'get_user_detail_cubit_test.mocks.dart';
+import 'profile_cubit_test.mocks.dart';
 
 @GenerateMocks([StorageService, AuthenticationService, MemberService])
 @GenerateNiceMocks([MockSpec<UserDetail>()])
@@ -26,11 +26,11 @@ void main() {
     when(storageService.member).thenReturn(memberService);
   });
 
-  blocTest(
+  blocTest<ProfileCubit, ProfileState>(
       'Given authentication service can not get user detail. '
       'When get user detail from Authentication service. '
       'Then emit state with orders : GettingUserDetailState -> GetUserDetailFailedState.',
-      build: () => GetUserDetailCubit(),
+      build: () => ProfileCubit(),
       setUp: () {
         when(authenticationService.getCurrentUser())
             .thenThrow(Exception('Failed to fetch user'));
@@ -39,28 +39,11 @@ void main() {
       expect: () =>
           [isA<GettingUserDetailState>(), isA<GetUserDetailFailedState>()]);
 
-  blocTest(
-      'Given authentication service returns user detail successfully and member service failed to return user roles. '
-      'When get user information. '
-      'Then emit state with orders : GettingUserDetailState -> GetUserDetailFailedState.',
-      build: () => GetUserDetailCubit(),
-      setUp: () {
-        when(authenticationService.getCurrentUser())
-            .thenAnswer((_) => Future.value(MockUserDetail()));
-        when(memberService.getUserRoles('uid'))
-            .thenThrow(Exception('Failed to get roles'));
-      },
-      act: (bloc) => bloc.getUserInformation(),
-      expect: () => [
-            isA<GettingUserDetailState>(),
-            isA<GetUserDetailFailedState>(),
-          ]);
-
-  blocTest(
-      'Given get user detail successfully and get user roles successfully. '
+  blocTest<ProfileCubit, ProfileState>(
+      'Given get user detail successfully. '
       'When get user role from Storage service. '
       'Then emit state with orders : GettingUserDetailState -> GetUserDetailSucceedState.',
-      build: () => GetUserDetailCubit(),
+      build: () => ProfileCubit(),
       setUp: () {
         final MockUserDetail mockUser = MockUserDetail();
         when(authenticationService.getCurrentUser())
@@ -72,5 +55,28 @@ void main() {
       expect: () => [
             isA<GettingUserDetailState>(),
             isA<GetUserDetailSucceedState>(),
+          ]);
+
+  blocTest<ProfileCubit, ProfileState>(
+      'Given MyProfileCubit was just created. '
+      'When user do nothing. '
+      'Then state will be GetUserDetailInitialState.',
+      build: () => ProfileCubit(),
+      verify: (bloc) {
+        expect(bloc.state is ProfileInitialState, true);
+      });
+
+  blocTest<ProfileCubit, ProfileState>(
+      'Given get user detail successfully. '
+      'When user delete their account successfully. '
+      'Then emit state with orders : GetUserDetailSucceedState -> DeleteAccountSucceedState.',
+      build: () => ProfileCubit(),
+      setUp: () {
+        when(authenticationService.signOut())
+            .thenAnswer((_) => Future.value(null));
+      },
+      act: (bloc) => bloc.deleteAccount(),
+      expect: () => [
+            isA<DeleteAccountSucceedState>(),
           ]);
 }

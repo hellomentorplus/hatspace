@@ -216,6 +216,15 @@ class _DashboardBodyState extends State<DashboardBody>
                 }
               }
             },
+          ),
+          BlocListener<AuthenticationBloc, AuthenticationState>(
+            listener: (context, state) {
+              if (state is AnonymousState) {
+                context
+                    .read<DashboardInteractionCubit>()
+                    .onBottomItemTapped(BottomBarItems.explore);
+              }
+            },
           )
         ],
         child: Scaffold(
