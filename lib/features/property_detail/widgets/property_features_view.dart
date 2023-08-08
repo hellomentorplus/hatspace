@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../data/property_data.dart';
-import '../../../dimens/hs_dimens.dart';
-import '../../../strings/l10n.dart';
-import '../../../theme/hs_theme.dart';
+import 'package:hatspace/data/property_data.dart';
+import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/hs_theme.dart';
 
 class PropertyFeaturesView extends StatelessWidget {
   final List<Feature> features;
@@ -14,7 +14,7 @@ class PropertyFeaturesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => features.isEmpty
-      ? SizedBox()
+      ? const SizedBox()
       : Padding(
           padding: const EdgeInsets.all(HsDimens.spacing16),
           child: Column(

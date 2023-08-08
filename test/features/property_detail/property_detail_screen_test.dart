@@ -6,7 +6,6 @@ import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/property_detail/property_detail_screen.dart';
 import 'package:hatspace/features/property_detail/view_model/property_detail_cubit.dart';
-import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
