@@ -861,15 +861,20 @@ void main() {
   });
 
   group('verify logout flow', () {
-    testWidgets('given user is login, when user logout, then dashboard navigate to Explore tab', (widgetTester) async {
+    testWidgets(
+        'given user is login, when user logout, then dashboard navigate to Explore tab',
+        (widgetTester) async {
       // given
       when(authenticationService.isUserLoggedIn).thenReturn(true);
-      when(authenticationBloc.state).thenReturn(AuthenticatedState(UserDetail(uid: 'uiid', displayName: 'display name')));
+      when(authenticationBloc.state).thenReturn(AuthenticatedState(
+          UserDetail(uid: 'uiid', displayName: 'display name')));
       // when
-      when(authenticationBloc.stream).thenAnswer((realInvocation) => Stream.value(AnonymousState()));
+      when(authenticationBloc.stream)
+          .thenAnswer((realInvocation) => Stream.value(AnonymousState()));
 
       // navigate to profile page
-      when(interactionCubit.state).thenReturn(const OpenPage(BottomBarItems.profile));
+      when(interactionCubit.state)
+          .thenReturn(const OpenPage(BottomBarItems.profile));
 
       const Widget widget = DashboardBody();
       await widgetTester.multiBlocWrapAndPump([
@@ -891,7 +896,8 @@ void main() {
 
       expect(find.byType(HomePageView), findsOneWidget);
 
-      verify(interactionCubit.onBottomItemTapped(BottomBarItems.explore)).called(1);
+      verify(interactionCubit.onBottomItemTapped(BottomBarItems.explore))
+          .called(1);
     });
   });
 }

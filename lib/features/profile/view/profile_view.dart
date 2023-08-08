@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/features/dashboard/view_model/dashboard_interaction_cubit.dart';
 import 'package:hatspace/features/profile/my_profile/view/my_profile_screen.dart';
 import 'package:hatspace/features/profile/view_model/profile_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
