@@ -859,4 +859,39 @@ void main() {
       expect(find.byType(HsWarningBottomSheetView), findsNothing);
     });
   });
+
+  group('verify logout flow', () {
+    testWidgets('given user is login, when user logout, then dashboard navigate to Explore tab', (widgetTester) async {
+      // given
+      when(authenticationService.isUserLoggedIn).thenReturn(true);
+      when(authenticationBloc.state).thenReturn(AuthenticatedState(UserDetail(uid: 'uiid', displayName: 'display name')));
+      // when
+      when(authenticationBloc.stream).thenAnswer((realInvocation) => Stream.value(AnonymousState()));
+
+      // navigate to profile page
+      when(interactionCubit.state).thenReturn(const OpenPage(BottomBarItems.profile));
+
+      const Widget widget = DashboardBody();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        ),
+        BlocProvider<AddHomeOwnerRoleCubit>(
+          create: (context) => addHomeOwnerRoleCubit,
+        )
+      ], widget);
+
+      await widgetTester.pumpAndSettle(const Duration(milliseconds: 500));
+
+      expect(find.byType(HomePageView), findsOneWidget);
+
+      verify(interactionCubit.onBottomItemTapped(BottomBarItems.explore)).called(1);
+    });
+  });
 }

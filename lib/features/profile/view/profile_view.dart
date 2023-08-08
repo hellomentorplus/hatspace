@@ -30,88 +30,84 @@ class ProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-      bottom: false,
-      child: SingleChildScrollView(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const SizedBox(height: HsDimens.spacing24),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: HsDimens.spacing16),
-          child: Text(HatSpaceStrings.current.profile,
-              style: Theme.of(context).textTheme.displayLarge),
-        ),
-        const SizedBox(height: HsDimens.spacing20),
-        BlocConsumer<ProfileCubit, ProfileState>(listener: (_, state) {
-          if (state is DeleteAccountSucceedState) {
-            context.goToSignup().then((_) => context
-                .read<DashboardInteractionCubit>()
-                .onBottomItemTapped(BottomBarItems.explore));
-          }
-        }, builder: (_, state) {
-          if (state is DeleteAccountSucceedState) {
-            return const SizedBox();
-          }
-          return const _UserInformationView();
-        }),
-        const SizedBox(height: HsDimens.spacing24),
-        Padding(
-          padding: const EdgeInsets.only(
-              left: HsDimens.spacing16, right: HsDimens.spacing8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(HatSpaceStrings.current.myAccount,
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayLarge
-                      ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
-              const SizedBox(height: HsDimens.spacing8),
-              _OptionView(
-                iconPath: Assets.icons.apartment,
-                title: HatSpaceStrings.current.myProperties,
-                onPressed: () {},
-              ),
-              _OptionView(
-                iconPath: Assets.icons.favorite,
-                title: HatSpaceStrings.current.favoriteLists,
-                onPressed: () {},
-              ),
-              const SizedBox(height: HsDimens.spacing24),
-              Text(HatSpaceStrings.current.settings,
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayLarge
-                      ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
-              const SizedBox(height: HsDimens.spacing8),
-              _OptionView(
-                iconPath: Assets.icons.language,
-                title: HatSpaceStrings.current.language,
-                suffixText: 'English',
-                onPressed: () {},
-              ),
-              _OptionView(
-                iconPath: Assets.icons.info,
-                title: HatSpaceStrings.current.otherInformation,
-                onPressed: () {},
-              ),
-              _OptionView(
-                iconPath: Assets.icons.logout,
-                title: HatSpaceStrings.current.logOut,
-                onPressed: () {},
-              ),
-              _OptionView(
-                iconPath: Assets.icons.delete,
-                title: HatSpaceStrings.current.deleteAccount,
-                onPressed: () => _showDeleteAccountBottomSheet(context),
-              ),
-              const SizedBox(height: HsDimens.spacing24),
-            ],
+    return BlocListener<ProfileCubit, ProfileState>(
+      listener: (context, state) {
+        if (state is DeleteAccountSucceedState) {
+          context.goToSignup();
+        }
+      },
+      child: Scaffold(
+          body: SafeArea(
+        bottom: false,
+        child: SingleChildScrollView(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const SizedBox(height: HsDimens.spacing24),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: HsDimens.spacing16),
+            child: Text(HatSpaceStrings.current.profile,
+                style: Theme.of(context).textTheme.displayLarge),
           ),
-        )
-      ])),
-    ));
+          const SizedBox(height: HsDimens.spacing20),
+          const _UserInformationView(),
+          const SizedBox(height: HsDimens.spacing24),
+          Padding(
+            padding: const EdgeInsets.only(
+                left: HsDimens.spacing16, right: HsDimens.spacing8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(HatSpaceStrings.current.myAccount,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayLarge
+                        ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
+                const SizedBox(height: HsDimens.spacing8),
+                _OptionView(
+                  iconPath: Assets.icons.apartment,
+                  title: HatSpaceStrings.current.myProperties,
+                  onPressed: () {},
+                ),
+                _OptionView(
+                  iconPath: Assets.icons.favorite,
+                  title: HatSpaceStrings.current.favoriteLists,
+                  onPressed: () {},
+                ),
+                const SizedBox(height: HsDimens.spacing24),
+                Text(HatSpaceStrings.current.settings,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayLarge
+                        ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
+                const SizedBox(height: HsDimens.spacing8),
+                _OptionView(
+                  iconPath: Assets.icons.language,
+                  title: HatSpaceStrings.current.language,
+                  suffixText: 'English',
+                  onPressed: () {},
+                ),
+                _OptionView(
+                  iconPath: Assets.icons.info,
+                  title: HatSpaceStrings.current.otherInformation,
+                  onPressed: () {},
+                ),
+                _OptionView(
+                  iconPath: Assets.icons.logout,
+                  title: HatSpaceStrings.current.logOut,
+                  onPressed: () {},
+                ),
+                _OptionView(
+                  iconPath: Assets.icons.delete,
+                  title: HatSpaceStrings.current.deleteAccount,
+                  onPressed: () => _showDeleteAccountBottomSheet(context),
+                ),
+                const SizedBox(height: HsDimens.spacing24),
+              ],
+            ),
+          )
+        ])),
+      )),
+    );
   }
 
   Future<void> _showDeleteAccountBottomSheet(BuildContext context) {
