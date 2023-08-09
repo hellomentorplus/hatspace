@@ -93,13 +93,14 @@ class _AddPropertyPriceViewState extends State<AddPropertyPriceView>
                         borderRadius: BorderRadius.circular(4),
                         color: HSColor.neutral2),
                     child: Text(
-                      HatSpaceStrings.current
-                          .addPropertyPriceDisplay(
-                          Currency.aud.name.toUpperCase(),
-                          Currency.aud.symbol),
+                        HatSpaceStrings.current.addPropertyPriceDisplay(
+                            Currency.aud.name.toUpperCase(),
+                            Currency.aud.symbol),
                         style: textTheme.bodySmall
                             ?.copyWith(fontWeight: FontWeight.w700))),
-                const SizedBox(width: HsDimens.spacing8,),
+                const SizedBox(
+                  width: HsDimens.spacing8,
+                ),
                 Container(
                     padding: const EdgeInsets.all(HsDimens.spacing8),
                     decoration: BoxDecoration(
