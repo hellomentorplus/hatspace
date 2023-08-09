@@ -26,6 +26,7 @@ class PropertyDescriptionView extends StatelessWidget {
             description,
             maxLines: isExpanded ? null : maxLine,
             overflow: isExpanded ? null : TextOverflow.ellipsis,
+            textAlign: isExpanded ? TextAlign.justify : TextAlign.start,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium
@@ -44,7 +45,9 @@ class PropertyDescriptionView extends StatelessWidget {
               ValueListenableBuilder<bool>(
                 valueListenable: _isExpanded,
                 builder: (context, isExpanded, child) => Text(
-                  isExpanded ? HatSpaceStrings.current.showLess : HatSpaceStrings.current.showMore,
+                  isExpanded
+                      ? HatSpaceStrings.current.showLess
+                      : HatSpaceStrings.current.showMore,
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium

@@ -1453,6 +1453,16 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Book Inspection`
+  String get bookInspection {
+    return Intl.message(
+      'Book Inspection',
+      name: 'bookInspection',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

@@ -93,6 +93,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
+        "bookInspection":
+            MessageLookupByLibrary.simpleMessage("Book Inspection"),
         "booking": MessageLookupByLibrary.simpleMessage("Booking"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseKindOfYourProperty": MessageLookupByLibrary.simpleMessage(
