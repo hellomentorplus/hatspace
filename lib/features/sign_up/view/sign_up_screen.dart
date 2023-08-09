@@ -13,6 +13,7 @@ import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
 import 'package:hatspace/theme/toast_messages/toast_messages_extension.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
+import 'package:flutter/foundation.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -135,8 +136,10 @@ class SignUpBody extends StatelessWidget {
                             },
                           )),
                       Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: HsDimens.spacing24),
+                          padding: const EdgeInsets.only(
+                              left: HsDimens.spacing24,
+                              right: HsDimens.spacing24,
+                              bottom: HsDimens.spacing16),
                           child: SecondaryButton(
                             contentAlignment: MainAxisAlignment.start,
                             label: HatSpaceStrings.current.googleSignUp,
@@ -155,6 +158,28 @@ class SignUpBody extends StatelessWidget {
                                   .add(const SignUpWithGoogle());
                             },
                           )),
+                      if (defaultTargetPlatform == TargetPlatform.iOS) ...[
+                        Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: HsDimens.spacing24),
+                            child: SecondaryButton(
+                              contentAlignment: MainAxisAlignment.start,
+                              label: HatSpaceStrings.current.appleSignUp,
+                              iconUrl: Assets.icons.apple,
+                              overrideIconColor: false,
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                                padding: MaterialStateProperty.all<
+                                        EdgeInsetsGeometry>(
+                                    const EdgeInsets.all(HsDimens.spacing16)),
+                              ),
+                              onPressed: () {
+                                /// TODO : Handle login by apple
+                              },
+                            )),
+                      ],
                     ],
                   ))
                 ])),

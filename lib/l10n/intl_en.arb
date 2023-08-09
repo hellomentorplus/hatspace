@@ -161,5 +161,6 @@
   "myProfile": "My Profile",
   "deleteAccountWarning": "All your data will be kept within 30 days before being deleted pernamently. Are you sure you want to delete your account?",
   "submit": "Submit",
-  "deleteAccountQuestionMark": "Delete account?"
+  "deleteAccountQuestionMark": "Delete account?",
+  "appleSignUp": "Continue with Apple"
 }
