@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/theme/widgets/hs_room_count_view.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
 
 extension HsFindExtension on CommonFinders {
@@ -86,6 +87,30 @@ extension HsFindExtension on CommonFinders {
         }
 
         if (imageProvider.file.path != path) {
+          return false;
+        }
+
+        return true;
+      });
+
+  Finder roomCount(
+          {required int bedrooms,
+          required int bathroom,
+          required int parkings}) =>
+      byWidgetPredicate((widget) {
+        if (widget is! RoomListingCountView) {
+          return false;
+        }
+
+        if (bedrooms != widget.bedrooms) {
+          return false;
+        }
+
+        if (bathroom != widget.bathrooms) {
+          return false;
+        }
+
+        if (parkings != widget.cars) {
           return false;
         }
 

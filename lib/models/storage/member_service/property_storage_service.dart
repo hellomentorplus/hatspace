@@ -8,20 +8,21 @@ class PropertyService {
   PropertyService(FirebaseFirestore firestore) : _firestore = firestore;
 
   Future<Property?> getProperty(String id) async {
-    DocumentSnapshot<Map<String, dynamic>> proppertiesRef = await _firestore
+    DocumentSnapshot<Map<String, dynamic>> propertyRef = await _firestore
         .collection(propertyCollection)
         .doc(id)
         .get(const GetOptions(source: Source.server));
 
-    if (!proppertiesRef.exists) {
+    if (!propertyRef.exists) {
       return null;
     }
-    final Map<String, dynamic>? data = proppertiesRef.data();
+
+    final Map<String, dynamic>? data = propertyRef.data();
     // When data is not exits
     if (data == null) {
       return null;
     } else {
-      return Property.convertMapToObject(data);
+      return Property.convertMapToObject(id, data);
     }
   }
 
@@ -37,7 +38,7 @@ class PropertyService {
       return null;
     }
     List<Property> propertiesList = proppertiesRef.docs.map((doc) {
-      return Property.convertMapToObject(doc.data());
+      return Property.convertMapToObject(doc.id, doc.data());
     }).toList();
     return propertiesList;
   }
