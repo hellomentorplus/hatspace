@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +17,7 @@ import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../widget_tester_extension.dart';
+import '../../add_property/view/widgets/add_rooms_view_test.dart';
 import 'sign_up_screen_test.mocks.dart';
 
 @GenerateMocks(
@@ -291,5 +293,43 @@ void main() {
       // expect to not see this screen anymore
       expect(find.byType(SignUpBody), findsNothing);
     });
+  });
+
+  testWidgets(
+      'Given user is on iOS device, the Apple signup button will be shown',
+      (WidgetTester tester) async {
+    const Widget widget = SignUpBody();
+
+    debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+
+    await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
+
+    expect(find.text('Continue with Apple'), findsOneWidget);
+
+    expect(
+        find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, 'assets/icons/apple.svg')),
+        findsOneWidget);
+
+    debugDefaultTargetPlatformOverride = null;
+  });
+
+  testWidgets(
+      'Given user is on Android device, the Apple signup button will not be shown',
+      (WidgetTester tester) async {
+    const Widget widget = SignUpBody();
+
+    debugDefaultTargetPlatformOverride = TargetPlatform.android;
+
+    await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
+
+    expect(find.text('Continue with Apple'), findsNothing);
+
+    expect(
+        find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, 'assets/icons/apple.svg')),
+        findsNothing);
+
+    debugDefaultTargetPlatformOverride = null;
   });
 }

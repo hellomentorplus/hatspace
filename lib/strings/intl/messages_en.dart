@@ -86,6 +86,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "apartment": MessageLookupByLibrary.simpleMessage("Apartment"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
+        "appleSignUp":
+            MessageLookupByLibrary.simpleMessage("Continue with Apple"),
         "askFeaturesOwned": MessageLookupByLibrary.simpleMessage(
             "Which features your place has?"),
         "australiaState": m1,

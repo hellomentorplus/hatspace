@@ -163,5 +163,6 @@
   "submit": "Submit",
   "deleteAccountQuestionMark": "Delete account?",
   "addPropertyPriceDisplay": "{name} ({symbol})",
-  "addPropertyRentalPeriodUnit":"(PW)"
+  "addPropertyRentalPeriodUnit":"(PW)",
+  "appleSignUp": "Continue with Apple"
 }
