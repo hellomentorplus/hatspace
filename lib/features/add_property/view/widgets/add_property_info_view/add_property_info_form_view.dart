@@ -19,7 +19,7 @@ class AddPropertyInfoFormView extends StatelessWidget {
     const AddPropertyNameView(),
     const AddPropertyPriceView(),
     AddPropertyMinimumRentView(),
-    const AddPropertyDescriptionView(),
+    AddPropertyDescriptionView(),
     Text(HatSpaceStrings.current.yourAddress,
         style: textTheme.displayLarge?.copyWith(fontSize: 18.0)),
     AddPropertyStateView(),

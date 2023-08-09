@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/data/data.dart';
+import 'package:hatspace/features/booking/booking_view.dart';
 import 'package:hatspace/features/dashboard/dashboard_screen.dart';
 import 'package:hatspace/features/dashboard/view_model/add_home_owner_role_cubit.dart';
 import 'package:hatspace/features/dashboard/view_model/dashboard_interaction_cubit.dart';
+import 'package:hatspace/features/home/view/home_view.dart';
+import 'package:hatspace/features/message/message_view.dart';
+import 'package:hatspace/features/profile/view/profile_view.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/permission/permission_service.dart';
+import 'package:hatspace/models/permission/permission_status.dart';
+import 'package:hatspace/models/photo/photo_service.dart';
+import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -25,7 +36,10 @@ import 'dashboard_screen_test.mocks.dart';
   AuthenticationService,
   AuthenticationBloc,
   DashboardInteractionCubit,
-  AddHomeOwnerRoleCubit
+  AddHomeOwnerRoleCubit,
+  HsPermissionService,
+  MemberService,
+  PhotoService,
 ])
 void main() {
   final MockAppConfigBloc appConfigBloc = MockAppConfigBloc();
@@ -37,11 +51,20 @@ void main() {
   final MockStorageService storageService = MockStorageService();
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
+  final MockHsPermissionService hsPermissionService = MockHsPermissionService();
+  final MockMemberService memberService = MockMemberService();
+  initializeDateFormatting();
+  final MockPhotoService photoService = MockPhotoService();
 
   setUpAll(() {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationService);
+    HsSingleton.singleton
+        .registerSingleton<HsPermissionService>(hsPermissionService);
+    HsSingleton.singleton.registerSingleton<PhotoService>(photoService);
+
+    when(storageService.member).thenReturn(memberService);
   });
 
   setUp(() {
@@ -69,55 +92,244 @@ void main() {
     reset(addHomeOwnerRoleCubit);
   });
 
-  testWidgets(
-      'Given user has not login, when user taps on BottomAppItems, then show HsWarningModalWith',
-      (widgetTester) async {
+  group('verify interaction - explore item', () {
+    testWidgets(
+        'given user does not log in and is on dashboard screen'
+        'when tap on explore item '
+        'then HomePageView is shown', (widgetTester) async {
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => false);
+
+      const Widget widget = DashboardScreen();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+      ], widget);
+
+      await widgetTester.tap(find.text('Explore'));
+      await widgetTester.pumpAndSettle();
+
+      // login bottom sheet is not displayed
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+      expect(find.byType(HomePageView), findsOneWidget);
+    });
+
+    testWidgets(
+        'given user logged in and is on dashboard screen'
+        'when tap on explore item '
+        'then HomePageView is shown', (widgetTester) async {
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
+
+      const Widget widget = DashboardScreen();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+      ], widget);
+
+      await widgetTester.tap(find.text('Explore'));
+      await widgetTester.pumpAndSettle();
+
+      // login bottom sheet is not displayed
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+      expect(find.byType(HomePageView), findsOneWidget);
+    });
+  });
+
+  group('verify interaction - booking item', () {
+    testWidgets(
+        'given user does not log in and is on dashboard screen'
+        'when tap on booking item '
+        'then HsLoginModal is shown', (widgetTester) async {
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => false);
+
+      const Widget widget = DashboardScreen();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+      ], widget);
+
+      await widgetTester.tap(find.text('Booking'));
+      await widgetTester.pumpAndSettle();
+
+      // login bottom sheet is displayed
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+
+      // verify tap out
+      await widgetTester.tapAt(const Offset(20, 20));
+      await widgetTester.pumpAndSettle();
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+    });
+
+    testWidgets(
+        'given user logged in and is on dashboard screen'
+        'when tap on booking item '
+        'then BookingView is shown', (widgetTester) async {
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
+
+      const Widget widget = DashboardScreen();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+      ], widget);
+
+      await widgetTester.tap(find.text('Booking'));
+      await widgetTester.pumpAndSettle();
+
+      // login bottom sheet is not displayed
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+      expect(find.byType(BookingView), findsOneWidget);
+    });
+  });
+
+  group('verify interaction - message item', () {
+    testWidgets(
+        'given user does not log in and is on dashboard screen'
+        'when tap on message item '
+        'then HsLoginModal is shown', (widgetTester) async {
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => false);
+
+      const Widget widget = DashboardScreen();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+      ], widget);
+
+      await widgetTester.tap(find.text('Message'));
+      await widgetTester.pumpAndSettle();
+
+      // login bottom sheet is displayed
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+
+      // verify tap out
+      await widgetTester.tapAt(const Offset(20, 20));
+      await widgetTester.pumpAndSettle();
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+    });
+
+    testWidgets(
+        'given user logged in and is on dashboard screen'
+        'when tap on message item '
+        'then MessageView is shown', (widgetTester) async {
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
+
+      const Widget widget = DashboardScreen();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+      ], widget);
+
+      await widgetTester.tap(find.text('Message'));
+      await widgetTester.pumpAndSettle();
+
+      // login bottom sheet is not displayed
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+      expect(find.byType(MessageView), findsOneWidget);
+    });
+  });
+
+  group('verify interaction - Profile item', () {
+    testWidgets(
+        'given user does not log in and is on dashboard screen'
+        'when tap on Profile item '
+        'then HsLoginModal is shown', (widgetTester) async {
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => false);
+
+      const Widget widget = DashboardScreen();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+      ], widget);
+
+      // Verify on Explore
+      await widgetTester.tap(find.text('Profile'));
+      await widgetTester.pumpAndSettle();
+
+      // login bottom sheet is displayed
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+
+      // verify tap out
+      await widgetTester.tapAt(const Offset(20, 20));
+      await widgetTester.pumpAndSettle();
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+    });
+
+    testWidgets(
+        'given user logged in and is on dashboard screen'
+        'when tap on profile item '
+        'then ProfileView is shown', (widgetTester) async {
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
+
+      const Widget widget = DashboardScreen();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+      ], widget);
+
+      await widgetTester.tap(find.text('Profile'));
+      await widgetTester.pumpAndSettle();
+
+      // login bottom sheet is not displayed
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+      expect(find.byType(ProfileView), findsOneWidget);
+    });
+  });
+
+  testWidgets('verify UI of HsLoginModal ', (widgetTester) async {
     const Widget widget = DashboardScreen();
     await widgetTester.multiBlocWrapAndPump([
-      BlocProvider<AuthenticationBloc>(
-        create: (context) => authenticationBloc,
-      ),
       BlocProvider<AppConfigBloc>(
         create: (context) => appConfigBloc,
       ),
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => authenticationBloc,
+      )
     ], widget);
 
     when(authenticationService.isUserLoggedIn).thenAnswer((_) => false);
-    // Verify on Explore
-    await widgetTester.tap(find.text('Explore'));
-    await widgetTester.pumpAndSettle();
-    expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
-    // verify tap out
-    await widgetTester.tapAt(const Offset(20, 20));
-    await widgetTester.pumpAndSettle();
-    expect(find.byType(HsWarningBottomSheetView), findsNothing);
-
-    //verify tap on Booking
     await widgetTester.tap(find.text('Booking'));
-    await widgetTester.pumpAndSettle();
+    await widgetTester.pump();
     expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
-    // verify tap out
-    await widgetTester.tapAt(const Offset(20, 20));
-    await widgetTester.pumpAndSettle();
-    expect(find.byType(HsWarningBottomSheetView), findsNothing);
 
-    //verify tap on Message
-    await widgetTester.tap(find.text('Message'));
-    await widgetTester.pumpAndSettle();
-    expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
-    // verify tap out
-    await widgetTester.tapAt(const Offset(20, 20));
-    await widgetTester.pumpAndSettle();
-    expect(find.byType(HsWarningBottomSheetView), findsNothing);
-
-    //verify tap on Profile
-    await widgetTester.tap(find.text('Profile'));
-    await widgetTester.pumpAndSettle();
-    expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
-    // verify tap out
-    await widgetTester.tapAt(const Offset(20, 20));
-    await widgetTester.pumpAndSettle();
-    expect(find.byType(HsWarningBottomSheetView), findsNothing);
+    //verify UI
+    expect(find.text('Login'), findsOneWidget);
+    expect(find.text('You need to be logged in to view this content'),
+        findsOneWidget);
+    expect(
+        find.svgPictureWithAssets(Assets.images.loginCircle), findsOneWidget);
+    expect(
+        find.widgetWithText(PrimaryButton, 'Yes, login now'), findsOneWidget);
+    expect(find.widgetWithText(SecondaryButton, 'No, later'), findsOneWidget);
   });
 
   testWidgets('verify dashboard view listen to changes on BlocListener',
@@ -141,36 +353,7 @@ void main() {
         findsOneWidget);
   });
 
-  testWidgets(
-      'Given HsModalLogin pop up when user taps on bottom item, then verify UI of modal ',
-      (widgetTester) async {
-    const Widget widget = DashboardScreen();
-    await widgetTester.multiBlocWrapAndPump([
-      BlocProvider<AppConfigBloc>(
-        create: (context) => appConfigBloc,
-      ),
-      BlocProvider<AuthenticationBloc>(
-        create: (context) => authenticationBloc,
-      )
-    ], widget);
-
-    when(authenticationService.isUserLoggedIn).thenAnswer((_) => false);
-    // Verify on Explore
-    await widgetTester.tap(find.text('Explore'));
-    await widgetTester.pump();
-    expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
-    //verify UI
-    expect(find.text('Login'), findsOneWidget);
-    expect(find.text('You need to be logged in to view this content'),
-        findsOneWidget);
-    expect(
-        find.svgPictureWithAssets(Assets.images.loginCircle), findsOneWidget);
-    expect(
-        find.widgetWithText(PrimaryButton, 'Yes, login now'), findsOneWidget);
-    expect(find.widgetWithText(SecondaryButton, 'No, later'), findsOneWidget);
-  });
-
-  group('verify login modal iteraction', () {
+  group('verify login modal interaction', () {
     setUp(() {
       when(interactionCubit.state).thenAnswer(
           (_) => const OpenLoginBottomSheetModal(BottomBarItems.explore));
@@ -329,4 +512,392 @@ void main() {
       });
     },
   );
+
+  group('Request Photo permission', () {
+    testWidgets(
+        'given DashboardInteractionState is PhotoPermissionGranted, '
+        'when launch dashboard screen'
+        'then no HsWarningBottomSheetView is shown and navigate to another screen',
+        (widgetTester) async {
+      when(interactionCubit.state).thenReturn(PhotoPermissionGranted());
+      when(interactionCubit.stream).thenAnswer(
+          (realInvocation) => Stream.value(PhotoPermissionGranted()));
+
+      const Widget widget = DashboardBody();
+
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        ),
+        BlocProvider<AddHomeOwnerRoleCubit>(
+          create: (context) => addHomeOwnerRoleCubit,
+        )
+      ], widget);
+
+      // no bottom sheet
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+      // expect navigate to add property flow -> no dashboard screen
+      expect(find.byType(DashboardBody), findsNothing);
+    });
+
+    testWidgets(
+        'given DashboardInteractionState is PhotoPermissionDenied, '
+        'when launch dashboard screen'
+        'then no HsWarningBottomSheetView is shown and still on dashboard screen',
+        (widgetTester) async {
+      when(interactionCubit.state).thenReturn(PhotoPermissionDenied());
+      when(interactionCubit.stream).thenAnswer(
+          (realInvocation) => Stream.value(PhotoPermissionDenied()));
+
+      const Widget widget = DashboardBody();
+
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        ),
+        BlocProvider<AddHomeOwnerRoleCubit>(
+          create: (context) => addHomeOwnerRoleCubit,
+        )
+      ], widget);
+
+      // no bottom sheet
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+      // expect navigate to add property flow -> no dashboard screen
+      expect(find.byType(DashboardBody), findsOneWidget);
+    });
+
+    testWidgets(
+        'given DashboardInteractionState is PhotoPermissionDeniedForever, '
+        'when launch dashboard screen'
+        'then Goto Setting BottomSheet is shown', (widgetTester) async {
+      when(interactionCubit.state).thenReturn(PhotoPermissionDeniedForever());
+      when(interactionCubit.stream).thenAnswer(
+          (realInvocation) => Stream.value(PhotoPermissionDeniedForever()));
+
+      const Widget widget = DashboardBody();
+
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        ),
+        BlocProvider<AddHomeOwnerRoleCubit>(
+          create: (context) => addHomeOwnerRoleCubit,
+        )
+      ], widget);
+
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+      SvgPicture uploadPhoto = widgetTester.widget(find.descendant(
+          of: find.byType(HsWarningBottomSheetView),
+          matching: find.byType(SvgPicture)));
+      BytesLoader bytesLoader = uploadPhoto.bytesLoader;
+      expect(bytesLoader, isA<SvgAssetLoader>());
+      expect((bytesLoader as SvgAssetLoader).assetName,
+          'assets/icons/photo_access.svg');
+      expect(
+          find.text('"HATSpace" Would Like to Photo Access'), findsOneWidget);
+      expect(
+          find.text(
+              'Please go to Settings and allow photos access for HATSpace.'),
+          findsOneWidget);
+      expect(
+          find.ancestor(
+              of: find.text('Go to Setting'),
+              matching: find.byType(PrimaryButton)),
+          findsOneWidget);
+      expect(
+          find.ancestor(
+              of: find.text('Cancel'), matching: find.byType(SecondaryButton)),
+          findsOneWidget);
+    });
+  });
+
+  group('verify interaction - add property item', () {
+    testWidgets(
+        'given user logged in and is on dashboard screen and photo permission is granted'
+        'when tap on add property item '
+        'then permission service should request photo permission and navigate to addProperty screen',
+        (widgetTester) async {
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
+      when(authenticationService.getCurrentUser())
+          .thenAnswer((realInvocation) => Future.value(UserDetail(uid: 'uid')));
+      when(memberService.getUserRoles('uid'))
+          .thenAnswer((realInvocation) => Future.value([Roles.homeowner]));
+      when(hsPermissionService.checkPhotoPermission()).thenAnswer(
+          (realInvocation) => Future.value(HsPermissionStatus.granted));
+
+      const Widget widget = DashboardScreen();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        )
+      ], widget);
+      expectLater(find.byType(DashboardScreen), findsOneWidget);
+
+      Finder svgPicture = find.descendant(
+        of: find.ancestor(
+          of: find.byType(Padding),
+          matching: find.byType(InkWell),
+        ),
+        matching: find.byType(SvgPicture),
+      );
+
+      SvgPicture uploadPhoto = widgetTester.widget(svgPicture);
+      BytesLoader bytesLoader = uploadPhoto.bytesLoader;
+      expect(bytesLoader, isA<SvgAssetLoader>());
+      expect((bytesLoader as SvgAssetLoader).assetName, 'assets/icons/add.svg');
+
+      await widgetTester.ensureVisible(svgPicture);
+      await widgetTester.tap(svgPicture);
+      await widgetTester.pumpAndSettle();
+
+      verify(hsPermissionService.checkPhotoPermission()).called(1);
+      // navigate to another screen
+      expect(find.byType(DashboardScreen), findsNothing);
+    });
+
+    testWidgets(
+        'given user logged in and is on dashboard screen and photo permission is denied'
+        'when tap on add property item '
+        'then permission service should request photo permission and not navigate to addProperty screen',
+        (widgetTester) async {
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
+      when(authenticationService.getCurrentUser())
+          .thenAnswer((realInvocation) => Future.value(UserDetail(uid: 'uid')));
+      when(memberService.getUserRoles('uid'))
+          .thenAnswer((realInvocation) => Future.value([Roles.homeowner]));
+      when(hsPermissionService.checkPhotoPermission()).thenAnswer(
+          (realInvocation) => Future.value(HsPermissionStatus.denied));
+
+      const Widget widget = DashboardScreen();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        )
+      ], widget);
+      expectLater(find.byType(DashboardScreen), findsOneWidget);
+
+      Finder svgPicture = find.descendant(
+        of: find.ancestor(
+          of: find.byType(Padding),
+          matching: find.byType(InkWell),
+        ),
+        matching: find.byType(SvgPicture),
+      );
+
+      SvgPicture uploadPhoto = widgetTester.widget(svgPicture);
+      BytesLoader bytesLoader = uploadPhoto.bytesLoader;
+      expect(bytesLoader, isA<SvgAssetLoader>());
+      expect((bytesLoader as SvgAssetLoader).assetName, 'assets/icons/add.svg');
+
+      await widgetTester.ensureVisible(svgPicture);
+      await widgetTester.tap(svgPicture);
+      await widgetTester.pumpAndSettle();
+
+      verify(hsPermissionService.checkPhotoPermission()).called(1);
+      // not navigate to another screen
+      expect(find.byType(DashboardScreen), findsOneWidget);
+    });
+
+    testWidgets(
+        'given user logged in and is on dashboard screen and photo permission is deniedForever'
+        'when tap on add property item '
+        'then permission service should request photo permission and show gotoSetting bottom sheet',
+        (widgetTester) async {
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
+      when(authenticationService.getCurrentUser())
+          .thenAnswer((realInvocation) => Future.value(UserDetail(uid: 'uid')));
+      when(memberService.getUserRoles('uid'))
+          .thenAnswer((realInvocation) => Future.value([Roles.homeowner]));
+      when(hsPermissionService.checkPhotoPermission()).thenAnswer(
+          (realInvocation) => Future.value(HsPermissionStatus.deniedForever));
+
+      const Widget widget = DashboardScreen();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        )
+      ], widget);
+      expectLater(find.byType(DashboardScreen), findsOneWidget);
+
+      Finder svgPicture = find.descendant(
+        of: find.ancestor(
+          of: find.byType(Padding),
+          matching: find.byType(InkWell),
+        ),
+        matching: find.byType(SvgPicture),
+      );
+
+      SvgPicture uploadPhoto = widgetTester.widget(svgPicture);
+      BytesLoader bytesLoader = uploadPhoto.bytesLoader;
+      expect(bytesLoader, isA<SvgAssetLoader>());
+      expect((bytesLoader as SvgAssetLoader).assetName, 'assets/icons/add.svg');
+
+      await widgetTester.ensureVisible(svgPicture);
+      await widgetTester.tap(svgPicture);
+      await widgetTester.pumpAndSettle();
+
+      verify(hsPermissionService.checkPhotoPermission()).called(1);
+      // not navigate to another screen
+      expect(find.byType(DashboardScreen), findsOneWidget);
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+      // expect UI gotoSetting bottom has been covered on group 'Request photo permission'
+    });
+
+    testWidgets(
+        'given gotoSetting bottom sheet is displayed, '
+        'when tap on go to setting,'
+        'then navigate to application setting screen', (widgetTester) async {
+      when(interactionCubit.state).thenReturn(PhotoPermissionDeniedForever());
+      when(interactionCubit.stream).thenAnswer(
+          (realInvocation) => Stream.value(PhotoPermissionDeniedForever()));
+
+      const Widget widget = DashboardBody();
+
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        ),
+        BlocProvider<AddHomeOwnerRoleCubit>(
+          create: (context) => addHomeOwnerRoleCubit,
+        )
+      ], widget);
+
+      // bottom sheet is displayed
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+
+      Finder goToSettingBtn = find.ancestor(
+          of: find.text('Go to Setting'), matching: find.byType(PrimaryButton));
+
+      await widgetTester.ensureVisible(goToSettingBtn);
+      await widgetTester.tap(goToSettingBtn);
+      await widgetTester.pumpAndSettle();
+
+      verify(interactionCubit.gotoSetting()).called(1);
+      // navigate to setting screen
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+    });
+
+    testWidgets(
+        'given gotoSetting bottom sheet is displayed, '
+        'when tap on cancel,'
+        'then bottom sheet is closed', (widgetTester) async {
+      when(interactionCubit.state).thenReturn(PhotoPermissionDeniedForever());
+      when(interactionCubit.stream).thenAnswer(
+          (realInvocation) => Stream.value(PhotoPermissionDeniedForever()));
+
+      const Widget widget = DashboardBody();
+
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        ),
+        BlocProvider<AddHomeOwnerRoleCubit>(
+          create: (context) => addHomeOwnerRoleCubit,
+        )
+      ], widget);
+
+      // bottom sheet is displayed
+      expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
+
+      Finder cancelBtn = find.ancestor(
+          of: find.text('Cancel'), matching: find.byType(SecondaryButton));
+
+      await widgetTester.ensureVisible(cancelBtn);
+      await widgetTester.tap(cancelBtn);
+      await widgetTester.pumpAndSettle();
+
+      verify(interactionCubit.cancelPhotoAccess()).called(1);
+      // close bottom sheet
+      expect(find.byType(HsWarningBottomSheetView), findsNothing);
+    });
+  });
+
+  group('verify logout flow', () {
+    testWidgets(
+        'given user is login, when user logout, then dashboard navigate to Explore tab',
+        (widgetTester) async {
+      // given
+      when(authenticationService.isUserLoggedIn).thenReturn(true);
+      when(authenticationBloc.state).thenReturn(AuthenticatedState(
+          UserDetail(uid: 'uiid', displayName: 'display name')));
+      // when
+      when(authenticationBloc.stream)
+          .thenAnswer((realInvocation) => Stream.value(AnonymousState()));
+
+      // navigate to profile page
+      when(interactionCubit.state)
+          .thenReturn(const OpenPage(BottomBarItems.profile));
+
+      const Widget widget = DashboardBody();
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppConfigBloc>(
+          create: (context) => appConfigBloc,
+        ),
+        BlocProvider<DashboardInteractionCubit>(
+          create: (context) => interactionCubit,
+        ),
+        BlocProvider<AddHomeOwnerRoleCubit>(
+          create: (context) => addHomeOwnerRoleCubit,
+        )
+      ], widget);
+
+      await widgetTester.pumpAndSettle(const Duration(milliseconds: 500));
+
+      expect(find.byType(HomePageView), findsOneWidget);
+
+      verify(interactionCubit.onBottomItemTapped(BottomBarItems.explore))
+          .called(1);
+    });
+  });
 }

@@ -42,10 +42,12 @@ class PropertyService {
     return propertiesList;
   }
 
-  Future<void> addProperty(Property property) async {
-    await _firestore
-        .collection(propertyCollection)
-        .doc()
-        .set(property.convertObjectToMap());
+  Future<String> addProperty(Property property) async {
+    DocumentReference documentReference =
+        _firestore.collection(propertyCollection).doc();
+
+    await documentReference.set(property.convertObjectToMap());
+
+    return documentReference.id;
   }
 }

@@ -1,26 +1,34 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/profile/my_profile/view/my_profile_screen.dart';
 import 'package:hatspace/features/profile/view/profile_view.dart';
-import 'package:hatspace/features/profile/view_model/get_user_detail_cubit.dart';
+import 'package:hatspace/features/profile/view_model/profile_cubit.dart';
+import 'package:hatspace/features/sign_up/view/sign_up_screen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 import '../../../widget_tester_extension.dart';
 import '../../add_property/view/widgets/add_rooms_view_test.dart';
-import 'profile_screen_test.mocks.dart';
+import 'profile_view_test.mocks.dart';
 
-@GenerateMocks(
-    [GetUserDetailCubit, AuthenticationService, MemberService, StorageService])
+@GenerateMocks([
+  ProfileCubit,
+  AuthenticationService,
+  MemberService,
+  StorageService,
+])
 @GenerateNiceMocks([MockSpec<UserDetail>()])
 void main() {
-  final MockGetUserDetailCubit getUserDetailCubit = MockGetUserDetailCubit();
+  final MockProfileCubit profileCubit = MockProfileCubit();
   final MockStorageService storageService = MockStorageService();
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
@@ -83,14 +91,13 @@ void main() {
       (widgetTester) async {
     when(user.avatar).thenReturn(null);
     when(user.displayName).thenReturn(null);
-    when(getUserDetailCubit.stream).thenAnswer(
+    when(profileCubit.stream).thenAnswer(
         (_) => Stream.value(GetUserDetailSucceedState(user, const [])));
-    when(getUserDetailCubit.state)
+    when(profileCubit.state)
         .thenAnswer((_) => GetUserDetailSucceedState(user, const []));
 
-    await mockNetworkImagesFor(() =>
-        widgetTester.blocWrapAndPump<GetUserDetailCubit>(
-            getUserDetailCubit, const ProfileBody()));
+    await mockNetworkImagesFor(() => widgetTester.blocWrapAndPump<ProfileCubit>(
+        profileCubit, const ProfileBody()));
 
     expect(find.byType(ProfileBody), findsOneWidget);
 
@@ -108,14 +115,13 @@ void main() {
       (widgetTester) async {
     when(user.avatar).thenReturn('avatar.jpg');
     when(user.displayName).thenReturn('This is user name');
-    when(getUserDetailCubit.stream).thenAnswer(
+    when(profileCubit.stream).thenAnswer(
         (_) => Stream.value(GetUserDetailSucceedState(user, const [])));
-    when(getUserDetailCubit.state)
+    when(profileCubit.state)
         .thenAnswer((_) => GetUserDetailSucceedState(user, const []));
 
-    await mockNetworkImagesFor(() =>
-        widgetTester.blocWrapAndPump<GetUserDetailCubit>(
-            getUserDetailCubit, const ProfileBody()));
+    await mockNetworkImagesFor(() => widgetTester.blocWrapAndPump<ProfileCubit>(
+        profileCubit, const ProfileBody()));
 
     expect(find.byType(ProfileBody), findsOneWidget);
 
@@ -139,15 +145,14 @@ void main() {
     when(user.avatar).thenReturn('avatar.jpg');
     when(user.displayName).thenReturn('This is user name');
 
-    when(getUserDetailCubit.stream).thenAnswer((_) => Stream.value(
+    when(profileCubit.stream).thenAnswer((_) => Stream.value(
         GetUserDetailSucceedState(
             user, const [Roles.tenant, Roles.homeowner])));
-    when(getUserDetailCubit.state).thenAnswer((_) =>
+    when(profileCubit.state).thenAnswer((_) =>
         GetUserDetailSucceedState(user, const [Roles.tenant, Roles.homeowner]));
 
-    await mockNetworkImagesFor(() =>
-        widgetTester.blocWrapAndPump<GetUserDetailCubit>(
-            getUserDetailCubit, const ProfileBody()));
+    await mockNetworkImagesFor(() => widgetTester.blocWrapAndPump<ProfileCubit>(
+        profileCubit, const ProfileBody()));
 
     expect(find.byType(ProfileBody), findsOneWidget);
 
@@ -160,14 +165,13 @@ void main() {
     when(user.avatar).thenReturn('avatar.jpg');
     when(user.displayName).thenReturn('This is user name');
 
-    when(getUserDetailCubit.stream).thenAnswer(
+    when(profileCubit.stream).thenAnswer(
         (_) => Stream.value(GetUserDetailSucceedState(user, const [])));
-    when(getUserDetailCubit.state)
+    when(profileCubit.state)
         .thenAnswer((_) => GetUserDetailSucceedState(user, const []));
 
-    await mockNetworkImagesFor(() =>
-        widgetTester.blocWrapAndPump<GetUserDetailCubit>(
-            getUserDetailCubit, const ProfileBody()));
+    await mockNetworkImagesFor(() => widgetTester.blocWrapAndPump<ProfileCubit>(
+        profileCubit, const ProfileBody()));
 
     expect(find.byType(ProfileBody), findsOneWidget);
 
@@ -177,14 +181,13 @@ void main() {
 
   testWidgets('when get user roles failed, then no role was displayed',
       (widgetTester) async {
-    when(getUserDetailCubit.stream)
+    when(profileCubit.stream)
         .thenAnswer((_) => Stream.value(const GetUserDetailFailedState()));
-    when(getUserDetailCubit.state)
+    when(profileCubit.state)
         .thenAnswer((_) => const GetUserDetailFailedState());
 
-    await mockNetworkImagesFor(() =>
-        widgetTester.blocWrapAndPump<GetUserDetailCubit>(
-            getUserDetailCubit, const ProfileBody()));
+    await mockNetworkImagesFor(() => widgetTester.blocWrapAndPump<ProfileCubit>(
+        profileCubit, const ProfileBody()));
 
     expect(find.byType(ProfileBody), findsOneWidget);
 
@@ -195,13 +198,12 @@ void main() {
   testWidgets(
       'When user tap on user information panel, the app will move user to My Profile Screen',
       (widgetTester) async {
-    when(getUserDetailCubit.stream)
-        .thenAnswer((_) => Stream.value(const GetUserDetailInitialState()));
-    when(getUserDetailCubit.state)
-        .thenAnswer((_) => const GetUserDetailInitialState());
+    when(profileCubit.stream)
+        .thenAnswer((_) => Stream.value(const ProfileInitialState()));
+    when(profileCubit.state).thenAnswer((_) => const ProfileInitialState());
 
-    await widgetTester.blocWrapAndPump<GetUserDetailCubit>(
-        getUserDetailCubit, const ProfileBody());
+    await widgetTester.blocWrapAndPump<ProfileCubit>(
+        profileCubit, const ProfileBody());
 
     expect(find.byType(ProfileBody), findsOneWidget);
 
@@ -216,5 +218,98 @@ void main() {
 
     expect(find.byType(ProfileBody), findsNothing);
     expect(find.byType(MyProfileScreen), findsOneWidget);
+  });
+
+  testWidgets(
+      'Given user tap on Delete Account option and confirmation dialog is showing'
+      'When user select Cancel'
+      'Then the app will dismiss the dialog', (widgetTester) async {
+    when(profileCubit.stream)
+        .thenAnswer((_) => Stream.value(const ProfileInitialState()));
+    when(profileCubit.state).thenAnswer((_) => const ProfileInitialState());
+
+    await widgetTester.blocWrapAndPump<ProfileCubit>(
+        profileCubit, const ProfileBody());
+
+    expect(find.byType(ProfileBody), findsOneWidget);
+
+    final Finder deleteAccountOptionFinder = find.text('Delete account');
+    expect(deleteAccountOptionFinder, findsOneWidget);
+
+    await widgetTester.ensureVisible(deleteAccountOptionFinder);
+    await widgetTester.tap(deleteAccountOptionFinder);
+    await widgetTester.pumpAndSettle();
+
+    expect(
+        find.ancestor(
+            of: find.text('Delete account?'),
+            matching: find.byType(HsWarningBottomSheetView)),
+        findsOneWidget);
+    final Finder cancelBtn = find.descendant(
+        of: find.byType(HsWarningBottomSheetView),
+        matching: find.text('Cancel'));
+    expect(cancelBtn, findsOneWidget);
+    await widgetTester.tap(cancelBtn);
+    await widgetTester.pumpAndSettle();
+    expect(
+        find.ancestor(
+            of: find.text('Delete account?'),
+            matching: find.byType(HsWarningBottomSheetView)),
+        findsNothing);
+  });
+
+  testWidgets(
+      'Given user tap on Delete Account option and confirmation dialog is showing'
+      'When user select Submit'
+      'Then the delete account function was called 1', (widgetTester) async {
+    when(profileCubit.stream)
+        .thenAnswer((_) => Stream.value(const ProfileInitialState()));
+    when(profileCubit.state).thenAnswer((_) => const ProfileInitialState());
+
+    await widgetTester.blocWrapAndPump<ProfileCubit>(
+        profileCubit, const ProfileBody());
+
+    expect(find.byType(ProfileBody), findsOneWidget);
+
+    final Finder deleteAccountOptionFinder = find.text('Delete account');
+    expect(deleteAccountOptionFinder, findsOneWidget);
+
+    await widgetTester.ensureVisible(deleteAccountOptionFinder);
+    await widgetTester.tap(deleteAccountOptionFinder);
+    await widgetTester.pumpAndSettle();
+
+    expect(
+        find.ancestor(
+            of: find.text('Delete account?'),
+            matching: find.byType(HsWarningBottomSheetView)),
+        findsOneWidget);
+    final Finder submitBtn = find.descendant(
+        of: find.byType(HsWarningBottomSheetView),
+        matching: find.text('Submit'));
+    expect(submitBtn, findsOneWidget);
+    await widgetTester.ensureVisible(submitBtn);
+    await widgetTester.tap(submitBtn);
+    verify(profileCubit.deleteAccount()).called(1);
+  });
+
+  testWidgets(
+      'Given delete account feature works as expected'
+      'When user delete their account'
+      'Then the app will navigate user to SignUp Screen', (widgetTester) async {
+    when(profileCubit.stream)
+        .thenAnswer((_) => Stream.value(const DeleteAccountSucceedState()));
+    when(profileCubit.state)
+        .thenAnswer((_) => const DeleteAccountSucceedState());
+
+    await widgetTester.blocWrapAndPump<ProfileCubit>(
+        profileCubit, const ProfileBody());
+
+    expect(
+        find.ancestor(
+            of: find.text('Delete account?'),
+            matching: find.byType(HsWarningBottomSheetView)),
+        findsNothing);
+    expect(find.byType(ProfileBody), findsNothing);
+    expect(find.byType(SignUpScreen), findsOneWidget);
   });
 }

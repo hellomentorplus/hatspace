@@ -158,7 +158,7 @@ class SignUpBody extends StatelessWidget {
                                   .add(const SignUpWithGoogle());
                             },
                           )),
-                      if (defaultTargetPlatform == TargetPlatform.iOS)...[
+                      if (defaultTargetPlatform == TargetPlatform.iOS) ...[
                         Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: HsDimens.spacing24),
@@ -176,9 +176,7 @@ class SignUpBody extends StatelessWidget {
                                     const EdgeInsets.all(HsDimens.spacing16)),
                               ),
                               onPressed: () {
-                                context
-                                    .read<SignUpBloc>()
-                                    .add(const SignUpWithGoogle());
+                                /// TODO : Handle login by apple
                               },
                             )),
                       ],

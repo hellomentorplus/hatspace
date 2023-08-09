@@ -1,11 +1,61 @@
+import 'dart:io';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/photo/photo_service.dart';
+import 'package:hatspace/models/storage/file_service/file_storage_service.dart';
+import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
+import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
+import 'package:hatspace/models/storage/storage_service.dart';
+import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
+import 'add_property_cubit_test.mocks.dart';
+
+@GenerateMocks([
+  StorageService,
+  AuthenticationService,
+  PhotoService,
+  FileService,
+  File,
+  PropertyService,
+  MemberService
+])
 void main() {
   initializeDateFormatting();
+
+  final MockStorageService storageService = MockStorageService();
+  final MockAuthenticationService authenticationService =
+      MockAuthenticationService();
+  final MockPhotoService photoService = MockPhotoService();
+  final MockPropertyService propertyService = MockPropertyService();
+  final MockMemberService memberService = MockMemberService();
+  final MockFileService fileService = MockFileService();
+  final MockFile file = MockFile();
+
+  setUpAll(() {
+    HsSingleton.singleton.registerSingleton<StorageService>(storageService);
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
+    HsSingleton.singleton.registerSingleton<PhotoService>(photoService);
+  });
+
+  setUp(() {
+    when(storageService.files).thenReturn(fileService);
+    when(storageService.property).thenReturn(propertyService);
+    when(storageService.member).thenReturn(memberService);
+  });
+
+  tearDown(() {
+    reset(storageService);
+  });
+
   blocTest(
     "Given when user press NEXT button when it's enable, then update Page view navigation, and update next button validation",
     build: () => AddPropertyCubit(),
@@ -22,9 +72,15 @@ void main() {
       bloc.navigatePage(NavigatePage.reverse, 2);
     },
     expect: () => [
+      // start page view navigation forward
       isA<PageViewNavigationState>(),
+      // validate next button when page view navigation complete
       isA<NextButtonEnable>(),
+      // when validate next button is called
+      isA<NextButtonEnable>(),
+      // start page view navigation reverse
       isA<PageViewNavigationState>(),
+      // validate next button when page view navigation complete
       isA<NextButtonEnable>()
     ],
   );
@@ -147,6 +203,131 @@ void main() {
       expect(nextButtonEnable.isActive, isFalse);
     },
   );
+
+  group('Validate when page is Property info', () {
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given property name is empty,'
+      'when validate next button,'
+      'then return false',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) => bloc.propertyName = '',
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isFalse);
+      },
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given price is null,'
+      'when validate next button,'
+      'then return false',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) => bloc.price = null,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isFalse);
+      },
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given rental period is invalid,'
+      'when validate next button,'
+      'then return false',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) => bloc.rentPeriod = MinimumRentPeriod.invalid,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isFalse);
+      },
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given state is invalid,'
+      'when validate next button,'
+      'then return false',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) => bloc.australiaState = AustraliaStates.invalid,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isFalse);
+      },
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given address is empty,'
+      'when validate next button,'
+      'then return false',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) => bloc.address = '',
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isFalse);
+      },
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given suburb is empty,'
+      'when validate next button,'
+      'then return false',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) => bloc.suburb = '',
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isFalse);
+      },
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given postal code is null,'
+      'when validate next button,'
+      'then return false',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) => bloc.postalCode = null,
+      expect: () => [isA<NextButtonEnable>()],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isFalse);
+      },
+    );
+
+    blocTest<AddPropertyCubit, AddPropertyState>(
+      'given all info are provided,'
+      'when validate next button,'
+      'then return true',
+      build: () => AddPropertyCubit(),
+      seed: () => const PageViewNavigationState(1),
+      act: (bloc) {
+        bloc.propertyName = 'propertyName';
+        bloc.price = 120;
+        bloc.rentPeriod = MinimumRentPeriod.sixMonths;
+        bloc.australiaState = AustraliaStates.vic;
+        bloc.address = 'address';
+        bloc.suburb = 'suburb';
+        bloc.postalCode = 1345;
+      },
+      expect: () => [
+        const NextButtonEnable(1, false, ButtonLabel.next, true),
+        const NextButtonEnable(1, true, ButtonLabel.next, true),
+      ],
+      verify: (bloc) {
+        NextButtonEnable state = bloc.state as NextButtonEnable;
+        expect(state.isActive, isTrue);
+      },
+    );
+  });
 
   blocTest(
     'given page is add image, and 4 images are added, when validate next button, then emit NextButton false',
@@ -397,6 +578,57 @@ void main() {
           expect: () => [isA<ExitAddPropertyFlow>()]);
     });
   });
+
+  blocTest<AddPropertyCubit, AddPropertyState>(
+    'given page is preview,'
+    'when tap Submit'
+    'then verify all API calls',
+    build: () => AddPropertyCubit(),
+    setUp: () {
+      when(authenticationService.getCurrentUser())
+          .thenAnswer((realInvocation) => Future.value(UserDetail(
+                uid: 'uid',
+                displayName: 'displayName',
+              )));
+
+      when(photoService.createThumbnail(any,
+              targetBytes: anyNamed('targetBytes')))
+          .thenAnswer((realInvocation) => Future.value(file));
+      when(file.deleteSync()).thenAnswer((realInvocation) => Future.value());
+      when(file.path).thenReturn('thumbnail');
+
+      when(propertyService.addProperty(any))
+          .thenAnswer((realInvocation) => Future.value('propertyId'));
+      when(memberService.getMemberProperties(any))
+          .thenAnswer((realInvocation) => Future.value([]));
+    },
+    seed: () => const NextButtonEnable(5, true, ButtonLabel.submit, false),
+    act: (bloc) {
+      bloc.photos = ['photo1', 'photo2', 'photo3', 'photo4'];
+      bloc.price = 1;
+      bloc.features = Feature.values;
+      bloc.parking = 1;
+      bloc.bedrooms = 1;
+      bloc.bathrooms = 1;
+      bloc.postalCode = 123;
+      bloc.rentPeriod = MinimumRentPeriod.sixMonths;
+      bloc.navigatePage(NavigatePage.forward, 6);
+    },
+    expect: () =>
+        [isA<StartSubmitPropertyDetails>(), isA<EndSubmitPropertyDetails>()],
+    verify: (bloc) {
+      // create 4 thumbnails
+      verify(photoService.createThumbnail(any, targetBytes: 5242880)).called(4);
+      // upload 4 files
+      verify(fileService.uploadFile(
+              folder: anyNamed('folder'),
+              path: anyNamed('path'),
+              onError: anyNamed('onError'),
+              onComplete: anyNamed('onComplete')))
+          .called(4);
+      verify(propertyService.addProperty(any)).called(1);
+    },
+  );
 
   test('test initial state', () {
     AddPropertyInitial addPropertyInitial = const AddPropertyInitial();

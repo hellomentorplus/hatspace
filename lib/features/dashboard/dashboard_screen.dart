@@ -9,6 +9,7 @@ import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/message/message_view.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
+import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:shake/shake.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -40,7 +41,8 @@ class DashboardBody extends StatefulWidget {
   State<DashboardBody> createState() => _DashboardBodyState();
 }
 
-class _DashboardBodyState extends State<DashboardBody> {
+class _DashboardBodyState extends State<DashboardBody>
+    with WidgetsBindingObserver {
   late ShakeDetector detector;
   final ValueNotifier<BottomBarItems> _selectedIndex =
       ValueNotifier<BottomBarItems>(BottomBarItems.explore);
@@ -49,13 +51,27 @@ class _DashboardBodyState extends State<DashboardBody> {
       PageController(initialPage: 0, keepPage: true);
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     try {
       detector.stopListening();
     } catch (e) {
       // do nothing
     }
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      context.read<DashboardInteractionCubit>().onScreenResumed();
+    }
   }
 
   void onShakeToAction(BuildContext context, AppConfigState state) {
@@ -109,8 +125,31 @@ class _DashboardBodyState extends State<DashboardBody> {
     });
   }
 
+  Future<void> _showPhotoPermissionBottomSheet() {
+    return context
+        .showHsBottomSheet<void>(HsWarningBottomSheetView(
+      title: HatSpaceStrings.current.hatSpaceWouldLikeToPhotoAccess,
+      description:
+          HatSpaceStrings.current.plsGoToSettingsAndAllowPhotoAccessForHatSpace,
+      iconUrl: Assets.icons.photoAccess,
+      primaryButtonLabel: HatSpaceStrings.current.goToSetting,
+      primaryOnPressed: () {
+        context.read<DashboardInteractionCubit>().gotoSetting();
+        context.pop();
+      },
+      secondaryButtonLabel: HatSpaceStrings.current.cancelBtn,
+      secondaryOnPressed: () {
+        context.read<DashboardInteractionCubit>().cancelPhotoAccess();
+        context.dismissHsBottomSheet();
+      },
+    ))
+        .then((value) {
+      context.read<DashboardInteractionCubit>().onDismissModal();
+    });
+  }
+
   @override
-  Widget build(BuildContext context) => MultiBlocListener(
+  Widget build(BuildContext buildContext) => MultiBlocListener(
         listeners: [
           BlocListener<AppConfigBloc, AppConfigState>(
               listener: (context, state) {
@@ -121,9 +160,6 @@ class _DashboardBodyState extends State<DashboardBody> {
           }),
           BlocListener<DashboardInteractionCubit, DashboardInteractionState>(
             listener: (context, state) {
-              if (state is StartAddPropertyFlow) {
-                context.goToAddProperty();
-              }
               if (state is OpenLoginBottomSheetModal) {
                 showLoginModal(context).then((value) {
                   context.read<DashboardInteractionCubit>().onCloseModal();
@@ -135,6 +171,21 @@ class _DashboardBodyState extends State<DashboardBody> {
 
               if (state is RequestHomeOwnerRole) {
                 showRequestHomeOwnerRoleBottomSheet();
+              }
+
+              if (state is PhotoPermissionGranted) {
+                context.goToAddProperty();
+                context
+                    .read<DashboardInteractionCubit>()
+                    .onNavigateToAddPropertyFlow();
+              }
+
+              if (state is PhotoPermissionDenied) {
+                // do nothing
+              }
+
+              if (state is PhotoPermissionDeniedForever) {
+                _showPhotoPermissionBottomSheet();
               }
 
               if (state is OpenPage) {
@@ -156,6 +207,15 @@ class _DashboardBodyState extends State<DashboardBody> {
                       .read<DashboardInteractionCubit>()
                       .onBottomItemTapped(BottomBarItems.addingProperty);
                 }
+              }
+            },
+          ),
+          BlocListener<AuthenticationBloc, AuthenticationState>(
+            listener: (context, state) {
+              if (state is AnonymousState) {
+                context
+                    .read<DashboardInteractionCubit>()
+                    .onBottomItemTapped(BottomBarItems.explore);
               }
             },
           )

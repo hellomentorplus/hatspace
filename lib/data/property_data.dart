@@ -28,6 +28,7 @@ class PropKeys {
   static const createdAt = 'createAt';
   static const country = 'country';
   static const availableDate = 'availableDate';
+  static const owner = 'owner';
 }
 
 enum PropertyTypes {
@@ -206,6 +207,7 @@ class Property {
   final GeoPoint location;
   final Timestamp createdTime;
   final Timestamp availableDate;
+  final String ownerUid;
   Property({
     required this.type,
     required this.name,
@@ -217,6 +219,7 @@ class Property {
     required this.minimumRentPeriod,
     required this.location,
     required this.availableDate,
+    required this.ownerUid,
     this.id,
     CountryCode? country,
     Timestamp? createdTime,
@@ -248,6 +251,7 @@ class Property {
       'filter_by_postcode': address.postcode,
       'filter_by_surbub': address.suburb,
       'filter_by_state': address.state.name,
+      PropKeys.owner: ownerUid
     };
     return mapProp;
   }
@@ -267,7 +271,8 @@ class Property {
         country: CountryCode.fromName(map[PropKeys.country]),
         location: map[PropKeys.location],
         createdTime: map[PropKeys.createdAt],
-        availableDate: map[PropKeys.availableDate]);
+        availableDate: map[PropKeys.availableDate],
+        ownerUid: map[PropKeys.owner]);
   }
 }
 

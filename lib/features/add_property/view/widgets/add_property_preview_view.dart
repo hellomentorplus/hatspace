@@ -1,13 +1,45 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
+import 'package:hatspace/features/add_property/view_model/preview/add_property_preview_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 class AddPropertyPreviewView extends StatelessWidget {
-  const AddPropertyPreviewView({super.key});
+  const AddPropertyPreviewView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => BlocProvider(
+        create: (context) => AddPropertyPreviewCubit(
+          type: context.read<AddPropertyCubit>().propertyType,
+          availableDate: context.read<AddPropertyCubit>().availableDate,
+          ausState: context.read<AddPropertyCubit>().australiaState,
+          rentPeriod: context.read<AddPropertyCubit>().rentPeriod,
+          propertyName: context.read<AddPropertyCubit>().propertyName,
+          price: context.read<AddPropertyCubit>().price,
+          suburb: context.read<AddPropertyCubit>().suburb,
+          postalCode: context.read<AddPropertyCubit>().postalCode,
+          unitNumber: context.read<AddPropertyCubit>().unitNumber,
+          address: context.read<AddPropertyCubit>().address,
+          description: context.read<AddPropertyCubit>().description,
+          bedrooms: context.read<AddPropertyCubit>().bedrooms,
+          bathrooms: context.read<AddPropertyCubit>().bathrooms,
+          parking: context.read<AddPropertyCubit>().parking,
+          features: context.read<AddPropertyCubit>().features,
+          photos: context.read<AddPropertyCubit>().photos,
+        ),
+        child: const AddPropertyPreviewBody(),
+      );
+}
+
+class AddPropertyPreviewBody extends StatelessWidget {
+  const AddPropertyPreviewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,79 +55,172 @@ class AddPropertyPreviewView extends StatelessWidget {
               style: Theme.of(context).textTheme.displayLarge,
             ),
             const SizedBox(height: HsDimens.spacing20),
-            const _PropertyImgsCarousel(
-              photos: [
-                'https://www.bhg.com/thmb/H9VV9JNnKl-H1faFXnPlQfNprYw=/1799x0/filters:no_upscale():strip_icc()/white-modern-house-curved-patio-archway-c0a4a3b3-aa51b24d14d0464ea15d36e05aa85ac9.jpg',
-                'https://www.bhg.com/thmb/H9VV9JNnKl-H1faFXnPlQfNprYw=/1799x0/filters:no_upscale():strip_icc()/white-modern-house-curved-patio-archway-c0a4a3b3-aa51b24d14d0464ea15d36e05aa85ac9.jpg'
-              ],
+            BlocSelector<AddPropertyPreviewCubit, AddPropertyPreviewState,
+                List<String>>(
+              selector: (state) {
+                if (state is AddPropertyPreviewReady) {
+                  return state.photos;
+                }
+                return [];
+              },
+              builder: (context, photos) => _PropertyImgsCarousel(
+                photos: photos,
+              ),
             ),
             const SizedBox(height: HsDimens.spacing20),
             Row(
               children: [
                 Expanded(
-                    child: Text('House',
+                    child: BlocSelector<AddPropertyPreviewCubit,
+                        AddPropertyPreviewState, String>(
+                  selector: (state) {
+                    if (state is AddPropertyPreviewReady) {
+                      return state.type.displayName;
+                    }
+                    return '';
+                  },
+                  builder: (context, type) {
+                    return Text(type,
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium
-                            ?.copyWith(color: HSColor.green06))),
+                            ?.copyWith(color: HSColor.green06));
+                  },
+                )),
                 const SizedBox(width: HsDimens.spacing12),
-                RichText(
-                    textAlign: TextAlign.end,
-                    text: TextSpan(
-                        text: HatSpaceStrings.current.availableDateColon,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(color: HSColor.neutral6),
-                        children: [
-                          TextSpan(
-                            text: HatSpaceStrings.current
-                                .dateFormatter(DateTime(2023, 6, 6)),
+                BlocSelector<AddPropertyPreviewCubit, AddPropertyPreviewState,
+                    String>(
+                  selector: (state) {
+                    if (state is AddPropertyPreviewReady) {
+                      return HatSpaceStrings.current
+                          .dateFormatter(state.availableDate);
+                    }
+
+                    return '';
+                  },
+                  builder: (context, availableDate) {
+                    return RichText(
+                        textAlign: TextAlign.end,
+                        text: TextSpan(
+                            text: HatSpaceStrings.current.availableDateColon,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
-                                ?.copyWith(
-                                  color: HSColor.neutral8,
-                                ),
-                          )
-                        ])),
+                                ?.copyWith(color: HSColor.neutral6),
+                            children: [
+                              TextSpan(
+                                text: availableDate,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: HSColor.neutral8,
+                                    ),
+                              )
+                            ]));
+                  },
+                ),
               ],
             ),
             const SizedBox(height: HsDimens.spacing4),
-            Text(
-              'Single room for rent in Bankstown',
-              style: Theme.of(context).textTheme.displayLarge,
+            BlocSelector<AddPropertyPreviewCubit, AddPropertyPreviewState,
+                String>(
+              selector: (state) {
+                if (state is AddPropertyPreviewReady) {
+                  return state.propertyName;
+                }
+                return '';
+              },
+              builder: (context, propertyName) {
+                return Text(
+                  propertyName,
+                  style: Theme.of(context).textTheme.displayLarge,
+                );
+              },
             ),
             const SizedBox(height: HsDimens.spacing4),
-            Text('Gateway, Island',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: HSColor.neutral6)),
+            BlocSelector<AddPropertyPreviewCubit, AddPropertyPreviewState,
+                String>(
+              selector: (state) {
+                if (state is AddPropertyPreviewReady) {
+                  return state.suburb;
+                }
+                return '';
+              },
+              builder: (context, suburb) {
+                return Text(suburb,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: HSColor.neutral6));
+              },
+            ),
             const SizedBox(height: HsDimens.spacing8),
             Row(
               children: [
-                _PropertyFeatureView(
-                  iconSvgUrl: Assets.icons.bed,
-                  quantity: 1,
+                BlocSelector<AddPropertyPreviewCubit, AddPropertyPreviewState,
+                    int>(
+                  selector: (state) {
+                    if (state is AddPropertyPreviewReady) {
+                      return state.bedrooms;
+                    }
+                    return 0;
+                  },
+                  builder: (context, bedrooms) {
+                    return _PropertyFeatureView(
+                      iconSvgUrl: Assets.icons.bed,
+                      quantity: bedrooms,
+                    );
+                  },
                 ),
                 const SizedBox(width: HsDimens.spacing8),
-                _PropertyFeatureView(
-                  iconSvgUrl: Assets.icons.bath,
-                  quantity: 2,
+                BlocSelector<AddPropertyPreviewCubit, AddPropertyPreviewState,
+                    int>(
+                  selector: (state) {
+                    if (state is AddPropertyPreviewReady) {
+                      return state.bathrooms;
+                    }
+                    return 0;
+                  },
+                  builder: (context, bathrooms) {
+                    return _PropertyFeatureView(
+                      iconSvgUrl: Assets.icons.bath,
+                      quantity: bathrooms,
+                    );
+                  },
                 ),
                 const SizedBox(width: HsDimens.spacing8),
-                _PropertyFeatureView(
-                  iconSvgUrl: Assets.icons.car,
-                  quantity: 3,
+                BlocSelector<AddPropertyPreviewCubit, AddPropertyPreviewState,
+                    int>(
+                  selector: (state) {
+                    if (state is AddPropertyPreviewReady) {
+                      return state.parking;
+                    }
+                    return 0;
+                  },
+                  builder: (context, parking) {
+                    return _PropertyFeatureView(
+                      iconSvgUrl: Assets.icons.car,
+                      quantity: parking,
+                    );
+                  },
                 ),
                 const SizedBox(width: HsDimens.spacing12),
                 Expanded(
-                    child: RichText(
+                    child: BlocSelector<AddPropertyPreviewCubit,
+                        AddPropertyPreviewState, double>(
+                  selector: (state) {
+                    if (state is AddPropertyPreviewReady) {
+                      return state.price;
+                    }
+                    return 0.0;
+                  },
+                  builder: (context, price) {
+                    return RichText(
                         textAlign: TextAlign.right,
                         text: TextSpan(
                             text: HatSpaceStrings.current
-                                .currencyFormatter(r'$', 30000),
+                                .currencyFormatter(r'$', price),
                             style: Theme.of(context)
                                 .textTheme
                                 .displayLarge
@@ -109,34 +234,70 @@ class AddPropertyPreviewView extends StatelessWidget {
                                     ?.copyWith(
                                         fontWeight: FontStyleGuide.fwRegular),
                               )
-                            ])))
+                            ]));
+                  },
+                ))
               ],
             ),
             const SizedBox(height: HsDimens.spacing16),
             Row(
               children: [
-                const CircleAvatar(
-                  radius: HsDimens.spacing20,
-                  backgroundImage: NetworkImage(
-                      'https://www.bhg.com/thmb/H9VV9JNnKl-H1faFXnPlQfNprYw=/1799x0/filters:no_upscale():strip_icc()/white-modern-house-curved-patio-archway-c0a4a3b3-aa51b24d14d0464ea15d36e05aa85ac9.jpg'),
+                BlocSelector<AddPropertyPreviewCubit, AddPropertyPreviewState,
+                    String?>(
+                  selector: (state) {
+                    if (state is AddPropertyPreviewReady) {
+                      return state.userPhoto;
+                    }
+
+                    return null;
+                  },
+                  builder: (context, photoLink) => CircleAvatar(
+                    radius: HsDimens.spacing20,
+                    backgroundImage: photoLink?.isNotEmpty == true
+                        ? NetworkImage(photoLink!)
+                        : null,
+                  ),
                 ),
                 const SizedBox(width: HsDimens.spacing8),
-                Expanded(
-                  child: Text('Jane Cooper',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: HSColor.neutral6)),
+                BlocSelector<AddPropertyPreviewCubit, AddPropertyPreviewState,
+                    String>(
+                  selector: (state) {
+                    if (state is AddPropertyPreviewReady) {
+                      return state.userDisplayName ?? '';
+                    }
+
+                    return '';
+                  },
+                  builder: (context, displayName) {
+                    return Expanded(
+                      child: Text(displayName,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: HSColor.neutral6)),
+                    );
+                  },
                 ),
               ],
             ),
             const SizedBox(height: HsDimens.spacing8),
-            Text(
-                'This updated cottage has much to offer with:- Polished floorboards in living areas and carpeted bedrooms- New modern kitchen with dishwasher, gas burner stove top and plenty of storage- Dining area- Lounge room- Study/Home office space- 2 Bedrooms- Lovely bathroom- Separate laundry.',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: HSColor.neutral7)),
+            BlocSelector<AddPropertyPreviewCubit, AddPropertyPreviewState,
+                String>(
+              selector: (state) {
+                if (state is AddPropertyPreviewReady) {
+                  return state.description;
+                }
+
+                return '';
+              },
+              builder: (context, description) {
+                return Text(description,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: HSColor.neutral7));
+              },
+            ),
             const SizedBox(height: HsDimens.spacing20),
             const Divider(
               height: HsDimens.size4,
@@ -150,12 +311,23 @@ class AddPropertyPreviewView extends StatelessWidget {
                     .displayLarge
                     ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
             const SizedBox(height: HsDimens.spacing8),
-            Text(
-                'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: HSColor.neutral7)),
+            BlocSelector<AddPropertyPreviewCubit, AddPropertyPreviewState,
+                String>(
+              selector: (state) {
+                if (state is AddPropertyPreviewReady) {
+                  return '${state.unitNumber.isEmpty ? '' : '${state.unitNumber}, '}${state.address}, ${state.suburb}, ${state.ausState.displayName}';
+                }
+
+                return '';
+              },
+              builder: (context, fullAddress) {
+                return Text(fullAddress,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: HSColor.neutral7));
+              },
+            ),
             const SizedBox(height: HsDimens.spacing20),
             const Divider(
               height: HsDimens.size4,
@@ -169,32 +341,47 @@ class AddPropertyPreviewView extends StatelessWidget {
                     .displayLarge
                     ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
             const SizedBox(height: HsDimens.spacing16),
-            GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 164 / 36,
-                    crossAxisSpacing: HsDimens.spacing15,
-                    mainAxisSpacing: HsDimens.spacing12),
-                itemCount: Feature.values.length,
-                itemBuilder: (_, index) => Row(
-                      children: [
-                        Container(
-                          height: HsDimens.size36,
-                          width: HsDimens.size36,
-                          padding: const EdgeInsets.all(HsDimens.spacing8),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: HSColor.neutral2),
-                          child: SvgPicture.asset(
-                              Feature.values[index].iconSvgPath),
-                        ),
-                        const SizedBox(width: HsDimens.spacing12),
-                        Expanded(
-                            child: Text(Feature.values[index].displayName,
-                                style: Theme.of(context).textTheme.bodyMedium))
-                      ],
-                    )),
+            BlocSelector<AddPropertyPreviewCubit, AddPropertyPreviewState,
+                List<Feature>>(
+              selector: (state) {
+                if (state is AddPropertyPreviewReady) {
+                  return state.features;
+                }
+
+                return [];
+              },
+              builder: (context, features) {
+                return GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 164 / 36,
+                            crossAxisSpacing: HsDimens.spacing15,
+                            mainAxisSpacing: HsDimens.spacing12),
+                    itemCount: features.length,
+                    itemBuilder: (_, index) => Row(
+                          children: [
+                            Container(
+                              height: HsDimens.size36,
+                              width: HsDimens.size36,
+                              padding: const EdgeInsets.all(HsDimens.spacing8),
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: HSColor.neutral2),
+                              child:
+                                  SvgPicture.asset(features[index].iconSvgPath),
+                            ),
+                            const SizedBox(width: HsDimens.spacing12),
+                            Expanded(
+                                child: Text(features[index].displayName,
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium))
+                          ],
+                        ));
+              },
+            ),
             const SizedBox(height: HsDimens.spacing24),
           ]),
         ),
@@ -272,8 +459,8 @@ class __PropertyImgsCarouselState extends State<_PropertyImgsCarousel> {
                     borderRadius: BorderRadius.circular(HsDimens.radius8),
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(
-                          widget.photos[idx],
+                        image: FileImage(
+                          File(widget.photos[idx]),
                         ))),
               ),
             ),

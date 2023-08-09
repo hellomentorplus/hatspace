@@ -107,6 +107,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "dateFormatter": m2,
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of Birth"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
+        "deleteAccountQuestionMark":
+            MessageLookupByLibrary.simpleMessage("Delete account?"),
+        "deleteAccountWarning": MessageLookupByLibrary.simpleMessage(
+            "All your data will be kept within 30 days before being deleted pernamently. Are you sure you want to delete your account?"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "displayName": MessageLookupByLibrary.simpleMessage("Display name"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
@@ -221,6 +225,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
+        "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "suburb": MessageLookupByLibrary.simpleMessage("Suburb"),
         "swimmingPool": MessageLookupByLibrary.simpleMessage("Swimming pool"),
         "textWithInvalidChars":

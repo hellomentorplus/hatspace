@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
@@ -11,6 +12,7 @@ import 'property_storage_service_test.mocks.dart';
 
 @GenerateMocks([
   FirebaseFirestore,
+  FirebaseStorage,
   CollectionReference,
   DocumentReference,
   DocumentSnapshot,
@@ -20,16 +22,17 @@ import 'property_storage_service_test.mocks.dart';
   Query
 ])
 void main() {
-  MockFirebaseFirestore mockFirebaseFirestore = MockFirebaseFirestore();
-  MockCollectionReference<Map<String, dynamic>> mockCollectionReference =
+  final MockFirebaseFirestore firestore = MockFirebaseFirestore();
+  MockCollectionReference<Map<String, dynamic>> collectionReference =
       MockCollectionReference();
-  MockDocumentReference<Map<String, dynamic>> mockDocumentReference =
+  MockDocumentReference<Map<String, dynamic>> documentReference =
       MockDocumentReference();
-  MockDocumentSnapshot<Map<String, dynamic>> mockDocumentSnapshot =
+  MockDocumentSnapshot<Map<String, dynamic>> documentSnapshot =
       MockDocumentSnapshot();
-  MockQuerySnapshot<Map<String, dynamic>> mockQuerySnapshot =
-      MockQuerySnapshot();
-  MockQuery<Map<String, dynamic>> mockQuery = MockQuery();
+  MockQuerySnapshot<Map<String, dynamic>> querySnapshot = MockQuerySnapshot();
+  MockQuery<Map<String, dynamic>> query = MockQuery();
+  final MockFirebaseStorage storage = MockFirebaseStorage();
+
   Property propertySample = Property(
       availableDate: Timestamp(200, 200),
       type: PropertyTypes.apartment,
@@ -48,33 +51,37 @@ void main() {
       minimumRentPeriod: MinimumRentPeriod.sixMonths,
       country: CountryCode.au,
       createdTime: Timestamp(200, 200),
-      location: const GeoPoint(90, 90));
+      location: const GeoPoint(90, 90),
+      ownerUid: 'uid');
   setUpAll(() async {
-    StorageService.firestore = mockFirebaseFirestore;
+    StorageService.firestore = firestore;
+    StorageService.storage = storage;
     await HatSpaceStrings.load(const Locale.fromSubtags(languageCode: 'en'));
   });
 
   setUp(() {
-    when(mockFirebaseFirestore.collection(any))
-        .thenAnswer((realInvocation) => mockCollectionReference);
-    when(mockCollectionReference.doc(any))
-        .thenAnswer((realInvocation) => mockDocumentReference);
-    when(mockDocumentReference.get(any))
-        .thenAnswer((realInvocation) => Future.value(mockDocumentSnapshot));
+    when(firestore.collection(any))
+        .thenAnswer((realInvocation) => collectionReference);
+    when(collectionReference.doc(any))
+        .thenAnswer((realInvocation) => documentReference);
+    when(documentReference.get(any))
+        .thenAnswer((realInvocation) => Future.value(documentSnapshot));
   });
 
   tearDown(() {
-    reset(mockFirebaseFirestore);
-    reset(mockCollectionReference);
-    reset(mockDocumentReference);
-    reset(mockDocumentSnapshot);
-    reset(mockQuerySnapshot);
+    reset(firestore);
+    reset(storage);
+    reset(collectionReference);
+    reset(documentReference);
+    reset(documentSnapshot);
+    reset(querySnapshot);
+    reset(query);
   });
 
   test(
       'given property does not exist, when getProperty, then return null value',
       () async {
-    when(mockDocumentSnapshot.exists).thenAnswer((realInvocation) => false);
+    when(documentSnapshot.exists).thenAnswer((realInvocation) => false);
 
     StorageService storageService = StorageService();
 
@@ -85,8 +92,8 @@ void main() {
 
   test('given user roles data is null, when getProperty, then return null',
       () async {
-    when(mockDocumentSnapshot.exists).thenAnswer((realInvocation) => true);
-    when(mockDocumentSnapshot.data()).thenAnswer((realInvocation) => null);
+    when(documentSnapshot.exists).thenAnswer((realInvocation) => true);
+    when(documentSnapshot.data()).thenAnswer((realInvocation) => null);
 
     StorageService storageService = StorageService();
 
@@ -98,12 +105,11 @@ void main() {
   test(
       'given get property with valid property id, when user get all properties, then return a list of property',
       () async {
-    when(mockDocumentSnapshot.exists).thenAnswer((realInvocation) => true);
-    when(mockCollectionReference.limit(20))
-        .thenAnswer((realInvocation) => mockQuery);
-    when(mockQuery.get(any))
-        .thenAnswer((realInvocation) => Future.value(mockQuerySnapshot));
-    when(mockQuerySnapshot.docs).thenAnswer((realInvocation) => []);
+    when(documentSnapshot.exists).thenAnswer((realInvocation) => true);
+    when(collectionReference.limit(20)).thenAnswer((realInvocation) => query);
+    when(query.get(any))
+        .thenAnswer((realInvocation) => Future.value(querySnapshot));
+    when(querySnapshot.docs).thenAnswer((realInvocation) => []);
     StorageService storageService = StorageService();
     final result = storageService.property.getAllProperties();
     expect(result, isA<Future<List<Property>?>>());
@@ -112,8 +118,8 @@ void main() {
   test(
       'given user want to get one property, when user get one property by property id, then return property object',
       () async {
-    when(mockDocumentSnapshot.exists).thenAnswer((realInvocation) => true);
-    when(mockDocumentSnapshot.data())
+    when(documentSnapshot.exists).thenAnswer((realInvocation) => true);
+    when(documentSnapshot.data())
         .thenAnswer((realInvocation) => propertySample.convertObjectToMap());
     StorageService storageService = StorageService();
     final result = await storageService.property.getProperty('test id');
@@ -121,11 +127,13 @@ void main() {
   });
 
   test('verify API calls when save property', () async {
+    when(documentReference.id).thenReturn('id');
+
     StorageService storageService = StorageService();
     await storageService.property.addProperty(propertySample);
-    verify(mockFirebaseFirestore.collection('properties')).called(1);
-    verify(mockCollectionReference.doc()).called(1);
-    verify(mockDocumentReference.set(propertySample.convertObjectToMap()))
+    verify(firestore.collection('properties')).called(1);
+    verify(collectionReference.doc()).called(1);
+    verify(documentReference.set(propertySample.convertObjectToMap()))
         .called(1);
   });
 }

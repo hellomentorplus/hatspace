@@ -17,6 +17,7 @@ import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../widget_tester_extension.dart';
+import '../../add_property/view/widgets/add_rooms_view_test.dart';
 import 'sign_up_screen_test.mocks.dart';
 
 @GenerateMocks(
@@ -294,37 +295,22 @@ void main() {
     });
   });
 
-  testWidgets('Given user is on iOS device, the Apple signup button will be shown', (WidgetTester tester) async {
+  testWidgets(
+      'Given user is on iOS device, the Apple signup button will be shown',
+      (WidgetTester tester) async {
     const Widget widget = SignUpBody();
 
     debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
 
     await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
 
-    // Look for SKIP button
     expect(find.text('Continue with Apple'), findsOneWidget);
 
-    // Look for app logo
-    expect(find.byWidgetPredicate((widget) {
-      if (widget is! SvgPicture) {
-        return false;
-      }
+    expect(
+        find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, 'assets/icons/apple.svg')),
+        findsOneWidget);
 
-      final SvgPicture svgPicture = widget;
-      final BytesLoader bytesLoader = svgPicture.bytesLoader;
-
-      if (bytesLoader is! SvgAssetLoader) {
-        return false;
-      }
-
-      final SvgAssetLoader svgAssetLoader = bytesLoader;
-
-      if (svgAssetLoader.assetName != 'assets/icons/apple.svg') {
-        return false;
-      }
-
-      return true;
-    }), findsOneWidget);
     debugDefaultTargetPlatformOverride = null;
   });
 
@@ -337,30 +323,13 @@ void main() {
 
     await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
 
-    // Look for SKIP button
     expect(find.text('Continue with Apple'), findsNothing);
 
-    // Look for app logo
-    expect(find.byWidgetPredicate((widget) {
-      if (widget is! SvgPicture) {
-        return false;
-      }
+    expect(
+        find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, 'assets/icons/apple.svg')),
+        findsNothing);
 
-      final SvgPicture svgPicture = widget;
-      final BytesLoader bytesLoader = svgPicture.bytesLoader;
-
-      if (bytesLoader is! SvgAssetLoader) {
-        return false;
-      }
-
-      final SvgAssetLoader svgAssetLoader = bytesLoader;
-
-      if (svgAssetLoader.assetName != 'assets/icons/apple.svg') {
-        return false;
-      }
-
-      return true;
-    }), findsNothing);
     debugDefaultTargetPlatformOverride = null;
   });
 }
