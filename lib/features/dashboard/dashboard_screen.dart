@@ -121,7 +121,7 @@ class _DashboardBodyState extends State<DashboardBody>
       },
     ))
         .then((value) {
-      context.read<DashboardInteractionCubit>().onCloseModal();
+      context.read<DashboardInteractionCubit>().onCloseRequestHomeOwnerModal();
     });
   }
 
