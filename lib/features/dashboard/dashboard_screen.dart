@@ -260,7 +260,8 @@ class _DashboardBodyState extends State<DashboardBody>
                               onTap: () {
                                 context
                                     .read<DashboardInteractionCubit>()
-                                    .onBottomItemTapped(BottomBarItems.inspection);
+                                    .onBottomItemTapped(
+                                        BottomBarItems.inspection);
                               }),
                         ),
                         Container(
@@ -305,7 +306,8 @@ class _DashboardBodyState extends State<DashboardBody>
                               onTap: () {
                                 context
                                     .read<DashboardInteractionCubit>()
-                                    .onBottomItemTapped(BottomBarItems.application);
+                                    .onBottomItemTapped(
+                                        BottomBarItems.application);
                               }),
                         ),
                         ValueListenableBuilder<BottomBarItems>(
@@ -377,7 +379,7 @@ class _BottomBarItem extends StatelessWidget {
               Text(label,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: isSelected ? HSColor.green06 : HSColor.neutral6,
-                  fontSize: FontStyleGuide.fontSize10))
+                      fontSize: FontStyleGuide.fontSize10))
             ],
           ),
         ),
