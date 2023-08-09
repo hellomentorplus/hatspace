@@ -162,5 +162,7 @@
   "deleteAccountWarning": "All your data will be kept within 30 days before being deleted pernamently. Are you sure you want to delete your account?",
   "submit": "Submit",
   "deleteAccountQuestionMark": "Delete account?",
-  "appleSignUp": "Continue with Apple"
+  "appleSignUp": "Continue with Apple",
+  "showLess":"Show less",
+  "showMore":"Show more"
 }
