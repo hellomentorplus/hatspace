@@ -83,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
         "appleSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Apple"),
+        "application": MessageLookupByLibrary.simpleMessage("Application"),
         "askFeaturesOwned": MessageLookupByLibrary.simpleMessage(
             "Which features your place has?"),
         "australiaState": m0,
@@ -93,7 +94,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
-        "booking": MessageLookupByLibrary.simpleMessage("Booking"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseKindOfYourProperty": MessageLookupByLibrary.simpleMessage(
             "Choose kind of your property"),
@@ -152,6 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("House number + Street name"),
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
         "information": MessageLookupByLibrary.simpleMessage("Information"),
+        "inspection": MessageLookupByLibrary.simpleMessage("Inspection"),
         "kitchen": MessageLookupByLibrary.simpleMessage("Kitchen"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "letAddSomePhotosOfYourPlace": MessageLookupByLibrary.simpleMessage(
@@ -168,7 +169,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?"),
         "lostDataTitle": MessageLookupByLibrary.simpleMessage("Lost Data"),
         "maximumChars": m3,
-        "message": MessageLookupByLibrary.simpleMessage("Message"),
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "myAccount": MessageLookupByLibrary.simpleMessage("My account"),

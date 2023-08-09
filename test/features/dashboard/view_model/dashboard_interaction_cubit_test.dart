@@ -212,7 +212,7 @@ void main() {
       setUp: () {
         when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
-      act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.booking),
+      act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.inspection),
       expect: () => [isA<OpenLoginBottomSheetModal>()]);
 
   blocTest(
@@ -221,7 +221,7 @@ void main() {
       setUp: () {
         when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
-      act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.message),
+      act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.application),
       expect: () => [isA<OpenLoginBottomSheetModal>()]);
 
   blocTest(
