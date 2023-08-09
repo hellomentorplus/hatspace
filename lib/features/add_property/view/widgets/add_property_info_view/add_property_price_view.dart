@@ -83,16 +83,34 @@ class _AddPropertyPriceViewState extends State<AddPropertyPriceView>
                 left: HsDimens.spacing16,
                 top: HsDimens.spacing8,
                 bottom: HsDimens.spacing8),
-            child: Container(
-                padding: const EdgeInsets.all(HsDimens.spacing8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: HSColor.neutral2),
-                child: Text(
-                    // TODO: implement property data
-                    '${Currency.aud.name.toUpperCase()} (\$)',
-                    style: textTheme.bodySmall
-                        ?.copyWith(fontWeight: FontWeight.w700)))),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                    padding: const EdgeInsets.all(HsDimens.spacing8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: HSColor.neutral2),
+                    child: Text(
+                      HatSpaceStrings.current
+                          .addPropertyPriceDisplay(
+                          Currency.aud.name.toUpperCase(),
+                          Currency.aud.symbol),
+                        style: textTheme.bodySmall
+                            ?.copyWith(fontWeight: FontWeight.w700))),
+                const SizedBox(width: HsDimens.spacing8,),
+                Container(
+                    padding: const EdgeInsets.all(HsDimens.spacing8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: HSColor.neutral2),
+                    child: Text(
+                        HatSpaceStrings.current.addPropertyRentalPeriodUnit,
+                        style: textTheme.bodySmall
+                            ?.copyWith(fontWeight: FontWeight.w700)))
+              ],
+            )),
         inputFormatters: [PriceInputTextFormatter(_error, _numberFormat)],
         onChanged: (value) {
           try {
