@@ -1,68 +1,79 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/gen/assets.gen.dart';
-import 'package:hatspace/strings/l10n.dart';
+part of '../property_detail_screen.dart';
 
-import 'package:hatspace/theme/hs_theme.dart';
-
-class PropertyDescriptionView extends StatelessWidget {
-  final ValueNotifier<bool> _isExpanded = ValueNotifier(false);
+class PropertyDescriptionView extends StatefulWidget {
   final String description;
   final int? maxLine;
 
-  PropertyDescriptionView(
+  const PropertyDescriptionView(
       {required this.description, required this.maxLine, Key? key})
       : super(key: key);
+
+  @override
+  State<PropertyDescriptionView> createState() =>
+      _PropertyDescriptionViewState();
+}
+
+class _PropertyDescriptionViewState extends State<PropertyDescriptionView>
+    with TickerProviderStateMixin {
+  final Duration _duration = const Duration(milliseconds: 300);
+  late final AnimationController _animationController =
+      AnimationController(vsync: this)..duration = _duration;
+
+  late final Animation<double> _shortTextFade =
+      Tween(begin: 1.0, end: 0.0).animate(_animationController);
+
+  late final Animation<double> _longTextSize =
+      Tween(begin: 0.0, end: 1.0).animate(_animationController);
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        ValueListenableBuilder<bool>(
-          valueListenable: _isExpanded,
-          builder: (context, isExpanded, child) => Text(
-            description,
-            maxLines: isExpanded ? null : maxLine,
-            overflow: isExpanded ? null : TextOverflow.ellipsis,
-            textAlign: isExpanded ? TextAlign.justify : TextAlign.start,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(color: HSColor.neutral7),
-          ),
+        Stack(
+          children: [
+            SizeTransition(
+              sizeFactor: _longTextSize,
+              axisAlignment: -1,
+              child: Text(
+                widget.description,
+                textAlign: TextAlign.justify,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: HSColor.neutral7),
+              ),
+            ),
+            FadeTransition(
+              opacity: _shortTextFade,
+              child: ColoredBox(
+                color: Theme.of(context).colorScheme.background,
+                child: Text(
+                  widget.description,
+                  maxLines: widget.maxLine,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.justify,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: HSColor.neutral7),
+                ),
+              ),
+            ),
+          ],
         ),
         const SizedBox(
           height: HsDimens.spacing8,
         ),
-        InkWell(
-          onTap: () {
-            _isExpanded.value = !_isExpanded.value;
-          },
-          child: Row(
-            children: [
-              ValueListenableBuilder<bool>(
-                valueListenable: _isExpanded,
-                builder: (context, isExpanded, child) => Text(
-                  isExpanded
-                      ? HatSpaceStrings.current.showLess
-                      : HatSpaceStrings.current.showMore,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: Theme.of(context).colorScheme.primary),
-                ),
-              ),
-              SvgPicture.asset(
-                Assets.icons.chervonDown,
-                width: HsDimens.size20,
-                height: HsDimens.size20,
-                colorFilter: ColorFilter.mode(
-                    Theme.of(context).colorScheme.primary, BlendMode.srcIn),
-              )
-            ],
-          ),
+        ShowMoreLabel(
+          animationController: _animationController,
+          duration: _duration,
         )
       ],
     );
