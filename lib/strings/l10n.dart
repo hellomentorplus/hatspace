@@ -1424,16 +1424,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Continue with Apple`
-  String get appleSignUp {
-    return Intl.message(
-      'Continue with Apple',
-      name: 'appleSignUp',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Show less`
   String get showLess {
     return Intl.message(
@@ -1459,6 +1449,36 @@ class HatSpaceStrings {
     return Intl.message(
       'Book Inspection',
       name: 'bookInspection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{name} ({symbol})`
+  String addPropertyPriceDisplay(Object name, Object symbol) {
+    return Intl.message(
+      '$name ($symbol)',
+      name: 'addPropertyPriceDisplay',
+      desc: '',
+      args: [name, symbol],
+    );
+  }
+
+  /// `(PW)`
+  String get addPropertyRentalPeriodUnit {
+    return Intl.message(
+      '(PW)',
+      name: 'addPropertyRentalPeriodUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue with Apple`
+  String get appleSignUp {
+    return Intl.message(
+      'Continue with Apple',
+      name: 'appleSignUp',
       desc: '',
       args: [],
     );
