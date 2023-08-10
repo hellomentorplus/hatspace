@@ -2,7 +2,8 @@ part of '../property_detail_screen.dart';
 
 class PropertyFeaturesView extends StatefulWidget {
   final List<Feature> features;
-  const PropertyFeaturesView({required this.features, Key? key}) : super(key: key);
+  const PropertyFeaturesView({required this.features, Key? key})
+      : super(key: key);
 
   @override
   State<PropertyFeaturesView> createState() => _PropertyFeaturesViewState();
@@ -82,10 +83,11 @@ class _PropertyFeaturesViewState extends State<PropertyFeaturesView>
                         .toList(),
                   ),
                 ),
-                if (widget.features.length > 4) ShowMoreLabel(
-                  animationController: _animationController,
-                  duration: _duration,
-                ),
+                if (widget.features.length > 4)
+                  ShowMoreLabel(
+                    animationController: _animationController,
+                    duration: _duration,
+                  ),
               ],
             ),
           );

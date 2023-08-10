@@ -43,9 +43,7 @@ class _ShowMoreLabelState extends State<ShowMoreLabel>
           }
         },
         child: Padding(
-          padding: const EdgeInsets.only(
-            top: HsDimens.spacing8
-          ),
+          padding: const EdgeInsets.only(top: HsDimens.spacing8),
           child: Row(
             children: [
               ValueListenableBuilder<String>(
@@ -55,10 +53,8 @@ class _ShowMoreLabelState extends State<ShowMoreLabel>
                   child: Text(
                     text,
                     key: ValueKey<String>(text),
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(color: Theme.of(context).colorScheme.primary),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.primary),
                   ),
                 ),
               ),

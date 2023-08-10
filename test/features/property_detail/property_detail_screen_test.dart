@@ -37,7 +37,8 @@ void main() async {
   final MockPropertyService propertyService = MockPropertyService();
   final MockMemberService memberService = MockMemberService();
   final MockPropertyDetailCubit propertyDetailCubit = MockPropertyDetailCubit();
-  final MockAuthenticationService authenticationService = MockAuthenticationService();
+  final MockAuthenticationService authenticationService =
+      MockAuthenticationService();
 
   final Property property = Property(
       type: PropertyTypes.apartment,
@@ -64,7 +65,8 @@ void main() async {
 
   setUpAll(() {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
-    HsSingleton.singleton.registerSingleton<AuthenticationService>(authenticationService);
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
   });
 
   setUp(() {
@@ -87,7 +89,8 @@ void main() async {
       (realInvocation) => const Stream.empty(),
     );
 
-    when(authenticationService.getCurrentUser()).thenAnswer((realInvocation) => Future.value(UserDetail(uid: 'uid')));
+    when(authenticationService.getCurrentUser())
+        .thenAnswer((realInvocation) => Future.value(UserDetail(uid: 'uid')));
   });
 
   tearDown(() {
