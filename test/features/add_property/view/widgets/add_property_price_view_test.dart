@@ -211,4 +211,18 @@ void main() async {
       expect(find.text('12,345,678'), findsOneWidget);
     });
   });
+
+  testWidgets('verify default UI', (widgetTester) async {
+    when(addPropertyCubit.price).thenAnswer((realInvocation) => null);
+    const Widget widget = AddPropertyPriceView();
+
+    await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+        addPropertyCubit, widget);
+
+    // label
+    expect(find.text('Price *', findRichText: true), findsOneWidget);
+    expect(find.text('Enter your price'), findsOneWidget);
+    expect(find.text('AUD (\$)'), findsOneWidget);
+    expect(find.text('(PW)'), findsOneWidget);
+  });
 }

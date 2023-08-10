@@ -21,11 +21,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/apartment.svg
   String get apartment => 'assets/icons/apartment.svg';
 
+  /// File path: assets/icons/apple.svg
+  String get apple => 'assets/icons/apple.svg';
+
   /// File path: assets/icons/arrow_calendar_left.svg
   String get arrowCalendarLeft => 'assets/icons/arrow_calendar_left.svg';
 
   /// File path: assets/icons/arrow_calendar_right.svg
   String get arrowCalendarRight => 'assets/icons/arrow_calendar_right.svg';
+
+  /// File path: assets/icons/back_circle.svg
+  String get backCircle => 'assets/icons/back_circle.svg';
 
   /// File path: assets/icons/bath.svg
   String get bath => 'assets/icons/bath.svg';
@@ -104,6 +110,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/favorite_active.svg
   String get favoriteActive => 'assets/icons/favorite_active.svg';
+
+  /// File path: assets/icons/favorite_circle.svg
+  String get favoriteCircle => 'assets/icons/favorite_circle.svg';
 
   /// File path: assets/icons/favorite_unactive.svg
   String get favoriteUnactive => 'assets/icons/favorite_unactive.svg';
@@ -194,8 +203,10 @@ class $AssetsIconsGen {
         add,
         airConditioners,
         apartment,
+        apple,
         arrowCalendarLeft,
         arrowCalendarRight,
+        backCircle,
         bath,
         bed,
         booking,
@@ -222,6 +233,7 @@ class $AssetsIconsGen {
         facebook,
         favorite,
         favoriteActive,
+        favoriteCircle,
         favoriteUnactive,
         filter,
         fridge,

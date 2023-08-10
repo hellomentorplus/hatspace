@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -74,7 +75,7 @@ void main() {
                   .firstWidget<Container>(imgFinder)
                   .decoration as BoxDecoration)
               .image!
-              .image as NetworkImage)
+              .image as CachedNetworkImageProvider)
           .url;
       final int currentPage = pageViewWidget.controller.page!.round();
 

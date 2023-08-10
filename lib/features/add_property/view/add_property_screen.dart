@@ -159,7 +159,7 @@ class BottomController extends StatelessWidget {
 
       if (state is EndSubmitPropertyDetails) {
         context.dismissLoading();
-        context.goToPropertyDetail();
+        context.goToPropertyDetail(id: state.id, replacement: true);
       }
     }, builder: (context, state) {
       return BottomAppBar(
