@@ -1394,16 +1394,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Submit`
-  String get submit {
-    return Intl.message(
-      'Submit',
-      name: 'submit',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Guide for application`
   String get guideForApplication {
     return Intl.message(
@@ -1519,6 +1509,66 @@ class HatSpaceStrings {
     return Intl.message(
       'Download Application form here',
       name: 'downloadApplicationFormHere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All your data will be kept within 30 days before being deleted pernamently. Are you sure you want to delete your account?`
+  String get deleteAccountWarning {
+    return Intl.message(
+      'All your data will be kept within 30 days before being deleted pernamently. Are you sure you want to delete your account?',
+      name: 'deleteAccountWarning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submit`
+  String get submit {
+    return Intl.message(
+      'Submit',
+      name: 'submit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete account?`
+  String get deleteAccountQuestionMark {
+    return Intl.message(
+      'Delete account?',
+      name: 'deleteAccountQuestionMark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{name} ({symbol})`
+  String addPropertyPriceDisplay(Object name, Object symbol) {
+    return Intl.message(
+      '$name ($symbol)',
+      name: 'addPropertyPriceDisplay',
+      desc: '',
+      args: [name, symbol],
+    );
+  }
+
+  /// `(PW)`
+  String get addPropertyRentalPeriodUnit {
+    return Intl.message(
+      '(PW)',
+      name: 'addPropertyRentalPeriodUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue with Apple`
+  String get appleSignUp {
+    return Intl.message(
+      'Continue with Apple',
+      name: 'appleSignUp',
       desc: '',
       args: [],
     );

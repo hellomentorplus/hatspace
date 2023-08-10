@@ -159,7 +159,6 @@
   "notUpdated": "Not updated",
   "edit": "Edit",
   "myProfile": "My Profile",
-  "submit": "Submit",
   "guideForApplication": "Guide for application",
   "applicationInform": "All adult applicants (18 years or older) must complete a separate application for rental.",
   "applicationRequirementsAsking": "Please provide the following with your application:",
@@ -171,5 +170,11 @@
   "questionSupport": "If you have any questions, please feel free to let us know. We will always here to support you!",
   "contactSupport": "Support contact",
   "sendEmail": "Send Email",
-  "downloadApplicationFormHere": "Download Application form here"
+  "downloadApplicationFormHere": "Download Application form here",
+  "deleteAccountWarning": "All your data will be kept within 30 days before being deleted pernamently. Are you sure you want to delete your account?",
+  "submit": "Submit",
+  "deleteAccountQuestionMark": "Delete account?",
+  "addPropertyPriceDisplay": "{name} ({symbol})",
+  "addPropertyRentalPeriodUnit": "(PW)",
+  "appleSignUp": "Continue with Apple"
 }

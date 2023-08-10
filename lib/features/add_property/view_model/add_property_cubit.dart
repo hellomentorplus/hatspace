@@ -354,11 +354,12 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
       final String id = await _storageService.property.addProperty(property);
 
       await _storageService.member.addMemberProperties(user.uid, id);
+
+      // complete upload
+      emit(EndSubmitPropertyDetails(state.pageViewNumber, id));
     } on UserNotFoundException catch (_) {
       // do nothing
     }
-    // complete upload
-    emit(EndSubmitPropertyDetails(state.pageViewNumber));
   }
 
   String _generateFolderName() {

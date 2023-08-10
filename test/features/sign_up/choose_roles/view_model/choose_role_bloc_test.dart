@@ -63,7 +63,8 @@ void main() {
         });
         when(mockUserDetail.uid).thenReturn('uid');
         when(mockUserDetail.displayName).thenReturn('displayName');
-        when(memberService.saveMember(mockUserDetail.uid, any, any))
+        when(mockUserDetail.avatar).thenReturn('avatar');
+        when(memberService.saveMember(mockUserDetail.uid, any, any, any))
             .thenAnswer((realInvocation) => Future<void>.value());
       },
       act: (bloc) => bloc.submitUserRoles(),
