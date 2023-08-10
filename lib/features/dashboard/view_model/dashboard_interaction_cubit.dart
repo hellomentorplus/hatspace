@@ -45,7 +45,6 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
       HsSingleton.singleton.get<HsPermissionService>();
 
   BottomBarItems selectedBottomBarItem = BottomBarItems.explore;
-
   void onAddPropertyPressed() async {
     emit(StartValidateRole());
     try {
@@ -90,7 +89,9 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
     }
   }
 
-  void goToSignUpScreen() => emit(GotoSignUpScreen());
+  void goToSignUpScreen() {
+    emit(GotoSignUpScreen());
+  }
 
   void onCloseLoginModal() => emit(CloseLoginModal());
 

@@ -166,11 +166,19 @@ class _DashboardBodyState extends State<DashboardBody>
                 });
               }
               if (state is GotoSignUpScreen) {
-                context.goToSignup();
+                context.goToSignup().then((isLoginFromLoginModal) {
+                  if (isLoginFromLoginModal == true) {
+                    context
+                        .read<DashboardInteractionCubit>()
+                        .navigateToExpectedScreen();
+                  }
+                });
               }
 
               if (state is RequestHomeOwnerRole) {
-                showRequestHomeOwnerRoleBottomSheet();
+                if (ModalRoute.of(context)?.isCurrent == true) {
+                  showRequestHomeOwnerRoleBottomSheet();
+                }
               }
 
               if (state is PhotoPermissionGranted) {
@@ -194,14 +202,6 @@ class _DashboardBodyState extends State<DashboardBody>
               }
             },
           ),
-          BlocListener<AuthenticationBloc, AuthenticationState>(
-              listener: (context, state) {
-            if (state is AuthenticatedState) {
-              context
-                  .read<DashboardInteractionCubit>()
-                  .navigateToExpectedScreen();
-            }
-          }),
           BlocListener<AddHomeOwnerRoleCubit, AddHomeOwnerRoleState>(
             listener: (context, state) {
               if (state is AddHomeOwnerRoleSucceeded) {

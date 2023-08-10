@@ -44,7 +44,12 @@ class SignUpBody extends StatelessWidget {
         }
         if (state is UserRolesUnavailable) {
           context.dismissLoading();
-          context.goToChooseRole();
+          context.goToChooseRole().then((value) {
+            // value depend on how chooseRoleScreen pop
+            // value: false <=> pop from close icon
+            // pop sign up screen after chooseRoleScreen poped
+            context.pop(result: value);
+          });
         }
         if (state is SignUpSuccess) {
           context.dismissLoading();
