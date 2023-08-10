@@ -65,12 +65,15 @@ void main() {
             widget, 'assets/icons/email_white.svg')),
         findsOneWidget);
 
-    expect(find.ancestor(
-        of: find.text('Download'), matching: find.byType(SecondaryButton)), findsOneWidget);
-    
     expect(
         find.ancestor(
-            of: find.text('Support contact'), matching: find.byType(SecondaryButton)),
+            of: find.text('Download'), matching: find.byType(SecondaryButton)),
+        findsOneWidget);
+
+    expect(
+        find.ancestor(
+            of: find.text('Support contact'),
+            matching: find.byType(SecondaryButton)),
         findsOneWidget);
 
     expect(

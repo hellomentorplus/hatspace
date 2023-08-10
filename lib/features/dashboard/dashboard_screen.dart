@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hatspace/features/application/view/application_guide_screen.dart';
 import 'package:hatspace/features/dashboard/view_model/add_home_owner_role_cubit.dart';
 import 'package:hatspace/features/dashboard/view_model/dashboard_interaction_cubit.dart';
 import 'package:hatspace/features/profile/view/profile_view.dart';
@@ -219,9 +218,7 @@ class _DashboardBodyState extends State<DashboardBody>
                 HomePageView(),
                 BookingView(),
                 MessageView(),
-                // ProfileView()
-                /// DONG : Remove later
-                ApplicationGuideScreen()
+                ProfileView()
               ],
             ),
             bottomNavigationBar: BottomAppBar(

@@ -77,7 +77,9 @@ class ApplicationGuideScreen extends StatelessWidget {
             SecondaryButton(
               label: HatSpaceStrings.current.download,
               iconUrl: Assets.icons.download,
-              onPressed: () {},
+              onPressed: () {
+                /// TODO : Handle download
+              },
             ),
             const SizedBox(height: HsDimens.spacing20),
             Text(HatSpaceStrings.current.questionSupport,
@@ -88,7 +90,9 @@ class ApplicationGuideScreen extends StatelessWidget {
                 Expanded(
                     child: SecondaryButton(
                   label: HatSpaceStrings.current.contactSupport,
-                  onPressed: () {},
+                  onPressed: () {
+                    /// TODO : Handle contact support
+                  },
                 )),
                 const SizedBox(width: HsDimens.spacing16),
                 Expanded(
@@ -96,7 +100,9 @@ class ApplicationGuideScreen extends StatelessWidget {
                   label: HatSpaceStrings.current.sendEmail,
                   iconUrl: Assets.icons.emailWhite,
                   iconPosition: IconPosition.right,
-                  onPressed: () {},
+                  onPressed: () {
+                    /// TODO : Handle email
+                  },
                 ))
               ],
             ),
@@ -112,7 +118,7 @@ class _ApplicationRequirementView extends StatelessWidget {
   final String iconPath;
   final String title;
   const _ApplicationRequirementView(
-      {super.key, required this.iconPath, required this.title});
+      {required this.iconPath, required this.title});
 
   @override
   Widget build(BuildContext context) {
