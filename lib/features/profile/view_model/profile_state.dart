@@ -28,6 +28,6 @@ class GetUserDetailFailedState extends ProfileState {
   const GetUserDetailFailedState();
 }
 
-class DeleteAccountSucceedState extends ProfileState {
-  const DeleteAccountSucceedState();
+class LogOutAccountSucceedState extends ProfileState {
+  const LogOutAccountSucceedState();
 }
