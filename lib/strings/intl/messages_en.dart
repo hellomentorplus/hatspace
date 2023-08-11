@@ -99,6 +99,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
+        "booking": MessageLookupByLibrary.simpleMessage("Booking"),
+        "btnLogOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "bookInspection":
             MessageLookupByLibrary.simpleMessage("Book Inspection"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -169,6 +171,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "location": MessageLookupByLibrary.simpleMessage("Location"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
+        "logOutDescription": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to cancel add new property?"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginDescription": MessageLookupByLibrary.simpleMessage(
             "You need to be logged in to view this content"),

@@ -1483,6 +1483,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Are you sure you want to cancel add new property?`
+  String get logOutDescription {
+    return Intl.message(
+      'Are you sure you want to cancel add new property?',
+      name: 'logOutDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log Out`
+  String get btnLogOut {
+    return Intl.message(
+      'Log Out',
+      name: 'btnLogOut',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
