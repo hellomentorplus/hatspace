@@ -26,6 +26,12 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
+  void deleteAccount() async {
+    // todo: will update when requirement changed
+    await _authenticationService.signOut();
+    emit(const DeleteAccountSucceedState());
+  }
+
   void logOut() async {
     await _authenticationService.signOut();
     emit(const LogOutAccountSucceedState());

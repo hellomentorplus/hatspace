@@ -31,6 +31,10 @@ class ProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<ProfileCubit, ProfileState>(
       listener: (context, state) {
+        if (state is DeleteAccountSucceedState) {
+          context.goToSignup();
+        }
+
         if (state is LogOutAccountSucceedState) {
           context.goToSignup();
         }
@@ -139,8 +143,7 @@ class ProfileBody extends StatelessWidget {
         secondaryButtonStyle:
             OutlinedButton.styleFrom(foregroundColor: HSColor.red06),
         secondaryOnPressed: () {
-          // todo: update if the requirement for deleteAccount is changed, in this phase the same logic with logout
-          context.read<ProfileCubit>().logOut();
+          context.read<ProfileCubit>().deleteAccount();
           context.pop();
         });
     return context.showHsBottomSheet(deleteBottomSheet);

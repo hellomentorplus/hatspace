@@ -290,7 +290,7 @@ void main() {
     expect(submitBtn, findsOneWidget);
     await widgetTester.ensureVisible(submitBtn);
     await widgetTester.tap(submitBtn);
-    verify(profileCubit.logOut()).called(1);
+    verify(profileCubit.deleteAccount()).called(1);
   });
 
   testWidgets(
@@ -298,9 +298,9 @@ void main() {
       'When user delete their account'
       'Then the app will navigate user to SignUp Screen', (widgetTester) async {
     when(profileCubit.stream)
-        .thenAnswer((_) => Stream.value(const LogOutAccountSucceedState()));
+        .thenAnswer((_) => Stream.value(const DeleteAccountSucceedState()));
     when(profileCubit.state)
-        .thenAnswer((_) => const LogOutAccountSucceedState());
+        .thenAnswer((_) => const DeleteAccountSucceedState());
 
     await widgetTester.blocWrapAndPump<ProfileCubit>(
         profileCubit, const ProfileBody());
