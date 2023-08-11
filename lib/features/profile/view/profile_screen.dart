@@ -264,6 +264,7 @@ class _OptionView extends StatelessWidget {
   final String title;
   final String? suffixText;
   final VoidCallback onPressed;
+
   const _OptionView(
       {required this.iconPath,
       required this.title,

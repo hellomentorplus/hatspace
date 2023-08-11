@@ -12,6 +12,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       HsSingleton.singleton.get<AuthenticationService>();
   final StorageService _storageService =
       HsSingleton.singleton.get<StorageService>();
+
   ProfileCubit() : super(const ProfileInitialState());
 
   void getUserInformation() async {

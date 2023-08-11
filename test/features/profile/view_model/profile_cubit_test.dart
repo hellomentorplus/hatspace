@@ -68,7 +68,7 @@ void main() {
 
   blocTest<ProfileCubit, ProfileState>(
       'when logOut, '
-      'then return LogOutAccountSucceedState',
+      'then return LogOutAccountSucceedState and signOut is called',
       build: () => ProfileCubit(),
       setUp: () {
         when(authenticationService.signOut())
