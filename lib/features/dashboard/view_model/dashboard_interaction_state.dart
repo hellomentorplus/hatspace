@@ -42,7 +42,12 @@ class OpenPage extends DashboardInteractionState {
   List<Object?> get props => [item];
 }
 
-class CloseHsModal extends DashboardInteractionState {
+class CloseRequestHomeOwnerModal extends DashboardInteractionState {
+  @override
+  List<Object?> get props => [];
+}
+
+class CloseLoginModal extends DashboardInteractionState {
   @override
   List<Object?> get props => [];
 }

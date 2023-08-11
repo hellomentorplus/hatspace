@@ -372,21 +372,21 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Booking`
-  String get booking {
+  /// `Inspection`
+  String get inspection {
     return Intl.message(
-      'Booking',
-      name: 'booking',
+      'Inspection',
+      name: 'inspection',
       desc: '',
       args: [],
     );
   }
 
-  /// `Message`
-  String get message {
+  /// `Application`
+  String get application {
     return Intl.message(
-      'Message',
-      name: 'message',
+      'Application',
+      name: 'application',
       desc: '',
       args: [],
     );
@@ -1419,6 +1419,36 @@ class HatSpaceStrings {
     return Intl.message(
       'Delete account?',
       name: 'deleteAccountQuestionMark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show less`
+  String get showLess {
+    return Intl.message(
+      'Show less',
+      name: 'showLess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show more`
+  String get showMore {
+    return Intl.message(
+      'Show more',
+      name: 'showMore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Book Inspection`
+  String get bookInspection {
+    return Intl.message(
+      'Book Inspection',
+      name: 'bookInspection',
       desc: '',
       args: [],
     );
