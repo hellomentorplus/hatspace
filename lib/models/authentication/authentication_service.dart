@@ -13,14 +13,17 @@ class AuthenticationService {
   final GoogleSignIn _googleSignIn;
   final FirebaseAuth _firebaseAuth;
   final FacebookAuth _facebookAuth;
+  StreamSubscription? _streamSubscription;
   AuthenticationService({
     GoogleSignIn? googleSignIn,
     FirebaseAuth? firebaseAuth,
     FacebookAuth? facebookAuth,
   })  : _googleSignIn = googleSignIn ?? GoogleSignIn(),
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _facebookAuth = facebookAuth ?? FacebookAuth.instance {
-    _firebaseAuth.authStateChanges().listen((event) {
+        _facebookAuth = facebookAuth ?? FacebookAuth.instance;
+
+  void initialiseUserDetailStream() {
+    _streamSubscription = _firebaseAuth.authStateChanges().listen((event) {
       if (event != null) {
         UserDetail userDetail = UserDetail(
             displayName: event.displayName,
@@ -32,6 +35,10 @@ class AuthenticationService {
         _userDetailStreamController.add(null);
       }
     });
+  }
+
+  void closeUserDetailStream() {
+    _streamSubscription?.cancel();
   }
 
   final StreamController<UserDetail?> _userDetailStreamController =

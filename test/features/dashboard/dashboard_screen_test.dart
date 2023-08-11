@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/features/booking/booking_view.dart';
 import 'package:hatspace/features/dashboard/dashboard_screen.dart';
 import 'package:hatspace/features/dashboard/view_model/add_home_owner_role_cubit.dart';
 import 'package:hatspace/features/dashboard/view_model/dashboard_interaction_cubit.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
-import 'package:hatspace/features/message/message_view.dart';
+import 'package:hatspace/features/inspection/inspection_view.dart';
+import 'package:hatspace/features/application/application_view.dart';
 import 'package:hatspace/features/profile/view/profile_view.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
@@ -159,7 +159,7 @@ void main() {
         ),
       ], widget);
 
-      await widgetTester.tap(find.text('Booking'));
+      await widgetTester.tap(find.text('Inspection'));
       await widgetTester.pumpAndSettle();
 
       // login bottom sheet is displayed
@@ -173,8 +173,8 @@ void main() {
 
     testWidgets(
         'given user logged in and is on dashboard screen'
-        'when tap on booking item '
-        'then BookingView is shown', (widgetTester) async {
+        'when tap on Inspection item '
+        'then InspectionView is shown', (widgetTester) async {
       when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
 
       const Widget widget = DashboardScreen();
@@ -187,12 +187,12 @@ void main() {
         ),
       ], widget);
 
-      await widgetTester.tap(find.text('Booking'));
+      await widgetTester.tap(find.text('Inspection'));
       await widgetTester.pumpAndSettle();
 
       // login bottom sheet is not displayed
       expect(find.byType(HsWarningBottomSheetView), findsNothing);
-      expect(find.byType(BookingView), findsOneWidget);
+      expect(find.byType(InspectionView), findsOneWidget);
     });
   });
 
@@ -213,7 +213,7 @@ void main() {
         ),
       ], widget);
 
-      await widgetTester.tap(find.text('Message'));
+      await widgetTester.tap(find.text('Application'));
       await widgetTester.pumpAndSettle();
 
       // login bottom sheet is displayed
@@ -241,12 +241,12 @@ void main() {
         ),
       ], widget);
 
-      await widgetTester.tap(find.text('Message'));
+      await widgetTester.tap(find.text('Application'));
       await widgetTester.pumpAndSettle();
 
       // login bottom sheet is not displayed
       expect(find.byType(HsWarningBottomSheetView), findsNothing);
-      expect(find.byType(MessageView), findsOneWidget);
+      expect(find.byType(ApplicationView), findsOneWidget);
     });
   });
 
@@ -317,7 +317,7 @@ void main() {
     ], widget);
 
     when(authenticationService.isUserLoggedIn).thenAnswer((_) => false);
-    await widgetTester.tap(find.text('Booking'));
+    await widgetTester.tap(find.text('Inspection'));
     await widgetTester.pump();
     expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
 
@@ -385,7 +385,7 @@ void main() {
       await widgetTester.ensureVisible(closeBtn);
       await widgetTester.tap(closeBtn);
       await widgetTester.pumpAndSettle();
-      verify(interactionCubit.onCloseModal()).called(1);
+      verify(interactionCubit.onCloseLoginModal()).called(1);
       expect(find.byType(HsWarningBottomSheetView), findsNothing);
     });
 
@@ -900,4 +900,40 @@ void main() {
           .called(1);
     });
   });
+
+  // group('navigate to expected screen', () {
+  //   testWidgets(
+  //       'given user does not log in, '
+  //       'when user logged in successfully,'
+  //       'then call navigated to expected screen', (widgetTester) async {
+  //     // when(authenticationBloc.state).thenReturn(AuthenticatedState(
+  //     //     UserDetail(uid: 'uiid', displayName: 'display name')));
+  //     // when(authenticationBloc.stream).thenAnswer((realInvocation) =>
+  //     //     Stream.value(AuthenticatedState(
+  //     //         UserDetail(uid: 'uiid', displayName: 'display name'))));
+  //      when(interactionCubit.state).thenReturn(GotoSignUpScreen());
+  //     when(interactionCubit.stream).thenAnswer((realInvocation) =>
+  //         Stream.value(GotoSignUpScreen()));
+
+  //     const Widget widget = DashboardBody();
+
+  //     await widgetTester.multiBlocWrapAndPump([
+  //       BlocProvider<AppConfigBloc>(
+  //         create: (context) => appConfigBloc,
+  //       ),
+  //       BlocProvider<AuthenticationBloc>(
+  //         create: (context) => authenticationBloc,
+  //       ),
+  //       BlocProvider<DashboardInteractionCubit>(
+  //         create: (context) => interactionCubit,
+  //       ),
+  //       BlocProvider<AddHomeOwnerRoleCubit>(
+  //         create: (context) => addHomeOwnerRoleCubit,
+  //       )
+  //     ], widget);
+  //     expect(find.byType(DashboardBody), findsNothing);
+
+  //     //verify(interactionCubit.navigateToExpectedScreen()).called(1);
+  //   });
+  // });
 }

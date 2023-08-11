@@ -5,7 +5,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
+// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal
 
 import 'package:flutter/widgets.dart';
 
@@ -23,6 +23,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/apple.svg
   String get apple => 'assets/icons/apple.svg';
+
+  /// File path: assets/icons/application.svg
+  String get application => 'assets/icons/application.svg';
 
   /// File path: assets/icons/arrow_calendar_left.svg
   String get arrowCalendarLeft => 'assets/icons/arrow_calendar_left.svg';
@@ -147,9 +150,6 @@ class $AssetsIconsGen {
   /// File path: assets/icons/logout.svg
   String get logout => 'assets/icons/logout.svg';
 
-  /// File path: assets/icons/message.svg
-  String get message => 'assets/icons/message.svg';
-
   /// File path: assets/icons/messages.svg
   String get messages => 'assets/icons/messages.svg';
 
@@ -204,6 +204,7 @@ class $AssetsIconsGen {
         airConditioners,
         apartment,
         apple,
+        application,
         arrowCalendarLeft,
         arrowCalendarRight,
         backCircle,
@@ -245,7 +246,6 @@ class $AssetsIconsGen {
         kitchen,
         language,
         logout,
-        message,
         messages,
         notification,
         photoAccess,
@@ -396,16 +396,7 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
-  }
+  ImageProvider provider() => AssetImage(_assetName);
 
   String get path => _assetName;
 
