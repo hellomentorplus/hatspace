@@ -34,6 +34,10 @@ class ProfileBody extends StatelessWidget {
         if (state is DeleteAccountSucceedState) {
           context.goToSignup();
         }
+
+        if (state is LogOutAccountSucceedState) {
+          context.goToSignup();
+        }
       },
       child: Scaffold(
           body: SafeArea(
@@ -93,7 +97,7 @@ class ProfileBody extends StatelessWidget {
                 _OptionView(
                   iconPath: Assets.icons.logout,
                   title: HatSpaceStrings.current.logOut,
-                  onPressed: () {},
+                  onPressed: () => _showLogOutBottomSheet(context),
                 ),
                 _OptionView(
                   iconPath: Assets.icons.delete,
@@ -107,6 +111,23 @@ class ProfileBody extends StatelessWidget {
         ])),
       )),
     );
+  }
+
+  Future<void> _showLogOutBottomSheet(BuildContext context) {
+    HsWarningBottomSheetView logoutBottomSheet = HsWarningBottomSheetView(
+        iconUrl: Assets.images.circleWarning,
+        title: HatSpaceStrings.current.logOut,
+        description: HatSpaceStrings.current.logOutDescription,
+        primaryButtonLabel: HatSpaceStrings.current.cancelBtn,
+        primaryOnPressed: () {
+          context.pop();
+        },
+        secondaryButtonLabel: HatSpaceStrings.current.btnLogOut,
+        secondaryOnPressed: () {
+          context.read<ProfileCubit>().logOut();
+          context.pop();
+        });
+    return context.showHsBottomSheet(logoutBottomSheet);
   }
 
   Future<void> _showDeleteAccountBottomSheet(BuildContext context) {
@@ -246,6 +267,7 @@ class _OptionView extends StatelessWidget {
   final String title;
   final String? suffixText;
   final VoidCallback onPressed;
+
   const _OptionView(
       {required this.iconPath,
       required this.title,

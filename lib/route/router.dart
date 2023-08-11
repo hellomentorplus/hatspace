@@ -18,8 +18,8 @@ extension RouteExtension on BuildContext {
         MaterialPageRoute(builder: (context) => const DashboardScreen()));
   }
 
-  void goToChooseRole() {
-    Navigator.of(this).pushReplacement(
+  Future<T?> goToChooseRole<T extends Object?>() {
+    return Navigator.of(this).push(
         MaterialPageRoute(builder: (context) => const ChooseRolesScreen()));
   }
 

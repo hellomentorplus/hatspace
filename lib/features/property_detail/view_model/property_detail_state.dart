@@ -28,6 +28,9 @@ class PropertyDetailLoaded extends PropertyDetailState {
   final List<Feature> features;
   final String ownerName;
   final String? ownerAvatar;
+  final bool isOwned;
+  final DateTime availableDate;
+  final Price price;
 
   const PropertyDetailLoaded(
       {required this.photos,
@@ -41,7 +44,10 @@ class PropertyDetailLoaded extends PropertyDetailState {
       required this.fullAddress,
       required this.features,
       required this.ownerAvatar,
-      required this.ownerName});
+      required this.ownerName,
+      required this.isOwned,
+      required this.availableDate,
+      required this.price});
 
   @override
   List<Object?> get props => [
@@ -55,6 +61,9 @@ class PropertyDetailLoaded extends PropertyDetailState {
         bathrooms,
         carspaces,
         description,
-        fullAddress
+        fullAddress,
+        isOwned,
+        availableDate,
+        price
       ];
 }

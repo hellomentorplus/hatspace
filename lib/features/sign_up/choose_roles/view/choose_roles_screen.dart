@@ -31,7 +31,7 @@ class ChooseRolesViewBody extends StatelessWidget {
     return BlocListener<ChooseRolesCubit, ChooseRolesState>(
       listener: (context, state) {
         if (state is SubmitRoleSucceedState) {
-          context.pop();
+          context.pop(result: true);
         }
         if (state is SubmitRoleFailedState) {
           // TODO: Implement failure scenario
@@ -122,6 +122,6 @@ class ChooseRolesViewBody extends StatelessWidget {
 
   void _cancelChoosingRoles(BuildContext context) {
     context.read<ChooseRolesCubit>().onCancelRole();
-    context.pop();
+    context.pop(result: false);
   }
 }
