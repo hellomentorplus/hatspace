@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-
-import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/strings/l10n.dart';
-import 'package:hatspace/theme/hs_theme.dart';
+part of '../property_detail_screen.dart';
 
 class PropertyLocationView extends StatelessWidget {
   final String locationDetail;

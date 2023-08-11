@@ -1424,6 +1424,36 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Show less`
+  String get showLess {
+    return Intl.message(
+      'Show less',
+      name: 'showLess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show more`
+  String get showMore {
+    return Intl.message(
+      'Show more',
+      name: 'showMore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Book Inspection`
+  String get bookInspection {
+    return Intl.message(
+      'Book Inspection',
+      name: 'bookInspection',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `{name} ({symbol})`
   String addPropertyPriceDisplay(Object name, Object symbol) {
     return Intl.message(
