@@ -13,8 +13,8 @@ part 'dashboard_interaction_state.dart';
 
 enum BottomBarItems {
   explore,
-  booking,
-  message,
+  inspection,
+  application,
   profile,
   addingProperty;
 
@@ -22,9 +22,9 @@ enum BottomBarItems {
     switch (this) {
       case BottomBarItems.explore:
         return 0;
-      case BottomBarItems.booking:
+      case BottomBarItems.inspection:
         return 1;
-      case BottomBarItems.message:
+      case BottomBarItems.application:
         return 2;
       case BottomBarItems.profile:
         return 3;
