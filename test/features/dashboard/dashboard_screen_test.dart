@@ -9,7 +9,7 @@ import 'package:hatspace/features/dashboard/view_model/add_home_owner_role_cubit
 import 'package:hatspace/features/dashboard/view_model/dashboard_interaction_cubit.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
 import 'package:hatspace/features/message/message_view.dart';
-import 'package:hatspace/features/profile/view/profile_screen.dart';
+import 'package:hatspace/features/profile/view/profile_view.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/permission/permission_service.dart';
@@ -301,7 +301,7 @@ void main() {
 
       // login bottom sheet is not displayed
       expect(find.byType(HsWarningBottomSheetView), findsNothing);
-      expect(find.byType(ProfileScreen), findsOneWidget);
+      expect(find.byType(ProfileView), findsOneWidget);
     });
   });
 
