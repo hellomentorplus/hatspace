@@ -408,7 +408,7 @@ void main() {
       seed: () => GotoSignUpScreen(),
       build: () => DashboardInteractionCubit(),
       act: (bloc) {
-        bloc.selectedBottomBarItem = BottomBarItems.booking;
+        bloc.selectedBottomBarItem = BottomBarItems.inspection;
         return bloc.navigateToExpectedScreen();
       },
       expect: () => [],
@@ -421,10 +421,10 @@ void main() {
       seed: () => CloseLoginModal(),
       build: () => DashboardInteractionCubit(),
       act: (bloc) {
-        bloc.selectedBottomBarItem = BottomBarItems.booking;
+        bloc.selectedBottomBarItem = BottomBarItems.inspection;
         return bloc.navigateToExpectedScreen();
       },
-      expect: () => [const OpenPage(BottomBarItems.booking)],
+      expect: () => [const OpenPage(BottomBarItems.inspection)],
     );
 
     blocTest<DashboardInteractionCubit, DashboardInteractionState>(
@@ -434,10 +434,10 @@ void main() {
       seed: () => CloseLoginModal(),
       build: () => DashboardInteractionCubit(),
       act: (bloc) {
-        bloc.selectedBottomBarItem = BottomBarItems.message;
+        bloc.selectedBottomBarItem = BottomBarItems.application;
         return bloc.navigateToExpectedScreen();
       },
-      expect: () => [const OpenPage(BottomBarItems.message)],
+      expect: () => [const OpenPage(BottomBarItems.application)],
     );
 
     blocTest<DashboardInteractionCubit, DashboardInteractionState>(
