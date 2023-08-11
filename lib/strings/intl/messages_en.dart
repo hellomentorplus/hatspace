@@ -76,6 +76,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add Homeowner role"),
         "addHomeOwnerSecondaryBtnLabel":
             MessageLookupByLibrary.simpleMessage("Later"),
+        "addInspectionBooking":
+            MessageLookupByLibrary.simpleMessage("Add an inspection booking"),
         "addPropertyPriceDisplay": m0,
         "addPropertyRentalPeriodUnit":
             MessageLookupByLibrary.simpleMessage("(PW)"),
@@ -109,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
         "coverPhoto": MessageLookupByLibrary.simpleMessage("Cover photo"),
         "currencyFormatter": m2,
+        "date": MessageLookupByLibrary.simpleMessage("date"),
         "dateFormatter": m3,
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of Birth"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
@@ -123,6 +126,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Email"),
+        "endTime": MessageLookupByLibrary.simpleMessage("End time"),
         "enterPostalCode":
             MessageLookupByLibrary.simpleMessage("Enter postcode"),
         "enterPrice": MessageLookupByLibrary.simpleMessage("Enter price"),
@@ -183,6 +187,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "noLater": MessageLookupByLibrary.simpleMessage("No, later"),
         "notUpdated": MessageLookupByLibrary.simpleMessage("Not updated"),
+        "notes": MessageLookupByLibrary.simpleMessage("Notes"),
+        "notesPlaceHolder": MessageLookupByLibrary.simpleMessage(
+            "Write a message to homeowner"),
         "numberFieldContainsNonNumber":
             MessageLookupByLibrary.simpleMessage("Only accept number"),
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
@@ -228,6 +235,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signinErrorToastTitle":
             MessageLookupByLibrary.simpleMessage("Login Failed"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "startTime": MessageLookupByLibrary.simpleMessage("Start time"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),

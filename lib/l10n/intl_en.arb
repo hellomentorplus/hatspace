@@ -164,5 +164,11 @@
   "deleteAccountQuestionMark": "Delete account?",
   "addPropertyPriceDisplay": "{name} ({symbol})",
   "addPropertyRentalPeriodUnit":"(PW)",
-  "appleSignUp": "Continue with Apple"
+  "appleSignUp": "Continue with Apple",
+  "addInspectionBooking": "Add an inspection booking",
+  "date": "date",
+  "startTime":"Start time",
+  "endTime":"End time",
+  "notes": "Notes",
+  "notesPlaceHolder":"Write a message to homeowner"
 }

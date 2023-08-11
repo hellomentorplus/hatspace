@@ -1453,6 +1453,66 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Add an inspection booking`
+  String get addInspectionBooking {
+    return Intl.message(
+      'Add an inspection booking',
+      name: 'addInspectionBooking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `date`
+  String get date {
+    return Intl.message(
+      'date',
+      name: 'date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start time`
+  String get startTime {
+    return Intl.message(
+      'Start time',
+      name: 'startTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End time`
+  String get endTime {
+    return Intl.message(
+      'End time',
+      name: 'endTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notes`
+  String get notes {
+    return Intl.message(
+      'Notes',
+      name: 'notes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write a message to homeowner`
+  String get notesPlaceHolder {
+    return Intl.message(
+      'Write a message to homeowner',
+      name: 'notesPlaceHolder',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
