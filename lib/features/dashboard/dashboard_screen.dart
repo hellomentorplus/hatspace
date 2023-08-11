@@ -121,7 +121,7 @@ class _DashboardBodyState extends State<DashboardBody>
       },
     ))
         .then((value) {
-      context.read<DashboardInteractionCubit>().onCloseModal();
+      context.read<DashboardInteractionCubit>().onCloseRequestHomeOwnerModal();
     });
   }
 
@@ -162,15 +162,23 @@ class _DashboardBodyState extends State<DashboardBody>
             listener: (context, state) {
               if (state is OpenLoginBottomSheetModal) {
                 showLoginModal(context).then((value) {
-                  context.read<DashboardInteractionCubit>().onCloseModal();
+                  context.read<DashboardInteractionCubit>().onCloseLoginModal();
                 });
               }
               if (state is GotoSignUpScreen) {
-                context.goToSignup();
+                context.goToSignup().then((isLoginFromLoginModal) {
+                  if (isLoginFromLoginModal == true) {
+                    context
+                        .read<DashboardInteractionCubit>()
+                        .navigateToExpectedScreen();
+                  }
+                });
               }
 
               if (state is RequestHomeOwnerRole) {
-                showRequestHomeOwnerRoleBottomSheet();
+                if (ModalRoute.of(context)?.isCurrent == true) {
+                  showRequestHomeOwnerRoleBottomSheet();
+                }
               }
 
               if (state is PhotoPermissionGranted) {
@@ -200,7 +208,6 @@ class _DashboardBodyState extends State<DashboardBody>
                 // check current state is RequestHomeOwnerRole
                 final homeInteractionState =
                     context.read<DashboardInteractionCubit>().state;
-
                 if (homeInteractionState is RequestHomeOwnerRole) {
                   context.pop();
                   context

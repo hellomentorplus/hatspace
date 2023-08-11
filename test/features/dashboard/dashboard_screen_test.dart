@@ -385,7 +385,7 @@ void main() {
       await widgetTester.ensureVisible(closeBtn);
       await widgetTester.tap(closeBtn);
       await widgetTester.pumpAndSettle();
-      verify(interactionCubit.onCloseModal()).called(1);
+      verify(interactionCubit.onCloseLoginModal()).called(1);
       expect(find.byType(HsWarningBottomSheetView), findsNothing);
     });
 
@@ -900,4 +900,40 @@ void main() {
           .called(1);
     });
   });
+
+  // group('navigate to expected screen', () {
+  //   testWidgets(
+  //       'given user does not log in, '
+  //       'when user logged in successfully,'
+  //       'then call navigated to expected screen', (widgetTester) async {
+  //     // when(authenticationBloc.state).thenReturn(AuthenticatedState(
+  //     //     UserDetail(uid: 'uiid', displayName: 'display name')));
+  //     // when(authenticationBloc.stream).thenAnswer((realInvocation) =>
+  //     //     Stream.value(AuthenticatedState(
+  //     //         UserDetail(uid: 'uiid', displayName: 'display name'))));
+  //      when(interactionCubit.state).thenReturn(GotoSignUpScreen());
+  //     when(interactionCubit.stream).thenAnswer((realInvocation) =>
+  //         Stream.value(GotoSignUpScreen()));
+
+  //     const Widget widget = DashboardBody();
+
+  //     await widgetTester.multiBlocWrapAndPump([
+  //       BlocProvider<AppConfigBloc>(
+  //         create: (context) => appConfigBloc,
+  //       ),
+  //       BlocProvider<AuthenticationBloc>(
+  //         create: (context) => authenticationBloc,
+  //       ),
+  //       BlocProvider<DashboardInteractionCubit>(
+  //         create: (context) => interactionCubit,
+  //       ),
+  //       BlocProvider<AddHomeOwnerRoleCubit>(
+  //         create: (context) => addHomeOwnerRoleCubit,
+  //       )
+  //     ], widget);
+  //     expect(find.byType(DashboardBody), findsNothing);
+
+  //     //verify(interactionCubit.navigateToExpectedScreen()).called(1);
+  //   });
+  // });
 }
