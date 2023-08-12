@@ -88,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
         "appleSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Apple"),
+        "application": MessageLookupByLibrary.simpleMessage("Application"),
         "applicationBankStatement":
             MessageLookupByLibrary.simpleMessage("Current bank statement"),
         "applicationIdentification": MessageLookupByLibrary.simpleMessage(
@@ -100,7 +101,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tenancy ledger/rental reference"),
         "applicationRequirementsAsking": MessageLookupByLibrary.simpleMessage(
             "Please provide the following with your application:"),
-        "application": MessageLookupByLibrary.simpleMessage("Application"),
         "askFeaturesOwned": MessageLookupByLibrary.simpleMessage(
             "Which features your place has?"),
         "australiaState": m1,
@@ -111,10 +111,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
-        "booking": MessageLookupByLibrary.simpleMessage("Booking"),
-        "btnLogOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "bookInspection":
             MessageLookupByLibrary.simpleMessage("Book Inspection"),
+        "btnLogOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseKindOfYourProperty": MessageLookupByLibrary.simpleMessage(
             "Choose kind of your property"),
@@ -133,7 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteAccountQuestionMark":
             MessageLookupByLibrary.simpleMessage("Delete account?"),
         "deleteAccountWarning": MessageLookupByLibrary.simpleMessage(
-            "All your data will be kept within 30 days before being deleted pernamently. Are you sure you want to delete your account?"),
+            "All your data will be kept within 30 days before being deleted permanently. Are you sure you want to delete your account?"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "displayName": MessageLookupByLibrary.simpleMessage("Display name"),
         "download": MessageLookupByLibrary.simpleMessage("Download"),
@@ -191,7 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "location": MessageLookupByLibrary.simpleMessage("Location"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
         "logOutDescription": MessageLookupByLibrary.simpleMessage(
-            "Are you sure you want to cancel add new property?"),
+            "Are you sure you want to log out?"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginDescription": MessageLookupByLibrary.simpleMessage(
             "You need to be logged in to view this content"),

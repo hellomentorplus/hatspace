@@ -171,7 +171,7 @@
   "contactSupport": "Support contact",
   "sendEmail": "Send Email",
   "downloadApplicationFormHere": "Download Application form here",
-  "deleteAccountWarning": "All your data will be kept within 30 days before being deleted pernamently. Are you sure you want to delete your account?",
+  "deleteAccountWarning": "All your data will be kept within 30 days before being deleted permanently. Are you sure you want to delete your account?",
   "submit": "Submit",
   "deleteAccountQuestionMark": "Delete account?",
   "showLess":"Show less",
@@ -182,6 +182,6 @@
   "appleSignUp": "Continue with Apple",
   "addPropertyRentalPeriodUnit":"(PW)",
   "appleSignUp": "Continue with Apple",
-  "logOutDescription": "Are you sure you want to cancel add new property?",
+  "logOutDescription": "Are you sure you want to log out?",
   "btnLogOut": "Log Out"
 }

@@ -339,7 +339,7 @@ void main() {
               of: find.text('Log out'),
               matching: find.byType(HsWarningBottomSheetView)),
           findsOneWidget);
-      expect(find.text('Are you sure you want to cancel add new property?'),
+      expect(find.text('Are you sure you want to log out?'),
           findsOneWidget);
       expect(
           find.ancestor(
