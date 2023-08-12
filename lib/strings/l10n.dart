@@ -1503,6 +1503,16 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Inspection Booking`
+  String get inspectionBooking {
+    return Intl.message(
+      'Inspection Booking',
+      name: 'inspectionBooking',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

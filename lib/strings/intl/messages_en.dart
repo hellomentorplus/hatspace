@@ -99,10 +99,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
-        "booking": MessageLookupByLibrary.simpleMessage("Booking"),
-        "btnLogOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "bookInspection":
             MessageLookupByLibrary.simpleMessage("Book Inspection"),
+        "btnLogOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseKindOfYourProperty": MessageLookupByLibrary.simpleMessage(
             "Choose kind of your property"),
@@ -162,6 +161,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
         "information": MessageLookupByLibrary.simpleMessage("Information"),
         "inspection": MessageLookupByLibrary.simpleMessage("Inspection"),
+        "inspectionBooking":
+            MessageLookupByLibrary.simpleMessage("Inspection Booking"),
         "kitchen": MessageLookupByLibrary.simpleMessage("Kitchen"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "letAddSomePhotosOfYourPlace": MessageLookupByLibrary.simpleMessage(

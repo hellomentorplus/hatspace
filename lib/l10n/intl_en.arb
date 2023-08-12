@@ -169,5 +169,6 @@
   "addPropertyRentalPeriodUnit":"(PW)",
   "appleSignUp": "Continue with Apple",
   "logOutDescription": "Are you sure you want to cancel add new property?",
-  "btnLogOut": "Log Out"
+  "btnLogOut": "Log Out",
+  "inspectionBooking": "Inspection Booking"
 }
