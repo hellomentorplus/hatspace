@@ -6,11 +6,13 @@ import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/property_detail/property_detail_screen.dart';
 import 'package:hatspace/features/property_detail/view_model/property_detail_cubit.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
@@ -24,14 +26,19 @@ import 'property_detail_screen_test.mocks.dart';
   StorageService,
   PropertyService,
   MemberService,
-  PropertyDetailCubit
+  PropertyDetailCubit,
+  AuthenticationService
 ])
-void main() {
+void main() async {
+  await initializeDateFormatting();
+
   final MockAuthenticationBloc authenticationBloc = MockAuthenticationBloc();
   final MockStorageService storageService = MockStorageService();
   final MockPropertyService propertyService = MockPropertyService();
   final MockMemberService memberService = MockMemberService();
   final MockPropertyDetailCubit propertyDetailCubit = MockPropertyDetailCubit();
+  final MockAuthenticationService authenticationService =
+      MockAuthenticationService();
 
   final Property property = Property(
       type: PropertyTypes.apartment,
@@ -58,6 +65,8 @@ void main() {
 
   setUpAll(() {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
   });
 
   setUp(() {
@@ -79,6 +88,9 @@ void main() {
     when(propertyDetailCubit.stream).thenAnswer(
       (realInvocation) => const Stream.empty(),
     );
+
+    when(authenticationService.getCurrentUser())
+        .thenAnswer((realInvocation) => Future.value(UserDetail(uid: 'uid')));
   });
 
   tearDown(() {
@@ -146,7 +158,8 @@ void main() {
 
     expect(find.text('Apartment'), findsOneWidget);
     expect(find.text('property name'), findsOneWidget);
-    expect(find.text('property description'), findsOneWidget);
+    // 1 short text, and 1 long text
+    expect(find.text('property description'), findsNWidgets(2));
 
     expect(
         find.roomCount(bedrooms: 1, bathroom: 1, parkings: 1), findsOneWidget);

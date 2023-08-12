@@ -11,6 +11,7 @@ import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -311,5 +312,139 @@ void main() {
         findsNothing);
     expect(find.byType(ProfileBody), findsNothing);
     expect(find.byType(SignUpScreen), findsOneWidget);
+  });
+
+  group('logout bottom sheet', () {
+    testWidgets(
+        'when user taps on logout item'
+        'then the logout bottom sheet is shown', (widgetTester) async {
+      when(profileCubit.stream)
+          .thenAnswer((_) => Stream.value(const ProfileInitialState()));
+      when(profileCubit.state).thenAnswer((_) => const ProfileInitialState());
+
+      await widgetTester.blocWrapAndPump<ProfileCubit>(
+          profileCubit, const ProfileBody());
+
+      expect(find.byType(ProfileBody), findsOneWidget);
+
+      final Finder logOutFinder = find.text('Log out');
+      expect(logOutFinder, findsOneWidget);
+
+      await widgetTester.ensureVisible(logOutFinder);
+      await widgetTester.tap(logOutFinder);
+      await widgetTester.pumpAndSettle();
+
+      expect(
+          find.ancestor(
+              of: find.text('Log out'),
+              matching: find.byType(HsWarningBottomSheetView)),
+          findsOneWidget);
+      expect(find.text('Are you sure you want to cancel add new property?'),
+          findsOneWidget);
+      expect(
+          find.ancestor(
+              of: find.text('Cancel'), matching: find.byType(PrimaryButton)),
+          findsOneWidget);
+      expect(
+          find.ancestor(
+              of: find.text('Log Out'), matching: find.byType(SecondaryButton)),
+          findsOneWidget);
+    });
+
+    testWidgets(
+        'given LogOut bottom sheet is shown'
+        'when user taps on cancel button'
+        'then bottom sheet is dismiss and still in profile screen',
+        (widgetTester) async {
+      when(profileCubit.stream)
+          .thenAnswer((_) => Stream.value(const ProfileInitialState()));
+      when(profileCubit.state).thenAnswer((_) => const ProfileInitialState());
+
+      await widgetTester.blocWrapAndPump<ProfileCubit>(
+          profileCubit, const ProfileBody());
+
+      expect(find.byType(ProfileBody), findsOneWidget);
+
+      final Finder logOutFinder = find.text('Log out');
+      expect(logOutFinder, findsOneWidget);
+
+      await widgetTester.ensureVisible(logOutFinder);
+      await widgetTester.tap(logOutFinder);
+      await widgetTester.pumpAndSettle();
+
+      expect(
+          find.ancestor(
+              of: find.text('Log Out'),
+              matching: find.byType(HsWarningBottomSheetView)),
+          findsOneWidget);
+      final Finder cancelBtn = find.ancestor(
+          of: find.text('Cancel'), matching: find.byType(PrimaryButton));
+      expect(cancelBtn, findsOneWidget);
+      await widgetTester.tap(cancelBtn);
+      await widgetTester.pumpAndSettle();
+      expect(
+          find.ancestor(
+              of: find.text('Log Out'),
+              matching: find.byType(HsWarningBottomSheetView)),
+          findsNothing);
+      expect(find.byType(ProfileBody), findsOneWidget);
+    });
+
+    testWidgets(
+        'given LogOut bottom sheet is shown, '
+        'when user taps on log out button, '
+        'then bottom sheet is dismiss and call logout', (widgetTester) async {
+      when(profileCubit.stream)
+          .thenAnswer((_) => Stream.value(const ProfileInitialState()));
+      when(profileCubit.state).thenAnswer((_) => const ProfileInitialState());
+
+      await widgetTester.blocWrapAndPump<ProfileCubit>(
+          profileCubit, const ProfileBody());
+
+      expect(find.byType(ProfileBody), findsOneWidget);
+
+      final Finder logOutFinder = find.text('Log out');
+      expect(logOutFinder, findsOneWidget);
+
+      await widgetTester.ensureVisible(logOutFinder);
+      await widgetTester.tap(logOutFinder);
+      await widgetTester.pumpAndSettle();
+
+      expect(
+          find.ancestor(
+              of: find.text('Log Out'),
+              matching: find.byType(HsWarningBottomSheetView)),
+          findsOneWidget);
+      final Finder logOutBtn = find.ancestor(
+          of: find.text('Log Out'), matching: find.byType(SecondaryButton));
+      expect(logOutBtn, findsOneWidget);
+      await widgetTester.tap(logOutBtn);
+      await widgetTester.pumpAndSettle();
+
+      // bottom is not displayed
+      expect(
+          find.ancestor(
+              of: find.text('Log Out'),
+              matching: find.byType(HsWarningBottomSheetView)),
+          findsNothing);
+      verify(profileCubit.logOut()).called(1);
+    });
+
+    testWidgets(
+        'given state is LogOutAccountSucceedState'
+        'When launch profile screen'
+        'Then the app will navigate user to SignUp Screen',
+        (widgetTester) async {
+      when(profileCubit.stream)
+          .thenAnswer((_) => Stream.value(const LogOutAccountSucceedState()));
+      when(profileCubit.state)
+          .thenAnswer((_) => const LogOutAccountSucceedState());
+
+      await widgetTester.blocWrapAndPump<ProfileCubit>(
+          profileCubit, const ProfileBody());
+
+      expect(find.byType(ProfileBody), findsNothing);
+      expect(find.byType(SignUpScreen), findsOneWidget);
+    });
   });
 }

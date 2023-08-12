@@ -67,16 +67,18 @@ void main() {
       });
 
   blocTest<ProfileCubit, ProfileState>(
-      'Given get user detail successfully. '
-      'When user delete their account successfully. '
-      'Then emit state with orders : GetUserDetailSucceedState -> DeleteAccountSucceedState.',
+      'when logOut, '
+      'then return LogOutAccountSucceedState and signOut is called',
       build: () => ProfileCubit(),
       setUp: () {
         when(authenticationService.signOut())
             .thenAnswer((_) => Future.value(null));
       },
-      act: (bloc) => bloc.deleteAccount(),
+      act: (bloc) => bloc.logOut(),
+      verify: (_) {
+        verify(authenticationService.signOut()).called(1);
+      },
       expect: () => [
-            isA<DeleteAccountSucceedState>(),
+            isA<LogOutAccountSucceedState>(),
           ]);
 }

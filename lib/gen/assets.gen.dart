@@ -5,7 +5,7 @@
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
+// ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal
 
 import 'package:flutter/widgets.dart';
 
@@ -24,6 +24,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/apple.svg
   String get apple => 'assets/icons/apple.svg';
 
+  /// File path: assets/icons/application.svg
+  String get application => 'assets/icons/application.svg';
+
   /// File path: assets/icons/arrow_calendar_left.svg
   String get arrowCalendarLeft => 'assets/icons/arrow_calendar_left.svg';
 
@@ -32,6 +35,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/back_circle.svg
   String get backCircle => 'assets/icons/back_circle.svg';
+
+  /// File path: assets/icons/bank_statement.svg
+  String get bankStatement => 'assets/icons/bank_statement.svg';
 
   /// File path: assets/icons/bath.svg
   String get bath => 'assets/icons/bath.svg';
@@ -84,11 +90,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/delete.svg
   String get delete => 'assets/icons/delete.svg';
 
+  /// File path: assets/icons/download.svg
+  String get download => 'assets/icons/download.svg';
+
   /// File path: assets/icons/electric_stove.svg
   String get electricStove => 'assets/icons/electric_stove.svg';
 
   /// File path: assets/icons/email.svg
   String get email => 'assets/icons/email.svg';
+
+  /// File path: assets/icons/email_white.svg
+  String get emailWhite => 'assets/icons/email_white.svg';
 
   /// File path: assets/icons/envelope.svg
   String get envelope => 'assets/icons/envelope.svg';
@@ -132,11 +144,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_agent.svg
   String get icAgent => 'assets/icons/ic_agent.svg';
 
+  /// File path: assets/icons/identification.svg
+  String get identification => 'assets/icons/identification.svg';
+
   /// File path: assets/icons/increment.svg
   String get increment => 'assets/icons/increment.svg';
 
   /// File path: assets/icons/info.svg
   String get info => 'assets/icons/info.svg';
+
+  /// File path: assets/icons/information.svg
+  String get information => 'assets/icons/information.svg';
 
   /// File path: assets/icons/kitchen.svg
   String get kitchen => 'assets/icons/kitchen.svg';
@@ -147,14 +165,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/logout.svg
   String get logout => 'assets/icons/logout.svg';
 
-  /// File path: assets/icons/message.svg
-  String get message => 'assets/icons/message.svg';
-
   /// File path: assets/icons/messages.svg
   String get messages => 'assets/icons/messages.svg';
 
   /// File path: assets/icons/notification.svg
   String get notification => 'assets/icons/notification.svg';
+
+  /// File path: assets/icons/pay_slips.svg
+  String get paySlips => 'assets/icons/pay_slips.svg';
 
   /// File path: assets/icons/photo_access.svg
   String get photoAccess => 'assets/icons/photo_access.svg';
@@ -183,6 +201,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/swimming_pool.svg
   String get swimmingPool => 'assets/icons/swimming_pool.svg';
 
+  /// File path: assets/icons/tenancy_reference.svg
+  String get tenancyReference => 'assets/icons/tenancy_reference.svg';
+
   /// File path: assets/icons/tenant.svg
   String get tenant => 'assets/icons/tenant.svg';
 
@@ -204,9 +225,11 @@ class $AssetsIconsGen {
         airConditioners,
         apartment,
         apple,
+        application,
         arrowCalendarLeft,
         arrowCalendarRight,
         backCircle,
+        bankStatement,
         bath,
         bed,
         booking,
@@ -224,8 +247,10 @@ class $AssetsIconsGen {
         closeIcon,
         decrement,
         delete,
+        download,
         electricStove,
         email,
+        emailWhite,
         envelope,
         error,
         explore,
@@ -240,14 +265,16 @@ class $AssetsIconsGen {
         google,
         homeowner,
         icAgent,
+        identification,
         increment,
         info,
+        information,
         kitchen,
         language,
         logout,
-        message,
         messages,
         notification,
+        paySlips,
         photoAccess,
         portableFans,
         profileCircle,
@@ -257,6 +284,7 @@ class $AssetsIconsGen {
         search,
         securityCameras,
         swimmingPool,
+        tenancyReference,
         tenant,
         textFieldError,
         tv,
@@ -391,16 +419,7 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
-  }
+  ImageProvider provider() => AssetImage(_assetName);
 
   String get path => _assetName;
 

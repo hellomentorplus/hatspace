@@ -1,6 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
+import 'package:hatspace/models/authentication/authentication_exception.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 
@@ -11,6 +14,8 @@ class PropertyDetailCubit extends Cubit<PropertyDetailState> {
 
   final StorageService _storageService =
       HsSingleton.singleton.get<StorageService>();
+  final AuthenticationService _authenticationService =
+      HsSingleton.singleton.get<AuthenticationService>();
 
   void loadDetail(String id) async {
     final Property? property = await _storageService.property.getProperty(id);
@@ -37,6 +42,16 @@ class PropertyDetailCubit extends Cubit<PropertyDetailState> {
     final String? ownerAvatar =
         await _storageService.member.getMemberAvatar(property.ownerUid);
 
+    bool isOwned = false;
+    try {
+      final UserDetail userDetail =
+          await _authenticationService.getCurrentUser();
+      isOwned = userDetail.uid == property.ownerUid;
+    } on UserNotFoundException catch (_) {
+      // user is not logged in, do not allow to book
+      isOwned = false;
+    }
+
     emit(PropertyDetailLoaded(
         photos: property.photos,
         features: features,
@@ -49,6 +64,9 @@ class PropertyDetailCubit extends Cubit<PropertyDetailState> {
         bathrooms: property.additionalDetail.bathrooms,
         carspaces: property.additionalDetail.parkings,
         description: property.description,
-        fullAddress: property.address.fullAddress));
+        fullAddress: property.address.fullAddress,
+        isOwned: isOwned,
+        availableDate: property.availableDate.toDate(),
+        price: property.price));
   }
 }
