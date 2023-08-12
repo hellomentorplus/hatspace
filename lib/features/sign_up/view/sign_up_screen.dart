@@ -54,7 +54,7 @@ class SignUpBody extends StatelessWidget {
         }
         if (state is SignUpSuccess) {
           context.dismissLoading();
-          context.pop();
+          context.pop(result: true);
         }
       },
       child: Scaffold(
