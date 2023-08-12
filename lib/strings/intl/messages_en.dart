@@ -132,7 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteAccountQuestionMark":
             MessageLookupByLibrary.simpleMessage("Delete account?"),
         "deleteAccountWarning": MessageLookupByLibrary.simpleMessage(
-            "All your data will be kept within 30 days before being deleted pernamently. Are you sure you want to delete your account?"),
+            "All your data will be kept within 30 days before being deleted permanently. Are you sure you want to delete your account?"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "displayName": MessageLookupByLibrary.simpleMessage("Display name"),
         "download": MessageLookupByLibrary.simpleMessage("Download"),
@@ -190,7 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "location": MessageLookupByLibrary.simpleMessage("Location"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
         "logOutDescription": MessageLookupByLibrary.simpleMessage(
-            "Are you sure you want to cancel add new property?"),
+            "Are you sure you want to log out?"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginDescription": MessageLookupByLibrary.simpleMessage(
             "You need to be logged in to view this content"),
