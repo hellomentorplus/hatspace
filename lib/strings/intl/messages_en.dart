@@ -88,6 +88,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
         "appleSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Apple"),
+        "applicationBankStatement":
+            MessageLookupByLibrary.simpleMessage("Current bank statement"),
+        "applicationIdentification": MessageLookupByLibrary.simpleMessage(
+            "Identification (driver\'s license/passport)"),
+        "applicationInform": MessageLookupByLibrary.simpleMessage(
+            "All adult applicants (18 years or older) must complete a separate application for rental."),
+        "applicationPaySlips": MessageLookupByLibrary.simpleMessage(
+            "Pay slips/centre link statement"),
+        "applicationReference": MessageLookupByLibrary.simpleMessage(
+            "Tenancy ledger/rental reference"),
+        "applicationRequirementsAsking": MessageLookupByLibrary.simpleMessage(
+            "Please provide the following with your application:"),
+        "application": MessageLookupByLibrary.simpleMessage("Application"),
         "askFeaturesOwned": MessageLookupByLibrary.simpleMessage(
             "Which features your place has?"),
         "australiaState": m1,
@@ -99,6 +112,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
         "booking": MessageLookupByLibrary.simpleMessage("Booking"),
+        "btnLogOut": MessageLookupByLibrary.simpleMessage("Log Out"),
+        "bookInspection":
+            MessageLookupByLibrary.simpleMessage("Book Inspection"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseKindOfYourProperty": MessageLookupByLibrary.simpleMessage(
             "Choose kind of your property"),
