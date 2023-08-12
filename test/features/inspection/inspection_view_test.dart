@@ -6,7 +6,8 @@ import '../../widget_tester_extension.dart';
 
 void main() {
   testWidgets('verify UI', (widgetTester) async {
-    await mockNetworkImagesFor(() =>  widgetTester.wrapAndPump(const InspectionView()));
+    await mockNetworkImagesFor(
+        () => widgetTester.wrapAndPump(const InspectionView()));
 
     expect(find.text('Inspection Booking'), findsOneWidget);
     expect(find.text('3 inspect booking'), findsOneWidget);

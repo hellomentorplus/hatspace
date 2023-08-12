@@ -49,7 +49,7 @@ class InspectionView extends StatelessWidget {
               ),
               TenantBookItemView(
                 propertyImage:
-                    'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
+                    'https://exej2saedb8.exactdn.com/wp-content/uploads/2022/02/Screen-Shot-2022-02-04-at-2.28.40-PM.png?strip=all&lossy=1&ssl=1',
                 propertyName: 'Black and white apartment in Sydney',
                 propertyType: PropertyTypes.apartment.displayName,
                 price: 8500,
@@ -63,7 +63,7 @@ class InspectionView extends StatelessWidget {
               ),
               TenantBookItemView(
                 propertyImage:
-                    'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
+                    'https://cdn-bnokp.nitrocdn.com/QNoeDwCprhACHQcnEmHgXDhDpbEOlRHH/assets/images/optimized/rev-a642abc/www.decorilla.com/online-decorating/wp-content/uploads/2020/08/Modern-Apartment-Decor-.jpg',
                 propertyName: 'Fully-furnished house in Rouse Hill',
                 propertyType: PropertyTypes.house.displayName,
                 price: 1000,
