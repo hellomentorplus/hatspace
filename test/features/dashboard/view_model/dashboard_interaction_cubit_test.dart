@@ -438,7 +438,6 @@ void main() {
         return bloc.navigateToExpectedScreen();
       },
       expect: () => [const OpenPage(BottomBarItems.application)],
-
     );
 
     blocTest<DashboardInteractionCubit, DashboardInteractionState>(
