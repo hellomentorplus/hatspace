@@ -91,7 +91,7 @@ class TenantBookItemView extends StatelessWidget {
   final Currency currency;
   final String timeRenting;
   final String state;
-  final String timeBooking;
+  final String timeBooking; // todo: need to update after demo
   final String? ownerName;
   final String? ownerAvatar;
   final VoidCallback onPressed;
@@ -195,56 +195,93 @@ class TenantBookItemView extends StatelessWidget {
                             height: HsDimens.spacing4,
                           ),
                           if (ownerName != null)
-                            Row(
-                              children: [
-                                Container(
-                                  width: HsDimens.size24,
-                                  height: HsDimens.size24,
-                                  decoration: BoxDecoration(
-                                      color: HSColor.neutral2,
-                                      borderRadius: BorderRadius.circular(
-                                          HsDimens.size64)),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(
-                                        HsDimens.radius24),
-                                    child: ownerAvatar == null
-                                        ? SvgPicture.asset(
-                                            Assets.images.userDefaultAvatar,
-                                            fit: BoxFit.cover,
-                                          )
-                                        : Image.network(
-                                            ownerAvatar!,
-                                            fit: BoxFit.cover,
-                                          ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: HsDimens.spacing8,
-                                ),
-                                Text(ownerName!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                          fontWeight: FontWeight.w500,
-                                        ))
-                              ],
-                            ),
+                            _OwnerView(
+                              ownerName: ownerName!,
+                              ownerAvatar: ownerAvatar,
+                            )
                         ],
                       ),
                     ),
                   ),
                 ],
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: HsDimens.spacing12),
-                child: Divider(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: HsDimens.spacing12),
+                child: SvgPicture.asset(
+                  Assets.images.dashedDivider,
+                  fit: BoxFit.fitWidth,
+                ),
               ),
-              Text(timeBooking)
+              _TimeRentingView(timeBooking: timeBooking)
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _OwnerView extends StatelessWidget {
+  final String ownerName;
+  final String? ownerAvatar;
+
+  const _OwnerView({required this.ownerName, required this.ownerAvatar});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: HsDimens.size24,
+          height: HsDimens.size24,
+          decoration: BoxDecoration(
+              color: HSColor.neutral2,
+              borderRadius: BorderRadius.circular(HsDimens.size64)),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(HsDimens.radius24),
+            child: ownerAvatar == null
+                ? SvgPicture.asset(
+                    Assets.images.userDefaultAvatar,
+                    fit: BoxFit.cover,
+                  )
+                : Image.network(
+                    ownerAvatar!,
+                    fit: BoxFit.cover,
+                  ),
+          ),
+        ),
+        const SizedBox(
+          width: HsDimens.spacing8,
+        ),
+        Text(ownerName,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ))
+      ],
+    );
+  }
+}
+
+// todo: update this class end startTime, endTime: double
+// todo: after the demo session
+class _TimeRentingView extends StatelessWidget {
+  final String timeBooking;
+
+  const _TimeRentingView({required this.timeBooking});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SvgPicture.asset(
+          Assets.icons.clock,
+          fit: BoxFit.cover,
+        ),
+        const SizedBox(
+          width: HsDimens.spacing4,
+        ),
+        Text(timeBooking),
+      ],
     );
   }
 }
