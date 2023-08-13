@@ -25,6 +25,7 @@ import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 
 import '../../find_extension.dart';
 import '../../widget_tester_extension.dart';
@@ -142,10 +143,10 @@ void main() {
     });
   });
 
-  group('verify interaction - booking item', () {
+  group('verify interaction - Inspection item', () {
     testWidgets(
         'given user does not log in and is on dashboard screen'
-        'when tap on booking item '
+        'when tap on Inspection item '
         'then HsLoginModal is shown', (widgetTester) async {
       when(authenticationService.isUserLoggedIn).thenAnswer((_) => false);
 
@@ -178,14 +179,14 @@ void main() {
       when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
 
       const Widget widget = DashboardScreen();
-      await widgetTester.multiBlocWrapAndPump([
-        BlocProvider<AuthenticationBloc>(
-          create: (context) => authenticationBloc,
-        ),
-        BlocProvider<AppConfigBloc>(
-          create: (context) => appConfigBloc,
-        ),
-      ], widget);
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+            BlocProvider<AuthenticationBloc>(
+              create: (context) => authenticationBloc,
+            ),
+            BlocProvider<AppConfigBloc>(
+              create: (context) => appConfigBloc,
+            ),
+          ], widget));
 
       await widgetTester.tap(find.text('Inspection'));
       await widgetTester.pumpAndSettle();
@@ -196,10 +197,10 @@ void main() {
     });
   });
 
-  group('verify interaction - message item', () {
+  group('verify interaction - Application item', () {
     testWidgets(
         'given user does not log in and is on dashboard screen'
-        'when tap on message item '
+        'when tap on Application item '
         'then HsLoginModal is shown', (widgetTester) async {
       when(authenticationService.isUserLoggedIn).thenAnswer((_) => false);
 
@@ -227,19 +228,19 @@ void main() {
 
     testWidgets(
         'given user logged in and is on dashboard screen'
-        'when tap on message item '
-        'then MessageView is shown', (widgetTester) async {
+        'when tap on Application item '
+        'then ApplicationView is shown', (widgetTester) async {
       when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
 
       const Widget widget = DashboardScreen();
-      await widgetTester.multiBlocWrapAndPump([
-        BlocProvider<AuthenticationBloc>(
-          create: (context) => authenticationBloc,
-        ),
-        BlocProvider<AppConfigBloc>(
-          create: (context) => appConfigBloc,
-        ),
-      ], widget);
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+            BlocProvider<AuthenticationBloc>(
+              create: (context) => authenticationBloc,
+            ),
+            BlocProvider<AppConfigBloc>(
+              create: (context) => appConfigBloc,
+            ),
+          ], widget));
 
       await widgetTester.tap(find.text('Application'));
       await widgetTester.pumpAndSettle();
@@ -287,14 +288,14 @@ void main() {
       when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
 
       const Widget widget = DashboardScreen();
-      await widgetTester.multiBlocWrapAndPump([
-        BlocProvider<AuthenticationBloc>(
-          create: (context) => authenticationBloc,
-        ),
-        BlocProvider<AppConfigBloc>(
-          create: (context) => appConfigBloc,
-        ),
-      ], widget);
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+            BlocProvider<AuthenticationBloc>(
+              create: (context) => authenticationBloc,
+            ),
+            BlocProvider<AppConfigBloc>(
+              create: (context) => appConfigBloc,
+            ),
+          ], widget));
 
       await widgetTester.tap(find.text('Profile'));
       await widgetTester.pumpAndSettle();

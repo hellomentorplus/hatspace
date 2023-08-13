@@ -128,13 +128,15 @@ class TenantBookItemView extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(HsDimens.radius8),
-                    child: Image.network(
-                      propertyImage,
-                      width: HsDimens.size110,
-                      height: HsDimens.size110,
-                      fit: BoxFit.cover,
+                  SizedBox(
+                    width: HsDimens.size110,
+                    height: HsDimens.size110,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(HsDimens.radius8),
+                      child: Image.network(
+                        propertyImage,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   Expanded(
