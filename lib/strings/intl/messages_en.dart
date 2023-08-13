@@ -91,6 +91,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "appleSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Apple"),
         "application": MessageLookupByLibrary.simpleMessage("Application"),
+        "applicationBankStatement":
+            MessageLookupByLibrary.simpleMessage("Current bank statement"),
+        "applicationIdentification": MessageLookupByLibrary.simpleMessage(
+            "Identification (driver\'s license/passport)"),
+        "applicationInform": MessageLookupByLibrary.simpleMessage(
+            "All adult applicants (18 years or older) must complete a separate application for rental."),
+        "applicationPaySlips": MessageLookupByLibrary.simpleMessage(
+            "Pay slips/centre link statement"),
+        "applicationReference": MessageLookupByLibrary.simpleMessage(
+            "Tenancy ledger/rental reference"),
+        "applicationRequirementsAsking": MessageLookupByLibrary.simpleMessage(
+            "Please provide the following with your application:"),
         "askFeaturesOwned": MessageLookupByLibrary.simpleMessage(
             "Which features your place has?"),
         "australiaState": m1,
@@ -103,6 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
         "bookInspection":
             MessageLookupByLibrary.simpleMessage("Book Inspection"),
+        "btnLogOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseKindOfYourProperty": MessageLookupByLibrary.simpleMessage(
             "Choose kind of your property"),
@@ -110,6 +123,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Choose your role"),
         "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
             "You can be tenant or homeowner"),
+        "contactSupport":
+            MessageLookupByLibrary.simpleMessage("Support contact"),
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
         "coverPhoto": MessageLookupByLibrary.simpleMessage("Cover photo"),
         "currencyFormatter": m2,
@@ -120,9 +135,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteAccountQuestionMark":
             MessageLookupByLibrary.simpleMessage("Delete account?"),
         "deleteAccountWarning": MessageLookupByLibrary.simpleMessage(
-            "All your data will be kept within 30 days before being deleted pernamently. Are you sure you want to delete your account?"),
+            "All your data will be kept within 30 days before being deleted permanently. Are you sure you want to delete your account?"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "displayName": MessageLookupByLibrary.simpleMessage("Display name"),
+        "download": MessageLookupByLibrary.simpleMessage("Download"),
+        "downloadApplicationFormHere": MessageLookupByLibrary.simpleMessage(
+            "Download Application form here"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -155,6 +173,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "goToSetting": MessageLookupByLibrary.simpleMessage("Go to Setting"),
         "googleSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Google"),
+        "guideForApplication":
+            MessageLookupByLibrary.simpleMessage("Guide for application"),
         "hatSpaceWouldLikeToPhotoAccess": MessageLookupByLibrary.simpleMessage(
             "\"HATSpace\" Would Like to Photo Access"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
@@ -173,6 +193,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "location": MessageLookupByLibrary.simpleMessage("Location"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
+        "logOutDescription": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to log out?"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginDescription": MessageLookupByLibrary.simpleMessage(
             "You need to be logged in to view this content"),
@@ -221,6 +243,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Property features"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
         "pw": MessageLookupByLibrary.simpleMessage("pw"),
+        "questionSupport": MessageLookupByLibrary.simpleMessage(
+            "If you have any questions, please feel free to let us know. We will always here to support you!"),
         "rentPeriod": m5,
         "requireAtLeast4Photos":
             MessageLookupByLibrary.simpleMessage("Require at least 4 photos *"),
@@ -229,6 +253,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
         "securityCameras":
             MessageLookupByLibrary.simpleMessage("Security cameras"),
+        "sendEmail": MessageLookupByLibrary.simpleMessage("Send Email"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "showLess": MessageLookupByLibrary.simpleMessage("Show less"),
         "showMore": MessageLookupByLibrary.simpleMessage("Show more"),
