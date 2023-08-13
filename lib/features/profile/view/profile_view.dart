@@ -245,7 +245,9 @@ class _UserInformationView extends StatelessWidget {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall
-                                        ?.copyWith(color: HSColor.neutral1)),
+                                        ?.copyWith(
+                                            color: HSColor.neutral1,
+                                            height: 0)),
                               ))
                           .toList(),
                     );
