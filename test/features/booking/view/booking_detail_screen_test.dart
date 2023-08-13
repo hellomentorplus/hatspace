@@ -1,12 +1,20 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/booking/view/booking_detail_screen.dart';
+import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 import '../../../widget_tester_extension.dart';
 import '../../add_property/view/widgets/add_rooms_view_test.dart';
 
 void main() {
+
+  setUpAll(() {
+    HatSpaceStrings.load(const Locale('en'));
+    initializeDateFormatting();
+  });
   testWidgets('test ui for widget', (widgetTester) async {
     await mockNetworkImagesFor(
         () => widgetTester.wrapAndPump(const BookingDetailScreen()));
@@ -18,11 +26,11 @@ void main() {
     expect(find.text('pw'), findsOneWidget);
     expect(find.text('Jane Cooper'), findsOneWidget);
     expect(find.text('Start'), findsOneWidget);
-    expect(find.text('09:00AM'), findsOneWidget);
+    expect(find.text('01:00 AM'), findsOneWidget);
     expect(find.text('End'), findsOneWidget);
-    expect(find.text('10:00AM'), findsOneWidget);
+    expect(find.text('08:00 AM'), findsOneWidget);
     expect(find.text('Date'), findsOneWidget);
-    expect(find.text('14 Mar, 2023'), findsOneWidget);
+    expect(find.text('12 Aug, 2023'), findsOneWidget);
     expect(find.text('Notes'), findsOneWidget);
     expect(
         find.text(

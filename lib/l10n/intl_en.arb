@@ -97,6 +97,26 @@
       }
     }
   },
+  "dateFormatterWithDate": "{date}",
+  "@dateFormatterWithDate": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "d MMM, y",
+        "isCustomDateFormat": "true"
+      }
+    }
+  },
+  "timeFormatter": "{dateTime}",
+  "@timeFormatter": {
+    "placeholders": {
+      "dateTime": {
+        "type": "DateTime",
+        "format": "hh:mm a",
+        "isCustomDateFormat": "true"
+      }
+    }
+  },
   "currencyFormatter": "{symbol}{currency}",
   "@currencyFormatter": {
     "placeholders": {

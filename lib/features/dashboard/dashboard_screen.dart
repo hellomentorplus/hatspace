@@ -218,8 +218,6 @@ class _DashboardBodyState extends State<DashboardBody>
                 HomePageView(),
                 BookingView(),
                 MessageView(),
-                // ProfileView()
-                /// DONG : Remove later
                 BookingDetailScreen()
               ],
             ),

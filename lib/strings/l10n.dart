@@ -900,6 +900,34 @@ class HatSpaceStrings {
     );
   }
 
+  /// `{date}`
+  String dateFormatterWithDate(DateTime date) {
+    final DateFormat dateDateFormat =
+        DateFormat('d MMM, y', Intl.getCurrentLocale());
+    final String dateString = dateDateFormat.format(date);
+
+    return Intl.message(
+      '$dateString',
+      name: 'dateFormatterWithDate',
+      desc: '',
+      args: [dateString],
+    );
+  }
+
+  /// `{dateTime}`
+  String timeFormatter(DateTime dateTime) {
+    final DateFormat dateTimeDateFormat =
+        DateFormat('hh:mm a', Intl.getCurrentLocale());
+    final String dateTimeString = dateTimeDateFormat.format(dateTime);
+
+    return Intl.message(
+      '$dateTimeString',
+      name: 'timeFormatter',
+      desc: '',
+      args: [dateTimeString],
+    );
+  }
+
   /// `{symbol}{currency}`
   String currencyFormatter(String symbol, double currency) {
     final NumberFormat currencyNumberFormat =
