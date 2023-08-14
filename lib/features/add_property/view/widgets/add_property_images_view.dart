@@ -137,12 +137,12 @@ class _PhotoPreviewView extends StatelessWidget {
                 mainAxisSpacing: HsDimens.spacing8),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            children: _generateGridChildren(),
+            children: _generateGridChildren(context),
           )
         ],
       );
 
-  List<Widget> _generateGridChildren() {
+  List<Widget> _generateGridChildren(BuildContext context) {
     final List<Widget> widgets = paths
         .sublist(1)
         .map<Widget>((e) => ImagePreviewView(
@@ -151,7 +151,20 @@ class _PhotoPreviewView extends StatelessWidget {
         .toList();
 
     if (moreUpload) {
-      widgets.add(SvgPicture.asset(Assets.images.upload));
+      widgets.add(InkWell(
+        onTap: () {
+          context.showSelectPhotoBottomSheet(paths).then((result) {
+            context
+                .read<AddPropertyImageSelectedCubit>()
+                .onPhotosSelected(result);
+
+            if (result != null) {
+              context.read<AddPropertyCubit>().photos = result;
+            }
+          });
+        },
+        child: SvgPicture.asset(Assets.images.upload),
+      ));
     }
 
     return widgets;
@@ -175,6 +188,11 @@ class ImagePreviewView extends StatelessWidget {
         padding: closePadding ?? const EdgeInsets.all(HsDimens.spacing2),
         alignment: Alignment.topRight,
         child: InkWell(
+          onTap: () {
+            context.read<AddPropertyImageSelectedCubit>()
+                .removePhoto(context.read<AddPropertyCubit>().photos,
+                path);
+          },
           borderRadius: BorderRadius.circular(HsDimens.radius48),
           child: SvgPicture.asset(
             Assets.icons.closeCircle,

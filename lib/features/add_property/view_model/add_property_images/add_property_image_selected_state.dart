@@ -1,12 +1,13 @@
 part of 'add_property_image_selected_cubit.dart';
 
-abstract class AddPropertyImageSelectedState extends Equatable {
+abstract class AddPropertyImageSelectedState {
   const AddPropertyImageSelectedState();
 }
 
 class AddPropertyImageSelectedInitial extends AddPropertyImageSelectedState {
-  @override
-  List<Object> get props => [];
+}
+
+class OnPhotosCleared extends AddPropertyImageSelectedState {
 }
 
 class PhotoSelectionReturned extends AddPropertyImageSelectedState {
@@ -15,7 +16,4 @@ class PhotoSelectionReturned extends AddPropertyImageSelectedState {
 
   const PhotoSelectionReturned(
       {required this.paths, required this.allowAddImage});
-
-  @override
-  List<Object?> get props => [...paths];
 }

@@ -224,7 +224,7 @@ class AllPhotosView extends StatelessWidget {
 }
 
 extension SelectPhotoBottomSheetExtension on BuildContext {
-  Future<List<String>?> showSelectPhotoBottomSheet() {
+  Future<List<String>?> showSelectPhotoBottomSheet([List<String>? paths]) {
     return showModalBottomSheet<List<String>>(
       context: this,
       isScrollControlled: true,
