@@ -38,7 +38,8 @@ enum PhotoTabs {
 }
 
 class SelectPhotoBottomSheet extends StatelessWidget {
-  const SelectPhotoBottomSheet({Key? key}) : super(key: key);
+  final List<String>? selectedPhotos;
+  const SelectPhotoBottomSheet({this.selectedPhotos, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
@@ -47,7 +48,8 @@ class SelectPhotoBottomSheet extends StatelessWidget {
             create: (context) => SelectPhotoCubit()..loadPhotos(),
           ),
           BlocProvider<PhotoSelectionCubit>(
-            create: (context) => PhotoSelectionCubit(),
+            create: (context) => PhotoSelectionCubit()
+            ..loadPresetPhotos(selectedPhotos),
           ),
           BlocProvider<LostDataBottomSheetCubit>(
             create: (context) => LostDataBottomSheetCubit(),
@@ -224,15 +226,15 @@ class AllPhotosView extends StatelessWidget {
 }
 
 extension SelectPhotoBottomSheetExtension on BuildContext {
-  Future<List<String>?> showSelectPhotoBottomSheet([List<String>? paths]) {
+  Future<List<String>?> showSelectPhotoBottomSheet([List<String>? selectedPhotos]) {
     return showModalBottomSheet<List<String>>(
       context: this,
       isScrollControlled: true,
       useSafeArea: true,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(HsDimens.radius10)),
-      builder: (context) => const FractionallySizedBox(
-          heightFactor: 0.95, child: SelectPhotoBottomSheet()),
+      builder: (context) => FractionallySizedBox(
+          heightFactor: 0.95, child: SelectPhotoBottomSheet(selectedPhotos: selectedPhotos,)),
     );
   }
 }
