@@ -56,6 +56,7 @@ void main() {
         .thenAnswer((realInvocation) => const Stream.empty());
     when(authenticationBloc.state)
         .thenAnswer((realInvocation) => AuthenticationInitial());
+    when(mockSignUpBloc.isAppleSignInAvailable).thenReturn(false);
   });
 
   tearDown(() {
@@ -330,13 +331,12 @@ void main() {
   });
 
   testWidgets(
-      'given user is on iOS device and AppleSignIn is Available, '
+      'given AppleSignIn is Available, '
       'when launching SignUp screen, '
       'then Apple signup button will be shown', (WidgetTester tester) async {
     const Widget widget = SignUpBody();
 
-    when(authenticationBloc.state)
-        .thenAnswer((realInvocation) => const AppleSignInAvailable());
+    when(mockSignUpBloc.isAppleSignInAvailable).thenReturn(true);
 
     await tester.multiBlocWrapAndPump([
       BlocProvider<AuthenticationBloc>(
@@ -353,5 +353,31 @@ void main() {
         find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(widget, 'assets/icons/apple.svg')),
         findsOneWidget);
+  });
+
+  testWidgets(
+      'given AppleSignIn is not Available, '
+      'when launching SignUp screen, '
+      'then Apple signup button will be NOT shown',
+      (WidgetTester tester) async {
+    const Widget widget = SignUpBody();
+
+    when(mockSignUpBloc.isAppleSignInAvailable).thenReturn(false);
+
+    await tester.multiBlocWrapAndPump([
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => authenticationBloc,
+      ),
+      BlocProvider<SignUpBloc>(
+        create: (context) => mockSignUpBloc,
+      ),
+    ], widget);
+
+    expect(find.text('Continue with Apple'), findsNothing);
+
+    expect(
+        find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, 'assets/icons/apple.svg')),
+        findsNothing);
   });
 }
