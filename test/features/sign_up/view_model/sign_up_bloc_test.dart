@@ -198,14 +198,11 @@ void main() async {
     test(
         'given AppleSignIn is available and platform is iOS, when isAppleSignInAvailable, then return true',
         () {
-      // Set up the mock to return true for Apple Sign-In availability
       when(authenticationService.isAppleSignInAvailable).thenReturn(true);
 
-      // Mock the defaultTargetPlatform to be iOS
       TestWidgetsFlutterBinding.ensureInitialized();
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
 
-      // Expect the function to return true
       expect(signUpBloc.isAppleSignInAvailable, isTrue);
       debugDefaultTargetPlatformOverride = null;
     });
@@ -213,14 +210,11 @@ void main() async {
     test(
         'given AppleSignIn is NOT available and platform is iOS, when isAppleSignInAvailable, then return false',
         () {
-      // Set up the mock to return true for Apple Sign-In availability
       when(authenticationService.isAppleSignInAvailable).thenReturn(false);
 
-      // Mock the defaultTargetPlatform to be iOS
       TestWidgetsFlutterBinding.ensureInitialized();
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
 
-      // Expect the function to return true
       expect(signUpBloc.isAppleSignInAvailable, isFalse);
       debugDefaultTargetPlatformOverride = null;
     });
@@ -228,14 +222,11 @@ void main() async {
     test(
         'given AppleSignIn is available and platform is android, when isAppleSignInAvailable, then return false',
         () {
-      // Set up the mock to return true for Apple Sign-In availability
       when(authenticationService.isAppleSignInAvailable).thenReturn(true);
 
-      // Mock the defaultTargetPlatform to be iOS
       TestWidgetsFlutterBinding.ensureInitialized();
       debugDefaultTargetPlatformOverride = TargetPlatform.android;
 
-      // Expect the function to return true
       expect(signUpBloc.isAppleSignInAvailable, isFalse);
       debugDefaultTargetPlatformOverride = null;
     });
@@ -243,14 +234,11 @@ void main() async {
     test(
         'given AppleSignIn is NOT available and platform is android, when isAppleSignInAvailable, then return false',
         () {
-      // Set up the mock to return true for Apple Sign-In availability
       when(authenticationService.isAppleSignInAvailable).thenReturn(false);
 
-      // Mock the defaultTargetPlatform to be iOS
       TestWidgetsFlutterBinding.ensureInitialized();
       debugDefaultTargetPlatformOverride = TargetPlatform.android;
 
-      // Expect the function to return true
       expect(signUpBloc.isAppleSignInAvailable, isFalse);
       debugDefaultTargetPlatformOverride = null;
     });
