@@ -118,10 +118,10 @@ class TenantBookItemView extends StatelessWidget {
       child: Card(
         elevation: 5, // Controls the shadow depth
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(HsDimens.radius10),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(HsDimens.spacing16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -208,7 +208,8 @@ class TenantBookItemView extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: HsDimens.spacing12),
+                padding:
+                    const EdgeInsets.symmetric(vertical: HsDimens.spacing12),
                 child: SvgPicture.asset(
                   Assets.images.dashedDivider,
                   fit: BoxFit.fitWidth,
