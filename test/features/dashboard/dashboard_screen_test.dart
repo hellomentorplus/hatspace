@@ -179,21 +179,23 @@ void main() {
       when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
 
       const Widget widget = DashboardScreen();
-      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
-            BlocProvider<AuthenticationBloc>(
-              create: (context) => authenticationBloc,
-            ),
-            BlocProvider<AppConfigBloc>(
-              create: (context) => appConfigBloc,
-            ),
-          ], widget));
+      mockNetworkImagesFor(() async {
+        await widgetTester.multiBlocWrapAndPump([
+          BlocProvider<AuthenticationBloc>(
+            create: (context) => authenticationBloc,
+          ),
+          BlocProvider<AppConfigBloc>(
+            create: (context) => appConfigBloc,
+          ),
+        ], widget);
 
-      await widgetTester.tap(find.text('Inspection'));
-      await widgetTester.pumpAndSettle();
+        await widgetTester.tap(find.text('Inspection'));
+        await widgetTester.pumpAndSettle();
 
-      // login bottom sheet is not displayed
-      expect(find.byType(HsWarningBottomSheetView), findsNothing);
-      expect(find.byType(InspectionView), findsOneWidget);
+        // login bottom sheet is not displayed
+        expect(find.byType(HsWarningBottomSheetView), findsNothing);
+        expect(find.byType(InspectionView), findsOneWidget);
+      });
     });
   });
 
@@ -233,21 +235,22 @@ void main() {
       when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
 
       const Widget widget = DashboardScreen();
-      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
-            BlocProvider<AuthenticationBloc>(
-              create: (context) => authenticationBloc,
-            ),
-            BlocProvider<AppConfigBloc>(
-              create: (context) => appConfigBloc,
-            ),
-          ], widget));
+      mockNetworkImagesFor(() async {
+        await widgetTester.multiBlocWrapAndPump([
+          BlocProvider<AuthenticationBloc>(
+            create: (context) => authenticationBloc,
+          ),
+          BlocProvider<AppConfigBloc>(
+            create: (context) => appConfigBloc,
+          ),
+        ], widget);
+        await widgetTester.tap(find.text('Application'));
+        await widgetTester.pumpAndSettle();
 
-      await widgetTester.tap(find.text('Application'));
-      await widgetTester.pumpAndSettle();
-
-      // login bottom sheet is not displayed
-      expect(find.byType(HsWarningBottomSheetView), findsNothing);
-      expect(find.byType(ApplicationView), findsOneWidget);
+        // login bottom sheet is not displayed
+        expect(find.byType(HsWarningBottomSheetView), findsNothing);
+        expect(find.byType(ApplicationView), findsOneWidget);
+      });
     });
   });
 
@@ -288,21 +291,23 @@ void main() {
       when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
 
       const Widget widget = DashboardScreen();
-      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
-            BlocProvider<AuthenticationBloc>(
-              create: (context) => authenticationBloc,
-            ),
-            BlocProvider<AppConfigBloc>(
-              create: (context) => appConfigBloc,
-            ),
-          ], widget));
+      mockNetworkImagesFor(() async {
+        await widgetTester.multiBlocWrapAndPump([
+          BlocProvider<AuthenticationBloc>(
+            create: (context) => authenticationBloc,
+          ),
+          BlocProvider<AppConfigBloc>(
+            create: (context) => appConfigBloc,
+          ),
+        ], widget);
 
-      await widgetTester.tap(find.text('Profile'));
-      await widgetTester.pumpAndSettle();
+        await widgetTester.tap(find.text('Profile'));
+        await widgetTester.pumpAndSettle();
 
-      // login bottom sheet is not displayed
-      expect(find.byType(HsWarningBottomSheetView), findsNothing);
-      expect(find.byType(ProfileView), findsOneWidget);
+        // login bottom sheet is not displayed
+        expect(find.byType(HsWarningBottomSheetView), findsNothing);
+        expect(find.byType(ProfileView), findsOneWidget);
+      });
     });
   });
 
@@ -901,40 +906,4 @@ void main() {
           .called(1);
     });
   });
-
-  // group('navigate to expected screen', () {
-  //   testWidgets(
-  //       'given user does not log in, '
-  //       'when user logged in successfully,'
-  //       'then call navigated to expected screen', (widgetTester) async {
-  //     // when(authenticationBloc.state).thenReturn(AuthenticatedState(
-  //     //     UserDetail(uid: 'uiid', displayName: 'display name')));
-  //     // when(authenticationBloc.stream).thenAnswer((realInvocation) =>
-  //     //     Stream.value(AuthenticatedState(
-  //     //         UserDetail(uid: 'uiid', displayName: 'display name'))));
-  //      when(interactionCubit.state).thenReturn(GotoSignUpScreen());
-  //     when(interactionCubit.stream).thenAnswer((realInvocation) =>
-  //         Stream.value(GotoSignUpScreen()));
-
-  //     const Widget widget = DashboardBody();
-
-  //     await widgetTester.multiBlocWrapAndPump([
-  //       BlocProvider<AppConfigBloc>(
-  //         create: (context) => appConfigBloc,
-  //       ),
-  //       BlocProvider<AuthenticationBloc>(
-  //         create: (context) => authenticationBloc,
-  //       ),
-  //       BlocProvider<DashboardInteractionCubit>(
-  //         create: (context) => interactionCubit,
-  //       ),
-  //       BlocProvider<AddHomeOwnerRoleCubit>(
-  //         create: (context) => addHomeOwnerRoleCubit,
-  //       )
-  //     ], widget);
-  //     expect(find.byType(DashboardBody), findsNothing);
-
-  //     //verify(interactionCubit.navigateToExpectedScreen()).called(1);
-  //   });
-  // });
 }
