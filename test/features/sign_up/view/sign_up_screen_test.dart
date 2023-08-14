@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,6 +52,10 @@ void main() {
         .thenAnswer((realInvocation) => const Stream.empty());
     when(mockSignUpBloc.state)
         .thenAnswer((realInvocation) => const SignUpInitial());
+    when(authenticationBloc.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+    when(authenticationBloc.state)
+        .thenAnswer((realInvocation) => AuthenticationInitial());
   });
 
   tearDown(() {
@@ -64,7 +67,14 @@ void main() {
 
   testWidgets('Check skip icon button', (WidgetTester tester) async {
     const Widget widget = SignUpBody();
-    await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
+    await tester.multiBlocWrapAndPump([
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => authenticationBloc,
+      ),
+      BlocProvider<SignUpBloc>(
+        create: (context) => mockSignUpBloc,
+      ),
+    ], widget);
     Padding wrapContainer = tester.firstWidget(find.byType(Padding));
     expect(wrapContainer.padding,
         const EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 0));
@@ -118,7 +128,14 @@ void main() {
 
   testWidgets('Verify button interaction', (WidgetTester widgetTester) async {
     const Widget widget = SignUpBody();
-    await widgetTester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
+    await widgetTester.multiBlocWrapAndPump([
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => authenticationBloc,
+      ),
+      BlocProvider<SignUpBloc>(
+        create: (context) => mockSignUpBloc,
+      ),
+    ], widget);
     // Test interaction with google Sign in
     await widgetTester
         .tap(find.widgetWithText(SecondaryButton, 'Continue with Google'));
@@ -133,12 +150,7 @@ void main() {
 
   testWidgets('Skip event - detect first launch app',
       (WidgetTester tester) async {
-    const Widget widget = SignUpScreen();
-    when(authenticationBloc.stream)
-        .thenAnswer((realInvocation) => const Stream.empty());
-    when(authenticationBloc.state)
-        .thenAnswer((realInvocation) => RequestSignUp());
-
+    const Widget widget = SignUpBody();
     await tester.multiBlocWrapAndPump([
       BlocProvider<SignUpBloc>(
         create: (context) => mockSignUpBloc,
@@ -176,8 +188,14 @@ void main() {
 
       const Widget widget = SignUpBody();
 
-      await widgetTester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget,
-          infiniteAnimationWidget: true);
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<SignUpBloc>(
+          create: (context) => mockSignUpBloc,
+        ),
+      ], widget, infiniteAnimationWidget: true);
 
       expect(find.text('Loading...'), findsOneWidget);
     });
@@ -191,8 +209,16 @@ void main() {
 
       const Widget widget = SignUpBody();
 
-      await widgetTester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget,
-          infiniteAnimationWidget: true);
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<SignUpBloc>(
+          create: (context) => mockSignUpBloc,
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+      ], widget, infiniteAnimationWidget: true);
+
+      await widgetTester.pump(const Duration(seconds: 1));
 
       expect(find.text('Login Failed'), findsOneWidget);
       expect(
@@ -219,8 +245,16 @@ void main() {
 
       const Widget widget = SignUpBody();
 
-      await widgetTester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget,
-          infiniteAnimationWidget: true);
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<SignUpBloc>(
+          create: (context) => mockSignUpBloc,
+        ),
+      ], widget, infiniteAnimationWidget: true);
+
+      await widgetTester.pump(const Duration(seconds: 1));
 
       expect(find.text('Login Failed'), findsOneWidget);
       expect(
@@ -296,13 +330,22 @@ void main() {
   });
 
   testWidgets(
-      'Given user is on iOS device, the Apple signup button will be shown',
-      (WidgetTester tester) async {
+      'given user is on iOS device and AppleSignIn is Available, '
+      'when launching SignUp screen, '
+      'then Apple signup button will be shown', (WidgetTester tester) async {
     const Widget widget = SignUpBody();
 
-    debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+    when(authenticationBloc.state)
+        .thenAnswer((realInvocation) => const AppleSignInAvailable());
 
-    await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
+    await tester.multiBlocWrapAndPump([
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => authenticationBloc..isAppleSignInAvailable(),
+      ),
+      BlocProvider<SignUpBloc>(
+        create: (context) => mockSignUpBloc,
+      ),
+    ], widget);
 
     expect(find.text('Continue with Apple'), findsOneWidget);
 
@@ -310,26 +353,5 @@ void main() {
         find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(widget, 'assets/icons/apple.svg')),
         findsOneWidget);
-
-    debugDefaultTargetPlatformOverride = null;
-  });
-
-  testWidgets(
-      'Given user is on Android device, the Apple signup button will not be shown',
-      (WidgetTester tester) async {
-    const Widget widget = SignUpBody();
-
-    debugDefaultTargetPlatformOverride = TargetPlatform.android;
-
-    await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
-
-    expect(find.text('Continue with Apple'), findsNothing);
-
-    expect(
-        find.byWidgetPredicate((widget) =>
-            validateSvgPictureWithAssets(widget, 'assets/icons/apple.svg')),
-        findsNothing);
-
-    debugDefaultTargetPlatformOverride = null;
   });
 }

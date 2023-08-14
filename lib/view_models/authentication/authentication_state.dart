@@ -18,11 +18,19 @@ class AuthenticatedState extends AuthenticationState {
   final UserDetail userDetail;
 
   const AuthenticatedState(this.userDetail);
+
   @override
   List<Object?> get props => [];
 }
 
 class AnonymousState extends AuthenticationState {
+  @override
+  List<Object?> get props => [];
+}
+
+class AppleSignInAvailable extends AuthenticationState {
+  const AppleSignInAvailable();
+
   @override
   List<Object?> get props => [];
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
@@ -43,12 +44,92 @@ void main() {
   blocTest<AuthenticationBloc, AuthenticationState>(
     'Return AnonymousState when trigger SkipSignUp Event',
     build: () => AuthenticationBloc(),
-    act: (signUpBloc) {
+    act: (authenticationBloc) {
       SharedPreferences.setMockInitialValues({});
-      signUpBloc.add(SkipSignUp());
+      authenticationBloc.add(SkipSignUp());
     },
     expect: () {
       return [AnonymousState()];
     },
   );
+
+  blocTest<AuthenticationBloc, AuthenticationState>(
+      'given isAppleSignInAvailable is true and platform is iOS, '
+      'when isAppleSignInAvailable is called, '
+      'then return AppleSignInAvailable',
+      build: () => AuthenticationBloc(),
+      setUp: () {
+        when(authenticationService.isAppleSignInAvailable())
+            .thenAnswer((_) => Future.value(true));
+        debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+      },
+      act: (authenticationBloc) {
+        authenticationBloc.isAppleSignInAvailable();
+      },
+      expect: () {
+        return [const AppleSignInAvailable()];
+      },
+      tearDown: () {
+        debugDefaultTargetPlatformOverride = null;
+      });
+
+  blocTest<AuthenticationBloc, AuthenticationState>(
+      'given isAppleSignInAvailable is true and platform is android, '
+      'when isAppleSignInAvailable is called, '
+      'then return nothing',
+      build: () => AuthenticationBloc(),
+      setUp: () {
+        when(authenticationService.isAppleSignInAvailable())
+            .thenAnswer((_) => Future.value(true));
+        debugDefaultTargetPlatformOverride = TargetPlatform.android;
+      },
+      act: (authenticationBloc) {
+        authenticationBloc.isAppleSignInAvailable();
+      },
+      expect: () {
+        return [];
+      },
+      tearDown: () {
+        debugDefaultTargetPlatformOverride = null;
+      });
+
+  blocTest<AuthenticationBloc, AuthenticationState>(
+      'given isAppleSignInAvailable is false and platform is iOS, '
+      'when isAppleSignInAvailable is called, '
+      'then return nothing',
+      build: () => AuthenticationBloc(),
+      setUp: () {
+        when(authenticationService.isAppleSignInAvailable())
+            .thenAnswer((_) => Future.value(false));
+        debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+      },
+      act: (authenticationBloc) {
+        authenticationBloc.isAppleSignInAvailable();
+      },
+      expect: () {
+        return [];
+      },
+      tearDown: () {
+        debugDefaultTargetPlatformOverride = null;
+      });
+
+  blocTest<AuthenticationBloc, AuthenticationState>(
+      'given isAppleSignInAvailable is false and platform is android, '
+      'when isAppleSignInAvailable is called, '
+      'then return nothing',
+      build: () => AuthenticationBloc(),
+      setUp: () {
+        when(authenticationService.isAppleSignInAvailable())
+            .thenAnswer((_) => Future.value(false));
+        debugDefaultTargetPlatformOverride = TargetPlatform.android;
+      },
+      act: (authenticationBloc) {
+        authenticationBloc.isAppleSignInAvailable();
+      },
+      expect: () {
+        return [];
+      },
+      tearDown: () {
+        debugDefaultTargetPlatformOverride = null;
+      });
 }

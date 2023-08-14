@@ -7,11 +7,13 @@ import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 
 part 'sign_up_event.dart';
+
 part 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;
   final StorageService _storageService;
+
   SignUpBloc()
       : _authenticationService =
             HsSingleton.singleton.get<AuthenticationService>(),
@@ -38,6 +40,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         emit(UserCancelled());
       } on UserNotFoundException {
         emit(AuthenticationFailed());
+      } catch (_) {
+        emit(AuthenticationFailed());
+      }
+    });
+
+    on<SignUpWithApple>((event, emit) async {
+      try {
+        emit(SignUpStart());
+        await signUp(emit, SignUpType.appleService);
       } catch (_) {
         emit(AuthenticationFailed());
       }

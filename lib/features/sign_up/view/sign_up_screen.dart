@@ -13,14 +13,20 @@ import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
 import 'package:hatspace/theme/toast_messages/toast_messages_extension.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
-import 'package:flutter/foundation.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => BlocProvider<SignUpBloc>(
-        create: (context) => SignUpBloc(),
+  Widget build(BuildContext context) => MultiBlocProvider(
+        providers: [
+          BlocProvider<SignUpBloc>(
+            create: (context) => SignUpBloc(),
+          ),
+          BlocProvider<AuthenticationBloc>(
+            create: (context) => AuthenticationBloc()..isAppleSignInAvailable(),
+          )
+        ],
         child: const SignUpBody(),
       );
 }
@@ -163,28 +169,36 @@ class SignUpBody extends StatelessWidget {
                                   .add(const SignUpWithGoogle());
                             },
                           )),
-                      if (defaultTargetPlatform == TargetPlatform.iOS) ...[
-                        Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: HsDimens.spacing24),
-                            child: SecondaryButton(
-                              contentAlignment: MainAxisAlignment.start,
-                              label: HatSpaceStrings.current.appleSignUp,
-                              iconUrl: Assets.icons.apple,
-                              overrideIconColor: false,
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.white),
-                                padding: MaterialStateProperty.all<
-                                        EdgeInsetsGeometry>(
-                                    const EdgeInsets.all(HsDimens.spacing16)),
-                              ),
-                              onPressed: () {
-                                /// TODO : Handle login by apple
-                              },
-                            )),
-                      ],
+                      BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                        builder: (context, state) {
+                          if (state is AppleSignInAvailable) {
+                            return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: HsDimens.spacing24),
+                                child: SecondaryButton(
+                                  contentAlignment: MainAxisAlignment.start,
+                                  label: HatSpaceStrings.current.appleSignUp,
+                                  iconUrl: Assets.icons.apple,
+                                  overrideIconColor: false,
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.white),
+                                    padding: MaterialStateProperty.all<
+                                            EdgeInsetsGeometry>(
+                                        const EdgeInsets.all(
+                                            HsDimens.spacing16)),
+                                  ),
+                                  onPressed: () {
+                                    context
+                                        .read<SignUpBloc>()
+                                        .add(const SignUpWithApple());
+                                  },
+                                ));
+                          }
+                          return const SizedBox();
+                        },
+                      ),
                     ],
                   ))
                 ])),

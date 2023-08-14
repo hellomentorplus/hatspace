@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hatspace/data/data.dart';
@@ -7,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 
 part 'authentication_event.dart';
+
 part 'authentication_state.dart';
 
 class AuthenticationBloc
@@ -70,5 +72,12 @@ class AuthenticationBloc
     prefs.setBool(isFirstLaunchConst, false);
     await authenticationService.signOut();
     emit(AnonymousState());
+  }
+
+  void isAppleSignInAvailable() async {
+    final isAppleSignInAvailable = await authenticationService.isAppleSignInAvailable();
+    if (isAppleSignInAvailable && defaultTargetPlatform == TargetPlatform.iOS) {
+      emit(const AppleSignInAvailable());
+    }
   }
 }
