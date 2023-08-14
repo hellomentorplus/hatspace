@@ -24,7 +24,8 @@ class SignUpScreen extends StatelessWidget {
             create: (context) => SignUpBloc(),
           ),
           BlocProvider<AuthenticationBloc>(
-            create: (context) => AuthenticationBloc()..add(CheckAppleSignInAvailable()),
+            create: (context) =>
+                AuthenticationBloc()..add(CheckAppleSignInAvailable()),
           )
         ],
         child: const SignUpBody(),
