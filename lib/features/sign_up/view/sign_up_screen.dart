@@ -18,18 +18,8 @@ class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => MultiBlocProvider(
-        providers: [
-          BlocProvider<SignUpBloc>(
-            create: (context) => SignUpBloc(),
-          ),
-          BlocProvider<AuthenticationBloc>(
-            create: (context) =>
-                AuthenticationBloc()..add(CheckAppleSignInAvailable()),
-          )
-        ],
-        child: const SignUpBody(),
-      );
+  Widget build(BuildContext context) => BlocProvider<SignUpBloc>(
+      create: (context) => SignUpBloc(), child: const SignUpBody());
 }
 
 class SignUpBody extends StatelessWidget {
@@ -170,36 +160,29 @@ class SignUpBody extends StatelessWidget {
                                   .add(const SignUpWithGoogle());
                             },
                           )),
-                      BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                        builder: (context, state) {
-                          if (state is AppleSignInAvailable) {
-                            return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: HsDimens.spacing24),
-                                child: SecondaryButton(
-                                  contentAlignment: MainAxisAlignment.start,
-                                  label: HatSpaceStrings.current.appleSignUp,
-                                  iconUrl: Assets.icons.apple,
-                                  overrideIconColor: false,
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.white),
-                                    padding: MaterialStateProperty.all<
-                                            EdgeInsetsGeometry>(
-                                        const EdgeInsets.all(
-                                            HsDimens.spacing16)),
-                                  ),
-                                  onPressed: () {
-                                    context
-                                        .read<SignUpBloc>()
-                                        .add(const SignUpWithApple());
-                                  },
-                                ));
-                          }
-                          return const SizedBox();
-                        },
-                      ),
+                      if (context.read<SignUpBloc>().isAppleSignInAvailable)
+                        Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: HsDimens.spacing24),
+                            child: SecondaryButton(
+                              contentAlignment: MainAxisAlignment.start,
+                              label: HatSpaceStrings.current.appleSignUp,
+                              iconUrl: Assets.icons.apple,
+                              overrideIconColor: false,
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                                padding: MaterialStateProperty.all<
+                                        EdgeInsetsGeometry>(
+                                    const EdgeInsets.all(HsDimens.spacing16)),
+                              ),
+                              onPressed: () {
+                                context
+                                    .read<SignUpBloc>()
+                                    .add(const SignUpWithApple());
+                              },
+                            )),
                     ],
                   ))
                 ])),

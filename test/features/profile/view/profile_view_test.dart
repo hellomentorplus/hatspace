@@ -301,7 +301,7 @@ void main() {
         .thenAnswer((_) => Stream.value(const DeleteAccountSucceedState()));
     when(profileCubit.state)
         .thenAnswer((_) => const DeleteAccountSucceedState());
-
+    when(authenticationService.isAppleSignInAvailable).thenReturn(false);
     await widgetTester.blocWrapAndPump<ProfileCubit>(
         profileCubit, const ProfileBody());
 
@@ -438,7 +438,7 @@ void main() {
           .thenAnswer((_) => Stream.value(const LogOutAccountSucceedState()));
       when(profileCubit.state)
           .thenAnswer((_) => const LogOutAccountSucceedState());
-
+      when(authenticationService.isAppleSignInAvailable).thenReturn(false);
       await widgetTester.blocWrapAndPump<ProfileCubit>(
           profileCubit, const ProfileBody());
 

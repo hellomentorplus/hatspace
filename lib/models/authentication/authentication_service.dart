@@ -18,11 +18,13 @@ class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
   final FacebookAuth _facebookAuth;
   StreamSubscription? _streamSubscription;
+  bool isAppleSignInAvailable;
 
   AuthenticationService({
     GoogleSignIn? googleSignIn,
     FirebaseAuth? firebaseAuth,
     FacebookAuth? facebookAuth,
+    this.isAppleSignInAvailable = false,
   })  : _googleSignIn = googleSignIn ?? GoogleSignIn(),
         _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
         _facebookAuth = facebookAuth ?? FacebookAuth.instance;
@@ -39,6 +41,9 @@ class AuthenticationService {
       } else {
         _userDetailStreamController.add(null);
       }
+    });
+    checkAppleSignInAvailable().then((result) {
+      isAppleSignInAvailable = result;
     });
   }
 
@@ -233,7 +238,7 @@ class AuthenticationService {
 
   bool get isUserLoggedIn => _firebaseAuth.currentUser != null;
 
-  Future<bool> isAppleSignInAvailable() async {
+  Future<bool> checkAppleSignInAvailable() async {
     try {
       return SignInWithApple.isAvailable();
     } catch (e) {

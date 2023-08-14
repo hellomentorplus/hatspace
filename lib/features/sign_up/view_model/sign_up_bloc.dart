@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hatspace/data/data.dart';
@@ -68,4 +69,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     }
     return userDetail;
   }
+
+  bool get isAppleSignInAvailable =>
+      _authenticationService.isAppleSignInAvailable &&
+      defaultTargetPlatform == TargetPlatform.iOS;
 }

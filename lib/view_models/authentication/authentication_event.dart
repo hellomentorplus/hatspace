@@ -18,8 +18,3 @@ class _ValidateAuthentication extends AuthenticationEvent {
   @override
   List<Object?> get props => [];
 }
-
-class CheckAppleSignInAvailable extends AuthenticationEvent {
-  @override
-  List<Object?> get props => [];
-}

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hatspace/data/data.dart';
@@ -24,8 +23,6 @@ class AuthenticationBloc
     on<OnAppLaunchValidation>(_validateAuthenticationOnAppLaunch);
 
     on<SkipSignUp>(_skipSignUp);
-
-    on<CheckAppleSignInAvailable>(_isAppleSignInAvailable);
 
     add(_ValidateAuthentication());
   }
@@ -74,14 +71,5 @@ class AuthenticationBloc
     prefs.setBool(isFirstLaunchConst, false);
     await authenticationService.signOut();
     emit(AnonymousState());
-  }
-
-  void _isAppleSignInAvailable(CheckAppleSignInAvailable event,
-      Emitter<AuthenticationState> emit) async {
-    final isAppleSignInAvailable =
-        await authenticationService.isAppleSignInAvailable();
-    if (isAppleSignInAvailable && defaultTargetPlatform == TargetPlatform.iOS) {
-      emit(const AppleSignInAvailable());
-    }
   }
 }
