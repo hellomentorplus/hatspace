@@ -340,7 +340,7 @@ void main() {
 
     await tester.multiBlocWrapAndPump([
       BlocProvider<AuthenticationBloc>(
-        create: (context) => authenticationBloc..isAppleSignInAvailable(),
+        create: (context) => authenticationBloc,
       ),
       BlocProvider<SignUpBloc>(
         create: (context) => mockSignUpBloc,

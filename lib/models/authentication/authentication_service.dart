@@ -188,7 +188,6 @@ class AuthenticationService {
 
       return result;
     } catch (e, stacktrace) {
-      print('e=${e.toString()}');
       throw UnknownException(stacktrace);
     }
   }
