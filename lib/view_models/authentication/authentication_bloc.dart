@@ -25,6 +25,8 @@ class AuthenticationBloc
 
     on<SkipSignUp>(_skipSignUp);
 
+    on<CheckAppleSignInAvailable>(_isAppleSignInAvailable);
+
     add(_ValidateAuthentication());
   }
 
@@ -74,8 +76,10 @@ class AuthenticationBloc
     emit(AnonymousState());
   }
 
-  void isAppleSignInAvailable() async {
-    final isAppleSignInAvailable = await authenticationService.isAppleSignInAvailable();
+  void _isAppleSignInAvailable(CheckAppleSignInAvailable event,
+      Emitter<AuthenticationState> emit) async {
+    final isAppleSignInAvailable =
+        await authenticationService.isAppleSignInAvailable();
     if (isAppleSignInAvailable && defaultTargetPlatform == TargetPlatform.iOS) {
       emit(const AppleSignInAvailable());
     }

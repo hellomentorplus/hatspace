@@ -64,7 +64,7 @@ void main() {
         debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
       },
       act: (authenticationBloc) {
-        authenticationBloc.isAppleSignInAvailable();
+        authenticationBloc.add(CheckAppleSignInAvailable());
       },
       expect: () {
         return [const AppleSignInAvailable()];
@@ -84,7 +84,7 @@ void main() {
         debugDefaultTargetPlatformOverride = TargetPlatform.android;
       },
       act: (authenticationBloc) {
-        authenticationBloc.isAppleSignInAvailable();
+        authenticationBloc.add(CheckAppleSignInAvailable());
       },
       expect: () {
         return [];
@@ -104,7 +104,7 @@ void main() {
         debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
       },
       act: (authenticationBloc) {
-        authenticationBloc.isAppleSignInAvailable();
+        authenticationBloc.add(CheckAppleSignInAvailable());
       },
       expect: () {
         return [];
@@ -124,7 +124,7 @@ void main() {
         debugDefaultTargetPlatformOverride = TargetPlatform.android;
       },
       act: (authenticationBloc) {
-        authenticationBloc.isAppleSignInAvailable();
+        authenticationBloc.add(CheckAppleSignInAvailable());
       },
       expect: () {
         return [];
