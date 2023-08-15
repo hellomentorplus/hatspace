@@ -69,6 +69,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/chevron_right.svg
   String get chevronRight => 'assets/icons/chevron_right.svg';
 
+  /// File path: assets/icons/clock.svg
+  String get clock => 'assets/icons/clock.svg';
+
   /// File path: assets/icons/close-clear.svg
   String get closeClear => 'assets/icons/close-clear.svg';
 
@@ -240,6 +243,7 @@ class $AssetsIconsGen {
         chervonDown,
         chevronLeft,
         chevronRight,
+        clock,
         closeClear,
         close,
         closeCircle,
@@ -305,6 +309,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/circle_warning.svg
   String get circleWarning => 'assets/images/circle_warning.svg';
 
+  /// File path: assets/images/dashed_divider.svg
+  String get dashedDivider => 'assets/images/dashed_divider.svg';
+
   /// File path: assets/images/facebook_round.svg
   String get facebookRound => 'assets/images/facebook_round.svg';
 
@@ -341,6 +348,7 @@ class $AssetsImagesGen {
         apartment,
         cameraCircle,
         circleWarning,
+        dashedDivider,
         facebookRound,
         facebookWhite,
         google,
@@ -419,16 +427,7 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
-  }
+  ImageProvider provider() => AssetImage(_assetName);
 
   String get path => _assetName;
 

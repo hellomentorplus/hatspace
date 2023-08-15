@@ -183,5 +183,6 @@
   "addPropertyRentalPeriodUnit":"(PW)",
   "appleSignUp": "Continue with Apple",
   "logOutDescription": "Are you sure you want to log out?",
-  "btnLogOut": "Log Out"
+  "btnLogOut": "Log Out",
+  "inspectionBooking": "Inspection Booking"
 }

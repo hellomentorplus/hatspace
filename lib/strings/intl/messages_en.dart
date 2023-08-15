@@ -180,6 +180,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
         "information": MessageLookupByLibrary.simpleMessage("Information"),
         "inspection": MessageLookupByLibrary.simpleMessage("Inspection"),
+        "inspectionBooking":
+            MessageLookupByLibrary.simpleMessage("Inspection Booking"),
         "kitchen": MessageLookupByLibrary.simpleMessage("Kitchen"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "letAddSomePhotosOfYourPlace": MessageLookupByLibrary.simpleMessage(
