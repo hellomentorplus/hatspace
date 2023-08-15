@@ -442,7 +442,7 @@ class _PropertyBookingBar extends StatelessWidget {
                 label: HatSpaceStrings.current.bookInspection,
                 onPressed: () {
                   // TODO start booking inspection
-                  Navigator.push(context, MaterialPageRoute(builder: (context){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return AddInspectionBooking();
                   }));
                 },

@@ -21,7 +21,8 @@ class AddInspectionBooking extends StatelessWidget {
       return Scaffold(
           bottomNavigationBar: BottomAppBar(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(HsDimens.spacing16, HsDimens.spacing8, HsDimens.spacing16, HsDimens.spacing28),
+              padding: const EdgeInsets.fromLTRB(HsDimens.spacing16,
+                  HsDimens.spacing8, HsDimens.spacing16, HsDimens.spacing28),
               child: PrimaryButton(
                 label: HatSpaceStrings.of(context).bookInspection,
                 onPressed: () {
@@ -36,22 +37,6 @@ class AddInspectionBooking extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: HsDimens.spacing16),
                 child: Stack(
                   children: [
-                    Positioned(
-                      right: 0,
-                      top: 2.5,
-                      child: Padding(
-                          padding: const EdgeInsets.all(9.4),
-                          child: IconButton(
-                            icon: SvgPicture.asset(
-                              Assets.icons.closeIcon,
-                              width: HsDimens.size32,
-                              height: HsDimens.size32,
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )),
-                    ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,6 +138,22 @@ class AddInspectionBooking extends StatelessWidget {
                           onChanged: (value) {},
                         ),
                       ],
+                    ),
+                    Positioned(
+                      right: 0,
+                      top: 2.5,
+                      child: Padding(
+                          padding: const EdgeInsets.all(9.4),
+                          child: IconButton(
+                            icon: SvgPicture.asset(
+                              Assets.icons.closeIcon,
+                              width: HsDimens.size32,
+                              height: HsDimens.size32,
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          )),
                     ),
                   ],
                 )),
