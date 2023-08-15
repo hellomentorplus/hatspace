@@ -1614,10 +1614,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `date`
+  /// `Date`
   String get date {
     return Intl.message(
-      'date',
+      'Date',
       name: 'date',
       desc: '',
       args: [],

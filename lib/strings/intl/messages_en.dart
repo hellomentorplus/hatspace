@@ -128,7 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
         "coverPhoto": MessageLookupByLibrary.simpleMessage("Cover photo"),
         "currencyFormatter": m2,
-        "date": MessageLookupByLibrary.simpleMessage("date"),
+        "date": MessageLookupByLibrary.simpleMessage("Date"),
         "dateFormatter": m3,
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of Birth"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
