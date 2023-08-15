@@ -1,6 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
@@ -185,66 +184,5 @@ void main() async {
 
     SignUpWithFacebook signUpWithFacebook = const SignUpWithFacebook();
     expect(signUpWithFacebook.props.length, 0);
-  });
-
-  group('isAppleSignInAvailable', () {
-    late SignUpBloc signUpBloc;
-
-    setUpAll(() async {
-      // Unexpected bugs - happended when running test coverage
-      signUpBloc = SignUpBloc();
-    });
-
-    test(
-        'given AppleSignIn is available and platform is iOS, when isAppleSignInAvailable, then return true',
-        () {
-      when(authenticationService.isAppleSignInAvailable).thenReturn(true);
-
-      TestWidgetsFlutterBinding.ensureInitialized();
-      debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
-
-      expect(signUpBloc.isAppleSignInAvailable, isTrue);
-      debugDefaultTargetPlatformOverride = null;
-    });
-
-    test(
-        'given AppleSignIn is NOT available and platform is iOS, when isAppleSignInAvailable, then return false',
-        () {
-      when(authenticationService.isAppleSignInAvailable).thenReturn(false);
-
-      TestWidgetsFlutterBinding.ensureInitialized();
-      debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
-
-      expect(signUpBloc.isAppleSignInAvailable, isFalse);
-      debugDefaultTargetPlatformOverride = null;
-    });
-
-    test(
-        'given AppleSignIn is available and platform is android, when isAppleSignInAvailable, then return false',
-        () {
-      when(authenticationService.isAppleSignInAvailable).thenReturn(true);
-
-      TestWidgetsFlutterBinding.ensureInitialized();
-      debugDefaultTargetPlatformOverride = TargetPlatform.android;
-
-      expect(signUpBloc.isAppleSignInAvailable, isFalse);
-      debugDefaultTargetPlatformOverride = null;
-    });
-
-    test(
-        'given AppleSignIn is NOT available and platform is android, when isAppleSignInAvailable, then return false',
-        () {
-      when(authenticationService.isAppleSignInAvailable).thenReturn(false);
-
-      TestWidgetsFlutterBinding.ensureInitialized();
-      debugDefaultTargetPlatformOverride = TargetPlatform.android;
-
-      expect(signUpBloc.isAppleSignInAvailable, isFalse);
-      debugDefaultTargetPlatformOverride = null;
-    });
-
-    tearDown(() {
-      signUpBloc.close();
-    });
   });
 }

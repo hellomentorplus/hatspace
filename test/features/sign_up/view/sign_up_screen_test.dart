@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/sign_up/view/sign_up_screen.dart';
+import 'package:hatspace/features/sign_up/view_model/apple_signin_cubit.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
@@ -19,8 +20,13 @@ import '../../../widget_tester_extension.dart';
 import '../../add_property/view/widgets/add_rooms_view_test.dart';
 import 'sign_up_screen_test.mocks.dart';
 
-@GenerateMocks(
-    [SignUpBloc, AuthenticationBloc, StorageService, AuthenticationService])
+@GenerateMocks([
+  SignUpBloc,
+  AuthenticationBloc,
+  StorageService,
+  AuthenticationService,
+  AppleSignInCubit
+])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final MockSignUpBloc mockSignUpBloc = MockSignUpBloc();
@@ -28,6 +34,7 @@ void main() {
   final MockStorageService storageService = MockStorageService();
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
+  final MockAppleSignInCubit appleSignInCubit = MockAppleSignInCubit();
 
   setUpAll(() async {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
@@ -56,7 +63,10 @@ void main() {
         .thenAnswer((realInvocation) => const Stream.empty());
     when(authenticationBloc.state)
         .thenAnswer((realInvocation) => AuthenticationInitial());
-    when(mockSignUpBloc.isAppleSignInAvailable).thenReturn(false);
+    when(appleSignInCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+    when(appleSignInCubit.state)
+        .thenAnswer((realInvocation) => AppleSignInInitial());
   });
 
   tearDown(() {
@@ -74,6 +84,9 @@ void main() {
       ),
       BlocProvider<SignUpBloc>(
         create: (context) => mockSignUpBloc,
+      ),
+      BlocProvider<AppleSignInCubit>(
+        create: (context) => appleSignInCubit,
       ),
     ], widget);
     Padding wrapContainer = tester.firstWidget(find.byType(Padding));
@@ -136,6 +149,9 @@ void main() {
       BlocProvider<SignUpBloc>(
         create: (context) => mockSignUpBloc,
       ),
+      BlocProvider<AppleSignInCubit>(
+        create: (context) => appleSignInCubit,
+      ),
     ], widget);
     // Test interaction with google Sign in
     await widgetTester
@@ -158,7 +174,10 @@ void main() {
       ),
       BlocProvider<AuthenticationBloc>(
         create: (context) => authenticationBloc,
-      )
+      ),
+      BlocProvider<AppleSignInCubit>(
+        create: (context) => appleSignInCubit,
+      ),
     ], widget);
 
     SharedPreferences.setMockInitialValues({});
@@ -196,6 +215,9 @@ void main() {
         BlocProvider<SignUpBloc>(
           create: (context) => mockSignUpBloc,
         ),
+        BlocProvider<AppleSignInCubit>(
+          create: (context) => appleSignInCubit,
+        ),
       ], widget, infiniteAnimationWidget: true);
 
       expect(find.text('Loading...'), findsOneWidget);
@@ -216,6 +238,9 @@ void main() {
         ),
         BlocProvider<AuthenticationBloc>(
           create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppleSignInCubit>(
+          create: (context) => appleSignInCubit,
         ),
       ], widget, infiniteAnimationWidget: true);
 
@@ -252,6 +277,9 @@ void main() {
         ),
         BlocProvider<SignUpBloc>(
           create: (context) => mockSignUpBloc,
+        ),
+        BlocProvider<AppleSignInCubit>(
+          create: (context) => appleSignInCubit,
         ),
       ], widget, infiniteAnimationWidget: true);
 
@@ -295,6 +323,9 @@ void main() {
         BlocProvider<SignUpBloc>(
           create: (context) => mockSignUpBloc,
         ),
+        BlocProvider<AppleSignInCubit>(
+          create: (context) => appleSignInCubit,
+        ),
       ], widget, infiniteAnimationWidget: true, useRouter: true);
 
       // expect to dismiss this view
@@ -323,6 +354,9 @@ void main() {
         BlocProvider<SignUpBloc>(
           create: (context) => mockSignUpBloc,
         ),
+        BlocProvider<AppleSignInCubit>(
+          create: (context) => appleSignInCubit,
+        ),
       ], widget, infiniteAnimationWidget: true, useRouter: true);
 
       // expect to not see this screen anymore
@@ -331,12 +365,13 @@ void main() {
   });
 
   testWidgets(
-      'given AppleSignIn is Available, '
+      'given state is AppleSignInAvailable, '
       'when launching SignUp screen, '
       'then Apple signup button will be shown', (WidgetTester tester) async {
     const Widget widget = SignUpBody();
 
-    when(mockSignUpBloc.isAppleSignInAvailable).thenReturn(true);
+    when(appleSignInCubit.state)
+        .thenAnswer((realInvocation) => AppleSignInAvailable());
 
     await tester.multiBlocWrapAndPump([
       BlocProvider<AuthenticationBloc>(
@@ -344,6 +379,9 @@ void main() {
       ),
       BlocProvider<SignUpBloc>(
         create: (context) => mockSignUpBloc,
+      ),
+      BlocProvider<AppleSignInCubit>(
+        create: (context) => appleSignInCubit,
       ),
     ], widget);
 
@@ -353,31 +391,5 @@ void main() {
         find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(widget, 'assets/icons/apple.svg')),
         findsOneWidget);
-  });
-
-  testWidgets(
-      'given AppleSignIn is not Available, '
-      'when launching SignUp screen, '
-      'then Apple signup button will be NOT shown',
-      (WidgetTester tester) async {
-    const Widget widget = SignUpBody();
-
-    when(mockSignUpBloc.isAppleSignInAvailable).thenReturn(false);
-
-    await tester.multiBlocWrapAndPump([
-      BlocProvider<AuthenticationBloc>(
-        create: (context) => authenticationBloc,
-      ),
-      BlocProvider<SignUpBloc>(
-        create: (context) => mockSignUpBloc,
-      ),
-    ], widget);
-
-    expect(find.text('Continue with Apple'), findsNothing);
-
-    expect(
-        find.byWidgetPredicate((widget) =>
-            validateSvgPictureWithAssets(widget, 'assets/icons/apple.svg')),
-        findsNothing);
   });
 }

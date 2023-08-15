@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hatspace/data/data.dart';
@@ -8,13 +7,11 @@ import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 
 part 'sign_up_event.dart';
-
 part 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationService _authenticationService;
   final StorageService _storageService;
-
   SignUpBloc()
       : _authenticationService =
             HsSingleton.singleton.get<AuthenticationService>(),
@@ -69,8 +66,4 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     }
     return userDetail;
   }
-
-  bool get isAppleSignInAvailable =>
-      _authenticationService.isAppleSignInAvailable &&
-      defaultTargetPlatform == TargetPlatform.iOS;
 }
