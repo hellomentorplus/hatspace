@@ -441,16 +441,16 @@ void main() {
     });
   });
 
-  testWidgets('when user only has tenant role, then user will not see My properties option',
+  testWidgets(
+      'when user only has tenant role, then user will not see My properties option',
       (widgetTester) async {
     when(user.avatar).thenReturn('avatar.jpg');
     when(user.displayName).thenReturn('This is user name');
 
-    when(profileCubit.stream).thenAnswer((_) => Stream.value(
-        GetUserDetailSucceedState(
-            user, const [Roles.tenant])));
-    when(profileCubit.state).thenAnswer((_) =>
-        GetUserDetailSucceedState(user, const [Roles.tenant]));
+    when(profileCubit.stream).thenAnswer((_) =>
+        Stream.value(GetUserDetailSucceedState(user, const [Roles.tenant])));
+    when(profileCubit.state).thenAnswer(
+        (_) => GetUserDetailSucceedState(user, const [Roles.tenant]));
 
     await mockNetworkImagesFor(() => widgetTester.blocWrapAndPump<ProfileCubit>(
         profileCubit, const ProfileBody()));
@@ -493,10 +493,10 @@ void main() {
     when(user.avatar).thenReturn('avatar.jpg');
     when(user.displayName).thenReturn('This is user name');
 
-    when(profileCubit.stream).thenAnswer((_) =>
-        Stream.value(GetUserDetailSucceedState(user, Roles.values)));
-    when(profileCubit.state).thenAnswer(
-        (_) => GetUserDetailSucceedState(user, Roles.values));
+    when(profileCubit.stream).thenAnswer(
+        (_) => Stream.value(GetUserDetailSucceedState(user, Roles.values)));
+    when(profileCubit.state)
+        .thenAnswer((_) => GetUserDetailSucceedState(user, Roles.values));
 
     await mockNetworkImagesFor(() => widgetTester.blocWrapAndPump<ProfileCubit>(
         profileCubit, const ProfileBody()));
