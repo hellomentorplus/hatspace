@@ -125,7 +125,7 @@ class AddInspectionBooking extends StatelessWidget {
                         TextFormField(
                           initialValue: 'My number is 0433123456',
                           style: textTheme.bodyMedium,
-                          minLines: 3,
+                          minLines: 4,
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
                           maxLength: 4,
