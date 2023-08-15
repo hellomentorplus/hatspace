@@ -19,7 +19,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       emit(const GettingUserDetailState());
       final UserDetail user = await _authenticationService.getCurrentUser();
-      final roles = await _storageService.member.getUserRoles(user.uid);
+      final List<Roles> roles = await _storageService.member.getUserRoles(user.uid);
       emit(GetUserDetailSucceedState(user, roles));
     } catch (_) {
       emit(const GetUserDetailFailedState());
