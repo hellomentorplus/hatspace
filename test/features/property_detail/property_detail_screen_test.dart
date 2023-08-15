@@ -11,6 +11,7 @@ import 'package:hatspace/models/storage/member_service/member_storage_service.da
 import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
@@ -177,5 +178,21 @@ void main() async {
     expect(find.text('Security cameras'), findsOneWidget);
     expect(find.text('Kitchen'), findsOneWidget);
     expect(find.text('Portable Fans'), findsOneWidget);
+  });
+
+  testWidgets(
+      'Given user is in PropertyDetail'
+      'When user tap on Property'
+      'Then navigate to AddInspectionView', (widgetTester) async {
+    const Widget widget = PropertyDetailScreen(id: 'id');
+    await mockNetworkImagesFor(() => widgetTester
+        .blocWrapAndPump<AuthenticationBloc>(authenticationBloc, widget));
+    expect(
+        find.widgetWithText(PrimaryButton, 'Book Inspection'), findsOneWidget);
+    await widgetTester
+        .tap(find.widgetWithText(PrimaryButton, 'Book Inspection'));
+    await mockNetworkImagesFor(() => widgetTester.pumpAndSettle());
+    //     // Navigate to other screen
+    expect(find.byType(PropertyDetailScreen), findsNothing);
   });
 }
