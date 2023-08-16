@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/booking/add_inspection_booking.dart';
+import 'package:hatspace/features/booking/add_inspection_booking_screen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -18,7 +18,7 @@ void main() async {
   tearDown(() {});
 
   testWidgets('Verify UI component', (WidgetTester widget) async {
-    Widget addInspectionView = AddInspectionBooking();
+    Widget addInspectionView = AddInspectionBookingScreen();
     await mockNetworkImagesFor(() => widget.wrapAndPump(addInspectionView));
     expect(find.byType(BookedItemCard), findsOneWidget);
     expect(find.byType(TextFormField), findsOneWidget);
@@ -30,7 +30,7 @@ void main() async {
   testWidgets(
       'Given user presses close icon'
       'Then close AddInpectionScreen', (widgetTester) async {
-    Widget addInspectionView = AddInspectionBooking();
+    Widget addInspectionView = AddInspectionBookingScreen();
     await mockNetworkImagesFor(
         () => widgetTester.wrapAndPump(addInspectionView));
     IconButton iconBtn = widgetTester.widget(find.byType(IconButton));
@@ -39,6 +39,6 @@ void main() async {
     await widgetTester.tap(find.byType(IconButton), warnIfMissed: true);
     await widgetTester.pumpAndSettle();
     // Navigate to other screen
-    expect(find.byType(AddInspectionBooking), findsNothing);
+    expect(find.byType(AddInspectionBookingScreen), findsNothing);
   });
 }

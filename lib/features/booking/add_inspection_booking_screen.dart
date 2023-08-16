@@ -11,8 +11,8 @@ import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
 import 'package:intl/intl.dart';
 
-class AddInspectionBooking extends StatelessWidget {
-  AddInspectionBooking({Key? key}) : super(key: key);
+class AddInspectionBookingScreen extends StatelessWidget {
+  AddInspectionBookingScreen({Key? key}) : super(key: key);
   final ValueNotifier<DateTime> _selectedDate = ValueNotifier(DateTime.now());
 
   @override

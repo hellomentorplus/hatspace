@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/features/booking/add_inspection_booking.dart';
+import 'package:hatspace/features/booking/add_inspection_booking_screen.dart';
 import 'package:hatspace/features/property_detail/view_model/property_detail_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
@@ -443,7 +443,7 @@ class _PropertyBookingBar extends StatelessWidget {
                 onPressed: () {
                   // TODO start booking inspection
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return AddInspectionBooking();
+                    return AddInspectionBookingScreen();
                   }));
                 },
                 style: const ButtonStyle(
