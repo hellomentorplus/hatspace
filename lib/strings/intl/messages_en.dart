@@ -172,7 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "guideForApplication":
             MessageLookupByLibrary.simpleMessage("Guide for application"),
         "hatSpaceWouldLikeToPhotoAccess": MessageLookupByLibrary.simpleMessage(
-            "\"HATSpace\" Would Like to Photo Access"),
+            "\"HATspace\" Would Like to Photo Access"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
         "house": MessageLookupByLibrary.simpleMessage("House"),
         "houseNumberAndStreetName":
@@ -226,7 +226,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pleas select your state"),
         "plsGoToSettingsAndAllowPhotoAccessForHatSpace":
             MessageLookupByLibrary.simpleMessage(
-                "Please go to Settings and allow photos access for HATSpace."),
+                "Please go to Settings and allow photos access for HATspace."),
         "portableFans": MessageLookupByLibrary.simpleMessage("Portable Fans"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
         "preview": MessageLookupByLibrary.simpleMessage("Preview"),
