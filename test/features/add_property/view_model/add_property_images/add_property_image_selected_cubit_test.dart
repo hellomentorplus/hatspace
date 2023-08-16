@@ -9,7 +9,7 @@ void main() {
     ' then do nothing',
     build: () => AddPropertyImageSelectedCubit(),
     act: (bloc) => bloc.onPhotosSelected(null),
-    expect: () => [],
+    expect: () => [isA<OnPhotosCleared>()],
   );
 
   blocTest(
@@ -18,7 +18,7 @@ void main() {
     ' then do nothing',
     build: () => AddPropertyImageSelectedCubit(),
     act: (bloc) => bloc.onPhotosSelected([]),
-    expect: () => [],
+    expect: () => [isA<OnPhotosCleared>()],
   );
 
   blocTest(
