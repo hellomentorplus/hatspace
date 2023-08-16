@@ -18,7 +18,7 @@ class _ShowMoreLabelState extends State<ShowMoreLabel>
       ValueNotifier(HatSpaceStrings.current.showMore);
 
   late final Animation<double> _chevron =
-      Tween<double>(begin: 0.5, end: 1.0).animate(widget.animationController);
+      Tween<double>(begin: 0.0, end: -0.5).animate(widget.animationController);
 
   @override
   void initState() {
