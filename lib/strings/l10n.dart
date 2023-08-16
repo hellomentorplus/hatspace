@@ -556,11 +556,11 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Enter your address`
-  String get enterYourAddress {
+  /// `Enter street address`
+  String get enterStreetAddress {
     return Intl.message(
-      'Enter your address',
-      name: 'enterYourAddress',
+      'Enter street address',
+      name: 'enterStreetAddress',
       desc: '',
       args: [],
     );
