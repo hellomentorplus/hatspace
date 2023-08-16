@@ -65,9 +65,7 @@ class SignUpBody extends StatelessWidget {
       },
       child: WillPopScope(
         onWillPop: () {
-          context
-              .read<AuthenticationBloc>()
-              .add(SkipSignUp());
+          context.read<AuthenticationBloc>().add(SkipSignUp());
           return Future.value(true);
         },
         child: Scaffold(
@@ -141,11 +139,12 @@ class SignUpBody extends StatelessWidget {
                               iconUrl: Assets.icons.facebook,
                               overrideIconColor: false,
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(
-                                    Colors.white),
-                                padding:
-                                    MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                        const EdgeInsets.all(HsDimens.spacing16)),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                                padding: MaterialStateProperty.all<
+                                        EdgeInsetsGeometry>(
+                                    const EdgeInsets.all(HsDimens.spacing16)),
                               ),
                               onPressed: () {
                                 context
@@ -164,11 +163,12 @@ class SignUpBody extends StatelessWidget {
                               iconUrl: Assets.icons.google,
                               overrideIconColor: false,
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(
-                                    Colors.white),
-                                padding:
-                                    MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                        const EdgeInsets.all(HsDimens.spacing16)),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                                padding: MaterialStateProperty.all<
+                                        EdgeInsetsGeometry>(
+                                    const EdgeInsets.all(HsDimens.spacing16)),
                               ),
                               onPressed: () {
                                 context
