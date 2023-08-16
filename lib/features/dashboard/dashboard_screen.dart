@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hatspace/features/booking/view/booking_detail_screen.dart';
 import 'package:hatspace/features/dashboard/view_model/add_home_owner_role_cubit.dart';
 import 'package:hatspace/features/dashboard/view_model/dashboard_interaction_cubit.dart';
-import 'package:hatspace/features/booking/booking_view.dart';
+import 'package:hatspace/features/inspection/inspection_view.dart';
+import 'package:hatspace/features/profile/view/profile_view.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
-import 'package:hatspace/features/message/message_view.dart';
+import 'package:hatspace/features/application/application_view.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
+import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:shake/shake.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -120,7 +121,7 @@ class _DashboardBodyState extends State<DashboardBody>
       },
     ))
         .then((value) {
-      context.read<DashboardInteractionCubit>().onCloseModal();
+      context.read<DashboardInteractionCubit>().onCloseRequestHomeOwnerModal();
     });
   }
 
@@ -161,15 +162,23 @@ class _DashboardBodyState extends State<DashboardBody>
             listener: (context, state) {
               if (state is OpenLoginBottomSheetModal) {
                 showLoginModal(context).then((value) {
-                  context.read<DashboardInteractionCubit>().onCloseModal();
+                  context.read<DashboardInteractionCubit>().onCloseLoginModal();
                 });
               }
               if (state is GotoSignUpScreen) {
-                context.goToSignup();
+                context.goToSignup().then((isLoginFromLoginModal) {
+                  if (isLoginFromLoginModal == true) {
+                    context
+                        .read<DashboardInteractionCubit>()
+                        .navigateToExpectedScreen();
+                  }
+                });
               }
 
               if (state is RequestHomeOwnerRole) {
-                showRequestHomeOwnerRoleBottomSheet();
+                if (ModalRoute.of(context)?.isCurrent == true) {
+                  showRequestHomeOwnerRoleBottomSheet();
+                }
               }
 
               if (state is PhotoPermissionGranted) {
@@ -199,13 +208,21 @@ class _DashboardBodyState extends State<DashboardBody>
                 // check current state is RequestHomeOwnerRole
                 final homeInteractionState =
                     context.read<DashboardInteractionCubit>().state;
-
                 if (homeInteractionState is RequestHomeOwnerRole) {
                   context.pop();
                   context
                       .read<DashboardInteractionCubit>()
                       .onBottomItemTapped(BottomBarItems.addingProperty);
                 }
+              }
+            },
+          ),
+          BlocListener<AuthenticationBloc, AuthenticationState>(
+            listener: (context, state) {
+              if (state is AnonymousState) {
+                context
+                    .read<DashboardInteractionCubit>()
+                    .onBottomItemTapped(BottomBarItems.explore);
               }
             },
           )
@@ -216,9 +233,9 @@ class _DashboardBodyState extends State<DashboardBody>
               physics: const NeverScrollableScrollPhysics(),
               children: const [
                 HomePageView(),
-                BookingView(),
-                MessageView(),
-                BookingDetailScreen()
+                InspectionView(),
+                ApplicationView(),
+                ProfileView()
               ],
             ),
             bottomNavigationBar: BottomAppBar(
@@ -245,12 +262,13 @@ class _DashboardBodyState extends State<DashboardBody>
                           valueListenable: _selectedIndex,
                           builder: (context, value, child) => _BottomBarItem(
                               icon: Assets.icons.booking,
-                              label: HatSpaceStrings.current.booking,
-                              isSelected: value == BottomBarItems.booking,
+                              label: HatSpaceStrings.current.inspection,
+                              isSelected: value == BottomBarItems.inspection,
                               onTap: () {
                                 context
                                     .read<DashboardInteractionCubit>()
-                                    .onBottomItemTapped(BottomBarItems.booking);
+                                    .onBottomItemTapped(
+                                        BottomBarItems.inspection);
                               }),
                         ),
                         Container(
@@ -289,13 +307,14 @@ class _DashboardBodyState extends State<DashboardBody>
                         ValueListenableBuilder<BottomBarItems>(
                           valueListenable: _selectedIndex,
                           builder: (context, value, child) => _BottomBarItem(
-                              icon: Assets.icons.message,
-                              label: HatSpaceStrings.current.message,
-                              isSelected: value == BottomBarItems.message,
+                              icon: Assets.icons.application,
+                              label: HatSpaceStrings.current.application,
+                              isSelected: value == BottomBarItems.application,
                               onTap: () {
                                 context
                                     .read<DashboardInteractionCubit>()
-                                    .onBottomItemTapped(BottomBarItems.message);
+                                    .onBottomItemTapped(
+                                        BottomBarItems.application);
                               }),
                         ),
                         ValueListenableBuilder<BottomBarItems>(
@@ -366,7 +385,8 @@ class _BottomBarItem extends StatelessWidget {
               ),
               Text(label,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: isSelected ? HSColor.green06 : HSColor.neutral6))
+                      color: isSelected ? HSColor.green06 : HSColor.neutral6,
+                      fontSize: FontStyleGuide.fontSize10))
             ],
           ),
         ),

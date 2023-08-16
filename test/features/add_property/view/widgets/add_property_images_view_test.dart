@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_images_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_images/add_property_image_selected_cubit.dart';
+import 'package:hatspace/features/select_photo/view/select_photo_bottom_sheet.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/photo/photo_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
@@ -149,6 +150,35 @@ void main() {
 
       expect(find.svgPictureWithAssets(Assets.images.upload), findsNothing);
       expect(find.byType(ImagePreviewView), findsNWidgets(10));
+    });
+
+    testWidgets(
+        'given load more photo is visible,'
+        'when tap on load more photo,'
+        'then show showSelectPhotoBottomSheet', (widgetTester) async {
+      when(addPropertyImageSelectedCubit.state).thenReturn(
+          PhotoSelectionReturned(
+              paths: List.filled(5, 'path'), allowAddImage: true));
+      when(addPropertyImageSelectedCubit.stream)
+          .thenAnswer((realInvocation) => const Stream.empty());
+
+      const Widget widget = AddPropertyImagesBody();
+
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+            BlocProvider<AddPropertyCubit>(
+              create: (context) => addPropertyCubit,
+            ),
+            BlocProvider<AddPropertyImageSelectedCubit>(
+              create: (context) => addPropertyImageSelectedCubit,
+            )
+          ], widget));
+
+      widgetTester
+          .ensureVisible(find.svgPictureWithAssets(Assets.images.upload));
+      await widgetTester.tap(find.svgPictureWithAssets(Assets.images.upload));
+      await widgetTester.pumpAndSettle();
+
+      expect(find.byType(SelectPhotoBottomSheet), findsOneWidget);
     });
   });
 }

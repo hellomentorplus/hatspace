@@ -13,8 +13,8 @@ part 'dashboard_interaction_state.dart';
 
 enum BottomBarItems {
   explore,
-  booking,
-  message,
+  inspection,
+  application,
   profile,
   addingProperty;
 
@@ -22,9 +22,9 @@ enum BottomBarItems {
     switch (this) {
       case BottomBarItems.explore:
         return 0;
-      case BottomBarItems.booking:
+      case BottomBarItems.inspection:
         return 1;
-      case BottomBarItems.message:
+      case BottomBarItems.application:
         return 2;
       case BottomBarItems.profile:
         return 3;
@@ -44,6 +44,7 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
   final HsPermissionService _permissionService =
       HsSingleton.singleton.get<HsPermissionService>();
 
+  BottomBarItems selectedBottomBarItem = BottomBarItems.explore;
   void onAddPropertyPressed() async {
     emit(StartValidateRole());
     try {
@@ -66,11 +67,19 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
   }
 
   void onBottomItemTapped(BottomBarItems item) async {
-    bool isUserLoggedIn = authenticationService.isUserLoggedIn;
-    if (!isUserLoggedIn) {
-      return emit(OpenLoginBottomSheetModal(item));
+    selectedBottomBarItem = item;
+    if (item == BottomBarItems.explore) {
+      emit(OpenPage(item));
+    } else {
+      bool isUserLoggedIn = authenticationService.isUserLoggedIn;
+      if (!isUserLoggedIn) {
+        return emit(OpenLoginBottomSheetModal(item));
+      }
+      handleRequestedLoginItem(item);
     }
+  }
 
+  void handleRequestedLoginItem(BottomBarItems item) {
     switch (item) {
       case (BottomBarItems.addingProperty):
         onAddPropertyPressed();
@@ -80,9 +89,13 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
     }
   }
 
-  void goToSignUpScreen() => emit(GotoSignUpScreen());
+  void goToSignUpScreen() {
+    emit(GotoSignUpScreen());
+  }
 
-  void onCloseModal() => emit(CloseHsModal());
+  void onCloseLoginModal() => emit(CloseLoginModal());
+
+  void onCloseRequestHomeOwnerModal() => emit(CloseRequestHomeOwnerModal());
 
   void checkPhotoPermission() async {
     HsPermissionStatus status = await _permissionService.checkPhotoPermission();
@@ -103,6 +116,12 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
         if (!isClosed) {
           emit(PhotoPermissionDenied());
         }
+    }
+  }
+
+  void navigateToExpectedScreen() {
+    if (state is CloseLoginModal) {
+      handleRequestedLoginItem(selectedBottomBarItem);
     }
   }
 

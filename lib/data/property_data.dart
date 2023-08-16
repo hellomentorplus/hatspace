@@ -122,7 +122,7 @@ class Price {
   static Price convertMapToObject(Map<String, dynamic> map) {
     return Price(
         currency: Currency.fromName(map[PropKeys.currency]),
-        rentPrice: (map[PropKeys.price] as double).toDouble());
+        rentPrice: double.tryParse('${map[PropKeys.price]}') ?? 0.0);
   }
 }
 
@@ -191,6 +191,9 @@ class AddressDetail {
         suburb: map[PropKeys.surbub],
         state: AustraliaStates.fromName(map[PropKeys.state]));
   }
+
+  String get fullAddress =>
+      '${unitNo?.isNotEmpty == true ? '$unitNo, ' : ''}$streetNo $streetName, $suburb, $postcode, ${state.displayName}';
 }
 
 class Property {
@@ -256,8 +259,9 @@ class Property {
     return mapProp;
   }
 
-  static Property convertMapToObject(Map<String, dynamic> map) {
+  static Property convertMapToObject(String id, Map<String, dynamic> map) {
     return Property(
+        id: id,
         type: PropertyTypes.fromName(map[PropKeys.type]),
         name: map[PropKeys.name],
         price: Price.convertMapToObject(map[PropKeys.price]),

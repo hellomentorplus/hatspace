@@ -14,15 +14,19 @@ import 'package:mockito/mockito.dart';
 
 import 'dashboard_interaction_cubit_test.mocks.dart';
 
-@GenerateMocks(
-    [StorageService, AuthenticationService, MemberService, HsPermissionService])
+@GenerateMocks([
+  StorageService,
+  AuthenticationService,
+  MemberService,
+  HsPermissionService,
+  DashboardInteractionCubit
+])
 void main() {
   final MockStorageService storageService = MockStorageService();
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
   final MockMemberService memberService = MockMemberService();
   final MockHsPermissionService hsPermissionService = MockHsPermissionService();
-
   setUpAll(() {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
     HsSingleton.singleton
@@ -189,13 +193,22 @@ void main() {
   );
 
   blocTest(
-      'Given user has not logged in, when user taps on Explore, then return OpenLoginBottomSheetModal',
+      'Given user has not logged in, when user taps on Explore, then return OpenPage',
       build: () => DashboardInteractionCubit(),
       setUp: () {
         when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.explore),
-      expect: () => [isA<OpenLoginBottomSheetModal>()]);
+      expect: () => [isA<OpenPage>()]);
+
+  blocTest(
+      'Given user has logged in, when user taps on Explore, then return OpenPage',
+      build: () => DashboardInteractionCubit(),
+      setUp: () {
+        when(authenticationService.isUserLoggedIn).thenReturn(false);
+      },
+      act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.explore),
+      expect: () => [isA<OpenPage>()]);
 
   blocTest(
       'Given user has not logged in, when user taps on Booking, then return OpenLoginBottomSheetModal',
@@ -203,7 +216,7 @@ void main() {
       setUp: () {
         when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
-      act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.booking),
+      act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.inspection),
       expect: () => [isA<OpenLoginBottomSheetModal>()]);
 
   blocTest(
@@ -212,7 +225,7 @@ void main() {
       setUp: () {
         when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
-      act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.message),
+      act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.application),
       expect: () => [isA<OpenLoginBottomSheetModal>()]);
 
   blocTest(
@@ -233,14 +246,30 @@ void main() {
       act: (bloc) => bloc.onBottomItemTapped(BottomBarItems.addingProperty),
       expect: () => [isA<OpenLoginBottomSheetModal>()]);
 
-  blocTest(
-      'Given user has not logged in, when user taps out, then return CloseHsModal',
+  blocTest('when goToSignUpScreen, then returns GotoSignUpScreen',
       build: () => DashboardInteractionCubit(),
       setUp: () {
         when(authenticationService.isUserLoggedIn).thenReturn(false);
       },
-      act: (bloc) => bloc.onCloseModal(),
-      expect: () => [isA<CloseHsModal>()]);
+      act: (bloc) => bloc.goToSignUpScreen(),
+      expect: () => [isA<GotoSignUpScreen>()]);
+
+  blocTest(
+      'when onCloseRequestHomeOwnerModal, then returns CloseRequestHomeOwnerModal',
+      build: () => DashboardInteractionCubit(),
+      setUp: () {
+        when(authenticationService.isUserLoggedIn).thenReturn(false);
+      },
+      act: (bloc) => bloc.onCloseRequestHomeOwnerModal(),
+      expect: () => [isA<CloseRequestHomeOwnerModal>()]);
+
+  blocTest('when onCloseLoginModal, then returns CloseLoginModal',
+      build: () => DashboardInteractionCubit(),
+      setUp: () {
+        when(authenticationService.isUserLoggedIn).thenReturn(false);
+      },
+      act: (bloc) => bloc.onCloseLoginModal(),
+      expect: () => [isA<CloseLoginModal>()]);
 
   blocTest(
     'when cancelPhotoAccess,'
@@ -370,4 +399,151 @@ void main() {
     act: (bloc) => bloc.onNavigateToAddPropertyFlow(),
     expect: () => [isA<NavigateToAddPropertyFlow>()],
   );
+
+  group('Navigate to expected screen', () {
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+      'given state is not CloseLoginModal'
+      'when navigateToExpectedScreen is called'
+      'then do nothing',
+      seed: () => GotoSignUpScreen(),
+      build: () => DashboardInteractionCubit(),
+      act: (bloc) {
+        bloc.selectedBottomBarItem = BottomBarItems.inspection;
+        return bloc.navigateToExpectedScreen();
+      },
+      expect: () => [],
+    );
+
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+      'given state is CloseLoginModal and itemSelected is booking'
+      'when navigateToExpectedScreen is called'
+      'then navigate to Booking screen',
+      seed: () => CloseLoginModal(),
+      build: () => DashboardInteractionCubit(),
+      act: (bloc) {
+        bloc.selectedBottomBarItem = BottomBarItems.inspection;
+        return bloc.navigateToExpectedScreen();
+      },
+      expect: () => [const OpenPage(BottomBarItems.inspection)],
+    );
+
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+      'given state is CloseLoginModal and itemSelected is message'
+      'when navigateToExpectedScreen is called'
+      'then navigate to message screen',
+      seed: () => CloseLoginModal(),
+      build: () => DashboardInteractionCubit(),
+      act: (bloc) {
+        bloc.selectedBottomBarItem = BottomBarItems.application;
+        return bloc.navigateToExpectedScreen();
+      },
+      expect: () => [const OpenPage(BottomBarItems.application)],
+    );
+
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+      'given state is CloseLoginModal and itemSelected is profile'
+      'when navigateToExpectedScreen is called'
+      'then navigate to profile screen',
+      seed: () => CloseLoginModal(),
+      build: () => DashboardInteractionCubit(),
+      act: (bloc) {
+        bloc.selectedBottomBarItem = BottomBarItems.profile;
+        return bloc.navigateToExpectedScreen();
+      },
+      expect: () => [const OpenPage(BottomBarItems.profile)],
+    );
+
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+      'given state is CloseLoginModal and itemSelected is addingProperty and user is not homeowner'
+      'when navigateToExpectedScreen is called'
+      'then last state is RequestHomeOwnerRole',
+      setUp: () {
+        when(memberService.getUserRoles(any))
+            .thenAnswer((_) => Future.value([Roles.tenant]));
+      },
+      seed: () => CloseLoginModal(),
+      build: () => DashboardInteractionCubit(),
+      act: (bloc) {
+        bloc.selectedBottomBarItem = BottomBarItems.addingProperty;
+        return bloc.navigateToExpectedScreen();
+      },
+      expect: () => [StartValidateRole(), RequestHomeOwnerRole()],
+    );
+
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+      'given state is CloseLoginModal and itemSelected is addingProperty and user is homeowner and photo permission is granted'
+      'when navigateToExpectedScreen is called'
+      'then last state is PhotoPermissionGranted',
+      setUp: () {
+        when(hsPermissionService.checkPhotoPermission()).thenAnswer(
+            (realInvocation) => Future.value(HsPermissionStatus.granted));
+        when(memberService.getUserRoles(any))
+            .thenAnswer((_) => Future.value([Roles.homeowner]));
+      },
+      seed: () => CloseLoginModal(),
+      build: () => DashboardInteractionCubit(),
+      act: (bloc) {
+        bloc.selectedBottomBarItem = BottomBarItems.addingProperty;
+        return bloc.navigateToExpectedScreen();
+      },
+      expect: () => [StartValidateRole(), PhotoPermissionGranted()],
+    );
+
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+      'given state is CloseLoginModal and itemSelected is addingProperty and user is homeowner and photo permission is limited'
+      'when navigateToExpectedScreen is called'
+      'then last state is PhotoPermissionGranted',
+      setUp: () {
+        when(hsPermissionService.checkPhotoPermission()).thenAnswer(
+            (realInvocation) => Future.value(HsPermissionStatus.limited));
+        when(memberService.getUserRoles(any))
+            .thenAnswer((_) => Future.value([Roles.homeowner]));
+      },
+      seed: () => CloseLoginModal(),
+      build: () => DashboardInteractionCubit(),
+      act: (bloc) {
+        bloc.selectedBottomBarItem = BottomBarItems.addingProperty;
+        return bloc.navigateToExpectedScreen();
+      },
+      expect: () => [StartValidateRole(), PhotoPermissionGranted()],
+    );
+
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+      'given state is CloseLoginModal and itemSelected is addingProperty and user is homeowner and photo permission is deniedForever'
+      'when navigateToExpectedScreen is called'
+      'then last state is PhotoPermissionDeniedForever',
+      setUp: () {
+        when(hsPermissionService.checkPhotoPermission()).thenAnswer(
+            (realInvocation) => Future.value(HsPermissionStatus.deniedForever));
+        when(memberService.getUserRoles(any))
+            .thenAnswer((_) => Future.value([Roles.homeowner]));
+      },
+      seed: () => CloseLoginModal(),
+      build: () => DashboardInteractionCubit(),
+      act: (bloc) {
+        bloc.selectedBottomBarItem = BottomBarItems.addingProperty;
+        return bloc.navigateToExpectedScreen();
+      },
+      expect: () => [StartValidateRole(), PhotoPermissionDeniedForever()],
+    );
+
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+      'given state is CloseLoginModal and itemSelected is addingProperty and user is homeowner and photo permission is denied'
+      'when navigateToExpectedScreen is called'
+      'then last state is PhotoPermissionDenied',
+      setUp: () {
+        when(hsPermissionService.checkPhotoPermission()).thenAnswer(
+            (realInvocation) => Future.value(HsPermissionStatus.denied));
+        when(memberService.getUserRoles(any))
+            .thenAnswer((_) => Future.value([Roles.homeowner]));
+      },
+      seed: () => CloseLoginModal(),
+      build: () => DashboardInteractionCubit(),
+      act: (bloc) {
+        bloc.selectedBottomBarItem = BottomBarItems.addingProperty;
+        return bloc.navigateToExpectedScreen();
+      },
+      expect: () => [StartValidateRole(), PhotoPermissionDenied()],
+    );
+  });
 }

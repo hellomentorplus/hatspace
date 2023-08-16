@@ -5,23 +5,36 @@ import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 
-part 'get_user_detail_state.dart';
+part 'profile_state.dart';
 
-class GetUserDetailCubit extends Cubit<GetUserDetailState> {
+class ProfileCubit extends Cubit<ProfileState> {
   final AuthenticationService _authenticationService =
       HsSingleton.singleton.get<AuthenticationService>();
   final StorageService _storageService =
       HsSingleton.singleton.get<StorageService>();
-  GetUserDetailCubit() : super(const GetUserDetailInitialState());
+
+  ProfileCubit() : super(const ProfileInitialState());
 
   void getUserInformation() async {
     try {
       emit(const GettingUserDetailState());
       final UserDetail user = await _authenticationService.getCurrentUser();
-      final roles = await _storageService.member.getUserRoles(user.uid);
+      final List<Roles> roles =
+          await _storageService.member.getUserRoles(user.uid);
       emit(GetUserDetailSucceedState(user, roles));
     } catch (_) {
       emit(const GetUserDetailFailedState());
     }
+  }
+
+  void deleteAccount() async {
+    // todo: will update when requirement changed
+    await _authenticationService.signOut();
+    emit(const DeleteAccountSucceedState());
+  }
+
+  void logOut() async {
+    await _authenticationService.signOut();
+    emit(const LogOutAccountSucceedState());
   }
 }

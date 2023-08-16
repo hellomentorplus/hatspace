@@ -2,7 +2,6 @@ import 'package:flutter/material.dart' hide SearchBar;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/features/home/view/widgets/app_bar_bottom.dart';
 import 'package:hatspace/features/home/view/widgets/property_item_view.dart';
 import 'package:hatspace/features/home/view_model/get_properties_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -59,8 +58,7 @@ class HomePageBodyState extends State<HomePageBody> {
         titleSpacing: HsDimens.spacing16,
         centerTitle: false,
         backgroundColor: Theme.of(context).colorScheme.primary,
-        bottom: SearchBar(),
-        toolbarHeight: 40,
+        toolbarHeight: HsDimens.size68,
         elevation: 0.0,
         actions: [
           IconButton(

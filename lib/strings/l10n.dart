@@ -372,21 +372,21 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Booking`
-  String get booking {
+  /// `Inspection`
+  String get inspection {
     return Intl.message(
-      'Booking',
-      name: 'booking',
+      'Inspection',
+      name: 'inspection',
       desc: '',
       args: [],
     );
   }
 
-  /// `Message`
-  String get message {
+  /// `Application`
+  String get application {
     return Intl.message(
-      'Message',
-      name: 'message',
+      'Application',
+      name: 'application',
       desc: '',
       args: [],
     );
@@ -1422,6 +1422,136 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Guide for application`
+  String get guideForApplication {
+    return Intl.message(
+      'Guide for application',
+      name: 'guideForApplication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All adult applicants (18 years or older) must complete a separate application for rental.`
+  String get applicationInform {
+    return Intl.message(
+      'All adult applicants (18 years or older) must complete a separate application for rental.',
+      name: 'applicationInform',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please provide the following with your application:`
+  String get applicationRequirementsAsking {
+    return Intl.message(
+      'Please provide the following with your application:',
+      name: 'applicationRequirementsAsking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Identification (driver's license/passport)`
+  String get applicationIdentification {
+    return Intl.message(
+      'Identification (driver\'s license/passport)',
+      name: 'applicationIdentification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tenancy ledger/rental reference`
+  String get applicationReference {
+    return Intl.message(
+      'Tenancy ledger/rental reference',
+      name: 'applicationReference',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pay slips/centre link statement`
+  String get applicationPaySlips {
+    return Intl.message(
+      'Pay slips/centre link statement',
+      name: 'applicationPaySlips',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current bank statement`
+  String get applicationBankStatement {
+    return Intl.message(
+      'Current bank statement',
+      name: 'applicationBankStatement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download`
+  String get download {
+    return Intl.message(
+      'Download',
+      name: 'download',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you have any questions, please feel free to let us know. We will always here to support you!`
+  String get questionSupport {
+    return Intl.message(
+      'If you have any questions, please feel free to let us know. We will always here to support you!',
+      name: 'questionSupport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Support contact`
+  String get contactSupport {
+    return Intl.message(
+      'Support contact',
+      name: 'contactSupport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send Email`
+  String get sendEmail {
+    return Intl.message(
+      'Send Email',
+      name: 'sendEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download Application form here`
+  String get downloadApplicationFormHere {
+    return Intl.message(
+      'Download Application form here',
+      name: 'downloadApplicationFormHere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All your data will be kept within 30 days before being deleted permanently. Are you sure you want to delete your account?`
+  String get deleteAccountWarning {
+    return Intl.message(
+      'All your data will be kept within 30 days before being deleted permanently. Are you sure you want to delete your account?',
+      name: 'deleteAccountWarning',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Submit`
   String get submit {
     return Intl.message(
@@ -1437,6 +1567,11 @@ class HatSpaceStrings {
     return Intl.message(
       'Start',
       name: 'start',
+  /// `Delete account?`
+  String get deleteAccountQuestionMark {
+    return Intl.message(
+      'Delete account?',
+      name: 'deleteAccountQuestionMark',
       desc: '',
       args: [],
     );
@@ -1447,6 +1582,11 @@ class HatSpaceStrings {
     return Intl.message(
       'End',
       name: 'end',
+  /// `Show less`
+  String get showLess {
+    return Intl.message(
+      'Show less',
+      name: 'showLess',
       desc: '',
       args: [],
     );
@@ -1457,6 +1597,11 @@ class HatSpaceStrings {
     return Intl.message(
       'Date',
       name: 'date',
+  /// `Show more`
+  String get showMore {
+    return Intl.message(
+      'Show more',
+      name: 'showMore',
       desc: '',
       args: [],
     );
@@ -1467,6 +1612,11 @@ class HatSpaceStrings {
     return Intl.message(
       'Notes',
       name: 'notes',
+  /// `Book Inspection`
+  String get bookInspection {
+    return Intl.message(
+      'Book Inspection',
+      name: 'bookInspection',
       desc: '',
       args: [],
     );
@@ -1477,6 +1627,61 @@ class HatSpaceStrings {
     return Intl.message(
       'Details',
       name: 'details',
+  /// `{name} ({symbol})`
+  String addPropertyPriceDisplay(Object name, Object symbol) {
+    return Intl.message(
+      '$name ($symbol)',
+      name: 'addPropertyPriceDisplay',
+      desc: '',
+      args: [name, symbol],
+    );
+  }
+
+  /// `(PW)`
+  String get addPropertyRentalPeriodUnit {
+    return Intl.message(
+      '(PW)',
+      name: 'addPropertyRentalPeriodUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue with Apple`
+  String get appleSignUp {
+    return Intl.message(
+      'Continue with Apple',
+      name: 'appleSignUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to log out?`
+  String get logOutDescription {
+    return Intl.message(
+      'Are you sure you want to log out?',
+      name: 'logOutDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log Out`
+  String get btnLogOut {
+    return Intl.message(
+      'Log Out',
+      name: 'btnLogOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Inspection Booking`
+  String get inspectionBooking {
+    return Intl.message(
+      'Inspection Booking',
+      name: 'inspectionBooking',
       desc: '',
       args: [],
     );

@@ -8,7 +8,7 @@ extension PopUpController on BuildContext {
         context: this,
         builder: (BuildContext buildContext) {
           return const PopUp();
-        }).then((value) => Navigator.of(this).pop);
+        });
   }
 
   void dismissLoading() {

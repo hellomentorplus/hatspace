@@ -20,7 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(ausState) => "${Intl.select(ausState, {
+  static String m0(name, symbol) => "${name} (${symbol})";
+
+  static String m1(ausState) => "${Intl.select(ausState, {
             'vic': 'Victoria',
             'nsw': 'New South Wales',
             'qld': 'Queensland',
@@ -32,9 +34,9 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': 'No State Available',
           })}";
 
-  static String m1(symbol, currency) => "${symbol}${currency}";
+  static String m2(symbol, currency) => "${symbol}${currency}";
 
-  static String m2(date) => "${date}";
+  static String m3(date) => "${date}";
 
   static String m3(date) => "${date}";
 
@@ -49,6 +51,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "Upload ${Intl.plural(n, zero: '(${n}) photo', one: '(${n}) photo', other: '(${n}) photos')}";
 
   static String m8(description) => "${Intl.select(description, {
+  static String m4(count) => "Maximum ${count} characters";
+
+  static String m5(count) =>
+      "${Intl.plural(count, zero: 'No rent period', one: '1 Month', other: ' ${count} Months ')}";
+
+  static String m6(n) =>
+      "Upload ${Intl.plural(n, zero: '(${n}) photo', one: '(${n}) photo', other: '(${n}) photos')}";
+
+  static String m7(description) => "${Intl.select(description, {
             'tenant':
                 'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
             'homeowner':
@@ -57,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
           })}";
 
   static String m9(role) => "${Intl.select(role, {
+  static String m8(role) => "${Intl.select(role, {
             'tenant': 'Tenant',
             'homeowner': 'Homeowner',
             'other': '',
@@ -65,6 +77,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m10(number) => "${number} views today";
 
   static String m11(name) => "👋 Hi ${name}";
+  static String m9(number) => "${number} views today";
+
+  static String m10(name) => "👋 Hi ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -78,6 +93,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add Homeowner role"),
         "addHomeOwnerSecondaryBtnLabel":
             MessageLookupByLibrary.simpleMessage("Later"),
+        "addPropertyPriceDisplay": m0,
+        "addPropertyRentalPeriodUnit":
+            MessageLookupByLibrary.simpleMessage("(PW)"),
         "airConditioners":
             MessageLookupByLibrary.simpleMessage("Air conditioners"),
         "allPhotos": MessageLookupByLibrary.simpleMessage("All Photos"),
@@ -85,9 +103,24 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Already have account ?"),
         "apartment": MessageLookupByLibrary.simpleMessage("Apartment"),
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
+        "appleSignUp":
+            MessageLookupByLibrary.simpleMessage("Continue with Apple"),
+        "application": MessageLookupByLibrary.simpleMessage("Application"),
+        "applicationBankStatement":
+            MessageLookupByLibrary.simpleMessage("Current bank statement"),
+        "applicationIdentification": MessageLookupByLibrary.simpleMessage(
+            "Identification (driver\'s license/passport)"),
+        "applicationInform": MessageLookupByLibrary.simpleMessage(
+            "All adult applicants (18 years or older) must complete a separate application for rental."),
+        "applicationPaySlips": MessageLookupByLibrary.simpleMessage(
+            "Pay slips/centre link statement"),
+        "applicationReference": MessageLookupByLibrary.simpleMessage(
+            "Tenancy ledger/rental reference"),
+        "applicationRequirementsAsking": MessageLookupByLibrary.simpleMessage(
+            "Please provide the following with your application:"),
         "askFeaturesOwned": MessageLookupByLibrary.simpleMessage(
             "Which features your place has?"),
-        "australiaState": m0,
+        "australiaState": m1,
         "available": MessageLookupByLibrary.simpleMessage("Available"),
         "availableDate": MessageLookupByLibrary.simpleMessage("Available date"),
         "availableDateColon":
@@ -95,7 +128,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
-        "booking": MessageLookupByLibrary.simpleMessage("Booking"),
+        "bookInspection":
+            MessageLookupByLibrary.simpleMessage("Book Inspection"),
+        "btnLogOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseKindOfYourProperty": MessageLookupByLibrary.simpleMessage(
             "Choose kind of your property"),
@@ -103,17 +138,28 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Choose your role"),
         "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
             "You can be tenant or homeowner"),
+        "contactSupport":
+            MessageLookupByLibrary.simpleMessage("Support contact"),
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
         "coverPhoto": MessageLookupByLibrary.simpleMessage("Cover photo"),
         "currencyFormatter": m1,
         "date": MessageLookupByLibrary.simpleMessage("Date"),
         "dateFormatter": m2,
         "dateFormatterWithDate": m3,
+        "currencyFormatter": m2,
+        "dateFormatter": m3,
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of Birth"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
+        "deleteAccountQuestionMark":
+            MessageLookupByLibrary.simpleMessage("Delete account?"),
+        "deleteAccountWarning": MessageLookupByLibrary.simpleMessage(
+            "All your data will be kept within 30 days before being deleted permanently. Are you sure you want to delete your account?"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "details": MessageLookupByLibrary.simpleMessage("Details"),
         "displayName": MessageLookupByLibrary.simpleMessage("Display name"),
+        "download": MessageLookupByLibrary.simpleMessage("Download"),
+        "downloadApplicationFormHere": MessageLookupByLibrary.simpleMessage(
+            "Download Application form here"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -146,6 +192,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "goToSetting": MessageLookupByLibrary.simpleMessage("Go to Setting"),
         "googleSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Google"),
+        "guideForApplication":
+            MessageLookupByLibrary.simpleMessage("Guide for application"),
         "hatSpaceWouldLikeToPhotoAccess": MessageLookupByLibrary.simpleMessage(
             "\"HATSpace\" Would Like to Photo Access"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
@@ -154,6 +202,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("House number + Street name"),
         "inbox": MessageLookupByLibrary.simpleMessage("Inbox"),
         "information": MessageLookupByLibrary.simpleMessage("Information"),
+        "inspection": MessageLookupByLibrary.simpleMessage("Inspection"),
+        "inspectionBooking":
+            MessageLookupByLibrary.simpleMessage("Inspection Booking"),
         "kitchen": MessageLookupByLibrary.simpleMessage("Kitchen"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "letAddSomePhotosOfYourPlace": MessageLookupByLibrary.simpleMessage(
@@ -163,6 +214,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loadingMessage": MessageLookupByLibrary.simpleMessage("Loading..."),
         "location": MessageLookupByLibrary.simpleMessage("Location"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
+        "logOutDescription": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to log out?"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "loginDescription": MessageLookupByLibrary.simpleMessage(
             "You need to be logged in to view this content"),
@@ -210,6 +263,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Property features"),
         "propertyName": MessageLookupByLibrary.simpleMessage("Property name"),
         "pw": MessageLookupByLibrary.simpleMessage("pw"),
+        "questionSupport": MessageLookupByLibrary.simpleMessage(
+            "If you have any questions, please feel free to let us know. We will always here to support you!"),
         "rentPeriod": m5,
         "requireAtLeast4Photos":
             MessageLookupByLibrary.simpleMessage("Require at least 4 photos *"),
@@ -218,7 +273,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
         "securityCameras":
             MessageLookupByLibrary.simpleMessage("Security cameras"),
+        "sendEmail": MessageLookupByLibrary.simpleMessage("Send Email"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "showLess": MessageLookupByLibrary.simpleMessage("Show less"),
+        "showMore": MessageLookupByLibrary.simpleMessage("Show more"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),
         "signinErrorToastMessage": MessageLookupByLibrary.simpleMessage(
@@ -248,6 +306,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Washing machine"),
         "welcomeDefault": MessageLookupByLibrary.simpleMessage("👋 Hi there"),
         "welcomeName": m11,
+        "uploadPhotoCount": m6,
+        "userRoleDescription": m7,
+        "userTitleRoles": m8,
+        "viewProfile": MessageLookupByLibrary.simpleMessage("View profile"),
+        "viewsToday": m9,
+        "washingMachine":
+            MessageLookupByLibrary.simpleMessage("Washing machine"),
+        "welcomeDefault": MessageLookupByLibrary.simpleMessage("👋 Hi there"),
+        "welcomeName": m10,
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
         "wifi": MessageLookupByLibrary.simpleMessage("Wifi"),
