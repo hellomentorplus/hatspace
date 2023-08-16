@@ -189,6 +189,32 @@ void main() {
     verify(authenticationBloc.add(SkipSignUp())).called(1);
   });
 
+  testWidgets('Skip event - on Android back button',
+      (WidgetTester tester) async {
+    const Widget widget = SignUpBody();
+    await tester.multiBlocWrapAndPump([
+      BlocProvider<SignUpBloc>(
+        create: (context) => mockSignUpBloc,
+      ),
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => authenticationBloc,
+      ),
+      BlocProvider<AppleSignInCubit>(
+        create: (context) => appleSignInCubit,
+      ),
+    ], widget);
+
+    SharedPreferences.setMockInitialValues({});
+
+    // imitate Android back button
+    final dynamic widgetsAppState = tester.state(find.byType(WidgetsApp));
+    // need to use dynamic here, because _WidgetsAppState is private
+    // ignore: avoid_dynamic_calls
+    await widgetsAppState.didPopRoute();
+
+    verify(authenticationBloc.add(SkipSignUp())).called(1);
+  });
+
   group('verify listener events', () {
     tearDown(() {
       reset(mockSignUpBloc);
