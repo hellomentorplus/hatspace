@@ -88,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_name": MessageLookupByLibrary.simpleMessage("HAT Space"),
         "appleSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Apple"),
+        "application": MessageLookupByLibrary.simpleMessage("Application"),
         "applicationBankStatement":
             MessageLookupByLibrary.simpleMessage("Current bank statement"),
         "applicationIdentification": MessageLookupByLibrary.simpleMessage(
@@ -100,7 +101,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tenancy ledger/rental reference"),
         "applicationRequirementsAsking": MessageLookupByLibrary.simpleMessage(
             "Please provide the following with your application:"),
-        "application": MessageLookupByLibrary.simpleMessage("Application"),
         "askFeaturesOwned": MessageLookupByLibrary.simpleMessage(
             "Which features your place has?"),
         "australiaState": m1,
@@ -111,10 +111,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bathroomText": MessageLookupByLibrary.simpleMessage("Bathrooms"),
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
-        "booking": MessageLookupByLibrary.simpleMessage("Booking"),
-        "btnLogOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "bookInspection":
             MessageLookupByLibrary.simpleMessage("Book Inspection"),
+        "btnLogOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseKindOfYourProperty": MessageLookupByLibrary.simpleMessage(
             "Choose kind of your property"),
