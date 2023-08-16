@@ -17,3 +17,9 @@ class SignUpWithFacebook extends SignUpEvent {
   // TODO: implement props
   List<Object?> get props => [];
 }
+
+class SignUpWithApple extends SignUpEvent {
+  const SignUpWithApple();
+  @override
+  List<Object?> get props => [];
+}

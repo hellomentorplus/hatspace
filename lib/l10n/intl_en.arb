@@ -187,5 +187,6 @@
   "notes": "Notes",
   "notesPlaceHolder":"Write a message to homeowner",
   "logOutDescription": "Are you sure you want to log out?",
-  "btnLogOut": "Log Out"
+  "btnLogOut": "Log Out",
+  "inspectionBooking": "Inspection Booking"
 }

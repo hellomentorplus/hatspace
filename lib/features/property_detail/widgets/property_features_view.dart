@@ -19,7 +19,7 @@ class _PropertyFeaturesViewState extends State<PropertyFeaturesView>
 
   late final Animation<double> _sizeFactor = Tween(
     begin: widget.features.length > 4
-        ? 2 / (widget.features.length / 2).floor()
+        ? 2 / (widget.features.length / 2).ceil()
         : 1.0,
     end: 1.0,
   ).animate(_animationController);
@@ -49,7 +49,7 @@ class _PropertyFeaturesViewState extends State<PropertyFeaturesView>
                   child: LayoutGrid(
                     columnSizes: [1.fr, 1.fr],
                     rowSizes: List.filled(
-                        max((widget.features.length / 2).floor(), 1), auto),
+                        max((widget.features.length / 2).ceil(), 1), auto),
                     gridFit: GridFit.passthrough,
                     rowGap: HsDimens.spacing12,
                     columnGap: HsDimens.spacing16,

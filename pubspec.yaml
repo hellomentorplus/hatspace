@@ -59,6 +59,8 @@ dependencies:
   firebase_storage: 11.1.0
   cached_network_image: ^3.2.3
   flutter_layout_grid: ^2.0.4
+  sign_in_with_apple: ^5.0.0
+  crypto: ^3.0.3
 
 dev_dependencies:
   flutter_test:
