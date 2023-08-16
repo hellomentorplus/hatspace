@@ -154,8 +154,8 @@ void main() {
 
     testWidgets(
         'given load more photo is visible,'
-            'when tap on load more photo,'
-            'then show showSelectPhotoBottomSheet', (widgetTester) async {
+        'when tap on load more photo,'
+        'then show showSelectPhotoBottomSheet', (widgetTester) async {
       when(addPropertyImageSelectedCubit.state).thenReturn(
           PhotoSelectionReturned(
               paths: List.filled(5, 'path'), allowAddImage: true));
@@ -165,20 +165,20 @@ void main() {
       const Widget widget = AddPropertyImagesBody();
 
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
-        BlocProvider<AddPropertyCubit>(
-          create: (context) => addPropertyCubit,
-        ),
-        BlocProvider<AddPropertyImageSelectedCubit>(
-          create: (context) => addPropertyImageSelectedCubit,
-        )
-      ], widget));
+            BlocProvider<AddPropertyCubit>(
+              create: (context) => addPropertyCubit,
+            ),
+            BlocProvider<AddPropertyImageSelectedCubit>(
+              create: (context) => addPropertyImageSelectedCubit,
+            )
+          ], widget));
 
-      widgetTester.ensureVisible(find.svgPictureWithAssets(Assets.images.upload));
+      widgetTester
+          .ensureVisible(find.svgPictureWithAssets(Assets.images.upload));
       await widgetTester.tap(find.svgPictureWithAssets(Assets.images.upload));
       await widgetTester.pumpAndSettle();
 
       expect(find.byType(SelectPhotoBottomSheet), findsOneWidget);
     });
-
   });
 }

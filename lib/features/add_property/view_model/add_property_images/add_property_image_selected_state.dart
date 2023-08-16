@@ -4,11 +4,9 @@ abstract class AddPropertyImageSelectedState {
   const AddPropertyImageSelectedState();
 }
 
-class AddPropertyImageSelectedInitial extends AddPropertyImageSelectedState {
-}
+class AddPropertyImageSelectedInitial extends AddPropertyImageSelectedState {}
 
-class OnPhotosCleared extends AddPropertyImageSelectedState {
-}
+class OnPhotosCleared extends AddPropertyImageSelectedState {}
 
 class PhotoSelectionReturned extends AddPropertyImageSelectedState {
   final List<String> paths;

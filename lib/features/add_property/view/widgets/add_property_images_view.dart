@@ -189,9 +189,9 @@ class ImagePreviewView extends StatelessWidget {
         alignment: Alignment.topRight,
         child: InkWell(
           onTap: () {
-            context.read<AddPropertyImageSelectedCubit>()
-                .removePhoto(context.read<AddPropertyCubit>().photos,
-                path);
+            context
+                .read<AddPropertyImageSelectedCubit>()
+                .removePhoto(context.read<AddPropertyCubit>().photos, path);
           },
           borderRadius: BorderRadius.circular(HsDimens.radius48),
           child: SvgPicture.asset(
