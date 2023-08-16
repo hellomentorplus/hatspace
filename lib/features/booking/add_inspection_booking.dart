@@ -33,117 +33,23 @@ class AddInspectionBooking extends StatelessWidget {
           ),
           body: SafeArea(
             child: SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: HsDimens.spacing16),
-                child: Stack(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: HsDimens.spacing24,
-                        ),
-                        Text(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: HsDimens.spacing16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: Text(
                           HatSpaceStrings.current.addInspectionBooking,
                           style: Theme.of(context).textTheme.displayLarge,
                         ),
-                        BookedItemCard(
-                          propertyName: 'Single room for rent in Banktown',
-                          propertyType: HatSpaceStrings.current.house,
-                          propertyImage:
-                              'https://cdn-bnokp.nitrocdn.com/QNoeDwCprhACHQcnEmHgXDhDpbEOlRHH/assets/images/optimized/rev-a642abc/www.decorilla.com/online-decorating/wp-content/uploads/2020/08/Modern-Apartment-Decor-.jpg',
-                          price: 1200,
-                          state: 'Gateway, Island',
-                          currency: Currency.aud,
-                          rentingPeriod: 'pw',
-                          onPressed: () {
-                            // TODO: implement BL
-                          },
-                        ),
-                        Padding(
-                            padding: const EdgeInsets.only(
-                                top: HsDimens.spacing20,
-                                bottom: HsDimens.spacing4),
-                            child: HsLabel(
-                                label: HatSpaceStrings.current.date,
-                                isRequired: true)),
-                        ValueListenableBuilder<DateTime>(
-                          valueListenable: _selectedDate,
-                          builder: (context, value, child) => _DatePickerView(
-                            selectedDate: value,
-                            onSelectedDate: (value) {
-                              _selectedDate.value = value;
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          height: HsDimens.spacing16,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                HsLabel(
-                                    label: HatSpaceStrings.current.startTime,
-                                    isRequired: true),
-                                const SizedBox(height: HsDimens.spacing4),
-                                HsDropDownButton(
-                                    value: '09:00 AM',
-                                    icon: Assets.icons.chervonDown,
-                                    onPressed: () {})
-                              ],
-                            )),
-                            const SizedBox(width: HsDimens.spacing15),
-                            Expanded(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                HsLabel(
-                                    label: HatSpaceStrings.current.endTime,
-                                    isRequired: true),
-                                const SizedBox(height: HsDimens.spacing4),
-                                HsDropDownButton(
-                                    value: '10:00 AM',
-                                    icon: Assets.icons.chervonDown,
-                                    onPressed: () {})
-                              ],
-                            ))
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        HsLabel(
-                            label: HatSpaceStrings.current.notes,
-                            optional: HatSpaceStrings.current.optional),
-                        const SizedBox(
-                          height: HsDimens.spacing4,
-                        ),
-                        TextFormField(
-                          initialValue: 'My number is 0433123456',
-                          style: textTheme.bodyMedium,
-                          minLines: 4,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: null,
-                          maxLength: 4,
-                          decoration: inputTextTheme.copyWith(
-                            hintText:
-                                HatSpaceStrings.current.enterYourDescription,
-                            counterText: '',
-                            semanticCounterText: '',
-                          ),
-                          onChanged: (value) {},
-                        ),
-                      ],
-                    ),
-                    Positioned(
-                      right: 0,
-                      top: 2.5,
-                      child: Padding(
-                          padding: const EdgeInsets.all(9.4),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.only(),
                           child: IconButton(
                             icon: SvgPicture.asset(
                               Assets.icons.closeIcon,
@@ -154,9 +60,98 @@ class AddInspectionBooking extends StatelessWidget {
                               Navigator.pop(context);
                             },
                           )),
+                    ],
+                  ),
+                  BookedItemCard(
+                    propertyName: 'Single room for rent in Banktown',
+                    propertyType: HatSpaceStrings.current.house,
+                    propertyImage:
+                        'https://cdn-bnokp.nitrocdn.com/QNoeDwCprhACHQcnEmHgXDhDpbEOlRHH/assets/images/optimized/rev-a642abc/www.decorilla.com/online-decorating/wp-content/uploads/2020/08/Modern-Apartment-Decor-.jpg',
+                    price: 1200,
+                    state: 'Gateway, Island',
+                    currency: Currency.aud,
+                    rentingPeriod: 'pw',
+                    onPressed: () {
+                      // TODO: implement BL
+                    },
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(
+                          top: HsDimens.spacing20, bottom: HsDimens.spacing4),
+                      child: HsLabel(
+                          label: HatSpaceStrings.current.date,
+                          isRequired: true)),
+                  ValueListenableBuilder<DateTime>(
+                    valueListenable: _selectedDate,
+                    builder: (context, value, child) => _DatePickerView(
+                      selectedDate: value,
+                      onSelectedDate: (value) {
+                        _selectedDate.value = value;
+                      },
                     ),
-                  ],
-                )),
+                  ),
+                  const SizedBox(
+                    height: HsDimens.spacing16,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          HsLabel(
+                              label: HatSpaceStrings.current.startTime,
+                              isRequired: true),
+                          const SizedBox(height: HsDimens.spacing4),
+                          HsDropDownButton(
+                              value: '09:00 AM',
+                              icon: Assets.icons.chervonDown,
+                              onPressed: () {})
+                        ],
+                      )),
+                      const SizedBox(width: HsDimens.spacing15),
+                      Expanded(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          HsLabel(
+                              label: HatSpaceStrings.current.endTime,
+                              isRequired: true),
+                          const SizedBox(height: HsDimens.spacing4),
+                          HsDropDownButton(
+                              value: '10:00 AM',
+                              icon: Assets.icons.chervonDown,
+                              onPressed: () {})
+                        ],
+                      ))
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  HsLabel(
+                      label: HatSpaceStrings.current.notes,
+                      optional: HatSpaceStrings.current.optional),
+                  const SizedBox(
+                    height: HsDimens.spacing4,
+                  ),
+                  TextFormField(
+                    initialValue: 'My number is 0433123456',
+                    style: textTheme.bodyMedium,
+                    minLines: 4,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    maxLength: 4,
+                    decoration: inputTextTheme.copyWith(
+                      hintText: HatSpaceStrings.current.enterYourDescription,
+                      counterText: '',
+                      semanticCounterText: '',
+                    ),
+                    onChanged: (value) {},
+                  ),
+                ],
+              ),
+            ),
           ));
     });
   }
