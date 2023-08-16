@@ -42,6 +42,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         emit(AuthenticationFailed());
       }
     });
+
+    on<SignUpWithApple>((event, emit) async {
+      try {
+        emit(SignUpStart());
+        await signUp(emit, SignUpType.appleService);
+      } catch (_) {
+        emit(AuthenticationFailed());
+      }
+    });
   }
 
   Future<UserDetail> signUp(Emitter emitter, SignUpType type) async {
