@@ -2,6 +2,7 @@ class HsDimens {
   // lineheight and margin
   static const double spacing2 = 2.0;
   static const double spacing4 = 4.0;
+  static const double spacing5 = 5.0;
   static const double spacing6 = 6.0;
   static const double spacing8 = 8.0;
   static const double spacing12 = 12.0;
@@ -56,6 +57,7 @@ class HsDimens {
   static const double size66 = 66.0;
   static const double size68 = 68.0;
   static const double size104 = 104.0;
+  static const double size110 = 110.0;
   static const double size118 = 118.0;
 
   // radius

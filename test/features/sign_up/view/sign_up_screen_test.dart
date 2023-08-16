@@ -1,10 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/sign_up/view/sign_up_screen.dart';
+import 'package:hatspace/features/sign_up/view_model/apple_signin_cubit.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
@@ -20,8 +20,13 @@ import '../../../widget_tester_extension.dart';
 import '../../add_property/view/widgets/add_rooms_view_test.dart';
 import 'sign_up_screen_test.mocks.dart';
 
-@GenerateMocks(
-    [SignUpBloc, AuthenticationBloc, StorageService, AuthenticationService])
+@GenerateMocks([
+  SignUpBloc,
+  AuthenticationBloc,
+  StorageService,
+  AuthenticationService,
+  AppleSignInCubit
+])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final MockSignUpBloc mockSignUpBloc = MockSignUpBloc();
@@ -29,6 +34,7 @@ void main() {
   final MockStorageService storageService = MockStorageService();
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
+  final MockAppleSignInCubit appleSignInCubit = MockAppleSignInCubit();
 
   setUpAll(() async {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
@@ -53,6 +59,14 @@ void main() {
         .thenAnswer((realInvocation) => const Stream.empty());
     when(mockSignUpBloc.state)
         .thenAnswer((realInvocation) => const SignUpInitial());
+    when(authenticationBloc.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+    when(authenticationBloc.state)
+        .thenAnswer((realInvocation) => AuthenticationInitial());
+    when(appleSignInCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+    when(appleSignInCubit.state)
+        .thenAnswer((realInvocation) => AppleSignInInitial());
   });
 
   tearDown(() {
@@ -64,7 +78,17 @@ void main() {
 
   testWidgets('Check skip icon button', (WidgetTester tester) async {
     const Widget widget = SignUpBody();
-    await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
+    await tester.multiBlocWrapAndPump([
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => authenticationBloc,
+      ),
+      BlocProvider<SignUpBloc>(
+        create: (context) => mockSignUpBloc,
+      ),
+      BlocProvider<AppleSignInCubit>(
+        create: (context) => appleSignInCubit,
+      ),
+    ], widget);
     Padding wrapContainer = tester.firstWidget(find.byType(Padding));
     expect(wrapContainer.padding,
         const EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 0));
@@ -118,7 +142,17 @@ void main() {
 
   testWidgets('Verify button interaction', (WidgetTester widgetTester) async {
     const Widget widget = SignUpBody();
-    await widgetTester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
+    await widgetTester.multiBlocWrapAndPump([
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => authenticationBloc,
+      ),
+      BlocProvider<SignUpBloc>(
+        create: (context) => mockSignUpBloc,
+      ),
+      BlocProvider<AppleSignInCubit>(
+        create: (context) => appleSignInCubit,
+      ),
+    ], widget);
     // Test interaction with google Sign in
     await widgetTester
         .tap(find.widgetWithText(SecondaryButton, 'Continue with Google'));
@@ -133,19 +167,17 @@ void main() {
 
   testWidgets('Skip event - detect first launch app',
       (WidgetTester tester) async {
-    const Widget widget = SignUpScreen();
-    when(authenticationBloc.stream)
-        .thenAnswer((realInvocation) => const Stream.empty());
-    when(authenticationBloc.state)
-        .thenAnswer((realInvocation) => RequestSignUp());
-
+    const Widget widget = SignUpBody();
     await tester.multiBlocWrapAndPump([
       BlocProvider<SignUpBloc>(
         create: (context) => mockSignUpBloc,
       ),
       BlocProvider<AuthenticationBloc>(
         create: (context) => authenticationBloc,
-      )
+      ),
+      BlocProvider<AppleSignInCubit>(
+        create: (context) => appleSignInCubit,
+      ),
     ], widget);
 
     SharedPreferences.setMockInitialValues({});
@@ -176,8 +208,17 @@ void main() {
 
       const Widget widget = SignUpBody();
 
-      await widgetTester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget,
-          infiniteAnimationWidget: true);
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<SignUpBloc>(
+          create: (context) => mockSignUpBloc,
+        ),
+        BlocProvider<AppleSignInCubit>(
+          create: (context) => appleSignInCubit,
+        ),
+      ], widget, infiniteAnimationWidget: true);
 
       expect(find.text('Loading...'), findsOneWidget);
     });
@@ -191,8 +232,19 @@ void main() {
 
       const Widget widget = SignUpBody();
 
-      await widgetTester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget,
-          infiniteAnimationWidget: true);
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<SignUpBloc>(
+          create: (context) => mockSignUpBloc,
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<AppleSignInCubit>(
+          create: (context) => appleSignInCubit,
+        ),
+      ], widget, infiniteAnimationWidget: true);
+
+      await widgetTester.pump(const Duration(seconds: 1));
 
       expect(find.text('Login Failed'), findsOneWidget);
       expect(
@@ -219,8 +271,19 @@ void main() {
 
       const Widget widget = SignUpBody();
 
-      await widgetTester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget,
-          infiniteAnimationWidget: true);
+      await widgetTester.multiBlocWrapAndPump([
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc,
+        ),
+        BlocProvider<SignUpBloc>(
+          create: (context) => mockSignUpBloc,
+        ),
+        BlocProvider<AppleSignInCubit>(
+          create: (context) => appleSignInCubit,
+        ),
+      ], widget, infiniteAnimationWidget: true);
+
+      await widgetTester.pump(const Duration(seconds: 1));
 
       expect(find.text('Login Failed'), findsOneWidget);
       expect(
@@ -260,6 +323,9 @@ void main() {
         BlocProvider<SignUpBloc>(
           create: (context) => mockSignUpBloc,
         ),
+        BlocProvider<AppleSignInCubit>(
+          create: (context) => appleSignInCubit,
+        ),
       ], widget, infiniteAnimationWidget: true, useRouter: true);
 
       // expect to dismiss this view
@@ -288,6 +354,9 @@ void main() {
         BlocProvider<SignUpBloc>(
           create: (context) => mockSignUpBloc,
         ),
+        BlocProvider<AppleSignInCubit>(
+          create: (context) => appleSignInCubit,
+        ),
       ], widget, infiniteAnimationWidget: true, useRouter: true);
 
       // expect to not see this screen anymore
@@ -296,13 +365,25 @@ void main() {
   });
 
   testWidgets(
-      'Given user is on iOS device, the Apple signup button will be shown',
-      (WidgetTester tester) async {
+      'given state is AppleSignInAvailable, '
+      'when launching SignUp screen, '
+      'then Apple signup button will be shown', (WidgetTester tester) async {
     const Widget widget = SignUpBody();
 
-    debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+    when(appleSignInCubit.state)
+        .thenAnswer((realInvocation) => AppleSignInAvailable());
 
-    await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
+    await tester.multiBlocWrapAndPump([
+      BlocProvider<AuthenticationBloc>(
+        create: (context) => authenticationBloc,
+      ),
+      BlocProvider<SignUpBloc>(
+        create: (context) => mockSignUpBloc,
+      ),
+      BlocProvider<AppleSignInCubit>(
+        create: (context) => appleSignInCubit,
+      ),
+    ], widget);
 
     expect(find.text('Continue with Apple'), findsOneWidget);
 
@@ -310,26 +391,5 @@ void main() {
         find.byWidgetPredicate((widget) =>
             validateSvgPictureWithAssets(widget, 'assets/icons/apple.svg')),
         findsOneWidget);
-
-    debugDefaultTargetPlatformOverride = null;
-  });
-
-  testWidgets(
-      'Given user is on Android device, the Apple signup button will not be shown',
-      (WidgetTester tester) async {
-    const Widget widget = SignUpBody();
-
-    debugDefaultTargetPlatformOverride = TargetPlatform.android;
-
-    await tester.blocWrapAndPump<SignUpBloc>(mockSignUpBloc, widget);
-
-    expect(find.text('Continue with Apple'), findsNothing);
-
-    expect(
-        find.byWidgetPredicate((widget) =>
-            validateSvgPictureWithAssets(widget, 'assets/icons/apple.svg')),
-        findsNothing);
-
-    debugDefaultTargetPlatformOverride = null;
   });
 }

@@ -66,11 +66,23 @@ class ProfileBody extends StatelessWidget {
                         .displayLarge
                         ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
                 const SizedBox(height: HsDimens.spacing8),
-                _OptionView(
-                  iconPath: Assets.icons.apartment,
-                  title: HatSpaceStrings.current.myProperties,
-                  onPressed: () {},
-                ),
+                BlocSelector<ProfileCubit, ProfileState, bool>(
+                    selector: (state) {
+                  if (state is GetUserDetailSucceedState) {
+                    return state.roles.contains(Roles.homeowner);
+                  }
+
+                  return false;
+                }, builder: (context, isHomeOwner) {
+                  if (isHomeOwner) {
+                    return _OptionView(
+                      iconPath: Assets.icons.apartment,
+                      title: HatSpaceStrings.current.myProperties,
+                      onPressed: () {},
+                    );
+                  }
+                  return const SizedBox();
+                }),
                 _OptionView(
                   iconPath: Assets.icons.favorite,
                   title: HatSpaceStrings.current.favoriteLists,
@@ -245,7 +257,9 @@ class _UserInformationView extends StatelessWidget {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall
-                                        ?.copyWith(color: HSColor.neutral1)),
+                                        ?.copyWith(
+                                            color: HSColor.neutral1,
+                                            height: 0)),
                               ))
                           .toList(),
                     );

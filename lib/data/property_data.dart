@@ -122,7 +122,7 @@ class Price {
   static Price convertMapToObject(Map<String, dynamic> map) {
     return Price(
         currency: Currency.fromName(map[PropKeys.currency]),
-        rentPrice: (map[PropKeys.price] as double).toDouble());
+        rentPrice: double.tryParse('${map[PropKeys.price]}') ?? 0.0);
   }
 }
 

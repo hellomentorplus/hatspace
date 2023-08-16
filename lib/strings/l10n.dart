@@ -1514,10 +1514,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `All your data will be kept within 30 days before being deleted pernamently. Are you sure you want to delete your account?`
+  /// `All your data will be kept within 30 days before being deleted permanently. Are you sure you want to delete your account?`
   String get deleteAccountWarning {
     return Intl.message(
-      'All your data will be kept within 30 days before being deleted pernamently. Are you sure you want to delete your account?',
+      'All your data will be kept within 30 days before being deleted permanently. Are you sure you want to delete your account?',
       name: 'deleteAccountWarning',
       desc: '',
       args: [],
@@ -1604,10 +1604,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Are you sure you want to cancel add new property?`
+  /// `Are you sure you want to log out?`
   String get logOutDescription {
     return Intl.message(
-      'Are you sure you want to cancel add new property?',
+      'Are you sure you want to log out?',
       name: 'logOutDescription',
       desc: '',
       args: [],
@@ -1619,6 +1619,16 @@ class HatSpaceStrings {
     return Intl.message(
       'Log Out',
       name: 'btnLogOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Inspection Booking`
+  String get inspectionBooking {
+    return Intl.message(
+      'Inspection Booking',
+      name: 'inspectionBooking',
       desc: '',
       args: [],
     );

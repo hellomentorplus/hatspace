@@ -50,12 +50,6 @@ void main() {
     expect(find.text('My account'), findsOneWidget);
     expect(find.text('Settings'), findsOneWidget);
 
-    expect(find.text('My properties'), findsOneWidget);
-    expect(
-        find.byWidgetPredicate((widget) =>
-            validateSvgPictureWithAssets(widget, 'assets/icons/apartment.svg')),
-        findsOneWidget);
-
     expect(find.text('Favorite lists'), findsOneWidget);
     expect(
         find.byWidgetPredicate((widget) =>
@@ -301,7 +295,7 @@ void main() {
         .thenAnswer((_) => Stream.value(const DeleteAccountSucceedState()));
     when(profileCubit.state)
         .thenAnswer((_) => const DeleteAccountSucceedState());
-
+    when(authenticationService.isAppleSignInAvailable).thenReturn(false);
     await widgetTester.blocWrapAndPump<ProfileCubit>(
         profileCubit, const ProfileBody());
 
@@ -339,8 +333,7 @@ void main() {
               of: find.text('Log out'),
               matching: find.byType(HsWarningBottomSheetView)),
           findsOneWidget);
-      expect(find.text('Are you sure you want to cancel add new property?'),
-          findsOneWidget);
+      expect(find.text('Are you sure you want to log out?'), findsOneWidget);
       expect(
           find.ancestor(
               of: find.text('Cancel'), matching: find.byType(PrimaryButton)),
@@ -439,12 +432,81 @@ void main() {
           .thenAnswer((_) => Stream.value(const LogOutAccountSucceedState()));
       when(profileCubit.state)
           .thenAnswer((_) => const LogOutAccountSucceedState());
-
+      when(authenticationService.isAppleSignInAvailable).thenReturn(false);
       await widgetTester.blocWrapAndPump<ProfileCubit>(
           profileCubit, const ProfileBody());
 
       expect(find.byType(ProfileBody), findsNothing);
       expect(find.byType(SignUpScreen), findsOneWidget);
     });
+  });
+
+  testWidgets(
+      'when user only has tenant role, then user will not see My properties option',
+      (widgetTester) async {
+    when(user.avatar).thenReturn('avatar.jpg');
+    when(user.displayName).thenReturn('This is user name');
+
+    when(profileCubit.stream).thenAnswer((_) =>
+        Stream.value(GetUserDetailSucceedState(user, const [Roles.tenant])));
+    when(profileCubit.state).thenAnswer(
+        (_) => GetUserDetailSucceedState(user, const [Roles.tenant]));
+
+    await mockNetworkImagesFor(() => widgetTester.blocWrapAndPump<ProfileCubit>(
+        profileCubit, const ProfileBody()));
+
+    expect(find.byType(ProfileBody), findsOneWidget);
+
+    expect(find.text('My properties'), findsNothing);
+    expect(
+        find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, 'assets/icons/apartment.svg')),
+        findsNothing);
+  });
+
+  testWidgets(
+      'when user only has homeowner role, then user will see My properties option',
+      (widgetTester) async {
+    when(user.avatar).thenReturn('avatar.jpg');
+    when(user.displayName).thenReturn('This is user name');
+
+    when(profileCubit.stream).thenAnswer((_) =>
+        Stream.value(GetUserDetailSucceedState(user, const [Roles.homeowner])));
+    when(profileCubit.state).thenAnswer(
+        (_) => GetUserDetailSucceedState(user, const [Roles.homeowner]));
+
+    await mockNetworkImagesFor(() => widgetTester.blocWrapAndPump<ProfileCubit>(
+        profileCubit, const ProfileBody()));
+
+    expect(find.byType(ProfileBody), findsOneWidget);
+
+    expect(find.text('My properties'), findsOneWidget);
+    expect(
+        find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, 'assets/icons/apartment.svg')),
+        findsOneWidget);
+  });
+
+  testWidgets(
+      'when user has both homeowner and tenant role, then user will see My properties option',
+      (widgetTester) async {
+    when(user.avatar).thenReturn('avatar.jpg');
+    when(user.displayName).thenReturn('This is user name');
+
+    when(profileCubit.stream).thenAnswer(
+        (_) => Stream.value(GetUserDetailSucceedState(user, Roles.values)));
+    when(profileCubit.state)
+        .thenAnswer((_) => GetUserDetailSucceedState(user, Roles.values));
+
+    await mockNetworkImagesFor(() => widgetTester.blocWrapAndPump<ProfileCubit>(
+        profileCubit, const ProfileBody()));
+
+    expect(find.byType(ProfileBody), findsOneWidget);
+
+    expect(find.text('My properties'), findsOneWidget);
+    expect(
+        find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, 'assets/icons/apartment.svg')),
+        findsOneWidget);
   });
 }
