@@ -158,6 +158,7 @@ void main() async {
 
     expect(find.text('Apartment'), findsOneWidget);
     expect(find.text('property name'), findsOneWidget);
+    expect(find.text('Victoria'), findsOneWidget);
     // 1 short text, and 1 long text
     expect(find.text('property description'), findsNWidgets(2));
 
