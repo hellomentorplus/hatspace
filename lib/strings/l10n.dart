@@ -1422,6 +1422,66 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Submit`
+  String get submit {
+    return Intl.message(
+      'Submit',
+      name: 'submit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start`
+  String get start {
+    return Intl.message(
+      'Start',
+      name: 'start',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End`
+  String get end {
+    return Intl.message(
+      'End',
+      name: 'end',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message(
+      'Date',
+      name: 'date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notes`
+  String get notes {
+    return Intl.message(
+      'Notes',
+      name: 'notes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Details`
+  String get details {
+    return Intl.message(
+      'Details',
+      name: 'details',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Guide for application`
   String get guideForApplication {
     return Intl.message(
@@ -1552,21 +1612,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Submit`
-  String get submit {
-    return Intl.message(
-      'Submit',
-      name: 'submit',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Start`
-  String get start {
-    return Intl.message(
-      'Start',
-      name: 'start',
   /// `Delete account?`
   String get deleteAccountQuestionMark {
     return Intl.message(
@@ -1577,11 +1622,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `End`
-  String get end {
-    return Intl.message(
-      'End',
-      name: 'end',
   /// `Show less`
   String get showLess {
     return Intl.message(
@@ -1592,11 +1632,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Date`
-  String get date {
-    return Intl.message(
-      'Date',
-      name: 'date',
   /// `Show more`
   String get showMore {
     return Intl.message(
@@ -1607,11 +1642,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Notes`
-  String get notes {
-    return Intl.message(
-      'Notes',
-      name: 'notes',
   /// `Book Inspection`
   String get bookInspection {
     return Intl.message(
@@ -1622,11 +1652,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Details`
-  String get details {
-    return Intl.message(
-      'Details',
-      name: 'details',
   /// `{name} ({symbol})`
   String addPropertyPriceDisplay(Object name, Object symbol) {
     return Intl.message(

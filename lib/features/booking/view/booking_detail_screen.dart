@@ -10,7 +10,8 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 class BookingDetailScreen extends StatelessWidget {
-  const BookingDetailScreen({super.key});
+  final String id;
+  const BookingDetailScreen({required this.id, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +23,14 @@ class BookingDetailScreen extends StatelessWidget {
                 .bodyMedium
                 ?.copyWith(fontWeight: FontStyleGuide.fwBold)),
         actions: [
-            IconButton(
+          IconButton(
             onPressed: () {
               // TODO : Handle on delete tapped
             },
             icon: SvgPicture.asset(
               Assets.icons.delete,
-              colorFilter: const ColorFilter.mode(
-                  HSColor.red05, BlendMode.srcIn),
+              colorFilter:
+                  const ColorFilter.mode(HSColor.red05, BlendMode.srcIn),
               width: HsDimens.size24,
               height: HsDimens.size24,
             ),
@@ -50,28 +51,27 @@ class BookingDetailScreen extends StatelessWidget {
             )),
       ),
       body: Stack(
+        fit: StackFit.expand,
         children: [
-          SizedBox(
-            height: double.infinity,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding:
-                  const EdgeInsets.symmetric(horizontal: HsDimens.spacing16),
-                  child: BookingInformationView(
-                    propertyImageUrl: 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
+          SingleChildScrollView(
+            child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: HsDimens.spacing16),
+                child: BookingInformationView(
+                    propertyImageUrl:
+                        'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
                     propertyTitle: 'Single room for rent in Bankstown',
                     propertyPrice: 200,
                     propertyState: 'Gateway, Island',
                     propertySymbol: r'$',
-                    userAvatar: 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
+                    userAvatar:
+                        'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
                     userName: 'Jane Cooper',
                     type: PropertyTypes.house,
                     startTime: DateTime(2023, 8, 12, 1),
                     endTime: DateTime(2023, 8, 12, 8),
-                    notes: 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.'
-                  )
-              ),
-            ),
+                    notes:
+                        'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.')),
           ),
           Positioned(
               bottom: 0,
@@ -83,18 +83,15 @@ class BookingDetailScreen extends StatelessWidget {
                   bottom: HsDimens.spacing42,
                 ),
                 decoration: const BoxDecoration(
-                  border: Border(top: BorderSide(
-                    width: 1,
-                    color: HSColor.neutral2
-                  ))
-                ),
+                    border: Border(
+                        top: BorderSide(width: HsDimens.size1, color: HSColor.neutral2))),
                 child: SecondaryButton(
-                label: 'Edit',
-                iconUrl: Assets.icons.edit,
-                onPressed: () {
-                  // TODO : Handle on edit tapped
-                },
-              ),
+                  label: 'Edit',
+                  iconUrl: Assets.icons.edit,
+                  onPressed: () {
+                    // TODO : Handle on edit tapped
+                  },
+                ),
               ))
         ],
       ),

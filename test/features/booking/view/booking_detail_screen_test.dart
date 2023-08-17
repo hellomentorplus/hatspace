@@ -17,7 +17,7 @@ void main() {
   });
   testWidgets('test ui for widget', (widgetTester) async {
     await mockNetworkImagesFor(
-        () => widgetTester.wrapAndPump(const BookingDetailScreen()));
+        () => widgetTester.wrapAndPump(const BookingDetailScreen(id: '123')));
     expect(find.text('Details'), findsOneWidget);
     expect(find.text('House'), findsOneWidget);
     expect(find.text('Single room for rent in Bankstown'), findsOneWidget);
@@ -63,6 +63,19 @@ void main() {
         findsOneWidget);
 
     expect(find.ancestor(of: find.text('Edit'), matching: find.byType(SecondaryButton)), findsOneWidget);
+
+    expect(find.ancestor(of: find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
+                widget, 'assets/icons/delete.svg')), matching: find.byType(IconButton)), findsOneWidget);
+
+    expect(find.ancestor(of: find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
+                widget, 'assets/icons/phone.svg')), matching: find.byType(RoundButton)), findsOneWidget);
+
+    expect(
+        find.ancestor(
+            of: find.byWidgetPredicate((widget) =>
+                validateSvgPictureWithAssets(widget, 'assets/icons/message.svg')),
+            matching: find.byType(RoundButton)),
+        findsOneWidget);
 
   });
 }

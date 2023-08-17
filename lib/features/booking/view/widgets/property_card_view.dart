@@ -48,6 +48,7 @@ class PropertyCardView extends StatelessWidget {
                     .textTheme
                     .bodyMedium
                     ?.copyWith(fontWeight: FontStyleGuide.fwBold)),
+            const SizedBox(height: HsDimens.spacing4),
             Text(state, style: Theme.of(context).textTheme.bodySmall),
             const SizedBox(height: HsDimens.spacing4),
             Row(
