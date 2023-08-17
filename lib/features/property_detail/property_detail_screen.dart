@@ -186,7 +186,7 @@ class PropertyDetailBody extends StatelessWidget {
                           PropertyDetailState, String>(
                         selector: (state) {
                           if (state is PropertyDetailLoaded) {
-                            return state.suburb;
+                            return state.state;
                           }
                           return '';
                         },
