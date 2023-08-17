@@ -79,7 +79,6 @@ class InspectCubit extends Cubit<InspectionState> {
       }
       emit(InspectionLoaded(items));
     } catch (e) {
-      print("xxx - $e");
       emit(GetUserRolesFailed());
     }
   }
