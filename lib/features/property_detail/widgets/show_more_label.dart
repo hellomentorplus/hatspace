@@ -6,7 +6,10 @@ class ShowMoreLabel extends StatefulWidget {
   final int? counter;
 
   const ShowMoreLabel(
-      {required this.animationController, required this.duration, this.counter, Key? key})
+      {required this.animationController,
+      required this.duration,
+      this.counter,
+      Key? key})
       : super(key: key);
 
   @override
@@ -15,8 +18,7 @@ class ShowMoreLabel extends StatefulWidget {
 
 class _ShowMoreLabelState extends State<ShowMoreLabel>
     with SingleTickerProviderStateMixin {
-  late final ValueNotifier<String> _label =
-      ValueNotifier('');
+  late final ValueNotifier<String> _label = ValueNotifier('');
 
   late final Animation<double> _chevron =
       Tween<double>(begin: 0.0, end: -0.5).animate(widget.animationController);

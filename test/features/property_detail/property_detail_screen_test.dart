@@ -181,9 +181,11 @@ void main() async {
   });
 
   group('verify show more label', () {
-    testWidgets('given feature list is more than 4,'
+    testWidgets(
+        'given feature list is more than 4,'
         ' when load PropertyDetailScreen,'
-        ' then show feature with Show More label, and counter', (widgetTester) async {
+        ' then show feature with Show More label, and counter',
+        (widgetTester) async {
       const Widget widget = PropertyDetailScreen(id: 'id');
 
       await mockNetworkImagesFor(() => widgetTester
@@ -195,9 +197,11 @@ void main() async {
       expect(find.text('Show more'), findsOneWidget);
     });
 
-    testWidgets('given feature list is exactly 4,'
+    testWidgets(
+        'given feature list is exactly 4,'
         ' when load PropertyDetailScreen,'
-        ' then do not show feature with Show More label, and counter', (widgetTester) async {
+        ' then do not show feature with Show More label, and counter',
+        (widgetTester) async {
       final Property property = Property(
           type: PropertyTypes.apartment,
           name: 'property name',
@@ -214,7 +218,8 @@ void main() async {
               bathrooms: 1,
               bedrooms: 1,
               parkings: 1,
-              additional: Feature.values.sublist(0, 4).map((e) => e.name).toList()),
+              additional:
+                  Feature.values.sublist(0, 4).map((e) => e.name).toList()),
           photos: ['photo1', 'photo2', 'photo3', 'photo4'],
           minimumRentPeriod: MinimumRentPeriod.sixMonths,
           location: const GeoPoint(1.0, 1.0),
@@ -232,9 +237,11 @@ void main() async {
       expect(find.text('Show more'), findsOneWidget);
     });
 
-    testWidgets('given feature list is less 4,'
+    testWidgets(
+        'given feature list is less 4,'
         ' when load PropertyDetailScreen,'
-        ' then do not show feature with Show More label, and counter', (widgetTester) async {
+        ' then do not show feature with Show More label, and counter',
+        (widgetTester) async {
       final Property property = Property(
           type: PropertyTypes.apartment,
           name: 'property name',
@@ -251,7 +258,8 @@ void main() async {
               bathrooms: 1,
               bedrooms: 1,
               parkings: 1,
-              additional: Feature.values.sublist(0, 3).map((e) => e.name).toList()),
+              additional:
+                  Feature.values.sublist(0, 3).map((e) => e.name).toList()),
           photos: ['photo1', 'photo2', 'photo3', 'photo4'],
           minimumRentPeriod: MinimumRentPeriod.sixMonths,
           location: const GeoPoint(1.0, 1.0),
