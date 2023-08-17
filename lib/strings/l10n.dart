@@ -1633,6 +1633,28 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `{number} inspection booking`
+  String numberOfInspectionBooking(Object number) {
+    return Intl.message(
+      '$number inspection booking',
+      name: 'numberOfInspectionBooking',
+      desc: '',
+      args: [number],
+    );
+  }
+
+  /// `{number, plural, one{1 Booking} other { {number} Bookings }}`
+  String numberOfBooking(num number) {
+    return Intl.plural(
+      number,
+      one: '1 Booking',
+      other: ' $number Bookings ',
+      name: 'numberOfBooking',
+      desc: '',
+      args: [number],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
