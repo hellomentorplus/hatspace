@@ -1054,20 +1054,20 @@ class HatSpaceStrings {
     );
   }
 
-  /// `"HATSpace" Would Like to Photo Access`
+  /// `"HATspace" Would Like to Photo Access`
   String get hatSpaceWouldLikeToPhotoAccess {
     return Intl.message(
-      '"HATSpace" Would Like to Photo Access',
+      '"HATspace" Would Like to Photo Access',
       name: 'hatSpaceWouldLikeToPhotoAccess',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please go to Settings and allow photos access for HATSpace.`
+  /// `Please go to Settings and allow photos access for HATspace.`
   String get plsGoToSettingsAndAllowPhotoAccessForHatSpace {
     return Intl.message(
-      'Please go to Settings and allow photos access for HATSpace.',
+      'Please go to Settings and allow photos access for HATspace.',
       name: 'plsGoToSettingsAndAllowPhotoAccessForHatSpace',
       desc: '',
       args: [],
