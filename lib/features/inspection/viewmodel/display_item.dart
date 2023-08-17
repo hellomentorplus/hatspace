@@ -21,7 +21,7 @@ class NumberOfInspectionItem extends DisplayItem {
 class TenantBookingItem extends DisplayItem {
   final String propertyImage;
   final String propertyName;
-  final String propertyType;
+  final PropertyTypes propertyType;
   final double price;
   final Currency currency;
   final String timeRenting;
@@ -47,7 +47,7 @@ class TenantBookingItem extends DisplayItem {
 class HomeOwnerBookingItem extends DisplayItem {
   final String propertyImage;
   final String propertyName;
-  final String propertyType;
+  final PropertyTypes propertyType;
   final double price;
   final Currency currency;
   final String timeRenting;

@@ -95,7 +95,7 @@ class InspectionBody extends StatelessWidget {
 class TenantBookItemView extends StatelessWidget {
   final String propertyImage;
   final String propertyName;
-  final String propertyType;
+  final PropertyTypes propertyType;
   final double price;
   final Currency currency;
   final String timeRenting;
@@ -153,7 +153,7 @@ class TenantBookItemView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          propertyType,
+                          propertyType.displayName,
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall
@@ -296,7 +296,7 @@ class _TimeRentingView extends StatelessWidget {
 class HomeOwnerBookItemView extends StatelessWidget {
   final String propertyImage;
   final String propertyName;
-  final String propertyType;
+  final PropertyTypes propertyType;
   final double price;
   final String timeRenting;
   final Currency currency;
@@ -350,7 +350,7 @@ class HomeOwnerBookItemView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          propertyType,
+                          propertyType.displayName,
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall
