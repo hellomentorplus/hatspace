@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/booking/view/booking_detail_screen.dart';
+import 'package:hatspace/features/booking/booking_detail_screen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
-import '../../../widget_tester_extension.dart';
-import '../../add_property/view/widgets/add_rooms_view_test.dart';
+import '../../widget_tester_extension.dart';
+import '../add_property/view/widgets/add_rooms_view_test.dart';
 
 void main() {
-
   setUpAll(() {
     HatSpaceStrings.load(const Locale('en'));
     initializeDateFormatting();
@@ -58,24 +57,55 @@ void main() {
         findsOneWidget);
 
     expect(
-        find.byWidgetPredicate((widget) =>
-            validateSvgPictureWithAssets(widget, 'assets/icons/arrow_calendar_left.svg')),
+        find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
+            widget, 'assets/icons/arrow_calendar_left.svg')),
         findsOneWidget);
 
-    expect(find.ancestor(of: find.text('Edit'), matching: find.byType(SecondaryButton)), findsOneWidget);
+    expect(
+        find.ancestor(
+            of: find.text('Edit'), matching: find.byType(SecondaryButton)),
+        findsOneWidget);
 
-    expect(find.ancestor(of: find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
-                widget, 'assets/icons/delete.svg')), matching: find.byType(IconButton)), findsOneWidget);
-
-    expect(find.ancestor(of: find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
-                widget, 'assets/icons/phone.svg')), matching: find.byType(RoundButton)), findsOneWidget);
+    expect(
+        find.ancestor(
+            of: find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
+                widget, 'assets/icons/delete.svg')),
+            matching: find.byType(IconButton)),
+        findsOneWidget);
 
     expect(
         find.ancestor(
             of: find.byWidgetPredicate((widget) =>
-                validateSvgPictureWithAssets(widget, 'assets/icons/message.svg')),
+                validateSvgPictureWithAssets(widget, 'assets/icons/phone.svg')),
             matching: find.byType(RoundButton)),
         findsOneWidget);
 
+    expect(
+        find.ancestor(
+            of: find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
+                widget, 'assets/icons/message.svg')),
+            matching: find.byType(RoundButton)),
+        findsOneWidget);
+  });
+
+  testWidgets(
+      'Given user is in BookingDetailScreen. '
+      'When user tap on BackButton. '
+      'Then user will be navigated out of BookingDetailScreen, back to previous screen',
+      (widgetTester) async {
+    await mockNetworkImagesFor(
+        () => widgetTester.wrapAndPump(const BookingDetailScreen(id: '123')));
+
+    expect(find.byType(BookingDetailScreen), findsOneWidget);
+
+    final Finder backBtnFinder = find.ancestor(
+        of: find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
+            widget, 'assets/icons/arrow_calendar_left.svg')),
+        matching: find.byType(IconButton));
+
+    await widgetTester.tap(backBtnFinder);
+    await widgetTester.pumpAndSettle();
+
+    expect(find.byType(BookingDetailScreen), findsNothing);
   });
 }

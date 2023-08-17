@@ -7,7 +7,7 @@ import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
-import 'package:hatspace/features/booking/view/widgets/property_card_view.dart';
+import 'package:hatspace/features/booking/widgets/property_card_view.dart';
 
 class BookingInformationView extends StatelessWidget {
   final String propertyImageUrl;
@@ -22,7 +22,18 @@ class BookingInformationView extends StatelessWidget {
   final DateTime endTime;
   final String notes;
   const BookingInformationView(
-      {required this.propertyImageUrl, required this.propertyTitle, required this.propertyState, required this.propertyPrice, required this.propertySymbol, required this.type, required this.userAvatar, required this.userName, required this.startTime, required this.endTime, required this.notes, super.key});
+      {required this.propertyImageUrl,
+      required this.propertyTitle,
+      required this.propertyState,
+      required this.propertyPrice,
+      required this.propertySymbol,
+      required this.type,
+      required this.userAvatar,
+      required this.userName,
+      required this.startTime,
+      required this.endTime,
+      required this.notes,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +58,9 @@ class BookingInformationView extends StatelessWidget {
               width: HsDimens.size24,
               height: HsDimens.size24,
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  fit: BoxFit.cover, image: NetworkImage(userAvatar))
-              ),
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      fit: BoxFit.cover, image: NetworkImage(userAvatar))),
               clipBehavior: Clip.hardEdge,
             ),
             const SizedBox(width: HsDimens.spacing8),
@@ -107,8 +117,7 @@ class BookingInformationView extends StatelessWidget {
         const SizedBox(height: HsDimens.spacing20),
         _TitleView(title: HatSpaceStrings.current.notes),
         const SizedBox(height: HsDimens.spacing4),
-        Text(
-            notes,
+        Text(notes,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/features/add_property/view/add_property_screen.dart';
-import 'package:hatspace/features/booking/view/booking_detail_screen.dart';
+import 'package:hatspace/features/booking/booking_detail_screen.dart';
 import 'package:hatspace/features/debug/view/widget_list/widget_catalog_screen.dart';
 import 'package:hatspace/features/property_detail/property_detail_screen.dart';
 import 'package:hatspace/features/sign_up/choose_roles/view/choose_roles_screen.dart';
@@ -57,10 +57,10 @@ extension RouteExtension on BuildContext {
 
   void goToBookingDetail({required String id}) {
     Navigator.push(
-          this,
-          MaterialPageRoute(
-            builder: (context) => BookingDetailScreen(id: id),
-          ));
+        this,
+        MaterialPageRoute(
+          builder: (context) => BookingDetailScreen(id: id),
+        ));
   }
 
   void pop<T>({T? result}) {

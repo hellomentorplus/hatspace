@@ -145,7 +145,8 @@ class TenantBookItemView extends StatelessWidget {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: HsDimens.spacing16),
+                        padding:
+                            const EdgeInsets.only(left: HsDimens.spacing16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -156,8 +157,9 @@ class TenantBookItemView extends StatelessWidget {
                                   .bodySmall
                                   ?.copyWith(
                                       fontWeight: FontWeight.w500,
-                                      color:
-                                          Theme.of(context).colorScheme.primary),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
                             ),
                             const SizedBox(
                               height: HsDimens.spacing5,

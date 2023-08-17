@@ -40,13 +40,13 @@ class _AddPropertyAddressViewState extends State<AddPropertyAddressView>
             focusNode: _focusNode,
             label: HatSpaceStrings.current.streetAddress,
             isRequired: true,
-            placeholder: HatSpaceStrings.current.enterYourAddress,
+            placeholder: HatSpaceStrings.current.enterStreetAddress,
             onChanged: (value) {
               _isEmpty.value = value.isEmpty;
               context.read<AddPropertyCubit>().address = value;
             },
             errorText:
-                isEmpty ? HatSpaceStrings.current.enterYourAddress : null,
+                isEmpty ? HatSpaceStrings.current.enterStreetAddress : null,
           ),
         ),
         const SizedBox(

@@ -18,7 +18,8 @@ class PropertyCardView extends StatelessWidget {
       required this.title,
       required this.state,
       required this.price,
-      required this.symbol, super.key,
+      required this.symbol,
+      super.key,
       this.imageSize = HsDimens.size110});
 
   @override
@@ -53,13 +54,14 @@ class PropertyCardView extends StatelessWidget {
             const SizedBox(height: HsDimens.spacing4),
             Row(
               children: [
-                Flexible(child: Text(
-                    HatSpaceStrings.current.currencyFormatter(
-                        symbol, price),
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(fontWeight: FontStyleGuide.fwBold))),
+                Flexible(
+                    child: Text(
+                        HatSpaceStrings.current
+                            .currencyFormatter(symbol, price),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(fontWeight: FontStyleGuide.fwBold))),
                 const SizedBox(width: HsDimens.spacing4),
                 Text(HatSpaceStrings.current.pw,
                     style: Theme.of(context).textTheme.bodySmall)

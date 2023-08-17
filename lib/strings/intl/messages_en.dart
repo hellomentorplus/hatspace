@@ -80,6 +80,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add Homeowner role"),
         "addHomeOwnerSecondaryBtnLabel":
             MessageLookupByLibrary.simpleMessage("Later"),
+        "addInspectionBooking":
+            MessageLookupByLibrary.simpleMessage("Add an inspection booking"),
         "addPropertyPriceDisplay": m0,
         "addPropertyRentalPeriodUnit":
             MessageLookupByLibrary.simpleMessage("(PW)"),
@@ -151,14 +153,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "emailSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Email"),
         "end": MessageLookupByLibrary.simpleMessage("End"),
+        "endTime": MessageLookupByLibrary.simpleMessage("End time"),
         "enterPostalCode":
             MessageLookupByLibrary.simpleMessage("Enter postcode"),
         "enterPrice": MessageLookupByLibrary.simpleMessage("Enter price"),
         "enterPropertyName":
             MessageLookupByLibrary.simpleMessage("Enter property name"),
+        "enterStreetAddress":
+            MessageLookupByLibrary.simpleMessage("Enter street address"),
         "enterSuburb": MessageLookupByLibrary.simpleMessage("Enter suburb"),
-        "enterYourAddress":
-            MessageLookupByLibrary.simpleMessage("Enter your address"),
         "enterYourDescription":
             MessageLookupByLibrary.simpleMessage("Enter description"),
         "enterYourPostcode":
@@ -180,7 +183,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "guideForApplication":
             MessageLookupByLibrary.simpleMessage("Guide for application"),
         "hatSpaceWouldLikeToPhotoAccess": MessageLookupByLibrary.simpleMessage(
-            "\"HATSpace\" Would Like to Photo Access"),
+            "\"HATspace\" Would Like to Photo Access"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
         "house": MessageLookupByLibrary.simpleMessage("House"),
         "houseNumberAndStreetName":
@@ -218,6 +221,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "noLater": MessageLookupByLibrary.simpleMessage("No, later"),
         "notUpdated": MessageLookupByLibrary.simpleMessage("Not updated"),
         "notes": MessageLookupByLibrary.simpleMessage("Notes"),
+        "notesPlaceHolder": MessageLookupByLibrary.simpleMessage(
+            "Write a message to homeowner"),
         "numberFieldContainsNonNumber":
             MessageLookupByLibrary.simpleMessage("Only accept number"),
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
@@ -235,7 +240,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pleas select your state"),
         "plsGoToSettingsAndAllowPhotoAccessForHatSpace":
             MessageLookupByLibrary.simpleMessage(
-                "Please go to Settings and allow photos access for HATSpace."),
+                "Please go to Settings and allow photos access for HATspace."),
         "portableFans": MessageLookupByLibrary.simpleMessage("Portable Fans"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
         "preview": MessageLookupByLibrary.simpleMessage("Preview"),
@@ -269,6 +274,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Login Failed"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),
+        "startTime": MessageLookupByLibrary.simpleMessage("Start time"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),

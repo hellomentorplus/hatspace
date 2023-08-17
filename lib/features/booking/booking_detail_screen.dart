@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/features/booking/view/widgets/booking_information_view.dart';
+import 'package:hatspace/features/booking/widgets/booking_information_view.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -55,8 +55,8 @@ class BookingDetailScreen extends StatelessWidget {
         children: [
           SingleChildScrollView(
             child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: HsDimens.spacing16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: HsDimens.spacing16),
                 child: BookingInformationView(
                     propertyImageUrl:
                         'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
@@ -84,7 +84,8 @@ class BookingDetailScreen extends StatelessWidget {
                 ),
                 decoration: const BoxDecoration(
                     border: Border(
-                        top: BorderSide(width: HsDimens.size1, color: HSColor.neutral2))),
+                        top: BorderSide(
+                            width: HsDimens.size1, color: HSColor.neutral2))),
                 child: SecondaryButton(
                   label: 'Edit',
                   iconUrl: Assets.icons.edit,

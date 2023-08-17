@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
-import 'package:hatspace/features/booking/view/widgets/booking_information_view.dart';
+import 'package:hatspace/features/booking/widgets/booking_information_view.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
-import '../../../../widget_tester_extension.dart';
-import '../../../add_property/view/widgets/add_rooms_view_test.dart';
+import '../../../widget_tester_extension.dart';
+import '../../add_property/view/widgets/add_rooms_view_test.dart';
 
 void main() {
   setUpAll(() {
@@ -22,7 +22,7 @@ void main() {
             propertyPrice: 300,
             propertyState: 'propertyState',
             propertySymbol: r'$',
-            userAvatar: 'userAvatar.png' ,
+            userAvatar: 'userAvatar.png',
             userName: 'ABC',
             type: PropertyTypes.house,
             startTime: DateTime(2023, 8, 12, 1),
@@ -45,23 +45,23 @@ void main() {
     expect(find.text('Here is the note'), findsOneWidget);
 
     expect(
-        find.byWidgetPredicate(
-            (widget) => verifyContainerNetworkImage(widget, 'propertyImageUrl.png')),
+        find.byWidgetPredicate((widget) =>
+            verifyContainerNetworkImage(widget, 'propertyImageUrl.png')),
         findsOneWidget);
 
     expect(
         find.byWidgetPredicate(
             (widget) => verifyContainerNetworkImage(widget, 'userAvatar.png')),
         findsOneWidget);
-    
+
     expect(
-        find.byWidgetPredicate(
-            (widget) => validateSvgPictureWithAssets(widget, 'assets/icons/phone.svg')),
+        find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, 'assets/icons/phone.svg')),
         findsOneWidget);
 
     expect(
-        find.byWidgetPredicate(
-            (widget) => validateSvgPictureWithAssets(widget, 'assets/icons/message.svg')),
+        find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, 'assets/icons/message.svg')),
         findsOneWidget);
   });
 }
