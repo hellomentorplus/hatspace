@@ -56,7 +56,7 @@ class PropertyDetailLoaded extends PropertyDetailState {
         ...photos,
         type,
         name,
-    state,
+        state,
         bedrooms,
         bathrooms,
         carspaces,
