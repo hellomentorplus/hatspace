@@ -54,7 +54,7 @@
   "optional": "(Optional)",
   "enterYourUnitnumber": "Enter unit number",
   "streetAddress": "Street address",
-  "enterYourAddress": "Enter your address",
+  "enterStreetAddress": "Enter street address",
   "houseNumberAndStreetName": "House number + Street name",
   "suburb": "Suburb",
   "enterYourSuburb": "Enter suburb",

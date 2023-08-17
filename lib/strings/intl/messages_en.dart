@@ -148,9 +148,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterPrice": MessageLookupByLibrary.simpleMessage("Enter price"),
         "enterPropertyName":
             MessageLookupByLibrary.simpleMessage("Enter property name"),
+        "enterStreetAddress":
+            MessageLookupByLibrary.simpleMessage("Enter street address"),
         "enterSuburb": MessageLookupByLibrary.simpleMessage("Enter suburb"),
-        "enterYourAddress":
-            MessageLookupByLibrary.simpleMessage("Enter your address"),
         "enterYourDescription":
             MessageLookupByLibrary.simpleMessage("Enter description"),
         "enterYourPostcode":
