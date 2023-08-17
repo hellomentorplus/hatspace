@@ -179,4 +179,94 @@ void main() async {
     expect(find.text('Kitchen'), findsOneWidget);
     expect(find.text('Portable Fans'), findsOneWidget);
   });
+
+  group('verify show more label', () {
+    testWidgets('given feature list is more than 4,'
+        ' when load PropertyDetailScreen,'
+        ' then show feature with Show More label, and counter', (widgetTester) async {
+      const Widget widget = PropertyDetailScreen(id: 'id');
+
+      await mockNetworkImagesFor(() => widgetTester
+          .blocWrapAndPump<AuthenticationBloc>(authenticationBloc, widget));
+
+      // on feature list
+      expect(find.text('Show more (6)'), findsOneWidget);
+      // on description
+      expect(find.text('Show more'), findsOneWidget);
+    });
+
+    testWidgets('given feature list is exactly 4,'
+        ' when load PropertyDetailScreen,'
+        ' then do not show feature with Show More label, and counter', (widgetTester) async {
+      final Property property = Property(
+          type: PropertyTypes.apartment,
+          name: 'property name',
+          price: Price(currency: Currency.aud, rentPrice: 100),
+          description: 'property description',
+          address: const AddressDetail(
+            streetNo: '10',
+            streetName: 'streetName',
+            state: AustraliaStates.vic,
+            postcode: 1234,
+            suburb: 'suburb',
+          ),
+          additionalDetail: AdditionalDetail(
+              bathrooms: 1,
+              bedrooms: 1,
+              parkings: 1,
+              additional: Feature.values.sublist(0, 4).map((e) => e.name).toList()),
+          photos: ['photo1', 'photo2', 'photo3', 'photo4'],
+          minimumRentPeriod: MinimumRentPeriod.sixMonths,
+          location: const GeoPoint(1.0, 1.0),
+          availableDate: Timestamp.fromDate(DateTime(2023, 10, 22)),
+          ownerUid: 'ownerUid');
+      when(propertyService.getProperty(any))
+          .thenAnswer((realInvocation) => Future.value(property));
+
+      const Widget widget = PropertyDetailScreen(id: 'id');
+
+      await mockNetworkImagesFor(() => widgetTester
+          .blocWrapAndPump<AuthenticationBloc>(authenticationBloc, widget));
+
+      // only on description
+      expect(find.text('Show more'), findsOneWidget);
+    });
+
+    testWidgets('given feature list is less 4,'
+        ' when load PropertyDetailScreen,'
+        ' then do not show feature with Show More label, and counter', (widgetTester) async {
+      final Property property = Property(
+          type: PropertyTypes.apartment,
+          name: 'property name',
+          price: Price(currency: Currency.aud, rentPrice: 100),
+          description: 'property description',
+          address: const AddressDetail(
+            streetNo: '10',
+            streetName: 'streetName',
+            state: AustraliaStates.vic,
+            postcode: 1234,
+            suburb: 'suburb',
+          ),
+          additionalDetail: AdditionalDetail(
+              bathrooms: 1,
+              bedrooms: 1,
+              parkings: 1,
+              additional: Feature.values.sublist(0, 3).map((e) => e.name).toList()),
+          photos: ['photo1', 'photo2', 'photo3', 'photo4'],
+          minimumRentPeriod: MinimumRentPeriod.sixMonths,
+          location: const GeoPoint(1.0, 1.0),
+          availableDate: Timestamp.fromDate(DateTime(2023, 10, 22)),
+          ownerUid: 'ownerUid');
+      when(propertyService.getProperty(any))
+          .thenAnswer((realInvocation) => Future.value(property));
+
+      const Widget widget = PropertyDetailScreen(id: 'id');
+
+      await mockNetworkImagesFor(() => widgetTester
+          .blocWrapAndPump<AuthenticationBloc>(authenticationBloc, widget));
+
+      // only on description
+      expect(find.text('Show more'), findsOneWidget);
+    });
+  });
 }
