@@ -87,6 +87,7 @@ class _PropertyFeaturesViewState extends State<PropertyFeaturesView>
                   ShowMoreLabel(
                     animationController: _animationController,
                     duration: _duration,
+                    counter: widget.features.length - 4,
                   ),
               ],
             ),

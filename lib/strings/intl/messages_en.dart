@@ -45,12 +45,14 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m6(count) =>
       "${Intl.plural(count, zero: 'No rent period', one: '1 Month', other: ' ${count} Months ')}";
 
-  static String m7(dateTime) => "${dateTime}";
+  static String m7(counter) => "Show more (${counter})";
 
-  static String m8(n) =>
+  static String m8(dateTime) => "${dateTime}";
+
+  static String m9(n) =>
       "Upload ${Intl.plural(n, zero: '(${n}) photo', one: '(${n}) photo', other: '(${n}) photos')}";
 
-  static String m9(description) => "${Intl.select(description, {
+  static String m10(description) => "${Intl.select(description, {
             'tenant':
                 'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
             'homeowner':
@@ -58,15 +60,15 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': '',
           })}";
 
-  static String m10(role) => "${Intl.select(role, {
+  static String m11(role) => "${Intl.select(role, {
             'tenant': 'Tenant',
             'homeowner': 'Homeowner',
             'other': '',
           })}";
 
-  static String m11(number) => "${number} views today";
+  static String m12(number) => "${number} views today";
 
-  static String m12(name) => "👋 Hi ${name}";
+  static String m13(name) => "👋 Hi ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -266,6 +268,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "showLess": MessageLookupByLibrary.simpleMessage("Show less"),
         "showMore": MessageLookupByLibrary.simpleMessage("Show more"),
+        "showMoreCounter": m7,
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),
         "signinErrorToastMessage": MessageLookupByLibrary.simpleMessage(
@@ -282,20 +285,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "swimmingPool": MessageLookupByLibrary.simpleMessage("Swimming pool"),
         "textWithInvalidChars":
             MessageLookupByLibrary.simpleMessage("Only accept text"),
-        "timeFormatter": m7,
+        "timeFormatter": m8,
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
         "tv": MessageLookupByLibrary.simpleMessage("TV"),
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
-        "uploadPhotoCount": m8,
-        "userRoleDescription": m9,
-        "userTitleRoles": m10,
+        "uploadPhotoCount": m9,
+        "userRoleDescription": m10,
+        "userTitleRoles": m11,
         "viewProfile": MessageLookupByLibrary.simpleMessage("View profile"),
-        "viewsToday": m11,
+        "viewsToday": m12,
         "washingMachine":
             MessageLookupByLibrary.simpleMessage("Washing machine"),
         "welcomeDefault": MessageLookupByLibrary.simpleMessage("👋 Hi there"),
-        "welcomeName": m12,
+        "welcomeName": m13,
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
         "wifi": MessageLookupByLibrary.simpleMessage("Wifi"),
