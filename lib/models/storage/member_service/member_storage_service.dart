@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/data/member.dart';
 
 class MemberService {
   final FirebaseFirestore _firestore;
@@ -48,19 +47,22 @@ class MemberService {
         .set({rolesKey: roles.map((e) => e.name).toList()});
   }
 
-  Future<void> saveMember(
-      String uid, Set<Roles> roles, String displayName, String? avatar) async {
-    Member member =
-        Member(listRoles: roles, displayName: displayName, avatar: avatar);
-    await _firestore
-        .collection(memberCollection)
-        .doc(uid)
-        .set(member.convertToMap(), SetOptions(merge: true));
-  }
-
   Future<void> saveNameAndAvatar(
-      String uid, String displayName, String? avatar) async {
+      String uid, String displayName, String? avatar, {bool update = false}) async {
 
+    if (update) {
+      await _firestore
+          .collection(memberCollection)
+          .doc(uid)
+          .set({
+        displayNameKey: displayName,
+        avatarKey: avatar
+      }, SetOptions(merge: true));
+
+      return;
+    }
+
+    // not update, then check if current name and avatar are available
     // get current name
     final String currentName = await getMemberDisplayName(uid);
     final String? currentAvatar = await getMemberAvatar(uid);
