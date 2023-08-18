@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/booking/booking_detail_screen.dart';
-import 'package:hatspace/features/booking/widgets/booking_information_view.dart';
+import 'package:hatspace/features/inspection_detail/inspection_detail_screen.dart';
+import 'package:hatspace/features/inspection_detail/widgets/inspection_information_view.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:network_image_mock/network_image_mock.dart';
@@ -16,7 +16,7 @@ void main() {
   });
   testWidgets('test ui for widget', (widgetTester) async {
     await mockNetworkImagesFor(
-        () => widgetTester.wrapAndPump(const BookingDetailScreen(id: '123')));
+        () => widgetTester.wrapAndPump(const InspectionDetailScreen(id: '123')));
     expect(find.text('Details'), findsOneWidget);
     expect(find.text('Apartment'), findsOneWidget);
     expect(find.text('Green living space in Melbourne'), findsOneWidget);
@@ -38,7 +38,7 @@ void main() {
             widget, 'assets/icons/arrow_calendar_left.svg')),
         findsOneWidget);
 
-    expect(find.byType(BookingInformationView), findsOneWidget);
+    expect(find.byType(InspectionInformationView), findsOneWidget);
 
     // TODO : Enable later after implemented
     // expect(
@@ -94,9 +94,9 @@ void main() {
       'Then user will be navigated out of BookingDetailScreen, back to previous screen',
       (widgetTester) async {
     await mockNetworkImagesFor(
-        () => widgetTester.wrapAndPump(const BookingDetailScreen(id: '123')));
+        () => widgetTester.wrapAndPump(const InspectionDetailScreen(id: '123')));
 
-    expect(find.byType(BookingDetailScreen), findsOneWidget);
+    expect(find.byType(InspectionDetailScreen), findsOneWidget);
 
     final Finder backBtnFinder = find.ancestor(
         of: find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
@@ -106,6 +106,6 @@ void main() {
     await widgetTester.tap(backBtnFinder);
     await widgetTester.pumpAndSettle();
 
-    expect(find.byType(BookingDetailScreen), findsNothing);
+    expect(find.byType(InspectionDetailScreen), findsNothing);
   });
 }

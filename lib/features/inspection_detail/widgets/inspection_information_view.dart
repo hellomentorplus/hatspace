@@ -6,9 +6,9 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
-import 'package:hatspace/features/booking/widgets/property_card_view.dart';
+import 'package:hatspace/features/inspection_detail/widgets/property_card_view.dart';
 
-class BookingInformationView extends StatelessWidget {
+class InspectionInformationView extends StatelessWidget {
   final String propertyImageUrl;
   final String propertyTitle;
   final String propertyState;
@@ -21,7 +21,7 @@ class BookingInformationView extends StatelessWidget {
   final DateTime endTime;
   final String notes;
   final String rentingDuration;
-  const BookingInformationView(
+  const InspectionInformationView(
       {required this.propertyImageUrl,
       required this.propertyTitle,
       required this.propertyState,

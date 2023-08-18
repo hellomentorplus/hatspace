@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
-import 'package:hatspace/features/booking/widgets/booking_information_view.dart';
+import 'package:hatspace/features/inspection_detail/widgets/inspection_information_view.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:network_image_mock/network_image_mock.dart';
@@ -16,7 +16,7 @@ void main() {
   });
   testWidgets('Verify UI', (widgetTester) async {
     await mockNetworkImagesFor(
-        () => widgetTester.wrapAndPump(BookingInformationView(
+        () => widgetTester.wrapAndPump(InspectionInformationView(
               propertyImageUrl: 'propertyImageUrl.png',
               propertyTitle: 'propertyTitle',
               propertyPrice: 300,
@@ -30,7 +30,7 @@ void main() {
               notes: 'Here is the note',
               rentingDuration: 'pw',
             )));
-    expect(find.byType(BookingInformationView), findsOneWidget);
+    expect(find.byType(InspectionInformationView), findsOneWidget);
     expect(find.text('House'), findsOneWidget);
     expect(find.text('propertyTitle'), findsOneWidget);
     expect(find.text('propertyState'), findsOneWidget);
@@ -73,7 +73,7 @@ void main() {
 
   testWidgets('Verify default avatar', (widgetTester) async {
     await mockNetworkImagesFor(
-        () => widgetTester.wrapAndPump(BookingInformationView(
+        () => widgetTester.wrapAndPump(InspectionInformationView(
               propertyImageUrl: 'propertyImageUrl.png',
               propertyTitle: 'propertyTitle',
               propertyPrice: 300,
@@ -86,7 +86,7 @@ void main() {
               notes: 'Here is the note',
               rentingDuration: 'pw',
             )));
-    expect(find.byType(BookingInformationView), findsOneWidget);
+    expect(find.byType(InspectionInformationView), findsOneWidget);
 
     expect(
         find.byWidgetPredicate(

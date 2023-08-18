@@ -46,7 +46,7 @@ class InspectionView extends StatelessWidget {
                 timeBooking: '09:00 AM - 10:00 AM - 15 Sep, 2023',
                 ownerName: 'Yolo Tim',
                 ownerAvatar: null,
-                onPressed: () => context.goToBookingDetail(id: '1'),
+                onPressed: () => context.goToInspectionDetail(id: '1'),
               ),
               TenantBookItemView(
                 propertyImage:
@@ -60,7 +60,7 @@ class InspectionView extends StatelessWidget {
                 timeBooking: '14:00 PM - 15:00 PM - 16 Sep, 2023',
                 ownerName: 'Cyber James',
                 ownerAvatar: null,
-                onPressed: () => context.goToBookingDetail(id: '2'),
+                onPressed: () => context.goToInspectionDetail(id: '2'),
               ),
               TenantBookItemView(
                 propertyImage:
@@ -74,7 +74,7 @@ class InspectionView extends StatelessWidget {
                 timeBooking: '18:00 PM - 19:00 PM - 18 Sep, 2023',
                 ownerName: 'Maggie Bean',
                 ownerAvatar: null,
-                onPressed: () => context.goToBookingDetail(id: '3'),
+                onPressed: () => context.goToInspectionDetail(id: '3'),
               ),
             ],
           ),

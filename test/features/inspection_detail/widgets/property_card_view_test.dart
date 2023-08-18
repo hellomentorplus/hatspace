@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
-import 'package:hatspace/features/booking/widgets/property_card_view.dart';
+import 'package:hatspace/features/inspection_detail/widgets/property_card_view.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 import '../../../widget_tester_extension.dart';
-import 'booking_information_view_test.dart';
+import 'inspection_information_view_test.dart';
 
 void main() {
   testWidgets('Verify UI', (widgetTester) async {
