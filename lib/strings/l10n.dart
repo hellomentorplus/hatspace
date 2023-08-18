@@ -1714,12 +1714,12 @@ class HatSpaceStrings {
     );
   }
 
-  /// `{number, plural, one{1 Booking} other { {number} Bookings }}`
+  /// `{number, plural, one{1 Booking} other { {number} Bookings}}`
   String numberOfBooking(num number) {
     return Intl.plural(
       number,
       one: '1 Booking',
-      other: ' $number Bookings ',
+      other: ' $number Bookings',
       name: 'numberOfBooking',
       desc: '',
       args: [number],

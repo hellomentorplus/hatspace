@@ -191,5 +191,5 @@
   "btnLogOut": "Log Out",
   "inspectionBooking": "Inspection Booking",
   "numberOfInspectionBooking": "{number} inspection booking",
-  "numberOfBooking": "{number, plural, one{1 Booking} other { {number} Bookings }}"
+  "numberOfBooking": "{number, plural, one{1 Booking} other { {number} Bookings}}"
 }
