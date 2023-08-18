@@ -3,9 +3,13 @@ part of '../property_detail_screen.dart';
 class ShowMoreLabel extends StatefulWidget {
   final AnimationController animationController;
   final Duration duration;
+  final int? counter;
 
   const ShowMoreLabel(
-      {required this.animationController, required this.duration, Key? key})
+      {required this.animationController,
+      required this.duration,
+      this.counter,
+      Key? key})
       : super(key: key);
 
   @override
@@ -14,8 +18,7 @@ class ShowMoreLabel extends StatefulWidget {
 
 class _ShowMoreLabelState extends State<ShowMoreLabel>
     with SingleTickerProviderStateMixin {
-  final ValueNotifier<String> _label =
-      ValueNotifier(HatSpaceStrings.current.showMore);
+  late final ValueNotifier<String> _label = ValueNotifier('');
 
   late final Animation<double> _chevron =
       Tween<double>(begin: 0.0, end: -0.5).animate(widget.animationController);
@@ -24,9 +27,10 @@ class _ShowMoreLabelState extends State<ShowMoreLabel>
   void initState() {
     super.initState();
 
+    _updateShowMoreLabel();
     widget.animationController.addStatusListener((status) {
       if (status == AnimationStatus.dismissed) {
-        _label.value = HatSpaceStrings.current.showMore;
+        _updateShowMoreLabel();
       } else {
         _label.value = HatSpaceStrings.current.showLess;
       }
@@ -72,4 +76,12 @@ class _ShowMoreLabelState extends State<ShowMoreLabel>
           ),
         ),
       );
+
+  void _updateShowMoreLabel() {
+    if (widget.counter != null) {
+      _label.value = HatSpaceStrings.current.showMoreCounter(widget.counter!);
+    } else {
+      _label.value = HatSpaceStrings.current.showMore;
+    }
+  }
 }
