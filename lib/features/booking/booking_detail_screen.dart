@@ -7,7 +7,6 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
-import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 class BookingDetailScreen extends StatelessWidget {
   final String id;
@@ -22,20 +21,22 @@ class BookingDetailScreen extends StatelessWidget {
                 .textTheme
                 .bodyMedium
                 ?.copyWith(fontWeight: FontStyleGuide.fwBold)),
-        actions: [
-          IconButton(
-            onPressed: () {
-              // TODO : Handle on delete tapped
-            },
-            icon: SvgPicture.asset(
-              Assets.icons.delete,
-              colorFilter:
-                  const ColorFilter.mode(HSColor.red05, BlendMode.srcIn),
-              width: HsDimens.size24,
-              height: HsDimens.size24,
-            ),
-          )
-        ],
+
+        /// TODO : Enable later when implement deletion
+        // actions: [
+        // IconButton(
+        //   onPressed: () {
+        //     // TODO : Handle on delete tapped
+        //   },
+        //   icon: SvgPicture.asset(
+        //     Assets.icons.delete,
+        //     colorFilter:
+        //         const ColorFilter.mode(HSColor.red05, BlendMode.srcIn),
+        //     width: HsDimens.size24,
+        //     height: HsDimens.size24,
+        //   ),
+        // )
+        // ],
         backgroundColor: HSColor.neutral1,
         automaticallyImplyLeading: false,
         leading: IconButton(
@@ -59,41 +60,40 @@ class BookingDetailScreen extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: HsDimens.spacing16),
                 child: BookingInformationView(
                     propertyImageUrl:
-                        'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
-                    propertyTitle: 'Single room for rent in Bankstown',
-                    propertyPrice: 200,
-                    propertyState: 'Gateway, Island',
+                        'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
+                    propertyTitle: 'Green living space in Melbourne',
+                    propertyPrice: 4800,
+                    propertyState: 'Victoria',
                     propertySymbol: r'$',
-                    userAvatar:
-                        'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
-                    userName: 'Jane Cooper',
-                    type: PropertyTypes.house,
-                    startTime: DateTime(2023, 8, 12, 1),
-                    endTime: DateTime(2023, 8, 12, 8),
-                    notes:
-                        'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.')),
+                    userName: 'Yolo Tim',
+                    type: PropertyTypes.apartment,
+                    startTime: DateTime(2023, 9, 15, 9),
+                    endTime: DateTime(2023, 9, 15, 10),
+                    rentingDuration: HatSpaceStrings.current.pw,
+                    notes: 'My number is 0438825121')),
           ),
-          Positioned(
-              bottom: 0,
-              left: HsDimens.spacing16,
-              right: HsDimens.spacing16,
-              child: Container(
-                padding: const EdgeInsets.only(
-                  top: HsDimens.spacing8,
-                  bottom: HsDimens.spacing42,
-                ),
-                decoration: const BoxDecoration(
-                    border: Border(
-                        top: BorderSide(
-                            width: HsDimens.size1, color: HSColor.neutral2))),
-                child: SecondaryButton(
-                  label: 'Edit',
-                  iconUrl: Assets.icons.edit,
-                  onPressed: () {
-                    // TODO : Handle on edit tapped
-                  },
-                ),
-              ))
+          // TODO : Enable later when implement edit feature
+          // Positioned(
+          //     bottom: 0,
+          //     left: HsDimens.spacing16,
+          //     right: HsDimens.spacing16,
+          //     child: Container(
+          //       padding: const EdgeInsets.only(
+          //         top: HsDimens.spacing8,
+          //         bottom: HsDimens.spacing42,
+          //       ),
+          //       decoration: const BoxDecoration(
+          //           border: Border(
+          //               top: BorderSide(
+          //                   width: HsDimens.size1, color: HSColor.neutral2))),
+          //       child: SecondaryButton(
+          //         label: 'Edit',
+          //         iconUrl: Assets.icons.edit,
+          //         onPressed: () {
+          //           // TODO : Handle on edit tapped
+          //         },
+          //       ),
+          //     ))
         ],
       ),
     );

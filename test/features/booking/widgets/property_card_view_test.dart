@@ -16,6 +16,7 @@ void main() {
               state: 'propertyState',
               price: 300,
               symbol: r'$',
+              rentingDuration: 'pw',
             )));
     expect(find.text('House'), findsOneWidget);
     expect(find.text('propertyTitle'), findsOneWidget);

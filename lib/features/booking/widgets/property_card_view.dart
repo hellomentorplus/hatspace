@@ -12,6 +12,7 @@ class PropertyCardView extends StatelessWidget {
   final double price;
   final double imageSize;
   final String symbol;
+  final String rentingDuration;
   const PropertyCardView(
       {required this.imageUrl,
       required this.type,
@@ -19,6 +20,7 @@ class PropertyCardView extends StatelessWidget {
       required this.state,
       required this.price,
       required this.symbol,
+      required this.rentingDuration,
       super.key,
       this.imageSize = HsDimens.size110});
 
@@ -63,7 +65,7 @@ class PropertyCardView extends StatelessWidget {
                             .bodyMedium
                             ?.copyWith(fontWeight: FontStyleGuide.fwBold))),
                 const SizedBox(width: HsDimens.spacing4),
-                Text(HatSpaceStrings.current.pw,
+                Text(rentingDuration,
                     style: Theme.of(context).textTheme.bodySmall)
               ],
             )
