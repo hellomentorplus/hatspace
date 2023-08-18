@@ -618,10 +618,10 @@ void main() {
       expect((bytesLoader as SvgAssetLoader).assetName,
           'assets/icons/photo_access.svg');
       expect(
-          find.text('"HATSpace" Would Like to Photo Access'), findsOneWidget);
+          find.text('"HATspace" Would Like to Photo Access'), findsOneWidget);
       expect(
           find.text(
-              'Please go to Settings and allow photos access for HATSpace.'),
+              'Please go to Settings and allow photos access for HATspace.'),
           findsOneWidget);
       expect(
           find.ancestor(

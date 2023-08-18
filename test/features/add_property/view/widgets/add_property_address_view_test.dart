@@ -31,7 +31,7 @@ void main() {
 
     expect(find.byType(HatSpaceInputText), findsOneWidget);
     expect(find.text('Street address *', findRichText: true), findsOneWidget);
-    expect(find.text('Enter your address'), findsOneWidget);
+    expect(find.text('Enter street address'), findsOneWidget);
   });
 
   group('verify to set address value when value  change', () {
@@ -73,7 +73,7 @@ void main() {
       await widgetTester.pumpAndSettle();
 
       // 1 hint, 1 error
-      expect(find.text('Enter your address'), findsNWidgets(2));
+      expect(find.text('Enter street address'), findsNWidgets(2));
     });
 
     testWidgets(
@@ -95,7 +95,7 @@ void main() {
       await widgetTester.pumpAndSettle();
       expect(find.text('address text'), findsNothing);
       // 1 hint, 1 error
-      expect(find.text('Enter your address'), findsNWidgets(2));
+      expect(find.text('Enter street address'), findsNWidgets(2));
     });
   });
 }

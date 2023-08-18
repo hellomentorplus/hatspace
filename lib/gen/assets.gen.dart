@@ -338,6 +338,10 @@ class $AssetsImagesGen {
   AssetGenImage get signInBackground =>
       const AssetGenImage('assets/images/signIn_background.png');
 
+  /// File path: assets/images/tempImage.png
+  AssetGenImage get tempImage =>
+      const AssetGenImage('assets/images/tempImage.png');
+
   /// File path: assets/images/upload.svg
   String get upload => 'assets/images/upload.svg';
 
@@ -360,6 +364,7 @@ class $AssetsImagesGen {
         loginCircle,
         logo,
         signInBackground,
+        tempImage,
         upload,
         uploadPhoto,
         userDefaultAvatar

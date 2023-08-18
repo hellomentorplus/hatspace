@@ -556,11 +556,11 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Enter your address`
-  String get enterYourAddress {
+  /// `Enter street address`
+  String get enterStreetAddress {
     return Intl.message(
-      'Enter your address',
-      name: 'enterYourAddress',
+      'Enter street address',
+      name: 'enterStreetAddress',
       desc: '',
       args: [],
     );
@@ -1054,20 +1054,20 @@ class HatSpaceStrings {
     );
   }
 
-  /// `"HATSpace" Would Like to Photo Access`
+  /// `"HATspace" Would Like to Photo Access`
   String get hatSpaceWouldLikeToPhotoAccess {
     return Intl.message(
-      '"HATSpace" Would Like to Photo Access',
+      '"HATspace" Would Like to Photo Access',
       name: 'hatSpaceWouldLikeToPhotoAccess',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please go to Settings and allow photos access for HATSpace.`
+  /// `Please go to Settings and allow photos access for HATspace.`
   String get plsGoToSettingsAndAllowPhotoAccessForHatSpace {
     return Intl.message(
-      'Please go to Settings and allow photos access for HATSpace.',
+      'Please go to Settings and allow photos access for HATspace.',
       name: 'plsGoToSettingsAndAllowPhotoAccessForHatSpace',
       desc: '',
       args: [],
@@ -1564,6 +1564,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Show more ({counter})`
+  String showMoreCounter(Object counter) {
+    return Intl.message(
+      'Show more ($counter)',
+      name: 'showMoreCounter',
+      desc: '',
+      args: [counter],
+    );
+  }
+
   /// `Book Inspection`
   String get bookInspection {
     return Intl.message(
@@ -1599,6 +1609,66 @@ class HatSpaceStrings {
     return Intl.message(
       'Continue with Apple',
       name: 'appleSignUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add an inspection booking`
+  String get addInspectionBooking {
+    return Intl.message(
+      'Add an inspection booking',
+      name: 'addInspectionBooking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message(
+      'Date',
+      name: 'date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start time`
+  String get startTime {
+    return Intl.message(
+      'Start time',
+      name: 'startTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End time`
+  String get endTime {
+    return Intl.message(
+      'End time',
+      name: 'endTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notes`
+  String get notes {
+    return Intl.message(
+      'Notes',
+      name: 'notes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write a message to homeowner`
+  String get notesPlaceHolder {
+    return Intl.message(
+      'Write a message to homeowner',
+      name: 'notesPlaceHolder',
       desc: '',
       args: [],
     );
