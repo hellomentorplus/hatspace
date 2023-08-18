@@ -2,8 +2,8 @@ import 'package:hatspace/data/data.dart';
 
 class Member {
   final String _rolesKey = 'roles';
-  final String _displayNameKey = 'displayName';
-  final String _avatarKey = 'avatar';
+  static const String _displayNameKey = 'displayName';
+  static const String _avatarKey = 'avatar';
   final Set<Roles> listRoles;
   final String displayName;
   final String? avatar;
@@ -16,6 +16,15 @@ class Member {
   Map<String, dynamic> convertToMap() {
     return {
       _rolesKey: listRoles.map((e) => e.name).toList(),
+      _displayNameKey: displayName,
+      _avatarKey: avatar,
+    };
+  }
+
+  static Map<String, dynamic> nameAndAvatarMap(
+      String displayName, String? avatar
+      ) {
+    return {
       _displayNameKey: displayName,
       _avatarKey: avatar,
     };

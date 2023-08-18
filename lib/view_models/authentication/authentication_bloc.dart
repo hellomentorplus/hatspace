@@ -6,6 +6,8 @@ import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 
+import 'package:hatspace/models/storage/storage_service.dart';
+
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
@@ -15,6 +17,7 @@ class AuthenticationBloc
 
   final AuthenticationService authenticationService =
       HsSingleton.singleton.get<AuthenticationService>();
+  final StorageService _storageService = HsSingleton.singleton.get<StorageService>();
 
   AuthenticationBloc() : super(AuthenticationInitial()) {
     on<_ValidateAuthentication>(_validateAuthentication);
@@ -58,6 +61,10 @@ class AuthenticationBloc
         // only check current user this time
         // because user state update before authentication bloc is initialised.
         final UserDetail detail = await authenticationService.getCurrentUser();
+
+        // save display name and avatar
+        await _storageService.member.saveNameAndAvatar(detail.uid, detail.displayName ?? '', detail.avatar);
+
         emit(AuthenticatedState(detail));
       } on UserNotFoundException catch (_) {
         // do nothing

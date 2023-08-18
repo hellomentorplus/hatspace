@@ -58,6 +58,28 @@ class MemberService {
         .set(member.convertToMap(), SetOptions(merge: true));
   }
 
+  Future<void> saveNameAndAvatar(
+      String uid, String displayName, String? avatar) async {
+
+    // get current name
+    final String currentName = await getMemberDisplayName(uid);
+    final String? currentAvatar = await getMemberAvatar(uid);
+
+    if (currentName == displayName
+        && currentAvatar == avatar) {
+      // same data, do not save again
+      return;
+    }
+
+    await _firestore
+        .collection(memberCollection)
+        .doc(uid)
+        .set({
+      displayNameKey: currentName.isEmpty ? displayName : currentName,
+      avatarKey: currentAvatar ?? avatar
+    }, SetOptions(merge: true));
+  }
+
   Future<void> addMemberProperties(String uid, String propertyId) async {
     // use Set to avoid duplicated property ID
     final Set<String> currentProperties =
