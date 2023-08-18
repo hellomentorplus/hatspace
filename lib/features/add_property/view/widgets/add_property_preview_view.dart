@@ -143,7 +143,7 @@ class AddPropertyPreviewBody extends StatelessWidget {
                 String>(
               selector: (state) {
                 if (state is AddPropertyPreviewReady) {
-                  return state.suburb;
+                  return state.ausState.displayName;
                 }
                 return '';
               },
