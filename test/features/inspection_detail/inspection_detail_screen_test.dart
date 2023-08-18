@@ -15,8 +15,8 @@ void main() {
     initializeDateFormatting();
   });
   testWidgets('test ui for widget', (widgetTester) async {
-    await mockNetworkImagesFor(
-        () => widgetTester.wrapAndPump(const InspectionDetailScreen(id: '123')));
+    await mockNetworkImagesFor(() =>
+        widgetTester.wrapAndPump(const InspectionDetailScreen(id: '123')));
     expect(find.text('Details'), findsOneWidget);
     expect(find.text('Apartment'), findsOneWidget);
     expect(find.text('Green living space in Melbourne'), findsOneWidget);
@@ -93,8 +93,8 @@ void main() {
       'When user tap on BackButton. '
       'Then user will be navigated out of BookingDetailScreen, back to previous screen',
       (widgetTester) async {
-    await mockNetworkImagesFor(
-        () => widgetTester.wrapAndPump(const InspectionDetailScreen(id: '123')));
+    await mockNetworkImagesFor(() =>
+        widgetTester.wrapAndPump(const InspectionDetailScreen(id: '123')));
 
     expect(find.byType(InspectionDetailScreen), findsOneWidget);
 
