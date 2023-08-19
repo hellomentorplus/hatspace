@@ -1564,6 +1564,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Show more ({counter})`
+  String showMoreCounter(Object counter) {
+    return Intl.message(
+      'Show more ($counter)',
+      name: 'showMoreCounter',
+      desc: '',
+      args: [counter],
+    );
+  }
+
   /// `Book Inspection`
   String get bookInspection {
     return Intl.message(

@@ -176,6 +176,7 @@
   "deleteAccountQuestionMark": "Delete account?",
   "showLess":"Show less",
   "showMore":"Show more",
+  "showMoreCounter":"Show more ({counter})",
   "bookInspection":"Book Inspection",
   "addPropertyPriceDisplay": "{name} ({symbol})",
   "addPropertyRentalPeriodUnit": "(PW)",
