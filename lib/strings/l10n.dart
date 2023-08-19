@@ -1693,6 +1693,56 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Congratulations 🎉`
+  String get congratulations {
+    return Intl.message(
+      'Congratulations 🎉',
+      name: 'congratulations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your booking is successfully saved and sent to homeowner. To complete the booking, please wait for the confirmation from homeowner.`
+  String get bookingSuccessMessage {
+    return Intl.message(
+      'Your booking is successfully saved and sent to homeowner. To complete the booking, please wait for the confirmation from homeowner.',
+      name: 'bookingSuccessMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add to Goolge Calendar`
+  String get addToGoolgeCalendar {
+    return Intl.message(
+      'Add to Goolge Calendar',
+      name: 'addToGoolgeCalendar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start`
+  String get start {
+    return Intl.message(
+      'Start',
+      name: 'start',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End`
+  String get end {
+    return Intl.message(
+      'End',
+      name: 'end',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

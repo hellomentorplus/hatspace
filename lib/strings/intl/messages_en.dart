@@ -81,6 +81,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "addPropertyPriceDisplay": m0,
         "addPropertyRentalPeriodUnit":
             MessageLookupByLibrary.simpleMessage("(PW)"),
+        "addToGoolgeCalendar":
+            MessageLookupByLibrary.simpleMessage("Add to Goolge Calendar"),
         "airConditioners":
             MessageLookupByLibrary.simpleMessage("Air conditioners"),
         "allPhotos": MessageLookupByLibrary.simpleMessage("All Photos"),
@@ -115,6 +117,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
         "bookInspection":
             MessageLookupByLibrary.simpleMessage("Book Inspection"),
+        "bookingSuccessMessage": MessageLookupByLibrary.simpleMessage(
+            "Your booking is successfully saved and sent to homeowner. To complete the booking, please wait for the confirmation from homeowner."),
         "btnLogOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "cancelBtn": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseKindOfYourProperty": MessageLookupByLibrary.simpleMessage(
@@ -123,6 +127,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Choose your role"),
         "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
             "You can be tenant or homeowner"),
+        "congratulations":
+            MessageLookupByLibrary.simpleMessage("Congratulations 🎉"),
         "contactSupport":
             MessageLookupByLibrary.simpleMessage("Support contact"),
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
@@ -146,6 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Email"),
+        "end": MessageLookupByLibrary.simpleMessage("End"),
         "endTime": MessageLookupByLibrary.simpleMessage("End time"),
         "enterPostalCode":
             MessageLookupByLibrary.simpleMessage("Enter postcode"),
@@ -266,6 +273,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signinErrorToastTitle":
             MessageLookupByLibrary.simpleMessage("Login Failed"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "start": MessageLookupByLibrary.simpleMessage("Start"),
         "startTime": MessageLookupByLibrary.simpleMessage("Start time"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
