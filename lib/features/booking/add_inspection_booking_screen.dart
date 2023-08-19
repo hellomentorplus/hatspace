@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/booking/add_inspection_success_booking_screen.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -27,6 +28,9 @@ class AddInspectionBookingScreen extends StatelessWidget {
                 label: HatSpaceStrings.of(context).bookInspection,
                 onPressed: () {
                   // TODO: implemnt booking logic
+                  Navigator.push(context, MaterialPageRoute(builder: (_){
+                    return const AddInspectionSuccessScreen();
+                  }));  
                 },
               ),
             ),
@@ -216,8 +220,12 @@ class BookedItemCard extends StatelessWidget {
   final String state;
   final VoidCallback onPressed;
   final String rentingPeriod;
+  final Color? _shadowColor;
+  final EdgeInsets padding;
+  // Add style for card
 
-  const BookedItemCard({
+
+ const BookedItemCard({
     required this.propertyImage,
     required this.propertyName,
     required this.propertyType,
@@ -226,20 +234,23 @@ class BookedItemCard extends StatelessWidget {
     required this.state,
     required this.onPressed,
     required this.rentingPeriod,
+    EdgeInsets? padding,
+    Color? shadowColor,
     Key? key,
-  }) : super(key: key);
+  }): padding = padding?? const EdgeInsets.all(HsDimens.spacing16),
+    _shadowColor = shadowColor,
+  super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: HsDimens.spacing12),
-      child: Card(
+    return Card(
+        shadowColor: _shadowColor,
         elevation: 5, // Controls the shadow depth
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: padding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -287,7 +298,9 @@ class BookedItemCard extends StatelessWidget {
                             height: HsDimens.spacing4,
                           ),
                           Text(state,
-                              style: Theme.of(context).textTheme.bodySmall),
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: HSColor.neutral6
+                              )),
                           const SizedBox(
                             height: HsDimens.spacing4,
                           ),
@@ -318,7 +331,6 @@ class BookedItemCard extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }
