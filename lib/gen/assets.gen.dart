@@ -180,6 +180,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/notification.svg
   String get notification => 'assets/icons/notification.svg';
 
+  /// File path: assets/icons/number_booking.svg
+  String get numberBooking => 'assets/icons/number_booking.svg';
+
   /// File path: assets/icons/pay_slips.svg
   String get paySlips => 'assets/icons/pay_slips.svg';
 
@@ -289,6 +292,7 @@ class $AssetsIconsGen {
         message,
         messages,
         notification,
+        numberBooking,
         paySlips,
         phone,
         photoAccess,

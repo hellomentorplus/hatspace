@@ -204,5 +204,7 @@
   "notesPlaceHolder": "Write a message to homeowner",
   "logOutDescription": "Are you sure you want to log out?",
   "btnLogOut": "Log Out",
-  "inspectionBooking": "Inspection Booking"
+  "inspectionBooking": "Inspection Booking",
+  "numberOfInspectionBooking": "{number} inspection booking",
+  "numberOfBooking": "{number, plural, one{1 Booking} other { {number} Bookings}}"
 }
