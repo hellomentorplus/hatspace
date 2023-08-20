@@ -56,7 +56,7 @@ class AddInspectionSuccessScreen extends StatelessWidget {
                             FontStyleGuide
                                 .fontSize14 // Convert figma line heigh to flutter line height
                         )),
-                const SizedBox(height: HsDimens.spacing24), 
+                const SizedBox(height: HsDimens.spacing24),
                 BookedItemCard(
                   padding: const EdgeInsets.all(0),
                   shadowColor: Colors.transparent,
