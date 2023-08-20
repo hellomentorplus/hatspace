@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 
 import 'package:hatspace/theme/hs_theme.dart';
@@ -45,7 +46,7 @@ class InspectionView extends StatelessWidget {
                 timeBooking: '09:00 AM - 10:00 AM - 15 Sep, 2023',
                 ownerName: 'Yolo Tim',
                 ownerAvatar: null,
-                onPressed: () {},
+                onPressed: () => context.goToInspectionDetail(id: '1'),
               ),
               TenantBookItemView(
                 propertyImage:
@@ -59,7 +60,7 @@ class InspectionView extends StatelessWidget {
                 timeBooking: '14:00 PM - 15:00 PM - 16 Sep, 2023',
                 ownerName: 'Cyber James',
                 ownerAvatar: null,
-                onPressed: () {},
+                onPressed: () => context.goToInspectionDetail(id: '2'),
               ),
               TenantBookItemView(
                 propertyImage:
@@ -73,7 +74,7 @@ class InspectionView extends StatelessWidget {
                 timeBooking: '18:00 PM - 19:00 PM - 18 Sep, 2023',
                 ownerName: 'Maggie Bean',
                 ownerAvatar: null,
-                onPressed: () {},
+                onPressed: () => context.goToInspectionDetail(id: '3'),
               ),
             ],
           ),
@@ -120,103 +121,109 @@ class TenantBookItemView extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(HsDimens.radius10),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(HsDimens.spacing16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: HsDimens.size110,
-                    height: HsDimens.size110,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(HsDimens.radius8),
-                      child: Image.network(
-                        propertyImage,
-                        fit: BoxFit.cover,
+        clipBehavior: Clip.hardEdge,
+        child: InkWell(
+          onTap: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.all(HsDimens.spacing16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: HsDimens.size110,
+                      height: HsDimens.size110,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(HsDimens.radius8),
+                        child: Image.network(
+                          propertyImage,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: HsDimens.spacing16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            propertyType,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                          ),
-                          const SizedBox(
-                            height: HsDimens.spacing5,
-                          ),
-                          Text(propertyName,
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
+                    Expanded(
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(left: HsDimens.spacing16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              propertyType,
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyMedium
+                                  .bodySmall
                                   ?.copyWith(
-                                    fontWeight: FontStyleGuide.fwBold,
-                                  )),
-                          const SizedBox(
-                            height: HsDimens.spacing5,
-                          ),
-                          Text(state,
-                              style: Theme.of(context).textTheme.bodySmall),
-                          const SizedBox(
-                            height: HsDimens.spacing4,
-                          ),
-                          Text.rich(TextSpan(
-                              text: HatSpaceStrings.current
-                                  .currencyFormatter(currency.symbol, price),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                      fontSize: FontStyleGuide.fontSize18,
-                                      height: 28 / 18,
-                                      fontWeight: FontWeight.w700),
-                              children: [
-                                TextSpan(
-                                    text: ' $timeRenting',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(color: HSColor.neutral6))
-                              ])),
-                          const SizedBox(
-                            height: HsDimens.spacing4,
-                          ),
-                          if (ownerName != null)
-                            _OwnerView(
-                              ownerName: ownerName!,
-                              ownerAvatar: ownerAvatar,
-                            )
-                        ],
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
+                            ),
+                            const SizedBox(
+                              height: HsDimens.spacing5,
+                            ),
+                            Text(propertyName,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      fontWeight: FontStyleGuide.fwBold,
+                                    )),
+                            const SizedBox(
+                              height: HsDimens.spacing5,
+                            ),
+                            Text(state,
+                                style: Theme.of(context).textTheme.bodySmall),
+                            const SizedBox(
+                              height: HsDimens.spacing4,
+                            ),
+                            Text.rich(TextSpan(
+                                text: HatSpaceStrings.current
+                                    .currencyFormatter(currency.symbol, price),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        fontSize: FontStyleGuide.fontSize18,
+                                        height: 28 / 18,
+                                        fontWeight: FontWeight.w700),
+                                children: [
+                                  TextSpan(
+                                      text: ' $timeRenting',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(color: HSColor.neutral6))
+                                ])),
+                            const SizedBox(
+                              height: HsDimens.spacing4,
+                            ),
+                            if (ownerName != null)
+                              _OwnerView(
+                                ownerName: ownerName!,
+                                ownerAvatar: ownerAvatar,
+                              )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: HsDimens.spacing12),
-                child: SvgPicture.asset(
-                  Assets.images.dashedDivider,
-                  fit: BoxFit.fitWidth,
+                  ],
                 ),
-              ),
-              _TimeRentingView(timeBooking: timeBooking)
-            ],
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: HsDimens.spacing12),
+                  child: SvgPicture.asset(
+                    Assets.images.dashedDivider,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+                _TimeRentingView(timeBooking: timeBooking)
+              ],
+            ),
           ),
         ),
       ),
