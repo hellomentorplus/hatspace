@@ -28,6 +28,7 @@ class InspectCubit extends Cubit<InspectionState> {
 
       if (roles.contains(Roles.homeowner)) {
         items.add(HomeOwnerBookingItem(
+          '1',
           'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
           'Green living space in Melbourne',
           PropertyTypes.apartment,
@@ -41,6 +42,7 @@ class InspectCubit extends Cubit<InspectionState> {
         // tenant
         items.add(NumberOfInspectionItem(3));
         items.add(TenantBookingItem(
+          '1',
           'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
           'Green living space in Melbourne',
           PropertyTypes.apartment,
@@ -53,6 +55,7 @@ class InspectCubit extends Cubit<InspectionState> {
           null,
         ));
         items.add(TenantBookingItem(
+          '2',
           'https://exej2saedb8.exactdn.com/wp-content/uploads/2022/02/Screen-Shot-2022-02-04-at-2.28.40-PM.png?strip=all&lossy=1&ssl=1',
           'Black and white apartment in Sydney',
           PropertyTypes.apartment,
@@ -65,6 +68,7 @@ class InspectCubit extends Cubit<InspectionState> {
           null,
         ));
         items.add(TenantBookingItem(
+          '3',
           'https://cdn-bnokp.nitrocdn.com/QNoeDwCprhACHQcnEmHgXDhDpbEOlRHH/assets/images/optimized/rev-a642abc/www.decorilla.com/online-decorating/wp-content/uploads/2020/08/Modern-Apartment-Decor-.jpg',
           'Fully-furnished house in Rouse Hill',
           PropertyTypes.house,

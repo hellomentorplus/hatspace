@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/inspection/inspection_view.dart';
+import 'package:hatspace/strings/l10n.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:hatspace/features/inspection/viewmodel/display_item.dart';
 import 'package:hatspace/features/inspection/viewmodel/inspection_cubit.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
@@ -32,6 +35,8 @@ void main() {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationService);
+    HatSpaceStrings.load(const Locale('en'));
+    initializeDateFormatting();
   });
 
   setUp(() {
@@ -100,5 +105,20 @@ void main() {
     expect(find.byType(TenantBookItemView), findsNothing);
     expect(find.byType(HomeOwnerBookItemView), findsOneWidget);
     // skip check dummy data, will update when getting real data
+  });
+
+  testWidgets('verify interaction', (widgetTester) async {
+    await mockNetworkImagesFor(
+        () => widgetTester.wrapAndPump(const InspectionView()));
+
+    expect(find.byType(InspectionView), findsOneWidget);
+    final Finder bookItemsFinder = find.byType(TenantBookItemView);
+    expect(bookItemsFinder, findsWidgets);
+
+    await widgetTester.ensureVisible(bookItemsFinder.first);
+    await widgetTester.tap(bookItemsFinder.first);
+    await widgetTester.pumpAndSettle();
+
+    expect(find.byType(InspectionView), findsNothing);
   });
 }

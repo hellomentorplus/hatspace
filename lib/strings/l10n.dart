@@ -900,6 +900,34 @@ class HatSpaceStrings {
     );
   }
 
+  /// `{date}`
+  String dateFormatterWithDate(DateTime date) {
+    final DateFormat dateDateFormat =
+        DateFormat('d MMM, y', Intl.getCurrentLocale());
+    final String dateString = dateDateFormat.format(date);
+
+    return Intl.message(
+      '$dateString',
+      name: 'dateFormatterWithDate',
+      desc: '',
+      args: [dateString],
+    );
+  }
+
+  /// `{dateTime}`
+  String timeFormatter(DateTime dateTime) {
+    final DateFormat dateTimeDateFormat =
+        DateFormat('hh:mm a', Intl.getCurrentLocale());
+    final String dateTimeString = dateTimeDateFormat.format(dateTime);
+
+    return Intl.message(
+      '$dateTimeString',
+      name: 'timeFormatter',
+      desc: '',
+      args: [dateTimeString],
+    );
+  }
+
   /// `{symbol}{currency}`
   String currencyFormatter(String symbol, double currency) {
     final NumberFormat currencyNumberFormat =
@@ -1394,6 +1422,66 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Submit`
+  String get submit {
+    return Intl.message(
+      'Submit',
+      name: 'submit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start`
+  String get start {
+    return Intl.message(
+      'Start',
+      name: 'start',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End`
+  String get end {
+    return Intl.message(
+      'End',
+      name: 'end',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message(
+      'Date',
+      name: 'date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notes`
+  String get notes {
+    return Intl.message(
+      'Notes',
+      name: 'notes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Details`
+  String get details {
+    return Intl.message(
+      'Details',
+      name: 'details',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Guide for application`
   String get guideForApplication {
     return Intl.message(
@@ -1524,16 +1612,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Submit`
-  String get submit {
-    return Intl.message(
-      'Submit',
-      name: 'submit',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Delete account?`
   String get deleteAccountQuestionMark {
     return Intl.message(
@@ -1624,16 +1702,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Date`
-  String get date {
-    return Intl.message(
-      'Date',
-      name: 'date',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Start time`
   String get startTime {
     return Intl.message(
@@ -1649,16 +1717,6 @@ class HatSpaceStrings {
     return Intl.message(
       'End time',
       name: 'endTime',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Notes`
-  String get notes {
-    return Intl.message(
-      'Notes',
-      name: 'notes',
       desc: '',
       args: [],
     );

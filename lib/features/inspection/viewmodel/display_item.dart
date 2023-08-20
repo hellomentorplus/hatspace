@@ -19,6 +19,7 @@ class NumberOfInspectionItem extends DisplayItem {
 }
 
 class TenantBookingItem extends DisplayItem {
+  final String id;
   final String propertyImage;
   final String propertyName;
   final PropertyTypes propertyType;
@@ -31,6 +32,7 @@ class TenantBookingItem extends DisplayItem {
   final String? ownerAvatar;
 
   TenantBookingItem(
+      this.id,
       this.propertyImage,
       this.propertyName,
       this.propertyType,
@@ -45,6 +47,7 @@ class TenantBookingItem extends DisplayItem {
 }
 
 class HomeOwnerBookingItem extends DisplayItem {
+  final String id;
   final String propertyImage;
   final String propertyName;
   final PropertyTypes propertyType;
@@ -55,6 +58,7 @@ class HomeOwnerBookingItem extends DisplayItem {
   final int numberOfBookings; // todo: need to update after demo
 
   HomeOwnerBookingItem(
+    this.id,
     this.propertyImage,
     this.propertyName,
     this.propertyType,

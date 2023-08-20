@@ -262,10 +262,12 @@ class TertiaryButton extends StatelessWidget {
 class RoundButton extends StatelessWidget {
   final String iconUrl;
   final VoidCallback? onPressed;
+  final ButtonStyle? style;
   final Color? textColor;
   const RoundButton(
       {required this.iconUrl,
       required this.onPressed,
+      this.style,
       Key? key,
       this.textColor})
       : super(key: key);
@@ -273,7 +275,7 @@ class RoundButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
-      style: roundButtonTheme.style,
+      style: style ?? roundButtonTheme.style,
       child: SvgPicture.asset(
         iconUrl,
         width: 24,

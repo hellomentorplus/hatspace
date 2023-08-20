@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/route/router.dart';
 import 'package:hatspace/features/inspection/viewmodel/display_item.dart';
 import 'package:hatspace/features/inspection/viewmodel/inspection_cubit.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -67,7 +68,9 @@ class InspectionBody extends StatelessWidget {
                         timeBooking: item.timeBooking,
                         ownerName: item.ownerName,
                         ownerAvatar: item.ownerAvatar,
-                        onPressed: () => {},
+                        onPressed: () => {
+                          context.goToInspectionDetail(id: item.id)
+                        },
                       );
                     } else if (item is HomeOwnerBookingItem) {
                       return HomeOwnerBookItemView(
@@ -91,7 +94,6 @@ class InspectionBody extends StatelessWidget {
         ),
       );
 }
-
 class TenantBookItemView extends StatelessWidget {
   final String propertyImage;
   final String propertyName;
