@@ -143,7 +143,7 @@ class AddInspectionBookingScreen extends StatelessWidget {
                   ),
                   HsLabel(
                       label: HatSpaceStrings.current.notes,
-                      optional: HatSpaceStrings.current.optional),
+                      optional: ' ${HatSpaceStrings.current.optional.toLowerCase()}'),
                   const SizedBox(
                     height: HsDimens.spacing4,
                   ),
