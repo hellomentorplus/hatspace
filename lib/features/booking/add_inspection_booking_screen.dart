@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/features/booking/add_inspection_success_booking_screen.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
@@ -28,9 +28,7 @@ class AddInspectionBookingScreen extends StatelessWidget {
                 label: HatSpaceStrings.of(context).bookInspection,
                 onPressed: () {
                   // TODO: implemnt booking logic
-                  Navigator.push(context, MaterialPageRoute(builder: (_){
-                    return const AddInspectionSuccessScreen();
-                  }));  
+                  context.pushToSuccessScreen();
                 },
               ),
             ),
@@ -76,7 +74,7 @@ class AddInspectionBookingScreen extends StatelessWidget {
                     currency: Currency.aud,
                     rentingPeriod: 'pw',
                     onPressed: () {
-                      // TODO: implement BL
+                      // TODO: implement Business logic
                     },
                   ),
                   Padding(
@@ -224,8 +222,7 @@ class BookedItemCard extends StatelessWidget {
   final EdgeInsets padding;
   // Add style for card
 
-
- const BookedItemCard({
+  const BookedItemCard({
     required this.propertyImage,
     required this.propertyName,
     required this.propertyType,
@@ -237,100 +234,100 @@ class BookedItemCard extends StatelessWidget {
     EdgeInsets? padding,
     Color? shadowColor,
     Key? key,
-  }): padding = padding?? const EdgeInsets.all(HsDimens.spacing16),
-    _shadowColor = shadowColor,
-  super(key: key);
+  })  : padding = padding ?? const EdgeInsets.all(HsDimens.spacing16),
+        _shadowColor = shadowColor,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        shadowColor: _shadowColor,
-        elevation: 5, // Controls the shadow depth
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Padding(
-          padding: padding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(HsDimens.radius8),
-                    child: Image.network(
-                      propertyImage,
-                      width: HsDimens.size110,
-                      height: HsDimens.size110,
-                      fit: BoxFit.cover,
-                    ),
+      shadowColor: _shadowColor,
+      elevation: 5, // Controls the shadow depth
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Padding(
+        padding: padding,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(HsDimens.radius8),
+                  child: Image.network(
+                    propertyImage,
+                    width: HsDimens.size110,
+                    height: HsDimens.size110,
+                    fit: BoxFit.cover,
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: HsDimens.spacing16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            propertyType,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: HsDimens.spacing16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          propertyType,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context).colorScheme.primary),
+                        ),
+                        const SizedBox(
+                          height: HsDimens.spacing4,
+                        ),
+                        Text(propertyName,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  fontWeight: FontStyleGuide.fwBold,
+                                )),
+                        const SizedBox(
+                          height: HsDimens.spacing4,
+                        ),
+                        Text(state,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
+                                ?.copyWith(color: HSColor.neutral6)),
+                        const SizedBox(
+                          height: HsDimens.spacing4,
+                        ),
+                        Text.rich(TextSpan(
+                            text: HatSpaceStrings.current
+                                .currencyFormatter(currency.symbol, price),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
                                 ?.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                          ),
-                          const SizedBox(
-                            height: HsDimens.spacing4,
-                          ),
-                          Text(propertyName,
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    fontWeight: FontStyleGuide.fwBold,
-                                  )),
-                          const SizedBox(
-                            height: HsDimens.spacing4,
-                          ),
-                          Text(state,
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: HSColor.neutral6
-                              )),
-                          const SizedBox(
-                            height: HsDimens.spacing4,
-                          ),
-                          Text.rich(TextSpan(
-                              text: HatSpaceStrings.current
-                                  .currencyFormatter(currency.symbol, price),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                      fontSize: FontStyleGuide.fontSize18,
-                                      height: 28 / 18,
-                                      fontWeight: FontWeight.w700),
-                              children: [
-                                TextSpan(
-                                    text: ' $rentingPeriod',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(color: HSColor.neutral6))
-                              ]))
-                        ],
-                      ),
+                                    fontSize: FontStyleGuide.fontSize18,
+                                    height: 28 / 18,
+                                    fontWeight: FontWeight.w700),
+                            children: [
+                              TextSpan(
+                                  text: ' $rentingPeriod',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: HSColor.neutral6))
+                            ]))
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
-      );
+      ),
+    );
   }
 }

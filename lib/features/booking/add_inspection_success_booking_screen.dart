@@ -25,7 +25,7 @@ class AddInspectionSuccessScreen extends StatelessWidget {
               padding: const EdgeInsets.only(right: HsDimens.spacing16),
               child: IconButton(
                   onPressed: () {
-                    context.pop();
+                    context.pop(result: true);
                   },
                   icon: SvgPicture.asset(
                     Assets.icons.close,
