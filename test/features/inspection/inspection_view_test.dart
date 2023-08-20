@@ -111,7 +111,7 @@ void main() {
     // skip check dummy data, will update when getting real data
   });
 
-  testWidgets('verify interaction', (widgetTester) async {
+  testWidgets('verify tenant booking item tap', (widgetTester) async {
     List<DisplayItem> items = [Header()];
     items.add(NumberOfInspectionItem(1));
     items.add(TenantBookingItem(
@@ -137,7 +137,44 @@ void main() {
 
       expect(find.byType(InspectionBody), findsOneWidget);
       expect(find.byType(TenantBookItemView), findsOneWidget);
-      final Finder bookItemsFinder = find.byType(InkWell);
+      expect(find.byType(HomeOwnerBookItemView), findsNothing);
+      final Finder bookItemsFinder = find.byType(TenantBookItemView);
+      expect(bookItemsFinder, findsOneWidget);
+
+      await widgetTester.ensureVisible(bookItemsFinder);
+      await widgetTester.pump(const Duration(seconds: 1));
+      await widgetTester.tap(bookItemsFinder);
+      await widgetTester.pumpAndSettle();
+
+      expect(find.byType(InspectionBody), findsNothing);
+    });
+  });
+
+  testWidgets('verify homeowner booking item tap', (widgetTester) async {
+    List<DisplayItem> items = [Header()];
+    items.add(HomeOwnerBookingItem(
+      '1',
+      'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
+      'Green living space in Melbourne',
+      PropertyTypes.apartment,
+      4800,
+      Currency.aud,
+      'pw',
+      'Victoria',
+      1,
+    ));
+    when(inspectionCubit.state).thenReturn(InspectionLoaded(items));
+    when(memberService.getUserRoles('uid'))
+        .thenAnswer((_) => Future.value([Roles.homeowner]));
+
+    mockNetworkImagesFor(() async {
+      await widgetTester.blocWrapAndPump<InspectionCubit>(
+          inspectionCubit, const InspectionBody());
+
+      expect(find.byType(InspectionBody), findsOneWidget);
+      expect(find.byType(HomeOwnerBookItemView), findsOneWidget);
+      expect(find.byType(TenantBookItemView), findsNothing);
+      final Finder bookItemsFinder = find.byType(HomeOwnerBookItemView);
       expect(bookItemsFinder, findsOneWidget);
 
       await widgetTester.ensureVisible(bookItemsFinder);

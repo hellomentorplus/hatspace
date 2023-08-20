@@ -36,7 +36,7 @@ class InspectionCubit extends Cubit<InspectionState> {
           Currency.aud,
           'pw',
           'Victoria',
-          2,
+          1,
         ));
       } else {
         // tenant

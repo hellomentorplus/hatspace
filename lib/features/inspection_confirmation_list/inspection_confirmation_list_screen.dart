@@ -21,10 +21,19 @@ class InspectionConfirmationListScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontStyleGuide.fwBold,
                 fontSize: FontStyleGuide.fontSize14)),
+        backgroundColor: HSColor.neutral1,
+        elevation: 0,
+        automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () => context.pop(),
           icon: SvgPicture.asset(Assets.icons.arrowCalendarLeft),
         ),
+        bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(HsDimens.size1),
+            child: Container(
+              color: HSColor.neutral2,
+              height: HsDimens.size1,
+            )),
       ),
       body: SafeArea(
         child: Padding(
