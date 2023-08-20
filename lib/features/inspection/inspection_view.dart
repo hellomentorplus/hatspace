@@ -57,7 +57,6 @@ class InspectionBody extends StatelessWidget {
                             fontWeight: FontWeight.w500),
                       );
                     } else if (item is TenantBookingItem) {
-                      print('TenantBookingItem');
                       return InkWell(
                         onTap: () => {
                           context.goToInspectionDetail(id: item.id),
@@ -76,7 +75,6 @@ class InspectionBody extends StatelessWidget {
                         ),
                       );
                     } else if (item is HomeOwnerBookingItem) {
-                      print('HomeOwnerBookingItem');
                       return InkWell(
                         onTap: () => {
                           context.goToInspectionConfirmationListDetail(

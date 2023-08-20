@@ -42,25 +42,27 @@ class InspectionConfirmationListScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '1 inspection booking',
+                HatSpaceStrings.current.numberOfInspectionBooking(1),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontSize: FontStyleGuide.fontSize16,
                     fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: HsDimens.lineheight12),
-              BookingInformationItem(
-                propertyName: 'Green living space in Melbourne',
-                propertyImage:
-                    'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
-                propertyType: PropertyTypes.apartment.displayName,
-                price: 4800,
-                currency: Currency.aud,
-                timeRenting: 'pw',
-                state: 'Victoria',
-                timeBooking: '09:00 AM-10:00 AM - 15 Sep, 2023',
-                ownerName: 'Captain Cole',
-                ownerAvatar: null,
-                onPressed: () => {},
+              InkWell(
+                onTap: () => {},
+                child: BookingInformationItem(
+                  propertyName: 'Green living space in Melbourne',
+                  propertyImage:
+                      'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
+                  propertyType: PropertyTypes.apartment.displayName,
+                  price: 4800,
+                  currency: Currency.aud,
+                  timeRenting: 'pw',
+                  state: 'Victoria',
+                  timeBooking: '09:00 AM-10:00 AM - 15 Sep, 2023',
+                  ownerName: 'Captain Cole',
+                  ownerAvatar: null,
+                ),
               ),
             ],
           ),
@@ -81,7 +83,6 @@ class BookingInformationItem extends StatelessWidget {
   final String timeBooking; // todo: need to update after demo
   final String? ownerName;
   final String? ownerAvatar;
-  final VoidCallback onPressed;
 
   const BookingInformationItem({
     required this.propertyImage,
@@ -92,7 +93,6 @@ class BookingInformationItem extends StatelessWidget {
     required this.timeRenting,
     required this.state,
     required this.timeBooking,
-    required this.onPressed,
     this.ownerName,
     this.ownerAvatar,
     Key? key,
