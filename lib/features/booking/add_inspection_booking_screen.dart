@@ -13,12 +13,20 @@ import 'package:intl/intl.dart';
 
 class AddInspectionBookingScreen extends StatelessWidget {
   AddInspectionBookingScreen({Key? key}) : super(key: key);
-  final ValueNotifier<DateTime> _selectedDate = ValueNotifier(DateTime.now());
+  final ValueNotifier<DateTime> _selectedDate =
+      ValueNotifier(DateTime.parse('2023-09-15'));
 
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       return Scaffold(
+          appBar: AppBar(
+            backgroundColor: HSColor.background,
+            leading: null,
+            automaticallyImplyLeading: false,
+            shadowColor: Colors.transparent,
+            toolbarHeight: 0,
+          ),
           bottomNavigationBar: BottomAppBar(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(HsDimens.spacing16,
@@ -63,12 +71,12 @@ class AddInspectionBookingScreen extends StatelessWidget {
                     ],
                   ),
                   BookedItemCard(
-                    propertyName: 'Single room for rent in Banktown',
-                    propertyType: HatSpaceStrings.current.house,
+                    propertyName: 'Green living space in Melbourne',
+                    propertyType: HatSpaceStrings.current.apartment,
                     propertyImage:
-                        'https://cdn-bnokp.nitrocdn.com/QNoeDwCprhACHQcnEmHgXDhDpbEOlRHH/assets/images/optimized/rev-a642abc/www.decorilla.com/online-decorating/wp-content/uploads/2020/08/Modern-Apartment-Decor-.jpg',
-                    price: 1200,
-                    state: 'Gateway, Island',
+                        'https://m.media-amazon.com/images/I/81YR16yC2QL._AC_UF350,350_QL80_.jpg',
+                    price: 4800,
+                    state: 'Victoria',
                     currency: Currency.aud,
                     rentingPeriod: 'pw',
                     onPressed: () {
@@ -104,6 +112,8 @@ class AddInspectionBookingScreen extends StatelessWidget {
                               isRequired: true),
                           const SizedBox(height: HsDimens.spacing4),
                           HsDropDownButton(
+                              labelStyle:
+                                  const TextStyle(color: HSColor.neutral5),
                               value: '09:00 AM',
                               icon: Assets.icons.chervonDown,
                               onPressed: () {})
@@ -119,6 +129,8 @@ class AddInspectionBookingScreen extends StatelessWidget {
                               isRequired: true),
                           const SizedBox(height: HsDimens.spacing4),
                           HsDropDownButton(
+                              labelStyle:
+                                  const TextStyle(color: HSColor.neutral5),
                               value: '10:00 AM',
                               icon: Assets.icons.chervonDown,
                               onPressed: () {})
@@ -193,7 +205,7 @@ class _DatePickerView extends StatelessWidget {
                         ]));
               });
         },
-        label: DateFormat('dd MMMM, yyyy').format(selectedDate),
+        label: DateFormat('dd MMM, yyyy').format(selectedDate),
         iconUrl: Assets.icons.calendar,
         iconPosition: IconPosition.right,
         contentAlignment: MainAxisAlignment.spaceBetween,
