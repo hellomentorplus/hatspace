@@ -11,8 +11,8 @@ import 'package:hatspace/data/property_data.dart';
 
 part 'inspection_state.dart';
 
-class InspectCubit extends Cubit<InspectionState> {
-  InspectCubit() : super(InspectionInitial());
+class InspectionCubit extends Cubit<InspectionState> {
+  InspectionCubit() : super(InspectionInitial());
 
   final StorageService _storageService =
       HsSingleton.singleton.get<StorageService>();

@@ -25,11 +25,11 @@ void main() {
     when(storageService.member).thenReturn(memberService);
   });
 
-  blocTest<InspectCubit, InspectionState>(
+  blocTest<InspectionCubit, InspectionState>(
       'given authentication service can not get user detail. '
       'when get user role from Authentication service. '
       'then return GetUserRolesFailed.',
-      build: () => InspectCubit(),
+      build: () => InspectionCubit(),
       setUp: () {
         when(authenticationService.getCurrentUser())
             .thenThrow(Exception('Failed to fetch user'));
@@ -37,11 +37,11 @@ void main() {
       act: (bloc) => bloc.getUserRole(),
       expect: () => [isA<GetUserRolesFailed>()]);
 
-  blocTest<InspectCubit, InspectionState>(
+  blocTest<InspectionCubit, InspectionState>(
       'given authentication service can get user detail. '
       'when get user role from Authentication service. '
       'then return InspectionLoaded.',
-      build: () => InspectCubit(),
+      build: () => InspectionCubit(),
       setUp: () {
         final MockUserDetail mockUser = MockUserDetail();
         when(authenticationService.getCurrentUser())

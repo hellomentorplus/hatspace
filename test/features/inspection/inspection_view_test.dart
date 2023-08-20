@@ -3,14 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/inspection/inspection_view.dart';
-import 'package:hatspace/strings/l10n.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:hatspace/features/inspection/viewmodel/display_item.dart';
 import 'package:hatspace/features/inspection/viewmodel/inspection_cubit.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:hatspace/strings/l10n.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
@@ -19,7 +19,7 @@ import '../../widget_tester_extension.dart';
 import 'inspection_view_test.mocks.dart';
 
 @GenerateMocks([
-  InspectCubit,
+  InspectionCubit,
   AuthenticationService,
   StorageService,
   MemberService,
@@ -28,7 +28,7 @@ void main() {
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
   final MockStorageService storageService = MockStorageService();
-  final MockInspectCubit inspectCubit = MockInspectCubit();
+  final MockInspectionCubit inspectionCubit = MockInspectionCubit();
   final MockMemberService memberService = MockMemberService();
 
   setUpAll(() {
@@ -41,8 +41,8 @@ void main() {
 
   setUp(() {
     when(storageService.member).thenReturn(memberService);
-    when(inspectCubit.state).thenReturn(InspectionInitial());
-    when(inspectCubit.stream).thenAnswer(
+    when(inspectionCubit.state).thenReturn(InspectionInitial());
+    when(inspectionCubit.stream).thenAnswer(
       (realInvocation) => const Stream.empty(),
     );
 
@@ -55,6 +55,7 @@ void main() {
     List<DisplayItem> items = [Header()];
     items.add(NumberOfInspectionItem(1));
     items.add(TenantBookingItem(
+      '1',
       'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
       'Green living space in Melbourne',
       PropertyTypes.apartment,
@@ -66,12 +67,13 @@ void main() {
       'Yolo Tim',
       null,
     ));
-    when(inspectCubit.state).thenReturn(InspectionLoaded(items));
+    when(inspectionCubit.state).thenReturn(InspectionLoaded(items));
     when(memberService.getUserRoles('uid'))
         .thenAnswer((_) => Future.value([Roles.tenant]));
 
-    await mockNetworkImagesFor(() => widgetTester.blocWrapAndPump<InspectCubit>(
-        inspectCubit, const InspectionView()));
+    await mockNetworkImagesFor(() =>
+        widgetTester.blocWrapAndPump<InspectionCubit>(
+            inspectionCubit, const InspectionView()));
 
     expect(find.text('Inspection Booking'), findsOneWidget);
     expect(find.byType(TenantBookItemView), findsOneWidget);
@@ -85,6 +87,7 @@ void main() {
       (widgetTester) async {
     List<DisplayItem> items = [Header()];
     items.add(HomeOwnerBookingItem(
+      '1',
       'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
       'Green living space in Melbourne',
       PropertyTypes.apartment,
@@ -94,12 +97,13 @@ void main() {
       'Victoria',
       2,
     ));
-    when(inspectCubit.state).thenReturn(InspectionLoaded(items));
+    when(inspectionCubit.state).thenReturn(InspectionLoaded(items));
     when(memberService.getUserRoles('uid'))
         .thenAnswer((_) => Future.value([Roles.homeowner]));
 
-    await mockNetworkImagesFor(() => widgetTester.blocWrapAndPump<InspectCubit>(
-        inspectCubit, const InspectionView()));
+    await mockNetworkImagesFor(() =>
+        widgetTester.blocWrapAndPump<InspectionCubit>(
+            inspectionCubit, const InspectionView()));
 
     expect(find.text('Inspection Booking'), findsOneWidget);
     expect(find.byType(TenantBookItemView), findsNothing);
@@ -108,17 +112,40 @@ void main() {
   });
 
   testWidgets('verify interaction', (widgetTester) async {
-    await mockNetworkImagesFor(
-        () => widgetTester.wrapAndPump(const InspectionView()));
+    List<DisplayItem> items = [Header()];
+    items.add(NumberOfInspectionItem(1));
+    items.add(TenantBookingItem(
+      '1',
+      'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
+      'Green living space in Melbourne',
+      PropertyTypes.apartment,
+      4800,
+      Currency.aud,
+      'pw',
+      'Victoria',
+      '09:00 AM - 10:00 AM - 15 Sep, 2023',
+      'Yolo Tim',
+      null,
+    ));
+    when(inspectionCubit.state).thenReturn(InspectionLoaded(items));
+    when(memberService.getUserRoles('uid'))
+        .thenAnswer((_) => Future.value([Roles.tenant]));
 
-    expect(find.byType(InspectionView), findsOneWidget);
-    final Finder bookItemsFinder = find.byType(TenantBookItemView);
-    expect(bookItemsFinder, findsWidgets);
+    mockNetworkImagesFor(() async {
+      await widgetTester.blocWrapAndPump<InspectionCubit>(
+          inspectionCubit, const InspectionBody());
 
-    await widgetTester.ensureVisible(bookItemsFinder.first);
-    await widgetTester.tap(bookItemsFinder.first);
-    await widgetTester.pumpAndSettle();
+      expect(find.byType(InspectionBody), findsOneWidget);
+      expect(find.byType(TenantBookItemView), findsOneWidget);
+      final Finder bookItemsFinder = find.byType(InkWell);
+      expect(bookItemsFinder, findsOneWidget);
 
-    expect(find.byType(InspectionView), findsNothing);
+      await widgetTester.ensureVisible(bookItemsFinder);
+      await widgetTester.pump(const Duration(seconds: 1));
+      await widgetTester.tap(bookItemsFinder);
+      await widgetTester.pumpAndSettle();
+
+      expect(find.byType(InspectionBody), findsNothing);
+    });
   });
 }

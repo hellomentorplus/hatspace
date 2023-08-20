@@ -14,8 +14,8 @@ class InspectionView extends StatelessWidget {
   const InspectionView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => BlocProvider<InspectCubit>(
-      create: (context) => InspectCubit()..getUserRole(),
+  Widget build(BuildContext context) => BlocProvider<InspectionCubit>(
+      create: (context) => InspectionCubit()..getUserRole(),
       child: const InspectionBody());
 }
 
@@ -24,7 +24,7 @@ class InspectionBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SafeArea(
-        child: BlocBuilder<InspectCubit, InspectionState>(
+        child: BlocBuilder<InspectionCubit, InspectionState>(
           builder: (_, state) {
             if (state is InspectionLoaded) {
               return ListView.separated(
@@ -57,32 +57,36 @@ class InspectionBody extends StatelessWidget {
                             fontWeight: FontWeight.w500),
                       );
                     } else if (item is TenantBookingItem) {
-                      return TenantBookItemView(
-                        propertyName: item.propertyName,
-                        propertyImage: item.propertyImage,
-                        propertyType: item.propertyType,
-                        price: item.price,
-                        currency: item.currency,
-                        timeRenting: item.timeRenting,
-                        state: item.state,
-                        timeBooking: item.timeBooking,
-                        ownerName: item.ownerName,
-                        ownerAvatar: item.ownerAvatar,
-                        onPressed: () => {
-                          context.goToInspectionDetail(id: item.id)
+                      return InkWell(
+                        onTap: () => {
+                          context.goToInspectionDetail(id: item.id),
                         },
+                        child: TenantBookItemView(
+                          propertyName: item.propertyName,
+                          propertyImage: item.propertyImage,
+                          propertyType: item.propertyType,
+                          price: item.price,
+                          currency: item.currency,
+                          timeRenting: item.timeRenting,
+                          state: item.state,
+                          timeBooking: item.timeBooking,
+                          ownerName: item.ownerName,
+                          ownerAvatar: item.ownerAvatar,
+                        ),
                       );
                     } else if (item is HomeOwnerBookingItem) {
-                      return HomeOwnerBookItemView(
-                        propertyName: item.propertyName,
-                        propertyImage: item.propertyImage,
-                        propertyType: item.propertyType,
-                        price: item.price,
-                        currency: item.currency,
-                        timeRenting: item.timeRenting,
-                        state: item.state,
-                        numberOfBookings: item.numberOfBookings,
-                        onPressed: () => {},
+                      return InkWell(
+                        onTap: () => {},
+                        child: HomeOwnerBookItemView(
+                          propertyName: item.propertyName,
+                          propertyImage: item.propertyImage,
+                          propertyType: item.propertyType,
+                          price: item.price,
+                          currency: item.currency,
+                          timeRenting: item.timeRenting,
+                          state: item.state,
+                          numberOfBookings: item.numberOfBookings,
+                        ),
                       );
                     }
 
@@ -94,6 +98,7 @@ class InspectionBody extends StatelessWidget {
         ),
       );
 }
+
 class TenantBookItemView extends StatelessWidget {
   final String propertyImage;
   final String propertyName;
@@ -105,7 +110,6 @@ class TenantBookItemView extends StatelessWidget {
   final String timeBooking; // todo: need to update after demo
   final String? ownerName;
   final String? ownerAvatar;
-  final VoidCallback onPressed;
 
   const TenantBookItemView({
     required this.propertyImage,
@@ -116,7 +120,6 @@ class TenantBookItemView extends StatelessWidget {
     required this.timeRenting,
     required this.state,
     required this.timeBooking,
-    required this.onPressed,
     this.ownerName,
     this.ownerAvatar,
     Key? key,
@@ -304,7 +307,6 @@ class HomeOwnerBookItemView extends StatelessWidget {
   final Currency currency;
   final String state;
   final int numberOfBookings; // todo: need to update after demo
-  final VoidCallback onPressed;
 
   const HomeOwnerBookItemView({
     required this.propertyImage,
@@ -314,7 +316,6 @@ class HomeOwnerBookItemView extends StatelessWidget {
     required this.timeRenting,
     required this.currency,
     required this.state,
-    required this.onPressed,
     required this.numberOfBookings,
     Key? key,
   }) : super(key: key);
