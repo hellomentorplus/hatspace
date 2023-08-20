@@ -16,6 +16,7 @@ class HsDimens {
   static const double spacing32 = 32.0;
   static const double spacing36 = 36.0;
   static const double spacing40 = 40.0;
+  static const double spacing42 = 42.0;
   static const double spacing44 = 44.0;
   static const double spacing48 = 48.0;
   static const double spacing52 = 52.0;
@@ -54,6 +55,7 @@ class HsDimens {
   static const double size24 = 24.0;
   static const double size32 = 32.0;
   static const double size36 = 36.0;
+  static const double size40 = 40.0;
   static const double size42 = 42.0;
   static const double size48 = 48.0;
   static const double size64 = 64.0;

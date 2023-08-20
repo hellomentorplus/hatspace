@@ -59,7 +59,7 @@ class PropertyDetailCubit extends Cubit<PropertyDetailState> {
         ownerAvatar: ownerAvatar,
         type: property.type.displayName,
         name: property.name,
-        suburb: property.address.suburb,
+        state: property.address.state.displayName,
         bedrooms: property.additionalDetail.bedrooms,
         bathrooms: property.additionalDetail.bathrooms,
         carspaces: property.additionalDetail.parkings,

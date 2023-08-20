@@ -19,7 +19,7 @@ class PropertyDetailLoaded extends PropertyDetailState {
   final List<String> photos;
   final String type;
   final String name;
-  final String suburb;
+  final String state;
   final int bedrooms;
   final int bathrooms;
   final int carspaces;
@@ -36,7 +36,7 @@ class PropertyDetailLoaded extends PropertyDetailState {
       {required this.photos,
       required this.type,
       required this.name,
-      required this.suburb,
+      required this.state,
       required this.bedrooms,
       required this.bathrooms,
       required this.carspaces,
@@ -56,7 +56,7 @@ class PropertyDetailLoaded extends PropertyDetailState {
         ...photos,
         type,
         name,
-        suburb,
+        state,
         bedrooms,
         bathrooms,
         carspaces,

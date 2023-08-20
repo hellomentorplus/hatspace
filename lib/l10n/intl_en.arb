@@ -11,11 +11,6 @@
   "skip": "Skip",
   "signIn": "Sign in",
   "alreadyHaveAccount": "Already have account ?",
-  "app_name": "HAT Space",
-  "explore": "Explore",
-  "tracking": "Tracking",
-  "inbox": "Inbox",
-  "profile": "Profile",
   "chooseUserRole": "Choose your role",
   "chooseUserRoleDescription": "You can be tenant or homeowner",
   "userTitleRoles": "{role,select,tenant{Tenant} homeowner{Homeowner} other{}}",
@@ -38,7 +33,6 @@
   "next": "Next",
   "inspection": "Inspection",
   "application": "Application",
-  "profile": "Profile",
   "searchHint": "Search rental, location...",
   "rentPeriod": "{count, plural, zero{No rent period} one{1 Month} other { {count} Months }}",
   "australiaState": "{ausState, select, vic{Victoria} nsw{New South Wales} qld{Queensland} wa{Western Australia} sa{South Australia} tas{Tasmania} act{Australian Capital Territory} nt{Northern Territory} other{No State Available}}",
@@ -54,7 +48,7 @@
   "optional": "(Optional)",
   "enterYourUnitnumber": "Enter unit number",
   "streetAddress": "Street address",
-  "enterYourAddress": "Enter your address",
+  "enterStreetAddress": "Enter street address",
   "houseNumberAndStreetName": "House number + Street name",
   "suburb": "Suburb",
   "enterYourSuburb": "Enter suburb",
@@ -97,6 +91,26 @@
       }
     }
   },
+  "dateFormatterWithDate": "{date}",
+  "@dateFormatterWithDate": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "d MMM, y",
+        "isCustomDateFormat": "true"
+      }
+    }
+  },
+  "timeFormatter": "{dateTime}",
+  "@timeFormatter": {
+    "placeholders": {
+      "dateTime": {
+        "type": "DateTime",
+        "format": "hh:mm a",
+        "isCustomDateFormat": "true"
+      }
+    }
+  },
   "currencyFormatter": "{symbol}{currency}",
   "@currencyFormatter": {
     "placeholders": {
@@ -115,7 +129,6 @@
   "loginDescription": "You need to be logged in to view this content",
   "yesLoginNow": "Yes, login now",
   "noLater": "No, later",
-  "enterPropertyName": "Enter property name",
   "maximumChars": "Maximum {count} characters",
   "textWithInvalidChars": "Only accept text",
   "enterPrice": "Enter price",
@@ -124,8 +137,8 @@
   "enterPostalCode": "Enter postcode",
   "upload": "Upload",
   "allPhotos": "All Photos",
-  "hatSpaceWouldLikeToPhotoAccess": "\"HATSpace\" Would Like to Photo Access",
-  "plsGoToSettingsAndAllowPhotoAccessForHatSpace": "Please go to Settings and allow photos access for HATSpace.",
+  "hatSpaceWouldLikeToPhotoAccess": "\"HATspace\" Would Like to Photo Access",
+  "plsGoToSettingsAndAllowPhotoAccessForHatSpace": "Please go to Settings and allow photos access for HATspace.",
   "goToSetting": "Go to Setting",
   "uploadPhotoCount": "Upload {n, plural, =0{({n}) photo} =1{({n}) photo} other{({n}) photos}}",
   "lostDataTitle": "Lost Data",
@@ -149,7 +162,6 @@
   "preview": "Preview",
   "location": "Location",
   "propertyFeatures": "Property features",
-  "previewAndSubmit": "Preview & Submit",
   "coverPhoto": "Cover photo",
   "displayName": "Display name",
   "fullName": "Full name",
@@ -159,6 +171,12 @@
   "notUpdated": "Not updated",
   "edit": "Edit",
   "myProfile": "My Profile",
+  "submit": "Submit",
+  "start": "Start",
+  "end": "End",
+  "date": "Date",
+  "notes": "Notes",
+  "details": "Details",
   "guideForApplication": "Guide for application",
   "applicationInform": "All adult applicants (18 years or older) must complete a separate application for rental.",
   "applicationRequirementsAsking": "Please provide the following with your application:",
@@ -172,21 +190,21 @@
   "sendEmail": "Send Email",
   "downloadApplicationFormHere": "Download Application form here",
   "deleteAccountWarning": "All your data will be kept within 30 days before being deleted permanently. Are you sure you want to delete your account?",
-  "submit": "Submit",
   "deleteAccountQuestionMark": "Delete account?",
-  "showLess":"Show less",
-  "showMore":"Show more",
-  "bookInspection":"Book Inspection",
+  "showLess": "Show less",
+  "showMore": "Show more",
+  "showMoreCounter": "Show more ({counter})",
+  "bookInspection": "Book Inspection",
   "addPropertyPriceDisplay": "{name} ({symbol})",
   "addPropertyRentalPeriodUnit": "(PW)",
   "appleSignUp": "Continue with Apple",
   "addInspectionBooking": "Add an inspection booking",
-  "date": "Date",
   "startTime":"Start time",
   "endTime":"End time",
-  "notes": "Notes",
   "notesPlaceHolder":"Write a message to homeowner",
   "logOutDescription": "Are you sure you want to log out?",
   "btnLogOut": "Log Out",
-  "inspectionBooking": "Inspection Booking"
+  "inspectionBooking": "Inspection Booking",
+  "numberOfInspectionBooking": "{number} inspection booking",
+  "numberOfBooking": "{number, plural, one{1 Booking} other { {number} Bookings}}"
 }

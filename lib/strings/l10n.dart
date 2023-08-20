@@ -556,11 +556,11 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Enter your address`
-  String get enterYourAddress {
+  /// `Enter street address`
+  String get enterStreetAddress {
     return Intl.message(
-      'Enter your address',
-      name: 'enterYourAddress',
+      'Enter street address',
+      name: 'enterStreetAddress',
       desc: '',
       args: [],
     );
@@ -900,6 +900,34 @@ class HatSpaceStrings {
     );
   }
 
+  /// `{date}`
+  String dateFormatterWithDate(DateTime date) {
+    final DateFormat dateDateFormat =
+        DateFormat('d MMM, y', Intl.getCurrentLocale());
+    final String dateString = dateDateFormat.format(date);
+
+    return Intl.message(
+      '$dateString',
+      name: 'dateFormatterWithDate',
+      desc: '',
+      args: [dateString],
+    );
+  }
+
+  /// `{dateTime}`
+  String timeFormatter(DateTime dateTime) {
+    final DateFormat dateTimeDateFormat =
+        DateFormat('hh:mm a', Intl.getCurrentLocale());
+    final String dateTimeString = dateTimeDateFormat.format(dateTime);
+
+    return Intl.message(
+      '$dateTimeString',
+      name: 'timeFormatter',
+      desc: '',
+      args: [dateTimeString],
+    );
+  }
+
   /// `{symbol}{currency}`
   String currencyFormatter(String symbol, double currency) {
     final NumberFormat currencyNumberFormat =
@@ -1054,20 +1082,20 @@ class HatSpaceStrings {
     );
   }
 
-  /// `"HATSpace" Would Like to Photo Access`
+  /// `"HATspace" Would Like to Photo Access`
   String get hatSpaceWouldLikeToPhotoAccess {
     return Intl.message(
-      '"HATSpace" Would Like to Photo Access',
+      '"HATspace" Would Like to Photo Access',
       name: 'hatSpaceWouldLikeToPhotoAccess',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please go to Settings and allow photos access for HATSpace.`
+  /// `Please go to Settings and allow photos access for HATspace.`
   String get plsGoToSettingsAndAllowPhotoAccessForHatSpace {
     return Intl.message(
-      'Please go to Settings and allow photos access for HATSpace.',
+      'Please go to Settings and allow photos access for HATspace.',
       name: 'plsGoToSettingsAndAllowPhotoAccessForHatSpace',
       desc: '',
       args: [],
@@ -1394,6 +1422,66 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Submit`
+  String get submit {
+    return Intl.message(
+      'Submit',
+      name: 'submit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start`
+  String get start {
+    return Intl.message(
+      'Start',
+      name: 'start',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End`
+  String get end {
+    return Intl.message(
+      'End',
+      name: 'end',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message(
+      'Date',
+      name: 'date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notes`
+  String get notes {
+    return Intl.message(
+      'Notes',
+      name: 'notes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Details`
+  String get details {
+    return Intl.message(
+      'Details',
+      name: 'details',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Guide for application`
   String get guideForApplication {
     return Intl.message(
@@ -1524,16 +1612,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Submit`
-  String get submit {
-    return Intl.message(
-      'Submit',
-      name: 'submit',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Delete account?`
   String get deleteAccountQuestionMark {
     return Intl.message(
@@ -1561,6 +1639,16 @@ class HatSpaceStrings {
       name: 'showMore',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Show more ({counter})`
+  String showMoreCounter(Object counter) {
+    return Intl.message(
+      'Show more ($counter)',
+      name: 'showMoreCounter',
+      desc: '',
+      args: [counter],
     );
   }
 
@@ -1614,16 +1702,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Date`
-  String get date {
-    return Intl.message(
-      'Date',
-      name: 'date',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Start time`
   String get startTime {
     return Intl.message(
@@ -1639,16 +1717,6 @@ class HatSpaceStrings {
     return Intl.message(
       'End time',
       name: 'endTime',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Notes`
-  String get notes {
-    return Intl.message(
-      'Notes',
-      name: 'notes',
       desc: '',
       args: [],
     );
@@ -1691,6 +1759,28 @@ class HatSpaceStrings {
       name: 'inspectionBooking',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `{number} inspection booking`
+  String numberOfInspectionBooking(Object number) {
+    return Intl.message(
+      '$number inspection booking',
+      name: 'numberOfInspectionBooking',
+      desc: '',
+      args: [number],
+    );
+  }
+
+  /// `{number, plural, one{1 Booking} other { {number} Bookings}}`
+  String numberOfBooking(num number) {
+    return Intl.plural(
+      number,
+      one: '1 Booking',
+      other: ' $number Bookings',
+      name: 'numberOfBooking',
+      desc: '',
+      args: [number],
     );
   }
 }

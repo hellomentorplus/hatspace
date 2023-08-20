@@ -79,6 +79,8 @@ void main() {
         find.text('Available: 06/06/23', findRichText: true), findsOneWidget);
     // property name
     expect(find.text('Single room for rent in Bankstown'), findsOneWidget);
+    // state
+    expect(find.text('Victoria'), findsOneWidget);
     // price
     expect(find.text(r'$30,000 pw', findRichText: true), findsOneWidget);
     // description

@@ -7,6 +7,20 @@ class PhotoSelectionCubit extends Cubit<PhotoSelectionState> {
 
   PhotoSelectionCubit() : super(PhotoSelectionInitial());
 
+  void loadPresetPhotos(List<String>? preset) {
+    if (preset == null) {
+      return;
+    }
+
+    if (preset.isEmpty) {
+      _selectionStates.clear();
+      return;
+    }
+
+    _selectionStates.addAll(preset);
+    emit(PhotoSelectionUpdated(_selectionStates, _selectionStates.isNotEmpty));
+  }
+
   void updateSelection(String thumbnail) {
     if (_selectionStates.contains(thumbnail)) {
       // remove selection

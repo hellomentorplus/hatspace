@@ -38,15 +38,26 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(date) => "${date}";
 
-  static String m4(count) => "Maximum ${count} characters";
+  static String m4(date) => "${date}";
 
-  static String m5(count) =>
+  static String m5(count) => "Maximum ${count} characters";
+
+  static String m6(number) =>
+      "${Intl.plural(number, one: '1 Booking', other: ' ${number} Bookings')}";
+
+  static String m7(number) => "${number} inspection booking";
+
+  static String m8(count) =>
       "${Intl.plural(count, zero: 'No rent period', one: '1 Month', other: ' ${count} Months ')}";
 
-  static String m6(n) =>
+  static String m9(counter) => "Show more (${counter})";
+
+  static String m10(dateTime) => "${dateTime}";
+
+  static String m11(n) =>
       "Upload ${Intl.plural(n, zero: '(${n}) photo', one: '(${n}) photo', other: '(${n}) photos')}";
 
-  static String m7(description) => "${Intl.select(description, {
+  static String m12(description) => "${Intl.select(description, {
             'tenant':
                 'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
             'homeowner':
@@ -54,15 +65,15 @@ class MessageLookup extends MessageLookupByLibrary {
             'other': '',
           })}";
 
-  static String m8(role) => "${Intl.select(role, {
+  static String m13(role) => "${Intl.select(role, {
             'tenant': 'Tenant',
             'homeowner': 'Homeowner',
             'other': '',
           })}";
 
-  static String m9(number) => "${number} views today";
+  static String m14(number) => "${number} views today";
 
-  static String m10(name) => "👋 Hi ${name}";
+  static String m15(name) => "👋 Hi ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -130,6 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "currencyFormatter": m2,
         "date": MessageLookupByLibrary.simpleMessage("Date"),
         "dateFormatter": m3,
+        "dateFormatterWithDate": m4,
         "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of Birth"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
         "deleteAccountQuestionMark":
@@ -137,6 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteAccountWarning": MessageLookupByLibrary.simpleMessage(
             "All your data will be kept within 30 days before being deleted permanently. Are you sure you want to delete your account?"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "details": MessageLookupByLibrary.simpleMessage("Details"),
         "displayName": MessageLookupByLibrary.simpleMessage("Display name"),
         "download": MessageLookupByLibrary.simpleMessage("Download"),
         "downloadApplicationFormHere": MessageLookupByLibrary.simpleMessage(
@@ -146,15 +159,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailSignUp":
             MessageLookupByLibrary.simpleMessage("Continue with Email"),
+        "end": MessageLookupByLibrary.simpleMessage("End"),
         "endTime": MessageLookupByLibrary.simpleMessage("End time"),
         "enterPostalCode":
             MessageLookupByLibrary.simpleMessage("Enter postcode"),
         "enterPrice": MessageLookupByLibrary.simpleMessage("Enter price"),
         "enterPropertyName":
             MessageLookupByLibrary.simpleMessage("Enter property name"),
+        "enterStreetAddress":
+            MessageLookupByLibrary.simpleMessage("Enter street address"),
         "enterSuburb": MessageLookupByLibrary.simpleMessage("Enter suburb"),
-        "enterYourAddress":
-            MessageLookupByLibrary.simpleMessage("Enter your address"),
         "enterYourDescription":
             MessageLookupByLibrary.simpleMessage("Enter description"),
         "enterYourPostcode":
@@ -176,7 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "guideForApplication":
             MessageLookupByLibrary.simpleMessage("Guide for application"),
         "hatSpaceWouldLikeToPhotoAccess": MessageLookupByLibrary.simpleMessage(
-            "\"HATSpace\" Would Like to Photo Access"),
+            "\"HATspace\" Would Like to Photo Access"),
         "homePageViewTitle": MessageLookupByLibrary.simpleMessage("Home Page"),
         "house": MessageLookupByLibrary.simpleMessage("House"),
         "houseNumberAndStreetName":
@@ -203,7 +217,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "lostDataDescription": MessageLookupByLibrary.simpleMessage(
             "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?"),
         "lostDataTitle": MessageLookupByLibrary.simpleMessage("Lost Data"),
-        "maximumChars": m4,
+        "maximumChars": m5,
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
         "myAccount": MessageLookupByLibrary.simpleMessage("My account"),
@@ -218,6 +232,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Write a message to homeowner"),
         "numberFieldContainsNonNumber":
             MessageLookupByLibrary.simpleMessage("Only accept number"),
+        "numberOfBooking": m6,
+        "numberOfInspectionBooking": m7,
         "optional": MessageLookupByLibrary.simpleMessage("(Optional)"),
         "otherInformation":
             MessageLookupByLibrary.simpleMessage("Other information"),
@@ -233,7 +249,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pleas select your state"),
         "plsGoToSettingsAndAllowPhotoAccessForHatSpace":
             MessageLookupByLibrary.simpleMessage(
-                "Please go to Settings and allow photos access for HATSpace."),
+                "Please go to Settings and allow photos access for HATspace."),
         "portableFans": MessageLookupByLibrary.simpleMessage("Portable Fans"),
         "postcode": MessageLookupByLibrary.simpleMessage("Postcode"),
         "preview": MessageLookupByLibrary.simpleMessage("Preview"),
@@ -247,7 +263,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pw": MessageLookupByLibrary.simpleMessage("pw"),
         "questionSupport": MessageLookupByLibrary.simpleMessage(
             "If you have any questions, please feel free to let us know. We will always here to support you!"),
-        "rentPeriod": m5,
+        "rentPeriod": m8,
         "requireAtLeast4Photos":
             MessageLookupByLibrary.simpleMessage("Require at least 4 photos *"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
@@ -259,6 +275,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "showLess": MessageLookupByLibrary.simpleMessage("Show less"),
         "showMore": MessageLookupByLibrary.simpleMessage("Show more"),
+        "showMoreCounter": m9,
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign up"),
         "signinErrorToastMessage": MessageLookupByLibrary.simpleMessage(
@@ -266,6 +283,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signinErrorToastTitle":
             MessageLookupByLibrary.simpleMessage("Login Failed"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "start": MessageLookupByLibrary.simpleMessage("Start"),
         "startTime": MessageLookupByLibrary.simpleMessage("Start time"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
@@ -274,19 +292,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "swimmingPool": MessageLookupByLibrary.simpleMessage("Swimming pool"),
         "textWithInvalidChars":
             MessageLookupByLibrary.simpleMessage("Only accept text"),
+        "timeFormatter": m10,
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
         "tv": MessageLookupByLibrary.simpleMessage("TV"),
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
-        "uploadPhotoCount": m6,
-        "userRoleDescription": m7,
-        "userTitleRoles": m8,
+        "uploadPhotoCount": m11,
+        "userRoleDescription": m12,
+        "userTitleRoles": m13,
         "viewProfile": MessageLookupByLibrary.simpleMessage("View profile"),
-        "viewsToday": m9,
+        "viewsToday": m14,
         "washingMachine":
             MessageLookupByLibrary.simpleMessage("Washing machine"),
         "welcomeDefault": MessageLookupByLibrary.simpleMessage("👋 Hi there"),
-        "welcomeName": m10,
+        "welcomeName": m15,
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
         "wifi": MessageLookupByLibrary.simpleMessage("Wifi"),

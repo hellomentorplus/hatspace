@@ -96,6 +96,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/download.svg
   String get download => 'assets/icons/download.svg';
 
+  /// File path: assets/icons/edit.svg
+  String get edit => 'assets/icons/edit.svg';
+
   /// File path: assets/icons/electric_stove.svg
   String get electricStove => 'assets/icons/electric_stove.svg';
 
@@ -168,14 +171,23 @@ class $AssetsIconsGen {
   /// File path: assets/icons/logout.svg
   String get logout => 'assets/icons/logout.svg';
 
+  /// File path: assets/icons/message.svg
+  String get message => 'assets/icons/message.svg';
+
   /// File path: assets/icons/messages.svg
   String get messages => 'assets/icons/messages.svg';
 
   /// File path: assets/icons/notification.svg
   String get notification => 'assets/icons/notification.svg';
 
+  /// File path: assets/icons/number_booking.svg
+  String get numberBooking => 'assets/icons/number_booking.svg';
+
   /// File path: assets/icons/pay_slips.svg
   String get paySlips => 'assets/icons/pay_slips.svg';
+
+  /// File path: assets/icons/phone.svg
+  String get phone => 'assets/icons/phone.svg';
 
   /// File path: assets/icons/photo_access.svg
   String get photoAccess => 'assets/icons/photo_access.svg';
@@ -252,6 +264,7 @@ class $AssetsIconsGen {
         decrement,
         delete,
         download,
+        edit,
         electricStove,
         email,
         emailWhite,
@@ -276,9 +289,12 @@ class $AssetsIconsGen {
         kitchen,
         language,
         logout,
+        message,
         messages,
         notification,
+        numberBooking,
         paySlips,
+        phone,
         photoAccess,
         portableFans,
         profileCircle,
