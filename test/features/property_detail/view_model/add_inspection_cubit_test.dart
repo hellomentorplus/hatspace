@@ -34,18 +34,6 @@ void main() async {
 
   tearDown(() {});
 
-  // blocTest<AppleSignInCubit, AppleSignInState>(
-  //     'given AppleSignIn is Available and platform is iOS, '
-  //     'when checkAppleSignInAvailable, '
-  //     'then return AppleSignInAvailable',
-  //     build: () => AppleSignInCubit(),
-  //     setUp: () {
-  //       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
-  //       when(authenticationService.isAppleSignInAvailable).thenReturn(true);
-  //     },
-  //     act: (cubit) => cubit.checkAppleSignInAvailable(),
-  //     expect: () => [AppleSignInAvailable()],
-  //     tearDown: () => debugDefaultTargetPlatformOverride = null);
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
       'Given user is booking an inspection'
       'When user already had tenant role'

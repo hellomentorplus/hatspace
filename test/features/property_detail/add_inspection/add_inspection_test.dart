@@ -22,19 +22,15 @@ import '../property_detail_screen_test.mocks.dart';
 void main() async {
   HatSpaceStrings.load(const Locale('en'));
   initializeDateFormatting();
-
-  setUpAll(() async {});
   final MockAuthenticationService authenticatioServiceMock =
       MockAuthenticationService();
   final MockStorageService storageServiceMock = MockStorageService();
 
-  setUp(() {
+  setUpAll(() async {
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticatioServiceMock);
     HsSingleton.singleton.registerSingleton<StorageService>(storageServiceMock);
   });
-
-  tearDown(() {});
 
   testWidgets('Verify UI component', (WidgetTester widget) async {
     Widget addInspectionView = const AddInspectionBookingScreen();
