@@ -7,7 +7,6 @@ import 'package:hatspace/theme/widgets/hs_appbar.dart';
 
 class InspectionConfirmationDetailScreen extends StatelessWidget {
   final String id;
-
   const InspectionConfirmationDetailScreen({required this.id, super.key});
 
   @override
