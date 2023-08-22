@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/features/application/view/application_guide_screen.dart';
+import 'package:hatspace/features/application/application_view.dart';
 import 'package:hatspace/features/dashboard/dashboard_screen.dart';
 import 'package:hatspace/features/dashboard/view_model/add_home_owner_role_cubit.dart';
 import 'package:hatspace/features/dashboard/view_model/dashboard_interaction_cubit.dart';
@@ -249,7 +249,7 @@ void main() {
 
         // login bottom sheet is not displayed
         expect(find.byType(HsWarningBottomSheetView), findsNothing);
-        expect(find.byType(ApplicationGuideScreen), findsOneWidget);
+        expect(find.byType(ApplicationView), findsOneWidget);
       });
     });
   });

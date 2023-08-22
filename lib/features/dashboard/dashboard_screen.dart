@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hatspace/features/application/view/application_guide_screen.dart';
+import 'package:hatspace/features/application/application_view.dart';
 import 'package:hatspace/features/dashboard/view_model/add_home_owner_role_cubit.dart';
 import 'package:hatspace/features/dashboard/view_model/dashboard_interaction_cubit.dart';
 import 'package:hatspace/features/inspection/inspection_view.dart';
@@ -234,7 +234,7 @@ class _DashboardBodyState extends State<DashboardBody>
               children: const [
                 HomePageView(),
                 InspectionView(),
-                ApplicationGuideScreen(),
+                ApplicationView(),
                 ProfileView()
               ],
             ),
