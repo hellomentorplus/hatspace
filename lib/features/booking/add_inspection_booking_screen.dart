@@ -9,7 +9,6 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
-import 'package:intl/intl.dart';
 
 class AddInspectionBookingScreen extends StatelessWidget {
   AddInspectionBookingScreen({Key? key}) : super(key: key);
@@ -206,7 +205,7 @@ class _DatePickerView extends StatelessWidget {
                         ]));
               });
         },
-        label: DateFormat('dd MMM, yyyy').format(selectedDate),
+        label: HatSpaceStrings.current.dateFormatterWithDate(selectedDate),
         iconUrl: Assets.icons.calendar,
         iconPosition: IconPosition.right,
         contentAlignment: MainAxisAlignment.spaceBetween,
