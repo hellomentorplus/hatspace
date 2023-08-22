@@ -6,6 +6,7 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 
+import '../features/add_property/view/widgets/add_rooms_view_test.dart';
 import '../widget_tester_extension.dart';
 
 void main() {
@@ -639,5 +640,28 @@ void main() {
       btn.style?.foregroundColor?.resolve(disabledState),
       HSColor.neutral6,
     );
+  });
+
+  testWidgets('Test BackButton', (WidgetTester tester) async {
+    Widget widget = const Scaffold(
+      body: Column(
+        children: [Text('Test screen'), HsBackButton()],
+      ),
+    );
+    await tester.wrapAndPump(widget);
+
+    expect(
+        find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
+            widget, 'assets/icons/arrow_calendar_left.svg')),
+        findsOneWidget);
+
+    final Finder backBtnFinder = find.byType(HsBackButton);
+    expect(backBtnFinder, findsOneWidget);
+
+    await tester.tap(backBtnFinder);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Test screen'), findsNothing);
+    expect(find.byType(HsBackButton), findsNothing);
   });
 }

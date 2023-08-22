@@ -5,6 +5,7 @@ import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/inspection/inspection_view.dart';
 import 'package:hatspace/features/inspection/viewmodel/display_item.dart';
 import 'package:hatspace/features/inspection/viewmodel/inspection_cubit.dart';
+import 'package:hatspace/features/inspection_confirmation_detail/inspection_confirmation_detail_screen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -147,5 +148,35 @@ void main() {
 
       expect(find.byType(InspectionBody), findsNothing);
     });
+  });
+
+  testWidgets('verify homeowner interaction', (widgetTester) async {
+    List<DisplayItem> items = [Header()];
+    items.add(HomeOwnerBookingItem(
+      '1',
+      'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
+      'Green living space in Melbourne',
+      PropertyTypes.apartment,
+      4800,
+      Currency.aud,
+      'pw',
+      'Victoria',
+      2,
+    ));
+    when(inspectionCubit.state).thenReturn(InspectionLoaded(items));
+    when(memberService.getUserRoles('uid'))
+        .thenAnswer((_) => Future.value([Roles.homeowner]));
+
+    await mockNetworkImagesFor(() =>
+        widgetTester.blocWrapAndPump<InspectionCubit>(
+            inspectionCubit, const InspectionView()));
+    final Finder homeOwnerInspectionFinder = find.byType(HomeOwnerBookItemView);
+    expect(homeOwnerInspectionFinder, findsOneWidget);
+
+    await widgetTester.tap(homeOwnerInspectionFinder);
+    await widgetTester.pumpAndSettle();
+
+    expect(find.byType(InspectionView), findsNothing);
+    expect(find.byType(InspectionConfirmationDetailScreen), findsOneWidget);
   });
 }
