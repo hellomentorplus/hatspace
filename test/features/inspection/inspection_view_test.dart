@@ -5,6 +5,7 @@ import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/inspection/inspection_view.dart';
 import 'package:hatspace/features/inspection/viewmodel/display_item.dart';
 import 'package:hatspace/features/inspection/viewmodel/inspection_cubit.dart';
+import 'package:hatspace/features/inspection_confirmation_list/inspection_confirmation_list_screen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -62,7 +63,7 @@ void main() {
       4800,
       Currency.aud,
       'pw',
-      'Victoria',
+      AustraliaStates.vic,
       '09:00 AM - 10:00 AM - 15 Sep, 2023',
       'Yolo Tim',
       null,
@@ -94,7 +95,7 @@ void main() {
       4800,
       Currency.aud,
       'pw',
-      'Victoria',
+      AustraliaStates.vic,
       2,
     ));
     when(inspectionCubit.state).thenReturn(InspectionLoaded(items));
@@ -122,7 +123,7 @@ void main() {
       4800,
       Currency.aud,
       'pw',
-      'Victoria',
+      AustraliaStates.vic,
       '09:00 AM - 10:00 AM - 15 Sep, 2023',
       'Yolo Tim',
       null,
@@ -160,29 +161,23 @@ void main() {
       4800,
       Currency.aud,
       'pw',
-      'Victoria',
+      AustraliaStates.vic,
       1,
     ));
     when(inspectionCubit.state).thenReturn(InspectionLoaded(items));
     when(memberService.getUserRoles('uid'))
         .thenAnswer((_) => Future.value([Roles.homeowner]));
 
-    mockNetworkImagesFor(() async {
-      await widgetTester.blocWrapAndPump<InspectionCubit>(
-          inspectionCubit, const InspectionBody());
+    await mockNetworkImagesFor(() =>
+        widgetTester.blocWrapAndPump<InspectionCubit>(
+            inspectionCubit, const InspectionView()));
+    final Finder homeOwnerInspectionFinder = find.byType(HomeOwnerBookItemView);
+    expect(homeOwnerInspectionFinder, findsOneWidget);
 
-      expect(find.byType(InspectionBody), findsOneWidget);
-      expect(find.byType(HomeOwnerBookItemView), findsOneWidget);
-      expect(find.byType(TenantBookItemView), findsNothing);
-      final Finder bookItemsFinder = find.byType(HomeOwnerBookItemView);
-      expect(bookItemsFinder, findsOneWidget);
+    await widgetTester.tap(homeOwnerInspectionFinder);
+    await widgetTester.pumpAndSettle();
 
-      await widgetTester.ensureVisible(bookItemsFinder);
-      await widgetTester.pump(const Duration(seconds: 1));
-      await widgetTester.tap(bookItemsFinder);
-      await widgetTester.pumpAndSettle();
-
-      expect(find.byType(InspectionBody), findsNothing);
-    });
+    expect(find.byType(InspectionView), findsNothing);
+    expect(find.byType(InspectionConfirmationListScreen), findsOneWidget);
   });
 }

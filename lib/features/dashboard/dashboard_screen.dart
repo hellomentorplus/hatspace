@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hatspace/features/application/application_view.dart';
 import 'package:hatspace/features/dashboard/view_model/add_home_owner_role_cubit.dart';
 import 'package:hatspace/features/dashboard/view_model/dashboard_interaction_cubit.dart';
 import 'package:hatspace/features/inspection/inspection_view.dart';
 import 'package:hatspace/features/profile/view/profile_view.dart';
 import 'package:hatspace/features/home/view/home_view.dart';
-import 'package:hatspace/features/application/application_view.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';

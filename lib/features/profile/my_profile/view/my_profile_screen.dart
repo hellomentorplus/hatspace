@@ -4,9 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/profile/my_profile/view_model/my_profile_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
-import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/widgets/hs_appbar.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 class MyProfileScreen extends StatelessWidget {
@@ -28,12 +28,8 @@ class MyProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text(HatSpaceStrings.current.myProfile,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(fontWeight: FontStyleGuide.fwBold)),
+        appBar: HsAppBar(
+          title: HatSpaceStrings.current.myProfile,
           actions: [
             TextOnlyButton(
                 label: HatSpaceStrings.current.edit,
@@ -46,19 +42,6 @@ class MyProfileBody extends StatelessWidget {
                         fontWeight: FontStyleGuide.fwBold,
                         color: HSColor.primary))),
           ],
-          backgroundColor: HSColor.neutral1,
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            onPressed: () => context.pop(),
-            icon: SvgPicture.asset(Assets.icons.arrowCalendarLeft),
-          ),
-          elevation: 0,
-          bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(HsDimens.size1),
-              child: Container(
-                color: HSColor.neutral2,
-                height: HsDimens.size1,
-              )),
         ),
         body: SingleChildScrollView(
           child: Padding(

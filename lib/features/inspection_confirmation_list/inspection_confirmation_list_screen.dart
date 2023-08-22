@@ -49,16 +49,16 @@ class InspectionConfirmationListScreen extends StatelessWidget {
               ),
               const SizedBox(height: HsDimens.lineheight12),
               InkWell(
-                onTap: () => {},
-                child: BookingInformationItem(
+                onTap: () => context.goToInspectionConfirmationDetail(id: '1'),
+                child: const BookingInformationItem(
                   propertyName: 'Green living space in Melbourne',
                   propertyImage:
                       'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
-                  propertyType: PropertyTypes.apartment.displayName,
+                  propertyType: PropertyTypes.apartment,
                   price: 4800,
                   currency: Currency.aud,
                   timeRenting: 'pw',
-                  state: 'Victoria',
+                  state: AustraliaStates.vic,
                   timeBooking: '09:00 AM-10:00 AM - 15 Sep, 2023',
                   ownerName: 'Captain Cole',
                   ownerAvatar: null,
@@ -75,11 +75,11 @@ class InspectionConfirmationListScreen extends StatelessWidget {
 class BookingInformationItem extends StatelessWidget {
   final String propertyImage;
   final String propertyName;
-  final String propertyType;
+  final PropertyTypes propertyType;
   final double price;
   final Currency currency;
   final String timeRenting;
-  final String state;
+  final AustraliaStates state;
   final String timeBooking; // todo: need to update after demo
   final String? ownerName;
   final String? ownerAvatar;
@@ -131,7 +131,7 @@ class BookingInformationItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          propertyType,
+                          propertyType.displayName,
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall
@@ -154,7 +154,7 @@ class BookingInformationItem extends StatelessWidget {
                         const SizedBox(
                           height: HsDimens.spacing5,
                         ),
-                        Text(state,
+                        Text(state.displayName,
                             style: Theme.of(context).textTheme.bodySmall),
                         const SizedBox(
                           height: HsDimens.spacing4,

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/inspection_detail/widgets/inspection_information_view.dart';
-import 'package:hatspace/gen/assets.gen.dart';
-import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
-import 'package:hatspace/theme/hs_theme.dart';
+import 'package:hatspace/theme/widgets/hs_appbar.dart';
 
 class InspectionDetailScreen extends StatelessWidget {
   final String id;
@@ -15,19 +12,12 @@ class InspectionDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(HatSpaceStrings.current.details,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(fontWeight: FontStyleGuide.fwBold)),
-
-        /// TODO : Enable later when implement deletion
+      appBar: HsAppBar(
+        title: HatSpaceStrings.current.details,
+        // TODO : Enable later when implement deletion
         // actions: [
         // IconButton(
-        //   onPressed: () {
-        //     // TODO : Handle on delete tapped
-        //   },
+        //   onPressed: () {},
         //   icon: SvgPicture.asset(
         //     Assets.icons.delete,
         //     colorFilter:
@@ -37,19 +27,6 @@ class InspectionDetailScreen extends StatelessWidget {
         //   ),
         // )
         // ],
-        backgroundColor: HSColor.neutral1,
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          onPressed: () => context.pop(),
-          icon: SvgPicture.asset(Assets.icons.arrowCalendarLeft),
-        ),
-        elevation: 0,
-        bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(HsDimens.size1),
-            child: Container(
-              color: HSColor.neutral2,
-              height: HsDimens.size1,
-            )),
       ),
       body: Stack(
         fit: StackFit.expand,
