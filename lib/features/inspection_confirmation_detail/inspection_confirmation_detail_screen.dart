@@ -34,7 +34,7 @@ class InspectionConfirmationDetailScreen extends StatelessWidget {
                     startTime: DateTime(2023, 9, 15, 9),
                     endTime: DateTime(2023, 9, 15, 10),
                     rentingDuration: HatSpaceStrings.current.pw,
-                    notes: '')),
+                    notes: 'My number is 0438825121')),
           ),
         ],
       ),

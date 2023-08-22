@@ -32,7 +32,7 @@ void main() {
     expect(find.text('Date'), findsOneWidget);
     expect(find.text('15 Sep, 2023'), findsOneWidget);
     expect(find.text('Notes'), findsOneWidget);
-    expect(find.text(''), findsOneWidget);
+    expect(find.text('My number is 0438825121'), findsOneWidget);
 
     expect(find.byType(InspectionInformationView), findsOneWidget);
 
