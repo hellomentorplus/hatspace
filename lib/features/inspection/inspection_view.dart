@@ -1,92 +1,109 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/route/router.dart';
+import 'package:hatspace/features/inspection/viewmodel/display_item.dart';
+import 'package:hatspace/features/inspection/viewmodel/inspection_cubit.dart';
 import 'package:hatspace/strings/l10n.dart';
-
 import 'package:hatspace/theme/hs_theme.dart';
-
 import 'package:hatspace/data/property_data.dart';
-
 import 'package:hatspace/gen/assets.gen.dart';
 
 class InspectionView extends StatelessWidget {
   const InspectionView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: HsDimens.spacing16, vertical: HsDimens.spacing24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(HatSpaceStrings.current.inspectionBooking,
-                  style: Theme.of(context).textTheme.displayLarge),
-              const SizedBox(
-                height: HsDimens.spacing20,
-              ),
-              Text(
-                '3 inspect booking',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontSize: FontStyleGuide.fontSize16,
-                    fontWeight: FontWeight.w500),
-              ),
-              TenantBookItemView(
-                propertyImage:
-                    'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
-                propertyName: 'Green living space in Melbourne',
-                propertyType: PropertyTypes.apartment.displayName,
-                price: 4800,
-                currency: Currency.aud,
-                timeRenting: 'pw',
-                state: 'Victoria',
-                timeBooking: '09:00 AM - 10:00 AM - 15 Sep, 2023',
-                ownerName: 'Yolo Tim',
-                ownerAvatar: null,
-                onPressed: () {},
-              ),
-              TenantBookItemView(
-                propertyImage:
-                    'https://exej2saedb8.exactdn.com/wp-content/uploads/2022/02/Screen-Shot-2022-02-04-at-2.28.40-PM.png?strip=all&lossy=1&ssl=1',
-                propertyName: 'Black and white apartment in Sydney',
-                propertyType: PropertyTypes.apartment.displayName,
-                price: 8500,
-                currency: Currency.aud,
-                timeRenting: 'pw',
-                state: 'New South Wales',
-                timeBooking: '14:00 PM - 15:00 PM - 16 Sep, 2023',
-                ownerName: 'Cyber James',
-                ownerAvatar: null,
-                onPressed: () {},
-              ),
-              TenantBookItemView(
-                propertyImage:
-                    'https://cdn-bnokp.nitrocdn.com/QNoeDwCprhACHQcnEmHgXDhDpbEOlRHH/assets/images/optimized/rev-a642abc/www.decorilla.com/online-decorating/wp-content/uploads/2020/08/Modern-Apartment-Decor-.jpg',
-                propertyName: 'Fully-furnished house in Rouse Hill',
-                propertyType: PropertyTypes.house.displayName,
-                price: 1000,
-                currency: Currency.aud,
-                timeRenting: 'pw',
-                state: 'Victoria',
-                timeBooking: '18:00 PM - 19:00 PM - 18 Sep, 2023',
-                ownerName: 'Maggie Bean',
-                ownerAvatar: null,
-                onPressed: () {},
-              ),
-            ],
-          ),
+  Widget build(BuildContext context) => BlocProvider<InspectionCubit>(
+      create: (context) => InspectionCubit()..getUserRole(),
+      child: const InspectionBody());
+}
+
+class InspectionBody extends StatelessWidget {
+  const InspectionBody({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => SafeArea(
+        child: BlocBuilder<InspectionCubit, InspectionState>(
+          builder: (_, state) {
+            if (state is InspectionLoaded) {
+              return ListView.separated(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: HsDimens.spacing16,
+                      vertical: HsDimens.spacing24),
+                  itemCount: state.items.length,
+                  separatorBuilder: (_, idx) {
+                    if (idx == 0) {
+                      return const SizedBox(
+                        height: HsDimens.spacing20,
+                      );
+                    }
+                    return const SizedBox(
+                      height: HsDimens.spacing12,
+                    );
+                  },
+                  itemBuilder: (BuildContext context, int index) {
+                    final item = state.items[index];
+
+                    if (item is Header) {
+                      return Text(HatSpaceStrings.current.inspectionBooking,
+                          style: Theme.of(context).textTheme.displayLarge);
+                    } else if (item is NumberOfInspectionItem) {
+                      return Text(
+                        HatSpaceStrings.current
+                            .numberOfInspectionBooking(item.number),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontSize: FontStyleGuide.fontSize16,
+                            fontWeight: FontWeight.w500),
+                      );
+                    } else if (item is TenantBookingItem) {
+                      return InkWell(
+                        onTap: () => {
+                          context.goToInspectionDetail(id: item.id),
+                        },
+                        child: TenantBookItemView(
+                          propertyName: item.propertyName,
+                          propertyImage: item.propertyImage,
+                          propertyType: item.propertyType,
+                          price: item.price,
+                          currency: item.currency,
+                          timeRenting: item.timeRenting,
+                          state: item.state,
+                          timeBooking: item.timeBooking,
+                          ownerName: item.ownerName,
+                          ownerAvatar: item.ownerAvatar,
+                        ),
+                      );
+                    } else if (item is HomeOwnerBookingItem) {
+                      return InkWell(
+                        onTap: () => context.goToInspectionConfirmationDetail(
+                            id: item.id),
+                        child: HomeOwnerBookItemView(
+                          propertyName: item.propertyName,
+                          propertyImage: item.propertyImage,
+                          propertyType: item.propertyType,
+                          price: item.price,
+                          currency: item.currency,
+                          timeRenting: item.timeRenting,
+                          state: item.state,
+                          numberOfBookings: item.numberOfBookings,
+                        ),
+                      );
+                    }
+
+                    return const SizedBox.shrink();
+                  });
+            }
+            return const SizedBox();
+          },
         ),
-      ),
-    );
-  }
+      );
 }
 
 class TenantBookItemView extends StatelessWidget {
   final String propertyImage;
   final String propertyName;
-  final String propertyType;
+  final PropertyTypes propertyType;
   final double price;
   final Currency currency;
   final String timeRenting;
@@ -94,7 +111,6 @@ class TenantBookItemView extends StatelessWidget {
   final String timeBooking; // todo: need to update after demo
   final String? ownerName;
   final String? ownerAvatar;
-  final VoidCallback onPressed;
 
   const TenantBookItemView({
     required this.propertyImage,
@@ -105,7 +121,6 @@ class TenantBookItemView extends StatelessWidget {
     required this.timeRenting,
     required this.state,
     required this.timeBooking,
-    required this.onPressed,
     this.ownerName,
     this.ownerAvatar,
     Key? key,
@@ -113,111 +128,106 @@ class TenantBookItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: HsDimens.spacing12),
-      child: Card(
-        elevation: 5, // Controls the shadow depth
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(HsDimens.radius10),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(HsDimens.spacing16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: HsDimens.size110,
-                    height: HsDimens.size110,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(HsDimens.radius8),
-                      child: Image.network(
-                        propertyImage,
-                        fit: BoxFit.cover,
-                      ),
+    return Card(
+      elevation: 5, // Controls the shadow depth
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(HsDimens.radius10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(HsDimens.spacing16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: HsDimens.size110,
+                  height: HsDimens.size110,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(HsDimens.radius8),
+                    child: Image.network(
+                      propertyImage,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: HsDimens.spacing16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            propertyType,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: HsDimens.spacing16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          propertyType.displayName,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context).colorScheme.primary),
+                        ),
+                        const SizedBox(
+                          height: HsDimens.spacing5,
+                        ),
+                        Text(propertyName,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodySmall
+                                .bodyMedium
                                 ?.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                          ),
-                          const SizedBox(
-                            height: HsDimens.spacing5,
-                          ),
-                          Text(propertyName,
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    fontWeight: FontStyleGuide.fwBold,
-                                  )),
-                          const SizedBox(
-                            height: HsDimens.spacing5,
-                          ),
-                          Text(state,
-                              style: Theme.of(context).textTheme.bodySmall),
-                          const SizedBox(
-                            height: HsDimens.spacing4,
-                          ),
-                          Text.rich(TextSpan(
-                              text: HatSpaceStrings.current
-                                  .currencyFormatter(currency.symbol, price),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                      fontSize: FontStyleGuide.fontSize18,
-                                      height: 28 / 18,
-                                      fontWeight: FontWeight.w700),
-                              children: [
-                                TextSpan(
-                                    text: ' $timeRenting',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(color: HSColor.neutral6))
-                              ])),
-                          const SizedBox(
-                            height: HsDimens.spacing4,
-                          ),
-                          if (ownerName != null)
-                            _OwnerView(
-                              ownerName: ownerName!,
-                              ownerAvatar: ownerAvatar,
-                            )
-                        ],
-                      ),
+                                  fontWeight: FontStyleGuide.fwBold,
+                                )),
+                        const SizedBox(
+                          height: HsDimens.spacing5,
+                        ),
+                        Text(state,
+                            style: Theme.of(context).textTheme.bodySmall),
+                        const SizedBox(
+                          height: HsDimens.spacing4,
+                        ),
+                        Text.rich(TextSpan(
+                            text: HatSpaceStrings.current
+                                .currencyFormatter(currency.symbol, price),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    fontSize: FontStyleGuide.fontSize18,
+                                    height: 28 / 18,
+                                    fontWeight: FontWeight.w700),
+                            children: [
+                              TextSpan(
+                                  text: ' $timeRenting',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: HSColor.neutral6))
+                            ])),
+                        const SizedBox(
+                          height: HsDimens.spacing4,
+                        ),
+                        if (ownerName != null)
+                          _OwnerView(
+                            ownerName: ownerName!,
+                            ownerAvatar: ownerAvatar,
+                          )
+                      ],
                     ),
                   ),
-                ],
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: HsDimens.spacing12),
-                child: SvgPicture.asset(
-                  Assets.images.dashedDivider,
-                  fit: BoxFit.fitWidth,
                 ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: HsDimens.spacing12),
+              child: SvgPicture.asset(
+                Assets.images.dashedDivider,
+                fit: BoxFit.fitWidth,
               ),
-              _TimeRentingView(timeBooking: timeBooking)
-            ],
-          ),
+            ),
+            _TimeRentingView(timeBooking: timeBooking)
+          ],
         ),
       ),
     );
@@ -284,6 +294,150 @@ class _TimeRentingView extends StatelessWidget {
           width: HsDimens.spacing4,
         ),
         Text(timeBooking),
+      ],
+    );
+  }
+}
+
+class HomeOwnerBookItemView extends StatelessWidget {
+  final String propertyImage;
+  final String propertyName;
+  final PropertyTypes propertyType;
+  final double price;
+  final String timeRenting;
+  final Currency currency;
+  final String state;
+  final int numberOfBookings; // todo: need to update after demo
+
+  const HomeOwnerBookItemView({
+    required this.propertyImage,
+    required this.propertyName,
+    required this.propertyType,
+    required this.price,
+    required this.timeRenting,
+    required this.currency,
+    required this.state,
+    required this.numberOfBookings,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 5, // Controls the shadow depth
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(HsDimens.radius10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(HsDimens.spacing16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: HsDimens.size110,
+                  height: HsDimens.size110,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(HsDimens.radius8),
+                    child: Image.network(
+                      propertyImage,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: HsDimens.spacing16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          propertyType.displayName,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context).colorScheme.primary),
+                        ),
+                        const SizedBox(
+                          height: HsDimens.spacing5,
+                        ),
+                        Text(propertyName,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  fontWeight: FontStyleGuide.fwBold,
+                                )),
+                        const SizedBox(
+                          height: HsDimens.spacing5,
+                        ),
+                        Text(state,
+                            style: Theme.of(context).textTheme.bodySmall),
+                        const SizedBox(
+                          height: HsDimens.spacing4,
+                        ),
+                        Text.rich(TextSpan(
+                            text: HatSpaceStrings.current
+                                .currencyFormatter(currency.symbol, price),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    fontSize: FontStyleGuide.fontSize18,
+                                    height: 28 / 18,
+                                    fontWeight: FontWeight.w700),
+                            children: [
+                              TextSpan(
+                                  text: ' $timeRenting',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: HSColor.neutral6))
+                            ])),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: HsDimens.spacing12),
+              child: SvgPicture.asset(
+                Assets.images.dashedDivider,
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+            _NumberOfInspectionView(number: numberOfBookings)
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _NumberOfInspectionView extends StatelessWidget {
+  final int number;
+
+  const _NumberOfInspectionView({required this.number});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SvgPicture.asset(
+          Assets.icons.numberBooking,
+          fit: BoxFit.cover,
+        ),
+        const SizedBox(
+          width: HsDimens.spacing4,
+        ),
+        Text(HatSpaceStrings.current.numberOfBooking(number)),
       ],
     );
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/features/add_property/view/add_property_screen.dart';
 import 'package:hatspace/features/booking/add_inspection_success_booking_screen.dart';
+import 'package:hatspace/features/inspection_confirmation_detail/inspection_confirmation_detail_screen.dart';
+import 'package:hatspace/features/inspection_detail/inspection_detail_screen.dart';
 import 'package:hatspace/features/debug/view/widget_list/widget_catalog_screen.dart';
 import 'package:hatspace/features/property_detail/property_detail_screen.dart';
 import 'package:hatspace/features/sign_up/choose_roles/view/choose_roles_screen.dart';
@@ -53,6 +55,22 @@ extension RouteExtension on BuildContext {
             builder: (context) => PropertyDetailScreen(id: id),
           ));
     }
+  }
+
+  void goToInspectionDetail({required String id}) {
+    Navigator.push(
+        this,
+        MaterialPageRoute(
+          builder: (context) => InspectionDetailScreen(id: id),
+        ));
+  }
+
+  void goToInspectionConfirmationDetail({required String id}) {
+    Navigator.push(
+        this,
+        MaterialPageRoute(
+          builder: (context) => InspectionConfirmationDetailScreen(id: id),
+        ));
   }
 
   void pop<T>({T? result}) {
