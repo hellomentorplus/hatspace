@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/inspection/inspection_view.dart';
 import 'package:hatspace/features/inspection_confirmation_detail/inspection_confirmation_detail_screen.dart';
 import 'package:hatspace/features/inspection_detail/inspection_detail_screen.dart';
 import 'package:hatspace/features/inspection_detail/widgets/inspection_information_view.dart';
