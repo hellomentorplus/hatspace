@@ -1,13 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/features/application/view/application_guide_screen.dart';
+import 'package:hatspace/features/application/application_view.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
-import '../../../widget_tester_extension.dart';
-import '../../add_property/view/widgets/add_rooms_view_test.dart';
+import '../../widget_tester_extension.dart';
+import '../add_property/view/widgets/add_rooms_view_test.dart';
 
 void main() {
   testWidgets('Verify UI', (widgetTester) async {
-    await widgetTester.wrapAndPump(const ApplicationGuideScreen());
+    await widgetTester.wrapAndPump(const ApplicationView());
 
     expect(find.text('Guide for application'), findsOneWidget);
     expect(
