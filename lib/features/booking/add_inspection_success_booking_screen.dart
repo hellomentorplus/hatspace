@@ -115,7 +115,8 @@ class AddInspectionSuccessScreen extends StatelessWidget {
                         timeString: '10:00 AM'),
                     _BookingSchedule(
                       label: HatSpaceStrings.current.date,
-                      timeString: HatSpaceStrings.current.dateFormatterWithDate(DateTime.parse('2023-08-14')),
+                      timeString: HatSpaceStrings.current
+                          .dateFormatterWithDate(DateTime.parse('2023-08-14')),
                       alignment: CrossAxisAlignment.end,
                     )
                   ],
