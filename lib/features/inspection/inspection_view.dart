@@ -76,7 +76,8 @@ class InspectionBody extends StatelessWidget {
                       );
                     } else if (item is HomeOwnerBookingItem) {
                       return InkWell(
-                        onTap: () => {},
+                        onTap: () => context.goToInspectionConfirmationDetail(
+                            id: item.id),
                         child: HomeOwnerBookItemView(
                           propertyName: item.propertyName,
                           propertyImage: item.propertyImage,

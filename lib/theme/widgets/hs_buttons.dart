@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
@@ -320,6 +322,18 @@ class HsDropDownButton extends StatelessWidget {
               EdgeInsets.fromLTRB(HsDimens.spacing16, HsDimens.spacing12,
                   HsDimens.spacing12, HsDimens.spacing12))),
       onPressed: onPressed,
+    );
+  }
+}
+
+class HsBackButton extends StatelessWidget {
+  const HsBackButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () => context.pop(),
+      icon: SvgPicture.asset(Assets.icons.arrowCalendarLeft),
     );
   }
 }
