@@ -91,7 +91,7 @@ extension RouteExtension on BuildContext {
   }
 
   // BOOKING INSPECTION FLOW
-  void pushToSuccessScreen() {
+  void pushToBookInspectionSuccessScreen() {
     Navigator.of(this).pushReplacement(MaterialPageRoute(
         builder: (context) => const AddInspectionSuccessScreen()));
   }
