@@ -36,7 +36,7 @@ class AddInspectionBookingBody extends StatelessWidget {
     return BlocListener<AddInspectionBookingCubit, AddInspectionBookingState>(
         listener: (context, state) {
           if (state is BookingInspectionSuccess) {
-            context.pushToSuccessScreen();
+            context.pushToBookInspectionSuccessScreen();
           }
         },
         child: Scaffold(
