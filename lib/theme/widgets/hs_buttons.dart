@@ -14,15 +14,16 @@ class ButtonWithIconContent extends StatelessWidget {
   final String iconUrl;
   final MainAxisAlignment contentAlignment;
   final bool overrideIconColor;
+  final TextStyle? labelStyle;
 
-  const ButtonWithIconContent({
-    required this.label,
-    required this.iconUrl,
-    required this.contentAlignment,
-    this.overrideIconColor = true,
-    super.key,
-    this.iconPosition,
-  });
+  const ButtonWithIconContent(
+      {required this.label,
+      required this.iconUrl,
+      required this.contentAlignment,
+      this.overrideIconColor = true,
+      super.key,
+      this.iconPosition,
+      this.labelStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +46,7 @@ class ButtonWithIconContent extends StatelessWidget {
         child: Text(
           label,
           textAlign: TextAlign.center,
+          style: labelStyle,
         ),
       ),
     ];
@@ -119,17 +121,19 @@ class SecondaryButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final MainAxisAlignment contentAlignment;
   final bool overrideIconColor;
+  final TextStyle? labelStyle;
 
-  const SecondaryButton({
-    required this.label,
-    Key? key,
-    this.iconUrl,
-    this.onPressed,
-    this.iconPosition = IconPosition.left,
-    this.style,
-    this.contentAlignment = MainAxisAlignment.center,
-    this.overrideIconColor = true,
-  }) : super(key: key);
+  const SecondaryButton(
+      {required this.label,
+      Key? key,
+      this.iconUrl,
+      this.onPressed,
+      this.iconPosition = IconPosition.left,
+      this.style,
+      this.contentAlignment = MainAxisAlignment.center,
+      this.overrideIconColor = true,
+      this.labelStyle})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -141,9 +145,7 @@ class SecondaryButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: contentAlignment,
           mainAxisSize: MainAxisSize.max,
-          children: [
-            Text(label),
-          ],
+          children: [Text(label)],
         ),
       );
     }
@@ -156,6 +158,7 @@ class SecondaryButton extends StatelessWidget {
         iconPosition: iconPosition,
         iconUrl: iconUrl!,
         label: label,
+        labelStyle: labelStyle,
         overrideIconColor: overrideIconColor,
       ),
     );
@@ -294,17 +297,20 @@ class HsDropDownButton extends StatelessWidget {
   final String? value;
   final VoidCallback onPressed;
   final String? icon;
+  final TextStyle? labelStyle;
   const HsDropDownButton(
       {required this.onPressed,
       super.key,
       bool? isRequired,
       this.icon,
-      this.value});
+      this.value,
+      this.labelStyle});
   @override
   Widget build(BuildContext context) {
     return SecondaryButton(
       // TODO: implement placeholder with enum of preriod
       label: value ?? HatSpaceStrings.current.pleaseSelectValue,
+      labelStyle: labelStyle,
       iconUrl: icon,
       iconPosition: IconPosition.right,
       contentAlignment: MainAxisAlignment.spaceBetween,
