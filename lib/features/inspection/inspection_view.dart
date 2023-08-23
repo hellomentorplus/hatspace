@@ -76,8 +76,10 @@ class InspectionBody extends StatelessWidget {
                       );
                     } else if (item is HomeOwnerBookingItem) {
                       return InkWell(
-                        onTap: () => context.goToInspectionConfirmationDetail(
-                            id: item.id),
+                        onTap: () => {
+                          context.goToInspectionConfirmationListDetail(
+                              id: item.id),
+                        },
                         child: HomeOwnerBookItemView(
                           propertyName: item.propertyName,
                           propertyImage: item.propertyImage,
@@ -107,7 +109,7 @@ class TenantBookItemView extends StatelessWidget {
   final double price;
   final Currency currency;
   final String timeRenting;
-  final String state;
+  final AustraliaStates state;
   final String timeBooking; // todo: need to update after demo
   final String? ownerName;
   final String? ownerAvatar;
@@ -182,7 +184,7 @@ class TenantBookItemView extends StatelessWidget {
                         const SizedBox(
                           height: HsDimens.spacing5,
                         ),
-                        Text(state,
+                        Text(state.displayName,
                             style: Theme.of(context).textTheme.bodySmall),
                         const SizedBox(
                           height: HsDimens.spacing4,
@@ -306,7 +308,7 @@ class HomeOwnerBookItemView extends StatelessWidget {
   final double price;
   final String timeRenting;
   final Currency currency;
-  final String state;
+  final AustraliaStates state;
   final int numberOfBookings; // todo: need to update after demo
 
   const HomeOwnerBookItemView({
@@ -377,7 +379,7 @@ class HomeOwnerBookItemView extends StatelessWidget {
                         const SizedBox(
                           height: HsDimens.spacing5,
                         ),
-                        Text(state,
+                        Text(state.displayName,
                             style: Theme.of(context).textTheme.bodySmall),
                         const SizedBox(
                           height: HsDimens.spacing4,
