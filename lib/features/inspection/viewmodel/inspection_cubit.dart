@@ -35,8 +35,8 @@ class InspectionCubit extends Cubit<InspectionState> {
           4800,
           Currency.aud,
           'pw',
-          'Victoria',
-          2,
+          AustraliaStates.vic,
+          1,
         ));
       } else {
         // tenant
@@ -49,7 +49,7 @@ class InspectionCubit extends Cubit<InspectionState> {
           4800,
           Currency.aud,
           'pw',
-          'Victoria',
+          AustraliaStates.vic,
           '09:00 AM - 10:00 AM - 15 Sep, 2023',
           'Yolo Tim',
           null,
@@ -62,7 +62,7 @@ class InspectionCubit extends Cubit<InspectionState> {
           8500,
           Currency.aud,
           'pw',
-          'New South Wales',
+          AustraliaStates.nsw,
           '14:00 PM - 15:00 PM - 16 Sep, 2023',
           'Cyber James',
           null,
@@ -75,7 +75,7 @@ class InspectionCubit extends Cubit<InspectionState> {
           1000,
           Currency.aud,
           'pw',
-          'Victoria',
+          AustraliaStates.vic,
           '18:00 PM - 19:00 PM - 18 Sep, 2023',
           'Maggie Bean',
           null,

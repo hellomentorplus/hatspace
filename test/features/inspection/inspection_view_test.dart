@@ -5,7 +5,7 @@ import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/inspection/inspection_view.dart';
 import 'package:hatspace/features/inspection/viewmodel/display_item.dart';
 import 'package:hatspace/features/inspection/viewmodel/inspection_cubit.dart';
-import 'package:hatspace/features/inspection_confirmation_detail/inspection_confirmation_detail_screen.dart';
+import 'package:hatspace/features/inspection_confirmation_list/inspection_confirmation_list_screen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -63,7 +63,7 @@ void main() {
       4800,
       Currency.aud,
       'pw',
-      'Victoria',
+      AustraliaStates.vic,
       '09:00 AM - 10:00 AM - 15 Sep, 2023',
       'Yolo Tim',
       null,
@@ -95,7 +95,7 @@ void main() {
       4800,
       Currency.aud,
       'pw',
-      'Victoria',
+      AustraliaStates.vic,
       2,
     ));
     when(inspectionCubit.state).thenReturn(InspectionLoaded(items));
@@ -112,7 +112,7 @@ void main() {
     // skip check dummy data, will update when getting real data
   });
 
-  testWidgets('verify interaction', (widgetTester) async {
+  testWidgets('verify tenant booking item tap', (widgetTester) async {
     List<DisplayItem> items = [Header()];
     items.add(NumberOfInspectionItem(1));
     items.add(TenantBookingItem(
@@ -123,7 +123,7 @@ void main() {
       4800,
       Currency.aud,
       'pw',
-      'Victoria',
+      AustraliaStates.vic,
       '09:00 AM - 10:00 AM - 15 Sep, 2023',
       'Yolo Tim',
       null,
@@ -138,7 +138,8 @@ void main() {
 
       expect(find.byType(InspectionBody), findsOneWidget);
       expect(find.byType(TenantBookItemView), findsOneWidget);
-      final Finder bookItemsFinder = find.byType(InkWell);
+      expect(find.byType(HomeOwnerBookItemView), findsNothing);
+      final Finder bookItemsFinder = find.byType(TenantBookItemView);
       expect(bookItemsFinder, findsOneWidget);
 
       await widgetTester.ensureVisible(bookItemsFinder);
@@ -150,7 +151,7 @@ void main() {
     });
   });
 
-  testWidgets('verify homeowner interaction', (widgetTester) async {
+  testWidgets('verify homeowner booking item tap', (widgetTester) async {
     List<DisplayItem> items = [Header()];
     items.add(HomeOwnerBookingItem(
       '1',
@@ -160,8 +161,8 @@ void main() {
       4800,
       Currency.aud,
       'pw',
-      'Victoria',
-      2,
+      AustraliaStates.vic,
+      1,
     ));
     when(inspectionCubit.state).thenReturn(InspectionLoaded(items));
     when(memberService.getUserRoles('uid'))
@@ -177,6 +178,6 @@ void main() {
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(InspectionView), findsNothing);
-    expect(find.byType(InspectionConfirmationDetailScreen), findsOneWidget);
+    expect(find.byType(InspectionConfirmationListScreen), findsOneWidget);
   });
 }
