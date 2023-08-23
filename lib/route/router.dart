@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/features/add_property/view/add_property_screen.dart';
 import 'package:hatspace/features/inspection_confirmation_detail/inspection_confirmation_detail_screen.dart';
+import 'package:hatspace/features/inspection_confirmation_list/inspection_confirmation_list_screen.dart';
 import 'package:hatspace/features/inspection_detail/inspection_detail_screen.dart';
 import 'package:hatspace/features/debug/view/widget_list/widget_catalog_screen.dart';
 import 'package:hatspace/features/property_detail/property_detail_screen.dart';
@@ -69,6 +70,14 @@ extension RouteExtension on BuildContext {
         this,
         MaterialPageRoute(
           builder: (context) => InspectionConfirmationDetailScreen(id: id),
+        ));
+  }
+
+  void goToInspectionConfirmationListDetail({required String id}) {
+    Navigator.push(
+        this,
+        MaterialPageRoute(
+          builder: (context) => InspectionConfirmationListScreen(id: id),
         ));
   }
 

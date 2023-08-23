@@ -26,7 +26,7 @@ class TenantBookingItem extends DisplayItem {
   final double price;
   final Currency currency;
   final String timeRenting;
-  final String state;
+  final AustraliaStates state;
   final String timeBooking; // todo: need to update after demo
   final String? ownerName;
   final String? ownerAvatar;
@@ -54,7 +54,7 @@ class HomeOwnerBookingItem extends DisplayItem {
   final double price;
   final Currency currency;
   final String timeRenting;
-  final String state;
+  final AustraliaStates state;
   final int numberOfBookings; // todo: need to update after demo
 
   HomeOwnerBookingItem(
