@@ -125,8 +125,9 @@ void main() {
     verify(firestore.collection('members')).called(1);
     verify(collectionReference.doc('uid')).called(1);
     verify(documentReference.set({
-      'roles': ['tenant', 'homeowner']
-    })).called(1);
+      'roles': ['tenant', 'homeowner'],
+    }, any))
+        .called(1);
   });
 
   test('verify API calls when saveUserRoles', () async {
