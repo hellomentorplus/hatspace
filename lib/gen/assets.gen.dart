@@ -195,6 +195,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/portable_fans.svg
   String get portableFans => 'assets/icons/portable_fans.svg';
 
+  /// File path: assets/icons/primary_check.svg
+  String get primaryCheck => 'assets/icons/primary_check.svg';
+
   /// File path: assets/icons/profile-circle.svg
   String get profileCircle => 'assets/icons/profile-circle.svg';
 
@@ -297,6 +300,7 @@ class $AssetsIconsGen {
         phone,
         photoAccess,
         portableFans,
+        primaryCheck,
         profileCircle,
         profile,
         requestHomeownerRole,
@@ -350,10 +354,6 @@ class $AssetsImagesGen {
   AssetGenImage get signInBackground =>
       const AssetGenImage('assets/images/signIn_background.png');
 
-  /// File path: assets/images/tempImage.png
-  AssetGenImage get tempImage =>
-      const AssetGenImage('assets/images/tempImage.png');
-
   /// File path: assets/images/upload.svg
   String get upload => 'assets/images/upload.svg';
 
@@ -376,7 +376,6 @@ class $AssetsImagesGen {
         loginCircle,
         logo,
         signInBackground,
-        tempImage,
         upload,
         uploadPhoto,
         userDefaultAvatar

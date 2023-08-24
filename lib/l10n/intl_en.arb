@@ -205,6 +205,9 @@
   "logOutDescription": "Are you sure you want to log out?",
   "btnLogOut": "Log Out",
   "inspectionBooking": "Inspection Booking",
+  "congratulations": "Congratulations 🎉",
+  "bookingSuccessMessage":"Your booking is successfully saved and sent to homeowner. To complete the booking, please wait for the confirmation from homeowner.",
+  "addToGoolgeCalendar": "Add to Goolge Calendar",
   "numberOfInspectionBooking": "{number} inspection booking",
   "numberOfBooking": "{number, plural, one{1 Booking} other { {number} Bookings}}"
 }
