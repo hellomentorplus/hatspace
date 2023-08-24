@@ -88,7 +88,7 @@ void main() async {
               .thenAnswer((realInvocation) => Future.value([Roles.tenant]));
 
           when(memberService.saveNameAndAvatar(any, any, any))
-          .thenAnswer((realInvocation) => Future.value());
+              .thenAnswer((realInvocation) => Future.value());
 
           TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
               .setMockMethodCallHandler(

@@ -17,7 +17,8 @@ class AuthenticationBloc
 
   final AuthenticationService authenticationService =
       HsSingleton.singleton.get<AuthenticationService>();
-  final StorageService _storageService = HsSingleton.singleton.get<StorageService>();
+  final StorageService _storageService =
+      HsSingleton.singleton.get<StorageService>();
 
   AuthenticationBloc() : super(AuthenticationInitial()) {
     on<_ValidateAuthentication>(_validateAuthentication);
@@ -63,7 +64,8 @@ class AuthenticationBloc
         final UserDetail detail = await authenticationService.getCurrentUser();
 
         // save display name and avatar
-        await _storageService.member.saveNameAndAvatar(detail.uid, detail.displayName ?? '', detail.avatar);
+        await _storageService.member.saveNameAndAvatar(
+            detail.uid, detail.displayName ?? '', detail.avatar);
 
         emit(AuthenticatedState(detail));
       } on UserNotFoundException catch (_) {

@@ -22,8 +22,7 @@ class Member {
   }
 
   static Map<String, dynamic> nameAndAvatarMap(
-      String displayName, String? avatar
-      ) {
+      String displayName, String? avatar) {
     return {
       _displayNameKey: displayName,
       _avatarKey: avatar,
