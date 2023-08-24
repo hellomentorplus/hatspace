@@ -44,7 +44,7 @@ class MemberService {
     await _firestore
         .collection(memberCollection)
         .doc(uid)
-        .set({rolesKey: roles.map((e) => e.name).toList()});
+        .set({rolesKey: roles.map((e) => e.name).toList()}, SetOptions(merge: true));
   }
 
   Future<void> saveNameAndAvatar(
