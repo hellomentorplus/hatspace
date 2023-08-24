@@ -169,7 +169,7 @@ class PropertyDetailBody extends StatelessWidget {
                         },
                         builder: (context, propertyName) {
                           return Text(
-                            propertyName,
+                            propertyName.trim(),
                             style: Theme.of(context)
                                 .textTheme
                                 .displayLarge
@@ -443,7 +443,7 @@ class _PropertyBookingBar extends StatelessWidget {
                 onPressed: () {
                   // TODO start booking inspection
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return AddInspectionBookingScreen();
+                    return const AddInspectionBookingScreen();
                   }));
                 },
                 style: const ButtonStyle(
