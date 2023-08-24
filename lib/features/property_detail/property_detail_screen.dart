@@ -169,7 +169,7 @@ class PropertyDetailBody extends StatelessWidget {
                         },
                         builder: (context, propertyName) {
                           return Text(
-                            propertyName,
+                            propertyName.trim(),
                             style: Theme.of(context)
                                 .textTheme
                                 .displayLarge
