@@ -73,6 +73,7 @@ class _PropertyFeaturesViewState extends State<PropertyFeaturesView>
                                 Expanded(
                                     child: Text(
                                   e.displayName,
+                                  maxLines: 1,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
