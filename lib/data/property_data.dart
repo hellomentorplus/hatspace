@@ -184,7 +184,7 @@ class AddressDetail {
 
   static AddressDetail convertMapToObject(Map<String, dynamic> map) {
     return AddressDetail(
-        unitNo: map[PropKeys.streetName],
+        unitNo: map[PropKeys.unitNo],
         streetName: map[PropKeys.streetName],
         streetNo: map[PropKeys.streetNo],
         postcode: map[PropKeys.postcode],
@@ -193,7 +193,7 @@ class AddressDetail {
   }
 
   String get fullAddress =>
-      '${unitNo?.isNotEmpty == true ? '$unitNo, ' : ''}$streetNo $streetName, $suburb, $postcode, ${state.displayName}';
+      '${unitNo?.isNotEmpty == true ? '$unitNo, ' : ''} $streetName, $suburb, ${state.displayName} $postcode';
 }
 
 class Property {
