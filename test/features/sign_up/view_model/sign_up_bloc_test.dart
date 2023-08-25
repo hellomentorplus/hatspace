@@ -55,6 +55,10 @@ void main() async {
 
     tearDown(() {
       signUpBloc.close();
+
+      reset(storageServiceMock);
+      reset(memberService);
+      reset(authenticationService);
     });
   });
 
@@ -64,6 +68,13 @@ void main() async {
         return memberService;
       });
     });
+
+    tearDown(() {
+      reset(storageServiceMock);
+      reset(memberService);
+      reset(authenticationService);
+    });
+
     blocTest(
         'when user sign up success with google and user already had roles then system will check userrole and return list of role ',
         build: () => SignUpBloc(),
@@ -75,6 +86,9 @@ void main() async {
 
           when(memberService.getUserRoles(any))
               .thenAnswer((realInvocation) => Future.value([Roles.tenant]));
+
+          when(memberService.saveNameAndAvatar(any, any, any))
+              .thenAnswer((realInvocation) => Future.value());
 
           TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
               .setMockMethodCallHandler(

@@ -64,7 +64,7 @@ void main() {
         when(mockUserDetail.uid).thenReturn('uid');
         when(mockUserDetail.displayName).thenReturn('displayName');
         when(mockUserDetail.avatar).thenReturn('avatar');
-        when(memberService.saveMember(mockUserDetail.uid, any, any, any))
+        when(memberService.saveUserRoles(mockUserDetail.uid, any))
             .thenAnswer((realInvocation) => Future<void>.value());
       },
       act: (bloc) => bloc.submitUserRoles(),

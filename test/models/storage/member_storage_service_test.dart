@@ -99,7 +99,7 @@ void main() {
   });
 
   test(
-      'given user roles data is valie, when getUserRoles, then return list of Roles',
+      'given user roles data is valid, when getUserRoles, then return list of Roles',
       () async {
     when(documentSnapshot.exists).thenAnswer((realInvocation) => true);
     when(documentSnapshot.data()).thenAnswer((realInvocation) => {
@@ -125,21 +125,86 @@ void main() {
     verify(firestore.collection('members')).called(1);
     verify(collectionReference.doc('uid')).called(1);
     verify(documentReference.set({
-      'roles': ['tenant', 'homeowner']
-    })).called(1);
+      'roles': ['tenant', 'homeowner'],
+    }, any))
+        .called(1);
   });
 
-  test('verify API calls when saveMember', () async {
+  test('verify API calls when saveUserRoles', () async {
     StorageService storageService = StorageService();
-    await storageService.member
-        .saveMember('uid', {Roles.homeowner}, 'displayName', 'avatar');
+    await storageService.member.saveUserRoles('uid', {Roles.homeowner});
     verify(firestore.collection('members')).called(1);
     verify(collectionReference.doc('uid')).called(1);
     verify(documentReference.set({
-      'displayName': 'displayName',
       'roles': ['homeowner'],
-      'avatar': 'avatar'
     }, any))
         .called(1);
+  });
+
+  group('verify API calls when saveNameAndAvatar', () {
+    test(
+        'given user display name and avatar are available,'
+        'when saveNameAndAvatar without update,'
+        'then do not override', () async {
+      when(documentSnapshot.exists).thenReturn(true);
+      when(documentSnapshot.data())
+          .thenReturn({'displayName': 'aa', 'avatar': 'bb'});
+      StorageService storageService = StorageService();
+      await storageService.member
+          .saveNameAndAvatar('uid', 'displayName', 'avatar');
+
+      // 1 time when get display name
+      // 1 time when get avatar
+      // 1 time when override
+      verify(firestore.collection('members')).called(3);
+      verify(collectionReference.doc('uid')).called(3);
+
+      verifyNever(documentReference
+          .set({'displayName': 'displayName', 'avatar': 'avatar'}, any));
+      verify(documentReference.set({'displayName': 'aa', 'avatar': 'bb'}, any))
+          .called(1);
+    });
+
+    test(
+        'given user display name and avatar are available,'
+        'when saveNameAndAvatar with update,'
+        'then override', () async {
+      when(documentSnapshot.exists).thenReturn(true);
+      when(documentSnapshot.data())
+          .thenReturn({'displayName': 'aa', 'avatar': 'bb'});
+      StorageService storageService = StorageService();
+      await storageService.member
+          .saveNameAndAvatar('uid', 'displayName', 'avatar', update: true);
+
+      // 1 time when override
+      verify(firestore.collection('members')).called(1);
+      verify(collectionReference.doc('uid')).called(1);
+
+      verify(documentReference
+              .set({'displayName': 'displayName', 'avatar': 'avatar'}, any))
+          .called(1);
+      verifyNever(
+          documentReference.set({'displayName': 'aa', 'avatar': 'bb'}, any));
+    });
+
+    test(
+        'given user display name and avatar are unchanged,'
+        'when saveNameAndAvatar without update,'
+        'then override', () async {
+      when(documentSnapshot.exists).thenReturn(true);
+      when(documentSnapshot.data())
+          .thenReturn({'displayName': 'displayName', 'avatar': 'avatar'});
+      StorageService storageService = StorageService();
+      await storageService.member
+          .saveNameAndAvatar('uid', 'displayName', 'avatar');
+
+      // 1 time when get display name
+      // 1 time when get avatar
+      verify(firestore.collection('members')).called(2);
+      verify(collectionReference.doc('uid')).called(2);
+
+      verifyNever(documentReference
+          .set({'displayName': 'displayName', 'avatar': 'avatar'}, any));
+    });
   });
 }

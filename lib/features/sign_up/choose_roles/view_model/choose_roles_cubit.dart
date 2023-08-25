@@ -33,8 +33,7 @@ class ChooseRolesCubit extends Cubit<ChooseRolesState> {
     try {
       emit(const SubmittingRoleState());
       UserDetail user = await _authenticationService.getCurrentUser();
-      await _storageService.member
-          .saveMember(user.uid, listRoles, user.displayName ?? '', user.avatar);
+      await _storageService.member.saveUserRoles(user.uid, listRoles);
       emit(const SubmitRoleSucceedState());
     } catch (e) {
       emit(const SubmitRoleFailedState());

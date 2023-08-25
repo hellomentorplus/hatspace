@@ -56,6 +56,11 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   Future<UserDetail> signUp(Emitter emitter, SignUpType type) async {
     UserDetail userDetail =
         await _authenticationService.signUp(signUpType: type);
+
+    // save display name and avatar
+    await _storageService.member.saveNameAndAvatar(
+        userDetail.uid, userDetail.displayName ?? '', userDetail.avatar);
+
     List<Roles> listRoles =
         await _storageService.member.getUserRoles(userDetail.uid);
     if (listRoles.isEmpty) {
