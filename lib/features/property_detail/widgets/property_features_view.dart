@@ -70,14 +70,16 @@ class _PropertyFeaturesViewState extends State<PropertyFeaturesView>
                                 const SizedBox(
                                   width: HsDimens.spacing12,
                                 ),
-                                Text(
+                                Expanded(
+                                    child: Text(
                                   e.displayName,
+                                  maxLines: 1,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(color: HSColor.neutral9),
                                   overflow: TextOverflow.ellipsis,
-                                )
+                                ))
                               ],
                             ))
                         .toList(),
