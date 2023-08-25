@@ -159,7 +159,7 @@ class AddressDetail {
   final String? unitNo;
   final String streetName;
   final String streetNo;
-  final int postcode;
+  final String postcode;
   final String suburb;
   final AustraliaStates state;
   const AddressDetail({

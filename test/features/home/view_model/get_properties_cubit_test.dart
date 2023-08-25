@@ -64,7 +64,7 @@ void main() {
                 address: const AddressDetail(
                   streetName: 'streetName',
                   streetNo: 'streetNo',
-                  postcode: 6000,
+                  postcode: '6000',
                   suburb: 'suburb',
                   state: AustraliaStates.nsw,
                   unitNo: '12121',
@@ -85,7 +85,7 @@ void main() {
                 address: const AddressDetail(
                     streetName: 'streetName 1',
                     streetNo: 'streetNo 1',
-                    postcode: 6000,
+                    postcode: '6000',
                     suburb: 'suburb 1',
                     state: AustraliaStates.nsw,
                     unitNo: '121211'),

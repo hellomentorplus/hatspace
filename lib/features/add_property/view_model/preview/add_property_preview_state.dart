@@ -17,7 +17,7 @@ class AddPropertyPreviewReady extends AddPropertyPreviewState {
   final String propertyName;
   final double price;
   final String suburb;
-  final int postalCode;
+  final String postalCode;
   final String unitNumber;
   final String address;
   final String description;

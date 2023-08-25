@@ -51,7 +51,7 @@ void main() async {
         streetNo: 'streetName',
         streetName: 'streetName',
         state: AustraliaStates.vic,
-        postcode: 1234,
+        postcode: '1234',
         suburb: 'suburb',
       ),
       additionalDetail: AdditionalDetail(
@@ -213,7 +213,7 @@ void main() async {
             streetNo: '10',
             streetName: 'streetName',
             state: AustraliaStates.vic,
-            postcode: 1234,
+            postcode: '1234',
             suburb: 'suburb',
           ),
           additionalDetail: AdditionalDetail(
@@ -253,7 +253,7 @@ void main() async {
             streetNo: '10',
             streetName: 'streetName',
             state: AustraliaStates.vic,
-            postcode: 1234,
+            postcode: '1234',
             suburb: 'suburb',
           ),
           additionalDetail: AdditionalDetail(
