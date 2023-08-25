@@ -193,7 +193,7 @@ class AddressDetail {
   }
 
   String get fullAddress =>
-      '${unitNo?.isNotEmpty == true ? '$unitNo, ' : ''} $streetName, $suburb, ${state.displayName} $postcode';
+      '${unitNo?.isNotEmpty == true ? '$unitNo, ' : ''}$streetName, $suburb, ${state.displayName} $postcode';
 }
 
 class Property {

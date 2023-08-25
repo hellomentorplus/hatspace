@@ -47,7 +47,8 @@ void main() async {
       price: Price(currency: Currency.aud, rentPrice: 100),
       description: 'property description',
       address: const AddressDetail(
-        streetNo: '10',
+        unitNo: '10',
+        streetNo: 'streetName',
         streetName: 'streetName',
         state: AustraliaStates.vic,
         postcode: 1234,
@@ -146,7 +147,7 @@ void main() async {
         .blocWrapAndPump<AuthenticationBloc>(authenticationBloc, widget));
 
     expect(find.text('Location'), findsOneWidget);
-    expect(find.text('10 streetName, suburb, 1234, Victoria'), findsOneWidget);
+    expect(find.text('10, streetName, suburb, Victoria 1234'), findsOneWidget);
   });
 
   testWidgets(
