@@ -315,7 +315,7 @@ class AddPropertyPreviewBody extends StatelessWidget {
                 String>(
               selector: (state) {
                 if (state is AddPropertyPreviewReady) {
-                  return '${state.unitNumber.isEmpty ? '' : '${state.unitNumber}, '}${state.address}, ${state.suburb}, ${state.ausState.displayName}';
+                  return '${state.unitNumber.isEmpty ? '' : '${state.unitNumber}, '}${state.address}, ${state.suburb}, ${state.ausState.displayName} ${state.postalCode}';
                 }
 
                 return '';

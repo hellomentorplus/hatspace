@@ -91,7 +91,7 @@ void main() {
     // location label
     expect(find.text('Location'), findsOneWidget);
     // full address
-    expect(find.text('123 Gateway, Island, Gateway, Island, Victoria'),
+    expect(find.text('123 Gateway, Island, Gateway, Island, Victoria 3023'),
         findsOneWidget);
     // feature label
     expect(find.text('Property features'), findsOneWidget);
