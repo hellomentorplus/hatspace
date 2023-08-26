@@ -20,8 +20,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     try {
       UserDetail user = await authenticationService.getCurrentUser();
       List<Roles> userRole = await storageService.member.getUserRoles(user.uid);
-      if (userRole.contains(Roles.tenant) && userRole.length == 1) {
-        // TODO: HANDLE cases when user has both 2 roles THEN remove length checking
+      if (userRole.contains(Roles.tenant)) {
         emit(BookingInspectionSuccess());
       }
       if (userRole.isEmpty) {
