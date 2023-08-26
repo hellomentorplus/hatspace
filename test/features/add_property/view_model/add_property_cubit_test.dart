@@ -316,7 +316,7 @@ void main() {
         bloc.australiaState = AustraliaStates.vic;
         bloc.address = 'address';
         bloc.suburb = 'suburb';
-        bloc.postalCode = 1345;
+        bloc.postalCode = '1345';
       },
       expect: () => [
         const NextButtonEnable(1, false, ButtonLabel.next, true),
@@ -429,9 +429,9 @@ void main() {
       'set postalCode',
       build: () => AddPropertyCubit(),
       seed: () => const NextButtonEnable(3, false, ButtonLabel.next, true),
-      act: (bloc) => bloc.postalCode = 3000,
+      act: (bloc) => bloc.postalCode = '3000',
       expect: () => [isA<NextButtonEnable>()],
-      verify: (bloc) => expect(bloc.postalCode, 3000),
+      verify: (bloc) => expect(bloc.postalCode, '3000'),
     );
 
     blocTest<AddPropertyCubit, AddPropertyState>(
@@ -610,7 +610,7 @@ void main() {
       bloc.parking = 1;
       bloc.bedrooms = 1;
       bloc.bathrooms = 1;
-      bloc.postalCode = 123;
+      bloc.postalCode = '123';
       bloc.rentPeriod = MinimumRentPeriod.sixMonths;
       bloc.navigatePage(NavigatePage.forward, 6);
     },

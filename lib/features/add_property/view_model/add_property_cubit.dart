@@ -121,15 +121,15 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   String get suburb => _suburb;
 
-  int? _postalCode;
+  String? _postalCode;
 
-  set postalCode(int? value) {
+  set postalCode(String? value) {
     isAddPropertyFlowInteracted = true;
     _postalCode = value;
     validateNextButtonState(state.pageViewNumber);
   }
 
-  int? get postalCode => _postalCode;
+  String? get postalCode => _postalCode;
 
   String _unitNumber = '';
   String get unitNumber => _unitNumber;

@@ -60,7 +60,7 @@ void main() {
     when(addPropertyCubit.description).thenReturn(
         'This updated cottage has much to offer with:- Polished floorboards in living areas and carpeted bedrooms- New modern kitchen with dishwasher, gas burner stove top and plenty of storage- Dining area- Lounge room- Study/Home office space- 2 Bedrooms- Lovely bathroom- Separate laundry.');
     when(addPropertyCubit.rentPeriod).thenReturn(MinimumRentPeriod.sixMonths);
-    when(addPropertyCubit.postalCode).thenReturn(3023);
+    when(addPropertyCubit.postalCode).thenReturn('3023');
     when(addPropertyCubit.unitNumber).thenReturn('');
     when(addPropertyCubit.bedrooms).thenReturn(1);
     when(addPropertyCubit.bathrooms).thenReturn(1);
@@ -91,7 +91,7 @@ void main() {
     // location label
     expect(find.text('Location'), findsOneWidget);
     // full address
-    expect(find.text('123 Gateway, Island, Gateway, Island, Victoria'),
+    expect(find.text('123 Gateway, Island, Gateway, Island, Victoria 3023'),
         findsOneWidget);
     // feature label
     expect(find.text('Property features'), findsOneWidget);

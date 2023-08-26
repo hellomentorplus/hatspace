@@ -42,7 +42,7 @@ void main() {
       address: const AddressDetail(
           streetName: 'mock streetname',
           streetNo: 'streetNo',
-          postcode: 3000,
+          postcode: '3000',
           suburb: 'suburb',
           state: AustraliaStates.nsw),
       additionalDetail: const AdditionalDetail(

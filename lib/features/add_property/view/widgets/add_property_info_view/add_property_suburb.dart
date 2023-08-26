@@ -94,7 +94,7 @@ class _AddPropertySuburbViewState extends State<AddPropertySuburbView>
             placeholder: HatSpaceStrings.current.enterYourPostcode,
             inputFormatters: [PostalCodeTextInputFormatter(_postalErrorType)],
             onChanged: (value) {
-              context.read<AddPropertyCubit>().postalCode = int.tryParse(value);
+              context.read<AddPropertyCubit>().postalCode = value;
             },
           ),
         ))
