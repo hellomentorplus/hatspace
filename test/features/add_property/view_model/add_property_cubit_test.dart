@@ -431,7 +431,7 @@ void main() {
       seed: () => const NextButtonEnable(3, false, ButtonLabel.next, true),
       act: (bloc) => bloc.postalCode = '3000',
       expect: () => [isA<NextButtonEnable>()],
-      verify: (bloc) => expect(bloc.postalCode, 3000),
+      verify: (bloc) => expect(bloc.postalCode, '3000'),
     );
 
     blocTest<AddPropertyCubit, AddPropertyState>(
