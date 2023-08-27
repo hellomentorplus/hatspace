@@ -39,16 +39,27 @@ class PropertyDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocProvider<PropertyDetailCubit>(
         create: (context) => PropertyDetailCubit()..loadDetail(id),
-        child: const PropertyDetailBody(),
+        child: PropertyDetailBody(id: id),
       );
 }
 
 class PropertyDetailBody extends StatelessWidget {
-  const PropertyDetailBody({Key? key}) : super(key: key);
+  final String id;
+  const PropertyDetailBody({required this.id, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: Column(
+          body: BlocListener<PropertyDetailCubit, PropertyDetailState>(
+        listener: (context, state) {
+          if (state is NavigateToBooingInspectionScreen) {
+            context.goToBookInspectionScreen().then((value) {
+              if (value == true) {
+                context.read<PropertyDetailCubit>().loadDetail(id);
+              }
+            });
+          }
+        },
+        child: Column(
           children: [
             Expanded(
               child: SingleChildScrollView(
@@ -356,7 +367,7 @@ class PropertyDetailBody extends StatelessWidget {
             const _PropertyBookingBar()
           ],
         ),
-      );
+      ));
 }
 
 class _PropertyBookingBar extends StatelessWidget {
@@ -450,10 +461,9 @@ class _PropertyBookingBar extends StatelessWidget {
                           label: HatSpaceStrings.current.bookInspection,
                           onPressed: () {
                             // TODO start booking inspection
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return const AddInspectionBookingScreen();
-                            }));
+                            context
+                                .read<PropertyDetailCubit>()
+                                .navigateToBooingInspectionScreen();
                           },
                           style: const ButtonStyle(
                               padding: MaterialStatePropertyAll<EdgeInsets>(

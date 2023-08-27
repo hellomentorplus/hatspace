@@ -69,4 +69,10 @@ class PropertyDetailCubit extends Cubit<PropertyDetailState> {
         availableDate: property.availableDate.toDate(),
         price: property.price));
   }
+
+  void navigateToBooingInspectionScreen() {
+    if (_authenticationService.isUserLoggedIn) {
+      emit(NavigateToBooingInspectionScreen());
+    }
+  }
 }
