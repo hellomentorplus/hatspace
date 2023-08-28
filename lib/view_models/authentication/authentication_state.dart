@@ -19,7 +19,7 @@ class AuthenticatedState extends AuthenticationState {
 
   const AuthenticatedState(this.userDetail);
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [userDetail.displayName, userDetail.uid, userDetail.avatar, userDetail.email, userDetail.phone];
 }
 
 class AnonymousState extends AuthenticationState {
