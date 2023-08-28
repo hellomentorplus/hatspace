@@ -353,16 +353,7 @@ class PropertyDetailBody extends StatelessWidget {
                 ),
               ),
             ),
-            BlocBuilder<PropertyDetailCubit, PropertyDetailState>(
-              buildWhen: (previous, current) =>
-                  previous is! PropertyDetailLoaded ||
-                  current is! PropertyDetailLoaded ||
-                  previous.isOwned != current.isOwned,
-              builder: (context, state) =>
-                  state is PropertyDetailLoaded && state.isOwned == false
-                      ? const _PropertyBookingBar()
-                      : const SizedBox(),
-            ),
+            const _PropertyBookingBar()
           ],
         ),
       );
@@ -373,87 +364,106 @@ class _PropertyBookingBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Divider(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return SafeArea(
+        top: false,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Divider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  BlocSelector<PropertyDetailCubit, PropertyDetailState, Price>(
-                    selector: (state) {
-                      if (state is PropertyDetailLoaded) {
-                        return state.price;
-                      }
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BlocSelector<PropertyDetailCubit, PropertyDetailState,
+                          Price>(
+                        selector: (state) {
+                          if (state is PropertyDetailLoaded) {
+                            return state.price;
+                          }
 
-                      return Price(rentPrice: 0.0, currency: Currency.aud);
-                    },
-                    builder: (context, price) => Text.rich(TextSpan(
-                        text: HatSpaceStrings.current.currencyFormatter(
-                            price.currency.symbol, price.rentPrice),
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontSize: FontStyleGuide.fontSize18,
-                            height: 28 / 18,
-                            fontWeight: FontWeight.w700),
-                        children: [
-                          TextSpan(
-                              text: ' pw',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(color: HSColor.neutral6))
-                        ])),
+                          return Price(rentPrice: 0.0, currency: Currency.aud);
+                        },
+                        builder: (context, price) => Text.rich(TextSpan(
+                            text: HatSpaceStrings.current.currencyFormatter(
+                                price.currency.symbol, price.rentPrice),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    fontSize: FontStyleGuide.fontSize18,
+                                    height: 28 / 18,
+                                    fontWeight: FontWeight.w700),
+                            children: [
+                              TextSpan(
+                                  text: ' pw',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: HSColor.neutral6))
+                            ])),
+                      ),
+                      BlocSelector<PropertyDetailCubit, PropertyDetailState,
+                          DateTime>(
+                        selector: (state) {
+                          if (state is PropertyDetailLoaded) {
+                            return state.availableDate;
+                          }
+
+                          return DateTime.now();
+                        },
+                        builder: (context, availableDate) => Text.rich(TextSpan(
+                            text: HatSpaceStrings.current.availableDateColon,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(color: HSColor.neutral6),
+                            children: [
+                              TextSpan(
+                                  text: HatSpaceStrings.current
+                                      .dateFormatter(availableDate),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: HSColor.neutral8))
+                            ])),
+                      )
+                    ],
                   ),
-                  BlocSelector<PropertyDetailCubit, PropertyDetailState,
-                      DateTime>(
-                    selector: (state) {
-                      if (state is PropertyDetailLoaded) {
-                        return state.availableDate;
-                      }
-
-                      return DateTime.now();
-                    },
-                    builder: (context, availableDate) => Text.rich(TextSpan(
-                        text: HatSpaceStrings.current.availableDateColon,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall
-                            ?.copyWith(color: HSColor.neutral6),
-                        children: [
-                          TextSpan(
-                              text: HatSpaceStrings.current
-                                  .dateFormatter(availableDate),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(color: HSColor.neutral8))
-                        ])),
-                  )
+                  BlocBuilder<PropertyDetailCubit, PropertyDetailState>(
+                      buildWhen: (previous, current) =>
+                          previous is! PropertyDetailLoaded ||
+                          current is! PropertyDetailLoaded ||
+                          previous.isOwned != current.isOwned,
+                      builder: (context, state) {
+                        if (state is PropertyDetailLoaded &&
+                            state.isOwned == true) {
+                          // TODO: Handle 'Manage Property' in the next story
+                          return const SizedBox();
+                        }
+                        return PrimaryButton(
+                          label: HatSpaceStrings.current.bookInspection,
+                          onPressed: () {
+                            // TODO start booking inspection
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return const AddInspectionBookingScreen();
+                            }));
+                          },
+                          style: const ButtonStyle(
+                              padding: MaterialStatePropertyAll<EdgeInsets>(
+                                  EdgeInsets.all(HsDimens.spacing12))),
+                        );
+                      }),
                 ],
               ),
-              PrimaryButton(
-                label: HatSpaceStrings.current.bookInspection,
-                onPressed: () {
-                  // TODO start booking inspection
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const AddInspectionBookingScreen();
-                  }));
-                },
-                style: const ButtonStyle(
-                    padding: MaterialStatePropertyAll<EdgeInsets>(
-                        EdgeInsets.all(HsDimens.spacing12))),
-              )
-            ],
-          ),
-        ),
-      ],
-    );
+            ),
+          ],
+        ));
   }
 }
