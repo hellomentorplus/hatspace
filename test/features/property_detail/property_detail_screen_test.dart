@@ -343,5 +343,4 @@ void main() async {
     //     // Still in PropertyDetailScreen
     expect(find.byType(PropertyDetailScreen), findsOneWidget);
   });
-
 }
