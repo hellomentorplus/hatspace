@@ -18,16 +18,28 @@ class GetPropertiesCubit extends Cubit<GetPropertiesState> {
       emit(const GettingPropertiesState());
       final List<Property>? properties =
           await storageService.property.getAllProperties();
-      final UserDetail mockedUser = UserDetail(
-          uid: '1232312312',
-          displayName: 'Mock Owner',
-          avatar:
-              'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80');
-      final List<PropertyItemData> displayProperties = properties
-              ?.map((e) => PropertyItemData.fromModels(e, mockedUser))
-              .toList() ??
-          [];
-      emit(GetPropertiesSucceedState(displayProperties));
+
+      if (properties == null) {
+        emit(const GetPropertiesSucceedState([]));
+        return;
+      }
+
+      final List<PropertyItemData> data = [];
+
+      for (Property property in properties) {
+        // get property owner info
+        final String displayName =
+            await storageService.member.getMemberDisplayName(property.ownerUid);
+        final String? avatar =
+            await storageService.member.getMemberAvatar(property.ownerUid);
+
+        final UserDetail user = UserDetail(
+            uid: property.ownerUid, displayName: displayName, avatar: avatar);
+
+        data.add(PropertyItemData.fromModels(property, user));
+      }
+
+      emit(GetPropertiesSucceedState(data));
     } catch (_) {
       emit(const GetPropertiesFailedState());
     }
