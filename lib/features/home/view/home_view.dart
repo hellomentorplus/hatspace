@@ -40,8 +40,8 @@ class HomePageBodyState extends State<HomePageBody> {
         title: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
             if (state is AuthenticatedState) {
-              print('state.userDetail.displayName ${state.userDetail
-                  .displayName}');
+              print(
+                  'state.userDetail.displayName ${state.userDetail.displayName}');
             }
             String? welcome = (state is AuthenticatedState)
                 ? HatSpaceStrings.current

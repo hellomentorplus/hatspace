@@ -76,8 +76,10 @@ void main() async {
         return memberService;
       });
 
-      when(memberService.getMemberDisplayName(any)).thenAnswer((realInvocation) => Future.value(''));
-      when(memberService.getMemberAvatar(any)).thenAnswer((realInvocation) => Future.value(null));
+      when(memberService.getMemberDisplayName(any))
+          .thenAnswer((realInvocation) => Future.value(''));
+      when(memberService.getMemberAvatar(any))
+          .thenAnswer((realInvocation) => Future.value(null));
     });
 
     tearDown(() {
@@ -219,15 +221,14 @@ void main() async {
 
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
-          const MethodChannel('plugins.flutter.io/shared_preferences'),
+              const MethodChannel('plugins.flutter.io/shared_preferences'),
               (MethodCall methodCall) async {
-            if (methodCall.method == 'getAll') {
-              return <String, dynamic>{}; // set initial values here if desired
-            }
-            return null;
-          });
+        if (methodCall.method == 'getAll') {
+          return <String, dynamic>{}; // set initial values here if desired
+        }
+        return null;
+      });
     });
-
 
     tearDown(() {
       reset(storageServiceMock);
@@ -236,38 +237,12 @@ void main() async {
     });
 
     blocTest(
-        'given user has no display name, when user sign up, then assign display name',
-        build: () => SignUpBloc(),
-        setUp: () {
-          when(authenticationService.signUp(
-              signUpType: SignUpType.googleService))
-              .thenAnswer((realInvocation) => Future.value(UserDetail(
-              uid: 'mock uid', phone: 'mock phone', email: 'mock email')));
-
-          when(memberService.getUserRoles(any))
-              .thenAnswer((realInvocation) => Future.value([Roles.tenant]));
-
-          when(memberService.saveNameAndAvatar(any, any, any))
-              .thenAnswer((realInvocation) => Future.value());
-
-          when(memberService.getMemberDisplayName(any)).thenAnswer((realInvocation) => Future.value(''));
-          when(memberService.getMemberAvatar(any)).thenAnswer((realInvocation) => Future.value(null));
-
-        },
-        act: (bloc) => bloc.add(const SignUpWithGoogle()),
-      verify: (bloc) {
-        verify(authenticationService.updateUserDisplayName(any)).called(1);
-        verify(memberService.saveNameAndAvatar(any, any, any)).called(1);
-    },);
-
-    blocTest(
-      'given user has display name, when user sign up, then do not assign display name',
+      'given user has no display name, when user sign up, then assign display name',
       build: () => SignUpBloc(),
       setUp: () {
-        when(authenticationService.signUp(
-            signUpType: SignUpType.googleService))
+        when(authenticationService.signUp(signUpType: SignUpType.googleService))
             .thenAnswer((realInvocation) => Future.value(UserDetail(
-            uid: 'mock uid', phone: 'mock phone', email: 'mock email')));
+                uid: 'mock uid', phone: 'mock phone', email: 'mock email')));
 
         when(memberService.getUserRoles(any))
             .thenAnswer((realInvocation) => Future.value([Roles.tenant]));
@@ -275,14 +250,42 @@ void main() async {
         when(memberService.saveNameAndAvatar(any, any, any))
             .thenAnswer((realInvocation) => Future.value());
 
-        when(memberService.getMemberDisplayName(any)).thenAnswer((realInvocation) => Future.value('displayName'));
-        when(memberService.getMemberAvatar(any)).thenAnswer((realInvocation) => Future.value(null));
+        when(memberService.getMemberDisplayName(any))
+            .thenAnswer((realInvocation) => Future.value(''));
+        when(memberService.getMemberAvatar(any))
+            .thenAnswer((realInvocation) => Future.value(null));
+      },
+      act: (bloc) => bloc.add(const SignUpWithGoogle()),
+      verify: (bloc) {
+        verify(authenticationService.updateUserDisplayName(any)).called(1);
+        verify(memberService.saveNameAndAvatar(any, any, any)).called(1);
+      },
+    );
 
+    blocTest(
+      'given user has display name, when user sign up, then do not assign display name',
+      build: () => SignUpBloc(),
+      setUp: () {
+        when(authenticationService.signUp(signUpType: SignUpType.googleService))
+            .thenAnswer((realInvocation) => Future.value(UserDetail(
+                uid: 'mock uid', phone: 'mock phone', email: 'mock email')));
+
+        when(memberService.getUserRoles(any))
+            .thenAnswer((realInvocation) => Future.value([Roles.tenant]));
+
+        when(memberService.saveNameAndAvatar(any, any, any))
+            .thenAnswer((realInvocation) => Future.value());
+
+        when(memberService.getMemberDisplayName(any))
+            .thenAnswer((realInvocation) => Future.value('displayName'));
+        when(memberService.getMemberAvatar(any))
+            .thenAnswer((realInvocation) => Future.value(null));
       },
       act: (bloc) => bloc.add(const SignUpWithGoogle()),
       verify: (bloc) {
         verifyNever(authenticationService.updateUserDisplayName(any));
         verifyNever(memberService.saveNameAndAvatar(any, any, any));
-      },);
+      },
+    );
   });
 }
