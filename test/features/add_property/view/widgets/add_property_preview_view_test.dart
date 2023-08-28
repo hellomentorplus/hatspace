@@ -118,4 +118,79 @@ void main() {
     // check home owner display name
     expect(find.text('home owner'), findsOneWidget);
   });
+
+  testWidgets(
+      'Given user has inputted property information and did not select any feature.'
+      'When user go to Preview screen.'
+      'User will see all information they have inputted before and do not see Property features section.',
+      (WidgetTester widgetTester) async {
+    when(addPropertyCubit.propertyType).thenReturn(PropertyTypes.house);
+    when(addPropertyCubit.propertyName)
+        .thenReturn('Single room for rent in Bankstown');
+    when(addPropertyCubit.suburb).thenReturn('Gateway, Island');
+    when(addPropertyCubit.address).thenReturn('123 Gateway, Island');
+    when(addPropertyCubit.australiaState).thenReturn(AustraliaStates.vic);
+    when(addPropertyCubit.availableDate).thenReturn(DateTime(2023, 6, 6));
+    when(addPropertyCubit.price).thenReturn(30000);
+    when(addPropertyCubit.description).thenReturn(
+        'This updated cottage has much to offer with:- Polished floorboards in living areas and carpeted bedrooms- New modern kitchen with dishwasher, gas burner stove top and plenty of storage- Dining area- Lounge room- Study/Home office space- 2 Bedrooms- Lovely bathroom- Separate laundry.');
+    when(addPropertyCubit.rentPeriod).thenReturn(MinimumRentPeriod.sixMonths);
+    when(addPropertyCubit.postalCode).thenReturn('3023');
+    when(addPropertyCubit.unitNumber).thenReturn('');
+    when(addPropertyCubit.bedrooms).thenReturn(1);
+    when(addPropertyCubit.bathrooms).thenReturn(1);
+    when(addPropertyCubit.parking).thenReturn(1);
+    when(addPropertyCubit.features).thenReturn([]);
+    when(addPropertyCubit.photos)
+        .thenReturn(['photo1', 'photo2', 'photo3', 'photo4']);
+
+    await mockNetworkImagesFor(() =>
+        widgetTester.blocWrapAndPump<AddPropertyCubit>(
+            addPropertyCubit, const AddPropertyPreviewView()));
+    // property type
+    expect(find.text('House'), findsOneWidget);
+    // available date
+    expect(
+        find.text('Available: 06/06/23', findRichText: true), findsOneWidget);
+    // property name
+    expect(find.text('Single room for rent in Bankstown'), findsOneWidget);
+    // state
+    expect(find.text('Victoria'), findsOneWidget);
+    // price
+    expect(find.text(r'$30,000 pw', findRichText: true), findsOneWidget);
+    // description
+    expect(
+        find.text(
+            'This updated cottage has much to offer with:- Polished floorboards in living areas and carpeted bedrooms- New modern kitchen with dishwasher, gas burner stove top and plenty of storage- Dining area- Lounge room- Study/Home office space- 2 Bedrooms- Lovely bathroom- Separate laundry.'),
+        findsOneWidget);
+    // location label
+    expect(find.text('Location'), findsOneWidget);
+    // full address
+    expect(find.text('123 Gateway, Island, Gateway, Island, Victoria 3023'),
+        findsOneWidget);
+    // feature label
+    expect(find.text('Property features'), findsNothing);
+    // all features
+    for (Feature feat in Feature.values) {
+      expect(find.text(feat.displayName), findsNothing);
+    }
+
+    // check all property photos
+    expect(find.containerWithImageFile('photo1'), findsOneWidget);
+    // swipe next
+    await widgetTester.drag(find.byType(PageView), const Offset(-500, 0));
+    await widgetTester.pumpAndSettle();
+    expect(find.containerWithImageFile('photo2'), findsOneWidget);
+    // swipe next
+    await widgetTester.drag(find.byType(PageView), const Offset(-500, 0));
+    await widgetTester.pumpAndSettle();
+    expect(find.containerWithImageFile('photo3'), findsOneWidget);
+    // swipe next
+    await widgetTester.drag(find.byType(PageView), const Offset(-500, 0));
+    await widgetTester.pumpAndSettle();
+    expect(find.containerWithImageFile('photo4'), findsOneWidget);
+
+    // check home owner display name
+    expect(find.text('home owner'), findsOneWidget);
+  });
 }
