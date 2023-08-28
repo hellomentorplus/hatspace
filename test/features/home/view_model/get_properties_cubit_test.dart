@@ -95,8 +95,10 @@ void main() {
                     unitNo: '121211'),
                 ownerUid: 'uid'),
           ]));
-      when(memberService.getMemberAvatar(any)).thenAnswer((realInvocation) => Future.value('avatar'));
-      when(memberService.getMemberDisplayName(any)).thenAnswer((realInvocation) => Future.value('display name'));
+      when(memberService.getMemberAvatar(any))
+          .thenAnswer((realInvocation) => Future.value('avatar'));
+      when(memberService.getMemberDisplayName(any))
+          .thenAnswer((realInvocation) => Future.value('display name'));
     },
     act: (bloc) => bloc.getProperties(),
     expect: () => [

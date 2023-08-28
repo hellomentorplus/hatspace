@@ -28,13 +28,13 @@ class GetPropertiesCubit extends Cubit<GetPropertiesState> {
 
       for (Property property in properties) {
         // get property owner info
-        final String displayName = await storageService.member.getMemberDisplayName(property.ownerUid);
-        final String? avatar = await storageService.member.getMemberAvatar(property.ownerUid);
+        final String displayName =
+            await storageService.member.getMemberDisplayName(property.ownerUid);
+        final String? avatar =
+            await storageService.member.getMemberAvatar(property.ownerUid);
 
         final UserDetail user = UserDetail(
-            uid: property.ownerUid,
-            displayName: displayName,
-            avatar: avatar);
+            uid: property.ownerUid, displayName: displayName, avatar: avatar);
 
         data.add(PropertyItemData.fromModels(property, user));
       }
