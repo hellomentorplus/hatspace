@@ -326,7 +326,6 @@ void main() async {
         ], widget));
     expect(find.widgetWithText(PrimaryButton, 'Book Inspection'), findsNothing);
   });
-
   testWidgets(
       'Given when user is at Property Detail Screen'
       'AND user HAS NOT LOGGED IN'
@@ -344,4 +343,5 @@ void main() async {
     //     // Still in PropertyDetailScreen
     expect(find.byType(PropertyDetailScreen), findsOneWidget);
   });
+
 }
