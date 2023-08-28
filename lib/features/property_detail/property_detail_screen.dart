@@ -42,6 +42,7 @@ class PropertyDetailScreen extends StatelessWidget {
 }
 
 class PropertyDetailBody extends StatelessWidget {
+  //
   final String id;
   const PropertyDetailBody({required this.id, Key? key}) : super(key: key);
 
