@@ -1813,6 +1813,20 @@ class HatSpaceStrings {
       args: [number],
     );
   }
+
+  /// `User{datetime}`
+  String defaultUserDisplayName(DateTime datetime) {
+    final DateFormat datetimeDateFormat =
+        DateFormat('ddMMyyhhmmss', Intl.getCurrentLocale());
+    final String datetimeString = datetimeDateFormat.format(datetime);
+
+    return Intl.message(
+      'User$datetimeString',
+      name: 'defaultUserDisplayName',
+      desc: '',
+      args: [datetimeString],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

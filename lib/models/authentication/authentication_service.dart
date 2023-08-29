@@ -139,6 +139,7 @@ class AuthenticationService {
 
   Future<User?> onFacebookLoginSuccess(LoginResult loginResult) async {
     User? user;
+
     try {
       final OAuthCredential credential =
           FacebookAuthProvider.credential(loginResult.accessToken!.token);
@@ -226,6 +227,22 @@ class AuthenticationService {
         email: firebaseUser.email,
         displayName: firebaseUser.displayName,
         avatar: firebaseUser.photoURL);
+  }
+
+  Future<void> updateUserDisplayName(String displayName) async {
+    final User? firebaseUser = _firebaseAuth.currentUser;
+    if (firebaseUser == null) {
+      throw UserNotFoundException();
+    }
+
+    await firebaseUser.updateDisplayName(displayName);
+
+    _userDetailStreamController.add(UserDetail(
+        uid: firebaseUser.uid,
+        phone: firebaseUser.phoneNumber,
+        email: firebaseUser.email,
+        displayName: displayName,
+        avatar: firebaseUser.photoURL));
   }
 
   Future<void> signOut() async {

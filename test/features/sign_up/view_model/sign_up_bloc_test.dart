@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +11,8 @@ import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:hatspace/strings/l10n.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'sign_up_bloc_test.mocks.dart';
@@ -23,6 +27,8 @@ import 'sign_up_bloc_test.mocks.dart';
   MemberService
 ])
 void main() async {
+  initializeDateFormatting();
+
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
   final MockStorageService storageServiceMock = MockStorageService();
@@ -31,6 +37,8 @@ void main() async {
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationService);
     HsSingleton.singleton.registerSingleton<StorageService>(storageServiceMock);
+
+    await HatSpaceStrings.load(const Locale('en'));
   });
   TestWidgetsFlutterBinding.ensureInitialized();
   //setupFirebaseAuthMocks(); // Not relate to HS 51 - Need to add to perform test coverage
@@ -67,6 +75,11 @@ void main() async {
       when(storageServiceMock.member).thenAnswer((realInvocation) {
         return memberService;
       });
+
+      when(memberService.getMemberDisplayName(any))
+          .thenAnswer((realInvocation) => Future.value(''));
+      when(memberService.getMemberAvatar(any))
+          .thenAnswer((realInvocation) => Future.value(null));
     });
 
     tearDown(() {
@@ -198,5 +211,81 @@ void main() async {
 
     SignUpWithFacebook signUpWithFacebook = const SignUpWithFacebook();
     expect(signUpWithFacebook.props.length, 0);
+  });
+
+  group('Check default user display name', () {
+    setUp(() {
+      when(storageServiceMock.member).thenAnswer((realInvocation) {
+        return memberService;
+      });
+
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+              const MethodChannel('plugins.flutter.io/shared_preferences'),
+              (MethodCall methodCall) async {
+        if (methodCall.method == 'getAll') {
+          return <String, dynamic>{}; // set initial values here if desired
+        }
+        return null;
+      });
+    });
+
+    tearDown(() {
+      reset(storageServiceMock);
+      reset(memberService);
+      reset(authenticationService);
+    });
+
+    blocTest(
+      'given user has no display name, when user sign up, then assign display name',
+      build: () => SignUpBloc(),
+      setUp: () {
+        when(authenticationService.signUp(signUpType: SignUpType.googleService))
+            .thenAnswer((realInvocation) => Future.value(UserDetail(
+                uid: 'mock uid', phone: 'mock phone', email: 'mock email')));
+
+        when(memberService.getUserRoles(any))
+            .thenAnswer((realInvocation) => Future.value([Roles.tenant]));
+
+        when(memberService.saveNameAndAvatar(any, any, any))
+            .thenAnswer((realInvocation) => Future.value());
+
+        when(memberService.getMemberDisplayName(any))
+            .thenAnswer((realInvocation) => Future.value(''));
+        when(memberService.getMemberAvatar(any))
+            .thenAnswer((realInvocation) => Future.value(null));
+      },
+      act: (bloc) => bloc.add(const SignUpWithGoogle()),
+      verify: (bloc) {
+        verify(authenticationService.updateUserDisplayName(any)).called(1);
+        verify(memberService.saveNameAndAvatar(any, any, any)).called(1);
+      },
+    );
+
+    blocTest(
+      'given user has display name, when user sign up, then do not assign display name',
+      build: () => SignUpBloc(),
+      setUp: () {
+        when(authenticationService.signUp(signUpType: SignUpType.googleService))
+            .thenAnswer((realInvocation) => Future.value(UserDetail(
+                uid: 'mock uid', phone: 'mock phone', email: 'mock email')));
+
+        when(memberService.getUserRoles(any))
+            .thenAnswer((realInvocation) => Future.value([Roles.tenant]));
+
+        when(memberService.saveNameAndAvatar(any, any, any))
+            .thenAnswer((realInvocation) => Future.value());
+
+        when(memberService.getMemberDisplayName(any))
+            .thenAnswer((realInvocation) => Future.value('displayName'));
+        when(memberService.getMemberAvatar(any))
+            .thenAnswer((realInvocation) => Future.value(null));
+      },
+      act: (bloc) => bloc.add(const SignUpWithGoogle()),
+      verify: (bloc) {
+        verifyNever(authenticationService.updateUserDisplayName(any));
+        verifyNever(memberService.saveNameAndAvatar(any, any, any));
+      },
+    );
   });
 }

@@ -209,5 +209,15 @@
   "bookingSuccessMessage":"Your booking is successfully saved and sent to homeowner. To complete the booking, please wait for the confirmation from homeowner.",
   "addToGoolgeCalendar": "Add to Goolge Calendar",
   "numberOfInspectionBooking": "{number} inspection booking",
-  "numberOfBooking": "{number, plural, one{1 Booking} other { {number} Bookings}}"
+  "numberOfBooking": "{number, plural, one{1 Booking} other { {number} Bookings}}",
+  "defaultUserDisplayName":"User{datetime}",
+  "@defaultUserDisplayName": {
+    "placeholders": {
+      "datetime": {
+        "type": "DateTime",
+        "format": "ddMMyyhhmmss",
+        "isCustomDateFormat": "true"
+      }
+    }
+  }
 }
