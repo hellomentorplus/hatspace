@@ -5,6 +5,7 @@ import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
+import 'package:hatspace/strings/l10n.dart';
 
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
@@ -57,9 +58,19 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     UserDetail userDetail =
         await _authenticationService.signUp(signUpType: type);
 
-    // save display name and avatar
-    await _storageService.member.saveNameAndAvatar(
-        userDetail.uid, userDetail.displayName ?? '', userDetail.avatar);
+    // check if this user has display name yet?
+    String displayName =
+        await _storageService.member.getMemberDisplayName(userDetail.uid);
+
+    if (displayName.isEmpty) {
+      displayName = HatSpaceStrings.current
+          .defaultUserDisplayName(DateTime.now().toUtc());
+      await _authenticationService.updateUserDisplayName(displayName);
+
+      // save display name and avatar
+      await _storageService.member
+          .saveNameAndAvatar(userDetail.uid, displayName, userDetail.avatar);
+    }
 
     List<Roles> listRoles =
         await _storageService.member.getUserRoles(userDetail.uid);
