@@ -215,7 +215,7 @@
     "placeholders": {
       "datetime": {
         "type": "DateTime",
-        "format": "ddMMyyyyhhmmss",
+        "format": "ddMMyyhhmmss",
         "isCustomDateFormat": "true"
       }
     }

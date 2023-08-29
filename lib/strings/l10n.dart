@@ -1817,7 +1817,7 @@ class HatSpaceStrings {
   /// `User{datetime}`
   String defaultUserDisplayName(DateTime datetime) {
     final DateFormat datetimeDateFormat =
-        DateFormat('ddMMyyyyhhmmss', Intl.getCurrentLocale());
+        DateFormat('ddMMyyhhmmss', Intl.getCurrentLocale());
     final String datetimeString = datetimeDateFormat.format(datetime);
 
     return Intl.message(
