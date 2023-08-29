@@ -328,19 +328,6 @@ class AddPropertyPreviewBody extends StatelessWidget {
                         ?.copyWith(color: HSColor.neutral7));
               },
             ),
-            const SizedBox(height: HsDimens.spacing20),
-            const Divider(
-              height: HsDimens.size4,
-              thickness: HsDimens.size4,
-              color: HSColor.neutral2,
-            ),
-            const SizedBox(height: HsDimens.spacing20),
-            Text(HatSpaceStrings.current.propertyFeatures,
-                style: Theme.of(context)
-                    .textTheme
-                    .displayLarge
-                    ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
-            const SizedBox(height: HsDimens.spacing16),
             BlocSelector<AddPropertyPreviewCubit, AddPropertyPreviewState,
                 List<Feature>>(
               selector: (state) {
@@ -351,35 +338,58 @@ class AddPropertyPreviewBody extends StatelessWidget {
                 return [];
               },
               builder: (context, features) {
-                return GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 200,
-                            childAspectRatio: 164 / 36,
-                            crossAxisSpacing: HsDimens.spacing15,
-                            mainAxisSpacing: HsDimens.spacing12),
-                    itemCount: features.length,
-                    itemBuilder: (_, index) => Row(
-                          children: [
-                            Container(
-                              height: HsDimens.size36,
-                              width: HsDimens.size36,
-                              padding: const EdgeInsets.all(HsDimens.spacing8),
-                              decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: HSColor.neutral2),
-                              child:
-                                  SvgPicture.asset(features[index].iconSvgPath),
-                            ),
-                            const SizedBox(width: HsDimens.spacing12),
-                            Expanded(
-                                child: Text(features[index].displayName,
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium))
-                          ],
-                        ));
+                if (features.isEmpty) {
+                  return const SizedBox();
+                }
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: HsDimens.spacing20),
+                    const Divider(
+                      height: HsDimens.size4,
+                      thickness: HsDimens.size4,
+                      color: HSColor.neutral2,
+                    ),
+                    const SizedBox(height: HsDimens.spacing20),
+                    Text(HatSpaceStrings.current.propertyFeatures,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge
+                            ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
+                    const SizedBox(height: HsDimens.spacing16),
+                    GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 200,
+                                childAspectRatio: 164 / 36,
+                                crossAxisSpacing: HsDimens.spacing15,
+                                mainAxisSpacing: HsDimens.spacing12),
+                        itemCount: features.length,
+                        itemBuilder: (_, index) => Row(
+                              children: [
+                                Container(
+                                  height: HsDimens.size36,
+                                  width: HsDimens.size36,
+                                  padding:
+                                      const EdgeInsets.all(HsDimens.spacing8),
+                                  decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: HSColor.neutral2),
+                                  child: SvgPicture.asset(
+                                      features[index].iconSvgPath),
+                                ),
+                                const SizedBox(width: HsDimens.spacing12),
+                                Expanded(
+                                    child: Text(features[index].displayName,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium))
+                              ],
+                            ))
+                  ],
+                );
               },
             ),
             const SizedBox(height: HsDimens.spacing24),
