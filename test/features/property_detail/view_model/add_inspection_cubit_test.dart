@@ -29,16 +29,6 @@ void main() async {
         .registerSingleton<AuthenticationService>(authenticationServiceMock);
     HsSingleton.singleton.registerSingleton<StorageService>(storageServiceMock);
     when(storageServiceMock.member).thenReturn(mockMemberService);
-    HsSingleton.singleton
-        .registerSingleton<AuthenticationService>(authenticatioServiceMock);
-    HsSingleton.singleton.registerSingleton<StorageService>(storageServiceMock);
-  });
-
-  tearDown(() {
-    reset(authenticatioServiceMock);
-    reset(storageServiceMock);
-    reset(mockMemberService);
-
   });
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -64,7 +54,7 @@ void main() async {
     'then return NavigateToBookingInspectionScreen state',
     build: () => PropertyDetailCubit(),
     setUp: () {
-      when(authenticatioServiceMock.isUserLoggedIn).thenReturn(true);
+      when(authenticationServiceMock.isUserLoggedIn).thenReturn(true);
     },
     act: (bloc) => bloc.navigateToBooingInspectionScreen(),
     expect: () => [NavigateToBooingInspectionScreen()],
@@ -76,7 +66,7 @@ void main() async {
     'then return nothing',
     build: () => PropertyDetailCubit(),
     setUp: () {
-      when(authenticatioServiceMock.isUserLoggedIn).thenReturn(false);
+      when(authenticationServiceMock.isUserLoggedIn).thenReturn(false);
     },
     act: (bloc) => bloc.navigateToBooingInspectionScreen(),
     expect: () => [],
