@@ -28,7 +28,7 @@ import 'property_detail_screen_test.mocks.dart';
   PropertyService,
   MemberService,
   PropertyDetailCubit,
-  AuthenticationService
+  AuthenticationService,
 ])
 void main() async {
   await initializeDateFormatting();
@@ -294,5 +294,35 @@ void main() async {
     await mockNetworkImagesFor(() => widgetTester.pumpAndSettle());
     //     // Navigate to other screen
     expect(find.byType(PropertyDetailScreen), findsNothing);
+  });
+
+  testWidgets(
+      'Given user is in PropertyDetail AND user is a ower (isOwner == true) of the property'
+      'Then user is not able to see Booking Inspection button',
+      (widgetTester) async {
+    when(propertyDetailCubit.state).thenReturn(PropertyDetailLoaded(
+        photos: const [],
+        name: 'name',
+        state: 'state',
+        bedrooms: 1,
+        bathrooms: 1,
+        carspaces: 1,
+        description: 'description',
+        fullAddress: 'address',
+        features: const [],
+        ownerName: 'owner name',
+        ownerAvatar: 'avatar',
+        availableDate: DateTime.parse('2017-09-20'),
+        type: 'apartment',
+        price: Price(),
+        isOwned: true));
+    const Widget widget = PropertyDetailBody();
+    await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+          BlocProvider<AuthenticationBloc>(
+              create: (context) => authenticationBloc),
+          BlocProvider<PropertyDetailCubit>(
+              create: ((context) => propertyDetailCubit))
+        ], widget));
+    expect(find.widgetWithText(PrimaryButton, 'Book Inspection'), findsNothing);
   });
 }

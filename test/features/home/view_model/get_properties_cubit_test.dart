@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/home/view_model/get_properties_cubit.dart';
+import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
@@ -13,10 +14,11 @@ import 'package:mockito/mockito.dart';
 
 import 'get_properties_cubit_test.mocks.dart';
 
-@GenerateMocks([StorageService, PropertyService])
+@GenerateMocks([StorageService, PropertyService, MemberService])
 void main() {
   final MockStorageService storageService = MockStorageService();
-  final PropertyService propertyService = MockPropertyService();
+  final MockPropertyService propertyService = MockPropertyService();
+  final MockMemberService memberService = MockMemberService();
 
   setUpAll(() async {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
@@ -24,6 +26,8 @@ void main() {
     /// Must have to specify this because when bloc uses storage service to get data,
     /// then the storage service will use this mock property service. Otherwise it will fail.
     when(storageService.property).thenReturn(propertyService);
+
+    when(storageService.member).thenReturn(memberService);
 
     /// Must to enable localization because AustraliaStates has used HatSpaceStrings
     await HatSpaceStrings.load(const Locale.fromSubtags(languageCode: 'en'));
@@ -91,6 +95,10 @@ void main() {
                     unitNo: '121211'),
                 ownerUid: 'uid'),
           ]));
+      when(memberService.getMemberAvatar(any))
+          .thenAnswer((realInvocation) => Future.value('avatar'));
+      when(memberService.getMemberDisplayName(any))
+          .thenAnswer((realInvocation) => Future.value('display name'));
     },
     act: (bloc) => bloc.getProperties(),
     expect: () => [
