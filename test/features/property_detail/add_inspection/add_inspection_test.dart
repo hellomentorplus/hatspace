@@ -1,3 +1,4 @@
+import 'package:clock/clock.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/booking/add_inspection_booking_screen.dart';
@@ -34,6 +35,9 @@ void main() async {
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationServiceMock);
     HsSingleton.singleton.registerSingleton<StorageService>(storageServiceMock);
+    withClock(Clock.fixed(DateTime(2022, 10, 15)), () async {
+      HsSingleton.singleton.registerSingleton<Clock>(clock);
+    });
   });
 
   testWidgets('Verify UI component', (WidgetTester widget) async {
@@ -88,34 +92,35 @@ void main() async {
     verify(addInspectionBookingCubit.onBookInspection()).called(1);
   });
 
-  // testWidgets(
-  //     'Given user is in AddInspectionBookingScreen. '
-  //     'When user tap on booking button. '
-  //     'Then user will start booking process.', (widgetTester) async {
-  //   when(addInspectionBookingCubit.stream)
-  //       .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
-  //   when(addInspectionBookingCubit.state)
-  //       .thenAnswer((_) => AddInspectionBookingInitial());
+  testWidgets(
+      'Given user is in AddInspectionBookingScreen. '
+      'When user tap on the date picker. '
+      'Then the date picker ui will be shown up.', (widgetTester) async {
+    when(addInspectionBookingCubit.stream)
+        .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
+    when(addInspectionBookingCubit.state)
+        .thenAnswer((_) => AddInspectionBookingInitial());
 
-  //   await mockNetworkImagesFor(() =>
-  //       widgetTester.blocWrapAndPump<AddInspectionBookingCubit>(
-  //           addInspectionBookingCubit, AddInspectionBookingBody()));
-  //   await widgetTester.pumpAndSettle();
+    await mockNetworkImagesFor(() =>
+        widgetTester.blocWrapAndPump<AddInspectionBookingCubit>(
+            addInspectionBookingCubit, AddInspectionBookingBody()));
+    await widgetTester.pumpAndSettle();
 
-  //   expect(find.byType(AddInspectionBookingBody), findsOneWidget);
+    expect(find.byType(AddInspectionBookingBody), findsOneWidget);
 
-  //   final Finder datePickerFinder = find.ancestor(of: find.byWidgetPredicate((widget) =>
-  //           validateSvgPictureWithAssets(widget, 'assets/icons/calendar.svg')), matching: find.byType(SecondaryButton));
+    final Finder datePickerFinder = find.ancestor(
+        of: find.byWidgetPredicate((widget) =>
+            validateSvgPictureWithAssets(widget, 'assets/icons/calendar.svg')),
+        matching: find.byType(SecondaryButton));
 
-  //   expect(datePickerFinder, findsOneWidget);
+    expect(datePickerFinder, findsOneWidget);
 
-  //   await widgetTester.ensureVisible(datePickerFinder);
-  //   await widgetTester.tap(datePickerFinder);
-  //   await widgetTester.pumpAndSettle();
+    await widgetTester.ensureVisible(datePickerFinder);
+    await widgetTester.tap(datePickerFinder);
+    await widgetTester.pumpAndSettle();
 
-  //   expect(find.byType(HsDatePicker), findsOneWidget);
-
-  // });
+    expect(find.byType(HsDatePicker), findsOneWidget);
+  });
 
   testWidgets(
       'Given user is in AddInspectionBookingScreen. '
