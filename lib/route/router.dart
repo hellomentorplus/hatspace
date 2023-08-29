@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hatspace/features/add_property/view/add_property_screen.dart';
+import 'package:hatspace/features/booking/add_inspection_booking_screen.dart';
 import 'package:hatspace/features/booking/add_inspection_success_booking_screen.dart';
 import 'package:hatspace/features/inspection_confirmation_detail/inspection_confirmation_detail_screen.dart';
 import 'package:hatspace/features/inspection_confirmation_list/inspection_confirmation_list_screen.dart';
@@ -94,5 +95,11 @@ extension RouteExtension on BuildContext {
   void pushToBookInspectionSuccessScreen() {
     Navigator.of(this).pushReplacement(MaterialPageRoute(
         builder: (context) => const AddInspectionSuccessScreen()));
+  }
+
+  Future<T?> goToBookInspectionScreen<T extends Object?>() {
+    return Navigator.push(this, MaterialPageRoute(builder: (context) {
+      return const AddInspectionBookingScreen();
+    }));
   }
 }

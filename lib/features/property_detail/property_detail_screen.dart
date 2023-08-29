@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/features/booking/add_inspection_booking_screen.dart';
 import 'package:hatspace/features/property_detail/view_model/property_detail_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
@@ -17,7 +16,6 @@ import 'package:hatspace/theme/widgets/hs_property_images_carousel.dart';
 import 'package:hatspace/theme/widgets/hs_room_count_view.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
-
 part 'widgets/property_description_view.dart';
 part 'widgets/property_features_view.dart';
 part 'widgets/property_location_view.dart';
@@ -39,16 +37,28 @@ class PropertyDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocProvider<PropertyDetailCubit>(
         create: (context) => PropertyDetailCubit()..loadDetail(id),
-        child: const PropertyDetailBody(),
+        child: PropertyDetailBody(id: id),
       );
 }
 
 class PropertyDetailBody extends StatelessWidget {
-  const PropertyDetailBody({Key? key}) : super(key: key);
+  //
+  final String id;
+  const PropertyDetailBody({required this.id, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: Column(
+          body: BlocListener<PropertyDetailCubit, PropertyDetailState>(
+        listener: (context, state) {
+          if (state is NavigateToBooingInspectionScreen) {
+            context.goToBookInspectionScreen().then((value) {
+              if (value == true) {
+                context.read<PropertyDetailCubit>().loadDetail(id);
+              }
+            });
+          }
+        },
+        child: Column(
           children: [
             Expanded(
               child: SingleChildScrollView(
@@ -356,7 +366,7 @@ class PropertyDetailBody extends StatelessWidget {
             const _PropertyBookingBar()
           ],
         ),
-      );
+      ));
 }
 
 class _PropertyBookingBar extends StatelessWidget {
@@ -450,10 +460,9 @@ class _PropertyBookingBar extends StatelessWidget {
                           label: HatSpaceStrings.current.bookInspection,
                           onPressed: () {
                             // TODO start booking inspection
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return const AddInspectionBookingScreen();
-                            }));
+                            context
+                                .read<PropertyDetailCubit>()
+                                .navigateToBooingInspectionScreen();
                           },
                           style: const ButtonStyle(
                               padding: MaterialStatePropertyAll<EdgeInsets>(

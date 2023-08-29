@@ -88,7 +88,7 @@ class AddInspectionBookingBody extends StatelessWidget {
                                 height: HsDimens.size32,
                               ),
                               onPressed: () {
-                                Navigator.pop(context);
+                                context.pop(result: true);
                               },
                             )),
                       ],

@@ -121,7 +121,7 @@ void main() async {
     when(authenticationBloc.state)
         .thenAnswer((realInvocation) => AnonymousState());
 
-    const Widget widget = PropertyDetailBody();
+    const Widget widget = PropertyDetailBody(id: 'id');
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
           BlocProvider<AuthenticationBloc>(
@@ -281,10 +281,11 @@ void main() async {
   });
 
   testWidgets(
-      'Given user is in PropertyDetail'
+      'Given user is in PropertyDetail and user is ALREADY LOGGED IN'
       'When user tap on Property'
       'Then navigate to AddInspectionView', (widgetTester) async {
     const Widget widget = PropertyDetailScreen(id: 'id');
+    when(authenticationService.isUserLoggedIn).thenReturn(true);
     await mockNetworkImagesFor(() => widgetTester
         .blocWrapAndPump<AuthenticationBloc>(authenticationBloc, widget));
     expect(
@@ -316,7 +317,7 @@ void main() async {
         type: 'apartment',
         price: Price(),
         isOwned: true));
-    const Widget widget = PropertyDetailBody();
+    const Widget widget = PropertyDetailBody(id: 'uid');
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
           BlocProvider<AuthenticationBloc>(
               create: (context) => authenticationBloc),
@@ -324,5 +325,22 @@ void main() async {
               create: ((context) => propertyDetailCubit))
         ], widget));
     expect(find.widgetWithText(PrimaryButton, 'Book Inspection'), findsNothing);
+  });
+  testWidgets(
+      'Given when user is at Property Detail Screen'
+      'AND user HAS NOT LOGGED IN'
+      'when user tap on Booking inspection button'
+      'then DO NOT navigate to any screens', (widgetTester) async {
+    const Widget widget = PropertyDetailScreen(id: 'id');
+    when(authenticationService.isUserLoggedIn).thenReturn(false);
+    await mockNetworkImagesFor(() => widgetTester
+        .blocWrapAndPump<AuthenticationBloc>(authenticationBloc, widget));
+    expect(
+        find.widgetWithText(PrimaryButton, 'Book Inspection'), findsOneWidget);
+    await widgetTester
+        .tap(find.widgetWithText(PrimaryButton, 'Book Inspection'));
+    await mockNetworkImagesFor(() => widgetTester.pumpAndSettle());
+    //     // Still in PropertyDetailScreen
+    expect(find.byType(PropertyDetailScreen), findsOneWidget);
   });
 }
