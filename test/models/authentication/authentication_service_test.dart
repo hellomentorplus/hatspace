@@ -263,4 +263,27 @@ void main() {
     expect(userDetail.email, user.email);
     expect(userDetail.phone, user.phoneNumber);
   });
+
+  group('test update user display name', (){
+    test('given current user is null, when update user display name, then throw user not found exception', () {
+      when(firebaseAuth.currentUser).thenAnswer((realInvocation) => null);
+
+      AuthenticationService service = AuthenticationService(
+          facebookAuth: mockFacebookAuth, firebaseAuth: firebaseAuth);
+
+      expect(() => service.updateUserDisplayName('displayName'), throwsA(isA<UserNotFoundException>()));
+    });
+
+    test('given current user is available, when update user display name, then update firebase user display name', () async {
+      when(firebaseAuth.currentUser).thenAnswer((realInvocation) => user);
+      when(user.updateDisplayName(any)).thenAnswer((realInvocation) => Future.value());
+
+      AuthenticationService service = AuthenticationService(
+          facebookAuth: mockFacebookAuth, firebaseAuth: firebaseAuth);
+
+      await service.updateUserDisplayName('displayName');
+
+      verify(user.updateDisplayName('displayName')).called(1);
+    });
+  });
 }
