@@ -219,5 +219,6 @@
         "isCustomDateFormat": "true"
       }
     }
-  }
+  },
+  "successAddingPropertyMessage":"You have successfully added your new property!"
 }

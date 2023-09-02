@@ -1827,6 +1827,16 @@ class HatSpaceStrings {
       args: [datetimeString],
     );
   }
+
+  /// `You have successfully added your new property!`
+  String get successAddingPropertyMessage {
+    return Intl.message(
+      'You have successfully added your new property!',
+      name: 'successAddingPropertyMessage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

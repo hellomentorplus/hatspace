@@ -298,6 +298,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "suburb": MessageLookupByLibrary.simpleMessage("Suburb"),
+        "successAddingPropertyMessage": MessageLookupByLibrary.simpleMessage(
+            "You have successfully added your new property!"),
         "swimmingPool": MessageLookupByLibrary.simpleMessage("Swimming pool"),
         "textWithInvalidChars":
             MessageLookupByLibrary.simpleMessage("Only accept text"),

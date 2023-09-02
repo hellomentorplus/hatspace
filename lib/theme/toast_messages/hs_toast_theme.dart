@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/gen/assets.gen.dart';
+import 'package:hatspace/theme/hs_theme.dart';
 
 const maxLength = 160;
 const maxLines = 2;
@@ -9,7 +10,8 @@ double containerPadding = 12.0;
 double iconSize = 24.0;
 
 enum ToastType {
-  errorToast(backgroundColor: Color.fromARGB(255, 255, 241, 241));
+  errorToast(backgroundColor: Color.fromARGB(255, 255, 241, 241)),
+  successToast(backgroundColor: HSColor.green01);
 
   final Color backgroundColor;
   String get icon => _getIcon();
@@ -21,6 +23,8 @@ enum ToastType {
     switch (this) {
       case ToastType.errorToast:
         return Assets.icons.error;
+      case ToastType.successToast:
+        return Assets.icons.primaryCheck;
     }
   }
 
@@ -28,6 +32,8 @@ enum ToastType {
     switch (this) {
       case ToastType.errorToast:
         return Assets.icons.closeCircleDark;
+      case ToastType.successToast:
+        return Assets.icons.closeClear;
     }
   }
 }
