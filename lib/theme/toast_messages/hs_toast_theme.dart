@@ -10,7 +10,7 @@ double containerPadding = 12.0;
 double iconSize = 24.0;
 
 enum ToastType {
-  errorToast(backgroundColor: Color.fromARGB(255, 255, 241, 241)),
+  errorToast(backgroundColor: HSColor.neutral1),
   successToast(backgroundColor: HSColor.green01);
 
   final Color backgroundColor;
