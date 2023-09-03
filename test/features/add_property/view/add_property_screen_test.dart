@@ -1,15 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view/add_property_screen.dart';
+import 'package:hatspace/features/add_property/view/widgets/add_property_preview_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
+import 'package:hatspace/features/debug/view/widget_list/toast_messages_view.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/photo/photo_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/pop_up/pop_up.dart';
+import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
@@ -19,8 +25,13 @@ import 'package:mockito/mockito.dart';
 import '../../../widget_tester_extension.dart';
 import 'add_property_screen_test.mocks.dart';
 
-@GenerateMocks(
-    [AddPropertyCubit, StorageService, AuthenticationService, PhotoService])
+@GenerateMocks([
+  AddPropertyCubit,
+  StorageService,
+  AuthenticationService,
+  PhotoService,
+  UserDetail
+])
 void main() {
   HatSpaceStrings.load(const Locale('en'));
   initializeDateFormatting();
@@ -30,6 +41,7 @@ void main() {
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
   final MockPhotoService photoService = MockPhotoService();
+  final MockUserDetail mockUserDetail = MockUserDetail();
 
   setUpAll(() {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
@@ -386,6 +398,49 @@ void main() {
       expect(previewAndSubmitBtnWidget.onPressed, isNull);
       expect(previewAndSubmitBtnWidget.iconUrl, isNull);
       expect(previewAndSubmitBtnWidget.iconPosition, isNull);
+    });
+  });
+
+  group('verify toast message', () {
+    testWidgets(
+        'Given user is in PropertyPreviewScreen and press submit button'
+        'When loading modal dismmissed'
+        'Then Success Toast message shows', (widgetTester) async {
+      when(addPropertyBloc.propertyType)
+          .thenAnswer((realInvocation) => PropertyTypes.house);
+      when(addPropertyBloc.availableDate)
+          .thenAnswer((realInvocation) => DateTime.now());
+      when(addPropertyBloc.australiaState).thenReturn(AustraliaStates.act);
+      when(addPropertyBloc.rentPeriod).thenReturn(MinimumRentPeriod.nineMonths);
+      when(addPropertyBloc.propertyName).thenReturn('PropertyName');
+      when(addPropertyBloc.price).thenReturn(12.0);
+      when(addPropertyBloc.suburb).thenReturn('suburb');
+      when(addPropertyBloc.postalCode).thenReturn('1234');
+      when(addPropertyBloc.unitNumber).thenReturn('123');
+      when(addPropertyBloc.address).thenReturn('address');
+      when(addPropertyBloc.description).thenReturn('aksjdkas');
+      when(addPropertyBloc.bedrooms).thenReturn(1);
+      when(addPropertyBloc.parking).thenReturn(1);
+      when(addPropertyBloc.bathrooms).thenReturn(1);
+      when(addPropertyBloc.features).thenReturn([]);
+      when(addPropertyBloc.photos).thenReturn([]);
+      when(authenticationService.getCurrentUser()).thenAnswer((_) {
+        return Future.value(UserDetail(uid: 'id'));
+      });
+      when(addPropertyBloc.state)
+          .thenReturn(const EndSubmitPropertyDetails(5, '2'));
+      when(addPropertyBloc.stream).thenAnswer((realInvocation) =>
+          Stream.value(const EndSubmitPropertyDetails(5, '2')));
+      Widget widget = AddPropertyPageBody();
+      Widget toastSuccess = ToastMessageContainer(
+          toastType: ToastType.successToast,
+          toastTitle: '🎉 Congratulations!',
+          toastContent: HatSpaceStrings.current.successAddingPropertyMessage);
+      await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+          addPropertyBloc, widget,
+          infiniteAnimationWidget: true);
+      await widgetTester.pumpAndSettle(const Duration(seconds: 1));
+      expect(find.byWidget(toastSuccess), findsOneWidget);
     });
   });
 }
