@@ -145,10 +145,10 @@ class BottomController extends StatelessWidget {
 
   const BottomController(
       {required this.pageController, required this.totalPages, super.key});
-  
-  String _convertSuccessTitle(String title){
+
+  String _convertSuccessTitle(String title) {
     List<String> newTitle = title.split(' ');
-    newTitle.sort((a,b)=> a.length.compareTo(b.length));
+    newTitle.sort((a, b) => a.length.compareTo(b.length));
     return '${newTitle.join(' ')}!';
   }
 
@@ -168,7 +168,14 @@ class BottomController extends StatelessWidget {
       if (state is EndSubmitPropertyDetails) {
         context.dismissLoading();
         context.goToPropertyDetail(id: state.id, replacement: true);
-        context.showToast(type: ToastType.successToast, title: _convertSuccessTitle(HatSpaceStrings.current.congratulations), message: HatSpaceStrings.current.successAddingPropertyMessage);
+      }
+
+      if (state is SuccessSubmitProperty) {
+        context.showToast(
+            type: ToastType.successToast,
+            title:
+                _convertSuccessTitle(HatSpaceStrings.current.congratulations),
+            message: HatSpaceStrings.current.successAddingPropertyMessage);
       }
     }, builder: (context, state) {
       return BottomAppBar(
