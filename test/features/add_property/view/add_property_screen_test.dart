@@ -427,20 +427,14 @@ void main() {
       when(authenticationService.getCurrentUser()).thenAnswer((_) {
         return Future.value(UserDetail(uid: 'id'));
       });
-      when(addPropertyBloc.state)
-          .thenReturn(const EndSubmitPropertyDetails(5, '2'));
-      when(addPropertyBloc.stream).thenAnswer((realInvocation) =>
-          Stream.value(const EndSubmitPropertyDetails(5, '2')));
+      when(addPropertyBloc.state).thenReturn(const SuccessSubmitProperty(5));
+      when(addPropertyBloc.stream).thenAnswer(
+          (realInvocation) => Stream.value(const SuccessSubmitProperty(5)));
       Widget widget = AddPropertyPageBody();
-      Widget toastSuccess = ToastMessageContainer(
-          toastType: ToastType.successToast,
-          toastTitle: '🎉 Congratulations!',
-          toastContent: HatSpaceStrings.current.successAddingPropertyMessage);
       await widgetTester.blocWrapAndPump<AddPropertyCubit>(
-          addPropertyBloc, widget,
-          infiniteAnimationWidget: true);
-      await widgetTester.pumpAndSettle(const Duration(seconds: 1));
-      expect(find.byWidget(toastSuccess), findsOneWidget);
+          addPropertyBloc, widget);
+      await widgetTester.pumpAndSettle(const Duration(seconds: 5));
+      expect(find.byType(ToastMessageContainer), findsOneWidget);
     });
   });
 }

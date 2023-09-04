@@ -357,6 +357,7 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
       // complete upload
       emit(EndSubmitPropertyDetails(state.pageViewNumber, id));
+      emit(SuccessSubmitProperty(state.pageViewNumber));
     } on UserNotFoundException catch (_) {
       // do nothing
     }
