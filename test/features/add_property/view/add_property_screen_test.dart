@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view/add_property_screen.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
@@ -25,7 +24,6 @@ import 'add_property_screen_test.mocks.dart';
   StorageService,
   AuthenticationService,
   PhotoService,
-  UserDetail
 ])
 void main() {
   HatSpaceStrings.load(const Locale('en'));
