@@ -31,7 +31,7 @@ void main() {
     expect(find.text('Tenant'), findsOneWidget);
     expect(
         find.text(
-            'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.'),
+            'You can explore properties, connect directly to homeowners, upload your rental application.'),
         findsOneWidget);
 
     final Finder rolFinder = find.byType(UserRoleCardView);

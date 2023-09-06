@@ -52,7 +52,8 @@ void main() {
         mockChooseRoleViewCubit, const ChooseRolesViewBody());
 
     expect(find.text('Choose your role'), findsOneWidget);
-    expect(find.text('You can be tenant or homeowner'), findsOneWidget);
+    expect(
+        find.text('You can be a tenant or homeowner or both'), findsOneWidget);
     final Finder tenantCardFinder = find.byKey(const ValueKey(Roles.tenant));
     expect(tenantCardFinder, findsOneWidget);
     final Card tenantCardWidget = tester.widget<Card>(
