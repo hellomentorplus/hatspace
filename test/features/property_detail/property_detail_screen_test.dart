@@ -343,4 +343,62 @@ void main() async {
     //     // Still in PropertyDetailScreen
     expect(find.byType(PropertyDetailScreen), findsOneWidget);
   });
+
+  testWidgets('given description is empty, when load property details, then do not show description', (widgetTester) async {
+    when(propertyDetailCubit.state).thenReturn(PropertyDetailLoaded(
+        photos: const [],
+        name: 'name',
+        state: 'state',
+        bedrooms: 1,
+        bathrooms: 1,
+        carspaces: 1,
+        description: '',
+        fullAddress: 'address',
+        features: const [],
+        ownerName: 'owner name',
+        ownerAvatar: 'avatar',
+        availableDate: DateTime.parse('2017-09-20'),
+        type: 'apartment',
+        price: Price(),
+        isOwned: true));
+    const Widget widget = PropertyDetailBody(id: 'uid');
+
+    await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+      BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc),
+      BlocProvider<PropertyDetailCubit>(
+          create: ((context) => propertyDetailCubit))
+    ], widget));
+
+    expect(find.byType(PropertyDescriptionView), findsNothing);
+  });
+
+  testWidgets('given description is not empty, when load property details, then do not show description', (widgetTester) async {
+    when(propertyDetailCubit.state).thenReturn(PropertyDetailLoaded(
+        photos: const [],
+        name: 'name',
+        state: 'state',
+        bedrooms: 1,
+        bathrooms: 1,
+        carspaces: 1,
+        description: 'description',
+        fullAddress: 'address',
+        features: const [],
+        ownerName: 'owner name',
+        ownerAvatar: 'avatar',
+        availableDate: DateTime.parse('2017-09-20'),
+        type: 'apartment',
+        price: Price(),
+        isOwned: true));
+    const Widget widget = PropertyDetailBody(id: 'uid');
+
+    await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+      BlocProvider<AuthenticationBloc>(
+          create: (context) => authenticationBloc),
+      BlocProvider<PropertyDetailCubit>(
+          create: ((context) => propertyDetailCubit))
+    ], widget));
+
+    expect(find.byType(PropertyDescriptionView), findsOneWidget);
+  });
 }
