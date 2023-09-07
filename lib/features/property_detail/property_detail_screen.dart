@@ -312,9 +312,9 @@ class PropertyDetailBody extends StatelessWidget {
                           return description.isEmpty
                               ? const SizedBox.shrink()
                               : PropertyDescriptionView(
-                            description: description,
-                            maxLine: 3,
-                          );
+                                  description: description,
+                                  maxLine: 3,
+                                );
                         },
                       ),
                     ),

@@ -1,6 +1,6 @@
 part of '../property_detail_screen.dart';
 
-class PropertyDescriptionView extends StatefulWidget {
+class PropertyDescriptionView extends StatelessWidget {
   final String description;
   final int? maxLine;
 
@@ -9,12 +9,62 @@ class PropertyDescriptionView extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<PropertyDescriptionView> createState() =>
-      _PropertyDescriptionViewState();
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final TextStyle? style = Theme.of(context).textTheme.bodyMedium;
+
+        if (_overflow(constraints.maxWidth, style)) {
+          return _LongPropertyDescriptionView(
+              description: description, maxLine: maxLine, style: style);
+        }
+
+        return Text(
+          description,
+          textAlign: TextAlign.justify,
+          style: style?.copyWith(color: HSColor.neutral7),
+        );
+      },
+    );
+  }
+
+  bool _overflow(double maxWidth, TextStyle? style) {
+    if (maxLine == null) {
+      return false;
+    }
+
+    final TextPainter painter = TextPainter(
+        text: TextSpan(text: description, style: style),
+        textDirection: TextDirection.ltr);
+
+    painter.layout(maxWidth: maxWidth);
+    TextSelection selection =
+        TextSelection(baseOffset: 0, extentOffset: description.length);
+    List<TextBox> boxes = painter.getBoxesForSelection(selection);
+
+    return boxes.length > (maxLine ?? 0);
+  }
 }
 
-class _PropertyDescriptionViewState extends State<PropertyDescriptionView>
-    with TickerProviderStateMixin {
+class _LongPropertyDescriptionView extends StatefulWidget {
+  final String description;
+  final int? maxLine;
+  final TextStyle? style;
+
+  const _LongPropertyDescriptionView(
+      {required this.description,
+      required this.maxLine,
+      required this.style,
+      Key? key})
+      : super(key: key);
+
+  @override
+  State<_LongPropertyDescriptionView> createState() =>
+      _LongPropertyDescriptionViewState();
+}
+
+class _LongPropertyDescriptionViewState
+    extends State<_LongPropertyDescriptionView> with TickerProviderStateMixin {
   final Duration _duration = const Duration(milliseconds: 300);
   late final AnimationController _animationController =
       AnimationController(vsync: this)..duration = _duration;
@@ -44,9 +94,7 @@ class _PropertyDescriptionViewState extends State<PropertyDescriptionView>
               child: Text(
                 widget.description,
                 textAlign: TextAlign.justify,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
+                style: (widget.style ?? Theme.of(context).textTheme.bodyMedium)
                     ?.copyWith(color: HSColor.neutral7),
               ),
             ),
@@ -59,10 +107,9 @@ class _PropertyDescriptionViewState extends State<PropertyDescriptionView>
                   maxLines: widget.maxLine,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.justify,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: HSColor.neutral7),
+                  style:
+                      (widget.style ?? Theme.of(context).textTheme.bodyMedium)
+                          ?.copyWith(color: HSColor.neutral7),
                 ),
               ),
             ),
