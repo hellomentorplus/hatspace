@@ -268,10 +268,10 @@ void main() async {
       setUp: () {
         when(authenticationService.signUp(signUpType: SignUpType.googleService))
             .thenAnswer((realInvocation) => Future.value(UserDetail(
-            displayName: 'display name',
-            uid: 'mock uid',
-            phone: 'mock phone',
-            email: 'mock email')));
+                displayName: 'display name',
+                uid: 'mock uid',
+                phone: 'mock phone',
+                email: 'mock email')));
 
         when(memberService.getUserRoles(any))
             .thenAnswer((realInvocation) => Future.value([Roles.tenant]));
