@@ -7,14 +7,18 @@ import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/property_detail/view_model/property_detail_cubit.dart';
+import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_cubit.dart';
+import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_state.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_property_images_carousel.dart';
 import 'package:hatspace/theme/widgets/hs_room_count_view.dart';
 import 'package:hatspace/data/property_data.dart';
+import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 part 'widgets/property_description_view.dart';
 part 'widgets/property_features_view.dart';
@@ -35,10 +39,12 @@ class PropertyDetailScreen extends StatelessWidget {
   const PropertyDetailScreen({required this.id, Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => BlocProvider<PropertyDetailCubit>(
-        create: (context) => PropertyDetailCubit()..loadDetail(id),
-        child: PropertyDetailBody(id: id),
-      );
+  Widget build(BuildContext context) => MultiBlocProvider(providers: [
+        BlocProvider<PropertyDetailCubit>(
+            create: (context) => PropertyDetailCubit()..loadDetail(id)),
+        BlocProvider<PropertyDetailInteractionCubit>(
+            create: (context) => PropertyDetailInteractionCubit())
+      ], child: PropertyDetailBody(id: id));
 }
 
 class PropertyDetailBody extends StatelessWidget {
@@ -46,9 +52,29 @@ class PropertyDetailBody extends StatelessWidget {
   final String id;
   const PropertyDetailBody({required this.id, Key? key}) : super(key: key);
 
+  Future<void> _showLoginModal(BuildContext context) {
+    HsWarningBottomSheetView loginModal = HsWarningBottomSheetView(
+        iconUrl: Assets.images.loginCircle,
+        title: HatSpaceStrings.current.login,
+        description: HatSpaceStrings.current.loginDescription,
+        primaryButtonLabel: HatSpaceStrings.current.yesLoginNow,
+        primaryOnPressed: () {
+          context.pop();
+          context.read<PropertyDetailInteractionCubit>().closeLoginModal();
+          context.goToSignup();
+        },
+        secondaryButtonLabel: HatSpaceStrings.current.noLater,
+        secondaryOnPressed: () {
+          context.read<PropertyDetailInteractionCubit>().closeLoginModal();
+          context.pop();
+        });
+    return context.showHsBottomSheet(loginModal);
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
-          body: BlocListener<PropertyDetailCubit, PropertyDetailState>(
+          body: BlocListener<PropertyDetailInteractionCubit,
+              PropertyDetailInteractionState>(
         listener: (context, state) {
           if (state is NavigateToBooingInspectionScreen) {
             context.goToBookInspectionScreen().then((value) {
@@ -56,6 +82,9 @@ class PropertyDetailBody extends StatelessWidget {
                 context.read<PropertyDetailCubit>().loadDetail(id);
               }
             });
+          }
+          if (state is ShowLoginBottomModal) {
+            _showLoginModal(context);
           }
         },
         child: Column(
@@ -461,7 +490,7 @@ class _PropertyBookingBar extends StatelessWidget {
                           onPressed: () {
                             // TODO start booking inspection
                             context
-                                .read<PropertyDetailCubit>()
+                                .read<PropertyDetailInteractionCubit>()
                                 .navigateToBooingInspectionScreen();
                           },
                           style: const ButtonStyle(

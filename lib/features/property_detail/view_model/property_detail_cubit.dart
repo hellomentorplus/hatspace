@@ -70,9 +70,5 @@ class PropertyDetailCubit extends Cubit<PropertyDetailState> {
         price: property.price));
   }
 
-  void navigateToBooingInspectionScreen() {
-    if (_authenticationService.isUserLoggedIn) {
-      emit(NavigateToBooingInspectionScreen());
-    }
-  }
+
 }
