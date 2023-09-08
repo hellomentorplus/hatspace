@@ -61,9 +61,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m13(description) => "${Intl.select(description, {
             'tenant':
-                'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
+                'You can explore properties, connect directly to homeowners, upload your rental application.',
             'homeowner':
-                'You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.',
+                'You can upload and manage your properties, shortlist potential tenants, track the leasing process.',
             'other': '',
           })}";
 
@@ -139,7 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseUserRole":
             MessageLookupByLibrary.simpleMessage("Choose your role"),
         "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
-            "You can be tenant or homeowner"),
+            "You can be a tenant or homeowner or both"),
         "congratulations":
             MessageLookupByLibrary.simpleMessage("Congratulations 🎉"),
         "contactSupport":
