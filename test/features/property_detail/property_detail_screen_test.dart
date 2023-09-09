@@ -101,6 +101,7 @@ void main() async {
     reset(propertyService);
     reset(memberService);
     reset(propertyDetailCubit);
+    reset(authenticationService);
   });
 
   testWidgets('verify UI component on Bloc components on PropertyDetailScreen',
@@ -161,8 +162,7 @@ void main() async {
     expect(find.text('Apartment'), findsOneWidget);
     expect(find.text('property name'), findsOneWidget);
     expect(find.text('Victoria'), findsOneWidget);
-    // 1 short text, and 1 long text
-    expect(find.text('property description'), findsNWidgets(2));
+    expect(find.text('property description'), findsOneWidget);
 
     expect(
         find.roomCount(bedrooms: 1, bathroom: 1, parkings: 1), findsOneWidget);
@@ -196,7 +196,7 @@ void main() async {
       // on feature list
       expect(find.text('Show more (6)'), findsOneWidget);
       // on description
-      expect(find.text('Show more'), findsOneWidget);
+      expect(find.text('Show more'), findsNothing);
     });
 
     testWidgets(
@@ -236,7 +236,7 @@ void main() async {
           .blocWrapAndPump<AuthenticationBloc>(authenticationBloc, widget));
 
       // only on description
-      expect(find.text('Show more'), findsOneWidget);
+      expect(find.byType(ShowMoreLabel), findsNothing);
     });
 
     testWidgets(
@@ -275,8 +275,7 @@ void main() async {
       await mockNetworkImagesFor(() => widgetTester
           .blocWrapAndPump<AuthenticationBloc>(authenticationBloc, widget));
 
-      // only on description
-      expect(find.text('Show more'), findsOneWidget);
+      expect(find.byType(ShowMoreLabel), findsNothing);
     });
   });
 
@@ -342,5 +341,136 @@ void main() async {
     await mockNetworkImagesFor(() => widgetTester.pumpAndSettle());
     //     // Still in PropertyDetailScreen
     expect(find.byType(PropertyDetailScreen), findsOneWidget);
+  });
+
+  testWidgets(
+      'given description is empty, when load property details, then do not show description',
+      (widgetTester) async {
+    when(propertyDetailCubit.state).thenReturn(PropertyDetailLoaded(
+        photos: const [],
+        name: 'name',
+        state: 'state',
+        bedrooms: 1,
+        bathrooms: 1,
+        carspaces: 1,
+        description: '',
+        fullAddress: 'address',
+        features: const [],
+        ownerName: 'owner name',
+        ownerAvatar: 'avatar',
+        availableDate: DateTime.parse('2017-09-20'),
+        type: 'apartment',
+        price: Price(),
+        isOwned: true));
+    const Widget widget = PropertyDetailBody(id: 'uid');
+
+    await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+          BlocProvider<AuthenticationBloc>(
+              create: (context) => authenticationBloc),
+          BlocProvider<PropertyDetailCubit>(
+              create: ((context) => propertyDetailCubit))
+        ], widget));
+
+    expect(find.byType(PropertyDescriptionView), findsNothing);
+  });
+
+  testWidgets(
+      'given description is not empty, when load property details, then do not show description',
+      (widgetTester) async {
+    when(propertyDetailCubit.state).thenReturn(PropertyDetailLoaded(
+        photos: const [],
+        name: 'name',
+        state: 'state',
+        bedrooms: 1,
+        bathrooms: 1,
+        carspaces: 1,
+        description: 'description',
+        fullAddress: 'address',
+        features: const [],
+        ownerName: 'owner name',
+        ownerAvatar: 'avatar',
+        availableDate: DateTime.parse('2017-09-20'),
+        type: 'apartment',
+        price: Price(),
+        isOwned: true));
+    const Widget widget = PropertyDetailBody(id: 'uid');
+
+    await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+          BlocProvider<AuthenticationBloc>(
+              create: (context) => authenticationBloc),
+          BlocProvider<PropertyDetailCubit>(
+              create: ((context) => propertyDetailCubit))
+        ], widget));
+
+    expect(find.byType(PropertyDescriptionView), findsOneWidget);
+  });
+
+  testWidgets(
+      'given description is short,'
+      ' when load property details,'
+      ' then do not use stack animation to display text,'
+      ' and do not show Show more label', (widgetTester) async {
+    when(propertyDetailCubit.state).thenReturn(PropertyDetailLoaded(
+        photos: const [],
+        name: 'name',
+        state: 'state',
+        bedrooms: 1,
+        bathrooms: 1,
+        carspaces: 1,
+        description: 'description',
+        fullAddress: 'address',
+        features: const [],
+        ownerName: 'owner name',
+        ownerAvatar: 'avatar',
+        availableDate: DateTime.parse('2017-09-20'),
+        type: 'apartment',
+        price: Price(),
+        isOwned: true));
+    const Widget widget = PropertyDetailBody(id: 'uid');
+
+    await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+          BlocProvider<AuthenticationBloc>(
+              create: (context) => authenticationBloc),
+          BlocProvider<PropertyDetailCubit>(
+              create: ((context) => propertyDetailCubit))
+        ], widget));
+
+    expect(find.byType(SizeTransition), findsNothing);
+    expect(find.byType(FadeTransition), findsNothing);
+    expect(find.byType(ShowMoreLabel), findsNothing);
+  });
+
+  testWidgets(
+      'given description is more than 3 lines,'
+      ' when load property details,'
+      ' then use stack animation to display text,'
+      ' and show Show more label', (widgetTester) async {
+    when(propertyDetailCubit.state).thenReturn(PropertyDetailLoaded(
+        photos: const [],
+        name: 'name',
+        state: 'state',
+        bedrooms: 1,
+        bathrooms: 1,
+        carspaces: 1,
+        description: 'description\nanother line\nnew line\n4th line',
+        fullAddress: 'address',
+        features: const [],
+        ownerName: 'owner name',
+        ownerAvatar: 'avatar',
+        availableDate: DateTime.parse('2017-09-20'),
+        type: 'apartment',
+        price: Price(),
+        isOwned: true));
+    const Widget widget = PropertyDetailBody(id: 'uid');
+
+    await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+          BlocProvider<AuthenticationBloc>(
+              create: (context) => authenticationBloc),
+          BlocProvider<PropertyDetailCubit>(
+              create: ((context) => propertyDetailCubit))
+        ], widget));
+
+    expect(find.byType(SizeTransition), findsOneWidget);
+    expect(find.byType(ShowMoreLabel), findsOneWidget);
   });
 }
