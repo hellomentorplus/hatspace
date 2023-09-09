@@ -130,6 +130,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
         "bookInspection":
             MessageLookupByLibrary.simpleMessage("Book Inspection"),
+        "bookingInspectionSuccessTitle":
+            MessageLookupByLibrary.simpleMessage("🎉 Congratulations!"),
         "bookingSuccessMessage": MessageLookupByLibrary.simpleMessage(
             "Your booking is successfully saved and sent to homeowner. To complete the booking, please wait for the confirmation from homeowner."),
         "btnLogOut": MessageLookupByLibrary.simpleMessage("Log Out"),

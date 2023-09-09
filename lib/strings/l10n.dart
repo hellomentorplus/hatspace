@@ -1782,6 +1782,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `🎉 Congratulations!`
+  String get bookingInspectionSuccessTitle {
+    return Intl.message(
+      '🎉 Congratulations!',
+      name: 'bookingInspectionSuccessTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Add to Goolge Calendar`
   String get addToGoolgeCalendar {
     return Intl.message(

@@ -146,12 +146,6 @@ class BottomController extends StatelessWidget {
   const BottomController(
       {required this.pageController, required this.totalPages, super.key});
 
-  String _convertSuccessTitle(String title) {
-    List<String> newTitle = title.split(' ');
-    newTitle.sort((a, b) => a.length.compareTo(b.length));
-    return '${newTitle.join(' ')}!';
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddPropertyCubit, AddPropertyState>(
@@ -174,7 +168,7 @@ class BottomController extends StatelessWidget {
         context.showToast(
             type: ToastType.successToast,
             title:
-                _convertSuccessTitle(HatSpaceStrings.current.congratulations),
+                 HatSpaceStrings.current.bookingInspectionSuccessTitle,
             message: HatSpaceStrings.current.successAddingPropertyMessage);
       }
     }, builder: (context, state) {
