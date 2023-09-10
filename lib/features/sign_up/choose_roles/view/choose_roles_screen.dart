@@ -121,7 +121,6 @@ class ChooseRolesViewBody extends StatelessWidget {
   }
 
   void _cancelChoosingRoles(BuildContext context) {
-    context.read<ChooseRolesCubit>().onCancelRole();
     context.pop(result: false);
   }
 }

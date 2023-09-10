@@ -170,10 +170,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `You can be tenant or homeowner`
+  /// `You can be a tenant or homeowner or both`
   String get chooseUserRoleDescription {
     return Intl.message(
-      'You can be tenant or homeowner',
+      'You can be a tenant or homeowner or both',
       name: 'chooseUserRoleDescription',
       desc: '',
       args: [],
@@ -195,15 +195,15 @@ class HatSpaceStrings {
     );
   }
 
-  /// `{description, select, tenant{You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.} homeowner{You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.} other{}}`
+  /// `{description, select, tenant{You can explore properties, connect directly to homeowners, upload your rental application.} homeowner{You can upload and manage your properties, shortlist potential tenants, track the leasing process.} other{}}`
   String userRoleDescription(Object description) {
     return Intl.select(
       description,
       {
         'tenant':
-            'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
+            'You can explore properties, connect directly to homeowners, upload your rental application.',
         'homeowner':
-            'You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.',
+            'You can upload and manage your properties, shortlist potential tenants, track the leasing process.',
         'other': '',
       },
       name: 'userRoleDescription',

@@ -59,7 +59,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         await _authenticationService.signUp(signUpType: type);
 
     // check if this user has display name yet?
-    String displayName =
+    String displayName = userDetail.displayName ??
         await _storageService.member.getMemberDisplayName(userDetail.uid);
 
     if (displayName.isEmpty) {
