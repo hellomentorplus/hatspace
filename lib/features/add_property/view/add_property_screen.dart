@@ -76,7 +76,6 @@ class AddPropertyPageBody extends StatelessWidget {
     return WillPopScope(
       onWillPop: () {
         context.read<AddPropertyCubit>().onBackPressed(pages.length);
-
         return Future.value(false);
       },
       child: BlocListener<AddPropertyCubit, AddPropertyState>(
@@ -163,12 +162,10 @@ class BottomController extends StatelessWidget {
         context.dismissLoading();
         context.goToPropertyDetail(id: state.id, replacement: true);
       }
-
       if (state is SuccessSubmitProperty) {
         context.showToast(
             type: ToastType.successToast,
-            title:
-                 HatSpaceStrings.current.bookingInspectionSuccessTitle,
+            title: HatSpaceStrings.current.bookingInspectionSuccessTitle,
             message: HatSpaceStrings.current.successAddingPropertyMessage);
       }
     }, builder: (context, state) {

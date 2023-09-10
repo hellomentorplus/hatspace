@@ -10,6 +10,7 @@ import 'package:hatspace/models/photo/photo_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
@@ -391,5 +392,41 @@ void main() {
       expect(previewAndSubmitBtnWidget.iconUrl, isNull);
       expect(previewAndSubmitBtnWidget.iconPosition, isNull);
     });
+  });
+
+  testWidgets('Success toast', (widgetTester) async {
+    // Widget widget = BottomController(pageController: PageController(initialPage: 5), totalPages: 5);
+    Widget widget = AddPropertyPageBody();
+    when(addPropertyBloc.propertyType)
+        .thenAnswer((realInvocation) => PropertyTypes.house);
+    when(addPropertyBloc.availableDate)
+        .thenAnswer((realInvocation) => DateTime.now());
+    when(addPropertyBloc.australiaState).thenReturn(AustraliaStates.act);
+    when(addPropertyBloc.rentPeriod).thenReturn(MinimumRentPeriod.nineMonths);
+    when(addPropertyBloc.propertyName).thenReturn('PropertyName');
+    when(addPropertyBloc.price).thenReturn(12.0);
+    when(addPropertyBloc.suburb).thenReturn('suburb');
+    when(addPropertyBloc.postalCode).thenReturn('1234');
+    when(addPropertyBloc.unitNumber).thenReturn('123');
+    when(addPropertyBloc.address).thenReturn('address');
+    when(addPropertyBloc.description).thenReturn('aksjdkas');
+    when(addPropertyBloc.bedrooms).thenReturn(1);
+    when(addPropertyBloc.parking).thenReturn(1);
+    when(addPropertyBloc.bathrooms).thenReturn(1);
+    when(addPropertyBloc.features).thenReturn([]);
+    when(addPropertyBloc.photos).thenReturn([]);
+    when(addPropertyBloc.state).thenAnswer((realInvocation) {
+      return const SuccessSubmitProperty(5);
+    });
+    when(addPropertyBloc.stream).thenAnswer(
+        (realInvocation) => Stream.value(const SuccessSubmitProperty(5)));
+    await widgetTester.blocWrapAndPump<AddPropertyCubit>(
+        addPropertyBloc, widget,
+        infiniteAnimationWidget: true);
+    await widgetTester.pump(const Duration(seconds: 5));
+    expectLater(find.byType(ToastMessageContainer), findsOneWidget);
+    expect(find.text('🎉 Congratulations!'), findsOneWidget);
+    expect(find.text('You have successfully added your new property!'),
+        findsOneWidget);
   });
 }
