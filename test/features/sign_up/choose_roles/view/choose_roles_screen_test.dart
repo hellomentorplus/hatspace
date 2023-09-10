@@ -86,8 +86,7 @@ void main() {
   testWidgets(
       'Given user is in choose role screen'
       'When user tap on close button'
-      'Then user will get out of this screen and log out',
-      (WidgetTester tester) async {
+      'Then user will get out of this screen', (WidgetTester tester) async {
     when(mockChooseRoleViewCubit.state)
         .thenAnswer((realInvocation) => const ChoosingRolesState());
     when(mockChooseRoleViewCubit.stream).thenAnswer(
@@ -110,7 +109,6 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byType(ChooseRolesViewBody), findsNothing);
-    verify(mockChooseRoleViewCubit.onCancelRole()).called(1);
   });
 
   testWidgets(
