@@ -69,6 +69,4 @@ class PropertyDetailCubit extends Cubit<PropertyDetailState> {
         availableDate: property.availableDate.toDate(),
         price: property.price));
   }
-
-
 }

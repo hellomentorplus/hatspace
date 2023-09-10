@@ -6,12 +6,15 @@ import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/property_detail/property_detail_screen.dart';
 import 'package:hatspace/features/property_detail/view_model/property_detail_cubit.dart';
+import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_cubit.dart';
+import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_state.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
+import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
@@ -29,6 +32,7 @@ import 'property_detail_screen_test.mocks.dart';
   MemberService,
   PropertyDetailCubit,
   AuthenticationService,
+  PropertyDetailInteractionCubit
 ])
 void main() async {
   await initializeDateFormatting();
@@ -40,6 +44,8 @@ void main() async {
   final MockPropertyDetailCubit propertyDetailCubit = MockPropertyDetailCubit();
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
+  final MockPropertyDetailInteractionCubit mockPropertyDetailInteractionCubit =
+      MockPropertyDetailInteractionCubit();
 
   final Property property = Property(
       type: PropertyTypes.apartment,
@@ -91,6 +97,11 @@ void main() async {
       (realInvocation) => const Stream.empty(),
     );
 
+    when(mockPropertyDetailInteractionCubit.state)
+        .thenAnswer((realInvocation) => PropertyDetailInteractionInitial());
+    when(mockPropertyDetailInteractionCubit.stream).thenAnswer(
+        (realInvocation) => Stream.value(PropertyDetailInteractionInitial()));
+
     when(authenticationService.getCurrentUser())
         .thenAnswer((realInvocation) => Future.value(UserDetail(uid: 'uid')));
   });
@@ -121,7 +132,6 @@ void main() async {
       (widgetTester) async {
     when(authenticationBloc.state)
         .thenAnswer((realInvocation) => AnonymousState());
-
     const Widget widget = PropertyDetailBody(id: 'id');
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
@@ -130,9 +140,10 @@ void main() async {
           ),
           BlocProvider<PropertyDetailCubit>(
             create: (context) => propertyDetailCubit,
-          )
+          ),
+          BlocProvider<PropertyDetailInteractionCubit>(
+              create: (context) => mockPropertyDetailInteractionCubit)
         ], widget));
-
     expect(find.text('Location'), findsNothing);
     expect(find.text('10 streetName, suburb, 1234, Victoria'), findsNothing);
   });
@@ -300,28 +311,38 @@ void main() async {
       'Given user is in PropertyDetail AND user is a ower (isOwner == true) of the property'
       'Then user is not able to see Booking Inspection button',
       (widgetTester) async {
-    when(propertyDetailCubit.state).thenReturn(PropertyDetailLoaded(
-        photos: const [],
-        name: 'name',
-        state: 'state',
-        bedrooms: 1,
-        bathrooms: 1,
-        carspaces: 1,
-        description: 'description',
-        fullAddress: 'address',
-        features: const [],
-        ownerName: 'owner name',
-        ownerAvatar: 'avatar',
-        availableDate: DateTime.parse('2017-09-20'),
-        type: 'apartment',
-        price: Price(),
-        isOwned: true));
+    when(propertyDetailCubit.state).thenAnswer((realInvocation) {
+      return PropertyDetailLoaded(
+          photos: const [],
+          name: 'name',
+          state: 'state',
+          bedrooms: 1,
+          bathrooms: 1,
+          carspaces: 1,
+          description: 'description',
+          fullAddress: 'address',
+          features: const [],
+          ownerName: 'owner name',
+          ownerAvatar: 'avatar',
+          availableDate: DateTime.parse('2017-09-20'),
+          type: 'apartment',
+          price: Price(),
+          isOwned: true);
+    });
+    when(propertyDetailCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+    when(mockPropertyDetailInteractionCubit.state)
+        .thenAnswer((realInvocation) => PropertyDetailInteractionInitial());
+    when(mockPropertyDetailInteractionCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
     const Widget widget = PropertyDetailBody(id: 'uid');
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
           BlocProvider<AuthenticationBloc>(
               create: (context) => authenticationBloc),
           BlocProvider<PropertyDetailCubit>(
-              create: ((context) => propertyDetailCubit))
+              create: ((context) => propertyDetailCubit)),
+          BlocProvider<PropertyDetailInteractionCubit>(
+              create: (context) => mockPropertyDetailInteractionCubit)
         ], widget));
     expect(find.widgetWithText(PrimaryButton, 'Book Inspection'), findsNothing);
   });
@@ -368,7 +389,9 @@ void main() async {
           BlocProvider<AuthenticationBloc>(
               create: (context) => authenticationBloc),
           BlocProvider<PropertyDetailCubit>(
-              create: ((context) => propertyDetailCubit))
+              create: ((context) => propertyDetailCubit)),
+          BlocProvider<PropertyDetailInteractionCubit>(
+              create: (context) => mockPropertyDetailInteractionCubit)
         ], widget));
 
     expect(find.byType(PropertyDescriptionView), findsNothing);
@@ -399,7 +422,9 @@ void main() async {
           BlocProvider<AuthenticationBloc>(
               create: (context) => authenticationBloc),
           BlocProvider<PropertyDetailCubit>(
-              create: ((context) => propertyDetailCubit))
+              create: ((context) => propertyDetailCubit)),
+          BlocProvider<PropertyDetailInteractionCubit>(
+              create: (context) => PropertyDetailInteractionCubit())
         ], widget));
 
     expect(find.byType(PropertyDescriptionView), findsOneWidget);
@@ -432,7 +457,9 @@ void main() async {
           BlocProvider<AuthenticationBloc>(
               create: (context) => authenticationBloc),
           BlocProvider<PropertyDetailCubit>(
-              create: ((context) => propertyDetailCubit))
+              create: ((context) => propertyDetailCubit)),
+          BlocProvider<PropertyDetailInteractionCubit>(
+              create: (context) => PropertyDetailInteractionCubit())
         ], widget));
 
     expect(find.byType(SizeTransition), findsNothing);
@@ -467,10 +494,39 @@ void main() async {
           BlocProvider<AuthenticationBloc>(
               create: (context) => authenticationBloc),
           BlocProvider<PropertyDetailCubit>(
-              create: ((context) => propertyDetailCubit))
+              create: ((context) => propertyDetailCubit)),
+          BlocProvider<PropertyDetailInteractionCubit>(
+              create: (context) => PropertyDetailInteractionCubit())
         ], widget));
 
     expect(find.byType(SizeTransition), findsOneWidget);
     expect(find.byType(ShowMoreLabel), findsOneWidget);
+  });
+  group('Test user cases when user is a tenant', () {
+    testWidgets(
+        'Given when user has not logged in'
+        'Given when user is not a homeowner of the property'
+        'When user tap on book inspecption button'
+        'Then show login bottom sheet modal', (widgetTester) async {
+      Widget widget = const PropertyDetailScreen(id: 'id');
+      when(authenticationService.isUserLoggedIn).thenReturn(false);
+      when(mockPropertyDetailInteractionCubit.state)
+          .thenAnswer((realInvocation) => ShowLoginBottomModal());
+      when(mockPropertyDetailInteractionCubit.stream)
+          .thenAnswer((realInvocation) => Stream.value(ShowLoginBottomModal()));
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+            BlocProvider<AuthenticationBloc>(
+                create: (context) => authenticationBloc),
+            BlocProvider<PropertyDetailCubit>(
+                create: ((context) => propertyDetailCubit)),
+            BlocProvider<PropertyDetailInteractionCubit>(
+                create: (context) => mockPropertyDetailInteractionCubit)
+          ], widget));
+      await widgetTester.tap(
+          find.widgetWithText(PrimaryButton, 'Book Inspection'),
+          warnIfMissed: true);
+      await widgetTester.pumpAndSettle();
+      expectLater(find.byType(HsWarningBottomSheetView), findsOneWidget);
+    });
   });
 }

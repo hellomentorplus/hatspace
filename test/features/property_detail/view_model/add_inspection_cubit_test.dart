@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
-import 'package:hatspace/features/property_detail/view_model/property_detail_cubit.dart';
+import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_cubit.dart';
+import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_state.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
@@ -49,10 +50,10 @@ void main() async {
       act: (bloc) => bloc.onBookInspection(),
       expect: () => [BookingInspectionSuccess()]);
 
-  blocTest<PropertyDetailCubit, PropertyDetailState>(
+  blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
     'when trigger navigate to booking inspection'
     'then return NavigateToBookingInspectionScreen state',
-    build: () => PropertyDetailCubit(),
+    build: () => PropertyDetailInteractionCubit(),
     setUp: () {
       when(authenticationServiceMock.isUserLoggedIn).thenReturn(true);
     },
@@ -60,16 +61,16 @@ void main() async {
     expect: () => [NavigateToBooingInspectionScreen()],
   );
 
-  blocTest<PropertyDetailCubit, PropertyDetailState>(
+  blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
     'Given when user has not logged in'
     'when user trigger navigate to booking screen'
     'then return nothing',
-    build: () => PropertyDetailCubit(),
+    build: () => PropertyDetailInteractionCubit(),
     setUp: () {
       when(authenticationServiceMock.isUserLoggedIn).thenReturn(false);
     },
     act: (bloc) => bloc.navigateToBooingInspectionScreen(),
-    expect: () => [],
+    expect: () => [ShowLoginBottomModal()],
   );
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
       'Given user is booking an inspection'

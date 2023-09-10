@@ -7,10 +7,10 @@ class PropertyDetailInteractionState extends Equatable {
   List<Object> get props => [];
 }
 
- class PropertyDetailInteractionCubitInitial extends PropertyDetailInteractionState {}
+class PropertyDetailInteractionInitial extends PropertyDetailInteractionState {}
 
+class ShowLoginBottomModal extends PropertyDetailInteractionState {}
 
-class ShowLoginBottomModal extends PropertyDetailInteractionState{}
-class CloseLoginBottomModal extends PropertyDetailInteractionState{}
+class CloseLoginBottomModal extends PropertyDetailInteractionState {}
 
-class NavigateToBooingInspectionScreen extends PropertyDetailInteractionState{}
+class NavigateToBooingInspectionScreen extends PropertyDetailInteractionState {}
