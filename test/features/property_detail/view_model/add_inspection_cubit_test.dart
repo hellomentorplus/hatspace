@@ -124,9 +124,49 @@ void main() async {
       'Given AddInspectionBookingCubit was just created. '
       'Then state will be AddInspectionBookingInitial.',
       build: () => AddInspectionBookingCubit(),
+      setUp: () {
+        when(authenticationServiceMock.getCurrentUser())
+            .thenAnswer((realInvocation) {
+          return Future.value(UserDetail(uid: 'uid'));
+        });
+        when(mockMemberService.getUserRoles('uid'))
+            .thenAnswer((realInvocation) {
+          return Future.value([Roles.homeowner]);
+        });
+      },
       act: (bloc) => bloc.onBookInspection(),
       verify: (bloc) {
         expect(bloc.state is AddInspectionBookingInitial, true);
         expect((bloc.state as AddInspectionBookingInitial).props, []);
       });
+  blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
+      'Given when LoginModal is displayed'
+      'When user close it'
+      'Then return CloseModal state',
+      build: () => PropertyDetailInteractionCubit(),
+      setUp: () {
+        when(authenticationServiceMock.getCurrentUser())
+            .thenAnswer((realInvocation) {
+          return Future.value(UserDetail(uid: 'uid'));
+        });
+        when(authenticationServiceMock.isUserLoggedIn).thenReturn(false);
+      },
+      act: (bloc) => bloc.closeLoginModal(),
+      expect: () => [isA<CloseLoginBottomModal>()]);
+       blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
+      'Given user is in PropertyDetailScreen'
+      'When user already logged in'
+      'When user DO NOT HAVE Tenant role'
+      'Then return RequestTenantRole state',
+      build: () => PropertyDetailInteractionCubit(),
+      setUp: () {
+        when(authenticationServiceMock.getCurrentUser())
+            .thenAnswer((realInvocation) {
+          return Future.value(UserDetail(uid: 'uid'));
+        });
+        when(authenticationServiceMock.isUserLoggedIn).thenReturn(true);
+        when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) => Future.value([]));
+      },
+      act: (bloc) => bloc.navigateToBooingInspectionScreen(),
+      expect: () => [isA<RequestTenantRoles>()]);
 }

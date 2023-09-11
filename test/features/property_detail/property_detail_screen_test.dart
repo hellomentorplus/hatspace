@@ -292,9 +292,12 @@ void main() async {
 
   testWidgets(
       'Given user is in PropertyDetail and user is ALREADY LOGGED IN'
-      'When user tap on Property'
+      'When user has tenant roles'
+      'When user tap on Book Inspection'
       'Then navigate to AddInspectionView', (widgetTester) async {
     const Widget widget = PropertyDetailScreen(id: 'id');
+    when(memberService.getUserRoles('uid'))
+        .thenAnswer((realInvocation) => Future.value([Roles.tenant]));
     when(authenticationService.isUserLoggedIn).thenReturn(true);
     await mockNetworkImagesFor(() => widgetTester
         .blocWrapAndPump<AuthenticationBloc>(authenticationBloc, widget));
@@ -306,7 +309,6 @@ void main() async {
     //     // Navigate to other screen
     expect(find.byType(PropertyDetailScreen), findsNothing);
   });
-
   testWidgets(
       'Given user is in PropertyDetail AND user is a ower (isOwner == true) of the property'
       'Then user is not able to see Booking Inspection button',
@@ -502,7 +504,7 @@ void main() async {
     expect(find.byType(SizeTransition), findsOneWidget);
     expect(find.byType(ShowMoreLabel), findsOneWidget);
   });
-  group('Test user cases when user is a tenant', () {
+  group('Show Login Modal - Show AddTenantModal', () {
     testWidgets(
         'Given when user has not logged in'
         'Given when user is not a homeowner of the property'
@@ -510,10 +512,39 @@ void main() async {
         'Then show login bottom sheet modal', (widgetTester) async {
       Widget widget = const PropertyDetailScreen(id: 'id');
       when(authenticationService.isUserLoggedIn).thenReturn(false);
-      when(mockPropertyDetailInteractionCubit.state)
-          .thenAnswer((realInvocation) => ShowLoginBottomModal());
-      when(mockPropertyDetailInteractionCubit.stream)
-          .thenAnswer((realInvocation) => Stream.value(ShowLoginBottomModal()));
+      when(authenticationService.isAppleSignInAvailable).thenReturn(false);
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+            BlocProvider<AuthenticationBloc>(
+                create: (context) => authenticationBloc),
+            BlocProvider<PropertyDetailCubit>(
+                create: ((context) => propertyDetailCubit)),
+            BlocProvider<PropertyDetailInteractionCubit>(
+                create: (context) => mockPropertyDetailInteractionCubit)
+          ], widget));
+      await widgetTester.tap(
+          find.widgetWithText(PrimaryButton, 'Book Inspection'),
+          warnIfMissed: true);
+      await widgetTester.pumpAndSettle();
+      // display login bottom modal
+      expectLater(find.byType(HsWarningBottomSheetView), findsOneWidget);
+
+      PrimaryButton loginBtn = widgetTester
+          .widget(find.widgetWithText(PrimaryButton, 'Yes, login now'));
+      await widgetTester.tap(find.byWidget(loginBtn));
+      await widgetTester.pumpAndSettle();
+      // navigate to different screen
+      expectLater(find.byType(HsWarningBottomSheetView), findsNothing);
+      expectLater(find.byType(PropertyDetailScreen), findsNothing);
+    });
+    
+    testWidgets(
+      'Given user loged in'
+      'When user DOES NOT HAVE tenant role'
+      'Then show addTenantBottomModal'
+      , (widgetTester) async{
+          Widget widget = const PropertyDetailScreen(id: 'id');
+      when(authenticationService.isUserLoggedIn).thenReturn(true);
+      when(memberService.getUserRoles('uid')).thenAnswer((realInvocation) => Future.value([]));
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
             BlocProvider<AuthenticationBloc>(
                 create: (context) => authenticationBloc),
@@ -527,6 +558,10 @@ void main() async {
           warnIfMissed: true);
       await widgetTester.pumpAndSettle();
       expectLater(find.byType(HsWarningBottomSheetView), findsOneWidget);
-    });
+      expect(find.text('Add Tenant role'), findsOneWidget);
+      expect(find.text('Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?'), findsOneWidget);
+      });
   });
+
+  
 }
