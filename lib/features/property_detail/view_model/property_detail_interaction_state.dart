@@ -11,7 +11,7 @@ class PropertyDetailInteractionInitial extends PropertyDetailInteractionState {}
 
 class ShowLoginBottomModal extends PropertyDetailInteractionState {}
 
-class CloseLoginBottomModal extends PropertyDetailInteractionState {}
+class CloseBottomModal extends PropertyDetailInteractionState {}
 
 class NavigateToBooingInspectionScreen extends PropertyDetailInteractionState {}
 

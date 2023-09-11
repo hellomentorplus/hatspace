@@ -60,12 +60,10 @@ class PropertyDetailBody extends StatelessWidget {
         primaryButtonLabel: HatSpaceStrings.current.yesLoginNow,
         primaryOnPressed: () {
           context.pop();
-          context.read<PropertyDetailInteractionCubit>().closeLoginModal();
           context.goToSignup();
         },
         secondaryButtonLabel: HatSpaceStrings.current.noLater,
         secondaryOnPressed: () {
-          context.read<PropertyDetailInteractionCubit>().closeLoginModal();
           context.pop();
         });
     return context.showHsBottomSheet(loginModal);
@@ -80,11 +78,10 @@ class PropertyDetailBody extends StatelessWidget {
         primaryButtonLabel: HatSpaceStrings.current.addTenantRole,
         primaryOnPressed: () {
           context.pop();
-          // TODO: BL For add tenant role
+          context.read<PropertyDetailInteractionCubit>().addTenantRole();
         },
         secondaryButtonLabel: HatSpaceStrings.current.noLater,
         secondaryOnPressed: () {
-          context.read<PropertyDetailInteractionCubit>().closeLoginModal();
           context.pop();
         });
     return context.showHsBottomSheet(addTenantRoleModal);
@@ -99,14 +96,21 @@ class PropertyDetailBody extends StatelessWidget {
             context.goToBookInspectionScreen().then((value) {
               if (value == true) {
                 context.read<PropertyDetailCubit>().loadDetail(id);
+                context
+                    .read<PropertyDetailInteractionCubit>()
+                    .closeBottomModal();
               }
             });
           }
           if (state is ShowLoginBottomModal) {
-            _showLoginModal(context);
+            _showLoginModal(context).then((value) => context
+                .read<PropertyDetailInteractionCubit>()
+                .closeBottomModal());
           }
           if (state is RequestTenantRoles) {
-            _showAddTenantRoleBottomSheet(context);
+            _showAddTenantRoleBottomSheet(context).then((value) => context
+                .read<PropertyDetailInteractionCubit>()
+                .closeBottomModal());
           }
         },
         child: Column(

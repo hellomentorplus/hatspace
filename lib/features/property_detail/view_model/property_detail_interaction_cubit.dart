@@ -13,6 +13,10 @@ class PropertyDetailInteractionCubit
       HsSingleton.singleton.get<AuthenticationService>();
   final StorageService _storageService =
       HsSingleton.singleton.get<StorageService>();
+  void initial() {
+    emit(PropertyDetailInteractionInitial());
+  }
+
   void navigateToBooingInspectionScreen() async {
     try {
       // Check when user logged in yet
@@ -34,7 +38,21 @@ class PropertyDetailInteractionCubit
     }
   }
 
-  void closeLoginModal() {
-    emit(CloseLoginBottomModal());
+  void closeBottomModal() {
+    emit(CloseBottomModal());
+  }
+
+  void addTenantRole() async {
+    try {
+      UserDetail userDetail = await _authenticationService.getCurrentUser();
+      Set<Roles> roles = await _storageService.member
+          .getUserRoles(userDetail.uid)
+          .then((value) => value.toSet());
+      roles.add(Roles.tenant);
+      _storageService.member.saveUserRoles(userDetail.uid, roles);
+      emit(NavigateToBooingInspectionScreen());
+    } on UserNotFoundException catch (_) {
+      // TODO: Handle user not found
+    }
   }
 }

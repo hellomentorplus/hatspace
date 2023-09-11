@@ -151,8 +151,8 @@ void main() async {
         });
         when(authenticationServiceMock.isUserLoggedIn).thenReturn(false);
       },
-      act: (bloc) => bloc.closeLoginModal(),
-      expect: () => [isA<CloseLoginBottomModal>()]);
+      act: (bloc) => bloc.closeBottomModal(),
+      expect: () => [isA<CloseBottomModal>()]);
   blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
       'Given user is in PropertyDetailScreen'
       'When user already logged in'
@@ -170,4 +170,22 @@ void main() async {
       },
       act: (bloc) => bloc.navigateToBooingInspectionScreen(),
       expect: () => [isA<RequestTenantRoles>()]);
+
+  blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
+    'Given is in PropertyDetailScreen'
+    'When user already logged in'
+    'When user add tenant role from AddTenantRole bottom modal',
+    build: () => PropertyDetailInteractionCubit(),
+    setUp: () {
+      when(authenticationServiceMock.getCurrentUser())
+          .thenAnswer((realInvocation) {
+        return Future.value(UserDetail(uid: 'uid'));
+      });
+      when(mockMemberService.getUserRoles('uid'))
+          .thenAnswer((realInvocation) => Future.value([]));
+      // when(mockMemberService.saveUserRoles('uid', {Roles.tenant})).thenAnswer((realInvocation) => Future.value(true));
+    },
+    act: (bloc) => bloc.addTenantRole(),
+    expect: () => [isA<NavigateToBooingInspectionScreen>()],
+  );
 }
