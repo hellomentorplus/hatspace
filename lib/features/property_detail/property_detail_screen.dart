@@ -71,6 +71,25 @@ class PropertyDetailBody extends StatelessWidget {
     return context.showHsBottomSheet(loginModal);
   }
 
+  Future<void> _showAddTenantRoleBottomSheet(BuildContext context) {
+    HsWarningBottomSheetView addTenantRoleModal = HsWarningBottomSheetView(
+        iconUrl: Assets.icons.tenantCircle,
+        title: HatSpaceStrings.current.addTenantRoleBottomSheetTitle,
+        description:
+            HatSpaceStrings.current.addTenantRoleBottomSheetDescription,
+        primaryButtonLabel: HatSpaceStrings.current.addTenantRole,
+        primaryOnPressed: () {
+          context.pop();
+          // TODO: BL For add tenant role
+        },
+        secondaryButtonLabel: HatSpaceStrings.current.noLater,
+        secondaryOnPressed: () {
+          context.read<PropertyDetailInteractionCubit>().closeLoginModal();
+          context.pop();
+        });
+    return context.showHsBottomSheet(addTenantRoleModal);
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
           body: BlocListener<PropertyDetailInteractionCubit,
@@ -85,6 +104,9 @@ class PropertyDetailBody extends StatelessWidget {
           }
           if (state is ShowLoginBottomModal) {
             _showLoginModal(context);
+          }
+          if (state is RequestTenantRoles) {
+            _showAddTenantRoleBottomSheet(context);
           }
         },
         child: Column(
