@@ -423,10 +423,14 @@ void main() {
     await widgetTester.blocWrapAndPump<AddPropertyCubit>(
         addPropertyBloc, widget,
         infiniteAnimationWidget: true);
-    await widgetTester.pump(const Duration(seconds: 5));
+    await widgetTester.pump(const Duration(seconds: 3));
+    // find Toast message
     expectLater(find.byType(ToastMessageContainer), findsOneWidget);
     expect(find.text('🎉 Congratulations!'), findsOneWidget);
     expect(find.text('You have successfully added your new property!'),
         findsOneWidget);
+    // after 3 more second, toast should be dismissed
+    await widgetTester.pump(const Duration(seconds: 3));
+    expectLater(find.byType(ToastMessageContainer), findsNothing);
   });
 }
