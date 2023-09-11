@@ -153,7 +153,7 @@ void main() async {
       },
       act: (bloc) => bloc.closeLoginModal(),
       expect: () => [isA<CloseLoginBottomModal>()]);
-       blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
+  blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
       'Given user is in PropertyDetailScreen'
       'When user already logged in'
       'When user DO NOT HAVE Tenant role'
@@ -165,7 +165,8 @@ void main() async {
           return Future.value(UserDetail(uid: 'uid'));
         });
         when(authenticationServiceMock.isUserLoggedIn).thenReturn(true);
-        when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) => Future.value([]));
+        when(mockMemberService.getUserRoles('uid'))
+            .thenAnswer((realInvocation) => Future.value([]));
       },
       act: (bloc) => bloc.navigateToBooingInspectionScreen(),
       expect: () => [isA<RequestTenantRoles>()]);

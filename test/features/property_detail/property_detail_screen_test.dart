@@ -536,15 +536,15 @@ void main() async {
       expectLater(find.byType(HsWarningBottomSheetView), findsNothing);
       expectLater(find.byType(PropertyDetailScreen), findsNothing);
     });
-    
+
     testWidgets(
-      'Given user loged in'
-      'When user DOES NOT HAVE tenant role'
-      'Then show addTenantBottomModal'
-      , (widgetTester) async{
-          Widget widget = const PropertyDetailScreen(id: 'id');
+        'Given user loged in'
+        'When user DOES NOT HAVE tenant role'
+        'Then show addTenantBottomModal', (widgetTester) async {
+      Widget widget = const PropertyDetailScreen(id: 'id');
       when(authenticationService.isUserLoggedIn).thenReturn(true);
-      when(memberService.getUserRoles('uid')).thenAnswer((realInvocation) => Future.value([]));
+      when(memberService.getUserRoles('uid'))
+          .thenAnswer((realInvocation) => Future.value([]));
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
             BlocProvider<AuthenticationBloc>(
                 create: (context) => authenticationBloc),
@@ -559,9 +559,10 @@ void main() async {
       await widgetTester.pumpAndSettle();
       expectLater(find.byType(HsWarningBottomSheetView), findsOneWidget);
       expect(find.text('Add Tenant role'), findsOneWidget);
-      expect(find.text('Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?'), findsOneWidget);
-      });
+      expect(
+          find.text(
+              'Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?'),
+          findsOneWidget);
+    });
   });
-
-  
 }
