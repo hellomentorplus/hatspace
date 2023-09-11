@@ -14,3 +14,5 @@ class ShowLoginBottomModal extends PropertyDetailInteractionState {}
 class CloseLoginBottomModal extends PropertyDetailInteractionState {}
 
 class NavigateToBooingInspectionScreen extends PropertyDetailInteractionState {}
+
+class RequestTenantRoles extends PropertyDetailInteractionState {}
