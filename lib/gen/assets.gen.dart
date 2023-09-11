@@ -222,6 +222,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/tenancy_reference.svg
   String get tenancyReference => 'assets/icons/tenancy_reference.svg';
 
+  /// File path: assets/icons/tenant-circle.svg
+  String get tenantCircle => 'assets/icons/tenant-circle.svg';
+
   /// File path: assets/icons/tenant.svg
   String get tenant => 'assets/icons/tenant.svg';
 
@@ -309,6 +312,7 @@ class $AssetsIconsGen {
         securityCameras,
         swimmingPool,
         tenancyReference,
+        tenantCircle,
         tenant,
         textFieldError,
         tv,
