@@ -190,13 +190,13 @@ void main() async {
   );
 
   blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
-    'Given user add tenant role fail'
-    'Then return AddTenantRoleFail',
-    build: ()=> PropertyDetailInteractionCubit(),
-    setUp: (){
-      when(authenticationServiceMock.getCurrentUser()).thenThrow(UserNotFoundException());
-    },
-    act: (bloc) => bloc.addTenantRole(),
-    expect: ()=> [isA<AddTenantRoleFail>()]
-    ); 
+      'Given user add tenant role fail'
+      'Then return AddTenantRoleFail',
+      build: () => PropertyDetailInteractionCubit(),
+      setUp: () {
+        when(authenticationServiceMock.getCurrentUser())
+            .thenThrow(UserNotFoundException());
+      },
+      act: (bloc) => bloc.addTenantRole(),
+      expect: () => [isA<AddTenantRoleFail>()]);
 }
