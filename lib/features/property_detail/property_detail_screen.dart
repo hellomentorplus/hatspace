@@ -92,7 +92,7 @@ class PropertyDetailBody extends StatelessWidget {
           body: BlocListener<PropertyDetailInteractionCubit,
               PropertyDetailInteractionState>(
         listener: (context, state) {
-          if (state is NavigateToBooingInspectionScreen) {
+          if (state is NavigateToBooingInspectionScreen || state is AddTenantRolesSuccess) {
             context.goToBookInspectionScreen().then((value) {
               if (value == true) {
                 context.read<PropertyDetailCubit>().loadDetail(id);
