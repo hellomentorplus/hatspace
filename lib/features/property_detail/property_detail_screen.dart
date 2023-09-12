@@ -77,8 +77,8 @@ class PropertyDetailBody extends StatelessWidget {
             HatSpaceStrings.current.addTenantRoleBottomSheetDescription,
         primaryButtonLabel: HatSpaceStrings.current.addTenantRole,
         primaryOnPressed: () {
-          context.pop();
           context.read<PropertyDetailInteractionCubit>().addTenantRole();
+          context.pop();
         },
         secondaryButtonLabel: HatSpaceStrings.current.noLater,
         secondaryOnPressed: () {
@@ -92,7 +92,8 @@ class PropertyDetailBody extends StatelessWidget {
           body: BlocListener<PropertyDetailInteractionCubit,
               PropertyDetailInteractionState>(
         listener: (context, state) {
-          if (state is NavigateToBooingInspectionScreen || state is AddTenantRolesSuccess) {
+          if (state is NavigateToBooingInspectionScreen ||
+              state is AddTenantRolesSuccess) {
             context.goToBookInspectionScreen().then((value) {
               if (value == true) {
                 context.read<PropertyDetailCubit>().loadDetail(id);

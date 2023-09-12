@@ -113,6 +113,7 @@ void main() async {
     reset(memberService);
     reset(propertyDetailCubit);
     reset(authenticationService);
+    reset(mockPropertyDetailInteractionCubit);
   });
 
   testWidgets('verify UI component on Bloc components on PropertyDetailScreen',
@@ -538,9 +539,11 @@ void main() async {
     });
 
     testWidgets(
-        'Given user loged in'
+        'Given user logged in'
         'When user DOES NOT HAVE tenant role'
-        'Then show addTenantBottomModal', (widgetTester) async {
+        'Then show addTenantBottomModal'
+        'Then tap outside of the Modal'
+        'Then dismiss the modal', (widgetTester) async {
       Widget widget = const PropertyDetailScreen(id: 'id');
       when(authenticationService.isUserLoggedIn).thenReturn(true);
       when(memberService.getUserRoles('uid'))
@@ -563,6 +566,44 @@ void main() async {
           find.text(
               'Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?'),
           findsOneWidget);
+      await widgetTester.tapAt(const Offset(50, 50));
+      await widgetTester.pumpAndSettle();
+      expectLater(find.byType(HsWarningBottomSheetView), findsNothing);
+    });
+
+    testWidgets(
+        'Given AddTenantBottomModal shows on PropertyDetailScreen'
+        'When User tap at AddTenantRole button'
+        'Then verify addTenantRole ', (widgetTester) async {
+      Widget widget = const PropertyDetailScreen(id: 'id');
+      when(authenticationService.isUserLoggedIn).thenReturn(true);
+      when(memberService.getUserRoles('uid'))
+          .thenAnswer((realInvocation) => Future.value([]));
+      when(mockPropertyDetailInteractionCubit.addTenantRole())
+          .thenAnswer((realInvocation) {});
+      when(memberService.saveUserRoles('uid', {Roles.tenant}))
+          .thenAnswer((realInvocation) {
+        return Future.value();
+      });
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+            BlocProvider<AuthenticationBloc>(
+                create: (context) => authenticationBloc),
+            BlocProvider<PropertyDetailCubit>(
+                create: ((context) => propertyDetailCubit)),
+            BlocProvider<PropertyDetailInteractionCubit>(
+                create: (context) => mockPropertyDetailInteractionCubit)
+          ], widget));
+      await widgetTester.tap(
+          find.widgetWithText(PrimaryButton, 'Book Inspection'),
+          warnIfMissed: true);
+      await mockNetworkImagesFor(() => widgetTester.pumpAndSettle());
+      expectLater(find.byType(HsWarningBottomSheetView), findsOneWidget);
+      expect(find.text('Add Tenant role'), findsOneWidget);
+      await widgetTester.tap(
+          find.widgetWithText(PrimaryButton, 'Add Tenant Role'),
+          warnIfMissed: true);
+      await mockNetworkImagesFor(() => widgetTester.pumpAndSettle());
+      expect(find.byType(PropertyDetailScreen), findsNothing);
     });
   });
 }

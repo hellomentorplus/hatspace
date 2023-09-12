@@ -186,6 +186,17 @@ void main() async {
       // when(mockMemberService.saveUserRoles('uid', {Roles.tenant})).thenAnswer((realInvocation) => Future.value(true));
     },
     act: (bloc) => bloc.addTenantRole(),
-    expect: () => [isA<NavigateToBooingInspectionScreen>()],
+    expect: () => [isA<AddTenantRolesSuccess>()],
   );
+
+  blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
+      'Given user add tenant role fail'
+      'Then return ',
+      build: () => PropertyDetailInteractionCubit(),
+      setUp: () {
+        when(authenticationServiceMock.getCurrentUser())
+            .thenThrow(UserNotFoundException());
+      },
+      act: (bloc) => bloc.addTenantRole(),
+      expect: () => [isA<AddTenantRoleFail>()]);
 }
