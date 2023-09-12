@@ -136,6 +136,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
         "bookInspection":
             MessageLookupByLibrary.simpleMessage("Book Inspection"),
+        "bookingInspectionSuccessTitle":
+            MessageLookupByLibrary.simpleMessage("🎉 Congratulations!"),
         "bookingSuccessMessage": MessageLookupByLibrary.simpleMessage(
             "Your booking is successfully saved and sent to homeowner. To complete the booking, please wait for the confirmation from homeowner."),
         "btnLogOut": MessageLookupByLibrary.simpleMessage("Log Out"),
@@ -304,6 +306,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "suburb": MessageLookupByLibrary.simpleMessage("Suburb"),
+        "successAddingPropertyMessage": MessageLookupByLibrary.simpleMessage(
+            "You have successfully added your new property!"),
         "swimmingPool": MessageLookupByLibrary.simpleMessage("Swimming pool"),
         "textWithInvalidChars":
             MessageLookupByLibrary.simpleMessage("Only accept text"),

@@ -1782,6 +1782,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `🎉 Congratulations!`
+  String get bookingInspectionSuccessTitle {
+    return Intl.message(
+      '🎉 Congratulations!',
+      name: 'bookingInspectionSuccessTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Add to Goolge Calendar`
   String get addToGoolgeCalendar {
     return Intl.message(
@@ -1853,6 +1863,16 @@ class HatSpaceStrings {
     return Intl.message(
       'Add Tenant Role',
       name: 'addTenantRole',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have successfully added your new property!`
+  String get successAddingPropertyMessage {
+    return Intl.message(
+      'You have successfully added your new property!',
+      name: 'successAddingPropertyMessage',
       desc: '',
       args: [],
     );
