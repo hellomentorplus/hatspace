@@ -207,6 +207,7 @@
   "inspectionBooking": "Inspection Booking",
   "congratulations": "Congratulations 🎉",
   "bookingSuccessMessage":"Your booking is successfully saved and sent to homeowner. To complete the booking, please wait for the confirmation from homeowner.",
+  "bookingInspectionSuccessTitle":"🎉 Congratulations!",
   "addToGoolgeCalendar": "Add to Goolge Calendar",
   "numberOfInspectionBooking": "{number} inspection booking",
   "numberOfBooking": "{number, plural, one{1 Booking} other { {number} Bookings}}",
@@ -219,5 +220,6 @@
         "isCustomDateFormat": "true"
       }
     }
-  }
+  },
+  "successAddingPropertyMessage":"You have successfully added your new property!"
 }

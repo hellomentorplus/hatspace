@@ -14,6 +14,8 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/pop_up/pop_up_controller.dart';
+import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
+import 'package:hatspace/theme/toast_messages/toast_messages_extension.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
@@ -74,7 +76,6 @@ class AddPropertyPageBody extends StatelessWidget {
     return WillPopScope(
       onWillPop: () {
         context.read<AddPropertyCubit>().onBackPressed(pages.length);
-
         return Future.value(false);
       },
       child: BlocListener<AddPropertyCubit, AddPropertyState>(
@@ -160,6 +161,12 @@ class BottomController extends StatelessWidget {
       if (state is EndSubmitPropertyDetails) {
         context.dismissLoading();
         context.goToPropertyDetail(id: state.id, replacement: true);
+      }
+      if (state is SuccessSubmitProperty) {
+        context.showToast(
+            type: ToastType.successToast,
+            title: HatSpaceStrings.current.bookingInspectionSuccessTitle,
+            message: HatSpaceStrings.current.successAddingPropertyMessage);
       }
     }, builder: (context, state) {
       return BottomAppBar(
