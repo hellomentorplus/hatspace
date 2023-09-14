@@ -200,6 +200,16 @@ class _DashboardBodyState extends State<DashboardBody>
                 _animateToPage(state.item.pageIndex);
                 _selectedIndex.value = state.item;
               }
+
+              if (state is RequestRoles) {
+                context.goToChooseRole().then((value) {
+                  if (value == true) {
+                    context
+                        .read<DashboardInteractionCubit>()
+                        .navigateToExpectedScreen();
+                  }
+                });
+              }
             },
           ),
           BlocListener<AddHomeOwnerRoleCubit, AddHomeOwnerRoleState>(

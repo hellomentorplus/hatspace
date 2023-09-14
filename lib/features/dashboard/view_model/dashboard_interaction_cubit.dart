@@ -84,6 +84,9 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
       case (BottomBarItems.addingProperty):
         onAddPropertyPressed();
         break;
+      case (BottomBarItems.inspection):
+        onInspectionPressed();
+        break;
       default:
         emit(OpenPage(item));
     }
@@ -120,7 +123,7 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
   }
 
   void navigateToExpectedScreen() {
-    if (state is CloseLoginModal) {
+    if (state is CloseLoginModal || state is RequestRoles) {
       handleRequestedLoginItem(selectedBottomBarItem);
     }
   }
@@ -146,4 +149,23 @@ class DashboardInteractionCubit extends Cubit<DashboardInteractionState> {
   }
 
   void onNavigateToAddPropertyFlow() => emit(NavigateToAddPropertyFlow());
+
+  void onInspectionPressed() async {
+    emit(StartValidateRole());
+    try {
+      final UserDetail detail = await authenticationService.getCurrentUser();
+      final List<Roles> roles =
+          await storageService.member.getUserRoles(detail.uid);
+
+      if (!isClosed) {
+        if (roles.isEmpty) {
+          emit(RequestRoles());
+        } else {
+          emit(const OpenPage(BottomBarItems.inspection));
+        }
+      }
+    } on UserNotFoundException catch (_) {
+      // TODO handle case when user is not login
+    }
+  }
 }
