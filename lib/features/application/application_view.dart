@@ -67,20 +67,20 @@ class ApplicationView extends StatelessWidget {
               iconPath: Assets.icons.bankStatement,
               title: HatSpaceStrings.current.applicationBankStatement,
             ),
-            const SizedBox(height: HsDimens.spacing20),
-            Text(HatSpaceStrings.current.downloadApplicationFormHere,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(fontWeight: FontStyleGuide.fwBold)),
-            const SizedBox(height: HsDimens.spacing20),
-            SecondaryButton(
-              label: HatSpaceStrings.current.download,
-              iconUrl: Assets.icons.download,
-              onPressed: () {
-                /// TODO : Handle download
-              },
-            ),
+            // const SizedBox(height: HsDimens.spacing20),
+            // Text(HatSpaceStrings.current.downloadApplicationFormHere,
+            //     style: Theme.of(context)
+            //         .textTheme
+            //         .bodyMedium
+            //         ?.copyWith(fontWeight: FontStyleGuide.fwBold)),
+            // const SizedBox(height: HsDimens.spacing20),
+            // SecondaryButton(
+            //   label: HatSpaceStrings.current.download,
+            //   iconUrl: Assets.icons.download,
+            //   onPressed: () {
+            //     /// TODO : Handle download
+            //   },
+            // ),
             const SizedBox(height: HsDimens.spacing20),
             Text(HatSpaceStrings.current.questionSupport,
                 style: Theme.of(context).textTheme.bodyMedium),
