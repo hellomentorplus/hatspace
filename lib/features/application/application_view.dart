@@ -5,9 +5,12 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/application/view_model/application_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
+import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ApplicationView extends StatelessWidget {
   const ApplicationView({Key? key}) : super(key: key);
@@ -127,7 +130,7 @@ class _ApplicationView extends StatelessWidget {
                       child: SecondaryButton(
                         label: HatSpaceStrings.current.contactSupport,
                         onPressed: () {
-                          /// TODO : Handle contact support
+                          launchUrl(Uri.parse('tel://${HatSpaceStrings.current.applicationContactNumber}'));
                         },
                       )),
                   const SizedBox(width: HsDimens.spacing16),
@@ -137,7 +140,7 @@ class _ApplicationView extends StatelessWidget {
                         iconUrl: Assets.icons.emailWhite,
                         iconPosition: IconPosition.right,
                         onPressed: () {
-                          /// TODO : Handle email
+                          launchUrl(Uri.parse('mailto:${HatSpaceStrings.current.applicationEmail}?subject=${HatSpaceStrings.current.applicationSubject}'));
                         },
                       ))
                 ],

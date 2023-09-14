@@ -1827,6 +1827,36 @@ class HatSpaceStrings {
       args: [datetimeString],
     );
   }
+
+  /// `0413856056`
+  String get applicationContactNumber {
+    return Intl.message(
+      '0413856056',
+      name: 'applicationContactNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hello@the-hat.life`
+  String get applicationEmail {
+    return Intl.message(
+      'Hello@the-hat.life',
+      name: 'applicationEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Application for rental`
+  String get applicationSubject {
+    return Intl.message(
+      'Application for rental',
+      name: 'applicationSubject',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

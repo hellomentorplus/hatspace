@@ -61,6 +61,7 @@ dependencies:
   flutter_layout_grid: ^2.0.4
   sign_in_with_apple: ^5.0.0
   crypto: ^3.0.3
+  url_launcher: ^6.1.14
 
 dev_dependencies:
   flutter_test:
