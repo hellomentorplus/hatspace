@@ -41,38 +41,48 @@ class FileService {
       ) async {
     onStart?.call();
 
-    final appDocDir = await getApplicationDocumentsDirectory();
-    final filePath = '${appDocDir.absolute}/$_rentalForms/RentalApplicationForm.pdf';
-    final file = File(filePath);
+    try {
+      final appDocDir = await getApplicationDocumentsDirectory();
+      final filePath = '${appDocDir
+          .path}/$_rentalForms/RentalApplicationForm.pdf';
+      final file = File(filePath);
 
-    if (file.existsSync()) {
-      onSuccess(filePath);
-      return;
-    }
-
-    final Reference storageRef = _storage.ref();
-    
-    final formRef = storageRef.child('$_rentalForms/RentalApplicationForm.pdf');
-
-    final downloadTask = formRef.writeToFile(file);
-    downloadTask.snapshotEvents.listen((taskSnapshot) {
-      switch (taskSnapshot.state) {
-        case TaskState.running:
-          onDownloading?.call(taskSnapshot.totalBytes);
-          break;
-        case TaskState.paused:
-          onPaused?.call();
-          break;
-        case TaskState.success:
-          onSuccess(filePath);
-          break;
-        case TaskState.canceled:
-          onCancel?.call();
-          break;
-        case TaskState.error:
-          onError?.call();
-          break;
+      print('SUESI filePath $filePath');
+      if (file.existsSync()) {
+        onSuccess(filePath);
+        return;
       }
-    });
+
+      file.createSync(recursive: true);
+
+      final Reference storageRef = _storage.ref();
+
+      final formRef = storageRef.child(
+          '$_rentalForms/RentalApplicationForm.pdf');
+
+      final downloadTask = formRef.writeToFile(file);
+      downloadTask.snapshotEvents.listen((taskSnapshot) {
+        print('SUESI - taskSnapshot.totalBytes ${taskSnapshot.totalBytes} => state ${taskSnapshot.state}');
+        switch (taskSnapshot.state) {
+          case TaskState.running:
+            onDownloading?.call(taskSnapshot.totalBytes);
+            break;
+          case TaskState.paused:
+            onPaused?.call();
+            break;
+          case TaskState.success:
+            onSuccess(filePath);
+            break;
+          case TaskState.canceled:
+            onCancel?.call();
+            break;
+          case TaskState.error:
+            onError?.call();
+            break;
+        }
+      });
+    } catch (e) {
+
+    }
   }
 }

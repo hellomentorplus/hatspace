@@ -37,6 +37,8 @@ class _ApplicationView extends StatelessWidget {
 
       if (state is DownloadFileCompleted) {
         print('SUESI - download completed ${state.path}');
+        launchUrl(Uri.file(state.path));
+        print('SUESI - launch ${Uri.file(state.path)}');
       }
 
       if (state is DownloadFileCancel) {
@@ -130,7 +132,7 @@ class _ApplicationView extends StatelessWidget {
                       child: SecondaryButton(
                         label: HatSpaceStrings.current.contactSupport,
                         onPressed: () {
-                          launchUrl(Uri.parse('tel://${HatSpaceStrings.current.applicationContactNumber}'));
+                          launchUrl(Uri.parse('tel:${HatSpaceStrings.current.applicationContactNumber}'));
                         },
                       )),
                   const SizedBox(width: HsDimens.spacing16),
