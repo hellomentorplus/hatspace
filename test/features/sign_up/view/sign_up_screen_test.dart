@@ -16,6 +16,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../find_extension.dart';
 import '../../../widget_tester_extension.dart';
 import '../../add_property/view/widgets/add_rooms_view_test.dart';
 import 'sign_up_screen_test.mocks.dart';
@@ -100,26 +101,7 @@ void main() {
         findsOneWidget);
 
     // Look for app logo
-    expect(find.byWidgetPredicate((widget) {
-      if (widget is! SvgPicture) {
-        return false;
-      }
-
-      final SvgPicture svgPicture = widget;
-      final BytesLoader bytesLoader = svgPicture.bytesLoader;
-
-      if (bytesLoader is! SvgAssetLoader) {
-        return false;
-      }
-
-      final SvgAssetLoader svgAssetLoader = bytesLoader;
-
-      if (svgAssetLoader.assetName != Assets.images.logo) {
-        return false;
-      }
-
-      return true;
-    }), findsOneWidget);
+    expect(find.svgPictureWithAssets('assets/images/logo.svg'), findsOneWidget);
 
     expect(
         find.ancestor(
@@ -127,11 +109,11 @@ void main() {
             matching: find.byType(SecondaryButton)),
         findsOneWidget);
 
-    expect(
-        find.ancestor(
-            of: find.text('Continue with Facebook'),
-            matching: find.byType(SecondaryButton)),
-        findsOneWidget);
+    // expect(
+    //     find.ancestor(
+    //         of: find.text('Continue with Facebook'),
+    //         matching: find.byType(SecondaryButton)),
+    //     findsOneWidget);
 
     expect(
         find.ancestor(
@@ -158,11 +140,11 @@ void main() {
         .tap(find.widgetWithText(SecondaryButton, 'Continue with Google'));
     await widgetTester.pumpAndSettle();
     verify(mockSignUpBloc.add(const SignUpWithGoogle())).called(1);
-    // Test interaction with facebook Sign in
-    await widgetTester
-        .tap(find.widgetWithText(SecondaryButton, 'Continue with Facebook'));
-    await widgetTester.pumpAndSettle();
-    verify(mockSignUpBloc.add(const SignUpWithFacebook()));
+    // // Test interaction with facebook Sign in
+    // await widgetTester
+    //     .tap(find.widgetWithText(SecondaryButton, 'Continue with Facebook'));
+    // await widgetTester.pumpAndSettle();
+    // verify(mockSignUpBloc.add(const SignUpWithFacebook()));
   });
 
   testWidgets('Skip event - detect first launch app',

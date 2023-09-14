@@ -60,52 +60,52 @@ class ProfileBody extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(HatSpaceStrings.current.myAccount,
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayLarge
-                        ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
-                const SizedBox(height: HsDimens.spacing8),
-                BlocSelector<ProfileCubit, ProfileState, bool>(
-                    selector: (state) {
-                  if (state is GetUserDetailSucceedState) {
-                    return state.roles.contains(Roles.homeowner);
-                  }
-
-                  return false;
-                }, builder: (context, isHomeOwner) {
-                  if (isHomeOwner) {
-                    return _OptionView(
-                      iconPath: Assets.icons.apartment,
-                      title: HatSpaceStrings.current.myProperties,
-                      onPressed: () {},
-                    );
-                  }
-                  return const SizedBox();
-                }),
-                _OptionView(
-                  iconPath: Assets.icons.favorite,
-                  title: HatSpaceStrings.current.favoriteLists,
-                  onPressed: () {},
-                ),
-                const SizedBox(height: HsDimens.spacing24),
+                // Text(HatSpaceStrings.current.myAccount,
+                //     style: Theme.of(context)
+                //         .textTheme
+                //         .displayLarge
+                //         ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
+                // const SizedBox(height: HsDimens.spacing8),
+                // BlocSelector<ProfileCubit, ProfileState, bool>(
+                //     selector: (state) {
+                //   if (state is GetUserDetailSucceedState) {
+                //     return state.roles.contains(Roles.homeowner);
+                //   }
+                //
+                //   return false;
+                // }, builder: (context, isHomeOwner) {
+                //   if (isHomeOwner) {
+                //     return _OptionView(
+                //       iconPath: Assets.icons.apartment,
+                //       title: HatSpaceStrings.current.myProperties,
+                //       onPressed: () {},
+                //     );
+                //   }
+                //   return const SizedBox();
+                // }),
+                // _OptionView(
+                //   iconPath: Assets.icons.favorite,
+                //   title: HatSpaceStrings.current.favoriteLists,
+                //   onPressed: () {},
+                // ),
+                // const SizedBox(height: HsDimens.spacing24),
                 Text(HatSpaceStrings.current.settings,
                     style: Theme.of(context)
                         .textTheme
                         .displayLarge
                         ?.copyWith(fontSize: FontStyleGuide.fontSize18)),
-                const SizedBox(height: HsDimens.spacing8),
-                _OptionView(
-                  iconPath: Assets.icons.language,
-                  title: HatSpaceStrings.current.language,
-                  suffixText: 'English',
-                  onPressed: () {},
-                ),
-                _OptionView(
-                  iconPath: Assets.icons.info,
-                  title: HatSpaceStrings.current.otherInformation,
-                  onPressed: () {},
-                ),
+                // const SizedBox(height: HsDimens.spacing8),
+                // _OptionView(
+                //   iconPath: Assets.icons.language,
+                //   title: HatSpaceStrings.current.language,
+                //   suffixText: 'English',
+                //   onPressed: () {},
+                // ),
+                // _OptionView(
+                //   iconPath: Assets.icons.info,
+                //   title: HatSpaceStrings.current.otherInformation,
+                //   onPressed: () {},
+                // ),
                 _OptionView(
                   iconPath: Assets.icons.logout,
                   title: HatSpaceStrings.current.logOut,

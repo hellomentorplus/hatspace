@@ -129,29 +129,29 @@ class SignUpBody extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: HsDimens.spacing24,
-                                vertical: HsDimens.spacing16),
-                            child: SecondaryButton(
-                              contentAlignment: MainAxisAlignment.start,
-                              label: HatSpaceStrings.current.facebookSignUp,
-                              iconUrl: Assets.icons.facebook,
-                              overrideIconColor: false,
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.white),
-                                padding: MaterialStateProperty.all<
-                                        EdgeInsetsGeometry>(
-                                    const EdgeInsets.all(HsDimens.spacing16)),
-                              ),
-                              onPressed: () {
-                                context
-                                    .read<SignUpBloc>()
-                                    .add(const SignUpWithFacebook());
-                              },
-                            )),
+                        // Padding(
+                        //     padding: const EdgeInsets.symmetric(
+                        //         horizontal: HsDimens.spacing24,
+                        //         vertical: HsDimens.spacing16),
+                        //     child: SecondaryButton(
+                        //       contentAlignment: MainAxisAlignment.start,
+                        //       label: HatSpaceStrings.current.facebookSignUp,
+                        //       iconUrl: Assets.icons.facebook,
+                        //       overrideIconColor: false,
+                        //       style: ButtonStyle(
+                        //         backgroundColor:
+                        //             MaterialStateProperty.all<Color>(
+                        //                 Colors.white),
+                        //         padding: MaterialStateProperty.all<
+                        //                 EdgeInsetsGeometry>(
+                        //             const EdgeInsets.all(HsDimens.spacing16)),
+                        //       ),
+                        //       onPressed: () {
+                        //         context
+                        //             .read<SignUpBloc>()
+                        //             .add(const SignUpWithFacebook());
+                        //       },
+                        //     )),
                         Padding(
                             padding: const EdgeInsets.only(
                                 left: HsDimens.spacing24,
