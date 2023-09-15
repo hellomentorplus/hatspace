@@ -108,6 +108,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "application": MessageLookupByLibrary.simpleMessage("Application"),
         "applicationBankStatement":
             MessageLookupByLibrary.simpleMessage("Current bank statement"),
+        "applicationContactNumber":
+            MessageLookupByLibrary.simpleMessage("0413856056"),
+        "applicationEmail":
+            MessageLookupByLibrary.simpleMessage("Hello@the-hat.life"),
         "applicationIdentification": MessageLookupByLibrary.simpleMessage(
             "Identification (driver\'s license/passport)"),
         "applicationInform": MessageLookupByLibrary.simpleMessage(
@@ -118,6 +122,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tenancy ledger/rental reference"),
         "applicationRequirementsAsking": MessageLookupByLibrary.simpleMessage(
             "Please provide the following with your application:"),
+        "applicationSubject":
+            MessageLookupByLibrary.simpleMessage("Application for rental"),
         "askFeaturesOwned": MessageLookupByLibrary.simpleMessage(
             "Which features your place has?"),
         "australiaState": m1,

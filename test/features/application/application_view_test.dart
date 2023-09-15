@@ -23,7 +23,7 @@ void main() {
     expect(find.text('Pay slips/centre link statement'), findsOneWidget);
     expect(find.text('Current bank statement'), findsOneWidget);
 
-    expect(find.text('Download Application form here'), findsOneWidget);
+    // expect(find.text('Download Application form here'), findsOneWidget);
 
     expect(
         find.text(
@@ -55,20 +55,20 @@ void main() {
             widget, 'assets/icons/bank_statement.svg')),
         findsOneWidget);
 
-    expect(
-        find.byWidgetPredicate((widget) =>
-            validateSvgPictureWithAssets(widget, 'assets/icons/download.svg')),
-        findsOneWidget);
+    // expect(
+    //     find.byWidgetPredicate((widget) =>
+    //         validateSvgPictureWithAssets(widget, 'assets/icons/download.svg')),
+    //     findsOneWidget);
 
     expect(
         find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
             widget, 'assets/icons/email_white.svg')),
         findsOneWidget);
 
-    expect(
-        find.ancestor(
-            of: find.text('Download'), matching: find.byType(SecondaryButton)),
-        findsOneWidget);
+    // expect(
+    //     find.ancestor(
+    //         of: find.text('Download'), matching: find.byType(SecondaryButton)),
+    //     findsOneWidget);
 
     expect(
         find.ancestor(

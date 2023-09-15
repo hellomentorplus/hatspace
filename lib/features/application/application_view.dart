@@ -6,6 +6,7 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ApplicationView extends StatelessWidget {
   const ApplicationView({super.key});
@@ -67,20 +68,20 @@ class ApplicationView extends StatelessWidget {
               iconPath: Assets.icons.bankStatement,
               title: HatSpaceStrings.current.applicationBankStatement,
             ),
-            const SizedBox(height: HsDimens.spacing20),
-            Text(HatSpaceStrings.current.downloadApplicationFormHere,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(fontWeight: FontStyleGuide.fwBold)),
-            const SizedBox(height: HsDimens.spacing20),
-            SecondaryButton(
-              label: HatSpaceStrings.current.download,
-              iconUrl: Assets.icons.download,
-              onPressed: () {
-                /// TODO : Handle download
-              },
-            ),
+            // const SizedBox(height: HsDimens.spacing20),
+            // Text(HatSpaceStrings.current.downloadApplicationFormHere,
+            //     style: Theme.of(context)
+            //         .textTheme
+            //         .bodyMedium
+            //         ?.copyWith(fontWeight: FontStyleGuide.fwBold)),
+            // const SizedBox(height: HsDimens.spacing20),
+            // SecondaryButton(
+            //   label: HatSpaceStrings.current.download,
+            //   iconUrl: Assets.icons.download,
+            //   onPressed: () {
+            //     /// TODO : Handle download
+            //   },
+            // ),
             const SizedBox(height: HsDimens.spacing20),
             Text(HatSpaceStrings.current.questionSupport,
                 style: Theme.of(context).textTheme.bodyMedium),
@@ -91,7 +92,7 @@ class ApplicationView extends StatelessWidget {
                     child: SecondaryButton(
                   label: HatSpaceStrings.current.contactSupport,
                   onPressed: () {
-                    /// TODO : Handle contact support
+                    launchUrl(Uri.parse('tel:${HatSpaceStrings.current.applicationContactNumber}'));
                   },
                 )),
                 const SizedBox(width: HsDimens.spacing16),
@@ -101,7 +102,7 @@ class ApplicationView extends StatelessWidget {
                   iconUrl: Assets.icons.emailWhite,
                   iconPosition: IconPosition.right,
                   onPressed: () {
-                    /// TODO : Handle email
+                    launchUrl(Uri.parse('mailto:${HatSpaceStrings.current.applicationEmail}?subject=${HatSpaceStrings.current.applicationSubject}'));
                   },
                 ))
               ],

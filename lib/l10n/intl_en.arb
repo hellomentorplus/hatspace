@@ -219,5 +219,8 @@
         "isCustomDateFormat": "true"
       }
     }
-  }
+  },
+  "applicationContactNumber":"0413856056",
+  "applicationEmail":"Hello@the-hat.life",
+  "applicationSubject":"Application for rental"
 }
