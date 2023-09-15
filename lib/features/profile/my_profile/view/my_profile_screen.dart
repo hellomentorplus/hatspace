@@ -7,7 +7,6 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_appbar.dart';
-import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
 class MyProfileScreen extends StatelessWidget {
   const MyProfileScreen({super.key});

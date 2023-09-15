@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart' hide SearchBar;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/home/view/widgets/property_item_view.dart';
 import 'package:hatspace/features/home/view_model/get_properties_cubit.dart';
-import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';

@@ -115,6 +115,7 @@ class ProfileBody extends StatelessWidget {
                   iconPath: Assets.icons.delete,
                   title: HatSpaceStrings.current.deleteAccount,
                   onPressed: () => _showDeleteAccountBottomSheet(context),
+                    suffixText: '',
                 ),
                 const SizedBox(height: HsDimens.spacing24),
               ],
