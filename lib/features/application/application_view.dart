@@ -92,7 +92,8 @@ class ApplicationView extends StatelessWidget {
                     child: SecondaryButton(
                   label: HatSpaceStrings.current.contactSupport,
                   onPressed: () {
-                    launchUrl(Uri.parse('tel:${HatSpaceStrings.current.applicationContactNumber}'));
+                    launchUrl(Uri.parse(
+                        'tel:${HatSpaceStrings.current.applicationContactNumber}'));
                   },
                 )),
                 const SizedBox(width: HsDimens.spacing16),
@@ -102,7 +103,8 @@ class ApplicationView extends StatelessWidget {
                   iconUrl: Assets.icons.emailWhite,
                   iconPosition: IconPosition.right,
                   onPressed: () {
-                    launchUrl(Uri.parse('mailto:${HatSpaceStrings.current.applicationEmail}?subject=${HatSpaceStrings.current.applicationSubject}'));
+                    launchUrl(Uri.parse(
+                        'mailto:${HatSpaceStrings.current.applicationEmail}?subject=${HatSpaceStrings.current.applicationSubject}'));
                   },
                 ))
               ],
