@@ -221,5 +221,6 @@
       }
     }
   },
-  "successAddingPropertyMessage":"You have successfully added your new property!"
+  "successAddingPropertyMessage":"You have successfully added your new property!",
+  "noBooking": "No booking"
 }

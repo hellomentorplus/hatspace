@@ -1847,6 +1847,16 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `No booking`
+  String get noBooking {
+    return Intl.message(
+      'No booking',
+      name: 'noBooking',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

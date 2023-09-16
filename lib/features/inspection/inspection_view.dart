@@ -26,7 +26,7 @@ class InspectionBody extends StatelessWidget {
   Widget build(BuildContext context) => SafeArea(
         child: BlocBuilder<InspectionCubit, InspectionState>(
           builder: (_, state) {
-            if (state is InspectionLoaded) {
+            if (state is InspectionLoaded && state.items.length > 1) {
               return ListView.separated(
                   padding: const EdgeInsets.symmetric(
                       horizontal: HsDimens.spacing16,
@@ -95,6 +95,32 @@ class InspectionBody extends StatelessWidget {
 
                     return const SizedBox.shrink();
                   });
+            }
+            if (state is NoBookedInspection) {
+              return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: HsDimens.spacing16,
+                      vertical: HsDimens.spacing24),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(HatSpaceStrings.current.inspectionBooking,
+                          style: Theme.of(context).textTheme.displayLarge),
+                      Expanded(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(Assets.icons.noBookingLarge),
+                          const SizedBox(height: 20),
+                          Text(
+                            HatSpaceStrings.current.noBooking,
+                            style: textTheme.bodySmall,
+                          )
+                        ],
+                      ))
+                    ],
+                  ));
             }
             return const SizedBox();
           },

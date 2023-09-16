@@ -71,4 +71,9 @@ class HomeOwnerBookingItem extends DisplayItem {
 }
 
 // Enum for ViewType
-enum ViewType { header, numberOfInspection, tenantBooking, homeOwnerBooking }
+enum ViewType {
+  header,
+  numberOfInspection,
+  tenantBooking,
+  homeOwnerBooking,
+}
