@@ -25,7 +25,6 @@ class InspectionCubit extends Cubit<InspectionState> {
       final List<Roles> roles =
           await _storageService.member.getUserRoles(user.uid);
       List<DisplayItem> items = [Header()];
-
       if (roles.contains(Roles.homeowner)) {
         items.add(HomeOwnerBookingItem(
           '1',
@@ -81,7 +80,12 @@ class InspectionCubit extends Cubit<InspectionState> {
           null,
         ));
       }
-      emit(InspectionLoaded(items));
+      // Check if items only have header
+      if (items.length == 1) {
+        emit(NoBookedInspection());
+      } else {
+        emit(InspectionLoaded(items));
+      }
     } catch (e) {
       emit(GetUserRolesFailed());
     }

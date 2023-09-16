@@ -19,3 +19,8 @@ class InspectionLoaded extends InspectionState {
   @override
   List<Object?> get props => items;
 }
+
+class NoBookedInspection extends InspectionState {
+  @override
+  List<Object?> get props => [];
+}
