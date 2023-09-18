@@ -10,7 +10,9 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 class AddInspectionSuccessScreen extends StatelessWidget {
-  const AddInspectionSuccessScreen({super.key});
+  final String id;
+  const AddInspectionSuccessScreen({required this.id, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class AddInspectionSuccessScreen extends StatelessWidget {
               padding: const EdgeInsets.only(right: HsDimens.spacing16),
               child: IconButton(
                   onPressed: () {
-                    context.pop(result: true);
+                    context.goToPropertyDetail(id: id, replacement: true);
                   },
                   icon: SvgPicture.asset(
                     Assets.icons.close,
