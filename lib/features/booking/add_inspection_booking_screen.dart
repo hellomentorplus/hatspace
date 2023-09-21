@@ -14,20 +14,22 @@ import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
 
 class AddInspectionBookingScreen extends StatelessWidget {
-  const AddInspectionBookingScreen({super.key});
-
+  const AddInspectionBookingScreen({required this.id, Key? key})
+      : super(key: key);
+  final String id;
   @override
   Widget build(Object context) {
     // TODO: implement build
     return BlocProvider<AddInspectionBookingCubit>(
       create: (context) => AddInspectionBookingCubit(),
-      child: AddInspectionBookingBody(),
+      child: AddInspectionBookingBody(id: id),
     );
   }
 }
 
 class AddInspectionBookingBody extends StatelessWidget {
-  AddInspectionBookingBody({Key? key}) : super(key: key);
+  final String id;
+  AddInspectionBookingBody({required this.id, Key? key}) : super(key: key);
   final ValueNotifier<DateTime> _selectedDate =
       ValueNotifier(DateTime.parse('2023-09-15'));
 
@@ -36,7 +38,7 @@ class AddInspectionBookingBody extends StatelessWidget {
     return BlocListener<AddInspectionBookingCubit, AddInspectionBookingState>(
         listener: (context, state) {
           if (state is BookingInspectionSuccess) {
-            context.pushToBookInspectionSuccessScreen();
+            context.pushToBookInspectionSuccessScreen(propertyId: id);
           }
         },
         child: Scaffold(
@@ -88,7 +90,8 @@ class AddInspectionBookingBody extends StatelessWidget {
                                 height: HsDimens.size32,
                               ),
                               onPressed: () {
-                                context.pop(result: true);
+                                context.goToPropertyDetail(
+                                    id: id, replacement: true);
                               },
                             )),
                       ],

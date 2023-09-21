@@ -92,14 +92,16 @@ extension RouteExtension on BuildContext {
   }
 
   // BOOKING INSPECTION FLOW
-  void pushToBookInspectionSuccessScreen() {
+  void pushToBookInspectionSuccessScreen({required String propertyId}) {
     Navigator.of(this).pushReplacement(MaterialPageRoute(
-        builder: (context) => const AddInspectionSuccessScreen()));
+        builder: (context) => AddInspectionSuccessScreen(id: propertyId)));
   }
 
-  Future<T?> goToBookInspectionScreen<T extends Object?>() {
-    return Navigator.push(this, MaterialPageRoute(builder: (context) {
-      return const AddInspectionBookingScreen();
+  Future<T?> goToBookInspectionScreen<T extends Object?>(
+      {required String propertyId}) {
+    return Navigator.pushReplacement(this,
+        MaterialPageRoute(builder: (context) {
+      return AddInspectionBookingScreen(id: propertyId);
     }));
   }
 }
