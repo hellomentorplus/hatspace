@@ -51,11 +51,7 @@ class PropertyDetailBody extends StatelessWidget {
           body: BlocListener<PropertyDetailCubit, PropertyDetailState>(
         listener: (context, state) {
           if (state is NavigateToBooingInspectionScreen) {
-            context.goToBookInspectionScreen().then((value) {
-              if (value == true) {
-                context.read<PropertyDetailCubit>().loadDetail(id);
-              }
-            });
+            context.goToBookInspectionScreen(propertyId: id);
           }
         },
         child: Column(

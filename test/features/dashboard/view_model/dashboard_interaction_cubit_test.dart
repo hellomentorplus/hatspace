@@ -418,13 +418,18 @@ void main() {
       'given state is CloseLoginModal and itemSelected is booking'
       'when navigateToExpectedScreen is called'
       'then navigate to Booking screen',
+      setUp: () {
+        when(memberService.getUserRoles(any))
+            .thenAnswer((_) => Future.value([Roles.tenant]));
+      },
       seed: () => CloseLoginModal(),
       build: () => DashboardInteractionCubit(),
       act: (bloc) {
         bloc.selectedBottomBarItem = BottomBarItems.inspection;
         return bloc.navigateToExpectedScreen();
       },
-      expect: () => [const OpenPage(BottomBarItems.inspection)],
+      expect: () =>
+          [StartValidateRole(), const OpenPage(BottomBarItems.inspection)],
     );
 
     blocTest<DashboardInteractionCubit, DashboardInteractionState>(
@@ -545,5 +550,19 @@ void main() {
       },
       expect: () => [StartValidateRole(), PhotoPermissionDenied()],
     );
+
+    blocTest<DashboardInteractionCubit, DashboardInteractionState>(
+        'Given user logged in AND user does not have any roles'
+        'When user tap on Inspection button on bottom app bar'
+        'Then state should be RequestRoles',
+        setUp: () {
+          when(memberService.getUserRoles(any))
+              .thenAnswer((_) => Future.value([]));
+        },
+        build: () => DashboardInteractionCubit(),
+        act: (bloc) {
+          bloc.onInspectionPressed();
+        },
+        expect: () => [StartValidateRole(), RequestRoles()]);
   });
 }
