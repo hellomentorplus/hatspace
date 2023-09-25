@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
-import 'package:hatspace/features/property_detail/view_model/property_detail_cubit.dart';
+import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_cubit.dart';
+import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_state.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
@@ -49,10 +50,10 @@ void main() async {
       act: (bloc) => bloc.onBookInspection(),
       expect: () => [BookingInspectionSuccess()]);
 
-  blocTest<PropertyDetailCubit, PropertyDetailState>(
+  blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
     'when trigger navigate to booking inspection'
     'then return NavigateToBookingInspectionScreen state',
-    build: () => PropertyDetailCubit(),
+    build: () => PropertyDetailInteractionCubit(),
     setUp: () {
       when(authenticationServiceMock.isUserLoggedIn).thenReturn(true);
     },
@@ -60,16 +61,16 @@ void main() async {
     expect: () => [NavigateToBooingInspectionScreen()],
   );
 
-  blocTest<PropertyDetailCubit, PropertyDetailState>(
+  blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
     'Given when user has not logged in'
     'when user trigger navigate to booking screen'
     'then return nothing',
-    build: () => PropertyDetailCubit(),
+    build: () => PropertyDetailInteractionCubit(),
     setUp: () {
       when(authenticationServiceMock.isUserLoggedIn).thenReturn(false);
     },
     act: (bloc) => bloc.navigateToBooingInspectionScreen(),
-    expect: () => [],
+    expect: () => [ShowLoginBottomModal()],
   );
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
       'Given user is booking an inspection'
@@ -123,9 +124,79 @@ void main() async {
       'Given AddInspectionBookingCubit was just created. '
       'Then state will be AddInspectionBookingInitial.',
       build: () => AddInspectionBookingCubit(),
+      setUp: () {
+        when(authenticationServiceMock.getCurrentUser())
+            .thenAnswer((realInvocation) {
+          return Future.value(UserDetail(uid: 'uid'));
+        });
+        when(mockMemberService.getUserRoles('uid'))
+            .thenAnswer((realInvocation) {
+          return Future.value([Roles.homeowner]);
+        });
+      },
       act: (bloc) => bloc.onBookInspection(),
       verify: (bloc) {
         expect(bloc.state is AddInspectionBookingInitial, true);
         expect((bloc.state as AddInspectionBookingInitial).props, []);
       });
+  blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
+      'Given when LoginModal is displayed'
+      'When user close it'
+      'Then return CloseModal state',
+      build: () => PropertyDetailInteractionCubit(),
+      setUp: () {
+        when(authenticationServiceMock.getCurrentUser())
+            .thenAnswer((realInvocation) {
+          return Future.value(UserDetail(uid: 'uid'));
+        });
+        when(authenticationServiceMock.isUserLoggedIn).thenReturn(false);
+      },
+      act: (bloc) => bloc.closeBottomModal(),
+      expect: () => [isA<CloseBottomModal>()]);
+  blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
+      'Given user is in PropertyDetailScreen'
+      'When user already logged in'
+      'When user DO NOT HAVE Tenant role'
+      'Then return RequestTenantRole state',
+      build: () => PropertyDetailInteractionCubit(),
+      setUp: () {
+        when(authenticationServiceMock.getCurrentUser())
+            .thenAnswer((realInvocation) {
+          return Future.value(UserDetail(uid: 'uid'));
+        });
+        when(authenticationServiceMock.isUserLoggedIn).thenReturn(true);
+        when(mockMemberService.getUserRoles('uid'))
+            .thenAnswer((realInvocation) => Future.value([]));
+      },
+      act: (bloc) => bloc.navigateToBooingInspectionScreen(),
+      expect: () => [isA<RequestTenantRoles>()]);
+
+  blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
+    'Given is in PropertyDetailScreen'
+    'When user already logged in'
+    'When user add tenant role from AddTenantRole bottom modal',
+    build: () => PropertyDetailInteractionCubit(),
+    setUp: () {
+      when(authenticationServiceMock.getCurrentUser())
+          .thenAnswer((realInvocation) {
+        return Future.value(UserDetail(uid: 'uid'));
+      });
+      when(mockMemberService.getUserRoles('uid'))
+          .thenAnswer((realInvocation) => Future.value([]));
+      // when(mockMemberService.saveUserRoles('uid', {Roles.tenant})).thenAnswer((realInvocation) => Future.value(true));
+    },
+    act: (bloc) => bloc.addTenantRole(),
+    expect: () => [isA<AddTenantRolesSuccess>()],
+  );
+
+  blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
+      'Given user add tenant role fail'
+      'Then return AddTenantRoleFail',
+      build: () => PropertyDetailInteractionCubit(),
+      setUp: () {
+        when(authenticationServiceMock.getCurrentUser())
+            .thenThrow(UserNotFoundException());
+      },
+      act: (bloc) => bloc.addTenantRole(),
+      expect: () => [isA<AddTenantRoleFail>()]);
 }

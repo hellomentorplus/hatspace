@@ -1838,6 +1838,36 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Add Tenant role`
+  String get addTenantRoleBottomSheetTitle {
+    return Intl.message(
+      'Add Tenant role',
+      name: 'addTenantRoleBottomSheetTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?`
+  String get addTenantRoleBottomSheetDescription {
+    return Intl.message(
+      'Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?',
+      name: 'addTenantRoleBottomSheetDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Tenant Role`
+  String get addTenantRole {
+    return Intl.message(
+      'Add Tenant Role',
+      name: 'addTenantRole',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `You have successfully added your new property!`
   String get successAddingPropertyMessage {
     return Intl.message(

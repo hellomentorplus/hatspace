@@ -94,6 +94,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "addPropertyPriceDisplay": m0,
         "addPropertyRentalPeriodUnit":
             MessageLookupByLibrary.simpleMessage("(PW)"),
+        "addTenantRole":
+            MessageLookupByLibrary.simpleMessage("Add Tenant Role"),
+        "addTenantRoleBottomSheetDescription": MessageLookupByLibrary.simpleMessage(
+            "Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?"),
+        "addTenantRoleBottomSheetTitle":
+            MessageLookupByLibrary.simpleMessage("Add Tenant role"),
         "addToGoolgeCalendar":
             MessageLookupByLibrary.simpleMessage("Add to Goolge Calendar"),
         "airConditioners":

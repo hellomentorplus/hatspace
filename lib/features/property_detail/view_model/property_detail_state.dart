@@ -67,8 +67,3 @@ class PropertyDetailLoaded extends PropertyDetailState {
         price
       ];
 }
-
-class NavigateToBooingInspectionScreen extends PropertyDetailState {
-  @override
-  List<Object?> get props => [];
-}
