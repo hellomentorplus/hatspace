@@ -228,6 +228,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/tenant.svg
   String get tenant => 'assets/icons/tenant.svg';
 
+  /// File path: assets/icons/tenant_circle.svg
+  String get tenantCircle => 'assets/icons/tenant_circle.svg';
+
   /// File path: assets/icons/text_field_error.svg
   String get textFieldError => 'assets/icons/text_field_error.svg';
 
@@ -314,6 +317,7 @@ class $AssetsIconsGen {
         swimmingPool,
         tenancyReference,
         tenant,
+        tenantCircle,
         textFieldError,
         tv,
         washingMachine,
