@@ -37,10 +37,27 @@ void main() {
       act: (bloc) => bloc.getUserRole(),
       expect: () => [isA<GetUserRolesFailed>()]);
 
+  // TODO: Remove comment when implement business logic of getting booked inspection list
+  // blocTest<InspectionCubit, InspectionState>(
+  //     'given authentication service can get user detail. '
+  //     'when get user role from Authentication service. '
+  //     'then return InspectionLoaded.',
+  //     build: () => InspectionCubit(),
+  //     setUp: () {
+  //       final MockUserDetail mockUser = MockUserDetail();
+  //       when(authenticationService.getCurrentUser())
+  //           .thenAnswer((_) => Future.value(mockUser));
+  //       when(memberService.getUserRoles(mockUser.uid))
+  //           .thenAnswer((_) => Future.value(Roles.values));
+  //     },
+  //     act: (bloc) => bloc.getUserRole(),
+  //     expect: () => [isA<InspectionLoaded>()]);
+
   blocTest<InspectionCubit, InspectionState>(
       'given authentication service can get user detail. '
       'when get user role from Authentication service. '
-      'then return InspectionLoaded.',
+      'when user does not have any booked inspection'
+      'then return NoBookedInspection.',
       build: () => InspectionCubit(),
       setUp: () {
         final MockUserDetail mockUser = MockUserDetail();
@@ -50,5 +67,5 @@ void main() {
             .thenAnswer((_) => Future.value(Roles.values));
       },
       act: (bloc) => bloc.getUserRole(),
-      expect: () => [isA<InspectionLoaded>()]);
+      expect: () => [isA<NoBookedInspection>()]);
 }

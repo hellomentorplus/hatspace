@@ -99,26 +99,31 @@ class InspectionBody extends StatelessWidget {
             if (state is NoBookedInspection) {
               return Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: HsDimens.spacing16,
-                      vertical: HsDimens.spacing24),
+                      vertical: HsDimens.spacing24,
+                      horizontal: HsDimens.spacing16),
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(HatSpaceStrings.current.inspectionBooking,
-                          style: Theme.of(context).textTheme.displayLarge),
                       Expanded(
+                        flex: 1,
+                        child: Text(HatSpaceStrings.current.inspectionBooking,
+                            style: Theme.of(context).textTheme.displayLarge),
+                      ),
+                      Expanded(
+                          flex: 12,
                           child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(Assets.icons.noBookingLarge),
-                          const SizedBox(height: 20),
-                          Text(
-                            HatSpaceStrings.current.noBooking,
-                            style: textTheme.bodySmall,
-                          )
-                        ],
-                      ))
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SvgPicture.asset(Assets.icons.noBookingLarge),
+                              const SizedBox(height: 20),
+                              Text(
+                                HatSpaceStrings.current.noBooking,
+                                style: textTheme.bodySmall,
+                              )
+                            ],
+                          ))
                     ],
                   ));
             }
