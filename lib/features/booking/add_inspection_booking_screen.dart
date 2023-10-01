@@ -32,6 +32,8 @@ class AddInspectionBookingBody extends StatelessWidget {
   AddInspectionBookingBody({required this.id, Key? key}) : super(key: key);
   final ValueNotifier<DateTime> _selectedDate =
       ValueNotifier(DateTime.parse('2023-09-15'));
+  final ValueNotifier<int> noteChars = ValueNotifier(0);
+  final maxChar = 400;
 
   @override
   Widget build(BuildContext context) {
@@ -169,31 +171,34 @@ class AddInspectionBookingBody extends StatelessWidget {
                         HsLabel(
                             label: HatSpaceStrings.current.notes,
                             optional: HatSpaceStrings.current.optional),
-                        RichText(
-                            text: TextSpan(
-                                style: textTheme.bodySmall,
-                                children: const [
-                              TextSpan(text: '0'),
-                              TextSpan(text: '/400')
-                            ]))
+                        ValueListenableBuilder<int>(
+                            valueListenable: noteChars,
+                            builder: (context, value, child) => RichText(
+                                    text: TextSpan(
+                                        style: textTheme.bodySmall,
+                                        children: [
+                                      TextSpan(text: value.toString()),
+                                      const TextSpan(text: '/400')
+                                    ]))),
                       ],
                     ),
                     const SizedBox(
                       height: HsDimens.spacing4,
                     ),
                     TextFormField(
-                      initialValue: 'My number is 0438825121',
                       style: textTheme.bodyMedium,
                       minLines: 4,
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
-                      maxLength: 4,
+                      maxLength: maxChar,
                       decoration: inputTextTheme.copyWith(
-                        hintText: HatSpaceStrings.current.enterYourDescription,
+                        hintText: HatSpaceStrings.current.notesPlaceHolder,
                         counterText: '',
                         semanticCounterText: '',
                       ),
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        noteChars.value = value.length;
+                      },
                     ),
                   ],
                 ),
