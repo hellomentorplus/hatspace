@@ -178,7 +178,8 @@ class AddInspectionBookingBody extends StatelessWidget {
                                         style: textTheme.bodySmall,
                                         children: [
                                       TextSpan(text: value.toString()),
-                                      const TextSpan(text: '/400')
+                                      const TextSpan(text: '/'),
+                                      TextSpan(text: maxChar.toString())
                                     ]))),
                       ],
                     ),
