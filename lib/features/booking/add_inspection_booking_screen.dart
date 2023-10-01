@@ -149,11 +149,11 @@ class AddInspectionBookingBody extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             HsLabel(
-                                label: HatSpaceStrings.current.endTime,
+                                label: HatSpaceStrings.current.duration,
                                 isRequired: true),
                             const SizedBox(height: HsDimens.spacing4),
                             HsDropDownButton(
-                                value: '10:00 AM',
+                                value: '15 mins',
                                 icon: Assets.icons.chervonDown,
                                 onPressed: () {})
                           ],
@@ -163,9 +163,21 @@ class AddInspectionBookingBody extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    HsLabel(
-                        label: HatSpaceStrings.current.notes,
-                        optional: HatSpaceStrings.current.optional),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        HsLabel(
+                            label: HatSpaceStrings.current.notes,
+                            optional: HatSpaceStrings.current.optional),
+                        RichText(
+                            text: TextSpan(
+                                style: textTheme.bodySmall,
+                                children: const [
+                              TextSpan(text: '0'),
+                              TextSpan(text: '/400')
+                            ]))
+                      ],
+                    ),
                     const SizedBox(
                       height: HsDimens.spacing4,
                     ),
