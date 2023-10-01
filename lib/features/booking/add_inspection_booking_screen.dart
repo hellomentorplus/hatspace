@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
+import 'package:hatspace/features/property_detail/view_model/property_detail_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -20,10 +21,12 @@ class AddInspectionBookingScreen extends StatelessWidget {
   @override
   Widget build(Object context) {
     // TODO: implement build
-    return BlocProvider<AddInspectionBookingCubit>(
-      create: (context) => AddInspectionBookingCubit(),
-      child: AddInspectionBookingBody(id: id),
-    );
+    return MultiBlocProvider(providers: [
+      BlocProvider<AddInspectionBookingCubit>(
+          create: (context) => AddInspectionBookingCubit()),
+      BlocProvider<PropertyDetailCubit>(
+          create: (context) => PropertyDetailCubit()..loadDetail(id))
+    ], child: AddInspectionBookingBody(id: id));
   }
 }
 
@@ -96,17 +99,26 @@ class AddInspectionBookingBody extends StatelessWidget {
                             )),
                       ],
                     ),
-                    BookedItemCard(
-                      propertyName: 'Green living space in Melbourne',
-                      propertyType: HatSpaceStrings.current.apartment,
-                      propertyImage:
-                          'https://m.media-amazon.com/images/I/81YR16yC2QL._AC_UF350,350_QL80_.jpg',
-                      price: 4800,
-                      state: 'Victoria',
-                      currency: Currency.aud,
-                      rentingPeriod: 'pw',
-                      onPressed: () {
-                        // TODO: implement BL
+                    BlocBuilder<PropertyDetailCubit, PropertyDetailState>(
+                      builder: (context, state) {
+                        if (state is PropertyDetailLoaded) {
+                          return BookedItemCard(
+                            propertyName: state.name,
+                            propertyType: state.type,
+                            propertyImage: state.photos.first,
+                            price: state.price.rentPrice,
+                            state: state.state,
+                            currency: state.price.currency,
+                            rentingPeriod: ' pw',
+                            onPressed: () {
+                              // TODO: implement BL
+                            },
+                          );
+                        }
+                        // TODO:handle when load property fail
+                        return const SizedBox(
+                          height: 100,
+                        );
                       },
                     ),
                     Padding(
