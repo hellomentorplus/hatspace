@@ -1,12 +1,14 @@
 import 'package:clock/clock.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/booking/add_inspection_booking_screen.dart';
 import 'package:hatspace/features/booking/add_inspection_success_booking_screen.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
+import 'package:hatspace/features/property_detail/view_model/property_detail_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
@@ -33,7 +35,8 @@ import 'add_inspection_test.mocks.dart';
   AuthenticationBloc,
   UserDetail,
   PropertyService,
-  MemberService
+  MemberService,
+  PropertyDetailCubit
 ])
 void main() async {
   HatSpaceStrings.load(const Locale('en'));
@@ -69,6 +72,12 @@ void main() async {
       location: const GeoPoint(1.0, 1.0),
       availableDate: Timestamp.fromDate(DateTime(2023, 10, 22)),
       ownerUid: 'ownerUid');
+  final MockPropertyDetailCubit propertyDetailCubit = MockPropertyDetailCubit();
+  final List<BlocProvider> providers = [
+    BlocProvider<AddInspectionBookingCubit>(
+        create: (context) => addInspectionBookingCubit),
+    BlocProvider<PropertyDetailCubit>(create: (context) => propertyDetailCubit)
+  ];
   setUpAll(() async {
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationService);
@@ -93,6 +102,9 @@ void main() async {
 
     when(authenticationService.getCurrentUser())
         .thenAnswer((realInvocation) => Future.value(UserDetail(uid: 'uid')));
+    when(propertyDetailCubit.state).thenReturn(PropertyDetailInitial());
+    when(propertyDetailCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   testWidgets('Verify UI component', (WidgetTester widget) async {
@@ -131,10 +143,8 @@ void main() async {
         .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => AddInspectionBookingInitial());
-
-    await mockNetworkImagesFor(() =>
-        widgetTester.blocWrapAndPump<AddInspectionBookingCubit>(
-            addInspectionBookingCubit, AddInspectionBookingBody(id: 'id')));
+    await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+        providers, AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(AddInspectionBookingBody), findsOneWidget);
@@ -159,12 +169,8 @@ void main() async {
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => AddInspectionBookingInitial());
 
-    await mockNetworkImagesFor(
-        () => widgetTester.blocWrapAndPump<AddInspectionBookingCubit>(
-            addInspectionBookingCubit,
-            AddInspectionBookingBody(
-              id: 'id',
-            )));
+    await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+        providers, AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(AddInspectionBookingBody), findsOneWidget);
@@ -193,12 +199,8 @@ void main() async {
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => BookingInspectionSuccess());
 
-    await mockNetworkImagesFor(
-        () => widgetTester.blocWrapAndPump<AddInspectionBookingCubit>(
-            addInspectionBookingCubit,
-            AddInspectionBookingBody(
-              id: 'id',
-            )));
+    await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+        providers, AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(AddInspectionBookingBody), findsNothing);
@@ -210,8 +212,8 @@ void main() async {
       Widget addInspectionSuccessScreen = const AddInspectionSuccessScreen(
         id: 'id',
       );
-      await mockNetworkImagesFor(
-          () => widgetTester.wrapAndPump(addInspectionSuccessScreen));
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+          providers, addInspectionSuccessScreen));
       expect(find.svgPictureWithAssets(Assets.icons.close), findsOneWidget);
       expect(
           find.svgPictureWithAssets(Assets.icons.primaryCheck), findsOneWidget);
