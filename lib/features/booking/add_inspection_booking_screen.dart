@@ -304,6 +304,11 @@ class BookedItemCard extends StatelessWidget {
                     width: HsDimens.size110,
                     height: HsDimens.size110,
                     fit: BoxFit.cover,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      // TODO: Handle loading event
+                      return child;
+                    },
                   ),
                 ),
                 Expanded(
