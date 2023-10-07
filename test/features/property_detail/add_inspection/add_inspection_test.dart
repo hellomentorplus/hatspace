@@ -16,6 +16,7 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_date_picker.dart';
+import 'package:hatspace/theme/widgets/hs_text_field.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
@@ -239,5 +240,15 @@ void main() async {
       // Navigate to other screen
       expect(find.byType(AddInspectionSuccessScreen), findsNothing);
     });
+  });
+
+  testWidgets('verify Update Profile Bottom Sheet UI', (widgetTester) async {
+    Widget updateProfileBottomSheet = const UpdateProfileBottomSheet();
+    await widgetTester.wrapAndPump(updateProfileBottomSheet);
+    expect(
+        find.widgetWithText(
+            HatSpaceInputText, 'Enter phone number for inspection'),
+        findsOneWidget);
+    expect(find.text('Update Profile'), findsOneWidget);
   });
 }

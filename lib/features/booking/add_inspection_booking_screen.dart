@@ -45,13 +45,13 @@ class AddInspectionBookingBody extends StatelessWidget {
           }
           if (state is ShowUpdateProfileBottomSheet) {
             showModalBottomSheet(
-                isScrollControlled: true ,
+                    isScrollControlled: true,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     context: context,
                     builder: (BuildContext context) {
-                      return UpdateProfileBottomSheet();
+                      return const UpdateProfileBottomSheet();
                     })
                 .then((value) => context
                     .read<AddInspectionBookingCubit>()
@@ -396,74 +396,64 @@ class BookedItemCard extends StatelessWidget {
   }
 }
 
-class UpdateProfileBottomSheet extends StatelessWidget{
-  
+class UpdateProfileBottomSheet extends StatelessWidget {
   const UpdateProfileBottomSheet({super.key});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-   return FractionallySizedBox(
-                          heightFactor: 0.95,
-                          child: Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: HsDimens.spacing40),
-                              child: Column(
-                                children: [
-                                  Container(
-                                      padding: const EdgeInsets.only(
-                                          bottom: HsDimens.spacing8,
-                                          top: HsDimens.spacing24),
-                                      decoration: const BoxDecoration(
-                                          border: Border(
-                                              bottom: BorderSide(
-                                                  color: HSColor.neutral2))),
-                                      child: Stack(
-                                        alignment: Alignment.center,
-                                        children: [
-                                          Positioned(
-                                              right: HsDimens.spacing24,
-                                              child: IconButton(
-                                                icon: SvgPicture.asset(
-                                                    Assets.icons.closeIcon),
-                                                onPressed: () => context.pop(),
-                                              )),
-                                          Center(
-                                              child: Text((HatSpaceStrings.current.updateProfile),
-                                                  style: textTheme.displayLarge
-                                                      ?.copyWith(
-                                                          fontSize:
-                                                              FontStyleGuide
-                                                                  .fontSize16)))
-                                        ],
-                                      )),
-                                  Expanded(
-                                      child: Padding(
-                                          padding: const EdgeInsets.all(
-                                              HsDimens.spacing24),
-                                          child: HatSpaceInputText(
-                                            placeholder: HatSpaceStrings.current.updatePhoneNumber,
-                                              label: HatSpaceStrings.current.phoneNumber,
-                                              onChanged: (String change) {
-                                                print(change);
-                                              }))),
-                                  Container(
-                                      decoration: const BoxDecoration(
-                                          border: Border(
-                                              top: BorderSide(
-                                                  color: HSColor.neutral2))),
-                                      child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: HsDimens.spacing8,
-                                              left: HsDimens.spacing16,
-                                              right: HsDimens.spacing16),
-                                          child: PrimaryButton(
-                                            label: HatSpaceStrings.current.save,
-                                            onPressed: () {
-                                              // onSave(modalNotifier.value);
-                                            },
-                                          )))
-                                ],
-                              )));
+    return FractionallySizedBox(
+        heightFactor: 0.95,
+        child: Padding(
+            padding: const EdgeInsets.only(bottom: HsDimens.spacing40),
+            child: Column(
+              children: [
+                Container(
+                    padding: const EdgeInsets.only(
+                        bottom: HsDimens.spacing8, top: HsDimens.spacing24),
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(color: HSColor.neutral2))),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Positioned(
+                            right: HsDimens.spacing24,
+                            child: IconButton(
+                              icon: SvgPicture.asset(Assets.icons.closeIcon),
+                              onPressed: () => context.pop(),
+                            )),
+                        Center(
+                            child: Text((HatSpaceStrings.current.updateProfile),
+                                style: textTheme.displayLarge?.copyWith(
+                                    fontSize: FontStyleGuide.fontSize16)))
+                      ],
+                    )),
+                Expanded(
+                    child: Padding(
+                        padding: const EdgeInsets.all(HsDimens.spacing24),
+                        child: HatSpaceInputText(
+                            placeholder:
+                                HatSpaceStrings.current.updatePhoneNumber,
+                            label: HatSpaceStrings.current.phoneNumber,
+                            onChanged: (String change) {
+                              print(change);
+                            }))),
+                Container(
+                    decoration: const BoxDecoration(
+                        border:
+                            Border(top: BorderSide(color: HSColor.neutral2))),
+                    child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: HsDimens.spacing8,
+                            left: HsDimens.spacing16,
+                            right: HsDimens.spacing16),
+                        child: PrimaryButton(
+                          label: HatSpaceStrings.current.save,
+                          onPressed: () {
+                            // onSave(modalNotifier.value);
+                          },
+                        )))
+              ],
+            )));
   }
-  
 }

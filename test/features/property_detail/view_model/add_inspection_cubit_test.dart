@@ -35,12 +35,13 @@ void main() async {
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
       'Given user is booking an inspection'
       'When user already had tenant role'
+      'when user already have phone  number'
       'Then return SuccessBookInspection',
       build: () => AddInspectionBookingCubit(),
       setUp: () {
         when(authenticationServiceMock.getCurrentUser())
             .thenAnswer((realInvocation) {
-          return Future.value(UserDetail(uid: 'uid'));
+          return Future.value(UserDetail(uid: 'uid', phone: '099999999'));
         });
         when(mockMemberService.getUserRoles('uid'))
             .thenAnswer((realInvocation) {
@@ -75,12 +76,13 @@ void main() async {
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
       'Given user is booking an inspection'
       'When user already had tenant and homeowner role'
+      'when user already had phone number'
       'Then return SuccessBookInspection',
       build: () => AddInspectionBookingCubit(),
       setUp: () {
         when(authenticationServiceMock.getCurrentUser())
             .thenAnswer((realInvocation) {
-          return Future.value(UserDetail(uid: 'uid'));
+          return Future.value(UserDetail(uid: 'uid', phone: '09999999'));
         });
         when(mockMemberService.getUserRoles('uid'))
             .thenAnswer((realInvocation) {
@@ -93,12 +95,13 @@ void main() async {
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
       'Given user is booking an inspection'
       'When user only had homeowner role'
+      'When user already had phone number'
       'Then do not emit success state',
       build: () => AddInspectionBookingCubit(),
       setUp: () {
         when(authenticationServiceMock.getCurrentUser())
             .thenAnswer((realInvocation) {
-          return Future.value(UserDetail(uid: 'uid'));
+          return Future.value(UserDetail(uid: 'uid', phone: '09999999'));
         });
         when(mockMemberService.getUserRoles('uid'))
             .thenAnswer((realInvocation) {
@@ -127,7 +130,7 @@ void main() async {
       setUp: () {
         when(authenticationServiceMock.getCurrentUser())
             .thenAnswer((realInvocation) {
-          return Future.value(UserDetail(uid: 'uid'));
+          return Future.value(UserDetail(uid: 'uid', phone: 'abc'));
         });
         when(mockMemberService.getUserRoles('uid'))
             .thenAnswer((realInvocation) {
