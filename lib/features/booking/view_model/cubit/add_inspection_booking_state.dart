@@ -13,3 +13,13 @@ class BookingInspectionSuccess extends AddInspectionBookingState {
   @override
   List<Object> get props => [];
 }
+
+class ShowUpdateProfileBottomSheet extends AddInspectionBookingState {
+  @override
+  List<Object> get props => [];
+}
+
+class CloseUpdateProfileBottomSheet extends AddInspectionBookingState {
+  @override
+  List<Object> get props => [];
+}

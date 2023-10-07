@@ -20,6 +20,9 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     try {
       UserDetail user = await authenticationService.getCurrentUser();
       List<Roles> userRole = await storageService.member.getUserRoles(user.uid);
+      if (user.phone == null) {
+        return emit(ShowUpdateProfileBottomSheet());
+      }
       if (userRole.contains(Roles.tenant)) {
         emit(BookingInspectionSuccess());
       }
@@ -29,5 +32,9 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     } on UserNotFoundException catch (_) {
       // TODO: Implement when there is no user
     }
+  }
+
+  void closeUpdateProfileBottomSheet() {
+    emit(CloseUpdateProfileBottomSheet());
   }
 }

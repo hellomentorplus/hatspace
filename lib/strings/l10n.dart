@@ -1887,6 +1887,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Update Profile`
+  String get updateProfile {
+    return Intl.message(
+      'Update Profile',
+      name: 'updateProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter phone number for inspection`
+  String get updatePhoneNumber {
+    return Intl.message(
+      'Enter phone number for inspection',
+      name: 'updatePhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

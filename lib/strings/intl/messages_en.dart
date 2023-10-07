@@ -316,6 +316,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
         "tv": MessageLookupByLibrary.simpleMessage("TV"),
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
+        "updatePhoneNumber": MessageLookupByLibrary.simpleMessage(
+            "Enter phone number for inspection"),
+        "updateProfile": MessageLookupByLibrary.simpleMessage("Update Profile"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
         "uploadPhotoCount": m12,
         "userRoleDescription": m13,
