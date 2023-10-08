@@ -116,9 +116,7 @@ class AddInspectionBookingBody extends StatelessWidget {
                           );
                         }
                         // TODO:handle when load property fail
-                        return const SizedBox(
-                          height: 100,
-                        );
+                        return const SizedBox();
                       },
                     ),
                     Padding(
