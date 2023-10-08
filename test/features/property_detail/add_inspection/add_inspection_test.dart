@@ -91,7 +91,8 @@ void main() async {
         .thenAnswer((realInvocation) => Future.value('Owner displayName'));
     when(memberService.getMemberAvatar(any))
         .thenAnswer((realInvocation) => Future.value('photo'));
-
+    when(memberService.getUserPhoneNumber(any))
+        .thenAnswer((realInvocation) => Future.value('00000'));
     when(authenticationService.getCurrentUser())
         .thenAnswer((realInvocation) => Future.value(UserDetail(uid: 'uid')));
   });
@@ -242,19 +243,54 @@ void main() async {
     });
   });
 
-  testWidgets('verify Update Profile Bottom Sheet UI', (widgetTester) async {
-    when(addInspectionBookingCubit.state)
-        .thenReturn(ShowUpdateProfileBottomSheet());
-    when(addInspectionBookingCubit.stream)
-        .thenAnswer((_) => Stream.value(ShowUpdateProfileBottomSheet()));
-    Widget updateProfileBottomSheet = UpdateProfileBottomSheet();
-    await widgetTester.blocWrapAndPump<AddInspectionBookingCubit>(
-        addInspectionBookingCubit, updateProfileBottomSheet);
+  group('Update Profile bottom sheet UI and interaction', () {
+    testWidgets('verify Update Profile Bottom Sheet UI', (widgetTester) async {
+      when(addInspectionBookingCubit.state)
+          .thenReturn(ShowUpdateProfileBottomSheet());
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(ShowUpdateProfileBottomSheet()));
+      Widget updateProfileBottomSheet = UpdateProfileBottomSheet();
+      await widgetTester.blocWrapAndPump<AddInspectionBookingCubit>(
+          addInspectionBookingCubit, updateProfileBottomSheet);
 
-    expect(
-        find.widgetWithText(
-            HatSpaceInputText, 'Enter phone number for inspection'),
-        findsOneWidget);
-    expect(find.text('Update Profile'), findsOneWidget);
+      expect(
+          find.widgetWithText(
+              HatSpaceInputText, 'Enter phone number for inspection'),
+          findsOneWidget);
+      expect(find.text('Update Profile'), findsOneWidget);
+    });
+
+    testWidgets(
+        'verify Save button to update user phone number'
+        'Given user is in Update Profile Bottom Sheet'
+        'User has entered phone number'
+        'When user tap on save button'
+        'Then verify save to database and close bottom sheet ',
+        (widgetTester) async {
+      when(addInspectionBookingCubit.state)
+          .thenReturn(ShowUpdateProfileBottomSheet());
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(ShowUpdateProfileBottomSheet()));
+      Widget updateProfileBottomSheet = UpdateProfileBottomSheet();
+      await widgetTester.blocWrapAndPump<AddInspectionBookingCubit>(
+          addInspectionBookingCubit, updateProfileBottomSheet);
+      //Verify Update Profile Bottom Sheet already displayed
+      expect(
+          find.widgetWithText(
+              HatSpaceInputText, 'Enter phone number for inspection'),
+          findsOneWidget);
+      expect(find.text('Update Profile'), findsOneWidget);
+
+      Finder saveBtn = find.widgetWithText(PrimaryButton, 'Save');
+      await widgetTester.tap(saveBtn);
+      await widgetTester.pumpAndSettle();
+      //Verify Update Profile Bottom Sheet already dismissed
+      expect(
+          find.widgetWithText(
+              HatSpaceInputText, 'Enter phone number for inspection'),
+          findsNothing);
+      expect(find.text('Update Profile'), findsNothing);
+      verify(addInspectionBookingCubit.savePhoneNumber(any)).called(1);
+    });
   });
 }
