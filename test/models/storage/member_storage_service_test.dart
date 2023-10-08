@@ -207,4 +207,29 @@ void main() {
           .set({'displayName': 'displayName', 'avatar': 'avatar'}, any));
     });
   });
+
+  group('verify API calls when save member phone number', () {
+    test('Given user save phone number', () async {
+      StorageService storageService = StorageService();
+      await storageService.member.savePhoneNumberDetail('uid', '0499786222');
+      verify(firestore.collection('members')).called(1);
+      verify(collectionReference.doc('uid')).called(1);
+      verify(documentReference.set({
+        'phoneNumber': '0499786222',
+      }, any))
+          .called(1);
+    });
+
+    test('Given user has phone number from database', () async {
+      when(documentSnapshot.exists).thenReturn(true);
+      when(documentSnapshot.data()).thenReturn({'phoneNumber': '0487654321'});
+      StorageService storageService = StorageService();
+      await storageService.member.getUserPhoneNumber('uid');
+
+      verify(firestore.collection('members')).called(1);
+      verify(collectionReference.doc('uid')).called(1);
+
+      verifyNever(documentReference.set({'phoneNumber': '0487654321'}, any));
+    });
+  });
 }

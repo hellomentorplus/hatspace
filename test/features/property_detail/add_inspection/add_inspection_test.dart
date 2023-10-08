@@ -243,8 +243,14 @@ void main() async {
   });
 
   testWidgets('verify Update Profile Bottom Sheet UI', (widgetTester) async {
-    Widget updateProfileBottomSheet = const UpdateProfileBottomSheet();
-    await widgetTester.wrapAndPump(updateProfileBottomSheet);
+    when(addInspectionBookingCubit.state)
+        .thenReturn(ShowUpdateProfileBottomSheet());
+    when(addInspectionBookingCubit.stream)
+        .thenAnswer((_) => Stream.value(ShowUpdateProfileBottomSheet()));
+    Widget updateProfileBottomSheet = UpdateProfileBottomSheet();
+    await widgetTester.blocWrapAndPump<AddInspectionBookingCubit>(
+        addInspectionBookingCubit, updateProfileBottomSheet);
+
     expect(
         find.widgetWithText(
             HatSpaceInputText, 'Enter phone number for inspection'),

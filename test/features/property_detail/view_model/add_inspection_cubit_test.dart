@@ -41,12 +41,14 @@ void main() async {
       setUp: () {
         when(authenticationServiceMock.getCurrentUser())
             .thenAnswer((realInvocation) {
-          return Future.value(UserDetail(uid: 'uid', phone: '099999999'));
+          return Future.value(UserDetail(uid: 'uid'));
         });
         when(mockMemberService.getUserRoles('uid'))
             .thenAnswer((realInvocation) {
           return Future.value([Roles.tenant]);
         });
+        when(mockMemberService.getUserPhoneNumber('uid'))
+            .thenAnswer((realInvocation) => Future.value('09999900'));
       },
       act: (bloc) => bloc.onBookInspection(),
       expect: () => [BookingInspectionSuccess()]);
@@ -202,4 +204,32 @@ void main() async {
       },
       act: (bloc) => bloc.addTenantRole(),
       expect: () => [isA<AddTenantRoleFail>()]);
+
+  blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
+      'Given user already HAS tenant role'
+      'But user DOES NOT HAS phone number'
+      'Then user tap on Add Inspection'
+      'return ShowUpdateProfileBottomSheet state',
+      build: () => AddInspectionBookingCubit(),
+      setUp: () {
+        when(authenticationServiceMock.getCurrentUser())
+            .thenAnswer((realInvocation) {
+          return Future.value(UserDetail(uid: 'uid'));
+        });
+        when(mockMemberService.getUserRoles('uid'))
+            .thenAnswer((realInvocation) {
+          return Future.value([Roles.tenant, Roles.homeowner]);
+        });
+        when(mockMemberService.getUserPhoneNumber('uid'))
+            .thenAnswer((realInvocation) => Future.value(null));
+      },
+      act: (bloc) => bloc.onBookInspection(),
+      expect: () => [isA<ShowUpdateProfileBottomSheet>()]);
+
+  blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
+      'Given user close the Show update bottom sheet'
+      'Then return CloseUpdateProfileBottomSheet',
+      build: () => AddInspectionBookingCubit(),
+      act: (bloc) => bloc.closeUpdateProfileBottomSheet(),
+      expect: () => [isA<CloseUpdateProfileBottomSheet>()]);
 }
