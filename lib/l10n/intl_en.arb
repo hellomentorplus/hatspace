@@ -224,5 +224,6 @@
   "addTenantRoleBottomSheetTitle": "Add Tenant role",
   "addTenantRoleBottomSheetDescription": "Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?",
   "addTenantRole":"Add Tenant Role",
-  "successAddingPropertyMessage":"You have successfully added your new property!"
+  "successAddingPropertyMessage":"You have successfully added your new property!",
+  "duration":"Duration"
 }

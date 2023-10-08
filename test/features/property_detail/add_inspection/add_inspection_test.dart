@@ -115,6 +115,8 @@ void main() async {
     expect(find.byType(HsDropDownButton), findsWidgets);
     expect(
         find.widgetWithText(PrimaryButton, 'Book Inspection'), findsOneWidget);
+    // check character counter of notes
+    expect(find.byType(ValueListenableBuilder<int>), findsOneWidget);
   });
 
   testWidgets(
