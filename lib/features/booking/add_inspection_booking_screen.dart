@@ -45,13 +45,16 @@ class AddInspectionBookingBody extends StatelessWidget {
           }
           if (state is ShowUpdateProfileBottomSheet) {
             showModalBottomSheet(
+                    useSafeArea: true,
                     isScrollControlled: true,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     context: context,
                     builder: (BuildContext context) {
-                      return const UpdateProfileBottomSheet();
+                      return BlocProvider<AddInspectionBookingCubit>(
+                          create: (context) => AddInspectionBookingCubit(),
+                          child: UpdateProfileBottomSheet());
                     })
                 .then((value) => context
                     .read<AddInspectionBookingCubit>()
@@ -397,7 +400,8 @@ class BookedItemCard extends StatelessWidget {
 }
 
 class UpdateProfileBottomSheet extends StatelessWidget {
-  const UpdateProfileBottomSheet({super.key});
+  final ValueNotifier<String?> phoneNumber = ValueNotifier(null);
+  UpdateProfileBottomSheet({super.key});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -436,23 +440,31 @@ class UpdateProfileBottomSheet extends StatelessWidget {
                                 HatSpaceStrings.current.updatePhoneNumber,
                             label: HatSpaceStrings.current.phoneNumber,
                             onChanged: (String change) {
-                              print(change);
+                              phoneNumber.value = change;
                             }))),
-                Container(
-                    decoration: const BoxDecoration(
-                        border:
-                            Border(top: BorderSide(color: HSColor.neutral2))),
-                    child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: HsDimens.spacing8,
-                            left: HsDimens.spacing16,
-                            right: HsDimens.spacing16),
-                        child: PrimaryButton(
-                          label: HatSpaceStrings.current.save,
-                          onPressed: () {
-                            // onSave(modalNotifier.value);
-                          },
-                        )))
+                BlocBuilder<AddInspectionBookingCubit,
+                    AddInspectionBookingState>(
+                  builder: (context, state) {
+                    return Container(
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                top: BorderSide(color: HSColor.neutral2))),
+                        child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: HsDimens.spacing8,
+                                left: HsDimens.spacing16,
+                                right: HsDimens.spacing16),
+                            child: PrimaryButton(
+                              label: HatSpaceStrings.current.save,
+                              onPressed: () {
+                                context
+                                    .read<AddInspectionBookingCubit>()
+                                    .savePhoneNumber(phoneNumber.value);
+                                context.pop();
+                              },
+                            )));
+                  },
+                )
               ],
             )));
   }
