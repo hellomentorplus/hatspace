@@ -68,6 +68,7 @@ class AddPropertyImagesBodyState extends State<AddPropertyImagesBody> {
                   AddPropertyImageSelectedState>(
                 builder: (context, state) {
                   if (state is PhotoSelectionReturned) {
+                    context.read<AddPropertyCubit>().validateNextButtonState(4);
                     return _PhotoPreviewView(
                       paths: state.paths,
                       moreUpload: state.allowAddImage,
