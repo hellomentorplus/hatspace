@@ -30,18 +30,18 @@ class MyProfileBody extends StatelessWidget {
       return Scaffold(
         appBar: HsAppBar(
           title: HatSpaceStrings.current.myProfile,
-          // actions: [
-          //   TextOnlyButton(
-          //       label: HatSpaceStrings.current.edit,
-          //       onPressed: () {
-          //         /// TODO : Handle edit button press
-          //       },
-          //       style: TextButton.styleFrom(
-          //           padding: EdgeInsets.zero,
-          //           textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-          //               fontWeight: FontStyleGuide.fwBold,
-          //               color: HSColor.primary))),
-          // ],
+          actions: [
+            TextOnlyButton(
+                label: HatSpaceStrings.current.edit,
+                onPressed: () {
+                  /// TODO : Handle edit button press
+                },
+                style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontStyleGuide.fwBold,
+                        color: HSColor.primary))),
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -79,10 +79,10 @@ class MyProfileBody extends StatelessWidget {
                                   );
                           },
                         )),
-                    // Positioned(
-                    //     bottom: 0,
-                    //     right: 0,
-                    //     child: SvgPicture.asset(Assets.images.cameraCircle))
+                    Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: SvgPicture.asset(Assets.images.cameraCircle))
                   ],
                 ),
                 const SizedBox(height: HsDimens.spacing32),

@@ -5,11 +5,9 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/application/view_model/application_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
-import 'package:hatspace/theme/extensions/bottom_modal_extension.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
-import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ApplicationView extends StatelessWidget {
