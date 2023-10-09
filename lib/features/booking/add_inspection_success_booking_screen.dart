@@ -10,7 +10,9 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 class AddInspectionSuccessScreen extends StatelessWidget {
-  const AddInspectionSuccessScreen({super.key});
+  final String id;
+  const AddInspectionSuccessScreen({required this.id, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class AddInspectionSuccessScreen extends StatelessWidget {
               padding: const EdgeInsets.only(right: HsDimens.spacing16),
               child: IconButton(
                   onPressed: () {
-                    context.pop(result: true);
+                    context.goToPropertyDetail(id: id, replacement: true);
                   },
                   icon: SvgPicture.asset(
                     Assets.icons.close,
@@ -63,7 +65,9 @@ class AddInspectionSuccessScreen extends StatelessWidget {
                   propertyName: 'Green living space in Melbourne',
                   propertyType: HatSpaceStrings.current.apartment,
                   propertyImage:
-                      'https://cdn-bnokp.nitrocdn.com/QNoeDwCprhACHQcnEmHgXDhDpbEOlRHH/assets/images/optimized/rev-a642abc/www.decorilla.com/online-decorating/wp-content/uploads/2020/08/Modern-Apartment-Decor-.jpg',
+                      // Previous link can not access, update in case QA assign this as a bug.
+                      // TODO: Remove soon when implemnet data structure for inspection
+                      'https://m.media-amazon.com/images/I/81YR16yC2QL._AC_UF350,350_QL80_.jpg',
                   price: 4800,
                   state: 'Vitoria',
                   currency: Currency.aud,

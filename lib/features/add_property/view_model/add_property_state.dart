@@ -60,3 +60,9 @@ class EndSubmitPropertyDetails extends AddPropertyState {
   @override
   List<Object?> get props => [id];
 }
+
+class SuccessSubmitProperty extends AddPropertyState {
+  const SuccessSubmitProperty(super.pageViewNumber);
+  @override
+  List<Object?> get props => [];
+}

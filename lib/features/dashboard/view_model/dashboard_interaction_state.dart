@@ -86,3 +86,8 @@ class NavigateToAddPropertyFlow extends DashboardInteractionState {
   @override
   List<Object?> get props => [];
 }
+
+class RequestRoles extends DashboardInteractionState {
+  @override
+  List<Object?> get props => [];
+}

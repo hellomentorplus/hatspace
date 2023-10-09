@@ -14,29 +14,33 @@ import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
 
 class AddInspectionBookingScreen extends StatelessWidget {
-  const AddInspectionBookingScreen({super.key});
-
+  const AddInspectionBookingScreen({required this.id, Key? key})
+      : super(key: key);
+  final String id;
   @override
   Widget build(Object context) {
     // TODO: implement build
     return BlocProvider<AddInspectionBookingCubit>(
       create: (context) => AddInspectionBookingCubit(),
-      child: AddInspectionBookingBody(),
+      child: AddInspectionBookingBody(id: id),
     );
   }
 }
 
 class AddInspectionBookingBody extends StatelessWidget {
-  AddInspectionBookingBody({Key? key}) : super(key: key);
+  final String id;
+  AddInspectionBookingBody({required this.id, Key? key}) : super(key: key);
   final ValueNotifier<DateTime> _selectedDate =
       ValueNotifier(DateTime.parse('2023-09-15'));
+  final ValueNotifier<int> noteChars = ValueNotifier(0);
+  final maxChar = 400;
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AddInspectionBookingCubit, AddInspectionBookingState>(
         listener: (context, state) {
           if (state is BookingInspectionSuccess) {
-            context.pushToBookInspectionSuccessScreen();
+            context.pushToBookInspectionSuccessScreen(propertyId: id);
           }
         },
         child: Scaffold(
@@ -88,7 +92,8 @@ class AddInspectionBookingBody extends StatelessWidget {
                                 height: HsDimens.size32,
                               ),
                               onPressed: () {
-                                context.pop(result: true);
+                                context.goToPropertyDetail(
+                                    id: id, replacement: true);
                               },
                             )),
                       ],
@@ -146,11 +151,11 @@ class AddInspectionBookingBody extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             HsLabel(
-                                label: HatSpaceStrings.current.endTime,
+                                label: HatSpaceStrings.current.duration,
                                 isRequired: true),
                             const SizedBox(height: HsDimens.spacing4),
                             HsDropDownButton(
-                                value: '10:00 AM',
+                                value: '15 mins',
                                 icon: Assets.icons.chervonDown,
                                 onPressed: () {})
                           ],
@@ -160,25 +165,41 @@ class AddInspectionBookingBody extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    HsLabel(
-                        label: HatSpaceStrings.current.notes,
-                        optional: HatSpaceStrings.current.optional),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        HsLabel(
+                            label: HatSpaceStrings.current.notes,
+                            optional: HatSpaceStrings.current.optional),
+                        ValueListenableBuilder<int>(
+                            valueListenable: noteChars,
+                            builder: (context, value, child) => RichText(
+                                    text: TextSpan(
+                                        style: textTheme.bodySmall,
+                                        children: [
+                                      TextSpan(text: value.toString()),
+                                      const TextSpan(text: '/'),
+                                      TextSpan(text: maxChar.toString())
+                                    ]))),
+                      ],
+                    ),
                     const SizedBox(
                       height: HsDimens.spacing4,
                     ),
                     TextFormField(
-                      initialValue: 'My number is 0438825121',
                       style: textTheme.bodyMedium,
                       minLines: 4,
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
-                      maxLength: 4,
+                      maxLength: maxChar,
                       decoration: inputTextTheme.copyWith(
-                        hintText: HatSpaceStrings.current.enterYourDescription,
+                        hintText: HatSpaceStrings.current.notesPlaceHolder,
                         counterText: '',
                         semanticCounterText: '',
                       ),
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        noteChars.value = value.length;
+                      },
                     ),
                   ],
                 ),

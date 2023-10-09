@@ -614,8 +614,11 @@ void main() {
       bloc.rentPeriod = MinimumRentPeriod.sixMonths;
       bloc.navigatePage(NavigatePage.forward, 6);
     },
-    expect: () =>
-        [isA<StartSubmitPropertyDetails>(), isA<EndSubmitPropertyDetails>()],
+    expect: () => [
+      isA<StartSubmitPropertyDetails>(),
+      isA<EndSubmitPropertyDetails>(),
+      isA<SuccessSubmitProperty>()
+    ],
     verify: (bloc) {
       // create 4 thumbnails
       verify(photoService.createThumbnail(any, targetBytes: 5242880)).called(4);

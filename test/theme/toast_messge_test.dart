@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/toast_messages/hs_toast_theme.dart';
 import '../widget_tester_extension.dart';
 
@@ -46,8 +47,7 @@ void main() {
           reason: 'Check Box Decoration Style',
           container.decoration,
           BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              color: const Color.fromARGB(255, 255, 241, 241)));
+              borderRadius: BorderRadius.circular(6), color: HSColor.neutral1));
       expect(
           reason: 'Checking padding',
           container.padding,

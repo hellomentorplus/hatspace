@@ -41,6 +41,7 @@ class HSColor {
   static const Color neutral1 = Color(0xFFFFFFFF); // new design color
 
   static const Color green06 = Color(0xFF32A854); // new design color
+  static const Color green05 = Color(0xff3ACD64); // new desgin color
   static const Color green01 = Color(0xFFEBFAEF); // new design color
 
   static const Color black = Color(0xFF000000);

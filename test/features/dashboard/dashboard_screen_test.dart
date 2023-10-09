@@ -174,10 +174,14 @@ void main() {
 
     testWidgets(
         'given user logged in and is on dashboard screen'
+        'AND user have roles'
         'when tap on Inspection item '
         'then InspectionView is shown', (widgetTester) async {
       when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
-
+      when(authenticationService.getCurrentUser())
+          .thenAnswer((_) => Future.value(UserDetail(uid: 'uid')));
+      when(memberService.getUserRoles(any))
+          .thenAnswer((_) => Future.value([Roles.homeowner]));
       const Widget widget = DashboardScreen();
       mockNetworkImagesFor(() async {
         await widgetTester.multiBlocWrapAndPump([
@@ -904,6 +908,43 @@ void main() {
 
       verify(interactionCubit.onBottomItemTapped(BottomBarItems.explore))
           .called(1);
+    });
+  });
+
+  group('Inspection Bottom App bar interaction', () {
+    testWidgets(
+        'Given User Logged In'
+        'AND user has not any roles'
+        'When user tap on Inspection at Bottom app bar'
+        'Then navigate to ChooseRoleScreen', (widgetTester) async {
+      when(authenticationService.isUserLoggedIn).thenAnswer((_) => true);
+      when(authenticationService.getCurrentUser())
+          .thenAnswer((_) => Future.value(UserDetail(uid: 'uid')));
+      when(memberService.getUserRoles('uid'))
+          .thenAnswer((_) => Future.value([]));
+      when(interactionCubit.state)
+          .thenAnswer((realInvocation) => RequestRoles());
+      when(interactionCubit.stream)
+          .thenAnswer((realInvocation) => Stream.value(RequestRoles()));
+      const Widget widget = DashboardScreen();
+      mockNetworkImagesFor(() async {
+        await widgetTester.multiBlocWrapAndPump([
+          BlocProvider<AuthenticationBloc>(
+            create: (context) => authenticationBloc,
+          ),
+          BlocProvider<AppConfigBloc>(
+            create: (context) => appConfigBloc,
+          ),
+          BlocProvider<DashboardInteractionCubit>(
+              create: (context) => interactionCubit)
+        ], widget);
+        expect(find.byType(DashboardBody), findsOneWidget);
+        await widgetTester.tap(find.text('Inspection'));
+        await widgetTester.pumpAndSettle();
+        // Navigate to ChooseRoleScreen
+        expect(find.byType(DashboardBody), findsNothing);
+        expect(find.text('Choose your role'), findsOneWidget);
+      });
     });
   });
 }

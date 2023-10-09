@@ -61,9 +61,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m13(description) => "${Intl.select(description, {
             'tenant':
-                'You can start browsing properties, connect directly to home owner/ agencies, upload your rental application.',
+                'You can explore properties, connect directly to homeowners, upload your rental application.',
             'homeowner':
-                'You can start putting up your property advertisement, shortlist your potential tenants, tracking leasing process.',
+                'You can upload and manage your properties, shortlist potential tenants, track the leasing process.',
             'other': '',
           })}";
 
@@ -94,6 +94,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "addPropertyPriceDisplay": m0,
         "addPropertyRentalPeriodUnit":
             MessageLookupByLibrary.simpleMessage("(PW)"),
+        "addTenantRole":
+            MessageLookupByLibrary.simpleMessage("Add Tenant Role"),
+        "addTenantRoleBottomSheetDescription": MessageLookupByLibrary.simpleMessage(
+            "Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?"),
+        "addTenantRoleBottomSheetTitle":
+            MessageLookupByLibrary.simpleMessage("Add Tenant role"),
         "addToGoolgeCalendar":
             MessageLookupByLibrary.simpleMessage("Add to Goolge Calendar"),
         "airConditioners":
@@ -136,6 +142,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "bedroomText": MessageLookupByLibrary.simpleMessage("Bedrooms"),
         "bookInspection":
             MessageLookupByLibrary.simpleMessage("Book Inspection"),
+        "bookingInspectionSuccessTitle":
+            MessageLookupByLibrary.simpleMessage("🎉 Congratulations!"),
         "bookingSuccessMessage": MessageLookupByLibrary.simpleMessage(
             "Your booking is successfully saved and sent to homeowner. To complete the booking, please wait for the confirmation from homeowner."),
         "btnLogOut": MessageLookupByLibrary.simpleMessage("Log Out"),
@@ -145,7 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseUserRole":
             MessageLookupByLibrary.simpleMessage("Choose your role"),
         "chooseUserRoleDescription": MessageLookupByLibrary.simpleMessage(
-            "You can be tenant or homeowner"),
+            "You can be a tenant or homeowner or both"),
         "congratulations":
             MessageLookupByLibrary.simpleMessage("Congratulations 🎉"),
         "contactSupport":
@@ -169,6 +177,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "download": MessageLookupByLibrary.simpleMessage("Download"),
         "downloadApplicationFormHere": MessageLookupByLibrary.simpleMessage(
             "Download Application form here"),
+        "duration": MessageLookupByLibrary.simpleMessage("Duration"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -304,6 +313,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "suburb": MessageLookupByLibrary.simpleMessage("Suburb"),
+        "successAddingPropertyMessage": MessageLookupByLibrary.simpleMessage(
+            "You have successfully added your new property!"),
         "swimmingPool": MessageLookupByLibrary.simpleMessage("Swimming pool"),
         "textWithInvalidChars":
             MessageLookupByLibrary.simpleMessage("Only accept text"),

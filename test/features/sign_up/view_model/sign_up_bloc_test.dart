@@ -268,7 +268,10 @@ void main() async {
       setUp: () {
         when(authenticationService.signUp(signUpType: SignUpType.googleService))
             .thenAnswer((realInvocation) => Future.value(UserDetail(
-                uid: 'mock uid', phone: 'mock phone', email: 'mock email')));
+                displayName: 'display name',
+                uid: 'mock uid',
+                phone: 'mock phone',
+                email: 'mock email')));
 
         when(memberService.getUserRoles(any))
             .thenAnswer((realInvocation) => Future.value([Roles.tenant]));
@@ -276,8 +279,6 @@ void main() async {
         when(memberService.saveNameAndAvatar(any, any, any))
             .thenAnswer((realInvocation) => Future.value());
 
-        when(memberService.getMemberDisplayName(any))
-            .thenAnswer((realInvocation) => Future.value('displayName'));
         when(memberService.getMemberAvatar(any))
             .thenAnswer((realInvocation) => Future.value(null));
       },
