@@ -8,27 +8,31 @@ part 'application_state.dart';
 class ApplicationCubit extends Cubit<ApplicationState> {
   ApplicationCubit() : super(ApplicationInitial());
 
-  final StorageService _storageService = HsSingleton.singleton.get<StorageService>();
+  final StorageService _storageService =
+      HsSingleton.singleton.get<StorageService>();
 
   void downloadApplicationForm() {
-    _storageService.files.downloadFile((value) {
-      if (!isClosed) {
-        emit(DownloadFileCompleted(value));
-      }
-    }, onStart: () {
-      if (!isClosed) {
-        emit(DownloadFileStart());
-      }
-    },
+    _storageService.files.downloadFile(
+      (value) {
+        if (!isClosed) {
+          emit(DownloadFileCompleted(value));
+        }
+      },
+      onStart: () {
+        if (!isClosed) {
+          emit(DownloadFileStart());
+        }
+      },
       onDownloading: (bytes) {
-      if (!isClosed) {
-        emit(DownloadFileInProgress(bytes));
-      }
-    }, onPaused: () {
-      if (!isClosed) {
-        emit(DownloadFilePaused());
-      }
-    },
+        if (!isClosed) {
+          emit(DownloadFileInProgress(bytes));
+        }
+      },
+      onPaused: () {
+        if (!isClosed) {
+          emit(DownloadFilePaused());
+        }
+      },
       onError: () {
         if (!isClosed) {
           emit(DownloadFileError());

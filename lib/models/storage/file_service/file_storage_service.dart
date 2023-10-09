@@ -34,17 +34,19 @@ class FileService {
       onError(e);
     }
   }
-  
-  Future<void> downloadFile(
-      ValueChanged<String> onSuccess,
-  {VoidCallback? onStart, VoidCallback? onCancel, VoidCallback? onError, ValueChanged<int>? onDownloading, VoidCallback? onPaused}
-      ) async {
+
+  Future<void> downloadFile(ValueChanged<String> onSuccess,
+      {VoidCallback? onStart,
+      VoidCallback? onCancel,
+      VoidCallback? onError,
+      ValueChanged<int>? onDownloading,
+      VoidCallback? onPaused}) async {
     onStart?.call();
 
     try {
       final appDocDir = await getApplicationDocumentsDirectory();
-      final filePath = '${appDocDir
-          .path}/$_rentalForms/RentalApplicationForm.pdf';
+      final filePath =
+          '${appDocDir.path}/$_rentalForms/RentalApplicationForm.pdf';
       final file = File(filePath);
 
       if (file.existsSync()) {
@@ -56,8 +58,8 @@ class FileService {
 
       final Reference storageRef = _storage.ref();
 
-      final formRef = storageRef.child(
-          '$_rentalForms/RentalApplicationForm.pdf');
+      final formRef =
+          storageRef.child('$_rentalForms/RentalApplicationForm.pdf');
 
       final downloadTask = formRef.writeToFile(file);
       downloadTask.snapshotEvents.listen((taskSnapshot) {
