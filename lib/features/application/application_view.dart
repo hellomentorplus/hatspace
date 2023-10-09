@@ -28,29 +28,22 @@ class _ApplicationView extends StatelessWidget {
   Widget build(BuildContext context) => BlocListener<ApplicationCubit, ApplicationState>(
     listener: (context, state) {
       if (state is DownloadFileStart) {
-        print('SUESI - download file start');
       }
 
       if (state is DownloadFileInProgress) {
-        print('SUESI - downloading ${state.bytes}');
       }
 
       if (state is DownloadFileCompleted) {
-        print('SUESI - download completed ${state.path}');
         launchUrl(Uri.file(state.path));
-        print('SUESI - launch ${Uri.file(state.path)}');
       }
 
       if (state is DownloadFileCancel) {
-        print('SUESI - download cancel');
       }
 
       if (state is DownloadFileError) {
-        print('SUESI - download error');
       }
 
       if (state is DownloadFilePaused) {
-        print('SUESI - download paused');
       }
     },
   child: Scaffold(
