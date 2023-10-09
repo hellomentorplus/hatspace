@@ -109,11 +109,11 @@ void main() {
             matching: find.byType(SecondaryButton)),
         findsOneWidget);
 
-    // expect(
-    //     find.ancestor(
-    //         of: find.text('Continue with Facebook'),
-    //         matching: find.byType(SecondaryButton)),
-    //     findsOneWidget);
+    expect(
+        find.ancestor(
+            of: find.text('Continue with Facebook'),
+            matching: find.byType(SecondaryButton)),
+        findsOneWidget);
 
     expect(
         find.ancestor(
@@ -140,11 +140,11 @@ void main() {
         .tap(find.widgetWithText(SecondaryButton, 'Continue with Google'));
     await widgetTester.pumpAndSettle();
     verify(mockSignUpBloc.add(const SignUpWithGoogle())).called(1);
-    // // Test interaction with facebook Sign in
-    // await widgetTester
-    //     .tap(find.widgetWithText(SecondaryButton, 'Continue with Facebook'));
-    // await widgetTester.pumpAndSettle();
-    // verify(mockSignUpBloc.add(const SignUpWithFacebook()));
+    // Test interaction with facebook Sign in
+    await widgetTester
+        .tap(find.widgetWithText(SecondaryButton, 'Continue with Facebook'));
+    await widgetTester.pumpAndSettle();
+    verify(mockSignUpBloc.add(const SignUpWithFacebook()));
   });
 
   testWidgets('Skip event - detect first launch app',

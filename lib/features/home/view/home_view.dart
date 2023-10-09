@@ -60,31 +60,31 @@ class HomePageBodyState extends State<HomePageBody> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         toolbarHeight: HsDimens.size68,
         elevation: 0.0,
-        // actions: [
-        //   IconButton(
-        //       onPressed: () {
-        //         // TODO add action
-        //       },
-        //       icon: SvgPicture.asset(
-        //         Assets.icons.icAgent,
-        //         colorFilter: ColorFilter.mode(
-        //             Theme.of(context).colorScheme.onPrimary, BlendMode.srcIn),
-        //         width: HsDimens.size24,
-        //         height: HsDimens.size24,
-        //       )),
-        //   IconButton(
-        //     onPressed: () {
-        //       // TODO add action
-        //     },
-        //     icon: SvgPicture.asset(
-        //       Assets.icons.notification,
-        //       colorFilter: ColorFilter.mode(
-        //           Theme.of(context).colorScheme.onPrimary, BlendMode.srcIn),
-        //       width: HsDimens.size24,
-        //       height: HsDimens.size24,
-        //     ),
-        //   )
-        // ],
+        actions: [
+          IconButton(
+              onPressed: () {
+                // TODO add action
+              },
+              icon: SvgPicture.asset(
+                Assets.icons.icAgent,
+                colorFilter: ColorFilter.mode(
+                    Theme.of(context).colorScheme.onPrimary, BlendMode.srcIn),
+                width: HsDimens.size24,
+                height: HsDimens.size24,
+              )),
+          IconButton(
+            onPressed: () {
+              // TODO add action
+            },
+            icon: SvgPicture.asset(
+              Assets.icons.notification,
+              colorFilter: ColorFilter.mode(
+                  Theme.of(context).colorScheme.onPrimary, BlendMode.srcIn),
+              width: HsDimens.size24,
+              height: HsDimens.size24,
+            ),
+          )
+        ],
       ),
       body: BlocBuilder<GetPropertiesCubit, GetPropertiesState>(
         builder: (context, state) {
