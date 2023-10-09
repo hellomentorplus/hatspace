@@ -47,7 +47,6 @@ class FileService {
           .path}/$_rentalForms/RentalApplicationForm.pdf';
       final file = File(filePath);
 
-      print('SUESI filePath $filePath');
       if (file.existsSync()) {
         onSuccess(filePath);
         return;
@@ -62,7 +61,6 @@ class FileService {
 
       final downloadTask = formRef.writeToFile(file);
       downloadTask.snapshotEvents.listen((taskSnapshot) {
-        print('SUESI - taskSnapshot.totalBytes ${taskSnapshot.totalBytes} => state ${taskSnapshot.state}');
         switch (taskSnapshot.state) {
           case TaskState.running:
             onDownloading?.call(taskSnapshot.totalBytes);
@@ -81,8 +79,8 @@ class FileService {
             break;
         }
       });
-    } catch (e) {
-
+    } catch (_) {
+      // TODO handle download error
     }
   }
 }
