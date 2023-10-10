@@ -263,7 +263,7 @@ void main() async {
     );
 
     blocTest(
-      'given user has display name, when user sign up, then do not assign display name',
+      'given user has display name, when user sign up, then assign display name',
       build: () => SignUpBloc(),
       setUp: () {
         when(authenticationService.signUp(signUpType: SignUpType.googleService))
@@ -284,8 +284,8 @@ void main() async {
       },
       act: (bloc) => bloc.add(const SignUpWithGoogle()),
       verify: (bloc) {
-        verifyNever(authenticationService.updateUserDisplayName(any));
-        verifyNever(memberService.saveNameAndAvatar(any, any, any));
+        verify(authenticationService.updateUserDisplayName(any));
+        verify(memberService.saveNameAndAvatar(any, any, any));
       },
     );
   });
