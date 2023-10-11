@@ -179,9 +179,9 @@ class AuthenticationService {
       User? user = userCredential.user;
       // TODO: Handle when user hide email when sign in with apple id
       if (user != null) {
-         user.updateDisplayName(
+        user.updateDisplayName(
             '${credential.givenName} ${credential.familyName}');
-         user.updateEmail(credential.email!);
+        user.updateEmail(credential.email!);
       }
       //update email and display name
       final String? email = credential.email ?? user?.email;
