@@ -177,12 +177,19 @@ class AuthenticationService {
       final UserCredential userCredential =
           await _firebaseAuth.signInWithCredential(oauthCredential);
       User? user = userCredential.user;
-      // TODO: Handle when user hide email when sign in with apple id
       if (user != null) {
-        user.updateDisplayName(
-            '${credential.givenName} ${credential.familyName}');
-        user.updateEmail(credential.email!);
+        //Check email null
+        if (user.email == null) {
+          user.updateEmail(credential.email!);
+        }
+        // TODO: Handle when user hide email
+        // Check display name null
+        if (user.displayName == null) {
+          user.updateDisplayName(
+              '${credential.givenName} ${credential.familyName}');
+        }
       }
+
       //update email and display name
       final String? email = credential.email ?? user?.email;
 
@@ -192,7 +199,7 @@ class AuthenticationService {
 
       final UserDetail result = UserDetail(
         uid: user.uid,
-        email: credential.email,
+        email: email,
         displayName: '${credential.givenName} ${credential.familyName}',
         avatar: user.photoURL,
       );
