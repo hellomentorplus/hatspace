@@ -178,13 +178,13 @@ class AuthenticationService {
           await _firebaseAuth.signInWithCredential(oauthCredential);
       User? user = userCredential.user;
       if (user != null) {
-        //Check email null
-        if (user.email == null) {
+        //Check email not null
+        if (user.email != null) {
           user.updateEmail(credential.email!);
         }
         // TODO: Handle when user hide email
-        // Check display name null
-        if (user.displayName == null) {
+        // Check display name not null
+        if (user.displayName != null) {
           user.updateDisplayName(
               '${credential.givenName} ${credential.familyName}');
         }
