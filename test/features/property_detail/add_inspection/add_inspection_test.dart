@@ -28,6 +28,7 @@ import '../../../widget_tester_extension.dart';
 
 import '../../add_property/view/widgets/add_rooms_view_test.dart';
 import 'add_inspection_test.mocks.dart';
+
 @GenerateMocks([
   StorageService,
   AuthenticationService,
