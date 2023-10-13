@@ -284,7 +284,6 @@ void main() async {
       },
       act: (bloc) => bloc.add(const SignUpWithGoogle()),
       verify: (bloc) {
-        verify(authenticationService.updateUserDisplayName(any));
         verify(memberService.saveNameAndAvatar(any, any, any));
       },
     );

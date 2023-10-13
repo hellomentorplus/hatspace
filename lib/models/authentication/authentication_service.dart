@@ -203,6 +203,8 @@ class AuthenticationService {
         displayName: '${credential.givenName} ${credential.familyName}',
         avatar: user.photoURL,
       );
+      // Need to add new User with display name to stream to update state
+      _userDetailStreamController.add(result);
       return result;
     } catch (e, stacktrace) {
       throw UnknownException(stacktrace);

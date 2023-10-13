@@ -65,8 +65,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     if (displayName.isEmpty) {
       displayName = HatSpaceStrings.current
           .defaultUserDisplayName(DateTime.now().toUtc());
+      await _authenticationService.updateUserDisplayName(displayName);
     }
-    await _authenticationService.updateUserDisplayName(displayName);
     // save display name and avatar
     await _storageService.member
         .saveNameAndAvatar(userDetail.uid, displayName, userDetail.avatar);
