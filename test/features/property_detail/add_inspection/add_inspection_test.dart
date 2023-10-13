@@ -8,7 +8,6 @@ import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/booking/add_inspection_booking_screen.dart';
 import 'package:hatspace/features/booking/add_inspection_success_booking_screen.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
-import 'package:hatspace/features/property_detail/view_model/property_detail_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
@@ -19,15 +18,16 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
+import 'package:hatspace/view_models/property/property_detail_cubit.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import '../../../find_extension.dart';
 import '../../../widget_tester_extension.dart';
+
 import '../../add_property/view/widgets/add_rooms_view_test.dart';
 import 'add_inspection_test.mocks.dart';
-
 @GenerateMocks([
   StorageService,
   AuthenticationService,
@@ -36,7 +36,7 @@ import 'add_inspection_test.mocks.dart';
   UserDetail,
   PropertyService,
   MemberService,
-  PropertyDetailCubit
+  PropertyDetailCubit,
 ])
 void main() async {
   HatSpaceStrings.load(const Locale('en'));
