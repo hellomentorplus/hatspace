@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,6 +13,31 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
+import 'package:hatspace/theme/widgets/hs_time_picker.dart';
+
+class StartTime {
+  final int hour;
+  final int minute;
+  const StartTime({
+    required this.hour,
+    required this.minute,
+  });
+  int get getMinute => minute;
+  set setMinute(int minute) => minute = minute;
+  int get getHour => hour;
+  set setHour(int hour) => hour = hour;
+  String get getStringStartTime {
+    String clock = 'AM';
+    if (hour >= 12) {
+      clock = 'PM';
+    }
+    return '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $clock';
+  }
+
+  DateTime get getStartTime {
+    return DateTime(hour, minute);
+  }
+}
 
 class AddInspectionBookingScreen extends StatelessWidget {
   const AddInspectionBookingScreen({required this.id, Key? key})
@@ -34,9 +60,23 @@ class AddInspectionBookingBody extends StatelessWidget {
       ValueNotifier(DateTime.parse('2023-09-15'));
   final ValueNotifier<int> noteChars = ValueNotifier(0);
   final maxChar = 400;
+  final ValueNotifier<StartTime?> startTime = ValueNotifier(null);
+  final ValueNotifier<bool> showStartTimeError = ValueNotifier(false);
+  List<int> generateNumbersList(int start, int end) {
+    List<int> numbersList = [];
+    for (int i = start; i <= end; i++) {
+      numbersList.add(i);
+    }
+    return numbersList;
+  }
+
+  void showStartTimeModal() {}
 
   @override
   Widget build(BuildContext context) {
+    FocusNode startTimeFocus = FocusNode();
+    final minutesList = generateNumbersList(0, 59);
+    final hourList = generateNumbersList(7, 19);
     return BlocListener<AddInspectionBookingCubit, AddInspectionBookingState>(
         listener: (context, state) {
           if (state is BookingInspectionSuccess) {
@@ -130,6 +170,7 @@ class AddInspectionBookingBody extends StatelessWidget {
                       height: HsDimens.spacing16,
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                             child: Column(
@@ -139,10 +180,80 @@ class AddInspectionBookingBody extends StatelessWidget {
                                 label: HatSpaceStrings.current.startTime,
                                 isRequired: true),
                             const SizedBox(height: HsDimens.spacing4),
-                            HsDropDownButton(
-                                value: '09:00 AM',
-                                icon: Assets.icons.chervonDown,
-                                onPressed: () {})
+                            ValueListenableBuilder<StartTime?>(
+                                valueListenable: startTime,
+                                builder: (context, value, child) {
+                                  return HsDropDownButton(
+                                      focusNode: startTimeFocus,
+                                      onFocusChange: (value) {
+                                        if (value) {
+                                          if (startTime.value == null) {
+                                            showStartTimeError.value = true;
+                                          }
+                                        }
+                                      },
+                                      value: startTime.value == null
+                                          ? null
+                                          : value?.getStringStartTime,
+                                      placeholder:
+                                          const StartTime(hour: 9, minute: 0)
+                                              .getStringStartTime,
+                                      placeholderStyle: placeholderStyle,
+                                      icon: Assets.icons.chervonDown,
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                top: Radius.circular(
+                                                    HsDimens.radius16),
+                                              ),
+                                            ),
+                                            context: context,
+                                            builder: (_) {
+                                              int? intialMin =
+                                                  startTime.value == null
+                                                      ? 0
+                                                      : value?.getMinute;
+                                              int? intialHour =
+                                                  startTime.value == null
+                                                      ? 9
+                                                      : value?.hour;
+                                              return HatSpaceTimePicker(
+                                                initalMinute: intialMin,
+                                                initialHour: intialHour,
+                                                minutesList: minutesList,
+                                                hourList: hourList,
+                                                selectedMinutes: (minute) {
+                                                  intialMin = minute;
+                                                },
+                                                selectedHour: (hour) {
+                                                  intialHour = hour;
+                                                },
+                                                onSave: () {
+                                                  showStartTimeError.value =
+                                                      false;
+                                                  startTime.value = StartTime(
+                                                      hour: intialHour!,
+                                                      minute: intialMin!);
+                                                  context.pop();
+                                                },
+                                              );
+                                            });
+                                      });
+                                }),
+                            ValueListenableBuilder(
+                                valueListenable: showStartTimeError,
+                                builder: (context, value, child) {
+                                  if (value == true) {
+                                    return Text(
+                                      HatSpaceStrings
+                                          .current.selectStartTimeError,
+                                      style: errorTextStyle,
+                                    );
+                                  }
+                                  return const SizedBox.shrink();
+                                })
                           ],
                         )),
                         const SizedBox(width: HsDimens.spacing15),
@@ -155,9 +266,14 @@ class AddInspectionBookingBody extends StatelessWidget {
                                 isRequired: true),
                             const SizedBox(height: HsDimens.spacing4),
                             HsDropDownButton(
-                                value: '15 mins',
+                                value: null,
+                                placeholder: '15 mins',
+                                placeholderStyle: placeholderStyle,
                                 icon: Assets.icons.chervonDown,
-                                onPressed: () {})
+                                onPressed: () {
+                                  //Check StartTime value to show error
+                                  startTimeFocus.requestFocus();
+                                })
                           ],
                         ))
                       ],

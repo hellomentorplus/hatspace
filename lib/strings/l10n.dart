@@ -1887,6 +1887,16 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Select start time`
+  String get selectStartTimeError {
+    return Intl.message(
+      'Select start time',
+      name: 'selectStartTimeError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

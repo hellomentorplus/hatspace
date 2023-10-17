@@ -289,6 +289,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
         "securityCameras":
             MessageLookupByLibrary.simpleMessage("Security cameras"),
+        "selectStartTimeError":
+            MessageLookupByLibrary.simpleMessage("Select start time"),
         "sendEmail": MessageLookupByLibrary.simpleMessage("Send Email"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "showLess": MessageLookupByLibrary.simpleMessage("Show less"),

@@ -122,6 +122,8 @@ class SecondaryButton extends StatelessWidget {
   final MainAxisAlignment contentAlignment;
   final bool overrideIconColor;
   final TextStyle? labelStyle;
+  final FocusNode? focusNode;
+  final ValueChanged? onFocusChange;
 
   const SecondaryButton(
       {required this.label,
@@ -132,7 +134,9 @@ class SecondaryButton extends StatelessWidget {
       this.style,
       this.contentAlignment = MainAxisAlignment.center,
       this.overrideIconColor = true,
-      this.labelStyle})
+      this.labelStyle,
+      this.focusNode,
+      this.onFocusChange})
       : super(key: key);
 
   @override
@@ -151,6 +155,8 @@ class SecondaryButton extends StatelessWidget {
     }
 
     return OutlinedButton(
+      focusNode: focusNode,
+      onFocusChange: onFocusChange,
       onPressed: onPressed,
       style: style,
       child: ButtonWithIconContent(
@@ -298,19 +304,29 @@ class HsDropDownButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String? icon;
   final TextStyle? labelStyle;
+  final String? placeholder;
+  final TextStyle? placeholderStyle;
+  final FocusNode? focusNode;
+  final ValueChanged? onFocusChange;
   const HsDropDownButton(
       {required this.onPressed,
       super.key,
       bool? isRequired,
       this.icon,
       this.value,
-      this.labelStyle});
+      this.labelStyle,
+      this.placeholder,
+      this.placeholderStyle,
+      this.focusNode,
+      this.onFocusChange});
   @override
   Widget build(BuildContext context) {
     return SecondaryButton(
+      focusNode: focusNode,
+      onFocusChange: onFocusChange,
       // TODO: implement placeholder with enum of preriod
-      label: value ?? HatSpaceStrings.current.pleaseSelectValue,
-      labelStyle: labelStyle,
+      label: value ?? placeholder ?? HatSpaceStrings.current.pleaseSelectValue,
+      labelStyle: value == null ? placeholderStyle : labelStyle,
       iconUrl: icon,
       iconPosition: IconPosition.right,
       contentAlignment: MainAxisAlignment.spaceBetween,
