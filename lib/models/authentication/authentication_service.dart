@@ -179,20 +179,26 @@ class AuthenticationService {
       User? user = userCredential.user;
       if (user != null) {
         //Check email not null
-        if (user.email != null) {
-          user.updateEmail(credential.email!);
+        if (user.email == null) {
+          await user.updateEmail(credential.email!);
         }
         // TODO: Handle when user hide email
         // Check display name not null
-        if (user.displayName != null) {
-          user.updateDisplayName(
+        if (user.displayName == null) {
+          await user.updateDisplayName(
               '${credential.givenName} ${credential.familyName}');
         }
       }
 
       //update email and display name
       final String? email = credential.email ?? user?.email;
-
+      //TODO: Validate when user hide user display name
+      final String? displayName;
+      if (credential.givenName == null || credential.familyName == null) {
+        displayName = user?.displayName;
+      } else {
+        displayName = '${credential.givenName} ${credential.familyName}';
+      }
       if (user == null || email == null || email.isEmpty == true) {
         throw UserNotFoundException();
       }
@@ -200,7 +206,7 @@ class AuthenticationService {
       final UserDetail result = UserDetail(
         uid: user.uid,
         email: email,
-        displayName: '${credential.givenName} ${credential.familyName}',
+        displayName: displayName,
         avatar: user.photoURL,
       );
       // Need to add new User with display name to stream to update state
