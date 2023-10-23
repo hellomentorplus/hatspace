@@ -564,7 +564,7 @@ void main() async {
       expect(find.text('Add Tenant role'), findsOneWidget);
       expect(
           find.text(
-              'Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?'),
+              'Only Tenant can be used this feature. Would you like to add the role Tenant to the list of roles?'),
           findsOneWidget);
       await widgetTester.tapAt(const Offset(50, 50));
       await widgetTester.pumpAndSettle();
