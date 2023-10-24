@@ -16,6 +16,7 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_date_picker.dart';
+import 'package:hatspace/theme/widgets/hs_time_picker.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
@@ -183,6 +184,35 @@ void main() async {
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(HsDatePicker), findsOneWidget);
+  });
+
+  testWidgets(
+      'Given user is in AddInspectionBookingScreen'
+      'When user tap on start time drop down menu'
+      'Then Show bottom sheet modal with start time', (widgetTester) async {
+    when(addInspectionBookingCubit.stream)
+        .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
+    when(addInspectionBookingCubit.state)
+        .thenAnswer((_) => AddInspectionBookingInitial());
+
+    await mockNetworkImagesFor(
+        () => widgetTester.blocWrapAndPump<AddInspectionBookingCubit>(
+            addInspectionBookingCubit,
+            AddInspectionBookingBody(
+              id: 'id',
+            )));
+    await widgetTester.pumpAndSettle();
+
+    expect(find.byType(AddInspectionBookingBody), findsOneWidget);
+
+    //find start time with default placeholder
+    Finder startTimeBtn = find.widgetWithText(SecondaryButton, '09:00 AM');
+    expect(startTimeBtn, findsOneWidget);
+    await widgetTester.ensureVisible(startTimeBtn);
+    await widgetTester.tap(startTimeBtn);
+    await widgetTester.pumpAndSettle();
+
+    expect(find.byType(HatSpaceTimePicker), findsOneWidget);
   });
 
   testWidgets(

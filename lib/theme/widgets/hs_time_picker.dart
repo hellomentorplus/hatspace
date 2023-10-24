@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 
@@ -11,8 +12,8 @@ class HatSpaceTimePicker extends StatelessWidget {
   final ValueChanged<int>? selectedHour;
   final int initalMinute;
   final int initialHour;
-  VoidCallback? onSave;
-  HatSpaceTimePicker(
+  final VoidCallback? onSave;
+  const HatSpaceTimePicker(
       {required this.minutesList,
       required this.hourList,
       int? initalMinute,
@@ -32,16 +33,16 @@ class HatSpaceTimePicker extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.symmetric(
-              horizontal: 155, vertical: HsDimens.spacing16),
+              horizontal: HsDimens.spacing155, vertical: HsDimens.spacing16),
           child: Column(
             children: [
               Row(
                 children: [
                   Expanded(
                     child: SizedBox(
-                      height: 195,
+                      height: HsDimens.spacing195,
                       child: CupertinoPicker(
-                        diameterRatio: 4.0,
+                        diameterRatio: 5.0,
                         selectionOverlay:
                             const CupertinoPickerDefaultSelectionOverlay(
                           background: Colors.transparent,
@@ -113,7 +114,7 @@ class HatSpaceTimePicker extends StatelessWidget {
                 border: Border(
                     top: BorderSide(color: HSColor.neutral3, width: 1.0))),
             child: PrimaryButton(
-              label: 'Save',
+              label: HatSpaceStrings.current.save,
               onPressed: onSave,
             ))
       ],
