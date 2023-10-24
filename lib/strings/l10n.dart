@@ -1848,10 +1848,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?`
+  /// `Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?`
   String get addTenantRoleBottomSheetDescription {
     return Intl.message(
-      'Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?',
+      'Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?',
       name: 'addTenantRoleBottomSheetDescription',
       desc: '',
       args: [],
