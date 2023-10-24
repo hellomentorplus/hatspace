@@ -102,22 +102,23 @@ class InspectionBody extends StatelessWidget {
                       vertical: HsDimens.spacing24,
                       horizontal: HsDimens.spacing16),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
-                        flex: 1,
                         child: Text(HatSpaceStrings.current.inspectionBooking,
                             style: Theme.of(context).textTheme.displayLarge),
                       ),
                       Expanded(
-                          flex: 12,
+                          flex: 20,
                           child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
                             children: [
                               SvgPicture.asset(Assets.icons.noBookingLarge),
-                              const SizedBox(height: 20),
+                              const SizedBox(height: HsDimens.spacing20),
                               Text(
                                 HatSpaceStrings.current.noBooking,
                                 style: textTheme.bodySmall,
