@@ -26,7 +26,7 @@ class InspectionBody extends StatelessWidget {
   Widget build(BuildContext context) => SafeArea(
         child: BlocBuilder<InspectionCubit, InspectionState>(
           builder: (_, state) {
-            if (state is InspectionLoaded && state.items.length > 1) {
+            if (state is InspectionLoaded) {
               return ListView.separated(
                   padding: const EdgeInsets.symmetric(
                       horizontal: HsDimens.spacing16,
