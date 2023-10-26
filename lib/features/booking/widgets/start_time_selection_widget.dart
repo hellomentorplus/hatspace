@@ -62,24 +62,45 @@ class StartTimeSelectionWidget extends StatelessWidget {
                               : value?.getMinute;
                           int? intialHour =
                               startTimeNotifer.value == null ? 9 : value?.hour;
-                          return HatSpaceTimePicker(
-                            initalMinute: intialMin,
-                            initialHour: intialHour,
-                            minutesList: minutesList,
-                            hourList: hourList,
-                            selectedMinutes: (minute) {
-                              intialMin = minute;
-                            },
-                            selectedHour: (hour) {
-                              intialHour = hour;
-                            },
-                            onSave: () {
-                              startTimeErrorMessage.value = false;
-                              startTimeNotifer.value = StartTime(
-                                  hour: intialHour!, minute: intialMin!);
-                              context.pop();
-                            },
-                          );
+                          return SafeArea(
+                              child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                HatSpaceTimePicker(
+                                  initalMinute: intialMin,
+                                  initialHour: intialHour,
+                                  minutesList: minutesList,
+                                  hourList: hourList,
+                                  selectedMinutes: (minute) {
+                                    intialMin = minute;
+                                  },
+                                  selectedHour: (hour) {
+                                    intialHour = hour;
+                                  },
+                                ),
+                                const SizedBox(height: HsDimens.spacing16),
+                                Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: HsDimens.spacing16,
+                                        vertical: HsDimens.spacing8),
+                                    decoration: const BoxDecoration(
+                                        border: Border(
+                                            top: BorderSide(
+                                                color: HSColor.neutral3,
+                                                width: 1.0))),
+                                    child: PrimaryButton(
+                                      label: HatSpaceStrings.current.save,
+                                      onPressed: () {
+                                        startTimeErrorMessage.value = false;
+                                        startTimeNotifer.value = StartTime(
+                                            hour: intialHour!,
+                                            minute: intialMin!);
+                                        context.pop();
+                                      },
+                                    ))
+                              ],
+                            ),
+                          ));
                         });
                   });
             }),
