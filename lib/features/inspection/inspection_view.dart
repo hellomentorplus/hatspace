@@ -96,6 +96,38 @@ class InspectionBody extends StatelessWidget {
                     return const SizedBox.shrink();
                   });
             }
+            if (state is NoBookedInspection) {
+              return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: HsDimens.spacing24,
+                      horizontal: HsDimens.spacing16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Text(HatSpaceStrings.current.inspectionBooking,
+                            style: Theme.of(context).textTheme.displayLarge),
+                      ),
+                      Expanded(
+                          flex: 20,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(Assets.icons.noBookingLarge),
+                              const SizedBox(height: HsDimens.spacing20),
+                              Text(
+                                HatSpaceStrings.current.noBooking,
+                                style: textTheme.bodySmall,
+                              )
+                            ],
+                          ))
+                    ],
+                  ));
+            }
             return const SizedBox();
           },
         ),
