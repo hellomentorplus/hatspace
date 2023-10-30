@@ -180,14 +180,14 @@ class HatSpaceStrings {
     );
   }
 
-  /// `{role,select,tenant{Tenant} homeowner{Homeowner} other{}}`
+  /// `{role,select,tenant{Tenant} homeowner{Homeowner} other{ }}`
   String userTitleRoles(Object role) {
     return Intl.select(
       role,
       {
         'tenant': 'Tenant',
         'homeowner': 'Homeowner',
-        'other': '',
+        'other': ' ',
       },
       name: 'userTitleRoles',
       desc: '',
@@ -195,7 +195,7 @@ class HatSpaceStrings {
     );
   }
 
-  /// `{description, select, tenant{You can explore properties, connect directly to homeowners, upload your rental application.} homeowner{You can upload and manage your properties, shortlist potential tenants, track the leasing process.} other{}}`
+  /// `{description, select, tenant{You can explore properties, connect directly to homeowners, upload your rental application.} homeowner{You can upload and manage your properties, shortlist potential tenants, track the leasing process.} other{ }}`
   String userRoleDescription(Object description) {
     return Intl.select(
       description,
@@ -204,7 +204,7 @@ class HatSpaceStrings {
             'You can explore properties, connect directly to homeowners, upload your rental application.',
         'homeowner':
             'You can upload and manage your properties, shortlist potential tenants, track the leasing process.',
-        'other': '',
+        'other': ' ',
       },
       name: 'userRoleDescription',
       desc: '',
@@ -1878,10 +1878,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?`
+  /// `Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?`
   String get addTenantRoleBottomSheetDescription {
     return Intl.message(
-      'Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?',
+      'Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?',
       name: 'addTenantRoleBottomSheetDescription',
       desc: '',
       args: [],
@@ -1903,6 +1903,16 @@ class HatSpaceStrings {
     return Intl.message(
       'You have successfully added your new property!',
       name: 'successAddingPropertyMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No booking`
+  String get noBooking {
+    return Intl.message(
+      'No booking',
+      name: 'noBooking',
       desc: '',
       args: [],
     );

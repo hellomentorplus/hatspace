@@ -97,7 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addTenantRole":
             MessageLookupByLibrary.simpleMessage("Add Tenant Role"),
         "addTenantRoleBottomSheetDescription": MessageLookupByLibrary.simpleMessage(
-            "Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?"),
+            "Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?"),
         "addTenantRoleBottomSheetTitle":
             MessageLookupByLibrary.simpleMessage("Add Tenant role"),
         "addToGoolgeCalendar":
@@ -249,6 +249,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "myProperties": MessageLookupByLibrary.simpleMessage("My properties"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "noBooking": MessageLookupByLibrary.simpleMessage("No booking"),
         "noLater": MessageLookupByLibrary.simpleMessage("No, later"),
         "notUpdated": MessageLookupByLibrary.simpleMessage("Not updated"),
         "notes": MessageLookupByLibrary.simpleMessage("Notes"),

@@ -177,6 +177,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/messages.svg
   String get messages => 'assets/icons/messages.svg';
 
+  /// File path: assets/icons/no_booking_large.svg
+  String get noBookingLarge => 'assets/icons/no_booking_large.svg';
+
   /// File path: assets/icons/notification.svg
   String get notification => 'assets/icons/notification.svg';
 
@@ -297,6 +300,7 @@ class $AssetsIconsGen {
         logout,
         message,
         messages,
+        noBookingLarge,
         notification,
         numberBooking,
         paySlips,
