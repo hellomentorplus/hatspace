@@ -111,7 +111,7 @@ class AddInspectionBookingBody extends StatelessWidget {
                             price: state.price.rentPrice,
                             state: state.state,
                             currency: state.price.currency,
-                            rentingPeriod: ' pw',
+                            paymentPeriod: HatSpaceStrings.current.pm,
                             onPressed: () {
                               // TODO: implement BL
                             },
@@ -276,7 +276,7 @@ class BookedItemCard extends StatelessWidget {
   final Currency currency;
   final String state;
   final VoidCallback onPressed;
-  final String rentingPeriod;
+  final String paymentPeriod;
   final Color? _shadowColor;
   final EdgeInsets padding;
   // Add style for card
@@ -289,7 +289,7 @@ class BookedItemCard extends StatelessWidget {
     required this.currency,
     required this.state,
     required this.onPressed,
-    required this.rentingPeriod,
+    required this.paymentPeriod,
     EdgeInsets? padding,
     Color? shadowColor,
     Key? key,
@@ -365,24 +365,27 @@ class BookedItemCard extends StatelessWidget {
                         const SizedBox(
                           height: HsDimens.spacing4,
                         ),
-                        Text.rich(TextSpan(
-                            text: HatSpaceStrings.current
-                                .currencyFormatter(currency.symbol, price),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    fontSize: FontStyleGuide.fontSize18,
-                                    height: 28 / 18,
-                                    fontWeight: FontWeight.w700),
-                            children: [
-                              TextSpan(
-                                  text: ' $rentingPeriod',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(color: HSColor.neutral6))
-                            ]))
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                                HatSpaceStrings.current
+                                    .currencyFormatter(currency.symbol, price),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        fontSize: FontStyleGuide.fontSize18,
+                                        height: 28 / 18,
+                                        fontWeight: FontWeight.w700)),
+                            const SizedBox(width: HsDimens.spacing2),
+                            Text(paymentPeriod,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(color: HSColor.neutral6))
+                          ],
+                        )
                       ],
                     ),
                   ),

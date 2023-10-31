@@ -876,6 +876,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `pm`
+  String get pm {
+    return Intl.message(
+      'pm',
+      name: 'pm',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `{number} views today`
   String viewsToday(Object number) {
     return Intl.message(
