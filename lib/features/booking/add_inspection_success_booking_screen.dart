@@ -71,7 +71,7 @@ class AddInspectionSuccessScreen extends StatelessWidget {
                   price: 4800,
                   state: 'Vitoria',
                   currency: Currency.aud,
-                  paymentPeriod: HatSpaceStrings.current.pw,
+                  paymentPeriod: HatSpaceStrings.current.pm,
                   onPressed: () {
                     // TODO: implement BL
                   },
