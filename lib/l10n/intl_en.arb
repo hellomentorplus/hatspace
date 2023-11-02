@@ -80,6 +80,7 @@
   "apartment": "Apartment",
   "available": "Available",
   "pw": "pw",
+  "pm": "pm",
   "viewsToday": "{number} views today",
   "dateFormatter": "{date}",
   "@dateFormatter": {
