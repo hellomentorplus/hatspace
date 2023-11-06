@@ -80,6 +80,7 @@
   "apartment": "Apartment",
   "available": "Available",
   "pw": "pw",
+  "pm": "pm",
   "viewsToday": "{number} views today",
   "dateFormatter": "{date}",
   "@dateFormatter": {
@@ -221,10 +222,11 @@
       }
     }
   },
-  "addTenantRoleBottomSheetTitle": "Add Tenant role",
-  "addTenantRoleBottomSheetDescription": "Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?",
-  "addTenantRole":"Add Tenant Role",
   "successAddingPropertyMessage":"You have successfully added your new property!",
-  "duration":"Duration",
-  "selectStartTimeError": "Select start time"
+  "selectStartTimeError": "Select start time",
+  "noBooking": "No booking",
+  "addTenantRoleBottomSheetTitle": "Add Tenant role",
+  "addTenantRoleBottomSheetDescription": "Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?",
+  "addTenantRole":"Add Tenant Role",
+  "duration":"Duration"
 }

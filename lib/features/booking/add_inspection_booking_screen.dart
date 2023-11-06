@@ -14,6 +14,7 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 import 'package:hatspace/theme/widgets/hs_date_picker.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
+import 'package:hatspace/view_models/property/property_detail_cubit.dart';
 
 class AddInspectionBookingScreen extends StatelessWidget {
   const AddInspectionBookingScreen({required this.id, Key? key})
@@ -22,10 +23,12 @@ class AddInspectionBookingScreen extends StatelessWidget {
   @override
   Widget build(Object context) {
     // TODO: implement build
-    return BlocProvider<AddInspectionBookingCubit>(
-      create: (context) => AddInspectionBookingCubit(),
-      child: AddInspectionBookingBody(id: id),
-    );
+    return MultiBlocProvider(providers: [
+      BlocProvider<AddInspectionBookingCubit>(
+          create: (context) => AddInspectionBookingCubit()),
+      BlocProvider<PropertyDetailCubit>(
+          create: (context) => PropertyDetailCubit()..loadDetail(id))
+    ], child: AddInspectionBookingBody(id: id));
   }
 }
 
@@ -113,17 +116,24 @@ class AddInspectionBookingBody extends StatelessWidget {
                             )),
                       ],
                     ),
-                    BookedItemCard(
-                      propertyName: 'Green living space in Melbourne',
-                      propertyType: HatSpaceStrings.current.apartment,
-                      propertyImage:
-                          'https://m.media-amazon.com/images/I/81YR16yC2QL._AC_UF350,350_QL80_.jpg',
-                      price: 4800,
-                      state: 'Victoria',
-                      currency: Currency.aud,
-                      rentingPeriod: 'pw',
-                      onPressed: () {
-                        // TODO: implement BL
+                    BlocBuilder<PropertyDetailCubit, PropertyDetailState>(
+                      builder: (context, state) {
+                        if (state is PropertyDetailLoaded) {
+                          return BookedItemCard(
+                            propertyName: state.name,
+                            propertyType: state.type,
+                            propertyImage: state.photos.first,
+                            price: state.price.rentPrice,
+                            state: state.state,
+                            currency: state.price.currency,
+                            paymentPeriod: HatSpaceStrings.current.pm,
+                            onPressed: () {
+                              // TODO: implement BL
+                            },
+                          );
+                        }
+                        // TODO:handle when load property fail
+                        return const SizedBox();
                       },
                     ),
                     Padding(
@@ -286,7 +296,7 @@ class BookedItemCard extends StatelessWidget {
   final Currency currency;
   final String state;
   final VoidCallback onPressed;
-  final String rentingPeriod;
+  final String paymentPeriod;
   final Color? _shadowColor;
   final EdgeInsets padding;
   // Add style for card
@@ -299,7 +309,7 @@ class BookedItemCard extends StatelessWidget {
     required this.currency,
     required this.state,
     required this.onPressed,
-    required this.rentingPeriod,
+    required this.paymentPeriod,
     EdgeInsets? padding,
     Color? shadowColor,
     Key? key,
@@ -330,6 +340,11 @@ class BookedItemCard extends StatelessWidget {
                     width: HsDimens.size110,
                     height: HsDimens.size110,
                     fit: BoxFit.cover,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      // TODO: Handle loading event
+                      return child;
+                    },
                   ),
                 ),
                 Expanded(
@@ -370,24 +385,27 @@ class BookedItemCard extends StatelessWidget {
                         const SizedBox(
                           height: HsDimens.spacing4,
                         ),
-                        Text.rich(TextSpan(
-                            text: HatSpaceStrings.current
-                                .currencyFormatter(currency.symbol, price),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    fontSize: FontStyleGuide.fontSize18,
-                                    height: 28 / 18,
-                                    fontWeight: FontWeight.w700),
-                            children: [
-                              TextSpan(
-                                  text: ' $rentingPeriod',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(color: HSColor.neutral6))
-                            ]))
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                                HatSpaceStrings.current
+                                    .currencyFormatter(currency.symbol, price),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        fontSize: FontStyleGuide.fontSize18,
+                                        height: 28 / 18,
+                                        fontWeight: FontWeight.w700)),
+                            const SizedBox(width: HsDimens.spacing2),
+                            Text(paymentPeriod,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(color: HSColor.neutral6))
+                          ],
+                        )
                       ],
                     ),
                   ),

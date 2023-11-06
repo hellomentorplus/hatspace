@@ -876,6 +876,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `pm`
+  String get pm {
+    return Intl.message(
+      'pm',
+      name: 'pm',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `{number} views today`
   String viewsToday(Object number) {
     return Intl.message(
@@ -1838,6 +1848,26 @@ class HatSpaceStrings {
     );
   }
 
+  /// `You have successfully added your new property!`
+  String get successAddingPropertyMessage {
+    return Intl.message(
+      'You have successfully added your new property!',
+      name: 'successAddingPropertyMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No booking`
+  String get noBooking {
+    return Intl.message(
+      'No booking',
+      name: 'noBooking',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Add Tenant role`
   String get addTenantRoleBottomSheetTitle {
     return Intl.message(
@@ -1848,10 +1878,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?`
+  /// `Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?`
   String get addTenantRoleBottomSheetDescription {
     return Intl.message(
-      'Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?',
+      'Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?',
       name: 'addTenantRoleBottomSheetDescription',
       desc: '',
       args: [],
@@ -1863,16 +1893,6 @@ class HatSpaceStrings {
     return Intl.message(
       'Add Tenant Role',
       name: 'addTenantRole',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `You have successfully added your new property!`
-  String get successAddingPropertyMessage {
-    return Intl.message(
-      'You have successfully added your new property!',
-      name: 'successAddingPropertyMessage',
       desc: '',
       args: [],
     );

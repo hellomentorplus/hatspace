@@ -176,11 +176,28 @@ class AuthenticationService {
       // not match the nonce in `appleCredential.identityToken`, sign in will fail.
       final UserCredential userCredential =
           await _firebaseAuth.signInWithCredential(oauthCredential);
-
-      final User? user = userCredential.user;
-
+      User? user = userCredential.user;
+      if (user != null) {
+        //Check when email null
+        if (user.email == null) {
+          await user.updateEmail(credential.email!);
+        }
+        // TODO: Handle when user hide email
+        // Check display name null
+        if (user.displayName == null) {
+          await user.updateDisplayName(
+              '${credential.givenName} ${credential.familyName}');
+        }
+      }
+      //update email and display name
       final String? email = credential.email ?? user?.email;
-
+      //TODO: Validate when user hide user display name
+      final String? displayName;
+      if (credential.givenName == null || credential.familyName == null) {
+        displayName = user?.displayName;
+      } else {
+        displayName = '${credential.givenName} ${credential.familyName}';
+      }
       if (user == null || email == null || email.isEmpty == true) {
         throw UserNotFoundException();
       }
@@ -188,10 +205,11 @@ class AuthenticationService {
       final UserDetail result = UserDetail(
         uid: user.uid,
         email: email,
-        displayName: '${credential.givenName} ${credential.familyName}',
+        displayName: displayName,
         avatar: user.photoURL,
       );
-
+      // Need to add new User with display name to stream to update state
+      _userDetailStreamController.add(result);
       return result;
     } catch (e, stacktrace) {
       throw UnknownException(stacktrace);

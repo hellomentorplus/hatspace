@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/property_detail/property_detail_screen.dart';
-import 'package:hatspace/features/property_detail/view_model/property_detail_cubit.dart';
 import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_cubit.dart';
 import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_state.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
@@ -16,6 +15,7 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
+import 'package:hatspace/view_models/property/property_detail_cubit.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -564,7 +564,7 @@ void main() async {
       expect(find.text('Add Tenant role'), findsOneWidget);
       expect(
           find.text(
-              'Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?'),
+              'Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?'),
           findsOneWidget);
       await widgetTester.tapAt(const Offset(50, 50));
       await widgetTester.pumpAndSettle();
