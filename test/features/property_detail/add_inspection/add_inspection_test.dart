@@ -139,13 +139,14 @@ void main() async {
   });
 
   testWidgets(
-      'Given user is in AddInspectionBookingScreen. '
+      'Given user is in AddInspectionBookingScreen.'
+      'Given Book inspection button is enable'
       'When user tap on booking button. '
       'Then user will start booking process.', (widgetTester) async {
     when(addInspectionBookingCubit.stream)
-        .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
+        .thenAnswer((_) => Stream.value(BookingInspectionButtonEnable()));
     when(addInspectionBookingCubit.state)
-        .thenAnswer((_) => AddInspectionBookingInitial());
+        .thenAnswer((_) => BookingInspectionButtonEnable());
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
         providers, AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();

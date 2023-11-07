@@ -30,4 +30,34 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
       // TODO: Implement when there is no user
     }
   }
+
+  DateTime? _startTime;
+  DateTime? _inspectionDate;
+  int? _duration;
+  //TODO: remove when handle setting startTime, inspection and duration
+  //   set startTime(DateTime startTime) {
+  //   _startTime = startTime;
+  //   validateBookingInspectionButton();
+  // }
+
+  // set inspectionDate(DateTime inspectionDate){
+  //   _inspectionDate = inspectionDate;
+  //   validateBookingInspectionButton();
+  // }
+
+  // set duration(int duration){
+  //   _duration = duration;
+  //   validateBookingInspectionButton();
+  // }
+
+  void validateBookingInspectionButton() {
+    // Assume startTime and date and duration are entered
+    // TODO: remove manually update startTime, inspectionDate and Duration
+    _startTime = DateTime.now();
+    _inspectionDate = DateTime.now();
+    _duration = 15; 
+    if (_startTime != null && _inspectionDate != null && _duration != null) {
+      emit(BookingInspectionButtonEnable());
+    }
+  }
 }
