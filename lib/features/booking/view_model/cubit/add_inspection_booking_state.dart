@@ -14,7 +14,7 @@ class BookingInspectionSuccess extends AddInspectionBookingState {
   List<Object> get props => [];
 }
 
-class BookingInspectionButtonEnable extends AddInspectionBookingState{
+class BookingInspectionButtonEnable extends AddInspectionBookingState {
   @override
   List<Object> get props => [];
 }

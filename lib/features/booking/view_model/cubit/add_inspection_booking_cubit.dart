@@ -55,7 +55,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     // TODO: remove manually update startTime, inspectionDate and Duration
     _startTime = DateTime.now();
     _inspectionDate = DateTime.now();
-    _duration = 15; 
+    _duration = 15;
     if (_startTime != null && _inspectionDate != null && _duration != null) {
       emit(BookingInspectionButtonEnable());
     }

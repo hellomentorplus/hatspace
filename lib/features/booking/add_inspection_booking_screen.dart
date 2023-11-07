@@ -23,9 +23,10 @@ class AddInspectionBookingScreen extends StatelessWidget {
     // TODO: implement build
     return MultiBlocProvider(providers: [
       BlocProvider<AddInspectionBookingCubit>(
-        // Assume validateButton when first launch widget
-        // Assume start time and duration and date are already entered
-          create: (context) => AddInspectionBookingCubit()..validateBookingInspectionButton()),
+          // Assume validateButton when first launch widget
+          // Assume start time and duration and date are already entered
+          create: (context) =>
+              AddInspectionBookingCubit()..validateBookingInspectionButton()),
       BlocProvider<PropertyDetailCubit>(
           create: (context) => PropertyDetailCubit()..loadDetail(id))
     ], child: AddInspectionBookingBody(id: id));
