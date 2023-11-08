@@ -324,7 +324,6 @@ class HsDropDownButton extends StatelessWidget {
     return SecondaryButton(
       focusNode: focusNode,
       onFocusChange: onFocusChange,
-      // TODO: implement placeholder with enum of preriod
       label: value ?? placeholder ?? HatSpaceStrings.current.pleaseSelectValue,
       labelStyle: value == null ? placeholderStyle : labelStyle,
       iconUrl: icon,

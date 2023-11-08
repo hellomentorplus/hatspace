@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -11,21 +13,19 @@ import 'package:hatspace/theme/widgets/hs_time_picker.dart';
 
 class StartTimeSelectionWidget extends StatelessWidget {
   final ValueNotifier<StartTime?> startTimeNotifer;
-  final ValueNotifier startTimeErrorMessage;
   final FocusNode startTimeFocusNode;
   final List<int> minutesList;
   final List<int> hourList;
   const StartTimeSelectionWidget(
       {required this.startTimeNotifer,
       required this.startTimeFocusNode,
-      required this.startTimeErrorMessage,
       required this.minutesList,
       required this.hourList,
       super.key});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    final ValueNotifier showErrorMessages  = ValueNotifier(false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -38,7 +38,7 @@ class StartTimeSelectionWidget extends StatelessWidget {
                   focusNode: startTimeFocusNode,
                   onFocusChange: (value) {
                     if (startTimeNotifer.value == null) {
-                      startTimeErrorMessage.value = true;
+                      showErrorMessages.value = true;
                     }
                   },
                   value: startTimeNotifer.value == null
@@ -57,25 +57,22 @@ class StartTimeSelectionWidget extends StatelessWidget {
                         ),
                         context: context,
                         builder: (_) {
-                          int? intialMin = startTimeNotifer.value == null
-                              ? 0
-                              : value?.getMinute;
-                          int? intialHour =
-                              startTimeNotifer.value == null ? 9 : value?.hour;
+                          int selectedMin = 0; // selectedMin and selectedHour should match with placeholder value
+                          int selectedHour = 9;
                           return SafeArea(
                               child: SingleChildScrollView(
                             child: Column(
                               children: [
                                 HatSpaceTimePicker(
-                                  initalMinute: intialMin,
-                                  initialHour: intialHour,
+                                  initalMinute: value?.getMinute?? 0, // set initialMinute with value of notifier
+                                  initialHour: value?.getHour ?? 9,
                                   minutesList: minutesList,
                                   hourList: hourList,
                                   selectedMinutes: (minute) {
-                                    intialMin = minute;
+                                    selectedMin = minute;
                                   },
                                   selectedHour: (hour) {
-                                    intialHour = hour;
+                                    selectedHour = hour;
                                   },
                                 ),
                                 const SizedBox(height: HsDimens.spacing16),
@@ -91,10 +88,11 @@ class StartTimeSelectionWidget extends StatelessWidget {
                                     child: PrimaryButton(
                                       label: HatSpaceStrings.current.save,
                                       onPressed: () {
-                                        startTimeErrorMessage.value = false;
+                                        showErrorMessages.value = false;
                                         startTimeNotifer.value = StartTime(
-                                            hour: intialHour!,
-                                            minute: intialMin!);
+                                            hour: selectedHour,
+                                            minute: selectedMin);
+                                        context.read<AddInspectionBookingCubit>().startTime = startTimeNotifer.value!;
                                         context.pop();
                                       },
                                     ))
@@ -105,7 +103,7 @@ class StartTimeSelectionWidget extends StatelessWidget {
                   });
             }),
         ValueListenableBuilder(
-            valueListenable: startTimeErrorMessage,
+            valueListenable: showErrorMessages,
             builder: (context, value, child) {
               if (value == true) {
                 return Padding(

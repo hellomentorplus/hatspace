@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -29,5 +30,17 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     } on UserNotFoundException catch (_) {
       // TODO: Implement when there is no user
     }
+  }
+ StartTime? _startTime;
+  // DateTime? _inspectionDate;
+  // int? _duration;
+
+  set startTime (StartTime startTime){
+    print(_startTime?.hour);
+    _startTime = startTime;
+  }
+
+ StartTime? getstartTime() {
+    return _startTime;
   }
 }

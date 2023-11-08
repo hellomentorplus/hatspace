@@ -1858,6 +1858,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Select start time`
+  String get selectStartTimeError {
+    return Intl.message(
+      'Select start time',
+      name: 'selectStartTimeError',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No booking`
   String get noBooking {
     return Intl.message(
@@ -1903,16 +1913,6 @@ class HatSpaceStrings {
     return Intl.message(
       'Duration',
       name: 'duration',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Select start time`
-  String get selectStartTimeError {
-    return Intl.message(
-      'Select start time',
-      name: 'selectStartTimeError',
       desc: '',
       args: [],
     );

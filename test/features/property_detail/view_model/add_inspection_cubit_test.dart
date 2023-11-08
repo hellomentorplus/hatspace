@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
 import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_cubit.dart';
 import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_state.dart';
@@ -199,4 +200,23 @@ void main() async {
       },
       act: (bloc) => bloc.addTenantRole(),
       expect: () => [isA<AddTenantRoleFail>()]);
+
+
+  blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
+      'Given user add start time'
+      'Then verify set start time',
+      build: () => AddInspectionBookingCubit(),
+      setUp: () {
+        when(authenticationServiceMock.getCurrentUser())
+            .thenAnswer((realInvocation) {
+          return Future.value(UserDetail(uid: 'uid'));
+        });
+        when(mockMemberService.getUserRoles('uid'))
+            .thenAnswer((realInvocation) {
+          return Future.value([Roles.tenant, Roles.homeowner]);
+        });
+      },
+      act: (bloc) => bloc.startTime = const StartTime(hour: 9, minute: 0),
+      verify: (bloc) => bloc.startTime =const StartTime(hour: 9, minute: 0) ,
+      );
 }

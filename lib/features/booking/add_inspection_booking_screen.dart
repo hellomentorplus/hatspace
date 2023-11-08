@@ -40,6 +40,8 @@ class AddInspectionBookingBody extends StatelessWidget {
   final maxChar = 400;
   final ValueNotifier<StartTime?> startTime = ValueNotifier(null);
   final ValueNotifier<bool> startTimeErrorNotifier = ValueNotifier(false);
+
+  // To generate list of number for time picker
   List<int> generateNumbersList(int start, int end) {
     List<int> numbersList = [];
     for (int i = start; i <= end; i++) {
@@ -47,8 +49,6 @@ class AddInspectionBookingBody extends StatelessWidget {
     }
     return numbersList;
   }
-
-  void showStartTimeModal() {}
 
   @override
   Widget build(BuildContext context) {
@@ -158,18 +158,13 @@ class AddInspectionBookingBody extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            StartTimeSelectionWidget(
-                              hourList: hourList,
-                              minutesList: minutesList,
-                              startTimeFocusNode: startTimeFocus,
-                              startTimeNotifer: startTime,
-                              startTimeErrorMessage: startTimeErrorNotifier,
-                            ),
-                          ],
-                        )),
+                          child:  StartTimeSelectionWidget(
+                            hourList: hourList,
+                            minutesList: minutesList,
+                            startTimeFocusNode: startTimeFocus,
+                            startTimeNotifer: startTime,
+                          ),
+                        ),
                         const SizedBox(width: HsDimens.spacing15),
                         Expanded(
                             child: Column(
