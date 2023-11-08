@@ -8,7 +8,6 @@ import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/booking/add_inspection_booking_screen.dart';
 import 'package:hatspace/features/booking/add_inspection_success_booking_screen.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
-import 'package:hatspace/features/booking/widgets/start_time_selection_widget.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
@@ -220,11 +219,12 @@ void main() async {
       expect(find.byType(HatSpaceTimePicker), findsOneWidget);
     });
 
-    testWidgets('Given user is has not select start time'
-    'when user tap on duration'
-    'Then show error below Start time drop down menu'
-    , (widgetTester) async {
-            when(addInspectionBookingCubit.stream)
+    testWidgets(
+        'Given user is has not select start time'
+        'when user tap on duration'
+        'Then show error below Start time drop down menu',
+        (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
           .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => AddInspectionBookingInitial());
@@ -239,7 +239,7 @@ void main() async {
       await widgetTester.pumpAndSettle();
       //Error show when start time has not been selected
       expect(find.text('Select start time'), findsOneWidget);
-    }); 
+    });
   });
 
   testWidgets(

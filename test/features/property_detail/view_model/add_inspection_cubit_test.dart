@@ -201,22 +201,20 @@ void main() async {
       act: (bloc) => bloc.addTenantRole(),
       expect: () => [isA<AddTenantRoleFail>()]);
 
-
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
-      'Given user add start time'
-      'Then verify set start time',
-      build: () => AddInspectionBookingCubit(),
-      setUp: () {
-        when(authenticationServiceMock.getCurrentUser())
-            .thenAnswer((realInvocation) {
-          return Future.value(UserDetail(uid: 'uid'));
-        });
-        when(mockMemberService.getUserRoles('uid'))
-            .thenAnswer((realInvocation) {
-          return Future.value([Roles.tenant, Roles.homeowner]);
-        });
-      },
-      act: (bloc) => bloc.startTime = const StartTime(hour: 9, minute: 0),
-      verify: (bloc) => bloc.startTime =const StartTime(hour: 9, minute: 0) ,
-      );
+    'Given user add start time'
+    'Then verify set start time',
+    build: () => AddInspectionBookingCubit(),
+    setUp: () {
+      when(authenticationServiceMock.getCurrentUser())
+          .thenAnswer((realInvocation) {
+        return Future.value(UserDetail(uid: 'uid'));
+      });
+      when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) {
+        return Future.value([Roles.tenant, Roles.homeowner]);
+      });
+    },
+    act: (bloc) => bloc.startTime = const StartTime(hour: 9, minute: 0),
+    verify: (bloc) => bloc.startTime = const StartTime(hour: 9, minute: 0),
+  );
 }

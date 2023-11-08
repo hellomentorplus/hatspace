@@ -25,7 +25,7 @@ class StartTimeSelectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier showErrorMessages  = ValueNotifier(false);
+    final ValueNotifier showErrorMessages = ValueNotifier(false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -57,14 +57,16 @@ class StartTimeSelectionWidget extends StatelessWidget {
                         ),
                         context: context,
                         builder: (_) {
-                          int selectedMin = 0; // selectedMin and selectedHour should match with placeholder value
+                          int selectedMin =
+                              0; // selectedMin and selectedHour should match with placeholder value
                           int selectedHour = 9;
                           return SafeArea(
                               child: SingleChildScrollView(
                             child: Column(
                               children: [
                                 HatSpaceTimePicker(
-                                  initalMinute: value?.getMinute?? 0, // set initialMinute with value of notifier
+                                  initalMinute: value?.getMinute ??
+                                      0, // set initialMinute with value of notifier
                                   initialHour: value?.getHour ?? 9,
                                   minutesList: minutesList,
                                   hourList: hourList,
@@ -92,7 +94,9 @@ class StartTimeSelectionWidget extends StatelessWidget {
                                         startTimeNotifer.value = StartTime(
                                             hour: selectedHour,
                                             minute: selectedMin);
-                                        context.read<AddInspectionBookingCubit>().startTime = startTimeNotifer.value!;
+                                        context
+                                            .read<AddInspectionBookingCubit>()
+                                            .startTime = startTimeNotifer.value!;
                                         context.pop();
                                       },
                                     ))

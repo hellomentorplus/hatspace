@@ -158,7 +158,7 @@ class AddInspectionBookingBody extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child:  StartTimeSelectionWidget(
+                          child: StartTimeSelectionWidget(
                             hourList: hourList,
                             minutesList: minutesList,
                             startTimeFocusNode: startTimeFocus,

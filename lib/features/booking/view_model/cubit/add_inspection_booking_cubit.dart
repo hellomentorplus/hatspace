@@ -31,16 +31,16 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
       // TODO: Implement when there is no user
     }
   }
- StartTime? _startTime;
+
+  StartTime? _startTime;
   // DateTime? _inspectionDate;
   // int? _duration;
 
-  set startTime (StartTime startTime){
-    print(_startTime?.hour);
+  set startTime(StartTime startTime) {
     _startTime = startTime;
   }
 
- StartTime? getstartTime() {
+  StartTime? getstartTime() {
     return _startTime;
   }
 }
