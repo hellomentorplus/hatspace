@@ -106,19 +106,18 @@ class StartTimeSelectionWidget extends StatelessWidget {
                         });
                   });
             }),
-        ValueListenableBuilder(
-            valueListenable: showErrorMessages,
-            builder: (context, value, child) {
-              if (value == true) {
-                return Padding(
-                    padding: const EdgeInsets.only(top: HsDimens.spacing8),
-                    child: Text(
-                      HatSpaceStrings.current.selectStartTimeError,
-                      style: errorTextStyle,
-                    ));
-              }
-              return const SizedBox.shrink();
-            })
+        BlocBuilder<AddInspectionBookingCubit, AddInspectionBookingState>(
+            builder: (context, state) {
+          if (state is RequestStartTimeSelection) {
+            return Padding(
+                padding: const EdgeInsets.only(top: HsDimens.spacing8),
+                child: Text(
+                  HatSpaceStrings.current.selectStartTimeError,
+                  style: errorTextStyle,
+                ));
+          }
+          return const SizedBox.shrink();
+        }),
       ],
     );
   }
