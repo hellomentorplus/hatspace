@@ -39,7 +39,6 @@ class AddInspectionBookingBody extends StatelessWidget {
   final ValueNotifier<int> noteChars = ValueNotifier(0);
   final maxChar = 400;
   final ValueNotifier<StartTime?> startTime = ValueNotifier(null);
-  final ValueNotifier<bool> startTimeErrorNotifier = ValueNotifier(false);
 
   // To generate list of number for time picker
   List<int> generateNumbersList(int start, int end) {
@@ -52,7 +51,6 @@ class AddInspectionBookingBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FocusNode startTimeFocus = FocusNode();
     final minutesList = generateNumbersList(0, 59);
     final hourList = generateNumbersList(7, 19);
     return BlocListener<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -169,7 +167,6 @@ class AddInspectionBookingBody extends StatelessWidget {
                           child: StartTimeSelectionWidget(
                             hourList: hourList,
                             minutesList: minutesList,
-                            startTimeFocusNode: startTimeFocus,
                             startTimeNotifer: startTime,
                           ),
                         ),
@@ -188,8 +185,9 @@ class AddInspectionBookingBody extends StatelessWidget {
                                 placeholderStyle: placeholderStyle,
                                 icon: Assets.icons.chervonDown,
                                 onPressed: () {
-                                  //Check StartTime value to show error
-                                  startTimeFocus.requestFocus();
+                                  //Note: Only for this story's scope
+                                  // TODO: Change it in story 395
+                                  context.read<AddInspectionBookingCubit>().duration = 15;
                                 })
                           ],
                         ))
