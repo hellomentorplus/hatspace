@@ -202,8 +202,7 @@ void main() async {
       expect: () => [isA<AddTenantRoleFail>()]);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
-    'Given user add start time'
-    'Then verify set start time',
+    'Given start time has not been entered',
     build: () => AddInspectionBookingCubit(),
     setUp: () {
       when(authenticationServiceMock.getCurrentUser())
@@ -214,7 +213,28 @@ void main() async {
         return Future.value([Roles.tenant, Roles.homeowner]);
       });
     },
-    act: (bloc) => bloc.startTime = const StartTime(hour: 9, minute: 0),
-    verify: (bloc) => bloc.startTime = const StartTime(hour: 9, minute: 0),
+    act: (bloc) => bloc.startTime = null,
+    expect: () => [],
+  );
+
+  blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
+    'Given user start time and duration already selected'
+    'When validate booking button'
+    'Then emit BookInspectionEnable',
+    build: () => AddInspectionBookingCubit(),
+    setUp: () {
+      when(authenticationServiceMock.getCurrentUser())
+          .thenAnswer((realInvocation) {
+        return Future.value(UserDetail(uid: 'uid'));
+      });
+      when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) {
+        return Future.value([Roles.tenant, Roles.homeowner]);
+      });
+    },
+    act: (bloc) {
+      bloc.startTime = const StartTime(hour: 9, minute: 0);
+      bloc.validateBookingInspectionButton();
+    },
+    expect: () => [isA<BookInspectionButtonEnable>()],
   );
 }

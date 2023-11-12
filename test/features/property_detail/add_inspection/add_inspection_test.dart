@@ -140,13 +140,14 @@ void main() async {
   });
 
   testWidgets(
-      'Given user is in AddInspectionBookingScreen. '
-      'When user tap on booking button. '
+      'Given user is in AddInspectionBookingScreen.'
+      'Given Book Inspection Enabled'
+      'When user tap on booking button.'
       'Then user will start booking process.', (widgetTester) async {
     when(addInspectionBookingCubit.stream)
-        .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
+        .thenAnswer((_) => Stream.value(BookInspectionButtonEnable()));
     when(addInspectionBookingCubit.state)
-        .thenAnswer((_) => AddInspectionBookingInitial());
+        .thenAnswer((_) => BookInspectionButtonEnable());
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
         providers, AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
@@ -164,6 +165,26 @@ void main() async {
     verify(addInspectionBookingCubit.onBookInspection()).called(1);
   });
 
+  testWidgets(
+      'Given user is in AddInspectionBookingScreen.'
+      'Given start time and duration has not been selected'
+      'Then Book Inspection Button is DISABLE', (widgetTester) async {
+    when(addInspectionBookingCubit.stream)
+        .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
+    when(addInspectionBookingCubit.state)
+        .thenAnswer((_) => AddInspectionBookingInitial());
+    await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+        providers, AddInspectionBookingBody(id: 'id')));
+    await widgetTester.pumpAndSettle();
+
+    expect(find.byType(AddInspectionBookingBody), findsOneWidget);
+
+    final Finder bookingBtnFinder =
+        find.widgetWithText(PrimaryButton, 'Book Inspection');
+    PrimaryButton bookingBtn = widgetTester.widget(bookingBtnFinder);
+    expect(bookingBtn.onPressed, null);
+    expect(bookingBtn.style?.backgroundColor, null);
+  });
   testWidgets(
       'Given user is in AddInspectionBookingScreen. '
       'When user tap on the date picker. '
@@ -202,7 +223,6 @@ void main() async {
           .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => AddInspectionBookingInitial());
-
       await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
           providers, AddInspectionBookingBody(id: 'id'))));
       await widgetTester.pumpAndSettle();
