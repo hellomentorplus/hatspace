@@ -242,12 +242,12 @@ void main() async {
     testWidgets(
         'Given user is has not select start time'
         'when user tap on duration'
-        'Then show error below Start time drop down menu',
-        (widgetTester) async {
+        'Then show error below Start time', (widgetTester) async {
       when(addInspectionBookingCubit.stream)
-          .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
+          .thenAnswer((_) => Stream.value(RequestStartTimeSelection()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => AddInspectionBookingInitial());
+      when(addInspectionBookingCubit.duration).thenReturn(5);
 
       await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
           providers, AddInspectionBookingBody(id: 'id'))));

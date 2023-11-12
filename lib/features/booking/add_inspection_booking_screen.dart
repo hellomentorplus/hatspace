@@ -187,7 +187,9 @@ class AddInspectionBookingBody extends StatelessWidget {
                                 onPressed: () {
                                   //Note: Only for this story's scope
                                   // TODO: Change it in story 395
-                                  context.read<AddInspectionBookingCubit>().duration = 15;
+                                  context
+                                      .read<AddInspectionBookingCubit>()
+                                      .duration = 15;
                                 })
                           ],
                         ))

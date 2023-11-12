@@ -19,7 +19,7 @@ class BookInspectionButtonEnable extends AddInspectionBookingState {
   List<Object> get props => [];
 }
 
-class RequestStartTimeSelection extends AddInspectionBookingState{
-    @override
+class RequestStartTimeSelection extends AddInspectionBookingState {
+  @override
   List<Object> get props => [];
 }
