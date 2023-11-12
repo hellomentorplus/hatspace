@@ -5,6 +5,7 @@ import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
+import 'package:hatspace/features/booking/widgets/duration_selection_widget.dart';
 import 'package:hatspace/features/booking/widgets/start_time_selection_widget.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
@@ -40,6 +41,7 @@ class AddInspectionBookingBody extends StatelessWidget {
   final maxChar = 400;
   final ValueNotifier<StartTime?> startTime = ValueNotifier(null);
   final ValueNotifier<bool> startTimeErrorNotifier = ValueNotifier(false);
+  final ValueNotifier<int?> durationNotifier = ValueNotifier(null);
 
   // To generate list of number for time picker
   List<int> generateNumbersList(int start, int end) {
@@ -175,24 +177,8 @@ class AddInspectionBookingBody extends StatelessWidget {
                         ),
                         const SizedBox(width: HsDimens.spacing15),
                         Expanded(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            HsLabel(
-                                label: HatSpaceStrings.current.duration,
-                                isRequired: true),
-                            const SizedBox(height: HsDimens.spacing4),
-                            HsDropDownButton(
-                                value: null,
-                                placeholder: '15 mins',
-                                placeholderStyle: placeholderStyle,
-                                icon: Assets.icons.chervonDown,
-                                onPressed: () {
-                                  //Check StartTime value to show error
-                                  startTimeFocus.requestFocus();
-                                })
-                          ],
-                        ))
+                            child: DurationSelectionWidget(
+                                durationNotifer: durationNotifier))
                       ],
                     ),
                     const SizedBox(
