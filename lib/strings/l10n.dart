@@ -1917,6 +1917,16 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Mins`
+  String get minuteShort {
+    return Intl.message(
+      'Mins',
+      name: 'minuteShort',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

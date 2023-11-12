@@ -228,5 +228,6 @@
   "addTenantRoleBottomSheetTitle": "Add Tenant role",
   "addTenantRoleBottomSheetDescription": "Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?",
   "addTenantRole":"Add Tenant Role",
-  "duration":"Duration"
+  "duration":"Duration",
+  "minuteShort":"Mins"
 }

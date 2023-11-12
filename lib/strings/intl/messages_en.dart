@@ -238,6 +238,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "maximumChars": m6,
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
+        "minuteShort": MessageLookupByLibrary.simpleMessage("Mins"),
         "myAccount": MessageLookupByLibrary.simpleMessage("My account"),
         "myProfile": MessageLookupByLibrary.simpleMessage("My Profile"),
         "myProperties": MessageLookupByLibrary.simpleMessage("My properties"),
