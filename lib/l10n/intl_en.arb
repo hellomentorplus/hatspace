@@ -13,8 +13,8 @@
   "alreadyHaveAccount": "Already have account ?",
   "chooseUserRole": "Choose your role",
   "chooseUserRoleDescription": "You can be a tenant or homeowner or both",
-  "userTitleRoles": "{role,select,tenant{Tenant} homeowner{Homeowner} other{}}",
-  "userRoleDescription": "{description, select, tenant{You can explore properties, connect directly to homeowners, upload your rental application.} homeowner{You can upload and manage your properties, shortlist potential tenants, track the leasing process.} other{}}",
+  "userTitleRoles": "{role,select,tenant{Tenant} homeowner{Homeowner} other{ }}",
+  "userRoleDescription": "{description, select, tenant{You can explore properties, connect directly to homeowners, upload your rental application.} homeowner{You can upload and manage your properties, shortlist potential tenants, track the leasing process.} other{ }}",
   "continueBtn": "Continue",
   "cancelBtn": "Cancel",
   "homePageViewTitle": "Home Page",
@@ -222,6 +222,12 @@
       }
     }
   },
+  "applicationContactNumber":"0413856056",
+  "applicationEmail":"Hello@the-hat.life",
+  "applicationSubject":"Application for rental",
+  "addTenantRoleBottomSheetTitle": "Add Tenant role",
+  "addTenantRoleBottomSheetDescription": "Homeowner can not use this feature. Would you like to add the role Homeowner to the list of roles?",
+  "addTenantRole":"Add Tenant Role",
   "successAddingPropertyMessage":"You have successfully added your new property!",
   "noBooking": "No booking",
   "addTenantRoleBottomSheetTitle": "Add Tenant role",
