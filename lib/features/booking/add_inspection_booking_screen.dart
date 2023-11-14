@@ -37,6 +37,7 @@ class AddInspectionBookingBody extends StatelessWidget {
   AddInspectionBookingBody({required this.id, Key? key}) : super(key: key);
   final ValueNotifier<DateTime> _selectedDate = ValueNotifier(DateTime.now());
   final ValueNotifier<int> noteChars = ValueNotifier(0);
+  final FocusNode _durationSelectionNode = FocusNode();
   final maxChar = 400;
   final ValueNotifier<StartTime?> startTime = ValueNotifier(null);
 
@@ -189,7 +190,7 @@ class AddInspectionBookingBody extends StatelessWidget {
                                   // TODO: Change it in story 395
                                   context
                                       .read<AddInspectionBookingCubit>()
-                                      .duration = 15;
+                                      .validateBookingInspectionButton();
                                 })
                           ],
                         ))

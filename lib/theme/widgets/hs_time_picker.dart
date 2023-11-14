@@ -60,7 +60,7 @@ class HatSpaceTimePicker extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                width: HsDimens.spacing27,
+                width: HsDimens.spacing24 + 3,
               ),
               Expanded(
                 child: SizedBox(

@@ -236,7 +236,7 @@ void main() async {
       bloc.duration = 15;
       bloc.validateBookingInspectionButton();
     },
-    expect: () => [isA<BookInspectionButtonEnable>()],
+    expect: () => [isA<CloseStartTimeRequestMessage>(),isA<BookInspectionButtonEnable>()],
   );
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
