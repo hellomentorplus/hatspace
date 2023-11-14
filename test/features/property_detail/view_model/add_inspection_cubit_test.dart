@@ -214,7 +214,7 @@ void main() async {
       });
     },
     act: (bloc) => bloc.startTime = null,
-    expect: () => [],
+    expect: () => [isA<RequestStartTimeSelection>()],
   );
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -236,7 +236,10 @@ void main() async {
       bloc.duration = 15;
       bloc.validateBookingInspectionButton();
     },
-    expect: () => [isA<CloseStartTimeRequestMessage>(),isA<BookInspectionButtonEnable>()],
+    expect: () => [
+      isA<CloseStartTimeRequestMessage>(),
+      isA<BookInspectionButtonEnable>()
+    ],
   );
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
