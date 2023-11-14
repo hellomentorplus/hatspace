@@ -9,7 +9,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>HATspace would like to Photo Access.</string>
+    <string>HATspace would like to access photos in order to load photos for property listing and profile.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

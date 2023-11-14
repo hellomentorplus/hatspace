@@ -180,14 +180,14 @@ class HatSpaceStrings {
     );
   }
 
-  /// `{role,select,tenant{Tenant} homeowner{Homeowner} other{}}`
+  /// `{role,select,tenant{Tenant} homeowner{Homeowner} other{ }}`
   String userTitleRoles(Object role) {
     return Intl.select(
       role,
       {
         'tenant': 'Tenant',
         'homeowner': 'Homeowner',
-        'other': '',
+        'other': ' ',
       },
       name: 'userTitleRoles',
       desc: '',
@@ -195,7 +195,7 @@ class HatSpaceStrings {
     );
   }
 
-  /// `{description, select, tenant{You can explore properties, connect directly to homeowners, upload your rental application.} homeowner{You can upload and manage your properties, shortlist potential tenants, track the leasing process.} other{}}`
+  /// `{description, select, tenant{You can explore properties, connect directly to homeowners, upload your rental application.} homeowner{You can upload and manage your properties, shortlist potential tenants, track the leasing process.} other{ }}`
   String userRoleDescription(Object description) {
     return Intl.select(
       description,
@@ -204,7 +204,7 @@ class HatSpaceStrings {
             'You can explore properties, connect directly to homeowners, upload your rental application.',
         'homeowner':
             'You can upload and manage your properties, shortlist potential tenants, track the leasing process.',
-        'other': '',
+        'other': ' ',
       },
       name: 'userRoleDescription',
       desc: '',
@@ -1848,11 +1848,11 @@ class HatSpaceStrings {
     );
   }
 
-  /// `You have successfully added your new property!`
-  String get successAddingPropertyMessage {
+  /// `0413856056`
+  String get applicationContactNumber {
     return Intl.message(
-      'You have successfully added your new property!',
-      name: 'successAddingPropertyMessage',
+      '0413856056',
+      name: 'applicationContactNumber',
       desc: '',
       args: [],
     );
@@ -1868,11 +1868,21 @@ class HatSpaceStrings {
     );
   }
 
-  /// `No booking`
-  String get noBooking {
+  /// `Hello@the-hat.life`
+  String get applicationEmail {
     return Intl.message(
-      'No booking',
-      name: 'noBooking',
+      'Hello@the-hat.life',
+      name: 'applicationEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Application for rental`
+  String get applicationSubject {
+    return Intl.message(
+      'Application for rental',
+      name: 'applicationSubject',
       desc: '',
       args: [],
     );
@@ -1903,6 +1913,26 @@ class HatSpaceStrings {
     return Intl.message(
       'Add Tenant Role',
       name: 'addTenantRole',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have successfully added your new property!`
+  String get successAddingPropertyMessage {
+    return Intl.message(
+      'You have successfully added your new property!',
+      name: 'successAddingPropertyMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No booking`
+  String get noBooking {
+    return Intl.message(
+      'No booking',
+      name: 'noBooking',
       desc: '',
       args: [],
     );

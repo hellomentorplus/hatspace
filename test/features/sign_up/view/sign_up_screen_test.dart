@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/sign_up/view/sign_up_screen.dart';
 import 'package:hatspace/features/sign_up/view_model/apple_signin_cubit.dart';
 import 'package:hatspace/features/sign_up/view_model/sign_up_bloc.dart';
-import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
@@ -16,6 +14,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../find_extension.dart';
 import '../../../widget_tester_extension.dart';
 import '../../add_property/view/widgets/add_rooms_view_test.dart';
 import 'sign_up_screen_test.mocks.dart';
@@ -100,26 +99,7 @@ void main() {
         findsOneWidget);
 
     // Look for app logo
-    expect(find.byWidgetPredicate((widget) {
-      if (widget is! SvgPicture) {
-        return false;
-      }
-
-      final SvgPicture svgPicture = widget;
-      final BytesLoader bytesLoader = svgPicture.bytesLoader;
-
-      if (bytesLoader is! SvgAssetLoader) {
-        return false;
-      }
-
-      final SvgAssetLoader svgAssetLoader = bytesLoader;
-
-      if (svgAssetLoader.assetName != Assets.images.logo) {
-        return false;
-      }
-
-      return true;
-    }), findsOneWidget);
+    expect(find.svgPictureWithAssets('assets/images/logo.svg'), findsOneWidget);
 
     expect(
         find.ancestor(
