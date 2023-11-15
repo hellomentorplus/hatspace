@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/booking/add_inspection_booking_screen.dart';
 import 'package:hatspace/features/booking/add_inspection_success_booking_screen.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
+import 'package:hatspace/features/booking/widgets/duration_selection_widget.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
@@ -148,6 +150,7 @@ void main() async {
         .thenAnswer((_) => Stream.value(BookInspectionButtonEnable()));
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => BookInspectionButtonEnable());
+    when(addInspectionBookingCubit.duration).thenReturn(15);
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
         providers, AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
@@ -173,6 +176,7 @@ void main() async {
         .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => AddInspectionBookingInitial());
+    when(addInspectionBookingCubit.duration).thenReturn(null);
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
         providers, AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
@@ -193,6 +197,7 @@ void main() async {
         .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => AddInspectionBookingInitial());
+    when(addInspectionBookingCubit.duration).thenReturn(null);
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
         providers, AddInspectionBookingBody(id: 'id')));
@@ -223,6 +228,7 @@ void main() async {
           .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => AddInspectionBookingInitial());
+      when(addInspectionBookingCubit.duration).thenReturn(null);
       await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
           providers, AddInspectionBookingBody(id: 'id'))));
       await widgetTester.pumpAndSettle();
@@ -247,7 +253,7 @@ void main() async {
           .thenAnswer((_) => Stream.value(RequestStartTimeSelection()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => AddInspectionBookingInitial());
-      when(addInspectionBookingCubit.duration).thenReturn(5);
+      when(addInspectionBookingCubit.duration).thenReturn(15);
 
       await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
           providers, AddInspectionBookingBody(id: 'id'))));
@@ -259,6 +265,31 @@ void main() async {
       await widgetTester.pumpAndSettle();
       //Error show when start time has not been selected
       expect(find.text('Select start time'), findsOneWidget);
+    });
+  });
+
+  group('Add inspection set duration group',(){
+  testWidgets(
+        'Given user already selected start time'
+        'when user tap on duration'
+        'Then show select duration bottom sheet', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => AddInspectionBookingInitial());
+      when(addInspectionBookingCubit.duration).thenReturn(15);
+      when(addInspectionBookingCubit.startTime).thenReturn(const StartTime(hour: 10, minute: 5));
+
+      await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
+          providers, AddInspectionBookingBody(id: 'id'))));
+      await widgetTester.pumpAndSettle();
+      Finder durationBtn = find.widgetWithText(SecondaryButton, '15 mins');
+      expect(durationBtn, findsOneWidget);
+      await widgetTester.ensureVisible(durationBtn);
+      await widgetTester.tap(durationBtn);
+      await widgetTester.pumpAndSettle();
+      //Error show when start time has not been selected
+      expect(find.byType(DurationSelectionWidget), findsOneWidget);
     });
   });
 
