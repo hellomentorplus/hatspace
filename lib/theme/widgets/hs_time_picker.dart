@@ -10,7 +10,7 @@ class HatSpaceTimePicker extends StatelessWidget {
   final ValueChanged<int> selectedHour;
   final int initalMinute;
   final int initialHour;
-  const HatSpaceTimePicker(
+  HatSpaceTimePicker(
       {required this.minutesList,
       required this.hourList,
       required this.selectedMinutes,
@@ -20,9 +20,12 @@ class HatSpaceTimePicker extends StatelessWidget {
       super.key})
       : initalMinute = initalMinute ?? 0,
         initialHour = initialHour ?? 0;
-
+  ValueNotifier<int> selectedHourNotifer = ValueNotifier(0);
+  ValueNotifier<int> selectedMinutesNotifer = ValueNotifier(0);
   @override
   Widget build(BuildContext context) {
+    selectedHourNotifer.value = initialHour;
+    selectedMinutesNotifer.value = initalMinute;
     return Container(
       padding: const EdgeInsets.only(
           left: HsDimens.spacing155,
@@ -34,30 +37,35 @@ class HatSpaceTimePicker extends StatelessWidget {
             children: [
               Expanded(
                 child: SizedBox(
-                  height: HsDimens.spacing195,
-                  child: CupertinoPicker(
-                    diameterRatio: 5.0,
-                    selectionOverlay:
-                        const CupertinoPickerDefaultSelectionOverlay(
-                      background: Colors.transparent,
-                    ),
-                    magnification: 1.5,
-                    squeeze: 1,
-                    useMagnifier: true,
-                    itemExtent: 32,
-                    scrollController: FixedExtentScrollController(
-                        initialItem: hourList.indexOf(initialHour)),
-                    onSelectedItemChanged: (int selectedItem) {
-                      selectedHour(hourList[selectedItem]);
-                    },
-                    children:
-                        List<Widget>.generate(hourList.length, (int index) {
-                      return Center(
-                          child: Text(hourList[index].toString(),
-                              style: timePickerStyle));
-                    }),
-                  ),
-                ),
+                    height: HsDimens.spacing195,
+                    child: ListWheelScrollView(
+                        controller: FixedExtentScrollController(
+                            initialItem: hourList.indexOf(initialHour)),
+                        useMagnifier: true,
+                        itemExtent: 32,
+                        diameterRatio: 5.0,
+                        magnification: 1.5,
+                        squeeze: 1,
+                        physics: const FixedExtentScrollPhysics(),
+                        onSelectedItemChanged: (int selectedItem) {
+                          selectedHourNotifer.value = hourList[selectedItem];
+                          selectedHour(hourList[selectedItem]);
+                        },
+                        children:
+                            List<Widget>.generate(hourList.length, (int index) {
+                          return ValueListenableBuilder(
+                              valueListenable: selectedHourNotifer,
+                              builder: (context, value, state) {
+                                return Center(
+                                  // style of unselected items different from selected item
+                                  child: Text(hourList[index].toString(),
+                                      style: value == hourList[index]
+                                          ? timePickerStyle
+                                          : timePickerStyle.copyWith(
+                                              color: HSColor.neutral5)),
+                                );
+                              });
+                        }))),
               ),
               const SizedBox(
                 width: HsDimens.spacing24 + 3,
@@ -65,31 +73,36 @@ class HatSpaceTimePicker extends StatelessWidget {
               Expanded(
                 child: SizedBox(
                   height: 195,
-                  child: CupertinoPicker(
-                    diameterRatio: 4.0,
-                    selectionOverlay:
-                        const CupertinoPickerDefaultSelectionOverlay(
-                      background: Colors.transparent,
-                    ),
-                    magnification: 1.5,
-                    squeeze: 1,
-                    useMagnifier: true,
-                    itemExtent: 32,
-                    scrollController: FixedExtentScrollController(
-                      initialItem: minutesList.indexOf(initalMinute),
-                    ),
-                    onSelectedItemChanged: (int selectedItem) {
-                      selectedMinutes(minutesList[selectedItem]);
-                    },
-                    children:
-                        List<Widget>.generate(minutesList.length, (int index) {
-                      return Center(
-                          child: Text(
-                        minutesList[index].toString(),
-                        style: timePickerStyle,
-                      ));
-                    }),
-                  ),
+                  child: ListWheelScrollView(
+                      diameterRatio: 4.0,
+                      magnification: 1.5,
+                      squeeze: 1,
+                      useMagnifier: true,
+                      itemExtent: 32,
+                      physics: const FixedExtentScrollPhysics(),
+                      controller: FixedExtentScrollController(
+                        initialItem: minutesList.indexOf(initalMinute),
+                      ),
+                      onSelectedItemChanged: (int selectedItem) {
+                        selectedMinutesNotifer.value =
+                            minutesList[selectedItem];
+                        selectedMinutes(minutesList[selectedItem]);
+                      },
+                      children: List<Widget>.generate(minutesList.length,
+                          (int index) {
+                        return ValueListenableBuilder(
+                            valueListenable: selectedMinutesNotifer,
+                            builder: (context, value, state) {
+                              return Center(
+                                // style of unselected items different from selected item
+                                child: Text(minutesList[index].toString(),
+                                    style: value == minutesList[index]
+                                        ? timePickerStyle
+                                        : timePickerStyle.copyWith(
+                                            color: HSColor.neutral5)),
+                              );
+                            });
+                      })),
                 ),
               )
             ],
