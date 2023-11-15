@@ -10,7 +10,7 @@ class HatSpaceTimePicker extends StatelessWidget {
   final ValueChanged<int> selectedHour;
   final int initalMinute;
   final int initialHour;
-  HatSpaceTimePicker(
+  const HatSpaceTimePicker(
       {required this.minutesList,
       required this.hourList,
       required this.selectedMinutes,
@@ -20,12 +20,9 @@ class HatSpaceTimePicker extends StatelessWidget {
       super.key})
       : initalMinute = initalMinute ?? 0,
         initialHour = initialHour ?? 0;
-  ValueNotifier<int> selectedHourNotifer = ValueNotifier(0);
-  ValueNotifier<int> selectedMinutesNotifer = ValueNotifier(0);
+
   @override
   Widget build(BuildContext context) {
-    selectedHourNotifer.value = initialHour;
-    selectedMinutesNotifer.value = initalMinute;
     return Container(
       padding: const EdgeInsets.only(
           left: HsDimens.spacing155,
@@ -42,29 +39,21 @@ class HatSpaceTimePicker extends StatelessWidget {
                         controller: FixedExtentScrollController(
                             initialItem: hourList.indexOf(initialHour)),
                         useMagnifier: true,
+                        overAndUnderCenterOpacity: 0.5,
                         itemExtent: 32,
                         diameterRatio: 5.0,
                         magnification: 1.5,
                         squeeze: 1,
                         physics: const FixedExtentScrollPhysics(),
                         onSelectedItemChanged: (int selectedItem) {
-                          selectedHourNotifer.value = hourList[selectedItem];
                           selectedHour(hourList[selectedItem]);
                         },
                         children:
                             List<Widget>.generate(hourList.length, (int index) {
-                          return ValueListenableBuilder(
-                              valueListenable: selectedHourNotifer,
-                              builder: (context, value, state) {
-                                return Center(
-                                  // style of unselected items different from selected item
-                                  child: Text(hourList[index].toString(),
-                                      style: value == hourList[index]
-                                          ? timePickerStyle
-                                          : timePickerStyle.copyWith(
-                                              color: HSColor.neutral5)),
-                                );
-                              });
+                          return Center(
+                            child: Text(hourList[index].toString(),
+                                style: timePickerStyle),
+                          );
                         }))),
               ),
               const SizedBox(
@@ -74,35 +63,28 @@ class HatSpaceTimePicker extends StatelessWidget {
                 child: SizedBox(
                   height: 195,
                   child: ListWheelScrollView(
-                      diameterRatio: 4.0,
-                      magnification: 1.5,
-                      squeeze: 1,
-                      useMagnifier: true,
-                      itemExtent: 32,
-                      physics: const FixedExtentScrollPhysics(),
-                      controller: FixedExtentScrollController(
-                        initialItem: minutesList.indexOf(initalMinute),
-                      ),
-                      onSelectedItemChanged: (int selectedItem) {
-                        selectedMinutesNotifer.value =
-                            minutesList[selectedItem];
-                        selectedMinutes(minutesList[selectedItem]);
-                      },
-                      children: List<Widget>.generate(minutesList.length,
-                          (int index) {
-                        return ValueListenableBuilder(
-                            valueListenable: selectedMinutesNotifer,
-                            builder: (context, value, state) {
-                              return Center(
-                                // style of unselected items different from selected item
-                                child: Text(minutesList[index].toString(),
-                                    style: value == minutesList[index]
-                                        ? timePickerStyle
-                                        : timePickerStyle.copyWith(
-                                            color: HSColor.neutral5)),
-                              );
-                            });
-                      })),
+                    diameterRatio: 4.0,
+                    magnification: 1.5,
+                    squeeze: 1,
+                    useMagnifier: true,
+                    itemExtent: 32,
+                    overAndUnderCenterOpacity: 0.5,
+                    physics: const FixedExtentScrollPhysics(),
+                    controller: FixedExtentScrollController(
+                      initialItem: minutesList.indexOf(initalMinute),
+                    ),
+                    onSelectedItemChanged: (int selectedItem) {
+                      selectedMinutes(minutesList[selectedItem]);
+                    },
+                    children:
+                        List<Widget>.generate(minutesList.length, (int index) {
+                      return Center(
+                          child: Text(
+                        minutesList[index].toString(),
+                        style: timePickerStyle,
+                      ));
+                    }),
+                  ),
                 ),
               )
             ],
