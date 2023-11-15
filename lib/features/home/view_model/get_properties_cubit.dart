@@ -39,9 +39,13 @@ class GetPropertiesCubit extends Cubit<GetPropertiesState> {
         data.add(PropertyItemData.fromModels(property, user));
       }
 
-      emit(GetPropertiesSucceedState(data));
+      if (!isClosed) {
+        emit(GetPropertiesSucceedState(data));
+      }
     } catch (_) {
-      emit(const GetPropertiesFailedState());
+      if (!isClosed) {
+        emit(const GetPropertiesFailedState());
+      }
     }
   }
 }

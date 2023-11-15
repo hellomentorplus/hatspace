@@ -1,11 +1,22 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/features/application/application_view.dart';
+import 'package:hatspace/models/storage/storage_service.dart';
+import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
+import 'package:mockito/annotations.dart';
 
 import '../../widget_tester_extension.dart';
 import '../add_property/view/widgets/add_rooms_view_test.dart';
+import 'application_view_test.mocks.dart';
 
+@GenerateMocks([StorageService])
 void main() {
+  final MockStorageService storageService = MockStorageService();
+
+  setUpAll(() {
+    HsSingleton.singleton.registerSingleton<StorageService>(storageService);
+  });
+
   testWidgets('Verify UI', (widgetTester) async {
     await widgetTester.wrapAndPump(const ApplicationView());
 
