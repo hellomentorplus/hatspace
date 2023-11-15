@@ -64,13 +64,13 @@ class MessageLookup extends MessageLookupByLibrary {
                 'You can explore properties, connect directly to homeowners, upload your rental application.',
             'homeowner':
                 'You can upload and manage your properties, shortlist potential tenants, track the leasing process.',
-            'other': '',
+            'other': ' ',
           })}";
 
   static String m14(role) => "${Intl.select(role, {
             'tenant': 'Tenant',
             'homeowner': 'Homeowner',
-            'other': '',
+            'other': ' ',
           })}";
 
   static String m15(number) => "${number} views today";

@@ -1858,18 +1858,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Select start time`
-  String get selectStartTimeError {
-    return Intl.message(
-      'Select start time',
-      name: 'selectStartTimeError',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No booking`
-  String get noBooking {
   /// `Hello@the-hat.life`
   String get applicationEmail {
     return Intl.message(
@@ -1925,6 +1913,16 @@ class HatSpaceStrings {
     return Intl.message(
       'You have successfully added your new property!',
       name: 'successAddingPropertyMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select start time`
+  String get selectStartTimeError {
+    return Intl.message(
+      'Select start time',
+      name: 'selectStartTimeError',
       desc: '',
       args: [],
     );
