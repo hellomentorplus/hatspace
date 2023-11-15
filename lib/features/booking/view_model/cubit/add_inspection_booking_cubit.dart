@@ -51,8 +51,16 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   int? get duration => _duration;
 
   void validateBookingInspectionButton() {
-    if (_startTime != null && _duration != null) {
-      emit(BookInspectionButtonEnable());
+    // TO DO: Add duration to validation
+    if (_startTime != null) {
+      if (_duration != null) {
+        emit(BookInspectionButtonEnable());
+      } else {
+        emit(CloseStartTimeRequestMessage());
+      }
+    }
+    if (_startTime == null && duration == null) {
+      emit(RequestStartTimeSelection());
     }
 
     if (_startTime == null && _duration != null) {

@@ -13,19 +13,16 @@ import 'package:hatspace/theme/widgets/hs_time_picker.dart';
 
 class StartTimeSelectionWidget extends StatelessWidget {
   final ValueNotifier<StartTime?> startTimeNotifer;
-  final FocusNode startTimeFocusNode;
   final List<int> minutesList;
   final List<int> hourList;
   const StartTimeSelectionWidget(
       {required this.startTimeNotifer,
-      required this.startTimeFocusNode,
       required this.minutesList,
       required this.hourList,
       super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier showErrorMessages = ValueNotifier(false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -35,12 +32,6 @@ class StartTimeSelectionWidget extends StatelessWidget {
             valueListenable: startTimeNotifer,
             builder: (context, value, child) {
               return HsDropDownButton(
-                  focusNode: startTimeFocusNode,
-                  onFocusChange: (value) {
-                    if (startTimeNotifer.value == null) {
-                      showErrorMessages.value = true;
-                    }
-                  },
                   value: startTimeNotifer.value == null
                       ? null
                       : value?.getStringStartTime,
@@ -57,17 +48,17 @@ class StartTimeSelectionWidget extends StatelessWidget {
                         ),
                         context: context,
                         builder: (_) {
-                          int selectedMin =
-                              0; // selectedMin and selectedHour should match with placeholder value
-                          int selectedHour = 9;
+                          int? selectedMin = value?.minute ?? 0;
+                          // selectedMin and selectedHour should match with placeholder value
+                          int? selectedHour = value?.getHour ?? 9;
                           return SafeArea(
                               child: SingleChildScrollView(
                             child: Column(
                               children: [
                                 HatSpaceTimePicker(
-                                  initalMinute: value?.getMinute ??
-                                      0, // set initialMinute with value of notifier
-                                  initialHour: value?.getHour ?? 9,
+                                  initalMinute:
+                                      selectedMin, // set initialMinute and initialHour are 0 and 9 if valueNotifer of minutes and hour = null
+                                  initialHour: selectedHour,
                                   minutesList: minutesList,
                                   hourList: hourList,
                                   selectedMinutes: (minute) {
@@ -90,13 +81,12 @@ class StartTimeSelectionWidget extends StatelessWidget {
                                     child: PrimaryButton(
                                       label: HatSpaceStrings.current.save,
                                       onPressed: () {
-                                        showErrorMessages.value = false;
                                         startTimeNotifer.value = StartTime(
-                                            hour: selectedHour,
-                                            minute: selectedMin);
+                                            hour: selectedHour!,
+                                            minute: selectedMin!);
                                         context
                                             .read<AddInspectionBookingCubit>()
-                                            .startTime = startTimeNotifer.value!;
+                                            .startTime = startTimeNotifer.value;
                                         context.pop();
                                       },
                                     ))

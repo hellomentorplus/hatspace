@@ -214,7 +214,7 @@ void main() async {
       });
     },
     act: (bloc) => bloc.startTime = null,
-    expect: () => [],
+    expect: () => [isA<RequestStartTimeSelection>()],
   );
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -233,8 +233,34 @@ void main() async {
     },
     act: (bloc) {
       bloc.startTime = const StartTime(hour: 9, minute: 0);
+      bloc.duration = 15;
       bloc.validateBookingInspectionButton();
     },
-    expect: () => [isA<BookInspectionButtonEnable>()],
+    expect: () => [
+      isA<CloseStartTimeRequestMessage>(),
+      isA<BookInspectionButtonEnable>()
+    ],
+  );
+
+  blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
+    'Given start time has not been selected and duration already selected'
+    'When validate booking button'
+    'Then emit RequestStartTimeSelection',
+    build: () => AddInspectionBookingCubit(),
+    setUp: () {
+      when(authenticationServiceMock.getCurrentUser())
+          .thenAnswer((realInvocation) {
+        return Future.value(UserDetail(uid: 'uid'));
+      });
+      when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) {
+        return Future.value([Roles.tenant, Roles.homeowner]);
+      });
+    },
+    act: (bloc) {
+      bloc.startTime = null;
+      bloc.duration = 15;
+      bloc.validateBookingInspectionButton();
+    },
+    expect: () => [isA<RequestStartTimeSelection>()],
   );
 }

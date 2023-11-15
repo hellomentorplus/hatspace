@@ -40,7 +40,6 @@ class AddInspectionBookingBody extends StatelessWidget {
   final ValueNotifier<int> noteChars = ValueNotifier(0);
   final maxChar = 400;
   final ValueNotifier<StartTime?> startTime = ValueNotifier(null);
-  final ValueNotifier<bool> startTimeErrorNotifier = ValueNotifier(false);
   final ValueNotifier<int?> durationNotifier = ValueNotifier(null);
 
   // To generate list of number for time picker
@@ -54,7 +53,6 @@ class AddInspectionBookingBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FocusNode startTimeFocus = FocusNode();
     final minutesList = generateNumbersList(0, 59);
     final hourList = generateNumbersList(7, 19);
     return BlocListener<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -171,7 +169,6 @@ class AddInspectionBookingBody extends StatelessWidget {
                           child: StartTimeSelectionWidget(
                             hourList: hourList,
                             minutesList: minutesList,
-                            startTimeFocusNode: startTimeFocus,
                             startTimeNotifer: startTime,
                           ),
                         ),

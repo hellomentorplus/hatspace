@@ -34,48 +34,43 @@ class HatSpaceTimePicker extends StatelessWidget {
             children: [
               Expanded(
                 child: SizedBox(
-                  height: HsDimens.spacing195,
-                  child: CupertinoPicker(
-                    diameterRatio: 5.0,
-                    selectionOverlay:
-                        const CupertinoPickerDefaultSelectionOverlay(
-                      background: Colors.transparent,
-                    ),
-                    magnification: 1.5,
-                    squeeze: 1,
-                    useMagnifier: true,
-                    itemExtent: 32,
-                    scrollController: FixedExtentScrollController(
-                        initialItem: hourList.indexOf(initialHour)),
-                    onSelectedItemChanged: (int selectedItem) {
-                      selectedHour(hourList[selectedItem]);
-                    },
-                    children:
-                        List<Widget>.generate(hourList.length, (int index) {
-                      return Center(
-                          child: Text(hourList[index].toString(),
-                              style: timePickerStyle));
-                    }),
-                  ),
-                ),
+                    height: HsDimens.spacing195,
+                    child: ListWheelScrollView(
+                        controller: FixedExtentScrollController(
+                            initialItem: hourList.indexOf(initialHour)),
+                        useMagnifier: true,
+                        overAndUnderCenterOpacity: 0.5,
+                        itemExtent: 32,
+                        diameterRatio: 5.0,
+                        magnification: 1.5,
+                        squeeze: 1,
+                        physics: const FixedExtentScrollPhysics(),
+                        onSelectedItemChanged: (int selectedItem) {
+                          selectedHour(hourList[selectedItem]);
+                        },
+                        children:
+                            List<Widget>.generate(hourList.length, (int index) {
+                          return Center(
+                            child: Text(hourList[index].toString(),
+                                style: timePickerStyle),
+                          );
+                        }))),
               ),
               const SizedBox(
-                width: HsDimens.spacing27,
+                width: HsDimens.spacing24 + 3,
               ),
               Expanded(
                 child: SizedBox(
                   height: 195,
-                  child: CupertinoPicker(
+                  child: ListWheelScrollView(
                     diameterRatio: 4.0,
-                    selectionOverlay:
-                        const CupertinoPickerDefaultSelectionOverlay(
-                      background: Colors.transparent,
-                    ),
                     magnification: 1.5,
                     squeeze: 1,
                     useMagnifier: true,
                     itemExtent: 32,
-                    scrollController: FixedExtentScrollController(
+                    overAndUnderCenterOpacity: 0.5,
+                    physics: const FixedExtentScrollPhysics(),
+                    controller: FixedExtentScrollController(
                       initialItem: minutesList.indexOf(initalMinute),
                     ),
                     onSelectedItemChanged: (int selectedItem) {
