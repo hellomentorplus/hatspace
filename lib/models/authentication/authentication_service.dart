@@ -101,7 +101,10 @@ class AuthenticationService {
       }
 
       return UserDetail(
-          uid: user.uid, email: user.email, phone: user.phoneNumber);
+          uid: user.uid,
+          email: user.email,
+          phone: user.phoneNumber,
+          displayName: user.displayName);
     } on PlatformException catch (e) {
       throw AuthenticationException(e.code, e.message);
     } on UserNotFoundException catch (_) {
@@ -129,7 +132,10 @@ class AuthenticationService {
           throw (Exception);
       }
       return UserDetail(
-          uid: user!.uid, email: user.email, phone: user.phoneNumber);
+          uid: user!.uid,
+          email: user.email,
+          phone: user.phoneNumber,
+          displayName: user.displayName);
     } on UserCancelException catch (_) {
       rethrow;
     } catch (e, stackTrace) {
