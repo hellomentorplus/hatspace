@@ -10,9 +10,10 @@ import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
 import 'package:hatspace/theme/widgets/hs_time_picker.dart';
+import 'package:intl/intl.dart';
 
 class StartTimeSelectionWidget extends StatelessWidget {
-  final ValueNotifier<StartTime?> startTimeNotifer;
+  final ValueNotifier<DateTime?> startTimeNotifer;
   final List<int> minutesList;
   final List<int> hourList;
   const StartTimeSelectionWidget(
@@ -20,7 +21,6 @@ class StartTimeSelectionWidget extends StatelessWidget {
       required this.minutesList,
       required this.hourList,
       super.key});
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,15 +28,15 @@ class StartTimeSelectionWidget extends StatelessWidget {
       children: [
         HsLabel(label: HatSpaceStrings.current.startTime, isRequired: true),
         const SizedBox(height: HsDimens.spacing4),
-        ValueListenableBuilder<StartTime?>(
+        ValueListenableBuilder<DateTime?>(
             valueListenable: startTimeNotifer,
             builder: (context, value, child) {
               return HsDropDownButton(
-                  value: startTimeNotifer.value == null
+                  value: startTimeNotifer.value!.hour == 0 &&
+                          startTimeNotifer.value!.minute == 0
                       ? null
-                      : value?.getStringStartTime,
-                  placeholder:
-                      const StartTime(hour: 9, minute: 0).getStringStartTime,
+                      : DateFormat.jm().format(startTimeNotifer.value!),
+                  placeholder: '9:00 AM',
                   placeholderStyle: placeholderStyle,
                   icon: Assets.icons.chervonDown,
                   onPressed: () {
@@ -48,9 +48,13 @@ class StartTimeSelectionWidget extends StatelessWidget {
                         ),
                         context: context,
                         builder: (_) {
-                          int? selectedMin = value?.minute ?? 0;
+                          int? selectedMin = startTimeNotifer.value!.minute == 0
+                              ? 0
+                              : startTimeNotifer.value!.minute;
                           // selectedMin and selectedHour should match with placeholder value
-                          int? selectedHour = value?.getHour ?? 9;
+                          int? selectedHour = startTimeNotifer.value!.hour == 0
+                              ? 9
+                              : startTimeNotifer.value!.hour;
                           return SafeArea(
                               child: SingleChildScrollView(
                             child: Column(
@@ -81,12 +85,14 @@ class StartTimeSelectionWidget extends StatelessWidget {
                                     child: PrimaryButton(
                                       label: HatSpaceStrings.current.save,
                                       onPressed: () {
-                                        startTimeNotifer.value = StartTime(
-                                            hour: selectedHour!,
-                                            minute: selectedMin!);
+                                        startTimeNotifer.value =
+                                            startTimeNotifer.value!.updateTime(
+                                                newHour: selectedHour!,
+                                                newMinute: selectedMin!);
                                         context
-                                            .read<AddInspectionBookingCubit>()
-                                            .startTime = startTimeNotifer.value;
+                                                .read<AddInspectionBookingCubit>()
+                                                .inspectionStartTime =
+                                            startTimeNotifer.value!;
                                         context.pop();
                                       },
                                     ))

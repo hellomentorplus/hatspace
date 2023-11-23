@@ -35,10 +35,11 @@ class AddInspectionBookingScreen extends StatelessWidget {
 class AddInspectionBookingBody extends StatelessWidget {
   final String id;
   AddInspectionBookingBody({required this.id, Key? key}) : super(key: key);
-  final ValueNotifier<DateTime> _selectedDate = ValueNotifier(DateTime.now());
+  // initialised starttime only contain Date, no time
+  final ValueNotifier<DateTime?> _selectedStartTime =
+      ValueNotifier(DateTime.now().getDateOnly());
   final ValueNotifier<int> noteChars = ValueNotifier(0);
   final maxChar = 400;
-  final ValueNotifier<StartTime?> startTime = ValueNotifier(null);
 
   // To generate list of number for time picker
   List<int> generateNumbersList(int start, int end) {
@@ -148,12 +149,13 @@ class AddInspectionBookingBody extends StatelessWidget {
                         child: HsLabel(
                             label: HatSpaceStrings.current.date,
                             isRequired: true)),
-                    ValueListenableBuilder<DateTime>(
-                      valueListenable: _selectedDate,
+                    ValueListenableBuilder<DateTime?>(
+                      valueListenable: _selectedStartTime,
                       builder: (context, value, child) => _DatePickerView(
                         selectedDate: value,
                         onSelectedDate: (value) {
-                          _selectedDate.value = value;
+                          // Todo: only update date. Do not update time
+                          _selectedStartTime.value = value;
                         },
                       ),
                     ),
@@ -167,7 +169,7 @@ class AddInspectionBookingBody extends StatelessWidget {
                           child: StartTimeSelectionWidget(
                             hourList: hourList,
                             minutesList: minutesList,
-                            startTimeNotifer: startTime,
+                            startTimeNotifer: _selectedStartTime,
                           ),
                         ),
                         const SizedBox(width: HsDimens.spacing15),
@@ -242,7 +244,7 @@ class AddInspectionBookingBody extends StatelessWidget {
 }
 
 class _DatePickerView extends StatelessWidget {
-  final DateTime selectedDate;
+  final DateTime? selectedDate;
   final ValueChanged<DateTime> onSelectedDate;
 
   const _DatePickerView(
@@ -272,12 +274,13 @@ class _DatePickerView extends StatelessWidget {
                               onSelectedDate(date);
                               Navigator.pop(context); // Dismiss the dialog
                             },
-                            selectedDate: selectedDate,
+                            selectedDate: selectedDate ?? DateTime.now(),
                           )
                         ]));
               });
         },
-        label: HatSpaceStrings.current.dateFormatterWithDate(selectedDate),
+        label: HatSpaceStrings.current
+            .dateFormatterWithDate(selectedDate ?? DateTime.now()),
         iconUrl: Assets.icons.calendar,
         iconPosition: IconPosition.right,
         contentAlignment: MainAxisAlignment.spaceBetween,
