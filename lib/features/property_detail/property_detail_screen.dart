@@ -60,7 +60,12 @@ class PropertyDetailBody extends StatelessWidget {
         primaryButtonLabel: HatSpaceStrings.current.yesLoginNow,
         primaryOnPressed: () {
           context.pop();
-          context.goToSignup();
+          context.goToSignup().then((value) {
+            // Due to canceling in ChooseRoleScreen will return value false
+            if (value == false) {
+              _showAddTenantRoleBottomSheet(context);
+            }
+          });
         },
         secondaryButtonLabel: HatSpaceStrings.current.noLater,
         secondaryOnPressed: () {
@@ -97,9 +102,11 @@ class PropertyDetailBody extends StatelessWidget {
             context.goToBookInspectionScreen(propertyId: id);
           }
           if (state is ShowLoginBottomModal) {
-            _showLoginModal(context).then((value) => context
-                .read<PropertyDetailInteractionCubit>()
-                .closeBottomModal());
+            _showLoginModal(context).then((value) {
+              return context
+                  .read<PropertyDetailInteractionCubit>()
+                  .closeBottomModal();
+            });
           }
           if (state is RequestTenantRoles) {
             _showAddTenantRoleBottomSheet(context).then((value) => context
@@ -223,7 +230,6 @@ class PropertyDetailBody extends StatelessWidget {
                           if (state is PropertyDetailLoaded) {
                             return state.name;
                           }
-
                           return '';
                         },
                         builder: (context, propertyName) {
