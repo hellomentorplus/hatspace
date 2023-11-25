@@ -23,7 +23,10 @@ class AddInspectionBookingScreen extends StatelessWidget {
     // TODO: implement build
     return MultiBlocProvider(providers: [
       BlocProvider<AddInspectionBookingCubit>(
-          create: (context) => AddInspectionBookingCubit()),
+          // Assume validateButton when first launch widget
+          // Assume start time and duration and date are already entered
+          create: (context) =>
+              AddInspectionBookingCubit()..validateBookingInspectionButton()),
       BlocProvider<PropertyDetailCubit>(
           create: (context) => PropertyDetailCubit()..loadDetail(id))
     ], child: AddInspectionBookingBody(id: id));
@@ -56,18 +59,25 @@ class AddInspectionBookingBody extends StatelessWidget {
             ),
             bottomNavigationBar: BottomAppBar(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(HsDimens.spacing16,
-                    HsDimens.spacing8, HsDimens.spacing16, HsDimens.spacing28),
-                child: PrimaryButton(
-                  label: HatSpaceStrings.of(context).bookInspection,
-                  onPressed: () {
-                    // TODO: implemnt booking logic
-                    context
-                        .read<AddInspectionBookingCubit>()
-                        .onBookInspection();
-                  },
-                ),
-              ),
+                  padding: const EdgeInsets.fromLTRB(
+                      HsDimens.spacing16,
+                      HsDimens.spacing8,
+                      HsDimens.spacing16,
+                      HsDimens.spacing28),
+                  child: BlocBuilder<AddInspectionBookingCubit,
+                      AddInspectionBookingState>(
+                    builder: (context, state) {
+                      return PrimaryButton(
+                          label: HatSpaceStrings.of(context).bookInspection,
+                          onPressed: state is BookingInspectionButtonEnable
+                              ? () {
+                                  context
+                                      .read<AddInspectionBookingCubit>()
+                                      .onBookInspection();
+                                }
+                              : null);
+                    },
+                  )),
             ),
             body: SafeArea(
               child: SingleChildScrollView(
