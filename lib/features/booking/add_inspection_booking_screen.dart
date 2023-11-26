@@ -8,7 +8,6 @@ import 'package:hatspace/features/booking/widgets/start_time_selection_widget.da
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
-import 'package:hatspace/theme/extensions/date_time_extension.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
@@ -37,7 +36,7 @@ class AddInspectionBookingBody extends StatelessWidget {
   AddInspectionBookingBody({required this.id, Key? key}) : super(key: key);
   // initialised starttime only contain Date, no time
   final ValueNotifier<DateTime?> _selectedStartTime =
-      ValueNotifier(DateTime.now().getDateOnly());
+      ValueNotifier(AddInspectionBookingCubit().inspectionStartTime);
   final ValueNotifier<int> noteChars = ValueNotifier(0);
   final maxChar = 400;
 

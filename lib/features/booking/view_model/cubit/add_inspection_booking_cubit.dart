@@ -31,7 +31,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     }
   }
 
-  DateTime _inspecitonStartTime = DateTime.now();
+  DateTime _inspecitonStartTime = DateTime.now().copyWith(hour: 0, minute: 0);
   int? _duration;
 
   set inspectionStartTime(DateTime startTime) {
