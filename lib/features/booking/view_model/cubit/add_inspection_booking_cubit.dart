@@ -31,6 +31,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     }
   }
 
+  // only get day, month, and year at the first time. StartTime need to be updated in UI
   DateTime _inspecitonStartTime = DateTime.now().copyWith(hour: 0, minute: 0);
   int? _duration;
 
