@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -32,19 +31,33 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     }
   }
 
-  StartTime? _startTime;
-  // DateTime? _inspectionDate;
+  // only get day, month, and year at the first time. StartTime need to be updated in UI
+  DateTime _inspecitonStartTime = DateTime.now().copyWith(hour: 0, minute: 0);
   int? _duration;
 
-  set startTime(StartTime? startTime) {
-    _startTime = startTime;
+  set inspectionStartTime(DateTime startTime) {
+    _inspecitonStartTime = startTime;
     validateBookingInspectionButton();
   }
 
-  StartTime? get startTime => _startTime;
+  DateTime get inspectionStartTime => _inspecitonStartTime;
 
   set duration(int? duration) {
     _duration = duration;
+    validateBookingInspectionButton();
+  }
+
+  void updateInspectionDateOnly(
+      {required int day, required int month, required int year}) {
+    inspectionStartTime =
+        _inspecitonStartTime.copyWith(day: day, year: year, month: month);
+    validateBookingInspectionButton();
+  }
+
+  void updateInspectionStartTime(
+      {required int newHour, required int newMinute}) {
+    _inspecitonStartTime =
+        _inspecitonStartTime.copyWith(hour: newHour, minute: newMinute);
     validateBookingInspectionButton();
   }
 
@@ -52,14 +65,14 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
 
   void validateBookingInspectionButton() {
     // TO DO: Add duration to validation
-    if (_startTime != null) {
+    if (_inspecitonStartTime.hour != 0 || _inspecitonStartTime.minute != 0) {
       if (_duration != null) {
         emit(BookInspectionButtonEnable());
       } else {
         emit(CloseStartTimeRequestMessage());
       }
     }
-    if (_startTime == null && duration == null) {
+    if (_inspecitonStartTime.hour == 0 && duration == null) {
       emit(RequestStartTimeSelection());
     }
 

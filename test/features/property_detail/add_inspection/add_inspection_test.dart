@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/booking/add_inspection_booking_screen.dart';
 import 'package:hatspace/features/booking/add_inspection_success_booking_screen.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
 import 'package:hatspace/features/booking/widgets/duration_selection_widget.dart';
+import 'package:hatspace/features/booking/widgets/start_time_selection_widget.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
@@ -236,7 +236,8 @@ void main() async {
       expect(find.byType(AddInspectionBookingBody), findsOneWidget);
 
       //find start time with default placeholder
-      Finder startTimeBtn = find.widgetWithText(SecondaryButton, '09:00 AM');
+      // Finder startTimeBtn = find.widgetWithText(SecondaryButton, '09:00 AM');
+      Finder startTimeBtn = find.byType(StartTimeSelectionWidget);
       expect(startTimeBtn, findsOneWidget);
       await widgetTester.ensureVisible(startTimeBtn);
       await widgetTester.tap(startTimeBtn);
