@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
@@ -9,6 +8,7 @@ import 'package:hatspace/features/booking/widgets/start_time_selection_widget.da
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/extensions/date_time_extension.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
@@ -155,7 +155,12 @@ class AddInspectionBookingBody extends StatelessWidget {
                         selectedDate: value,
                         onSelectedDate: (value) {
                           // Todo: only update date. Do not update time
-                          _selectedStartTime.value = value;
+                          //  context.read<AddInspectionBookingCubit>().updateInspectionDateOnly(day: value.day, month: value.month, year: value.year);
+                          _selectedStartTime.value = _selectedStartTime.value
+                              ?.copyWith(
+                                  day: value.day,
+                                  month: value.month,
+                                  year: value.year);
                         },
                       ),
                     ),

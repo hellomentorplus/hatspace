@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
@@ -86,13 +85,15 @@ class StartTimeSelectionWidget extends StatelessWidget {
                                       label: HatSpaceStrings.current.save,
                                       onPressed: () {
                                         startTimeNotifer.value =
-                                            startTimeNotifer.value!.updateTime(
+                                            startTimeNotifer.value!.copyWith(
+                                                hour: selectedHour!,
+                                                minute: selectedMin!);
+                                        context
+                                            .read<AddInspectionBookingCubit>()
+                                            .updateInspectionStartTime(
                                                 newHour: selectedHour!,
                                                 newMinute: selectedMin!);
-                                        context
-                                                .read<AddInspectionBookingCubit>()
-                                                .inspectionStartTime =
-                                            startTimeNotifer.value!;
+                                        startTimeNotifer.value!;
                                         context.pop();
                                       },
                                     ))

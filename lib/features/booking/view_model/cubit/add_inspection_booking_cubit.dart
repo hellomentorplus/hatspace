@@ -31,18 +31,32 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     }
   }
 
-  DateTime? _inspecitonStartTime;
+  DateTime _inspecitonStartTime = DateTime.now();
   int? _duration;
 
-  set inspectionStartTime(DateTime? startTime) {
+  set inspectionStartTime(DateTime startTime) {
     _inspecitonStartTime = startTime;
     validateBookingInspectionButton();
   }
 
-  DateTime? get inspectionStartTime => _inspecitonStartTime;
+  DateTime get inspectionStartTime => _inspecitonStartTime;
 
   set duration(int? duration) {
     _duration = duration;
+    validateBookingInspectionButton();
+  }
+
+  void updateInspectionDateOnly(
+      {required int day, required int month, required int year}) {
+    inspectionStartTime =
+        _inspecitonStartTime.copyWith(day: day, year: year, month: month);
+    validateBookingInspectionButton();
+  }
+
+  void updateInspectionStartTime(
+      {required int newHour, required int newMinute}) {
+    _inspecitonStartTime =
+        _inspecitonStartTime.copyWith(hour: newHour, minute: newMinute);
     validateBookingInspectionButton();
   }
 
@@ -50,14 +64,14 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
 
   void validateBookingInspectionButton() {
     // TO DO: Add duration to validation
-    if (_inspecitonStartTime!.hour != 0 || _inspecitonStartTime!.minute != 0) {
+    if (_inspecitonStartTime.hour != 0 || _inspecitonStartTime.minute != 0) {
       if (_duration != null) {
         emit(BookInspectionButtonEnable());
       } else {
         emit(CloseStartTimeRequestMessage());
       }
     }
-    if (_inspecitonStartTime!.hour == 0 && duration == null) {
+    if (_inspecitonStartTime.hour == 0 && duration == null) {
       emit(RequestStartTimeSelection());
     }
   }
