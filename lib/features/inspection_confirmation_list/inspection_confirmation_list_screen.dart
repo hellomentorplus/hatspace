@@ -95,8 +95,8 @@ class BookingInformationItem extends StatelessWidget {
     required this.timeBooking,
     this.ownerName,
     this.ownerAvatar,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

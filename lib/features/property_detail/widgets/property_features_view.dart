@@ -2,8 +2,7 @@ part of '../property_detail_screen.dart';
 
 class PropertyFeaturesView extends StatefulWidget {
   final List<Feature> features;
-  const PropertyFeaturesView({required this.features, Key? key})
-      : super(key: key);
+  const PropertyFeaturesView({required this.features, super.key});
 
   @override
   State<PropertyFeaturesView> createState() => _PropertyFeaturesViewState();

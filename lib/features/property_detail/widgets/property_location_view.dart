@@ -2,8 +2,7 @@ part of '../property_detail_screen.dart';
 
 class PropertyLocationView extends StatelessWidget {
   final String locationDetail;
-  const PropertyLocationView({required this.locationDetail, Key? key})
-      : super(key: key);
+  const PropertyLocationView({required this.locationDetail, super.key});
 
   @override
   Widget build(BuildContext context) => Padding(

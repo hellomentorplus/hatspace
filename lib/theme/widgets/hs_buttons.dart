@@ -71,14 +71,14 @@ class PrimaryButton extends StatelessWidget {
 
   const PrimaryButton({
     required this.label,
-    Key? key,
+    super.key,
     this.iconUrl,
     this.onPressed,
     this.iconPosition = IconPosition.left,
     this.style,
     this.contentAlignment = MainAxisAlignment.center,
     this.overrideIconColor = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -125,15 +125,14 @@ class SecondaryButton extends StatelessWidget {
 
   const SecondaryButton(
       {required this.label,
-      Key? key,
+      super.key,
       this.iconUrl,
       this.onPressed,
       this.iconPosition = IconPosition.left,
       this.style,
       this.contentAlignment = MainAxisAlignment.center,
       this.overrideIconColor = true,
-      this.labelStyle})
-      : super(key: key);
+      this.labelStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -175,13 +174,13 @@ class TextOnlyButton extends StatelessWidget {
 
   const TextOnlyButton({
     required this.label,
-    Key? key,
+    super.key,
     this.onPressed,
     this.iconUrl,
     this.iconPosition = IconPosition.left,
     this.contentAlignment = MainAxisAlignment.center,
     this.style,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -224,14 +223,14 @@ class TertiaryButton extends StatelessWidget {
 
   const TertiaryButton({
     required this.label,
-    Key? key,
+    super.key,
     this.onPressed,
     this.iconUrl,
     this.iconPosition = IconPosition.left,
     this.contentAlignment = MainAxisAlignment.center,
     this.style,
     this.overrideIconColor = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -273,9 +272,8 @@ class RoundButton extends StatelessWidget {
       {required this.iconUrl,
       required this.onPressed,
       this.style,
-      Key? key,
-      this.textColor})
-      : super(key: key);
+      super.key,
+      this.textColor});
   @override
   Widget build(BuildContext context) {
     return TextButton(

@@ -5,7 +5,7 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 class SearchBar extends StatelessWidget implements PreferredSizeWidget {
-  SearchBar({Key? key}) : super(key: key);
+  SearchBar({super.key});
 
   final FocusNode searchHintFocus = FocusNode();
   @override

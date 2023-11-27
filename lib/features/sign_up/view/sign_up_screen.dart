@@ -16,7 +16,7 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
@@ -63,11 +63,10 @@ class SignUpBody extends StatelessWidget {
           context.pop(result: true);
         }
       },
-      child: WillPopScope(
-        onWillPop: () {
-          context.read<AuthenticationBloc>().add(SkipSignUp());
-          return Future.value(true);
-        },
+      child: PopScope(
+        canPop: true,
+        onPopInvoked: (didPop) =>
+            context.read<AuthenticationBloc>().add(SkipSignUp()),
         child: Scaffold(
           body: Stack(
             children: [

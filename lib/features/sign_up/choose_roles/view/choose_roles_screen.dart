@@ -37,11 +37,9 @@ class ChooseRolesViewBody extends StatelessWidget {
           // TODO: Implement failure scenario
         }
       },
-      child: WillPopScope(
-        onWillPop: () async {
-          _cancelChoosingRoles(context);
-          return true;
-        },
+      child: PopScope(
+        canPop: true,
+        onPopInvoked: (didPop) => _cancelChoosingRoles(context),
         child: Scaffold(
             appBar: AppBar(
               elevation: 0,

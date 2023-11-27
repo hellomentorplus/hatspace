@@ -19,7 +19,7 @@ import 'package:hatspace/theme/widgets/hs_warning_bottom_sheet.dart';
 import 'package:hatspace/view_models/app_config/bloc/app_config_bloc.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class DashboardScreen extends StatelessWidget {
 }
 
 class DashboardBody extends StatefulWidget {
-  const DashboardBody({Key? key}) : super(key: key);
+  const DashboardBody({super.key});
 
   @override
   State<DashboardBody> createState() => _DashboardBodyState();
@@ -368,9 +368,7 @@ class _BottomBarItem extends StatelessWidget {
       {required this.icon,
       required this.label,
       required this.isSelected,
-      required this.onTap,
-      Key? key})
-      : super(key: key);
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) => InkWell(
