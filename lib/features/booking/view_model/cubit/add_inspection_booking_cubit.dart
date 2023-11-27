@@ -21,6 +21,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
       UserDetail user = await authenticationService.getCurrentUser();
       List<Roles> userRole = await storageService.member.getUserRoles(user.uid);
       if (userRole.contains(Roles.tenant)) {
+        inspectionEndTime  = _inspecitonStartTime.add(Duration(minutes: _duration!));
         emit(BookingInspectionSuccess());
       }
       if (userRole.isEmpty) {
@@ -34,6 +35,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   // only get day, month, and year at the first time. StartTime need to be updated in UI
   DateTime _inspecitonStartTime = DateTime.now().copyWith(hour: 0, minute: 0);
   int? _duration;
+  DateTime? inspectionEndTime;
 
   set inspectionStartTime(DateTime startTime) {
     _inspecitonStartTime = startTime;
@@ -43,6 +45,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   DateTime get inspectionStartTime => _inspecitonStartTime;
 
   set duration(int? duration) {
+    print(duration);
     _duration = duration;
     validateBookingInspectionButton();
   }
@@ -63,21 +66,22 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
 
   int? get duration => _duration;
 
+  void showDurationSelection(){
+    if(inspectionStartTime.hour == 0 &&  duration == null){
+      emit(RequestStartTimeSelection());
+    }else{
+      emit(ShowDurationSelection());
+      emit(AddInspectionBookingInitial());
+    }
+  }
+
   void validateBookingInspectionButton() {
     // TO DO: Add duration to validation
-    if (_inspecitonStartTime.hour != 0 || _inspecitonStartTime.minute != 0) {
-      if (_duration != null) {
+    if (_inspecitonStartTime.hour != 0 || 
+    _inspecitonStartTime.minute != 0 && 
+    _duration != null
+    ) {
         emit(BookInspectionButtonEnable());
-      } else {
-        emit(CloseStartTimeRequestMessage());
-      }
-    }
-    if (_inspecitonStartTime.hour == 0 && duration == null) {
-      emit(RequestStartTimeSelection());
-    }
-
-    if (_startTime == null && _duration != null) {
-      emit(RequestStartTimeSelection());
     }
   }
 }

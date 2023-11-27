@@ -41,7 +41,7 @@ class AddInspectionBookingBody extends StatelessWidget {
   final ValueNotifier<int> noteChars = ValueNotifier(0);
   final maxChar = 400;
   final ValueNotifier<DateTime?> startTime = ValueNotifier(null);
-  final ValueNotifier<int?> durationNotifier = ValueNotifier(null);
+  final ValueNotifier<int?> durationNotifier = ValueNotifier(AddInspectionBookingCubit().duration);
 
   // To generate list of number for time picker
   List<int> generateNumbersList(int start, int end) {

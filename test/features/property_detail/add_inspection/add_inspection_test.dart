@@ -279,7 +279,7 @@ void main() async {
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => AddInspectionBookingInitial());
       when(addInspectionBookingCubit.duration).thenReturn(15);
-      when(addInspectionBookingCubit.startTime).thenReturn(const StartTime(hour: 10, minute: 5));
+      
 
       await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
           providers, AddInspectionBookingBody(id: 'id'))));
