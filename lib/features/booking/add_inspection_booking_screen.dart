@@ -36,7 +36,7 @@ class AddInspectionBookingBody extends StatelessWidget {
   AddInspectionBookingBody({required this.id, Key? key}) : super(key: key);
   // initialised starttime only contain Date, no time
   final ValueNotifier<DateTime?> _selectedStartTime =
-      ValueNotifier(AddInspectionBookingCubit().inspectionStartTime);
+      ValueNotifier(DateTime.now().copyWith(hour: 9, minute: 0));
   final ValueNotifier<int> noteChars = ValueNotifier(0);
   final maxChar = 400;
 
@@ -195,7 +195,7 @@ class AddInspectionBookingBody extends StatelessWidget {
                                   // TODO: Change it in story 395
                                   context
                                       .read<AddInspectionBookingCubit>()
-                                      .validateBookingInspectionButton();
+                                      .checkStarTimeSelection();
                                 })
                           ],
                         ))

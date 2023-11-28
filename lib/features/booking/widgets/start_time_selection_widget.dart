@@ -30,12 +30,13 @@ class StartTimeSelectionWidget extends StatelessWidget {
         ValueListenableBuilder<DateTime?>(
             valueListenable: startTimeNotifer,
             builder: (context, value, child) {
+              bool isStartTimeSelected =
+                  context.read<AddInspectionBookingCubit>().isStartTimeSelected;
               return HsDropDownButton(
-                  value: startTimeNotifer.value!.hour == 0 &&
-                          startTimeNotifer.value!.minute == 0
-                      ? null
-                      : DateFormat.jm().format(startTimeNotifer.value!),
-                  placeholder: '9:00 AM',
+                  value: isStartTimeSelected
+                      ? DateFormat.jm().format(startTimeNotifer.value!)
+                      : null,
+                  placeholder: DateFormat.jm().format(startTimeNotifer.value!),
                   placeholderStyle: placeholderStyle,
                   icon: Assets.icons.chervonDown,
                   onPressed: () {
@@ -47,13 +48,9 @@ class StartTimeSelectionWidget extends StatelessWidget {
                         ),
                         context: context,
                         builder: (_) {
-                          int? selectedMin = startTimeNotifer.value!.minute == 0
-                              ? 0
-                              : startTimeNotifer.value!.minute;
+                          int? selectedMin = startTimeNotifer.value!.minute;
                           // selectedMin and selectedHour should match with placeholder value
-                          int? selectedHour = startTimeNotifer.value!.hour == 0
-                              ? 9
-                              : startTimeNotifer.value!.hour;
+                          int? selectedHour = startTimeNotifer.value!.hour;
                           return SafeArea(
                               child: SingleChildScrollView(
                             child: Column(
@@ -91,8 +88,7 @@ class StartTimeSelectionWidget extends StatelessWidget {
                                         context
                                             .read<AddInspectionBookingCubit>()
                                             .updateInspectionStartTime(
-                                                newHour: selectedHour!,
-                                                newMinute: selectedMin!);
+                                                startTimeNotifer.value!);
                                         startTimeNotifer.value!;
                                         context.pop();
                                       },

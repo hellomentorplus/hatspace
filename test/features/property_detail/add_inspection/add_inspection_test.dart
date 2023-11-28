@@ -108,6 +108,7 @@ void main() async {
     when(propertyDetailCubit.state).thenReturn(PropertyDetailInitial());
     when(propertyDetailCubit.stream)
         .thenAnswer((realInvocation) => const Stream.empty());
+    when(addInspectionBookingCubit.isStartTimeSelected).thenReturn(false);
   });
 
   testWidgets('Verify UI component', (WidgetTester widget) async {

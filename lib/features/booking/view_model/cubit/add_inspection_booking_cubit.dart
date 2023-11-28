@@ -32,15 +32,16 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   }
 
   // only get day, month, and year at the first time. StartTime need to be updated in UI
-  DateTime _inspecitonStartTime = DateTime.now().copyWith(hour: 0, minute: 0);
+  DateTime? _inspecitonStartTime;
   int? _duration;
+  bool isStartTimeSelected = false;
 
-  set inspectionStartTime(DateTime startTime) {
+  set inspectionStartTime(DateTime? startTime) {
     _inspecitonStartTime = startTime;
     validateBookingInspectionButton();
   }
 
-  DateTime get inspectionStartTime => _inspecitonStartTime;
+  DateTime? get inspectionStartTime => _inspecitonStartTime;
 
   set duration(int? duration) {
     _duration = duration;
@@ -50,14 +51,14 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   void updateInspectionDateOnly(
       {required int day, required int month, required int year}) {
     inspectionStartTime =
-        _inspecitonStartTime.copyWith(day: day, year: year, month: month);
+        _inspecitonStartTime?.copyWith(day: day, year: year, month: month);
     validateBookingInspectionButton();
   }
 
-  void updateInspectionStartTime(
-      {required int newHour, required int newMinute}) {
-    _inspecitonStartTime =
-        _inspecitonStartTime.copyWith(hour: newHour, minute: newMinute);
+  void updateInspectionStartTime(DateTime newDateTime) {
+    isStartTimeSelected = true;
+    _inspecitonStartTime = newDateTime;
+    emit(CloseStartTimeRequestMessage());
     validateBookingInspectionButton();
   }
 
@@ -65,14 +66,13 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
 
   void validateBookingInspectionButton() {
     // TO DO: Add duration to validation
-    if (_inspecitonStartTime.hour != 0 || _inspecitonStartTime.minute != 0) {
-      if (_duration != null) {
-        emit(BookInspectionButtonEnable());
-      } else {
-        emit(CloseStartTimeRequestMessage());
-      }
+    if (isStartTimeSelected && duration != null) {
+      emit(BookInspectionButtonEnable());
     }
-    if (_inspecitonStartTime.hour == 0 && duration == null) {
+  }
+
+  void checkStarTimeSelection() {
+    if (!isStartTimeSelected) {
       emit(RequestStartTimeSelection());
     }
   }
