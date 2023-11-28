@@ -160,7 +160,8 @@ void main() {
       ),
     ], widget);
 
-    when(authenticationBloc.state).thenAnswer((realInvocation) => RequestSignUp());
+    when(authenticationBloc.state)
+        .thenAnswer((realInvocation) => RequestSignUp());
 
     SharedPreferences.setMockInitialValues({});
     TextOnlyButton skipButton = tester.widget(find.ancestor(
@@ -187,7 +188,8 @@ void main() {
     ], widget);
 
     SharedPreferences.setMockInitialValues({});
-    when(authenticationBloc.state).thenAnswer((realInvocation) => RequestSignUp());
+    when(authenticationBloc.state)
+        .thenAnswer((realInvocation) => RequestSignUp());
 
     // imitate Android back button
     final NavigatorState navigator = tester.state(find.byType(Navigator));

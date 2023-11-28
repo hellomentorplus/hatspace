@@ -66,10 +66,8 @@ class SignUpBody extends StatelessWidget {
       child: PopScope(
         canPop: true,
         onPopInvoked: (didPop) {
-          print('SUESI - skip sign up => ${didPop} && ${context.read<AuthenticationBloc>().state is RequestSignUp}');
-
-          if (didPop && context.read<AuthenticationBloc>().state is RequestSignUp) {
-            print('SUESI - skip sign up');
+          if (didPop &&
+              context.read<AuthenticationBloc>().state is RequestSignUp) {
             context.read<AuthenticationBloc>().add(SkipSignUp());
           }
         },
