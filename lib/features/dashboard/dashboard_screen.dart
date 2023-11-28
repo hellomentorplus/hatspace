@@ -250,6 +250,7 @@ class _DashboardBodyState extends State<DashboardBody>
             ),
             bottomNavigationBar: BottomAppBar(
                 color: HSColor.neutral1.withOpacity(0.9),
+                height: 87,
                 child: SafeArea(
                   child: SizedBox(
                     height: HsDimens.size66,
