@@ -126,11 +126,7 @@ class _PropertyTypeCardView extends StatelessWidget {
   final ValueChanged<PropertyTypes> onSelected;
 
   const _PropertyTypeCardView(
-      {required this.type,
-      required this.isSelected,
-      required this.onSelected,
-      Key? key})
-      : super(key: key);
+      {required this.type, required this.isSelected, required this.onSelected});
 
   @override
   Widget build(BuildContext context) => Card(

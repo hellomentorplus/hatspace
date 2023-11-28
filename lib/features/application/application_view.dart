@@ -11,7 +11,7 @@ import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ApplicationView extends StatelessWidget {
-  const ApplicationView({Key? key}) : super(key: key);
+  const ApplicationView({super.key});
 
   @override
   Widget build(BuildContext context) => BlocProvider<ApplicationCubit>(
@@ -19,7 +19,7 @@ class ApplicationView extends StatelessWidget {
 }
 
 class _ApplicationView extends StatelessWidget {
-  const _ApplicationView({Key? key}) : super(key: key);
+  const _ApplicationView();
 
   @override
   Widget build(BuildContext context) =>

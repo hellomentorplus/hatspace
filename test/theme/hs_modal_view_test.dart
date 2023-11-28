@@ -60,6 +60,10 @@ void main() {
     expect(modalView.modalNotifier.value, AustraliaStates.vic);
     expect(find.svgPictureWithAssets(Assets.icons.check), findsOneWidget);
 
+    // scroll up to reveal more items
+    await widgetTester.drag(find.byType(ListView), const Offset(0.0, -500));
+    await widgetTester.pumpAndSettle();
+
     // verify interaction on tasmaina
     await widgetTester.tap(find.text('Tasmania', skipOffstage: false));
     await widgetTester.pumpAndSettle();

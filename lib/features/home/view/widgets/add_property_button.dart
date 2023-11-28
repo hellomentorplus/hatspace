@@ -6,7 +6,7 @@ import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/features/dashboard/view_model/dashboard_interaction_cubit.dart';
 
 class AddPropertyButton extends StatelessWidget {
-  const AddPropertyButton({Key? key}) : super(key: key);
+  const AddPropertyButton({super.key});
 
   @override
   Widget build(BuildContext context) => Container(

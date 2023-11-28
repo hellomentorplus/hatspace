@@ -37,90 +37,85 @@ class ChooseRolesViewBody extends StatelessWidget {
           // TODO: Implement failure scenario
         }
       },
-      child: WillPopScope(
-        onWillPop: () async {
-          _cancelChoosingRoles(context);
-          return true;
-        },
-        child: Scaffold(
-            appBar: AppBar(
-              elevation: 0,
-              backgroundColor: HSColor.background,
-              actions: [
-                GestureDetector(
-                  onTap: () => _cancelChoosingRoles(context),
-                  child: Container(
-                      margin: const EdgeInsets.only(
-                        top: HsDimens.spacing8,
-                        bottom: HsDimens.spacing8,
-                        right: HsDimens.spacing16,
-                      ),
-                      child: SvgPicture.asset(
-                        Assets.icons.close,
-                        width: HsDimens.size32,
-                        height: HsDimens.size32,
-                      )),
-                )
-              ],
-            ),
-            body: Padding(
-              padding: const EdgeInsets.only(
-                  left: HsDimens.spacing24,
-                  right: HsDimens.spacing24,
-                  bottom: HsDimens.spacing44),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      HatSpaceStrings.current.chooseUserRole,
-                      style: Theme.of(context).textTheme.displayLarge,
+      child: Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: HSColor.background,
+            actions: [
+              GestureDetector(
+                onTap: () => _cancelChoosingRoles(context),
+                child: Container(
+                    margin: const EdgeInsets.only(
+                      top: HsDimens.spacing8,
+                      bottom: HsDimens.spacing8,
+                      right: HsDimens.spacing16,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: HsDimens.spacing8),
-                      child: Text(
-                        HatSpaceStrings.current.chooseUserRoleDescription,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ),
-                    Expanded(
-                        child: ListView.separated(
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.only(
-                          top: HsDimens.spacing32, bottom: HsDimens.spacing20),
-                      itemCount: Roles.values.length,
-                      itemBuilder: (BuildContext context, int position) {
-                        return UserRoleCardView(
-                          key: ValueKey(Roles.values[position]),
-                          role: Roles.values[position],
-                        );
-                      },
-                      separatorBuilder: (_, ___) => const SizedBox(
-                        height: HsDimens.spacing16,
-                      ),
+                    child: SvgPicture.asset(
+                      Assets.icons.close,
+                      width: HsDimens.size32,
+                      height: HsDimens.size32,
                     )),
-                    BlocBuilder<ChooseRolesCubit, ChooseRolesState>(
-                      builder: (innerCtx, state) {
-                        final bool enabled = state is SubmitRoleFailedState ||
-                            (state is ChoosingRolesState &&
-                                state.roles.isNotEmpty);
-                        return PrimaryButton(
-                            label: HatSpaceStrings.current.signUp,
-                            onPressed: enabled
-                                ? () {
-                                    context
-                                        .read<ChooseRolesCubit>()
-                                        .submitUserRoles();
-                                  }
-                                : null);
-                      },
-                    )
-                  ]),
-            )),
-      ),
+              )
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.only(
+                left: HsDimens.spacing24,
+                right: HsDimens.spacing24,
+                bottom: HsDimens.spacing44),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    HatSpaceStrings.current.chooseUserRole,
+                    style: Theme.of(context).textTheme.displayLarge,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: HsDimens.spacing8),
+                    child: Text(
+                      HatSpaceStrings.current.chooseUserRoleDescription,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ),
+                  Expanded(
+                      child: ListView.separated(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.only(
+                        top: HsDimens.spacing32, bottom: HsDimens.spacing20),
+                    itemCount: Roles.values.length,
+                    itemBuilder: (BuildContext context, int position) {
+                      return UserRoleCardView(
+                        key: ValueKey(Roles.values[position]),
+                        role: Roles.values[position],
+                      );
+                    },
+                    separatorBuilder: (_, ___) => const SizedBox(
+                      height: HsDimens.spacing16,
+                    ),
+                  )),
+                  BlocBuilder<ChooseRolesCubit, ChooseRolesState>(
+                    builder: (innerCtx, state) {
+                      final bool enabled = state is SubmitRoleFailedState ||
+                          (state is ChoosingRolesState &&
+                              state.roles.isNotEmpty);
+                      return PrimaryButton(
+                          label: HatSpaceStrings.current.signUp,
+                          onPressed: enabled
+                              ? () {
+                                  context
+                                      .read<ChooseRolesCubit>()
+                                      .submitUserRoles();
+                                }
+                              : null);
+                    },
+                  )
+                ]),
+          )),
     );
   }
 
-  void _cancelChoosingRoles(BuildContext context) {
+  bool _cancelChoosingRoles(BuildContext context) {
     context.pop(result: false);
+    return false;
   }
 }

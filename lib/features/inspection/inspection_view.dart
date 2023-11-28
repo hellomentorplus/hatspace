@@ -11,7 +11,7 @@ import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 
 class InspectionView extends StatelessWidget {
-  const InspectionView({Key? key}) : super(key: key);
+  const InspectionView({super.key});
 
   @override
   Widget build(BuildContext context) => BlocProvider<InspectionCubit>(
@@ -20,7 +20,7 @@ class InspectionView extends StatelessWidget {
 }
 
 class InspectionBody extends StatelessWidget {
-  const InspectionBody({Key? key}) : super(key: key);
+  const InspectionBody({super.key});
 
   @override
   Widget build(BuildContext context) => SafeArea(
@@ -157,8 +157,8 @@ class TenantBookItemView extends StatelessWidget {
     required this.timeBooking,
     this.ownerName,
     this.ownerAvatar,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -352,8 +352,8 @@ class HomeOwnerBookItemView extends StatelessWidget {
     required this.currency,
     required this.state,
     required this.numberOfBookings,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -15,8 +15,7 @@ import 'package:hatspace/theme/widgets/hs_text_field.dart';
 import 'package:hatspace/view_models/property/property_detail_cubit.dart';
 
 class AddInspectionBookingScreen extends StatelessWidget {
-  const AddInspectionBookingScreen({required this.id, Key? key})
-      : super(key: key);
+  const AddInspectionBookingScreen({required this.id, super.key});
   final String id;
   @override
   Widget build(Object context) {
@@ -32,7 +31,7 @@ class AddInspectionBookingScreen extends StatelessWidget {
 
 class AddInspectionBookingBody extends StatelessWidget {
   final String id;
-  AddInspectionBookingBody({required this.id, Key? key}) : super(key: key);
+  AddInspectionBookingBody({required this.id, super.key});
   final ValueNotifier<DateTime> _selectedDate =
       ValueNotifier(DateTime.parse('2023-09-15'));
   final ValueNotifier<int> noteChars = ValueNotifier(0);
@@ -292,10 +291,9 @@ class BookedItemCard extends StatelessWidget {
     required this.paymentPeriod,
     EdgeInsets? padding,
     Color? shadowColor,
-    Key? key,
+    super.key,
   })  : padding = padding ?? const EdgeInsets.all(HsDimens.spacing16),
-        _shadowColor = shadowColor,
-        super(key: key);
+        _shadowColor = shadowColor;
 
   @override
   Widget build(BuildContext context) {

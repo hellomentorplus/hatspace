@@ -39,8 +39,7 @@ enum PhotoTabs {
 
 class SelectPhotoBottomSheet extends StatelessWidget {
   final List<String>? selectedPhotos;
-  const SelectPhotoBottomSheet({this.selectedPhotos, Key? key})
-      : super(key: key);
+  const SelectPhotoBottomSheet({this.selectedPhotos, super.key});
 
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
@@ -61,7 +60,7 @@ class SelectPhotoBottomSheet extends StatelessWidget {
 }
 
 class SelectPhotoBody extends StatefulWidget {
-  const SelectPhotoBody({Key? key}) : super(key: key);
+  const SelectPhotoBody({super.key});
 
   @override
   State<SelectPhotoBody> createState() => _SelectPhotoBodyState();
@@ -153,11 +152,9 @@ class _SelectPhotoBodyState extends State<SelectPhotoBody>
               )
             ],
           ),
-          body: WillPopScope(
-            onWillPop: () async {
-              _closeSelectPhotoBottomSheet(context);
-              return false;
-            },
+          body: PopScope(
+            canPop: false,
+            onPopInvoked: (didPop) => _closeSelectPhotoBottomSheet(context),
             child: TabBarView(
               controller: tabController,
               children: PhotoTabs.values.map((e) => e.tabView).toList(),
@@ -168,7 +165,7 @@ class _SelectPhotoBodyState extends State<SelectPhotoBody>
 }
 
 class AllPhotosView extends StatelessWidget {
-  const AllPhotosView({Key? key}) : super(key: key);
+  const AllPhotosView({super.key});
 
   @override
   Widget build(BuildContext context) {

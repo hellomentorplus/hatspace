@@ -12,7 +12,7 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 class AddPropertyPreviewView extends StatelessWidget {
-  const AddPropertyPreviewView({Key? key}) : super(key: key);
+  const AddPropertyPreviewView({super.key});
 
   @override
   Widget build(BuildContext context) => BlocProvider(

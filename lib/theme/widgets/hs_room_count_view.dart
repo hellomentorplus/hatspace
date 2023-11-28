@@ -37,8 +37,7 @@ class RoomListingCountView extends StatelessWidget {
 class _RoomCounts extends StatelessWidget {
   final String iconAsset;
   final String count;
-  const _RoomCounts({required this.iconAsset, required this.count, Key? key})
-      : super(key: key);
+  const _RoomCounts({required this.iconAsset, required this.count});
 
   @override
   Widget build(BuildContext context) => Row(

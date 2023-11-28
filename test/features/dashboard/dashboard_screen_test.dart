@@ -672,7 +672,7 @@ void main() {
           of: find.byType(Padding),
           matching: find.byType(InkWell),
         ),
-        matching: find.byType(SvgPicture),
+        matching: find.svgPictureWithAssets('assets/icons/add.svg'),
       );
 
       SvgPicture uploadPhoto = widgetTester.widget(svgPicture);
@@ -721,7 +721,7 @@ void main() {
           of: find.byType(Padding),
           matching: find.byType(InkWell),
         ),
-        matching: find.byType(SvgPicture),
+        matching: find.svgPictureWithAssets('assets/icons/add.svg'),
       );
 
       SvgPicture uploadPhoto = widgetTester.widget(svgPicture);
@@ -770,7 +770,7 @@ void main() {
           of: find.byType(Padding),
           matching: find.byType(InkWell),
         ),
-        matching: find.byType(SvgPicture),
+        matching: find.svgPictureWithAssets('assets/icons/add.svg'),
       );
 
       SvgPicture uploadPhoto = widgetTester.widget(svgPicture);

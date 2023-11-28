@@ -160,6 +160,9 @@ void main() {
       ),
     ], widget);
 
+    when(authenticationBloc.state)
+        .thenAnswer((realInvocation) => RequestSignUp());
+
     SharedPreferences.setMockInitialValues({});
     TextOnlyButton skipButton = tester.widget(find.ancestor(
         of: find.text('SKIP'), matching: find.byType(TextOnlyButton)));
@@ -185,12 +188,13 @@ void main() {
     ], widget);
 
     SharedPreferences.setMockInitialValues({});
+    when(authenticationBloc.state)
+        .thenAnswer((realInvocation) => RequestSignUp());
 
     // imitate Android back button
-    final dynamic widgetsAppState = tester.state(find.byType(WidgetsApp));
-    // need to use dynamic here, because _WidgetsAppState is private
-    // ignore: avoid_dynamic_calls
-    await widgetsAppState.didPopRoute();
+    final NavigatorState navigator = tester.state(find.byType(Navigator));
+    navigator.pop();
+    await tester.pump();
 
     verify(authenticationBloc.add(SkipSignUp())).called(1);
   });
