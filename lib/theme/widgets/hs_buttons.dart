@@ -134,7 +134,6 @@ class SecondaryButton extends StatelessWidget {
       this.style,
       this.contentAlignment = MainAxisAlignment.center,
       this.overrideIconColor = true,
-
       this.labelStyle,
       this.focusNode,
       this.onFocusChange});

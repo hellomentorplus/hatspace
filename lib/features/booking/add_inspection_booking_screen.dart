@@ -32,7 +32,7 @@ class AddInspectionBookingScreen extends StatelessWidget {
 
 class AddInspectionBookingBody extends StatelessWidget {
   final String id;
-  AddInspectionBookingBody({required this.id, Key? key}) : super(key: key);
+  AddInspectionBookingBody({required this.id, super.key});
   // initialised starttime only contain Date, no time
   final ValueNotifier<DateTime?> _selectedStartTime =
       ValueNotifier(DateTime.now().copyWith(hour: 9, minute: 0));
@@ -328,6 +328,7 @@ class BookedItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      // color: Colors.red,
       shadowColor: _shadowColor,
       elevation: 5, // Controls the shadow depth
       shape: RoundedRectangleBorder(

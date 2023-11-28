@@ -203,8 +203,7 @@ void main() async {
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
     'Given start time has not been entered'
     'When run validate startTimeSelection'
-    'emit RequestStartTimeSelection'
-    ,
+    'emit RequestStartTimeSelection',
     build: () => AddInspectionBookingCubit(),
     setUp: () {
       when(authenticationServiceMock.getCurrentUser())
@@ -217,7 +216,7 @@ void main() async {
     },
     act: (bloc) {
       bloc.isStartTimeSelected = false;
-       bloc.checkStarTimeSelection();
+      bloc.checkStarTimeSelection();
     },
     expect: () => [isA<RequestStartTimeSelection>()],
   );
@@ -241,8 +240,6 @@ void main() async {
       bloc.duration = 15;
       bloc.validateBookingInspectionButton();
     },
-    expect: () => [
-      isA<BookInspectionButtonEnable>()
-    ],
+    expect: () => [isA<BookInspectionButtonEnable>()],
   );
 }
