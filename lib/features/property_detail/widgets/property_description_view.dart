@@ -5,8 +5,7 @@ class PropertyDescriptionView extends StatelessWidget {
   final int? maxLine;
 
   const PropertyDescriptionView(
-      {required this.description, required this.maxLine, Key? key})
-      : super(key: key);
+      {required this.description, required this.maxLine, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +51,7 @@ class _LongPropertyDescriptionView extends StatefulWidget {
   final TextStyle? style;
 
   const _LongPropertyDescriptionView(
-      {required this.description,
-      required this.maxLine,
-      required this.style,
-      Key? key})
-      : super(key: key);
+      {required this.description, required this.maxLine, required this.style});
 
   @override
   State<_LongPropertyDescriptionView> createState() =>

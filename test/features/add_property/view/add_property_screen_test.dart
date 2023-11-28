@@ -126,7 +126,7 @@ void main() {
       Widget addPropertyScreen = AddPropertyPageBody();
       await widgetTester.blocWrapAndPump<AddPropertyCubit>(
           addPropertyBloc, addPropertyScreen);
-      expectLater(find.byType(WillPopScope), findsOneWidget);
+      expectLater(find.byType(PopScope), findsOneWidget);
       expect(find.byType(HsWarningBottomSheetView), findsNothing);
       Finder closeXButton = find.byType(IconButton);
       expect(closeXButton.first, findsOneWidget);
@@ -147,7 +147,7 @@ void main() {
           (realInvocation) => Stream.value(const OpenLostDataWarningModal(1)));
       await widgetTester.blocWrapAndPump<AddPropertyCubit>(
           addPropertyBloc, addPropertyScreen);
-      expectLater(find.byType(WillPopScope), findsOneWidget);
+      expectLater(find.byType(PopScope), findsOneWidget);
       expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
       // Find buttons
       Finder cancelBtn = find.widgetWithText(PrimaryButton, 'No');
@@ -169,7 +169,7 @@ void main() {
           (realInvocation) => Stream.value(const OpenLostDataWarningModal(1)));
       await widgetTester.blocWrapAndPump<AddPropertyCubit>(
           addPropertyBloc, addPropertyScreen);
-      expectLater(find.byType(WillPopScope), findsOneWidget);
+      expectLater(find.byType(PopScope), findsOneWidget);
       expect(find.byType(HsWarningBottomSheetView), findsOneWidget);
       // Find button
       Finder yesBtn = find.widgetWithText(SecondaryButton, 'Yes');
@@ -186,7 +186,7 @@ void main() {
       Widget addPropertyScreen = AddPropertyPageBody();
       await widgetTester.blocWrapAndPump<AddPropertyCubit>(
           addPropertyBloc, addPropertyScreen);
-      expectLater(find.byType(WillPopScope), findsOneWidget);
+      expectLater(find.byType(PopScope), findsOneWidget);
       Finder backButton = find.widgetWithText(TextOnlyButton, 'Back');
       await widgetTester.tap(backButton);
       verify(addPropertyBloc.onBackPressed(0)).called(1);

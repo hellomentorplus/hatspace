@@ -36,7 +36,7 @@ class RoomsCount {
 
 class PropertyDetailScreen extends StatelessWidget {
   final String id;
-  const PropertyDetailScreen({required this.id, Key? key}) : super(key: key);
+  const PropertyDetailScreen({required this.id, super.key});
 
   @override
   Widget build(BuildContext context) => MultiBlocProvider(providers: [
@@ -50,7 +50,7 @@ class PropertyDetailScreen extends StatelessWidget {
 class PropertyDetailBody extends StatelessWidget {
   //
   final String id;
-  const PropertyDetailBody({required this.id, Key? key}) : super(key: key);
+  const PropertyDetailBody({required this.id, super.key});
 
   Future<void> _showLoginModal(BuildContext context) {
     HsWarningBottomSheetView loginModal = HsWarningBottomSheetView(
@@ -427,7 +427,7 @@ class PropertyDetailBody extends StatelessWidget {
 }
 
 class _PropertyBookingBar extends StatelessWidget {
-  const _PropertyBookingBar({Key? key}) : super(key: key);
+  const _PropertyBookingBar();
 
   @override
   Widget build(BuildContext context) {

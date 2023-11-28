@@ -86,8 +86,7 @@ class _MaterialWrapWidget extends StatelessWidget {
   final bool useRouter;
 
   const _MaterialWrapWidget(
-      {required this.child, required this.useRouter, Key? key, this.theme})
-      : super(key: key);
+      {required this.child, required this.useRouter, this.theme});
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +105,7 @@ class _MaterialWrapWidget extends StatelessWidget {
 
 class _DummyRouter extends StatelessWidget {
   final Widget targetPage;
-  const _DummyRouter({required this.targetPage, Key? key}) : super(key: key);
+  const _DummyRouter({required this.targetPage});
 
   @override
   Widget build(BuildContext context) => Scaffold(

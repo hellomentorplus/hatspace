@@ -9,7 +9,7 @@ import 'package:hatspace/features/select_photo/view_model/photo_selection_cubit.
 class ImageSquareView extends StatelessWidget {
   final int index;
 
-  const ImageSquareView({required this.index, Key? key}) : super(key: key);
+  const ImageSquareView({required this.index, super.key});
 
   @override
   Widget build(BuildContext context) =>
@@ -29,7 +29,7 @@ class ImageSquareView extends StatelessWidget {
 }
 
 class ImageSquareBody extends StatelessWidget {
-  const ImageSquareBody({Key? key}) : super(key: key);
+  const ImageSquareBody({super.key});
 
   @override
   Widget build(BuildContext context) =>

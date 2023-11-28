@@ -35,7 +35,7 @@ jobs:
       # use flutter-action to start running flutter commands
       - uses: subosito/flutter-action@v2.6.1
         with:
-          flutter-version: '3.10.2'
+          flutter-version: '3.16.0'
           channel: 'stable'
 
       - name: format code
