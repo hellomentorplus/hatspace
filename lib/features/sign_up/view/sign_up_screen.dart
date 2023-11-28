@@ -65,8 +65,14 @@ class SignUpBody extends StatelessWidget {
       },
       child: PopScope(
         canPop: true,
-        onPopInvoked: (didPop) =>
-            context.read<AuthenticationBloc>().add(SkipSignUp()),
+        onPopInvoked: (didPop) {
+          print('SUESI - skip sign up => ${didPop} && ${context.read<AuthenticationBloc>().state is RequestSignUp}');
+
+          if (didPop && context.read<AuthenticationBloc>().state is RequestSignUp) {
+            print('SUESI - skip sign up');
+            context.read<AuthenticationBloc>().add(SkipSignUp());
+          }
+        },
         child: Scaffold(
           body: Stack(
             children: [
@@ -101,9 +107,6 @@ class SignUpBody extends StatelessWidget {
                                     label: HatSpaceStrings.current.skip
                                         .toUpperCase(),
                                     onPressed: () {
-                                      context
-                                          .read<AuthenticationBloc>()
-                                          .add(SkipSignUp());
                                       context.pop();
                                     },
                                     style: ButtonStyle(
