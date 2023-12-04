@@ -151,7 +151,7 @@ void main() async {
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => BookInspectionButtonEnable());
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-        providers, AddInspectionBookingBody(id: 'id')));
+        providers, const AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(AddInspectionBookingBody), findsOneWidget);
@@ -176,7 +176,7 @@ void main() async {
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => AddInspectionBookingInitial());
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-        providers, AddInspectionBookingBody(id: 'id')));
+        providers, const AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(AddInspectionBookingBody), findsOneWidget);
@@ -197,7 +197,7 @@ void main() async {
         .thenAnswer((_) => AddInspectionBookingInitial());
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-        providers, AddInspectionBookingBody(id: 'id')));
+        providers, const AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(AddInspectionBookingBody), findsOneWidget);
@@ -226,7 +226,7 @@ void main() async {
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => AddInspectionBookingInitial());
       await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
-          providers, AddInspectionBookingBody(id: 'id'))));
+          providers, const AddInspectionBookingBody(id: 'id'))));
       await widgetTester.pumpAndSettle();
 
       expect(find.byType(AddInspectionBookingBody), findsOneWidget);
@@ -253,7 +253,7 @@ void main() async {
       when(addInspectionBookingCubit.duration).thenReturn(5);
 
       await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
-          providers, AddInspectionBookingBody(id: 'id'))));
+          providers, const AddInspectionBookingBody(id: 'id'))));
       await widgetTester.pumpAndSettle();
       Finder durationBtn = find.widgetWithText(SecondaryButton, '15 mins');
       expect(durationBtn, findsOneWidget);
@@ -276,7 +276,7 @@ void main() async {
         .thenAnswer((_) => BookingInspectionSuccess());
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-        providers, AddInspectionBookingBody(id: 'id')));
+        providers, const AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(AddInspectionBookingBody), findsNothing);
