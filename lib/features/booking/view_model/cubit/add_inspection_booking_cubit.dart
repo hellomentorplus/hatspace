@@ -71,7 +71,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     }
   }
 
-  void checkStarTimeSelection() {
+  void selectDuration() {
     if (!isStartTimeSelected) {
       emit(RequestStartTimeSelection());
     }

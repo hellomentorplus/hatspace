@@ -30,14 +30,30 @@ class AddInspectionBookingScreen extends StatelessWidget {
   }
 }
 
-class AddInspectionBookingBody extends StatelessWidget {
+class AddInspectionBookingBody extends StatefulWidget {
   final String id;
-  AddInspectionBookingBody({required this.id, super.key});
-  // initialised starttime only contain Date, no time
-  final ValueNotifier<DateTime?> _selectedStartTime =
-      ValueNotifier(DateTime.now().copyWith(hour: 9, minute: 0));
-  final ValueNotifier<int> noteChars = ValueNotifier(0);
-  final maxChar = 400;
+  const AddInspectionBookingBody({required this.id, super.key});
+
+  @override
+  State<AddInspectionBookingBody> createState() => _AddInspectionBookingBody();
+}
+
+class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
+  late ValueNotifier<DateTime?> _selectedStartTime;
+  late ValueNotifier<int> _noteChars;
+  late int _maxChar;
+  late List<int> _minutesList;
+  late List<int> _hourList;
+  @override
+  void initState() {
+    super.initState();
+    _minutesList = generateNumbersList(0, 59);
+    _hourList = generateNumbersList(7, 19);
+    _maxChar = 400;
+    _selectedStartTime =
+        ValueNotifier(DateTime.now().copyWith(hour: 9, minute: 0));
+    _noteChars = ValueNotifier(0);
+  }
 
   // To generate list of number for time picker
   List<int> generateNumbersList(int start, int end) {
@@ -49,13 +65,18 @@ class AddInspectionBookingBody extends StatelessWidget {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _selectedStartTime.dispose();
+    _noteChars.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final minutesList = generateNumbersList(0, 59);
-    final hourList = generateNumbersList(7, 19);
     return BlocListener<AddInspectionBookingCubit, AddInspectionBookingState>(
         listener: (context, state) {
           if (state is BookingInspectionSuccess) {
-            context.pushToBookInspectionSuccessScreen(propertyId: id);
+            context.pushToBookInspectionSuccessScreen(propertyId: widget.id);
           }
         },
         child: Scaffold(
@@ -116,7 +137,7 @@ class AddInspectionBookingBody extends StatelessWidget {
                               ),
                               onPressed: () {
                                 context.goToPropertyDetail(
-                                    id: id, replacement: true);
+                                    id: widget.id, replacement: true);
                               },
                             )),
                       ],
@@ -170,8 +191,8 @@ class AddInspectionBookingBody extends StatelessWidget {
                       children: [
                         Expanded(
                           child: StartTimeSelectionWidget(
-                            hourList: hourList,
-                            minutesList: minutesList,
+                            hourList: _hourList,
+                            minutesList: _minutesList,
                             startTimeNotifer: _selectedStartTime,
                           ),
                         ),
@@ -186,7 +207,8 @@ class AddInspectionBookingBody extends StatelessWidget {
                             const SizedBox(height: HsDimens.spacing4),
                             HsDropDownButton(
                                 value: null,
-                                placeholder: '15 mins',
+                                placeholder: HatSpaceStrings.current
+                                    .durationPlaceHolder, // Will be replaced in the SelectDurationStory
                                 placeholderStyle: placeholderStyle,
                                 icon: Assets.icons.chervonDown,
                                 onPressed: () {
@@ -194,7 +216,7 @@ class AddInspectionBookingBody extends StatelessWidget {
                                   // TODO: Change it in story 395
                                   context
                                       .read<AddInspectionBookingCubit>()
-                                      .checkStarTimeSelection();
+                                      .selectDuration();
                                 })
                           ],
                         ))
@@ -210,14 +232,14 @@ class AddInspectionBookingBody extends StatelessWidget {
                             label: HatSpaceStrings.current.notes,
                             optional: HatSpaceStrings.current.optional),
                         ValueListenableBuilder<int>(
-                            valueListenable: noteChars,
+                            valueListenable: _noteChars,
                             builder: (context, value, child) => RichText(
                                     text: TextSpan(
                                         style: textTheme.bodySmall,
                                         children: [
                                       TextSpan(text: value.toString()),
                                       const TextSpan(text: '/'),
-                                      TextSpan(text: maxChar.toString())
+                                      TextSpan(text: _maxChar.toString())
                                     ]))),
                       ],
                     ),
@@ -229,14 +251,14 @@ class AddInspectionBookingBody extends StatelessWidget {
                       minLines: 4,
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
-                      maxLength: maxChar,
+                      maxLength: _maxChar,
                       decoration: inputTextTheme.copyWith(
                         hintText: HatSpaceStrings.current.notesPlaceHolder,
                         counterText: '',
                         semanticCounterText: '',
                       ),
                       onChanged: (value) {
-                        noteChars.value = value.length;
+                        _noteChars.value = value.length;
                       },
                     ),
                   ],
@@ -328,7 +350,6 @@ class BookedItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      // color: Colors.red,
       shadowColor: _shadowColor,
       elevation: 5, // Controls the shadow depth
       shape: RoundedRectangleBorder(

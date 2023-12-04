@@ -216,7 +216,7 @@ void main() async {
     },
     act: (bloc) {
       bloc.isStartTimeSelected = false;
-      bloc.checkStarTimeSelection();
+      bloc.selectDuration();
     },
     expect: () => [isA<RequestStartTimeSelection>()],
   );

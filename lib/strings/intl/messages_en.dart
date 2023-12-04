@@ -178,6 +178,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "downloadApplicationFormHere": MessageLookupByLibrary.simpleMessage(
             "Download Application form here"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
+        "durationPlaceHolder": MessageLookupByLibrary.simpleMessage("15 mins"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
