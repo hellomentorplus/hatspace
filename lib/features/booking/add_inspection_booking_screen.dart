@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
+import 'package:hatspace/features/booking/widgets/start_time_selection_widget.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -29,20 +30,53 @@ class AddInspectionBookingScreen extends StatelessWidget {
   }
 }
 
-class AddInspectionBookingBody extends StatelessWidget {
+class AddInspectionBookingBody extends StatefulWidget {
   final String id;
-  AddInspectionBookingBody({required this.id, super.key});
-  final ValueNotifier<DateTime> _selectedDate =
-      ValueNotifier(DateTime.parse('2023-09-15'));
-  final ValueNotifier<int> noteChars = ValueNotifier(0);
-  final maxChar = 400;
+  const AddInspectionBookingBody({required this.id, super.key});
+
+  @override
+  State<AddInspectionBookingBody> createState() => _AddInspectionBookingBody();
+}
+
+class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
+  late ValueNotifier<DateTime?> _selectedStartTime;
+  late ValueNotifier<int> _noteChars;
+  late int _maxChar;
+  late List<int> _minutesList;
+  late List<int> _hourList;
+  @override
+  void initState() {
+    super.initState();
+    _minutesList = generateNumbersList(0, 59);
+    _hourList = generateNumbersList(7, 19);
+    _maxChar = 400;
+    _selectedStartTime =
+        ValueNotifier(DateTime.now().copyWith(hour: 9, minute: 0));
+    _noteChars = ValueNotifier(0);
+  }
+
+  // To generate list of number for time picker
+  List<int> generateNumbersList(int start, int end) {
+    List<int> numbersList = [];
+    for (int i = start; i <= end; i++) {
+      numbersList.add(i);
+    }
+    return numbersList;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _selectedStartTime.dispose();
+    _noteChars.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AddInspectionBookingCubit, AddInspectionBookingState>(
         listener: (context, state) {
           if (state is BookingInspectionSuccess) {
-            context.pushToBookInspectionSuccessScreen(propertyId: id);
+            context.pushToBookInspectionSuccessScreen(propertyId: widget.id);
           }
         },
         child: Scaffold(
@@ -55,18 +89,26 @@ class AddInspectionBookingBody extends StatelessWidget {
             ),
             bottomNavigationBar: BottomAppBar(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(HsDimens.spacing16,
-                    HsDimens.spacing8, HsDimens.spacing16, HsDimens.spacing28),
-                child: PrimaryButton(
-                  label: HatSpaceStrings.of(context).bookInspection,
-                  onPressed: () {
-                    // TODO: implemnt booking logic
-                    context
-                        .read<AddInspectionBookingCubit>()
-                        .onBookInspection();
-                  },
-                ),
-              ),
+                  padding: const EdgeInsets.fromLTRB(
+                      HsDimens.spacing16,
+                      HsDimens.spacing8,
+                      HsDimens.spacing16,
+                      HsDimens.spacing28),
+                  child: BlocBuilder<AddInspectionBookingCubit,
+                      AddInspectionBookingState>(
+                    builder: (context, state) {
+                      return PrimaryButton(
+                          label: HatSpaceStrings.of(context).bookInspection,
+                          onPressed: state is BookInspectionButtonEnable
+                              ? () {
+                                  // TODO: implemnt booking logic
+                                  context
+                                      .read<AddInspectionBookingCubit>()
+                                      .onBookInspection();
+                                }
+                              : null);
+                    },
+                  )),
             ),
             body: SafeArea(
               child: SingleChildScrollView(
@@ -95,7 +137,7 @@ class AddInspectionBookingBody extends StatelessWidget {
                               ),
                               onPressed: () {
                                 context.goToPropertyDetail(
-                                    id: id, replacement: true);
+                                    id: widget.id, replacement: true);
                               },
                             )),
                       ],
@@ -126,12 +168,18 @@ class AddInspectionBookingBody extends StatelessWidget {
                         child: HsLabel(
                             label: HatSpaceStrings.current.date,
                             isRequired: true)),
-                    ValueListenableBuilder<DateTime>(
-                      valueListenable: _selectedDate,
+                    ValueListenableBuilder<DateTime?>(
+                      valueListenable: _selectedStartTime,
                       builder: (context, value, child) => _DatePickerView(
                         selectedDate: value,
                         onSelectedDate: (value) {
-                          _selectedDate.value = value;
+                          // Todo: only update date. Do not update time
+                          //  context.read<AddInspectionBookingCubit>().updateInspectionDateOnly(day: value.day, month: value.month, year: value.year);
+                          _selectedStartTime.value = _selectedStartTime.value
+                              ?.copyWith(
+                                  day: value.day,
+                                  month: value.month,
+                                  year: value.year);
                         },
                       ),
                     ),
@@ -139,21 +187,15 @@ class AddInspectionBookingBody extends StatelessWidget {
                       height: HsDimens.spacing16,
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            HsLabel(
-                                label: HatSpaceStrings.current.startTime,
-                                isRequired: true),
-                            const SizedBox(height: HsDimens.spacing4),
-                            HsDropDownButton(
-                                value: '09:00 AM',
-                                icon: Assets.icons.chervonDown,
-                                onPressed: () {})
-                          ],
-                        )),
+                          child: StartTimeSelectionWidget(
+                            hourList: _hourList,
+                            minutesList: _minutesList,
+                            startTimeNotifer: _selectedStartTime,
+                          ),
+                        ),
                         const SizedBox(width: HsDimens.spacing15),
                         Expanded(
                             child: Column(
@@ -164,9 +206,18 @@ class AddInspectionBookingBody extends StatelessWidget {
                                 isRequired: true),
                             const SizedBox(height: HsDimens.spacing4),
                             HsDropDownButton(
-                                value: '15 mins',
+                                value: null,
+                                placeholder: HatSpaceStrings.current
+                                    .durationPlaceHolder, // Will be replaced in the SelectDurationStory
+                                placeholderStyle: placeholderStyle,
                                 icon: Assets.icons.chervonDown,
-                                onPressed: () {})
+                                onPressed: () {
+                                  //Note: Only for this story's scope
+                                  // TODO: Change it in story 395
+                                  context
+                                      .read<AddInspectionBookingCubit>()
+                                      .selectDuration();
+                                })
                           ],
                         ))
                       ],
@@ -181,14 +232,14 @@ class AddInspectionBookingBody extends StatelessWidget {
                             label: HatSpaceStrings.current.notes,
                             optional: HatSpaceStrings.current.optional),
                         ValueListenableBuilder<int>(
-                            valueListenable: noteChars,
+                            valueListenable: _noteChars,
                             builder: (context, value, child) => RichText(
                                     text: TextSpan(
                                         style: textTheme.bodySmall,
                                         children: [
                                       TextSpan(text: value.toString()),
                                       const TextSpan(text: '/'),
-                                      TextSpan(text: maxChar.toString())
+                                      TextSpan(text: _maxChar.toString())
                                     ]))),
                       ],
                     ),
@@ -200,14 +251,14 @@ class AddInspectionBookingBody extends StatelessWidget {
                       minLines: 4,
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
-                      maxLength: maxChar,
+                      maxLength: _maxChar,
                       decoration: inputTextTheme.copyWith(
                         hintText: HatSpaceStrings.current.notesPlaceHolder,
                         counterText: '',
                         semanticCounterText: '',
                       ),
                       onChanged: (value) {
-                        noteChars.value = value.length;
+                        _noteChars.value = value.length;
                       },
                     ),
                   ],
@@ -218,7 +269,7 @@ class AddInspectionBookingBody extends StatelessWidget {
 }
 
 class _DatePickerView extends StatelessWidget {
-  final DateTime selectedDate;
+  final DateTime? selectedDate;
   final ValueChanged<DateTime> onSelectedDate;
 
   const _DatePickerView(
@@ -248,12 +299,13 @@ class _DatePickerView extends StatelessWidget {
                               onSelectedDate(date);
                               Navigator.pop(context); // Dismiss the dialog
                             },
-                            selectedDate: selectedDate,
+                            selectedDate: selectedDate ?? DateTime.now(),
                           )
                         ]));
               });
         },
-        label: HatSpaceStrings.current.dateFormatterWithDate(selectedDate),
+        label: HatSpaceStrings.current
+            .dateFormatterWithDate(selectedDate ?? DateTime.now()),
         iconUrl: Assets.icons.calendar,
         iconPosition: IconPosition.right,
         contentAlignment: MainAxisAlignment.spaceBetween,

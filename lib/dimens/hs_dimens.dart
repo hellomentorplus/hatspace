@@ -24,6 +24,8 @@ class HsDimens {
   static const double spacing80 = 80.0;
 
   static const double spacing150 = 150.0;
+  static const double spacing155 = 155.0;
+  static const double spacing195 = 195.0;
 
   //line-height
   static const double lineheight4 = 4.0;

@@ -84,6 +84,7 @@ class MockFirebaseRemoteConfig extends _i1.Mock
           Invocation.getter(#app),
         ),
       ) as _i2.FirebaseApp);
+
   @override
   DateTime get lastFetchTime => (super.noSuchMethod(
         Invocation.getter(#lastFetchTime),
@@ -92,11 +93,13 @@ class MockFirebaseRemoteConfig extends _i1.Mock
           Invocation.getter(#lastFetchTime),
         ),
       ) as DateTime);
+
   @override
   _i3.RemoteConfigFetchStatus get lastFetchStatus => (super.noSuchMethod(
         Invocation.getter(#lastFetchStatus),
         returnValue: _i3.RemoteConfigFetchStatus.noFetchYet,
       ) as _i3.RemoteConfigFetchStatus);
+
   @override
   _i3.RemoteConfigSettings get settings => (super.noSuchMethod(
         Invocation.getter(#settings),
@@ -105,16 +108,19 @@ class MockFirebaseRemoteConfig extends _i1.Mock
           Invocation.getter(#settings),
         ),
       ) as _i3.RemoteConfigSettings);
+
   @override
   _i5.Stream<_i3.RemoteConfigUpdate> get onConfigUpdated => (super.noSuchMethod(
         Invocation.getter(#onConfigUpdated),
         returnValue: _i5.Stream<_i3.RemoteConfigUpdate>.empty(),
       ) as _i5.Stream<_i3.RemoteConfigUpdate>);
+
   @override
   Map<dynamic, dynamic> get pluginConstants => (super.noSuchMethod(
         Invocation.getter(#pluginConstants),
         returnValue: <dynamic, dynamic>{},
       ) as Map<dynamic, dynamic>);
+
   @override
   _i5.Future<bool> activate() => (super.noSuchMethod(
         Invocation.method(
@@ -123,6 +129,7 @@ class MockFirebaseRemoteConfig extends _i1.Mock
         ),
         returnValue: _i5.Future<bool>.value(false),
       ) as _i5.Future<bool>);
+
   @override
   _i5.Future<void> ensureInitialized() => (super.noSuchMethod(
         Invocation.method(
@@ -132,6 +139,7 @@ class MockFirebaseRemoteConfig extends _i1.Mock
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+
   @override
   _i5.Future<void> fetch() => (super.noSuchMethod(
         Invocation.method(
@@ -141,6 +149,7 @@ class MockFirebaseRemoteConfig extends _i1.Mock
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+
   @override
   _i5.Future<bool> fetchAndActivate() => (super.noSuchMethod(
         Invocation.method(
@@ -149,6 +158,7 @@ class MockFirebaseRemoteConfig extends _i1.Mock
         ),
         returnValue: _i5.Future<bool>.value(false),
       ) as _i5.Future<bool>);
+
   @override
   Map<String, _i3.RemoteConfigValue> getAll() => (super.noSuchMethod(
         Invocation.method(
@@ -157,6 +167,7 @@ class MockFirebaseRemoteConfig extends _i1.Mock
         ),
         returnValue: <String, _i3.RemoteConfigValue>{},
       ) as Map<String, _i3.RemoteConfigValue>);
+
   @override
   bool getBool(String? key) => (super.noSuchMethod(
         Invocation.method(
@@ -165,6 +176,7 @@ class MockFirebaseRemoteConfig extends _i1.Mock
         ),
         returnValue: false,
       ) as bool);
+
   @override
   int getInt(String? key) => (super.noSuchMethod(
         Invocation.method(
@@ -173,6 +185,7 @@ class MockFirebaseRemoteConfig extends _i1.Mock
         ),
         returnValue: 0,
       ) as int);
+
   @override
   double getDouble(String? key) => (super.noSuchMethod(
         Invocation.method(
@@ -181,6 +194,7 @@ class MockFirebaseRemoteConfig extends _i1.Mock
         ),
         returnValue: 0.0,
       ) as double);
+
   @override
   String getString(String? key) => (super.noSuchMethod(
         Invocation.method(
@@ -195,6 +209,7 @@ class MockFirebaseRemoteConfig extends _i1.Mock
           ),
         ),
       ) as String);
+
   @override
   _i3.RemoteConfigValue getValue(String? key) => (super.noSuchMethod(
         Invocation.method(
@@ -209,6 +224,7 @@ class MockFirebaseRemoteConfig extends _i1.Mock
           ),
         ),
       ) as _i3.RemoteConfigValue);
+
   @override
   _i5.Future<void> setConfigSettings(
           _i3.RemoteConfigSettings? remoteConfigSettings) =>
@@ -220,6 +236,7 @@ class MockFirebaseRemoteConfig extends _i1.Mock
         returnValue: _i5.Future<void>.value(),
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
+
   @override
   _i5.Future<void> setDefaults(Map<String, dynamic>? defaultParameters) =>
       (super.noSuchMethod(

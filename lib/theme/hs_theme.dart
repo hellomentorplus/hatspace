@@ -6,6 +6,7 @@ part 'hs_color.dart';
 part 'hs_text_theme.dart';
 
 ThemeData lightThemeData = ThemeData(
+  useMaterial3: false,
   scaffoldBackgroundColor: colorScheme.background,
   textTheme: textTheme,
   colorScheme: colorScheme,

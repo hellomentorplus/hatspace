@@ -140,3 +140,21 @@ const TextStyle overLine2Custom = TextStyle(
   //New text color based on design
   color: HSColor.neutral9,
 );
+
+const TextStyle timePickerStyle = TextStyle(
+    fontSize: FontStyleGuide.fontSize18,
+    fontWeight: FontWeight.w400,
+    letterSpacing: FontStyleGuide.letterSpacing015,
+    color: HSColor.neutral9);
+
+const TextStyle placeholderStyle = TextStyle(
+    fontSize: FontStyleGuide.fontSize14,
+    fontWeight: FontWeight.w400,
+    letterSpacing: FontStyleGuide.letterSpacing015,
+    color: HSColor.neutral5);
+
+const TextStyle errorTextStyle = TextStyle(
+    fontSize: FontStyleGuide.fontSize12,
+    fontWeight: FontWeight.w400,
+    letterSpacing: FontStyleGuide.letterSpacing015,
+    color: HSColor.statusError);

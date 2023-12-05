@@ -8,6 +8,7 @@ import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/booking/add_inspection_booking_screen.dart';
 import 'package:hatspace/features/booking/add_inspection_success_booking_screen.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
+import 'package:hatspace/features/booking/widgets/start_time_selection_widget.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
@@ -17,6 +18,7 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_date_picker.dart';
+import 'package:hatspace/theme/widgets/hs_time_picker.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:hatspace/view_models/property/property_detail_cubit.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -106,6 +108,7 @@ void main() async {
     when(propertyDetailCubit.state).thenReturn(PropertyDetailInitial());
     when(propertyDetailCubit.stream)
         .thenAnswer((realInvocation) => const Stream.empty());
+    when(addInspectionBookingCubit.isStartTimeSelected).thenReturn(false);
   });
 
   testWidgets('Verify UI component', (WidgetTester widget) async {
@@ -139,15 +142,16 @@ void main() async {
   });
 
   testWidgets(
-      'Given user is in AddInspectionBookingScreen. '
-      'When user tap on booking button. '
+      'Given user is in AddInspectionBookingScreen.'
+      'Given Book Inspection Enabled'
+      'When user tap on booking button.'
       'Then user will start booking process.', (widgetTester) async {
     when(addInspectionBookingCubit.stream)
-        .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
+        .thenAnswer((_) => Stream.value(BookInspectionButtonEnable()));
     when(addInspectionBookingCubit.state)
-        .thenAnswer((_) => AddInspectionBookingInitial());
+        .thenAnswer((_) => BookInspectionButtonEnable());
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-        providers, AddInspectionBookingBody(id: 'id')));
+        providers, const AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(AddInspectionBookingBody), findsOneWidget);
@@ -164,6 +168,26 @@ void main() async {
   });
 
   testWidgets(
+      'Given user is in AddInspectionBookingScreen.'
+      'Given start time and duration has not been selected'
+      'Then Book Inspection Button is DISABLE', (widgetTester) async {
+    when(addInspectionBookingCubit.stream)
+        .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
+    when(addInspectionBookingCubit.state)
+        .thenAnswer((_) => AddInspectionBookingInitial());
+    await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+        providers, const AddInspectionBookingBody(id: 'id')));
+    await widgetTester.pumpAndSettle();
+
+    expect(find.byType(AddInspectionBookingBody), findsOneWidget);
+
+    final Finder bookingBtnFinder =
+        find.widgetWithText(PrimaryButton, 'Book Inspection');
+    PrimaryButton bookingBtn = widgetTester.widget(bookingBtnFinder);
+    expect(bookingBtn.onPressed, null);
+    expect(bookingBtn.style?.backgroundColor, null);
+  });
+  testWidgets(
       'Given user is in AddInspectionBookingScreen. '
       'When user tap on the date picker. '
       'Then the date picker ui will be shown up.', (widgetTester) async {
@@ -173,7 +197,7 @@ void main() async {
         .thenAnswer((_) => AddInspectionBookingInitial());
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-        providers, AddInspectionBookingBody(id: 'id')));
+        providers, const AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(AddInspectionBookingBody), findsOneWidget);
@@ -192,6 +216,55 @@ void main() async {
     expect(find.byType(HsDatePicker), findsOneWidget);
   });
 
+  group('Add inspection set start time group', () {
+    testWidgets(
+        'Given user is in AddInspectionBookingScreen'
+        'When user tap on start time drop down menu'
+        'Then Show bottom sheet modal with start time', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => AddInspectionBookingInitial());
+      await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
+          providers, const AddInspectionBookingBody(id: 'id'))));
+      await widgetTester.pumpAndSettle();
+
+      expect(find.byType(AddInspectionBookingBody), findsOneWidget);
+
+      //find start time with default placeholder
+      // Finder startTimeBtn = find.widgetWithText(SecondaryButton, '09:00 AM');
+      Finder startTimeBtn = find.byType(StartTimeSelectionWidget);
+      expect(startTimeBtn, findsOneWidget);
+      await widgetTester.ensureVisible(startTimeBtn);
+      await widgetTester.tap(startTimeBtn);
+      await widgetTester.pumpAndSettle();
+
+      expect(find.byType(HatSpaceTimePicker), findsOneWidget);
+    });
+
+    testWidgets(
+        'Given user is has not select start time'
+        'when user tap on duration'
+        'Then show error below Start time', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(RequestStartTimeSelection()));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => AddInspectionBookingInitial());
+      when(addInspectionBookingCubit.duration).thenReturn(5);
+
+      await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
+          providers, const AddInspectionBookingBody(id: 'id'))));
+      await widgetTester.pumpAndSettle();
+      Finder durationBtn = find.widgetWithText(SecondaryButton, '15 mins');
+      expect(durationBtn, findsOneWidget);
+      await widgetTester.ensureVisible(durationBtn);
+      await widgetTester.tap(durationBtn);
+      await widgetTester.pumpAndSettle();
+      //Error show when start time has not been selected
+      expect(find.text('Select start time'), findsOneWidget);
+    });
+  });
+
   testWidgets(
       'Given user is in AddInspectionBookingScreen. '
       'When booking action was succeed. '
@@ -203,7 +276,7 @@ void main() async {
         .thenAnswer((_) => BookingInspectionSuccess());
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-        providers, AddInspectionBookingBody(id: 'id')));
+        providers, const AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(AddInspectionBookingBody), findsNothing);

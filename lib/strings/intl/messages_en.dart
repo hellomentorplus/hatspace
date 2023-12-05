@@ -178,6 +178,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "downloadApplicationFormHere": MessageLookupByLibrary.simpleMessage(
             "Download Application form here"),
         "duration": MessageLookupByLibrary.simpleMessage("Duration"),
+        "durationPlaceHolder": MessageLookupByLibrary.simpleMessage("15 mins"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "electricStove": MessageLookupByLibrary.simpleMessage("Electric stove"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -297,6 +298,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Search rental, location..."),
         "securityCameras":
             MessageLookupByLibrary.simpleMessage("Security cameras"),
+        "selectStartTimeError":
+            MessageLookupByLibrary.simpleMessage("Select start time"),
         "sendEmail": MessageLookupByLibrary.simpleMessage("Send Email"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "showLess": MessageLookupByLibrary.simpleMessage("Show less"),

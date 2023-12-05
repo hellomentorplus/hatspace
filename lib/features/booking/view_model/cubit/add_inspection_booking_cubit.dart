@@ -30,4 +30,50 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
       // TODO: Implement when there is no user
     }
   }
+
+  // only get day, month, and year at the first time. StartTime need to be updated in UI
+  DateTime? _inspecitonStartTime;
+  int? _duration;
+  bool isStartTimeSelected = false;
+
+  set inspectionStartTime(DateTime? startTime) {
+    _inspecitonStartTime = startTime;
+    validateBookingInspectionButton();
+  }
+
+  DateTime? get inspectionStartTime => _inspecitonStartTime;
+
+  set duration(int? duration) {
+    _duration = duration;
+    validateBookingInspectionButton();
+  }
+
+  void updateInspectionDateOnly(
+      {required int day, required int month, required int year}) {
+    inspectionStartTime =
+        _inspecitonStartTime?.copyWith(day: day, year: year, month: month);
+    validateBookingInspectionButton();
+  }
+
+  void updateInspectionStartTime(DateTime newDateTime) {
+    isStartTimeSelected = true;
+    _inspecitonStartTime = newDateTime;
+    emit(CloseStartTimeRequestMessage());
+    validateBookingInspectionButton();
+  }
+
+  int? get duration => _duration;
+
+  void validateBookingInspectionButton() {
+    // TO DO: Add duration to validation
+    if (isStartTimeSelected && duration != null) {
+      emit(BookInspectionButtonEnable());
+    }
+  }
+
+  void selectDuration() {
+    if (!isStartTimeSelected) {
+      emit(RequestStartTimeSelection());
+    }
+  }
 }
