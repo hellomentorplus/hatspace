@@ -20,5 +20,6 @@ class RequestStartTimeSelection extends AddInspectionBookingState {}
 
 class CloseStartTimeRequestMessage extends AddInspectionBookingState {}
 
-class ShowDurationSelection extends AddInspectionBookingState{}
+class ShowDurationSelection extends AddInspectionBookingState {}
 
+class CloseBottomSheet extends AddInspectionBookingState {}

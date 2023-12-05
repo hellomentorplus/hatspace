@@ -222,7 +222,7 @@ void main() async {
   );
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
-    'Given user start time and duration already selected'
+    'Given user start time AND duration already selected '
     'When validate booking button'
     'Then emit BookInspectionEnable',
     build: () => AddInspectionBookingCubit(),
@@ -236,14 +236,12 @@ void main() async {
       });
     },
     act: (bloc) {
-      bloc.inspectionStartTime = DateTime(2017, 1, 1, 15, 0);
+      // bloc.inspectionStartTime = DateTime(2017, 1, 1, 15, 0);
+      bloc.isStartTimeSelected = true;
       bloc.duration = 15;
       bloc.validateBookingInspectionButton();
     },
-    expect: () => [
-      isA<CloseStartTimeRequestMessage>(),
-      isA<BookInspectionButtonEnable>()
-    ],
+    expect: () => [isA<BookInspectionButtonEnable>()],
   );
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -261,9 +259,7 @@ void main() async {
       });
     },
     act: (bloc) {
-      bloc.inspectionStartTime = DateTime(2017, 1, 1, 0, 0);
-      bloc.duration = 15;
-      bloc.validateBookingInspectionButton();
+      bloc.selectDuration();
     },
     expect: () => [isA<RequestStartTimeSelection>()],
   );

@@ -151,7 +151,7 @@ void main() async {
         .thenAnswer((_) => Stream.value(BookInspectionButtonEnable()));
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => BookInspectionButtonEnable());
-    when(addInspectionBookingCubit.duration).thenReturn(15);
+    when(addInspectionBookingCubit.durationTime).thenReturn(15);
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
         providers, const AddInspectionBookingBody(id: 'id')));
@@ -178,9 +178,9 @@ void main() async {
         .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => AddInspectionBookingInitial());
-    when(addInspectionBookingCubit.duration).thenReturn(null);
+    when(addInspectionBookingCubit.durationTime).thenReturn(null);
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-        providers, AddInspectionBookingBody(id: 'id')));
+        providers, const AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(AddInspectionBookingBody), findsOneWidget);
@@ -199,7 +199,7 @@ void main() async {
         .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => AddInspectionBookingInitial());
-    when(addInspectionBookingCubit.duration).thenReturn(null);
+    when(addInspectionBookingCubit.durationTime).thenReturn(null);
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
         providers, const AddInspectionBookingBody(id: 'id')));
@@ -230,9 +230,9 @@ void main() async {
           .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => AddInspectionBookingInitial());
-      when(addInspectionBookingCubit.duration).thenReturn(null);
+      when(addInspectionBookingCubit.durationTime).thenReturn(null);
       await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
-          providers, AddInspectionBookingBody(id: 'id'))));
+          providers, const AddInspectionBookingBody(id: 'id'))));
       await widgetTester.pumpAndSettle();
 
       expect(find.byType(AddInspectionBookingBody), findsOneWidget);
@@ -256,10 +256,10 @@ void main() async {
           .thenAnswer((_) => Stream.value(RequestStartTimeSelection()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => AddInspectionBookingInitial());
-      when(addInspectionBookingCubit.duration).thenReturn(15);
+      when(addInspectionBookingCubit.durationTime).thenReturn(15);
 
       await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
-          providers, AddInspectionBookingBody(id: 'id'))));
+          providers, const AddInspectionBookingBody(id: 'id'))));
       await widgetTester.pumpAndSettle();
       Finder durationBtn = find.widgetWithText(SecondaryButton, '15 mins');
       expect(durationBtn, findsOneWidget);
@@ -271,8 +271,8 @@ void main() async {
     });
   });
 
-  group('Add inspection set duration group',(){
-  testWidgets(
+  group('Add inspection set duration group', () {
+    testWidgets(
         'Given user already selected start time'
         'when user tap on duration'
         'Then show select duration bottom sheet', (widgetTester) async {
@@ -280,11 +280,10 @@ void main() async {
           .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => AddInspectionBookingInitial());
-      when(addInspectionBookingCubit.duration).thenReturn(15);
-      
+      when(addInspectionBookingCubit.durationTime).thenReturn(15);
 
       await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
-          providers, AddInspectionBookingBody(id: 'id'))));
+          providers, const AddInspectionBookingBody(id: 'id'))));
       await widgetTester.pumpAndSettle();
       Finder durationBtn = find.widgetWithText(SecondaryButton, '15 mins');
       expect(durationBtn, findsOneWidget);
@@ -295,7 +294,6 @@ void main() async {
       expect(find.byType(DurationSelectionWidget), findsOneWidget);
     });
   });
-
 
   testWidgets(
       'Given user is in AddInspectionBookingScreen. '
