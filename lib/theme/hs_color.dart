@@ -56,6 +56,7 @@ class HSColor {
 }
 
 const ColorScheme colorScheme = ColorScheme(
+  surfaceTint: Colors.transparent,
   brightness: Brightness.light,
   primary: HSColor.primary,
   onPrimary: HSColor.onPrimary,

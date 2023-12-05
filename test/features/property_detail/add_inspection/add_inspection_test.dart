@@ -109,6 +109,7 @@ void main() async {
     when(propertyDetailCubit.state).thenReturn(PropertyDetailInitial());
     when(propertyDetailCubit.stream)
         .thenAnswer((realInvocation) => const Stream.empty());
+    when(addInspectionBookingCubit.isStartTimeSelected).thenReturn(false);
   });
 
   testWidgets('Verify UI component', (WidgetTester widget) async {
@@ -151,8 +152,9 @@ void main() async {
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => BookInspectionButtonEnable());
     when(addInspectionBookingCubit.duration).thenReturn(15);
+
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-        providers, AddInspectionBookingBody(id: 'id')));
+        providers, const AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(AddInspectionBookingBody), findsOneWidget);
@@ -200,7 +202,7 @@ void main() async {
     when(addInspectionBookingCubit.duration).thenReturn(null);
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-        providers, AddInspectionBookingBody(id: 'id')));
+        providers, const AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(AddInspectionBookingBody), findsOneWidget);
@@ -294,6 +296,7 @@ void main() async {
     });
   });
 
+
   testWidgets(
       'Given user is in AddInspectionBookingScreen. '
       'When booking action was succeed. '
@@ -305,7 +308,7 @@ void main() async {
         .thenAnswer((_) => BookingInspectionSuccess());
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-        providers, AddInspectionBookingBody(id: 'id')));
+        providers, const AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
 
     expect(find.byType(AddInspectionBookingBody), findsNothing);

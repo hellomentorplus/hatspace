@@ -30,12 +30,13 @@ class StartTimeSelectionWidget extends StatelessWidget {
         ValueListenableBuilder<DateTime?>(
             valueListenable: startTimeNotifer,
             builder: (context, value, child) {
+              bool isStartTimeSelected =
+                  context.read<AddInspectionBookingCubit>().isStartTimeSelected;
               return HsDropDownButton(
-                  value: startTimeNotifer.value!.hour == 0 &&
-                          startTimeNotifer.value!.minute == 0
-                      ? null
-                      : DateFormat.jm().format(startTimeNotifer.value!),
-                  placeholder: '9:00 AM',
+                  value: isStartTimeSelected
+                      ? DateFormat.jm().format(startTimeNotifer.value!)
+                      : null,
+                  placeholder: DateFormat.jm().format(startTimeNotifer.value!),
                   placeholderStyle: placeholderStyle,
                   icon: Assets.icons.chervonDown,
                   onPressed: () {
@@ -88,11 +89,12 @@ class StartTimeSelectionWidget extends StatelessWidget {
                                             startTimeNotifer.value!.copyWith(
                                                 hour: selectedHour!,
                                                 minute: selectedMin!);
-                                        context
-                                            .read<AddInspectionBookingCubit>()
-                                            .updateInspectionStartTime(
-                                                newHour: selectedHour!,
-                                                newMinute: selectedMin!);
+                                        // context
+                                        //     .read<AddInspectionBookingCubit>()
+                                        //     .updateInspectionStartTime(
+                                        //         newHour: selectedHour!,
+                                        //         newMinute: selectedMin!);
+
                                         startTimeNotifer.value!;
                                         context.pop();
                                       },

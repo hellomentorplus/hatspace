@@ -12,7 +12,7 @@ import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 
 class AddPropertyImagesView extends StatelessWidget {
-  const AddPropertyImagesView({Key? key}) : super(key: key);
+  const AddPropertyImagesView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class AddPropertyImagesView extends StatelessWidget {
 }
 
 class AddPropertyImagesBody extends StatefulWidget {
-  const AddPropertyImagesBody({Key? key}) : super(key: key);
+  const AddPropertyImagesBody({super.key});
 
   @override
   AddPropertyImagesBodyState createState() => AddPropertyImagesBodyState();
@@ -101,9 +101,7 @@ class _PhotoPreviewView extends StatelessWidget {
   final List<String> paths;
   final bool moreUpload;
 
-  const _PhotoPreviewView(
-      {required this.paths, required this.moreUpload, Key? key})
-      : super(key: key);
+  const _PhotoPreviewView({required this.paths, required this.moreUpload});
 
   @override
   Widget build(BuildContext context) => Column(
@@ -176,8 +174,7 @@ class ImagePreviewView extends StatelessWidget {
   final String path;
   final EdgeInsets? closePadding;
 
-  const ImagePreviewView({required this.path, this.closePadding, Key? key})
-      : super(key: key);
+  const ImagePreviewView({required this.path, this.closePadding, super.key});
 
   @override
   Widget build(BuildContext context) => Container(

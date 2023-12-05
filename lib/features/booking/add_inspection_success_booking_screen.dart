@@ -11,8 +11,7 @@ import 'package:hatspace/theme/hs_theme.dart';
 
 class AddInspectionSuccessScreen extends StatelessWidget {
   final String id;
-  const AddInspectionSuccessScreen({required this.id, Key? key})
-      : super(key: key);
+  const AddInspectionSuccessScreen({required this.id, super.key});
 
   @override
   Widget build(BuildContext context) {

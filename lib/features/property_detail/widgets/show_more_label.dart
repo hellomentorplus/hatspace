@@ -9,8 +9,7 @@ class ShowMoreLabel extends StatefulWidget {
       {required this.animationController,
       required this.duration,
       this.counter,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   @override
   State<ShowMoreLabel> createState() => _ShowMoreLabelState();

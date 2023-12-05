@@ -201,7 +201,9 @@ void main() async {
       expect: () => [isA<AddTenantRoleFail>()]);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
-    'Given start time has not been entered',
+    'Given start time has not been entered'
+    'When run validate startTimeSelection'
+    'emit RequestStartTimeSelection',
     build: () => AddInspectionBookingCubit(),
     setUp: () {
       when(authenticationServiceMock.getCurrentUser())
@@ -212,7 +214,10 @@ void main() async {
         return Future.value([Roles.tenant, Roles.homeowner]);
       });
     },
-    act: (bloc) => bloc.inspectionStartTime = DateTime(2017, 1, 1, 0, 0),
+    act: (bloc) {
+      bloc.isStartTimeSelected = false;
+      bloc.selectDuration();
+    },
     expect: () => [isA<RequestStartTimeSelection>()],
   );
 

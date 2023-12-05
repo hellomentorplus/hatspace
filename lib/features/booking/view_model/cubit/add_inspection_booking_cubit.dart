@@ -21,7 +21,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
       UserDetail user = await authenticationService.getCurrentUser();
       List<Roles> userRole = await storageService.member.getUserRoles(user.uid);
       if (userRole.contains(Roles.tenant)) {
-        inspectionEndTime  = _inspecitonStartTime.add(Duration(minutes: _duration!));
+        inspectionEndTime  = _inspecitonStartTime?.add(Duration(minutes: _duration!));
         emit(BookingInspectionSuccess());
       }
       if (userRole.isEmpty) {
@@ -33,41 +33,41 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   }
 
   // only get day, month, and year at the first time. StartTime need to be updated in UI
-  DateTime _inspecitonStartTime = DateTime.now().copyWith(hour: 0, minute: 0);
+  DateTime? _inspecitonStartTime;
   int? _duration;
+  bool isStartTimeSelected = false;
   DateTime? inspectionEndTime;
 
-  set inspectionStartTime(DateTime startTime) {
+  set inspectionStartTime(DateTime? startTime) {
     _inspecitonStartTime = startTime;
     validateBookingInspectionButton();
   }
 
-  DateTime get inspectionStartTime => _inspecitonStartTime;
 
   set duration(int? duration) {
-    print(duration);
-    _duration = duration;
-    validateBookingInspectionButton();
+    print(_duration);
   }
+
+  DateTime? get inspectionStartTime => _inspecitonStartTime;
 
   void updateInspectionDateOnly(
       {required int day, required int month, required int year}) {
     inspectionStartTime =
-        _inspecitonStartTime.copyWith(day: day, year: year, month: month);
+        _inspecitonStartTime?.copyWith(day: day, year: year, month: month);
     validateBookingInspectionButton();
   }
 
-  void updateInspectionStartTime(
-      {required int newHour, required int newMinute}) {
-    _inspecitonStartTime =
-        _inspecitonStartTime.copyWith(hour: newHour, minute: newMinute);
+  void updateInspectionStartTime(DateTime newDateTime) {
+    isStartTimeSelected = true;
+    _inspecitonStartTime = newDateTime;
+    emit(CloseStartTimeRequestMessage());
     validateBookingInspectionButton();
   }
 
   int? get duration => _duration;
 
   void showDurationSelection(){
-    if(inspectionStartTime.hour == 0 &&  duration == null){
+    if(!isStartTimeSelected){
       emit(RequestStartTimeSelection());
     }else{
       emit(ShowDurationSelection());
@@ -77,11 +77,14 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
 
   void validateBookingInspectionButton() {
     // TO DO: Add duration to validation
-    if (_inspecitonStartTime.hour != 0 || 
-    _inspecitonStartTime.minute != 0 && 
-    _duration != null
-    ) {
-        emit(BookInspectionButtonEnable());
+    if (isStartTimeSelected && duration != null) {
+      emit(BookInspectionButtonEnable());
+    }
+  }
+
+  void selectDuration() {
+    if (!isStartTimeSelected) {
+      emit(RequestStartTimeSelection());
     }
   }
 }

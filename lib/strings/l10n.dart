@@ -1888,16 +1888,6 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?`
-  String get addTenantRoleBottomSheetDescription {
-    return Intl.message(
-      'Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?',
-      name: 'addTenantRoleBottomSheetDescription',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Add Tenant Role`
   String get addTenantRole {
     return Intl.message(
@@ -1938,6 +1928,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?`
+  String get addTenantRoleBottomSheetDescription {
+    return Intl.message(
+      'Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?',
+      name: 'addTenantRoleBottomSheetDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Duration`
   String get duration {
     return Intl.message(
@@ -1953,6 +1953,16 @@ class HatSpaceStrings {
     return Intl.message(
       'Mins',
       name: 'minuteShort',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `15 mins`
+  String get durationPlaceHolder {
+    return Intl.message(
+      '15 mins',
+      name: 'durationPlaceHolder',
       desc: '',
       args: [],
     );

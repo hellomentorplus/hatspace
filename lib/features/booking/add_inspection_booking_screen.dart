@@ -17,8 +17,7 @@ import 'package:hatspace/theme/widgets/hs_text_field.dart';
 import 'package:hatspace/view_models/property/property_detail_cubit.dart';
 
 class AddInspectionBookingScreen extends StatelessWidget {
-  const AddInspectionBookingScreen({required this.id, Key? key})
-      : super(key: key);
+  const AddInspectionBookingScreen({required this.id, super.key});
   final String id;
   @override
   Widget build(Object context) {
@@ -32,16 +31,32 @@ class AddInspectionBookingScreen extends StatelessWidget {
   }
 }
 
-class AddInspectionBookingBody extends StatelessWidget {
+class AddInspectionBookingBody extends StatefulWidget {
   final String id;
-  AddInspectionBookingBody({required this.id, Key? key}) : super(key: key);
-  // initialised starttime only contain Date, no time
-  final ValueNotifier<DateTime?> _selectedStartTime =
-      ValueNotifier(AddInspectionBookingCubit().inspectionStartTime);
-  final ValueNotifier<int> noteChars = ValueNotifier(0);
-  final maxChar = 400;
-  final ValueNotifier<DateTime?> startTime = ValueNotifier(null);
-  final ValueNotifier<int?> durationNotifier = ValueNotifier(AddInspectionBookingCubit().duration);
+  const AddInspectionBookingBody({required this.id, super.key});
+
+  @override
+  State<AddInspectionBookingBody> createState() => _AddInspectionBookingBody();
+}
+
+class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
+  late ValueNotifier<DateTime?> _selectedStartTime;
+  late ValueNotifier<int> _noteChars;
+  late int _maxChar;
+  late List<int> _minutesList;
+  late List<int> _hourList;
+    // final ValueNotifier<int?> durationNotifier = ValueNotifier(AddInspectionBookingCubit().duration);
+      final ValueNotifier<int?> durationNotifier = ValueNotifier(null);
+  @override
+  void initState() {
+    super.initState();
+    _minutesList = generateNumbersList(0, 59);
+    _hourList = generateNumbersList(7, 19);
+    _maxChar = 400;
+    _selectedStartTime =
+        ValueNotifier(DateTime.now().copyWith(hour: 9, minute: 0));
+    _noteChars = ValueNotifier(0);
+  }
 
   // To generate list of number for time picker
   List<int> generateNumbersList(int start, int end) {
@@ -51,6 +66,12 @@ class AddInspectionBookingBody extends StatelessWidget {
     }
     return numbersList;
   }
+  @override
+  void dispose() {
+    super.dispose();
+    _selectedStartTime.dispose();
+    _noteChars.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +80,7 @@ class AddInspectionBookingBody extends StatelessWidget {
     return BlocListener<AddInspectionBookingCubit, AddInspectionBookingState>(
         listener: (context, state) {
           if (state is BookingInspectionSuccess) {
-            context.pushToBookInspectionSuccessScreen(propertyId: id);
+            context.pushToBookInspectionSuccessScreen(propertyId: widget.id);
           }
         },
         child: Scaffold(
@@ -120,7 +141,7 @@ class AddInspectionBookingBody extends StatelessWidget {
                               ),
                               onPressed: () {
                                 context.goToPropertyDetail(
-                                    id: id, replacement: true);
+                                    id: widget.id, replacement: true);
                               },
                             )),
                       ],
@@ -174,8 +195,8 @@ class AddInspectionBookingBody extends StatelessWidget {
                       children: [
                         Expanded(
                           child: StartTimeSelectionWidget(
-                            hourList: hourList,
-                            minutesList: minutesList,
+                            hourList: _hourList,
+                            minutesList: _minutesList,
                             startTimeNotifer: _selectedStartTime,
                           ),
                         ),
@@ -195,14 +216,14 @@ class AddInspectionBookingBody extends StatelessWidget {
                             label: HatSpaceStrings.current.notes,
                             optional: HatSpaceStrings.current.optional),
                         ValueListenableBuilder<int>(
-                            valueListenable: noteChars,
+                            valueListenable: _noteChars,
                             builder: (context, value, child) => RichText(
                                     text: TextSpan(
                                         style: textTheme.bodySmall,
                                         children: [
                                       TextSpan(text: value.toString()),
                                       const TextSpan(text: '/'),
-                                      TextSpan(text: maxChar.toString())
+                                      TextSpan(text: _maxChar.toString())
                                     ]))),
                       ],
                     ),
@@ -214,14 +235,14 @@ class AddInspectionBookingBody extends StatelessWidget {
                       minLines: 4,
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
-                      maxLength: maxChar,
+                      maxLength: _maxChar,
                       decoration: inputTextTheme.copyWith(
                         hintText: HatSpaceStrings.current.notesPlaceHolder,
                         counterText: '',
                         semanticCounterText: '',
                       ),
                       onChanged: (value) {
-                        noteChars.value = value.length;
+                        _noteChars.value = value.length;
                       },
                     ),
                   ],
@@ -306,10 +327,9 @@ class BookedItemCard extends StatelessWidget {
     required this.paymentPeriod,
     EdgeInsets? padding,
     Color? shadowColor,
-    Key? key,
+    super.key,
   })  : padding = padding ?? const EdgeInsets.all(HsDimens.spacing16),
-        _shadowColor = shadowColor,
-        super(key: key);
+        _shadowColor = shadowColor;
 
   @override
   Widget build(BuildContext context) {

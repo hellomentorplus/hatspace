@@ -73,10 +73,10 @@ class AddPropertyPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return WillPopScope(
-      onWillPop: () {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
         context.read<AddPropertyCubit>().onBackPressed(pages.length);
-        return Future.value(false);
       },
       child: BlocListener<AddPropertyCubit, AddPropertyState>(
         listenWhen: (previous, current) => current is ExitAddPropertyFlow,
