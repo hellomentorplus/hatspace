@@ -13,84 +13,85 @@ import 'package:hatspace/theme/widgets/hs_text_field.dart';
 class DurationSelectionWidget extends StatelessWidget {
   final ValueNotifier<int?> durationNotifer;
   final List<int>? _durationList;
-  final FocusNode? focusNode;
   const DurationSelectionWidget(
-      {required this.durationNotifer, List<int>? durationList, this.focusNode,  super.key})
+      {required this.durationNotifer, List<int>? durationList, super.key})
       : _durationList = durationList ?? const [15, 30, 45, 60];
 
-
-  void showDurationModal(BuildContext context){
-                 showModalBottomSheet(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(HsDimens.radius16),
-                          ),
-                        ),
-                        context: context,
-                        builder: (_) {
-                          int? duration = durationNotifer.value;
-                          return SafeArea(
-                              child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                HatSpaceDurationPicker(
-                                    initialDuration: duration,
-                                    durationList: _durationList!,
-                                    selectedDuration: (value) {
-                                      duration = value;
-                                    }),
-                                const SizedBox(height: HsDimens.spacing16),
-                                Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: HsDimens.spacing16,
-                                        vertical: HsDimens.spacing8),
-                                    decoration: const BoxDecoration(
-                                        border: Border(
-                                            top: BorderSide(
-                                                color: HSColor.neutral3,
-                                                width: 1.0))),
-                                    child: PrimaryButton(
-                                      label: HatSpaceStrings.current.save,
-                                      onPressed: () {
-                                        durationNotifer.value = duration;
-                                        context
-                                            .read<AddInspectionBookingCubit>()
-                                            .duration = duration;
-                                        context.pop();
-                                      },
-                                    ))
-                              ],
-                            ),
-                          ));
-                        });
+  void showDurationModal(BuildContext context) {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(HsDimens.radius16),
+          ),
+        ),
+        context: context,
+        builder: (_) {
+          int? duration = durationNotifer.value;
+          return SafeArea(
+              child: SingleChildScrollView(
+            child: Column(
+              children: [
+                HatSpaceDurationPicker(
+                    initialDuration: duration,
+                    durationList: _durationList!,
+                    selectedDuration: (value) {
+                      duration = value;
+                    }),
+                const SizedBox(height: HsDimens.spacing16),
+                Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: HsDimens.spacing16,
+                        vertical: HsDimens.spacing8),
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            top: BorderSide(
+                                color: HSColor.neutral3, width: 1.0))),
+                    child: PrimaryButton(
+                      label: HatSpaceStrings.current.save,
+                      onPressed: () {
+                        durationNotifer.value = duration;
+                        context.read<AddInspectionBookingCubit>().duration =
+                            duration;
+                        context.pop();
+                      },
+                    ))
+              ],
+            ),
+          ));
+        });
   }
+
   @override
   Widget build(BuildContext context) {
-   return BlocListener<AddInspectionBookingCubit,AddInspectionBookingState>(listener: (context, state) {
-      if (state is ShowDurationSelection){
-        showDurationModal(context);
-      }
-    }, child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        HsLabel(label: HatSpaceStrings.current.duration, isRequired: true),
-        const SizedBox(height: HsDimens.spacing4),
-        ValueListenableBuilder(valueListenable: durationNotifer, builder: (context, value, child) {
-          return HsDropDownButton(
-                  value: durationNotifer.value == null ? null : '${durationNotifer.value} mins',
-                  placeholder: '15 mins',
-                  placeholderStyle: placeholderStyle,
-                  icon: Assets.icons.chervonDown,
-                  onPressed: () {
-                    context.read<AddInspectionBookingCubit>().showDurationSelection();
-                  });
-        }), 
-       
-      ],
-    )
-    
-    );
-     
+    return BlocListener<AddInspectionBookingCubit, AddInspectionBookingState>(
+        listener: (context, state) {
+          if (state is ShowDurationSelection) {
+            showDurationModal(context);
+          }
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            HsLabel(label: HatSpaceStrings.current.duration, isRequired: true),
+            const SizedBox(height: HsDimens.spacing4),
+            ValueListenableBuilder(
+                valueListenable: durationNotifer,
+                builder: (context, value, child) {
+                  return HsDropDownButton(
+                      value: durationNotifer.value == null
+                          ? null
+                          : '${durationNotifer.value} mins',
+                      placeholder: HatSpaceStrings.current.durationPlaceHolder,
+                      placeholderStyle: placeholderStyle,
+                      icon: Assets.icons.chervonDown,
+                      onPressed: () {
+                        context
+                            .read<AddInspectionBookingCubit>()
+                            .selectDuration();
+                      });
+                }),
+          ],
+        ));
   }
 }
 

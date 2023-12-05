@@ -48,13 +48,9 @@ class StartTimeSelectionWidget extends StatelessWidget {
                         ),
                         context: context,
                         builder: (_) {
-                          int? selectedMin = startTimeNotifer.value!.minute == 0
-                              ? 0
-                              : startTimeNotifer.value!.minute;
+                          int? selectedMin = startTimeNotifer.value!.minute;
                           // selectedMin and selectedHour should match with placeholder value
-                          int? selectedHour = startTimeNotifer.value!.hour == 0
-                              ? 9
-                              : startTimeNotifer.value!.hour;
+                          int? selectedHour = startTimeNotifer.value!.hour;
                           return SafeArea(
                               child: SingleChildScrollView(
                             child: Column(
@@ -89,13 +85,10 @@ class StartTimeSelectionWidget extends StatelessWidget {
                                             startTimeNotifer.value!.copyWith(
                                                 hour: selectedHour!,
                                                 minute: selectedMin!);
-                                        // context
-                                        //     .read<AddInspectionBookingCubit>()
-                                        //     .updateInspectionStartTime(
-                                        //         newHour: selectedHour!,
-                                        //         newMinute: selectedMin!);
-
-                                        startTimeNotifer.value!;
+                                        context
+                                            .read<AddInspectionBookingCubit>()
+                                            .updateInspectionStartTime(
+                                                startTimeNotifer.value!);
                                         context.pop();
                                       },
                                     ))

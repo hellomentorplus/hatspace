@@ -45,8 +45,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
   late int _maxChar;
   late List<int> _minutesList;
   late List<int> _hourList;
-    // final ValueNotifier<int?> durationNotifier = ValueNotifier(AddInspectionBookingCubit().duration);
-      final ValueNotifier<int?> durationNotifier = ValueNotifier(null);
+  late ValueNotifier<int?> _durationNotifier;
   @override
   void initState() {
     super.initState();
@@ -56,6 +55,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
     _selectedStartTime =
         ValueNotifier(DateTime.now().copyWith(hour: 9, minute: 0));
     _noteChars = ValueNotifier(0);
+    _durationNotifier = ValueNotifier(null);
   }
 
   // To generate list of number for time picker
@@ -66,17 +66,17 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
     }
     return numbersList;
   }
+
   @override
   void dispose() {
     super.dispose();
     _selectedStartTime.dispose();
     _noteChars.dispose();
+    _durationNotifier.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final minutesList = generateNumbersList(0, 59);
-    final hourList = generateNumbersList(7, 19);
     return BlocListener<AddInspectionBookingCubit, AddInspectionBookingState>(
         listener: (context, state) {
           if (state is BookingInspectionSuccess) {
@@ -178,7 +178,12 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                         selectedDate: value,
                         onSelectedDate: (value) {
                           // Todo: only update date. Do not update time
-                          //  context.read<AddInspectionBookingCubit>().updateInspectionDateOnly(day: value.day, month: value.month, year: value.year);
+                          context
+                              .read<AddInspectionBookingCubit>()
+                              .updateInspectionDateOnly(
+                                  day: value.day,
+                                  month: value.month,
+                                  year: value.year);
                           _selectedStartTime.value = _selectedStartTime.value
                               ?.copyWith(
                                   day: value.day,
@@ -203,7 +208,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                         const SizedBox(width: HsDimens.spacing15),
                         Expanded(
                             child: DurationSelectionWidget(
-                                durationNotifer: durationNotifier))
+                                durationNotifer: _durationNotifier))
                       ],
                     ),
                     const SizedBox(
