@@ -29,6 +29,7 @@ class PropKeys {
   static const country = 'country';
   static const availableDate = 'availableDate';
   static const owner = 'owner';
+  static const inspectionList = 'inspection_list';
 }
 
 enum PropertyTypes {
