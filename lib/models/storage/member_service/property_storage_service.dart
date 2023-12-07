@@ -51,4 +51,11 @@ class PropertyService {
 
     return documentReference.id;
   }
+
+  Future addInspectionToInspectionList(
+      String propertyId, String inspectionId) async {
+    await _firestore.collection(propertyCollection).doc(propertyId).update({
+      PropKeys.inspectionList: FieldValue.arrayUnion([inspectionId])
+    });
+  }
 }
