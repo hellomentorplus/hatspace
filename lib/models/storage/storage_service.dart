@@ -1,5 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hatspace/models/storage/inspection_service/inspection_storage_service.dart';
 import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,10 +12,12 @@ class StorageService {
 
   final MemberService _member = MemberService(_firestore);
   final PropertyService _propertyService = PropertyService(_firestore);
+  final InspectionService _inspectionService = InspectionService(_firestore);
   final FileService _files = FileService(_storage);
 
   MemberService get member => _member;
   PropertyService get property => _propertyService;
+  InspectionService get inspection => _inspectionService;
   FileService get files => _files;
 
   @protected

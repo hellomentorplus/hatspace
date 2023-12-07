@@ -108,7 +108,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                                   // TODO: implemnt booking logic
                                   context
                                       .read<AddInspectionBookingCubit>()
-                                      .onBookInspection();
+                                      .onBookInspection(widget.id);
                                 }
                               : null);
                     },

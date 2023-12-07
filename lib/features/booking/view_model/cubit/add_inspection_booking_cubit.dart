@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/inspection_service/inspection_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 
@@ -16,14 +18,28 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
             HsSingleton.singleton.get<AuthenticationService>(),
         storageService = HsSingleton.singleton.get<StorageService>(),
         super(AddInspectionBookingInitial());
-  void onBookInspection() async {
+  void onBookInspection(String propertyId) async {
     try {
       UserDetail user = await authenticationService.getCurrentUser();
       List<Roles> userRole = await storageService.member.getUserRoles(user.uid);
       if (userRole.contains(Roles.tenant)) {
         inspectionEndTime =
             _inspecitonStartTime?.add(Duration(minutes: durationTime!));
-        emit(BookingInspectionSuccess());
+        Inspection inspection = Inspection(
+            message: "abcd",
+            startTime: inspectionStartTime!,
+            endTime: inspectionEndTime!,
+            propertyId: propertyId,
+            createdBy: user.uid);
+        try {
+          String inspectionId =
+              await storageService.inspection.addInspection(inspection);
+          await storageService.property
+              .addInspectionToInspectionList(propertyId, inspectionId);
+          emit(BookingInspectionSuccess());
+        } catch (e) {
+          // TODO: Handle booking fail
+        }
       }
       if (userRole.isEmpty) {
         // TODO: HANDLE when user has no roles
