@@ -248,6 +248,9 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                       ),
                       onChanged: (value) {
                         _noteChars.value = value.length;
+                        context
+                            .read<AddInspectionBookingCubit>()
+                            .inspectionMessage = value;
                       },
                     ),
                   ],

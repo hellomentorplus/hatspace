@@ -10,7 +10,7 @@ class InspectionKey {
 
 class Inspection {
   final String? inspectionId;
-  final String message;
+  final String? message;
   final DateTime startTime;
   final DateTime endTime;
   final String propertyId;
@@ -18,11 +18,11 @@ class Inspection {
   final DateTime createdDate = DateTime.now();
 
   Inspection(
-      {required this.message,
-      required this.startTime,
+      {required this.startTime,
       required this.endTime,
       required this.propertyId,
       required this.createdBy,
+      this.message,
       this.inspectionId});
 
   Map<String, dynamic> convertToMap() {

@@ -4,7 +4,6 @@ import 'package:hatspace/data/data.dart';
 import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
-import 'package:hatspace/models/storage/inspection_service/inspection_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 
@@ -26,7 +25,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
         inspectionEndTime =
             _inspecitonStartTime?.add(Duration(minutes: durationTime!));
         Inspection inspection = Inspection(
-            message: "abcd",
+            message: inspectionMessage,
             startTime: inspectionStartTime!,
             endTime: inspectionEndTime!,
             propertyId: propertyId,
@@ -54,6 +53,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   int? _duration;
   bool isStartTimeSelected = false;
   DateTime? inspectionEndTime;
+  String? inspectionMessage;
 
   set inspectionStartTime(DateTime? startTime) {
     _inspecitonStartTime = startTime;
