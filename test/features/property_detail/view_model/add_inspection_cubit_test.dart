@@ -47,7 +47,7 @@ void main() async {
           return Future.value([Roles.tenant]);
         });
       },
-      act: (bloc) => bloc.onBookInspection(),
+      act: (bloc) => bloc.onBookInspection('uid'),
       expect: () => [BookingInspectionSuccess()]);
 
   blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
@@ -87,7 +87,7 @@ void main() async {
           return Future.value([Roles.tenant, Roles.homeowner]);
         });
       },
-      act: (bloc) => bloc.onBookInspection(),
+      act: (bloc) => bloc.onBookInspection('uid'),
       expect: () => [BookingInspectionSuccess()]);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -105,7 +105,7 @@ void main() async {
           return Future.value([Roles.homeowner]);
         });
       },
-      act: (bloc) => bloc.onBookInspection(),
+      act: (bloc) => bloc.onBookInspection('uid'),
       expect: () => []);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -117,7 +117,7 @@ void main() async {
         when(authenticationServiceMock.getCurrentUser())
             .thenThrow(UserNotFoundException());
       },
-      act: (bloc) => bloc.onBookInspection(),
+      act: (bloc) => bloc.onBookInspection('uid'),
       verify: (_) => [isA<UserNotFoundException>()]);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -134,7 +134,7 @@ void main() async {
           return Future.value([Roles.homeowner]);
         });
       },
-      act: (bloc) => bloc.onBookInspection(),
+      act: (bloc) => bloc.onBookInspection('uid'),
       verify: (bloc) {
         expect(bloc.state is AddInspectionBookingInitial, true);
         expect((bloc.state as AddInspectionBookingInitial).props, []);

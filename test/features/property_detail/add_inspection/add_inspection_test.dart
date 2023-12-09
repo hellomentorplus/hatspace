@@ -167,7 +167,7 @@ void main() async {
     await widgetTester.tap(bookingBtnFinder);
     await widgetTester.pumpAndSettle();
 
-    verify(addInspectionBookingCubit.onBookInspection()).called(1);
+    verify(addInspectionBookingCubit.onBookInspection('uid')).called(1);
   });
 
   testWidgets(
