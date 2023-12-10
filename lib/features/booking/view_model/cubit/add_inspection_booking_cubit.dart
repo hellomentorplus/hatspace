@@ -30,15 +30,15 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
             endTime: inspectionEndTime!,
             propertyId: propertyId,
             createdBy: user.uid);
-        // try {
-          String inspectionId =
-              await storageService.inspection.addInspection(inspection);
-          await storageService.property
-              .addInspectionToInspectionList(propertyId, inspectionId);
-          emit(BookingInspectionSuccess());
-        // } catch (e) {
-        //   // TODO: Handle booking fail
-        // }
+        try {
+        String inspectionId =
+            await storageService.inspection.addInspection(inspection);
+        await storageService.property
+            .addInspectionToInspectionList(propertyId, inspectionId);
+        emit(BookingInspectionSuccess());
+        } catch (e) {
+          // TODO: Handle booking fail
+        }
       }
       if (userRole.isEmpty) {
         // TODO: HANDLE when user has no roles

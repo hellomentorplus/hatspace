@@ -156,7 +156,8 @@ void main() async {
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => BookInspectionButtonEnable());
     when(addInspectionBookingCubit.durationTime).thenReturn(15);
-    when(addInspectionBookingCubit.onBookInspection('id')).thenAnswer((realInvocation) => Future.value(true));
+    when(addInspectionBookingCubit.onBookInspection('id'))
+        .thenAnswer((realInvocation) => Future.value(true));
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
         providers, const AddInspectionBookingBody(id: 'id')));
