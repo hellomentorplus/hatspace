@@ -12,6 +12,7 @@ import 'package:hatspace/features/booking/widgets/duration_selection_widget.dart
 import 'package:hatspace/features/booking/widgets/start_time_selection_widget.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/inspection_service/inspection_storage_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -41,6 +42,7 @@ import 'add_inspection_test.mocks.dart';
   PropertyService,
   MemberService,
   PropertyDetailCubit,
+  InspectionService
 ])
 void main() async {
   HatSpaceStrings.load(const Locale('en'));
@@ -53,6 +55,7 @@ void main() async {
   final MockAuthenticationBloc authenticationBloc = MockAuthenticationBloc();
   final MockPropertyService propertyService = MockPropertyService();
   final MockMemberService memberService = MockMemberService();
+  final MockInspectionService mockInspectionService = MockInspectionService();
   final Property property = Property(
       type: PropertyTypes.apartment,
       name: 'property name',
@@ -94,6 +97,7 @@ void main() async {
   setUp(() {
     when(storageService.member).thenReturn(memberService);
     when(storageService.property).thenReturn(propertyService);
+    when(storageService.inspection).thenReturn(mockInspectionService);
     when(authenticationBloc.state).thenReturn(AuthenticationInitial());
     when(authenticationBloc.stream)
         .thenAnswer((realInvocation) => const Stream.empty());
@@ -146,12 +150,13 @@ void main() async {
       'Given user is in AddInspectionBookingScreen.'
       'Given Book Inspection Enabled'
       'When user tap on booking button.'
-      'Then user will start booking process.', (widgetTester) async {
+      'Then user can start booking their inspection', (widgetTester) async {
     when(addInspectionBookingCubit.stream)
         .thenAnswer((_) => Stream.value(BookInspectionButtonEnable()));
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => BookInspectionButtonEnable());
     when(addInspectionBookingCubit.durationTime).thenReturn(15);
+    when(addInspectionBookingCubit.onBookInspection('id')).thenAnswer((realInvocation) => Future.value(true));
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
         providers, const AddInspectionBookingBody(id: 'id')));
@@ -167,7 +172,7 @@ void main() async {
     await widgetTester.tap(bookingBtnFinder);
     await widgetTester.pumpAndSettle();
 
-    verify(addInspectionBookingCubit.onBookInspection('uid')).called(1);
+    verify(addInspectionBookingCubit.onBookInspection('id')).called(1);
   });
 
   testWidgets(

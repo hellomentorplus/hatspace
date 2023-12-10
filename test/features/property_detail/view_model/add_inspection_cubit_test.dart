@@ -2,12 +2,15 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
 import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_cubit.dart';
 import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_state.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/inspection_service/inspection_storage_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
+import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -17,7 +20,13 @@ import 'package:mockito/mockito.dart';
 
 import 'add_inspection_cubit_test.mocks.dart';
 
-@GenerateMocks([MemberService, AuthenticationService, StorageService])
+@GenerateMocks([
+  MemberService,
+  AuthenticationService,
+  StorageService,
+  InspectionService,
+  PropertyService
+])
 void main() async {
   HatSpaceStrings.load(const Locale('en'));
   initializeDateFormatting();
@@ -25,15 +34,20 @@ void main() async {
       MockAuthenticationService();
   final MockStorageService storageServiceMock = MockStorageService();
   final MockMemberService mockMemberService = MockMemberService();
+  final MockInspectionService mockInspectionService = MockInspectionService();
+  final MockPropertyService mockPropertyService = MockPropertyService();
   setUpAll(() async {
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationServiceMock);
     HsSingleton.singleton.registerSingleton<StorageService>(storageServiceMock);
     when(storageServiceMock.member).thenReturn(mockMemberService);
+    when(storageServiceMock.inspection).thenReturn(mockInspectionService);
+    when(storageServiceMock.property).thenReturn(mockPropertyService);
   });
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
       'Given user is booking an inspection'
+      'Given user already entered all inspection details'
       'When user already had tenant role'
       'Then return SuccessBookInspection',
       build: () => AddInspectionBookingCubit(),
@@ -46,8 +60,18 @@ void main() async {
             .thenAnswer((realInvocation) {
           return Future.value([Roles.tenant]);
         });
+        when(mockInspectionService.addInspection(any))
+            .thenAnswer((realInvocation) {
+          return Future.value('inspectionId');
+        });
+        when(mockPropertyService.addInspectionToInspectionList('propertyId', 'inspectionId'))
+            .thenAnswer((realInvocation) => Future.value(true));
       },
-      act: (bloc) => bloc.onBookInspection('uid'),
+      act: (bloc) {
+        bloc.inspectionStartTime = DateTime(2017, 9, 9, 9, 9);
+        bloc.duration = 15;
+        bloc.onBookInspection('propertyId');
+      },
       expect: () => [BookingInspectionSuccess()]);
 
   blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
@@ -86,8 +110,18 @@ void main() async {
             .thenAnswer((realInvocation) {
           return Future.value([Roles.tenant, Roles.homeowner]);
         });
+        when(mockInspectionService.addInspection(any))
+            .thenAnswer((realInvocation) {
+          return Future.value('inspectionId');
+        });
+        when(mockPropertyService.addInspectionToInspectionList('propertyId', 'inspectionId'))
+            .thenAnswer((realInvocation) => Future.value(true));
       },
-      act: (bloc) => bloc.onBookInspection('uid'),
+      act: (bloc) {
+        bloc.inspectionStartTime = DateTime(2017, 9, 9, 9, 9);
+        bloc.duration = 15;
+        bloc.onBookInspection('propertyId');
+      },
       expect: () => [BookingInspectionSuccess()]);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
