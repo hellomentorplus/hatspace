@@ -89,7 +89,6 @@ class StartTimeSelectionWidget extends StatelessWidget {
                                             .read<AddInspectionBookingCubit>()
                                             .updateInspectionStartTime(
                                                 startTimeNotifer.value!);
-                                        startTimeNotifer.value!;
                                         context.pop();
                                       },
                                     ))

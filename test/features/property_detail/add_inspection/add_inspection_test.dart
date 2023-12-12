@@ -8,6 +8,7 @@ import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/booking/add_inspection_booking_screen.dart';
 import 'package:hatspace/features/booking/add_inspection_success_booking_screen.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
+import 'package:hatspace/features/booking/widgets/duration_selection_widget.dart';
 import 'package:hatspace/features/booking/widgets/start_time_selection_widget.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
@@ -150,6 +151,8 @@ void main() async {
         .thenAnswer((_) => Stream.value(BookInspectionButtonEnable()));
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => BookInspectionButtonEnable());
+    when(addInspectionBookingCubit.durationTime).thenReturn(15);
+
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
         providers, const AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
@@ -175,6 +178,7 @@ void main() async {
         .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => AddInspectionBookingInitial());
+    when(addInspectionBookingCubit.durationTime).thenReturn(null);
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
         providers, const AddInspectionBookingBody(id: 'id')));
     await widgetTester.pumpAndSettle();
@@ -195,6 +199,7 @@ void main() async {
         .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
     when(addInspectionBookingCubit.state)
         .thenAnswer((_) => AddInspectionBookingInitial());
+    when(addInspectionBookingCubit.durationTime).thenReturn(null);
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
         providers, const AddInspectionBookingBody(id: 'id')));
@@ -225,6 +230,7 @@ void main() async {
           .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => AddInspectionBookingInitial());
+      when(addInspectionBookingCubit.durationTime).thenReturn(null);
       await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
           providers, const AddInspectionBookingBody(id: 'id'))));
       await widgetTester.pumpAndSettle();
@@ -250,7 +256,7 @@ void main() async {
           .thenAnswer((_) => Stream.value(RequestStartTimeSelection()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => AddInspectionBookingInitial());
-      when(addInspectionBookingCubit.duration).thenReturn(5);
+      when(addInspectionBookingCubit.durationTime).thenReturn(15);
 
       await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
           providers, const AddInspectionBookingBody(id: 'id'))));
@@ -262,6 +268,30 @@ void main() async {
       await widgetTester.pumpAndSettle();
       //Error show when start time has not been selected
       expect(find.text('Select start time'), findsOneWidget);
+    });
+  });
+
+  group('Add inspection set duration group', () {
+    testWidgets(
+        'Given user already selected start time'
+        'when user tap on duration'
+        'Then show select duration bottom sheet', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(AddInspectionBookingInitial()));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => AddInspectionBookingInitial());
+      when(addInspectionBookingCubit.durationTime).thenReturn(15);
+
+      await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
+          providers, const AddInspectionBookingBody(id: 'id'))));
+      await widgetTester.pumpAndSettle();
+      Finder durationBtn = find.widgetWithText(SecondaryButton, '15 mins');
+      expect(durationBtn, findsOneWidget);
+      await widgetTester.ensureVisible(durationBtn);
+      await widgetTester.tap(durationBtn);
+      await widgetTester.pumpAndSettle();
+      //Error show when start time has not been selected
+      expect(find.byType(DurationSelectionWidget), findsOneWidget);
     });
   });
 

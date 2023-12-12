@@ -232,5 +232,6 @@
   "noBooking": "No booking",
   "addTenantRoleBottomSheetDescription": "Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?",
   "duration":"Duration",
+  "minuteShort":"Mins",
   "durationPlaceHolder": "15 mins"
 }

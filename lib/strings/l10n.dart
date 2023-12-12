@@ -1948,6 +1948,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Mins`
+  String get minuteShort {
+    return Intl.message(
+      'Mins',
+      name: 'minuteShort',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `15 mins`
   String get durationPlaceHolder {
     return Intl.message(

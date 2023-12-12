@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
+import 'package:hatspace/features/booking/widgets/duration_selection_widget.dart';
 import 'package:hatspace/features/booking/widgets/start_time_selection_widget.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
@@ -44,6 +45,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
   late int _maxChar;
   late List<int> _minutesList;
   late List<int> _hourList;
+  late ValueNotifier<int?> _durationNotifier;
   @override
   void initState() {
     super.initState();
@@ -53,6 +55,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
     _selectedStartTime =
         ValueNotifier(DateTime.now().copyWith(hour: 9, minute: 0));
     _noteChars = ValueNotifier(0);
+    _durationNotifier = ValueNotifier(null);
   }
 
   // To generate list of number for time picker
@@ -69,6 +72,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
     super.dispose();
     _selectedStartTime.dispose();
     _noteChars.dispose();
+    _durationNotifier.dispose();
   }
 
   @override
@@ -174,7 +178,12 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                         selectedDate: value,
                         onSelectedDate: (value) {
                           // Todo: only update date. Do not update time
-                          //  context.read<AddInspectionBookingCubit>().updateInspectionDateOnly(day: value.day, month: value.month, year: value.year);
+                          context
+                              .read<AddInspectionBookingCubit>()
+                              .updateInspectionDateOnly(
+                                  day: value.day,
+                                  month: value.month,
+                                  year: value.year);
                           _selectedStartTime.value = _selectedStartTime.value
                               ?.copyWith(
                                   day: value.day,
@@ -198,28 +207,8 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                         ),
                         const SizedBox(width: HsDimens.spacing15),
                         Expanded(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            HsLabel(
-                                label: HatSpaceStrings.current.duration,
-                                isRequired: true),
-                            const SizedBox(height: HsDimens.spacing4),
-                            HsDropDownButton(
-                                value: null,
-                                placeholder: HatSpaceStrings.current
-                                    .durationPlaceHolder, // Will be replaced in the SelectDurationStory
-                                placeholderStyle: placeholderStyle,
-                                icon: Assets.icons.chervonDown,
-                                onPressed: () {
-                                  //Note: Only for this story's scope
-                                  // TODO: Change it in story 395
-                                  context
-                                      .read<AddInspectionBookingCubit>()
-                                      .selectDuration();
-                                })
-                          ],
-                        ))
+                            child: DurationSelectionWidget(
+                                durationNotifer: _durationNotifier))
                       ],
                     ),
                     const SizedBox(
