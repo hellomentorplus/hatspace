@@ -29,6 +29,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
             startTime: inspectionStartTime!,
             endTime: inspectionEndTime!,
             propertyId: propertyId,
+            inspectionStatus: InspectionStatus.confirming,
             createdBy: user.uid);
         try {
         String inspectionId =

@@ -84,7 +84,9 @@ class StartTimeSelectionWidget extends StatelessWidget {
                                         startTimeNotifer.value =
                                             startTimeNotifer.value!.copyWith(
                                                 hour: selectedHour!,
-                                                minute: selectedMin!);
+                                                minute: selectedMin!,
+                                                microsecond: 0
+                                                );
                                         context
                                             .read<AddInspectionBookingCubit>()
                                             .updateInspectionStartTime(
