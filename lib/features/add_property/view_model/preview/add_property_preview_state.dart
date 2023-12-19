@@ -15,7 +15,7 @@ class AddPropertyPreviewReady extends AddPropertyPreviewState {
   final AustraliaStates ausState;
   final MinimumRentPeriod rentPeriod;
   final String propertyName;
-  final double price;
+  final Price price;
   final String suburb;
   final String postalCode;
   final String unitNumber;

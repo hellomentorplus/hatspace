@@ -101,15 +101,16 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
 
   String get propertyName => _propertyName;
 
-  double? _price;
+  Price? _price;
 
-  set price(double? price) {
+  void setPrice({double? price, PriceUnit? priceUnit}) {
     isAddPropertyFlowInteracted = true;
-    _price = price;
+    _price = Price(
+        priceUnit: priceUnit ?? PriceUnit.perWeek, rentPrice: price ?? 0.0);
     validateNextButtonState(state.pageViewNumber);
   }
 
-  double? get price => _price;
+  Price? get price => _price;
 
   String _suburb = '';
 
@@ -328,9 +329,9 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
           type: _type,
           name: _propertyName,
           price: Price(
-            rentPrice: _price!,
-            currency: Currency.aud,
-          ),
+              rentPrice: _price!.rentPrice,
+              currency: Currency.aud,
+              priceUnit: _price!.priceUnit),
           description: _description,
           address: AddressDetail(
               suburb: _suburb,

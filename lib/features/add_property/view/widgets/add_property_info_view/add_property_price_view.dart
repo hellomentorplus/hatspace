@@ -107,6 +107,7 @@ class _AddPropertyPriceViewState extends State<AddPropertyPriceView>
                         borderRadius: BorderRadius.circular(4),
                         color: HSColor.neutral2),
                     child: Text(
+                        // TODO: Update rentalPeriodUnit in cubit
                         HatSpaceStrings.current.addPropertyRentalPeriodUnit,
                         style: textTheme.bodySmall
                             ?.copyWith(fontWeight: FontWeight.w700)))
@@ -116,9 +117,9 @@ class _AddPropertyPriceViewState extends State<AddPropertyPriceView>
         onChanged: (value) {
           try {
             final num number = _numberFormat.parse(value);
-            context.read<AddPropertyCubit>().price = number.toDouble();
+            context.read<AddPropertyCubit>().setPrice(price: number.toDouble());
           } catch (_) {
-            context.read<AddPropertyCubit>().price = null;
+            context.read<AddPropertyCubit>().setPrice(price: null);
           }
         },
       ),

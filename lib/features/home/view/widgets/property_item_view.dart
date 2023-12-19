@@ -52,7 +52,8 @@ class PropertyItemView extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: HsDimens.radius8),
                           child: Text(
-                            HatSpaceStrings.current.pw,
+                            HatSpaceStrings.current
+                                .rentalPriceUnit(property.priceUnit.unitName),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium

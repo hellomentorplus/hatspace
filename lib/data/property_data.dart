@@ -29,6 +29,7 @@ class PropKeys {
   static const country = 'country';
   static const availableDate = 'availableDate';
   static const owner = 'owner';
+  static const priceUnit = 'priceUnit';
 }
 
 enum PropertyTypes {
@@ -114,13 +115,30 @@ enum Currency {
   const Currency(this.symbol);
 }
 
+enum PriceUnit {
+  perMonth('pm'),
+  perWeek('pw'),
+  invalid('invalid');
+
+  final String unitName;
+  const PriceUnit(this.unitName);
+  static PriceUnit fromName(String name) =>
+      values.firstWhere((element) => element.unitName == name.toLowerCase(),
+          orElse: () => invalid);
+}
+
 class Price {
   final Currency currency;
   final double rentPrice;
-  Price({this.currency = Currency.aud, this.rentPrice = 0.0});
+  final PriceUnit priceUnit;
+  Price(
+      {this.currency = Currency.aud,
+      this.priceUnit = PriceUnit.perWeek,
+      this.rentPrice = 0.0});
 
   static Price convertMapToObject(Map<String, dynamic> map) {
     return Price(
+        priceUnit: PriceUnit.fromName(map[PropKeys.priceUnit]),
         currency: Currency.fromName(map[PropKeys.currency]),
         rentPrice: double.tryParse('${map[PropKeys.price]}') ?? 0.0);
   }
@@ -234,7 +252,8 @@ class Property {
       PropKeys.name: name,
       PropKeys.price: {
         PropKeys.currency: price.currency.name,
-        PropKeys.price: price.rentPrice
+        PropKeys.price: price.rentPrice,
+        PropKeys.priceUnit: price.priceUnit.unitName
       },
       PropKeys.rentPeriod: minimumRentPeriod.months,
       PropKeys.description: description,

@@ -208,26 +208,27 @@ class AddPropertyPreviewBody extends StatelessWidget {
                 const SizedBox(width: HsDimens.spacing12),
                 Expanded(
                     child: BlocSelector<AddPropertyPreviewCubit,
-                        AddPropertyPreviewState, double>(
+                        AddPropertyPreviewState, Price>(
                   selector: (state) {
                     if (state is AddPropertyPreviewReady) {
                       return state.price;
                     }
-                    return 0.0;
+                    return Price(rentPrice: 0.0);
                   },
                   builder: (context, price) {
                     return RichText(
                         textAlign: TextAlign.right,
                         text: TextSpan(
                             text: HatSpaceStrings.current
-                                .currencyFormatter(r'$', price),
+                                .currencyFormatter(r'$', price.rentPrice),
                             style: Theme.of(context)
                                 .textTheme
                                 .displayLarge
                                 ?.copyWith(fontSize: FontStyleGuide.fontSize18),
                             children: [
                               TextSpan(
-                                text: ' ${HatSpaceStrings.current.pw}',
+                                text:
+                                    ' ${HatSpaceStrings.current.rentalPriceUnit(price.priceUnit.unitName)}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall

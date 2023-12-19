@@ -18,6 +18,7 @@ class PropertyItemData extends Equatable {
   final String? ownerName;
   final String? ownerAvatar;
   final bool isFavorited;
+  final PriceUnit priceUnit;
 
   const PropertyItemData(
       {required this.id,
@@ -33,6 +34,7 @@ class PropertyItemData extends Equatable {
       required this.isFavorited,
       required this.currency,
       required this.state,
+      required this.priceUnit,
       this.ownerName,
       this.ownerAvatar});
 
@@ -55,7 +57,8 @@ class PropertyItemData extends Equatable {
           ownerAvatar: user.avatar,
           isFavorited: false,
           currency: property.price.currency,
-          state: property.address.state.displayName);
+          state: property.address.state.displayName,
+          priceUnit: property.price.priceUnit);
 
   @override
   List<Object?> get props => [
@@ -73,6 +76,7 @@ class PropertyItemData extends Equatable {
         ownerAvatar,
         isFavorited,
         currency,
-        state
+        state,
+        priceUnit
       ];
 }
