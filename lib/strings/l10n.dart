@@ -1967,6 +1967,16 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `{unitAbbr, select, perMonth{pm} perWeek(pw) other{}}`
+  String rentalPriceUnit(Object pm) {
+    return Intl.message(
+      '{unitAbbr, select, perMonth$pm perWeek(pw) other{}}',
+      name: 'rentalPriceUnit',
+      desc: '',
+      args: [pm],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
