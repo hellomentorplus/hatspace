@@ -63,6 +63,7 @@ class HatSpaceInputText extends StatelessWidget {
   final String? optional;
   final String? errorText;
   final Widget? suffixIcon;
+  final TextInputType? textInputType;
 
   const HatSpaceInputText(
       {required this.onChanged,
@@ -76,7 +77,8 @@ class HatSpaceInputText extends StatelessWidget {
       this.errorText,
       this.inputFormatters,
       this.focusNode,
-      this.suffixIcon})
+      this.suffixIcon,
+      this.textInputType})
       : _isRequired = isRequired ?? false,
         _alignment = alignment ?? CrossAxisAlignment.start,
         _padding = padding ?? const EdgeInsets.only(bottom: HsDimens.spacing4);
@@ -110,6 +112,7 @@ class HatSpaceInputText extends StatelessWidget {
                 ),
         ),
         inputFormatters: inputFormatters,
+        keyboardType: textInputType,
       )
     ];
     if (label != '') {

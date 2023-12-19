@@ -23,3 +23,8 @@ class CloseStartTimeRequestMessage extends AddInspectionBookingState {}
 class ShowDurationSelection extends AddInspectionBookingState {}
 
 class CloseBottomSheet extends AddInspectionBookingState {}
+
+class ShowUpdatePhoneNumberBottomSheet extends AddInspectionBookingState {
+  final bool isShow;
+  const ShowUpdatePhoneNumberBottomSheet({required this.isShow});
+}

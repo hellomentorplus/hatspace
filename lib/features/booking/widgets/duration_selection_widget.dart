@@ -19,46 +19,49 @@ class DurationSelectionWidget extends StatelessWidget {
 
   void showDurationModal(BuildContext context) {
     showModalBottomSheet(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(HsDimens.radius16),
-          ),
-        ),
-        context: context,
-        builder: (_) {
-          int? duration = durationNotifer.value;
-          return SafeArea(
-              child: SingleChildScrollView(
-            child: Column(
-              children: [
-                HatSpaceDurationPicker(
-                    initialDuration: duration,
-                    durationList: _durationList!,
-                    selectedDuration: (value) {
-                      duration = value;
-                    }),
-                const SizedBox(height: HsDimens.spacing16),
-                Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: HsDimens.spacing16,
-                        vertical: HsDimens.spacing8),
-                    decoration: const BoxDecoration(
-                        border: Border(
-                            top: BorderSide(
-                                color: HSColor.neutral3, width: 1.0))),
-                    child: PrimaryButton(
-                      label: HatSpaceStrings.current.save,
-                      onPressed: () {
-                        durationNotifer.value = duration;
-                        context.read<AddInspectionBookingCubit>().duration =
-                            duration;
-                        context.pop();
-                      },
-                    ))
-              ],
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(HsDimens.radius16),
+              ),
             ),
-          ));
-        });
+            context: context,
+            builder: (_) {
+              int? duration = durationNotifer.value;
+              return SafeArea(
+                  child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    HatSpaceDurationPicker(
+                        initialDuration: duration,
+                        durationList: _durationList!,
+                        selectedDuration: (value) {
+                          duration = value;
+                        }),
+                    const SizedBox(height: HsDimens.spacing16),
+                    Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: HsDimens.spacing16,
+                            vertical: HsDimens.spacing8),
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                top: BorderSide(
+                                    color: HSColor.neutral3, width: 1.0))),
+                        child: PrimaryButton(
+                          label: HatSpaceStrings.current.save,
+                          onPressed: () {
+                            durationNotifer.value = duration;
+                            context.read<AddInspectionBookingCubit>().duration =
+                                duration;
+                            context.pop();
+                          },
+                        ))
+                  ],
+                ),
+              ));
+            })
+        .then((value) => context
+            .read<AddInspectionBookingCubit>()
+            .validateBookingInspectionButton());
   }
 
   @override

@@ -415,6 +415,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `{country, code, select, invalid{invalid} other {{country} {code}}`
+  String countryCode(Object invalid, Object country, Object code) {
+    return Intl.message(
+      '{country, code, select, invalid$invalid other {$country $code}',
+      name: 'countryCode',
+      desc: '',
+      args: [invalid, country, code],
+    );
+  }
+
   /// `{ausState, select, vic{Victoria} nsw{New South Wales} qld{Queensland} wa{Western Australia} sa{South Australia} tas{Tasmania} act{Australian Capital Territory} nt{Northern Territory} other{No State Available}}`
   String australiaState(Object ausState) {
     return Intl.select(
@@ -1963,6 +1973,56 @@ class HatSpaceStrings {
     return Intl.message(
       '15 mins',
       name: 'durationPlaceHolder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Profile`
+  String get updateProfile {
+    return Intl.message(
+      'Update Profile',
+      name: 'updateProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2 digit area code + 8 digit local phone number`
+  String get updatePhoneLabel {
+    return Intl.message(
+      '2 digit area code + 8 digit local phone number',
+      name: 'updatePhoneLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `0XXX XXX XXXX`
+  String get updatePhonePlaceHolder {
+    return Intl.message(
+      '0XXX XXX XXXX',
+      name: 'updatePhonePlaceHolder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Must be 10 digits`
+  String get mustbe10Digits {
+    return Intl.message(
+      'Must be 10 digits',
+      name: 'mustbe10Digits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Area codeL: 02, 03, 04, 05, 07, 08`
+  String get areaCodeMessage {
+    return Intl.message(
+      'Area codeL: 02, 03, 04, 05, 07, 08',
+      name: 'areaCodeMessage',
       desc: '',
       args: [],
     );

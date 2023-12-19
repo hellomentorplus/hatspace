@@ -21,9 +21,13 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
       UserDetail user = await authenticationService.getCurrentUser();
       List<Roles> userRole = await storageService.member.getUserRoles(user.uid);
       if (userRole.contains(Roles.tenant)) {
-        inspectionEndTime =
-            _inspecitonStartTime?.add(Duration(minutes: durationTime!));
-        emit(BookingInspectionSuccess());
+        if (user.phone == null) {
+          emit(const ShowUpdatePhoneNumberBottomSheet(isShow: true));
+        } else {
+          inspectionEndTime =
+              _inspecitonStartTime?.add(Duration(minutes: durationTime!));
+          emit(BookingInspectionSuccess());
+        }
       }
       if (userRole.isEmpty) {
         // TODO: HANDLE when user has no roles
@@ -38,6 +42,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   int? _duration;
   bool isStartTimeSelected = false;
   DateTime? inspectionEndTime;
+  String? phoneNumber;
 
   set inspectionStartTime(DateTime? startTime) {
     _inspecitonStartTime = startTime;
@@ -79,7 +84,6 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
       emit(RequestStartTimeSelection());
     } else {
       emit(ShowDurationSelection());
-      emit(CloseBottomSheet());
     }
   }
 }
