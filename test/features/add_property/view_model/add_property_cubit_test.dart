@@ -225,7 +225,7 @@ void main() {
       'then return false',
       build: () => AddPropertyCubit(),
       seed: () => const PageViewNavigationState(1),
-      act: (bloc) => bloc.price = null,
+      act: (bloc) => bloc.setPrice(price: null),
       expect: () => [isA<NextButtonEnable>()],
       verify: (bloc) {
         NextButtonEnable state = bloc.state as NextButtonEnable;
@@ -311,7 +311,7 @@ void main() {
       seed: () => const PageViewNavigationState(1),
       act: (bloc) {
         bloc.propertyName = 'propertyName';
-        bloc.price = 120;
+        bloc.setPrice(price: 200);
         bloc.rentPeriod = MinimumRentPeriod.sixMonths;
         bloc.australiaState = AustraliaStates.vic;
         bloc.address = 'address';
@@ -411,9 +411,9 @@ void main() {
       'set price',
       build: () => AddPropertyCubit(),
       seed: () => const NextButtonEnable(3, false, ButtonLabel.next, true),
-      act: (bloc) => bloc.price = 1500,
+      act: (bloc) => bloc.setPrice(price: 1500),
       expect: () => [isA<NextButtonEnable>()],
-      verify: (bloc) => expect(bloc.price, 1500),
+      verify: (bloc) => expect(bloc.price?.rentPrice, 1500),
     );
 
     blocTest<AddPropertyCubit, AddPropertyState>(
@@ -605,7 +605,7 @@ void main() {
     seed: () => const NextButtonEnable(5, true, ButtonLabel.submit, false),
     act: (bloc) {
       bloc.photos = ['photo1', 'photo2', 'photo3', 'photo4'];
-      bloc.price = 1;
+      bloc.setPrice(price: 1);
       bloc.features = Feature.values;
       bloc.parking = 1;
       bloc.bedrooms = 1;

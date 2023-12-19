@@ -404,7 +404,7 @@ void main() {
     when(addPropertyBloc.australiaState).thenReturn(AustraliaStates.act);
     when(addPropertyBloc.rentPeriod).thenReturn(MinimumRentPeriod.nineMonths);
     when(addPropertyBloc.propertyName).thenReturn('PropertyName');
-    when(addPropertyBloc.price).thenReturn(12.0);
+    when(addPropertyBloc.price).thenReturn(Price(rentPrice: 0.0));
     when(addPropertyBloc.suburb).thenReturn('suburb');
     when(addPropertyBloc.postalCode).thenReturn('1234');
     when(addPropertyBloc.unitNumber).thenReturn('123');

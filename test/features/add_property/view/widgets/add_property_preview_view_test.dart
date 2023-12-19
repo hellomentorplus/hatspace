@@ -56,7 +56,7 @@ void main() {
     when(addPropertyCubit.address).thenReturn('123 Gateway, Island');
     when(addPropertyCubit.australiaState).thenReturn(AustraliaStates.vic);
     when(addPropertyCubit.availableDate).thenReturn(DateTime(2023, 6, 6));
-    when(addPropertyCubit.price).thenReturn(30000);
+    when(addPropertyCubit.price).thenReturn(Price(rentPrice: 30000));
     when(addPropertyCubit.description).thenReturn(
         'This updated cottage has much to offer with:- Polished floorboards in living areas and carpeted bedrooms- New modern kitchen with dishwasher, gas burner stove top and plenty of storage- Dining area- Lounge room- Study/Home office space- 2 Bedrooms- Lovely bathroom- Separate laundry.');
     when(addPropertyCubit.rentPeriod).thenReturn(MinimumRentPeriod.sixMonths);
@@ -131,7 +131,7 @@ void main() {
     when(addPropertyCubit.address).thenReturn('123 Gateway, Island');
     when(addPropertyCubit.australiaState).thenReturn(AustraliaStates.vic);
     when(addPropertyCubit.availableDate).thenReturn(DateTime(2023, 6, 6));
-    when(addPropertyCubit.price).thenReturn(30000);
+    when(addPropertyCubit.price).thenReturn(Price(rentPrice: 30000));
     when(addPropertyCubit.description).thenReturn(
         'This updated cottage has much to offer with:- Polished floorboards in living areas and carpeted bedrooms- New modern kitchen with dishwasher, gas burner stove top and plenty of storage- Dining area- Lounge room- Study/Home office space- 2 Bedrooms- Lovely bathroom- Separate laundry.');
     when(addPropertyCubit.rentPeriod).thenReturn(MinimumRentPeriod.sixMonths);

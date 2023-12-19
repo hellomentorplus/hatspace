@@ -265,7 +265,8 @@ void main() {
               ownerAvatar: '1',
               ownerName: 'name',
               isFavorited: true,
-              currency: Currency.aud),
+              currency: Currency.aud,
+              priceUnit: PriceUnit.perWeek),
           PropertyItemData(
               id: 'id 1',
               photos: const ['1', '2'],
@@ -281,7 +282,8 @@ void main() {
               ownerAvatar: '1',
               ownerName: 'name',
               isFavorited: true,
-              currency: Currency.aud),
+              currency: Currency.aud,
+              priceUnit: PriceUnit.perMonth),
         ];
         when(getPropertiesCubit.stream).thenAnswer(
             (_) => Stream.value(GetPropertiesSucceedState(fakeData)));

@@ -27,7 +27,8 @@ void main() {
       price: 2000.0,
       numberOfViewsToday: 20,
       type: PropertyTypes.house,
-      currency: Currency.aud);
+      currency: Currency.aud,
+      priceUnit: PriceUnit.perWeek);
 
   testWidgets('Verify PropertyItemView UI', (widgetTester) async {
     final PropertyItemView propertyWidget =

@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
+import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/add_property/view/widgets/add_property_info_view/add_property_price_view.dart';
 import 'package:hatspace/features/add_property/view_model/add_property_cubit.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -59,7 +60,8 @@ void main() async {
     testWidgets(
         'when text field is unfocus with impersistent error, then error is gone',
         (widgetTester) async {
-      when(addPropertyCubit.price).thenAnswer((realInvocation) => 25);
+      when(addPropertyCubit.price)
+          .thenAnswer((realInvocation) => Price(rentPrice: 25));
       const Widget widget = AddPropertyPriceView();
 
       await widgetTester.blocWrapAndPump<AddPropertyCubit>(
