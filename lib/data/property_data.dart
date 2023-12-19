@@ -120,11 +120,13 @@ enum PriceUnit {
   perWeek('pw'),
   invalid('invalid');
 
-  final String unitName;
-  const PriceUnit(this.unitName);
+  final String name;
+  const PriceUnit(this.name);
   static PriceUnit fromName(String name) =>
-      values.firstWhere((element) => element.unitName == name.toLowerCase(),
+      values.firstWhere((element) => element.name == name.toLowerCase(),
           orElse: () => invalid);
+
+  String get displayName => HatSpaceStrings.current.rentalPriceUnit(name);
 }
 
 class Price {
@@ -253,7 +255,7 @@ class Property {
       PropKeys.price: {
         PropKeys.currency: price.currency.name,
         PropKeys.price: price.rentPrice,
-        PropKeys.priceUnit: price.priceUnit.unitName
+        PropKeys.priceUnit: price.priceUnit.displayName
       },
       PropKeys.rentPeriod: minimumRentPeriod.months,
       PropKeys.description: description,

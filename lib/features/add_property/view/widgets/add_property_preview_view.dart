@@ -227,8 +227,7 @@ class AddPropertyPreviewBody extends StatelessWidget {
                                 ?.copyWith(fontSize: FontStyleGuide.fontSize18),
                             children: [
                               TextSpan(
-                                text:
-                                    ' ${HatSpaceStrings.current.rentalPriceUnit(price.priceUnit.unitName)}',
+                                text: ' ${price.priceUnit.displayName}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall

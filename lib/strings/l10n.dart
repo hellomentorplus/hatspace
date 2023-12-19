@@ -1968,13 +1968,18 @@ class HatSpaceStrings {
     );
   }
 
-  /// `{unitAbbr, select, perMonth{pm} perWeek(pw) other{}}`
-  String rentalPriceUnit(Object pm) {
-    return Intl.message(
-      '{unitAbbr, select, perMonth$pm perWeek(pw) other{}}',
+  /// `{priceUnit, select, pm{pm} pw{pw} other{ }}`
+  String rentalPriceUnit(Object priceUnit) {
+    return Intl.select(
+      priceUnit,
+      {
+        'pm': 'pm',
+        'pw': 'pw',
+        'other': ' ',
+      },
       name: 'rentalPriceUnit',
       desc: '',
-      args: [pm],
+      args: [priceUnit],
     );
   }
 }

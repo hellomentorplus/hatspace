@@ -468,7 +468,7 @@ class _PropertyBookingBar extends StatelessWidget {
                                     fontWeight: FontWeight.w700),
                             children: [
                               TextSpan(
-                                  text: ' ${price.priceUnit.unitName}',
+                                  text: ' ${price.priceUnit.displayName}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall

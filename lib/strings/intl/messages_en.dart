@@ -52,8 +52,11 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m9(count) =>
       "${Intl.plural(count, zero: 'No rent period', one: '1 Month', other: ' ${count} Months ')}";
 
-  static String m10(pm) =>
-      "{unitAbbr, select, perMonth${pm} perWeek(pw) other{}}";
+  static String m10(priceUnit) => "${Intl.select(priceUnit, {
+            'pm': 'pm',
+            'pw': 'pw',
+            'other': ' ',
+          })}";
 
   static String m11(counter) => "Show more (${counter})";
 

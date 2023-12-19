@@ -234,5 +234,5 @@
   "duration":"Duration",
   "minuteShort":"Mins",
   "durationPlaceHolder": "15 mins",
-  "rentalPriceUnit": "{unitAbbr, select, perMonth{pm} perWeek(pw) other{}}"
+  "rentalPriceUnit": "{priceUnit, select, pm{pm} pw{pw} other{ }}"
 }
