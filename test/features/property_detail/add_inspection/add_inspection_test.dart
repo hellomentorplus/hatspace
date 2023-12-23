@@ -19,7 +19,6 @@ import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_date_picker.dart';
-import 'package:hatspace/theme/widgets/hs_time_picker.dart';
 import 'package:hatspace/view_models/authentication/authentication_bloc.dart';
 import 'package:hatspace/view_models/property/property_detail_cubit.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -316,7 +315,7 @@ void main() async {
       //Error show when start time has not been selected
       expect(find.byType(DurationSelectionWidget), findsOneWidget);
     });
- testWidgets(
+    testWidgets(
         'Given user is in Select Start Time Bottom Modal'
         'When user select hour and minute'
         'When user tap save on the bottom modal'
