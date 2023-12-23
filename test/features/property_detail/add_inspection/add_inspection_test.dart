@@ -244,8 +244,31 @@ void main() async {
       await widgetTester.ensureVisible(startTimeBtn);
       await widgetTester.tap(startTimeBtn);
       await widgetTester.pumpAndSettle();
+      verify(addInspectionBookingCubit.selectStartTime()).called(1);
+    });
 
-      expect(find.byType(HatSpaceTimePicker), findsOneWidget);
+    testWidgets(
+        'Given user is in Select Start Time Bottom Modal'
+        'When user select hour and minute'
+        'When user tap save on the bottom modal'
+        'Then save inspection date', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(ShowStartTimeSelection()));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => ShowStartTimeSelection());
+      when(addInspectionBookingCubit.durationTime).thenReturn(null);
+      when(addInspectionBookingCubit.inspectionStartTime)
+          .thenReturn(DateTime(2022, 9, 9, 9, 9));
+      await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
+          providers, const AddInspectionBookingBody(id: 'id'))));
+      await widgetTester.pumpAndSettle();
+      expect(find.byType(StartTimeSelectionWidget), findsOneWidget);
+      Finder saveButton = find.widgetWithText(PrimaryButton, 'Save');
+      expect(saveButton, findsOneWidget);
+      await widgetTester.ensureVisible(saveButton);
+      await widgetTester.tap(saveButton);
+      await widgetTester.pumpAndSettle();
+      verify(addInspectionBookingCubit.inspectionStartTime).called(1);
     });
 
     testWidgets(
@@ -291,6 +314,21 @@ void main() async {
       await widgetTester.tap(durationBtn);
       await widgetTester.pumpAndSettle();
       //Error show when start time has not been selected
+      expect(find.byType(DurationSelectionWidget), findsOneWidget);
+    });
+ testWidgets(
+        'Given user is in Select Start Time Bottom Modal'
+        'When user select hour and minute'
+        'When user tap save on the bottom modal'
+        'Then save inspection date', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(const ShowDurationSelection(true)));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => const ShowDurationSelection(true));
+      when(addInspectionBookingCubit.durationTime).thenReturn(null);
+      await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
+          providers, const AddInspectionBookingBody(id: 'id'))));
+      await widgetTester.pumpAndSettle();
       expect(find.byType(DurationSelectionWidget), findsOneWidget);
     });
   });
