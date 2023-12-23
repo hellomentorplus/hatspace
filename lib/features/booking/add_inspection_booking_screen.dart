@@ -6,6 +6,7 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
 import 'package:hatspace/features/booking/widgets/duration_selection_widget.dart';
 import 'package:hatspace/features/booking/widgets/start_time_selection_widget.dart';
+import 'package:hatspace/features/booking/widgets/update_phone_no_bottom_sheet_view.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -81,6 +82,12 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
         listener: (context, state) {
           if (state is BookingInspectionSuccess) {
             context.pushToBookInspectionSuccessScreen(propertyId: widget.id);
+          }
+          if(state is ShowUpdateProfileModal){
+            showModalBottomSheet(
+              context: context, builder:(context){
+              return const UpdatePhoneNoBottomSheetView();
+            }).then((value) => context.read<AddInspectionBookingCubit>().validateBookingInspectionButton());
           }
         },
         child: Scaffold(
