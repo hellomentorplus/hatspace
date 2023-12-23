@@ -202,13 +202,10 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                           child: StartTimeSelectionWidget(
                             hourList: _hourList,
                             minutesList: _minutesList,
-                            startTimeNotifer: _selectedStartTime,
                           ),
                         ),
                         const SizedBox(width: HsDimens.spacing15),
-                        Expanded(
-                            child: DurationSelectionWidget(
-                                durationNotifer: _durationNotifier))
+                        const Expanded(child: DurationSelectionWidget())
                       ],
                     ),
                     const SizedBox(
