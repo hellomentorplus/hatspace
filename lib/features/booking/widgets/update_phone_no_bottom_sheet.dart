@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/features/profile/my_profile/view_model/my_profile_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -18,23 +15,9 @@ class UpdatePhoneNoBottomSheetView extends StatefulWidget {
 }
 
 class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
-  final ValueNotifier<PhoneNumberErrorType?> _phoneNumberError =
-      ValueNotifier(null);
-  final FocusNode _phoneNumberFocusNode = FocusNode();
-
   @override
   void initState() {
     super.initState();
-    _phoneNumberFocusNode.addListener(() {
-      if (!_phoneNumberFocusNode.hasFocus) {
-        PhoneNumberErrorType? error = _phoneNumberError.value;
-        if (error != null && !error.isPersistent) {
-          _phoneNumberError.value = null;
-        } else if (context.read<MyProfileCubit>().phoneNo == null) {
-          _phoneNumberError.value = PhoneNumberErrorType.minLength;
-        }
-      }
-    });
   }
 
   @override
@@ -83,10 +66,7 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                                   .bodyMedium
                                   ?.copyWith(color: HSColor.neutral6)),
                           const SizedBox(height: HsDimens.spacing4),
-                          ValueListenableBuilder<PhoneNumberErrorType?>(
-                            valueListenable: _phoneNumberError,
-                            builder: (context, value, child) {
-                              return Row(
+                        Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const PrimaryButton(
@@ -106,25 +86,14 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                                   const SizedBox(width: HsDimens.spacing24),
                                   Expanded(
                                       child: HatSpaceInputText(
-                                    // textInputType: TextInputType.number,
-                                    focusNode: _phoneNumberFocusNode,
                                     label: '',
                                     onChanged: (value) {
-                                      context
-                                          .read<MyProfileCubit>()
-                                          .phoneNumber = value;
+                                      // TODO: set phone number here
                                     },
                                     placeholder: HatSpaceStrings
-                                        .current.updatePhonePlaceHolder,
-                                    errorText: value?.phoneNumberError,
-                                    inputFormatters: [
-                                      PhoneNumberInputFormatter(
-                                          _phoneNumberError)
-                                    ],
+                                        .current.updatePhonePlaceHolder,              
                                   ))
                                 ],
-                              );
-                            },
                           )
                         ],
                       )),
@@ -138,93 +107,13 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                             top: HsDimens.spacing8,
                             left: HsDimens.spacing16,
                             right: HsDimens.spacing16),
-                        child: ValueListenableBuilder<PhoneNumberErrorType?>(
-                          valueListenable: _phoneNumberError,
-                          builder: (context, value, child) {
-                            return PrimaryButton(
+                        child:  PrimaryButton(
                                 label: HatSpaceStrings.current.save,
-                                onPressed: value?.phoneNumberError != null
-                                    ? null
-                                    : context.read<MyProfileCubit>().phoneNo ==
-                                                null ||
-                                            context
-                                                .read<MyProfileCubit>()
-                                                .phoneNo!
-                                                .isEmpty
-                                        ? null
-                                        : () {
-                                            context
-                                                .read<MyProfileCubit>()
-                                                .updateProfilePhoneNumber();
-                                          });
-                          },
-                        )))
+                                onPressed: (){
+                                  // TODO: Upload value to database 
+                                })
+                        ))
               ],
             )));
   }
-}
-
-class PhoneNumberInputFormatter extends TextInputFormatter {
-  final ValueNotifier<PhoneNumberErrorType?> error;
-
-  PhoneNumberInputFormatter(this.error);
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    if (newValue.text == oldValue.text) {
-      // no change
-      return newValue;
-    }
-    // FORMAT PHONE NUMBER
-    if (oldValue.text.length < newValue.text.length) {
-      if (newValue.text.length == 5) {
-        return TextEditingValue(
-            text:
-                '${oldValue.text.substring(0, 4)} ${newValue.text.substring(newValue.text.length - 1)}');
-      }
-
-      if (newValue.text.length == 9) {
-        return TextEditingValue(
-            text:
-                '${oldValue.text.substring(0, 8)} ${newValue.text.substring(newValue.text.length - 1)}');
-      }
-    }
-    // VALIDATION
-    if (newValue.text.isEmpty ||
-        newValue.text.trim().length <
-            PhoneNumberErrorType.minLength.maxPhoneNumber) {
-      error.value = PhoneNumberErrorType.minLength;
-      return newValue;
-    }
-    if (newValue.text.length > PhoneNumberErrorType.minLength.maxPhoneNumber) {
-      return oldValue;
-    }
-    RegExp codeFormat = RegExp('02|03|04|05|07|08');
-    if (!newValue.text.startsWith(codeFormat)) {
-      error.value = PhoneNumberErrorType.wrongCode;
-      return newValue;
-    }
-    error.value = null;
-    return newValue;
-  }
-}
-
-enum PhoneNumberErrorType {
-  minLength(false),
-  wrongCode(false);
-
-  final bool isPersistent;
-
-  const PhoneNumberErrorType(this.isPersistent);
-
-  String get phoneNumberError {
-    switch (this) {
-      case PhoneNumberErrorType.minLength:
-        return HatSpaceStrings.current.mustbe10Digits;
-      case PhoneNumberErrorType.wrongCode:
-        return HatSpaceStrings.current.areaCodeMessage;
-    }
-  }
-
-  int get maxPhoneNumber => 12;
 }

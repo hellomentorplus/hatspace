@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/data/member.dart';
 
 class MemberService {
   final FirebaseFirestore _firestore;
@@ -169,13 +168,5 @@ class MemberService {
     }
 
     return avatar;
-  }
-
-  Future<void> savePhoneNumberDetail(String uid, PhoneNumber number) async {
-    await _firestore
-        .collection(memberCollection)
-        .doc(uid)
-        .set({phoneNumberKey: number.convertToMap()}, SetOptions(merge: true));
-    return;
   }
 }
