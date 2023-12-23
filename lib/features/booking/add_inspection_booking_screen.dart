@@ -7,6 +7,7 @@ import 'package:hatspace/features/booking/view_model/cubit/add_inspection_bookin
 import 'package:hatspace/features/booking/widgets/duration_selection_widget.dart';
 import 'package:hatspace/features/booking/widgets/start_time_selection_widget.dart';
 import 'package:hatspace/features/booking/widgets/update_phone_no_bottom_sheet_view.dart';
+import 'package:hatspace/features/profile/my_profile/view_model/my_profile_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -85,9 +86,24 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
           }
           if(state is ShowUpdateProfileModal){
             showModalBottomSheet(
-              context: context, builder:(context){
-              return const UpdatePhoneNoBottomSheetView();
-            }).then((value) => context.read<AddInspectionBookingCubit>().validateBookingInspectionButton());
+                    useSafeArea: true,
+                    isScrollControlled: true,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    context: context,
+                    builder: (_) {
+                      return BlocProvider.value(
+                          value: BlocProvider.of<MyProfileCubit>(context),
+                          child: BlocBuilder<MyProfileCubit, MyProfileState>(
+                            builder: (_, state) {
+                              return const UpdatePhoneNoBottomSheetView();
+                            },
+                          ));
+                    })
+                .then((value) => context
+                    .read<AddInspectionBookingCubit>()
+                    .validateBookingInspectionButton());
           }
         },
         child: Scaffold(
