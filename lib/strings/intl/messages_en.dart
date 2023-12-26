@@ -159,6 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "contactSupport":
             MessageLookupByLibrary.simpleMessage("Support contact"),
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
+        "countryCode": MessageLookupByLibrary.simpleMessage("AUS (+61)"),
         "coverPhoto": MessageLookupByLibrary.simpleMessage("Cover photo"),
         "currencyFormatter": m2,
         "date": MessageLookupByLibrary.simpleMessage("Date"),

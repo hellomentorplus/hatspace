@@ -236,5 +236,6 @@
   "durationPlaceHolder": "15 mins",
   "updatePhoneLabel": "2 digit area code + 8 digit local phone number",
   "updatePhonePlaceHolder": "0XXX XXX XXXX",
-  "updateProfile": "Update Profile"
+  "updateProfile": "Update Profile",
+  "countryCode": "AUS (+61)"
 }

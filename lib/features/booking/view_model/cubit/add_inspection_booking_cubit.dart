@@ -20,8 +20,10 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     try {
       UserDetail user = await authenticationService.getCurrentUser();
       List<Roles> userRole = await storageService.member.getUserRoles(user.uid);
+      String? phoneNumber =
+          await storageService.member.getMemberPhoneNumber(user.uid);
       if (userRole.contains(Roles.tenant)) {
-        if(user.phone == null){
+        if (phoneNumber == null) {
           return emit(ShowUpdateProfileModal());
         }
         inspectionEndTime =

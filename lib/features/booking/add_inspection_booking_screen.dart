@@ -28,7 +28,8 @@ class AddInspectionBookingScreen extends StatelessWidget {
       BlocProvider<AddInspectionBookingCubit>(
           create: (context) => AddInspectionBookingCubit()),
       BlocProvider<PropertyDetailCubit>(
-          create: (context) => PropertyDetailCubit()..loadDetail(id))
+          create: (context) => PropertyDetailCubit()..loadDetail(id)),
+      BlocProvider<MyProfileCubit>(create: (context) => MyProfileCubit())
     ], child: AddInspectionBookingBody(id: id));
   }
 }
@@ -84,7 +85,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
           if (state is BookingInspectionSuccess) {
             context.pushToBookInspectionSuccessScreen(propertyId: widget.id);
           }
-          if(state is ShowUpdateProfileModal){
+          if (state is ShowUpdateProfileModal) {
             showModalBottomSheet(
                     useSafeArea: true,
                     isScrollControlled: true,
@@ -97,6 +98,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                           value: BlocProvider.of<MyProfileCubit>(context),
                           child: BlocBuilder<MyProfileCubit, MyProfileState>(
                             builder: (_, state) {
+                              // TODO Update phone number in MyProfileCubit
                               return const UpdatePhoneNoBottomSheetView();
                             },
                           ));

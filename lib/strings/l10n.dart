@@ -1997,6 +1997,16 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `AUS (+61)`
+  String get countryCode {
+    return Intl.message(
+      'AUS (+61)',
+      name: 'countryCode',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {
