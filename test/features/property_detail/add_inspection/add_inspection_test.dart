@@ -10,6 +10,8 @@ import 'package:hatspace/features/booking/add_inspection_success_booking_screen.
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
 import 'package:hatspace/features/booking/widgets/duration_selection_widget.dart';
 import 'package:hatspace/features/booking/widgets/start_time_selection_widget.dart';
+import 'package:hatspace/features/booking/widgets/update_phone_no_bottom_sheet_view.dart';
+import 'package:hatspace/features/profile/my_profile/view_model/my_profile_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
@@ -41,6 +43,7 @@ import 'add_inspection_test.mocks.dart';
   PropertyService,
   MemberService,
   PropertyDetailCubit,
+  MyProfileCubit,
 ])
 void main() async {
   HatSpaceStrings.load(const Locale('en'));
@@ -53,6 +56,7 @@ void main() async {
   final MockAuthenticationBloc authenticationBloc = MockAuthenticationBloc();
   final MockPropertyService propertyService = MockPropertyService();
   final MockMemberService memberService = MockMemberService();
+  final MockMyProfileCubit mockMyProfileCubit = MockMyProfileCubit();
   final Property property = Property(
       type: PropertyTypes.apartment,
       name: 'property name',
@@ -80,7 +84,8 @@ void main() async {
   final List<BlocProvider> providers = [
     BlocProvider<AddInspectionBookingCubit>(
         create: (context) => addInspectionBookingCubit),
-    BlocProvider<PropertyDetailCubit>(create: (context) => propertyDetailCubit)
+    BlocProvider<PropertyDetailCubit>(create: (context) => propertyDetailCubit),
+    BlocProvider<MyProfileCubit>(create: (context) => mockMyProfileCubit)
   ];
   setUpAll(() async {
     HsSingleton.singleton
@@ -110,6 +115,9 @@ void main() async {
     when(propertyDetailCubit.stream)
         .thenAnswer((realInvocation) => const Stream.empty());
     when(addInspectionBookingCubit.isStartTimeSelected).thenReturn(false);
+    when(mockMyProfileCubit.state).thenReturn(const MyProfileInitialState());
+    when(mockMyProfileCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
   });
 
   testWidgets('Verify UI component', (WidgetTester widget) async {
@@ -344,6 +352,42 @@ void main() async {
       await widgetTester.pumpAndSettle();
       // Navigate to other screen
       expect(find.byType(AddInspectionSuccessScreen), findsNothing);
+    });
+  });
+
+  group('Update Profile Modal', () {
+    testWidgets(
+        'Given state is ShowUpdateProfileModal'
+        'Then Update Profile modal will display', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => ShowUpdateProfileModal());
+
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+          providers, const AddInspectionBookingBody(id: 'id')));
+      await widgetTester.pumpAndSettle();
+      expect(find.byType(AddInspectionBookingBody), findsOneWidget);
+      expect(find.byType(UpdatePhoneNoBottomSheetView), findsOneWidget);
+    });
+    testWidgets(
+        'Given state is ShowUpdateProfileModal'
+        'When user tap out'
+        'Then dismiss UpdateProfile modal ', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => ShowUpdateProfileModal());
+
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+          providers, const AddInspectionBookingBody(id: 'id')));
+      await widgetTester.pumpAndSettle();
+      expect(find.byType(AddInspectionBookingBody), findsOneWidget);
+      expect(find.byType(UpdatePhoneNoBottomSheetView), findsOneWidget);
+      // tap out
+      await widgetTester.tapAt(const Offset(1, 2));
+      await widgetTester.pumpAndSettle();
+      expect(find.byType(UpdatePhoneNoBottomSheetView), findsNothing);
     });
   });
 }
