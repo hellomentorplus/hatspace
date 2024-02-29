@@ -76,13 +76,15 @@ class _UpdatePhoneNoBottomSheetBody
                                       alignment: Alignment.centerLeft,
                                       backgroundColor: MaterialStatePropertyAll(
                                           HSColor.neutral10),
+                                      foregroundColor:
+                                          MaterialStatePropertyAll<Color>(
+                                              HSColor.black),
                                       textStyle:
                                           MaterialStatePropertyAll<TextStyle>(
                                               TextStyle(
-                                                  fontSize:
-                                                      FontStyleGuide.fontSize14,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: HSColor.neutral9)))),
+                                        fontSize: FontStyleGuide.fontSize14,
+                                        fontWeight: FontWeight.w400,
+                                      )))),
                               const SizedBox(width: HsDimens.spacing24),
                               Expanded(
                                   child: HatSpaceInputText(
