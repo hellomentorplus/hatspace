@@ -71,6 +71,9 @@ class _UpdatePhoneNoBottomSheetBody
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               PrimaryButton(
+                                  onPressed: () {
+                                    // handle country code
+                                  },
                                   label: HatSpaceStrings.current.countryCode,
                                   style: const ButtonStyle(
                                       alignment: Alignment.centerLeft,
