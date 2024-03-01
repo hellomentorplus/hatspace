@@ -315,6 +315,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "start": MessageLookupByLibrary.simpleMessage("Start"),
         "startTime": MessageLookupByLibrary.simpleMessage("Start time"),
+        "startTimePlaceholder": MessageLookupByLibrary.simpleMessage("9:00 AM"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
         "streetAddress": MessageLookupByLibrary.simpleMessage("Street address"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),

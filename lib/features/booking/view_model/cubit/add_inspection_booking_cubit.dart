@@ -78,8 +78,16 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     if (!isStartTimeSelected) {
       emit(RequestStartTimeSelection());
     } else {
-      emit(ShowDurationSelection());
-      emit(CloseBottomSheet());
+      emit(const ShowDurationSelection(true));
     }
+  }
+
+  void selectStartTime() {
+    emit(ShowStartTimeSelection());
+  }
+
+  void closeBottomModal() {
+    emit(CloseBottomSheet());
+    validateBookingInspectionButton();
   }
 }
