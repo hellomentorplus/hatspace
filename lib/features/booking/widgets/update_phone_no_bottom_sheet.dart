@@ -105,27 +105,73 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                                                   color: HSColor.neutral9)))),
                                   const SizedBox(width: HsDimens.spacing24),
                                   Expanded(
-                                      child: HatSpaceInputText(
-                                    // textInputType: TextInputType.number,
+                                      child: TextFormField(
                                     focusNode: _phoneNumberFocusNode,
-                                    label: '',
                                     onChanged: (value) {
                                       context
                                           .read<MyProfileCubit>()
                                           .phoneNumber = value;
                                     },
-                                    placeholder: HatSpaceStrings
-                                        .current.updatePhonePlaceHolder,
-                                    errorText: value?.phoneNumberError,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(height: 1.5),
+                                    decoration: inputTextTheme.copyWith(
+                                      focusedBorder: value?.phoneNumberError ==
+                                              null
+                                          ? null
+                                          : const OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: HSColor.red05,
+                                                width: HsDimens.size2,
+                                              ),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(
+                                                      HsDimens.radius8))),
+                                      hintText: HatSpaceStrings
+                                          .current.updatePhonePlaceHolder,
+                                      suffixIcon:
+                                          value?.phoneNumberError != null
+                                              ? Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      HsDimens.spacing12),
+                                                  child: SvgPicture.asset(
+                                                    Assets.icons.textFieldError,
+                                                    width: HsDimens.size24,
+                                                    height: HsDimens.size24,
+                                                  ),
+                                                )
+                                              : null,
+                                      // when external suffix icon is available, use default constraint
+                                      suffixIconConstraints:
+                                          value?.phoneNumberError == null
+                                              ? null
+                                              : const BoxConstraints(
+                                                  maxHeight: HsDimens.size48,
+                                                  maxWidth: HsDimens.size48,
+                                                ),
+                                    ),
                                     inputFormatters: [
                                       PhoneNumberInputFormatter(
-                                          _phoneNumberError)
+                                          _phoneNumberError),
                                     ],
+                                    keyboardType: TextInputType.number,
                                   ))
                                 ],
                               );
                             },
-                          )
+                          ),
+                          ValueListenableBuilder(
+                              valueListenable: _phoneNumberError,
+                              builder: (context, value, child) {
+                                if (value?.phoneNumberError == null) {
+                                  return SizedBox.shrink();
+                                }
+                                return Text(value!.phoneNumberError,
+                                    style: textTheme.bodySmall?.copyWith(
+                                      color: HSColor.red05,
+                                    ));
+                              })
                         ],
                       )),
                 ),
