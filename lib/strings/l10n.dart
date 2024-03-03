@@ -1918,6 +1918,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `9:00 AM`
+  String get startTimePlaceholder {
+    return Intl.message(
+      '9:00 AM',
+      name: 'startTimePlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No booking`
   String get noBooking {
     return Intl.message(

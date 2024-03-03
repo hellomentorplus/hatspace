@@ -11,14 +11,11 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
 
 class DurationSelectionWidget extends StatelessWidget {
-  final ValueNotifier<int?> durationNotifer;
   final List<int>? _durationList;
-  const DurationSelectionWidget(
-      {required this.durationNotifer, List<int>? durationList, super.key})
+  const DurationSelectionWidget({List<int>? durationList, super.key})
       : _durationList = durationList ?? const [15, 30, 45, 60];
-
-  void showDurationModal(BuildContext context) {
-    showModalBottomSheet(
+  Future<void> showDurationModal(BuildContext context) {
+    return showModalBottomSheet(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(HsDimens.radius16),
@@ -26,7 +23,8 @@ class DurationSelectionWidget extends StatelessWidget {
         ),
         context: context,
         builder: (_) {
-          int? duration = durationNotifer.value;
+          int? duration =
+              context.read<AddInspectionBookingCubit>().durationTime ?? 15;
           return SafeArea(
               child: SingleChildScrollView(
             child: Column(
@@ -49,7 +47,6 @@ class DurationSelectionWidget extends StatelessWidget {
                     child: PrimaryButton(
                       label: HatSpaceStrings.current.save,
                       onPressed: () {
-                        durationNotifer.value = duration;
                         context.read<AddInspectionBookingCubit>().duration =
                             duration;
                         context.pop();
@@ -63,35 +60,31 @@ class DurationSelectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AddInspectionBookingCubit, AddInspectionBookingState>(
+    return BlocConsumer<AddInspectionBookingCubit, AddInspectionBookingState>(
         listener: (context, state) {
-          if (state is ShowDurationSelection) {
-            showDurationModal(context);
-          }
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            HsLabel(label: HatSpaceStrings.current.duration, isRequired: true),
-            const SizedBox(height: HsDimens.spacing4),
-            ValueListenableBuilder(
-                valueListenable: durationNotifer,
-                builder: (context, value, child) {
-                  return HsDropDownButton(
-                      value: durationNotifer.value == null
-                          ? null
-                          : '${durationNotifer.value} mins',
-                      placeholder: HatSpaceStrings.current.durationPlaceHolder,
-                      placeholderStyle: placeholderStyle,
-                      icon: Assets.icons.chervonDown,
-                      onPressed: () {
-                        context
-                            .read<AddInspectionBookingCubit>()
-                            .selectDuration();
-                      });
-                }),
-          ],
-        ));
+      if (state is ShowDurationSelection) {
+        showDurationModal(context).then((value) =>
+            context.read<AddInspectionBookingCubit>().closeBottomModal());
+      }
+    }, builder: (context, state) {
+      int? durationTime =
+          context.read<AddInspectionBookingCubit>().durationTime;
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          HsLabel(label: HatSpaceStrings.current.duration, isRequired: true),
+          const SizedBox(height: HsDimens.spacing4),
+          HsDropDownButton(
+              value: durationTime == null ? null : '$durationTime mins',
+              placeholder: HatSpaceStrings.current.durationPlaceHolder,
+              placeholderStyle: placeholderStyle,
+              icon: Assets.icons.chervonDown,
+              onPressed: () {
+                context.read<AddInspectionBookingCubit>().selectDuration();
+              })
+        ],
+      );
+    });
   }
 }
 

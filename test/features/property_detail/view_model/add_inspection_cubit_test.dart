@@ -207,6 +207,7 @@ void main() async {
       act: (bloc) => bloc.addTenantRole(),
       expect: () => [isA<AddTenantRoleFail>()]);
 
+  // START TIME AND DUATION SELECTIONS
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
     'Given start time has not been entered'
     'When run validate startTimeSelection'
@@ -227,6 +228,46 @@ void main() async {
     },
     expect: () => [isA<RequestStartTimeSelection>()],
   );
+  blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
+    'Given start time has not been entered'
+    'When user tap to open bottom modal'
+    'Then emit ShowStartTimeSelection',
+    build: () => AddInspectionBookingCubit(),
+    setUp: () {
+      when(authenticationServiceMock.getCurrentUser())
+          .thenAnswer((realInvocation) {
+        return Future.value(UserDetail(uid: 'uid'));
+      });
+      when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) {
+        return Future.value([Roles.tenant, Roles.homeowner]);
+      });
+    },
+    act: (bloc) {
+      bloc.selectStartTime();
+    },
+    expect: () => [isA<ShowStartTimeSelection>()],
+  );
+
+  blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
+    'Given start time has not been entered'
+    'When run validate startTimeSelection'
+    'emit RequestStartTimeSelection',
+    build: () => AddInspectionBookingCubit(),
+    setUp: () {
+      when(authenticationServiceMock.getCurrentUser())
+          .thenAnswer((realInvocation) {
+        return Future.value(UserDetail(uid: 'uid'));
+      });
+      when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) {
+        return Future.value([Roles.tenant, Roles.homeowner]);
+      });
+    },
+    act: (bloc) {
+      bloc.isStartTimeSelected = false;
+      bloc.updateInspectionStartTime(DateTime(2020, 9, 9, 9, 9));
+    },
+    expect: () => [CloseStartTimeRequestMessage()],
+  );
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
     'Given user start time AND duration already selected '
@@ -243,7 +284,7 @@ void main() async {
       });
     },
     act: (bloc) {
-      // bloc.inspectionStartTime = DateTime(2017, 1, 1, 15, 0);
+      bloc.inspectionStartTime;
       bloc.isStartTimeSelected = true;
       bloc.duration = 15;
       bloc.validateBookingInspectionButton();
@@ -270,7 +311,6 @@ void main() async {
     },
     expect: () => [isA<RequestStartTimeSelection>()],
   );
-
   group('Show Update Profile Modal', () {
     blocTest(
         'Given user has no phone number'
@@ -293,4 +333,64 @@ void main() async {
         },
         expect: () => [isA<ShowUpdateProfileModal>()]);
   });
+  blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
+    'Given duration has not been  selected'
+    'When user tap on duration selection'
+    'Then emit ShowDurationSelection',
+    build: () => AddInspectionBookingCubit(),
+    setUp: () {
+      when(authenticationServiceMock.getCurrentUser())
+          .thenAnswer((realInvocation) {
+        return Future.value(UserDetail(uid: 'uid'));
+      });
+      when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) {
+        return Future.value([Roles.tenant, Roles.homeowner]);
+      });
+    },
+    act: (bloc) {
+      bloc.isStartTimeSelected = true;
+      bloc.selectDuration();
+    },
+    expect: () => [isA<ShowDurationSelection>()],
+  );
+
+  blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
+    'Given user close modal'
+    'When user tap out'
+    'Then emit CloseBottomSheet',
+    build: () => AddInspectionBookingCubit(),
+    setUp: () {
+      when(authenticationServiceMock.getCurrentUser())
+          .thenAnswer((realInvocation) {
+        return Future.value(UserDetail(uid: 'uid'));
+      });
+      when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) {
+        return Future.value([Roles.tenant, Roles.homeowner]);
+      });
+    },
+    act: (bloc) {
+      bloc.closeBottomModal();
+    },
+    expect: () => [isA<CloseBottomSheet>()],
+  );
+
+  blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
+    'Given user select date'
+    'When user on save'
+    'Then expect change start time and update date time only',
+    build: () => AddInspectionBookingCubit(),
+    setUp: () {
+      when(authenticationServiceMock.getCurrentUser())
+          .thenAnswer((realInvocation) {
+        return Future.value(UserDetail(uid: 'uid'));
+      });
+      when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) {
+        return Future.value([Roles.tenant, Roles.homeowner]);
+      });
+    },
+    act: (bloc) {
+      bloc.updateInspectionDateOnly(day: 9, month: 9, year: 2020);
+    },
+    expect: () => [],
+  );
 }

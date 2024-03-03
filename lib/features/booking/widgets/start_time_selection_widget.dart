@@ -12,14 +12,68 @@ import 'package:hatspace/theme/widgets/hs_time_picker.dart';
 import 'package:intl/intl.dart';
 
 class StartTimeSelectionWidget extends StatelessWidget {
-  final ValueNotifier<DateTime?> startTimeNotifer;
   final List<int> minutesList;
   final List<int> hourList;
   const StartTimeSelectionWidget(
-      {required this.startTimeNotifer,
-      required this.minutesList,
-      required this.hourList,
-      super.key});
+      {required this.minutesList, required this.hourList, super.key});
+
+  Future<void> showStartTimeModal(BuildContext context) {
+    return showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(HsDimens.radius16),
+          ),
+        ),
+        context: context,
+        builder: (_) {
+          DateTime prevInspection =
+              context.read<AddInspectionBookingCubit>().inspectionStartTime ??
+                  DateTime.now().copyWith(hour: 9, minute: 0);
+          int? selectedMin = prevInspection.minute;
+          // selectedMin and selectedHour should match with placeholder value
+          int? selectedHour = prevInspection.hour;
+          return SafeArea(
+              child: SingleChildScrollView(
+            child: Column(
+              children: [
+                HatSpaceTimePicker(
+                  initalMinute:
+                      selectedMin, // set initialMinute and initialHour are 0 and 9 if valueNotifer of minutes and hour = null
+                  initialHour: selectedHour,
+                  minutesList: minutesList,
+                  hourList: hourList,
+                  selectedMinutes: (minute) {
+                    selectedMin = minute;
+                  },
+                  selectedHour: (hour) {
+                    selectedHour = hour;
+                  },
+                ),
+                const SizedBox(height: HsDimens.spacing16),
+                Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: HsDimens.spacing16,
+                        vertical: HsDimens.spacing8),
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            top: BorderSide(
+                                color: HSColor.neutral3, width: 1.0))),
+                    child: PrimaryButton(
+                      label: HatSpaceStrings.current.save,
+                      onPressed: () {
+                        context
+                            .read<AddInspectionBookingCubit>()
+                            .updateInspectionStartTime(prevInspection.copyWith(
+                                hour: selectedHour, minute: selectedMin));
+                        context.pop();
+                      },
+                    ))
+              ],
+            ),
+          ));
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,77 +81,29 @@ class StartTimeSelectionWidget extends StatelessWidget {
       children: [
         HsLabel(label: HatSpaceStrings.current.startTime, isRequired: true),
         const SizedBox(height: HsDimens.spacing4),
-        ValueListenableBuilder<DateTime?>(
-            valueListenable: startTimeNotifer,
-            builder: (context, value, child) {
-              bool isStartTimeSelected =
-                  context.read<AddInspectionBookingCubit>().isStartTimeSelected;
-              return HsDropDownButton(
-                  value: isStartTimeSelected
-                      ? DateFormat.jm().format(startTimeNotifer.value!)
-                      : null,
-                  placeholder: DateFormat.jm().format(startTimeNotifer.value!),
-                  placeholderStyle: placeholderStyle,
-                  icon: Assets.icons.chervonDown,
-                  onPressed: () {
-                    showModalBottomSheet(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(HsDimens.radius16),
-                          ),
-                        ),
-                        context: context,
-                        builder: (_) {
-                          int? selectedMin = startTimeNotifer.value!.minute;
-                          // selectedMin and selectedHour should match with placeholder value
-                          int? selectedHour = startTimeNotifer.value!.hour;
-                          return SafeArea(
-                              child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                HatSpaceTimePicker(
-                                  initalMinute:
-                                      selectedMin, // set initialMinute and initialHour are 0 and 9 if valueNotifer of minutes and hour = null
-                                  initialHour: selectedHour,
-                                  minutesList: minutesList,
-                                  hourList: hourList,
-                                  selectedMinutes: (minute) {
-                                    selectedMin = minute;
-                                  },
-                                  selectedHour: (hour) {
-                                    selectedHour = hour;
-                                  },
-                                ),
-                                const SizedBox(height: HsDimens.spacing16),
-                                Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: HsDimens.spacing16,
-                                        vertical: HsDimens.spacing8),
-                                    decoration: const BoxDecoration(
-                                        border: Border(
-                                            top: BorderSide(
-                                                color: HSColor.neutral3,
-                                                width: 1.0))),
-                                    child: PrimaryButton(
-                                      label: HatSpaceStrings.current.save,
-                                      onPressed: () {
-                                        startTimeNotifer.value =
-                                            startTimeNotifer.value!.copyWith(
-                                                hour: selectedHour!,
-                                                minute: selectedMin!);
-                                        context
-                                            .read<AddInspectionBookingCubit>()
-                                            .updateInspectionStartTime(
-                                                startTimeNotifer.value!);
-                                        context.pop();
-                                      },
-                                    ))
-                              ],
-                            ),
-                          ));
-                        });
-                  });
-            }),
+        BlocConsumer<AddInspectionBookingCubit, AddInspectionBookingState>(
+            listener: (context, state) {
+          if (state is ShowStartTimeSelection) {
+            showStartTimeModal(context).then((value) {
+              context.read<AddInspectionBookingCubit>().closeBottomModal();
+            });
+          }
+        }, builder: (context, state) {
+          bool isStartTimeSelected =
+              context.read<AddInspectionBookingCubit>().isStartTimeSelected;
+          return HsDropDownButton(
+              value: isStartTimeSelected
+                  ? DateFormat.jm().format(context
+                      .read<AddInspectionBookingCubit>()
+                      .inspectionStartTime!)
+                  : null,
+              placeholder: HatSpaceStrings.current.startTimePlaceholder,
+              placeholderStyle: placeholderStyle,
+              icon: Assets.icons.chervonDown,
+              onPressed: () {
+                context.read<AddInspectionBookingCubit>().selectStartTime();
+              });
+        }),
         BlocBuilder<AddInspectionBookingCubit, AddInspectionBookingState>(
             builder: (context, state) {
           if (state is RequestStartTimeSelection) {
