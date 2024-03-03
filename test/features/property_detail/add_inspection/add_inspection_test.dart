@@ -238,6 +238,7 @@ void main() async {
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => AddInspectionBookingInitial());
       when(addInspectionBookingCubit.durationTime).thenReturn(null);
+      when(addInspectionBookingCubit.selectStartTime()).thenReturn(null);
       await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
           providers, const AddInspectionBookingBody(id: 'id'))));
       await widgetTester.pumpAndSettle();
@@ -266,6 +267,7 @@ void main() async {
       when(addInspectionBookingCubit.durationTime).thenReturn(null);
       when(addInspectionBookingCubit.inspectionStartTime)
           .thenReturn(DateTime(2022, 9, 9, 9, 9));
+      when(addInspectionBookingCubit.closeBottomModal()).thenReturn(null);
       await mockNetworkImagesFor(() => (widgetTester.multiBlocWrapAndPump(
           providers, const AddInspectionBookingBody(id: 'id'))));
       await widgetTester.pumpAndSettle();
