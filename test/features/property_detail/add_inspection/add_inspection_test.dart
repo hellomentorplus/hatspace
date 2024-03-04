@@ -389,5 +389,62 @@ void main() async {
       await widgetTester.pumpAndSettle();
       expect(find.byType(UpdatePhoneNoBottomSheetView), findsNothing);
     });
+
+    testWidgets(
+        'Given when user enter wrong phone format'
+        'When user enter less than 10 digit'
+        'Then display error message', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => ShowUpdateProfileModal());
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+          providers, const AddInspectionBookingBody(id: 'id')));
+      await widgetTester.pumpAndSettle();
+      Widget textForm = widgetTester.widget(find.byKey(const Key('phoneNo')));
+      await widgetTester.enterText(find.byWidget(textForm), '1234567');
+      await widgetTester.pumpAndSettle();
+      expect(find.text('Must be 10 digits'), findsOne);
+    });
+
+    testWidgets(
+        'Given when user enter wrong phone format'
+        'When user enter wrong code area'
+        'Then display error message', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => ShowUpdateProfileModal());
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+          providers, const AddInspectionBookingBody(id: 'id')));
+      await widgetTester.pumpAndSettle();
+      Widget textForm = widgetTester.widget(find.byKey(const Key('phoneNo')));
+      await widgetTester.enterText(find.byWidget(textForm),
+          '1234 567 890'); // phone numer need to have format xxxx xxx xxx
+      await widgetTester.pumpAndSettle();
+      expect(find.text('Wrong code area'), findsOne);
+    });
+
+    testWidgets(
+        'Give user enter phone number'
+        'When user enter right format with valid code area'
+        'Then enable Save button', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => ShowUpdateProfileModal());
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+          providers, const AddInspectionBookingBody(id: 'id')));
+      await widgetTester.pumpAndSettle();
+      Widget textForm = widgetTester.widget(find.byKey(const Key('phoneNo')));
+      await widgetTester.enterText(find.byWidget(textForm),
+          '0422 444 444'); // phone numer need to have format xxxx xxx xxx
+      await widgetTester.pumpAndSettle();
+      expect(find.text('Wrong code area'), findsNothing);
+      expect(find.text('Must be 10 digits'), findsNothing);
+      final Finder saveBtn = find.widgetWithText(PrimaryButton, 'Save');
+      PrimaryButton saveButton = widgetTester.widget(saveBtn);
+      expect(saveButton.onPressed, isNotNull);
+    });
   });
 }

@@ -3,21 +3,24 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
 import 'package:hatspace/features/profile/my_profile/view_model/my_profile_cubit.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'my_profile_cubit_test.mocks.dart';
 
-@GenerateMocks([AuthenticationService])
+@GenerateMocks([AuthenticationService, StorageService])
 @GenerateNiceMocks([MockSpec<UserDetail>()])
 void main() {
   final MockAuthenticationService authenticationService =
       MockAuthenticationService();
+  final MockStorageService storageService = MockStorageService();
 
   setUpAll(() async {
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationService);
+    HsSingleton.singleton.registerSingleton<StorageService>(storageService);
   });
 
   blocTest<MyProfileCubit, MyProfileState>(

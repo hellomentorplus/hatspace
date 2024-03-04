@@ -237,5 +237,7 @@
   "updatePhoneLabel": "2 digit area code + 8 digit local phone number",
   "updatePhonePlaceHolder": "0XXX XXX XXXX",
   "updateProfile": "Update Profile",
-  "countryCode": "AUS (+61)"
+  "countryCode": "AUS (+61)",
+  "wrongCodeAreaErrorMessage": "Wrong code area",
+  "wrongLenghtPhongNumerErrorMessage": "Must be 10 digits"
 }

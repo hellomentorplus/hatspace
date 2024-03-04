@@ -2007,6 +2007,26 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Wrong code area`
+  String get wrongCodeAreaErrorMessage {
+    return Intl.message(
+      'Wrong code area',
+      name: 'wrongCodeAreaErrorMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Must be 10 digits`
+  String get wrongLenghtPhongNumerErrorMessage {
+    return Intl.message(
+      'Must be 10 digits',
+      name: 'wrongLenghtPhongNumerErrorMessage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

@@ -193,4 +193,13 @@ class MemberService {
 
     return phoneNumber;
   }
+
+  // TODO: SAVE AND UPLOAD TO DATABASE
+  // Future<void> savePhoneNumberDetail(String uid, PhoneNumber number) async {
+  //   await _firestore
+  //       .collection(memberCollection)
+  //       .doc(uid)
+  //       .set({phoneNumberKey: number.convertToMap()}, SetOptions(merge: true));
+  //   return;
+  // }
 }
