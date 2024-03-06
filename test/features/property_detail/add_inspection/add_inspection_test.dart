@@ -446,5 +446,21 @@ void main() async {
       PrimaryButton saveButton = widgetTester.widget(saveBtn);
       expect(saveButton.onPressed, isNotNull);
     });
+
+    testWidgets(
+        'Given user at UpdateProfileModal'
+        'When user enter valid phone number'
+        'When user hit save button and UpdatePhoneNumberSuccessState appear'
+        'Expect Dismiss UpdatePhoneNoBottomSheetView', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(UpdatePhoneNumberSuccessState()));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => UpdatePhoneNumberSuccessState());
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+          providers, const UpdatePhoneNoBottomSheetView(propertyId: 'id')));
+      await widgetTester.pumpAndSettle();
+      expect(
+          find.byWidget(const UpdatePhoneNoBottomSheetView(propertyId: 'id')), findsNothing);
+    });
   });
 }

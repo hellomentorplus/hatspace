@@ -48,7 +48,7 @@ void main() async {
           return Future.value([Roles.tenant]);
         });
         when(mockMemberService.getMemberPhoneNumber('uid'))
-            .thenAnswer((realInvocation) => Future.value('02339988666'));
+            .thenAnswer((realInvocation) => Future.value(PhoneNumber(countryCode: CountryCallingCode.au, phoneNumber: '222222222')));
       },
       act: (bloc) => bloc.onBookInspection(),
       expect: () => [BookingInspectionSuccess()]);
@@ -108,7 +108,7 @@ void main() async {
           return Future.value([Roles.homeowner]);
         });
         when(mockMemberService.getMemberPhoneNumber('uid'))
-            .thenAnswer((realInvocation) => Future.value('02339988666'));
+            .thenAnswer((realInvocation) => Future.value(PhoneNumber(countryCode: CountryCallingCode.au, phoneNumber: '222222222')));
       },
       act: (bloc) => bloc.onBookInspection(),
       expect: () => []);
@@ -139,7 +139,7 @@ void main() async {
           return Future.value([Roles.homeowner]);
         });
         when(mockMemberService.getMemberPhoneNumber('uid'))
-            .thenAnswer((realInvocation) => Future.value('02339988666'));
+            .thenAnswer((realInvocation) => Future.value(PhoneNumber(countryCode: CountryCallingCode.au, phoneNumber: '222222222')));
       },
       act: (bloc) => bloc.onBookInspection(),
       verify: (bloc) {
@@ -292,5 +292,27 @@ void main() async {
           bloc.onBookInspection();
         },
         expect: () => [isA<ShowUpdateProfileModal>()]);
+
+         blocTest(
+        'Given user is in ShowUpdateProfileModal'
+        'When user enter and update phone number successfull'
+        'expect emit UpdatePhoneNumberSuccessState',
+        build: () => AddInspectionBookingCubit(),
+        setUp: () {
+          when(authenticationServiceMock.getCurrentUser())
+              .thenAnswer((realInvocation) {
+            return Future.value(UserDetail(uid: 'uid'));
+          });
+          when(mockMemberService.getUserRoles('uid'))
+              .thenAnswer((realInvocation) {
+            return Future.value([Roles.tenant, Roles.homeowner]);
+          });
+          when(mockMemberService.getMemberPhoneNumber('uid'))
+              .thenAnswer((realInvocation) => Future.value(null));
+        },
+        act: (bloc) {
+          bloc.updateProfilePhoneNumber(PhoneNumber(countryCode: CountryCallingCode.au, phoneNumber: '234567890'));
+        },
+        expect: () => [isA<UpdatePhoneNumberSuccessState>()]);
   });
 }

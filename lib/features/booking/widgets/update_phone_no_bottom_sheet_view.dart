@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hatspace/data/data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/booking/add_inspection_booking_screen.dart';
+import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
+import 'package:hatspace/features/profile/my_profile/view_model/my_profile_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -10,7 +15,10 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
 
 class UpdatePhoneNoBottomSheetView extends StatefulWidget {
-  const UpdatePhoneNoBottomSheetView({super.key});
+  final String propertyId;
+  const UpdatePhoneNoBottomSheetView({
+    required this.propertyId,
+    super.key});
   @override
   State<StatefulWidget> createState() => _UpdatePhoneNoBottomSheet();
 }
@@ -33,7 +41,13 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
 
   @override
   Widget build(BuildContext context) {
-    return FractionallySizedBox(
+  return  BlocListener<AddInspectionBookingCubit,AddInspectionBookingState>(
+      listener: (context, state){
+        if (state is UpdatePhoneNumberSuccessState){
+          context.pushToBookInspectionSuccessScreen(propertyId: widget.propertyId);
+        }
+      },
+    child: FractionallySizedBox(
         heightFactor: 0.95,
         child: Padding(
             padding: const EdgeInsets.only(bottom: HsDimens.spacing40),
@@ -188,14 +202,15 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                                     ? null
                                     : () {
                                         // TODO: SAVE AND UPLOAD TO DATABASE
-                                        // context
-                                        //     .read<MyProfileCubit>()
-                                        //     .updateProfilePhoneNumber(PhoneNumber(countryCode: CountryCallingCode.au, phoneNumber: phoneNumber));
+                                        context
+                                            .read<AddInspectionBookingCubit>()
+                                            .updateProfilePhoneNumber(PhoneNumber(countryCode: CountryCallingCode.au, phoneNumber: phoneNumber));
                                       });
                           },
                         )))
               ],
-            )));
+            )))
+    );
   }
 }
 
