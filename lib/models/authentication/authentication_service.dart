@@ -186,7 +186,7 @@ class AuthenticationService {
       if (user != null) {
         //Check when email null
         if (user.email == null) {
-          await user.updateEmail(credential.email!);
+          await user.verifyBeforeUpdateEmail(credential.email!);
         }
         // TODO: Handle when user hide email
         // Check display name null
