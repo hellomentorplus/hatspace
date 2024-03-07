@@ -63,8 +63,9 @@ enum CountryCallingCode {
   final String country;
   String get code => country;
 
-   static CountryCallingCode fromCodeString(String stringCode) => values
-      .firstWhere((element) => element.country == stringCode, orElse: () => invalid);
+  static CountryCallingCode fromCodeString(String stringCode) =>
+      values.firstWhere((element) => element.country == stringCode,
+          orElse: () => invalid);
 }
 
 class PhoneNumber {

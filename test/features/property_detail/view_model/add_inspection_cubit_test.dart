@@ -47,8 +47,10 @@ void main() async {
             .thenAnswer((realInvocation) {
           return Future.value([Roles.tenant]);
         });
-        when(mockMemberService.getMemberPhoneNumber('uid'))
-            .thenAnswer((realInvocation) => Future.value(PhoneNumber(countryCode: CountryCallingCode.au, phoneNumber: '222222222')));
+        when(mockMemberService.getMemberPhoneNumber('uid')).thenAnswer(
+            (realInvocation) => Future.value(PhoneNumber(
+                countryCode: CountryCallingCode.au,
+                phoneNumber: '0123456789')));
       },
       act: (bloc) => bloc.onBookInspection(),
       expect: () => [BookingInspectionSuccess()]);
@@ -59,6 +61,13 @@ void main() async {
     build: () => PropertyDetailInteractionCubit(),
     setUp: () {
       when(authenticationServiceMock.isUserLoggedIn).thenReturn(true);
+      when(authenticationServiceMock.getCurrentUser())
+          .thenAnswer((realInvocation) {
+        return Future.value(UserDetail(uid: 'uid'));
+      });
+      when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) {
+        return Future.value([Roles.tenant]);
+      });
     },
     act: (bloc) => bloc.navigateToBooingInspectionScreen(),
     expect: () => [NavigateToBooingInspectionScreen()],
@@ -89,6 +98,10 @@ void main() async {
             .thenAnswer((realInvocation) {
           return Future.value([Roles.tenant, Roles.homeowner]);
         });
+        when(mockMemberService.getMemberPhoneNumber('uid')).thenAnswer(
+            (realInvocation) => Future.value(PhoneNumber(
+                countryCode: CountryCallingCode.au,
+                phoneNumber: '0123456789')));
       },
       act: (bloc) => bloc.onBookInspection(),
       expect: () => [BookingInspectionSuccess()]);
@@ -107,8 +120,6 @@ void main() async {
             .thenAnswer((realInvocation) {
           return Future.value([Roles.homeowner]);
         });
-        when(mockMemberService.getMemberPhoneNumber('uid'))
-            .thenAnswer((realInvocation) => Future.value(PhoneNumber(countryCode: CountryCallingCode.au, phoneNumber: '222222222')));
       },
       act: (bloc) => bloc.onBookInspection(),
       expect: () => []);
@@ -138,8 +149,6 @@ void main() async {
             .thenAnswer((realInvocation) {
           return Future.value([Roles.homeowner]);
         });
-        when(mockMemberService.getMemberPhoneNumber('uid'))
-            .thenAnswer((realInvocation) => Future.value(PhoneNumber(countryCode: CountryCallingCode.au, phoneNumber: '222222222')));
       },
       act: (bloc) => bloc.onBookInspection(),
       verify: (bloc) {
@@ -293,7 +302,7 @@ void main() async {
         },
         expect: () => [isA<ShowUpdateProfileModal>()]);
 
-         blocTest(
+    blocTest(
         'Given user is in ShowUpdateProfileModal'
         'When user enter and update phone number successfull'
         'expect emit UpdatePhoneNumberSuccessState',
@@ -311,7 +320,8 @@ void main() async {
               .thenAnswer((realInvocation) => Future.value(null));
         },
         act: (bloc) {
-          bloc.updateProfilePhoneNumber(PhoneNumber(countryCode: CountryCallingCode.au, phoneNumber: '234567890'));
+          bloc.updateProfilePhoneNumber(PhoneNumber(
+              countryCode: CountryCallingCode.au, phoneNumber: '234567890'));
         },
         expect: () => [isA<UpdatePhoneNumberSuccessState>()]);
   });

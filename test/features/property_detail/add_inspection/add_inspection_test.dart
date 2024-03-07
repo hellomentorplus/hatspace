@@ -460,7 +460,8 @@ void main() async {
           providers, const UpdatePhoneNoBottomSheetView(propertyId: 'id')));
       await widgetTester.pumpAndSettle();
       expect(
-          find.byWidget(const UpdatePhoneNoBottomSheetView(propertyId: 'id')), findsNothing);
+          find.byWidget(const UpdatePhoneNoBottomSheetView(propertyId: 'id')),
+          findsNothing);
     });
   });
 }

@@ -187,16 +187,14 @@ class MemberService {
 
     if (data[phoneNumberKey] == null) {
       return null;
-   }
-   Map<String,dynamic> phone  = data[phoneNumberKey];
-   print(phone);
-   // TODO: add convert string to country code
-    final PhoneNumber phoneNumber = PhoneNumber(countryCode: CountryCallingCode.fromCodeString(phone['countryCode']), phoneNumber: phone['numberKey']);
-
+    }
+    Map<String, dynamic> phone = data[phoneNumberKey];
+    final PhoneNumber phoneNumber = PhoneNumber(
+        countryCode: CountryCallingCode.fromCodeString(phone['countryCode']),
+        phoneNumber: phone['numberKey']);
     return phoneNumber;
   }
 
-  // TODO: SAVE AND UPLOAD TO DATABASE
   Future<void> savePhoneNumberDetail(String uid, PhoneNumber number) async {
     await _firestore
         .collection(memberCollection)

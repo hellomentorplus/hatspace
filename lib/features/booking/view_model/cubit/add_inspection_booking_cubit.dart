@@ -88,12 +88,15 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     }
   }
 
-  void updateProfilePhoneNumber(PhoneNumber phoneNumber)async {
-  try {
+  void updateProfilePhoneNumber(PhoneNumber phoneNumber) async {
+    try {
       UserDetail user = await authenticationService.getCurrentUser();
-      String formatNumber = phoneNumber.phoneNumber.substring(1);
-    await storageService.member.savePhoneNumberDetail(user.uid, PhoneNumber(countryCode: phoneNumber.countryCode, phoneNumber: formatNumber));
-    emit(UpdatePhoneNumberSuccessState());
+      final String formatNumber = phoneNumber.phoneNumber.substring(1);
+      await storageService.member.savePhoneNumberDetail(
+          user.uid,
+          PhoneNumber(
+              countryCode: phoneNumber.countryCode, phoneNumber: formatNumber));
+      emit(UpdatePhoneNumberSuccessState());
     } on UserNotFoundException catch (_) {
       // TODO: Implement when there is no user
     }
