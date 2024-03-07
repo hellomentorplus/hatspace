@@ -1977,6 +1977,16 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `Manage property`
+  String get managePropertyButton {
+    return Intl.message(
+      'Manage property',
+      name: 'managePropertyButton',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

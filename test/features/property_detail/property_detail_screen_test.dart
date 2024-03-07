@@ -349,6 +349,46 @@ void main() async {
         ], widget));
     expect(find.widgetWithText(PrimaryButton, 'Book Inspection'), findsNothing);
   });
+
+  testWidgets(
+      'Given user is in PropertyDetail AND user is a ower (isOwner == true) of the property'
+      'Then user will see Manage Property Button', (widgetTester) async {
+    when(propertyDetailCubit.state).thenAnswer((realInvocation) {
+      return PropertyDetailLoaded(
+          photos: const [],
+          name: 'name',
+          state: 'state',
+          bedrooms: 1,
+          bathrooms: 1,
+          carspaces: 1,
+          description: 'description',
+          fullAddress: 'address',
+          features: const [],
+          ownerName: 'owner name',
+          ownerAvatar: 'avatar',
+          availableDate: DateTime.parse('2017-09-20'),
+          type: 'apartment',
+          price: Price(),
+          isOwned: true);
+    });
+    when(propertyDetailCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+    when(mockPropertyDetailInteractionCubit.state)
+        .thenAnswer((realInvocation) => PropertyDetailInteractionInitial());
+    when(mockPropertyDetailInteractionCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+    const Widget widget = PropertyDetailBody(id: 'uid');
+    await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump([
+          BlocProvider<AuthenticationBloc>(
+              create: (context) => authenticationBloc),
+          BlocProvider<PropertyDetailCubit>(
+              create: ((context) => propertyDetailCubit)),
+          BlocProvider<PropertyDetailInteractionCubit>(
+              create: (context) => mockPropertyDetailInteractionCubit)
+        ], widget));
+    expect(find.widgetWithText(PrimaryButton, 'Manage Property'), findsNothing);
+  });
+
   testWidgets(
       'Given when user is at Property Detail Screen'
       'AND user HAS NOT LOGGED IN'

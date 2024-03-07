@@ -242,6 +242,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "lostDataDescription": MessageLookupByLibrary.simpleMessage(
             "Your data may be lost if you cancel adding new property. Are you sure you want to cancel?"),
         "lostDataTitle": MessageLookupByLibrary.simpleMessage("Lost Data"),
+        "managePropertyButton":
+            MessageLookupByLibrary.simpleMessage("Manage property"),
         "maximumChars": m6,
         "minimumRentPeriod":
             MessageLookupByLibrary.simpleMessage("Minimum rent period"),
