@@ -6,6 +6,8 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
 import 'package:hatspace/features/booking/widgets/duration_selection_widget.dart';
 import 'package:hatspace/features/booking/widgets/start_time_selection_widget.dart';
+import 'package:hatspace/features/booking/widgets/update_phone_no_bottom_sheet_view.dart';
+import 'package:hatspace/features/profile/my_profile/view_model/my_profile_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -26,7 +28,8 @@ class AddInspectionBookingScreen extends StatelessWidget {
       BlocProvider<AddInspectionBookingCubit>(
           create: (context) => AddInspectionBookingCubit()),
       BlocProvider<PropertyDetailCubit>(
-          create: (context) => PropertyDetailCubit()..loadDetail(id))
+          create: (context) => PropertyDetailCubit()..loadDetail(id)),
+      BlocProvider<MyProfileCubit>(create: (context) => MyProfileCubit())
     ], child: AddInspectionBookingBody(id: id));
   }
 }
@@ -81,6 +84,24 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
         listener: (context, state) {
           if (state is BookingInspectionSuccess) {
             context.pushToBookInspectionSuccessScreen(propertyId: widget.id);
+          }
+          if (state is ShowUpdateProfileModal) {
+            showModalBottomSheet(
+                useSafeArea: true,
+                isScrollControlled: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                context: context,
+                builder: (_) {
+                  return const UpdatePhoneNoBottomSheetView();
+                }).then((value) {
+              if (mounted) {
+                context
+                    .read<AddInspectionBookingCubit>()
+                    .validateBookingInspectionButton();
+              }
+            }); // validate btn when modal dismissed
           }
         },
         child: Scaffold(

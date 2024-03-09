@@ -159,6 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "contactSupport":
             MessageLookupByLibrary.simpleMessage("Support contact"),
         "continueBtn": MessageLookupByLibrary.simpleMessage("Continue"),
+        "countryCode": MessageLookupByLibrary.simpleMessage("AUS (+61)"),
         "coverPhoto": MessageLookupByLibrary.simpleMessage("Cover photo"),
         "currencyFormatter": m2,
         "date": MessageLookupByLibrary.simpleMessage("Date"),
@@ -329,6 +330,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "tracking": MessageLookupByLibrary.simpleMessage("Tracking"),
         "tv": MessageLookupByLibrary.simpleMessage("TV"),
         "unitNumber": MessageLookupByLibrary.simpleMessage("Unit number"),
+        "updatePhoneLabel": MessageLookupByLibrary.simpleMessage(
+            "2 digit area code + 8 digit local phone number"),
+        "updatePhonePlaceHolder":
+            MessageLookupByLibrary.simpleMessage("0XXX XXX XXXX"),
+        "updateProfile": MessageLookupByLibrary.simpleMessage("Update Profile"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
         "uploadPhotoCount": m12,
         "userRoleDescription": m13,

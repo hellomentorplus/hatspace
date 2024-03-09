@@ -1977,6 +1977,46 @@ class HatSpaceStrings {
       args: [],
     );
   }
+
+  /// `2 digit area code + 8 digit local phone number`
+  String get updatePhoneLabel {
+    return Intl.message(
+      '2 digit area code + 8 digit local phone number',
+      name: 'updatePhoneLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `0XXX XXX XXXX`
+  String get updatePhonePlaceHolder {
+    return Intl.message(
+      '0XXX XXX XXXX',
+      name: 'updatePhonePlaceHolder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Profile`
+  String get updateProfile {
+    return Intl.message(
+      'Update Profile',
+      name: 'updateProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `AUS (+61)`
+  String get countryCode {
+    return Intl.message(
+      'AUS (+61)',
+      name: 'countryCode',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<HatSpaceStrings> {

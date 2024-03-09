@@ -234,5 +234,9 @@
   "addTenantRoleBottomSheetDescription": "Only Tenant can use this feature. Would you like to add the role Tenant to the list of roles?",
   "duration":"Duration",
   "minuteShort":"Mins",
-  "durationPlaceHolder": "15 mins"
+  "durationPlaceHolder": "15 mins",
+  "updatePhoneLabel": "2 digit area code + 8 digit local phone number",
+  "updatePhonePlaceHolder": "0XXX XXX XXXX",
+  "updateProfile": "Update Profile",
+  "countryCode": "AUS (+61)"
 }

@@ -30,3 +30,5 @@ class ShowDurationSelection extends AddInspectionBookingState {
 }
 
 class CloseBottomSheet extends AddInspectionBookingState {}
+
+class ShowUpdateProfileModal extends AddInspectionBookingState {}
