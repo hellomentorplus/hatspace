@@ -485,6 +485,5 @@ void main() async {
       PrimaryButton saveButton = widgetTester.widget(saveBtn);
       expect(saveButton.onPressed, isNotNull);
     });
-
   });
 }

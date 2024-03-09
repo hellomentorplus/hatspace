@@ -189,32 +189,26 @@ packages:
     dependency: "direct main"
     description:
       name: cloud_firestore
-
       sha256: "31cfa4d65d6e9ea837234fffe121304034c30c9214c06207b4a35867e3757900"
       url: "https://pub.dev"
     source: hosted
     version: "4.15.8"
-
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
       name: cloud_firestore_platform_interface
-
       sha256: a0097a26569b015faf8142e159e855241609ea9a1738b5fd1c40bfe8411b41a0
       url: "https://pub.dev"
     source: hosted
     version: "6.1.9"
-
   cloud_firestore_web:
     dependency: transitive
     description:
       name: cloud_firestore_web
-
       sha256: ed680ece29a5750985119c09cdc276b460c3a2fa80e8c12f9b7241f6b4a7ca16
       url: "https://pub.dev"
     source: hosted
     version: "3.10.8"
-
   code_builder:
     dependency: transitive
     description:
@@ -355,7 +349,6 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_analytics
-
       sha256: b13cbf1ee78744ca5e6b762e9218db3bd3967a0edfed75f58339907892a2ccb9
       url: "https://pub.dev"
     source: hosted
@@ -364,52 +357,42 @@ packages:
     dependency: transitive
     description:
       name: firebase_analytics_platform_interface
-
       sha256: "416b33d62033db5ecd2df719fcb657ad04e9995fa0fc392ffdab4ca0e76cb679"
       url: "https://pub.dev"
     source: hosted
     version: "3.9.9"
-
   firebase_analytics_web:
     dependency: transitive
     description:
       name: firebase_analytics_web
-
       sha256: "9dca9d8d468172444ef18cabb73fe99f7aae24733bfad67115bd36bffd2d65c1"
       url: "https://pub.dev"
     source: hosted
     version: "0.5.5+21"
-
   firebase_auth:
     dependency: "direct main"
     description:
       name: firebase_auth
-
       sha256: "17b841e1b000c3441b8ffceca88f468e078d0443db9643e77541bdfb7a3fd16b"
       url: "https://pub.dev"
     source: hosted
     version: "4.17.8"
-
   firebase_auth_platform_interface:
     dependency: transitive
     description:
       name: firebase_auth_platform_interface
-
       sha256: f294ceef40409a36c819a14280ca864fe487b44033e5276443377c66cb448310
       url: "https://pub.dev"
     source: hosted
     version: "7.1.8"
-
   firebase_auth_web:
     dependency: transitive
     description:
       name: firebase_auth_web
-
       sha256: "1f231da900fe7ff9f2974f8adcbdb3363c410c24725978afa5dc33e1e7e62e06"
       url: "https://pub.dev"
     source: hosted
     version: "5.9.8"
-
   firebase_core:
     dependency: "direct main"
     description:
