@@ -86,21 +86,22 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
             context.pushToBookInspectionSuccessScreen(propertyId: widget.id);
           }
           if (state is ShowUpdateProfileModal) {
-            if (mounted) {
-              showModalBottomSheet(
-                      useSafeArea: true,
-                      isScrollControlled: true,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      context: context,
-                      builder: (_) {
-                        return const UpdatePhoneNoBottomSheetView();
-                      })
-                  .then((value) => context
-                      .read<AddInspectionBookingCubit>()
-                      .validateBookingInspectionButton()); // validate btn when modal dismissed
-            }
+            showModalBottomSheet(
+                useSafeArea: true,
+                isScrollControlled: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                context: context,
+                builder: (_) {
+                  return const UpdatePhoneNoBottomSheetView();
+                }).then((value) {
+              if (mounted) {
+                context
+                    .read<AddInspectionBookingCubit>()
+                    .validateBookingInspectionButton();
+              }
+            }); // validate btn when modal dismissed
           }
         },
         child: Scaffold(
