@@ -18,7 +18,7 @@ class UpdatePhoneNoBottomSheetView extends StatefulWidget {
 class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
   final ValueNotifier<PhoneNumberErrorType?> _phoneNumberError =
       ValueNotifier(null);
-  late String phoneNumber;
+  late String? phoneNumber;
 
   @override
   void dispose() {
@@ -28,6 +28,7 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
 
   @override
   void initState() {
+    phoneNumber = null;
     super.initState();
   }
 
@@ -184,14 +185,16 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                           builder: (context, value, child) {
                             return PrimaryButton(
                                 label: HatSpaceStrings.current.save,
-                                onPressed: value?.phoneNumberError != null
+                                onPressed: phoneNumber == null
                                     ? null
-                                    : () {
-                                        // TODO: SAVE AND UPLOAD TO DATABASE
-                                        // context
-                                        //     .read<MyProfileCubit>()
-                                        //     .updateProfilePhoneNumber(PhoneNumber(countryCode: CountryCallingCode.au, phoneNumber: phoneNumber));
-                                      });
+                                    : value?.phoneNumberError != null
+                                        ? null
+                                        : () {
+                                            // TODO: SAVE AND UPLOAD TO DATABASE
+                                            // context
+                                            //     .read<MyProfileCubit>()
+                                            //     .updateProfilePhoneNumber(PhoneNumber(countryCode: CountryCallingCode.au, phoneNumber: phoneNumber));
+                                          });
                           },
                         )))
               ],

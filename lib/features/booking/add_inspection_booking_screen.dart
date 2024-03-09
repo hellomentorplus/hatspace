@@ -87,25 +87,28 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
           }
           if (state is ShowUpdateProfileModal) {
             showModalBottomSheet(
-                    useSafeArea: true,
-                    isScrollControlled: true,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    context: context,
-                    builder: (_) {
-                      return BlocProvider.value(
-                          value: BlocProvider.of<MyProfileCubit>(context),
-                          child: BlocBuilder<MyProfileCubit, MyProfileState>(
-                            builder: (_, state) {
-                              // TODO Update phone number in MyProfileCubit
-                              return const UpdatePhoneNoBottomSheetView();
-                            },
-                          ));
-                    })
-                .then((value) => context
+                useSafeArea: true,
+                isScrollControlled: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                context: context,
+                builder: (_) {
+                  return BlocProvider.value(
+                      value: BlocProvider.of<MyProfileCubit>(context),
+                      child: BlocBuilder<MyProfileCubit, MyProfileState>(
+                        builder: (_, state) {
+                          // TODO Update phone number in MyProfileCubit
+                          return const UpdatePhoneNoBottomSheetView();
+                        },
+                      ));
+                }).then((value) {
+              if (mounted) {
+                context
                     .read<AddInspectionBookingCubit>()
-                    .validateBookingInspectionButton());
+                    .validateBookingInspectionButton();
+              }
+            });
           }
         },
         child: Scaffold(
