@@ -108,7 +108,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                     .read<AddInspectionBookingCubit>()
                     .validateBookingInspectionButton();
               }
-            });
+            }); // validate btn when modal dismissed
           }
         },
         child: Scaffold(

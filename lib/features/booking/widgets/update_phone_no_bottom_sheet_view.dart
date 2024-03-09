@@ -29,7 +29,6 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
   @override
   void initState() {
     phoneNumber = null;
-    super.initState();
   }
 
   @override
@@ -201,7 +200,6 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
             )));
   }
 }
-
 class PhoneNumberInputFormatter extends TextInputFormatter {
   final ValueNotifier<PhoneNumberErrorType?> error;
 
