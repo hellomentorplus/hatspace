@@ -5,6 +5,7 @@ import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/features/application/view_model/application_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/strings/l10n.dart';
+import 'package:hatspace/theme/hs_button_theme.dart';
 import 'package:hatspace/theme/hs_theme.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_buttons_settings.dart';
@@ -116,6 +117,13 @@ class _ApplicationView extends StatelessWidget {
                   children: [
                     Expanded(
                         child: SecondaryButton(
+                          style: secondaryButtonTheme.style?.copyWith(
+                            textStyle:const MaterialStatePropertyAll(
+                              TextStyle(
+                                overflow: TextOverflow.ellipsis
+                              )
+                            )
+                          ),
                       label: HatSpaceStrings.current.contactSupport,
                       onPressed: () {
                         launchUrl(Uri.parse(
@@ -125,6 +133,13 @@ class _ApplicationView extends StatelessWidget {
                     const SizedBox(width: HsDimens.spacing16),
                     Expanded(
                         child: PrimaryButton(
+                          style: primaryButtonTheme.style?.copyWith(
+                            textStyle:const MaterialStatePropertyAll(
+                              TextStyle(
+                                overflow: TextOverflow.ellipsis 
+                              )
+                            )
+                          ),
                       label: HatSpaceStrings.current.sendEmail,
                       iconUrl: Assets.icons.emailWhite,
                       iconPosition: IconPosition.right,

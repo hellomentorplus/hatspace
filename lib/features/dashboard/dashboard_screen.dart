@@ -252,96 +252,94 @@ class _DashboardBodyState extends State<DashboardBody>
                 color: HSColor.neutral1.withOpacity(0.9),
                 height: 87,
                 child: SafeArea(
-                  child: SizedBox(
-                    height: HsDimens.size66,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ValueListenableBuilder<BottomBarItems>(
-                          valueListenable: _selectedIndex,
-                          builder: (context, value, child) => _BottomBarItem(
-                              icon: Assets.icons.explore,
-                              label: HatSpaceStrings.current.explore,
-                              isSelected: value == BottomBarItems.explore,
-                              onTap: () {
-                                context
-                                    .read<DashboardInteractionCubit>()
-                                    .onBottomItemTapped(BottomBarItems.explore);
-                              }),
-                        ),
-                        ValueListenableBuilder<BottomBarItems>(
-                          valueListenable: _selectedIndex,
-                          builder: (context, value, child) => _BottomBarItem(
-                              icon: Assets.icons.booking,
-                              label: HatSpaceStrings.current.inspection,
-                              isSelected: value == BottomBarItems.inspection,
-                              onTap: () {
-                                context
-                                    .read<DashboardInteractionCubit>()
-                                    .onBottomItemTapped(
-                                        BottomBarItems.inspection);
-                              }),
-                        ),
-                        Container(
-                          decoration: ShapeDecoration(
-                            shape: const CircleBorder(),
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          width: HsDimens.size48,
-                          height: HsDimens.size48,
-                          margin: const EdgeInsets.all(HsDimens.spacing8),
-                          child: Material(
-                            color: Colors.transparent,
-                            child: Builder(builder: (context) {
-                              return InkWell(
-                                borderRadius:
-                                    BorderRadius.circular(HsDimens.radius48),
-                                onTap: () {
-                                  context
-                                      .read<DashboardInteractionCubit>()
-                                      .onBottomItemTapped(
-                                          BottomBarItems.addingProperty);
-                                },
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.all(HsDimens.spacing12),
-                                  child: SvgPicture.asset(
-                                    Assets.icons.add,
-                                    width: HsDimens.size24,
-                                    height: HsDimens.size24,
-                                  ),
-                                ),
-                              );
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ValueListenableBuilder<BottomBarItems>(
+                        valueListenable: _selectedIndex,
+                        builder: (context, value, child) => _BottomBarItem(
+                            icon: Assets.icons.explore,
+                            label: HatSpaceStrings.current.explore,
+                            isSelected: value == BottomBarItems.explore,
+                            onTap: () {
+                              context
+                                  .read<DashboardInteractionCubit>()
+                                  .onBottomItemTapped(BottomBarItems.explore);
                             }),
-                          ),
+                      ),
+                      ValueListenableBuilder<BottomBarItems>(
+                        valueListenable: _selectedIndex,
+                        builder: (context, value, child) => _BottomBarItem(
+                            icon: Assets.icons.booking,
+                            label: HatSpaceStrings.current.inspection,
+                            isSelected: value == BottomBarItems.inspection,
+                            onTap: () {
+                              context
+                                  .read<DashboardInteractionCubit>()
+                                  .onBottomItemTapped(
+                                      BottomBarItems.inspection);
+                            }),
+                      ),
+                      Container(
+                        decoration: ShapeDecoration(
+                          shape: const CircleBorder(),
+                          color: Theme.of(context).colorScheme.primary,
                         ),
-                        ValueListenableBuilder<BottomBarItems>(
-                          valueListenable: _selectedIndex,
-                          builder: (context, value, child) => _BottomBarItem(
-                              icon: Assets.icons.application,
-                              label: HatSpaceStrings.current.application,
-                              isSelected: value == BottomBarItems.application,
+                        width: HsDimens.size48,
+                        height: HsDimens.size48,
+                        margin: const EdgeInsets.all(HsDimens.spacing8),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Builder(builder: (context) {
+                            return InkWell(
+                              borderRadius:
+                                  BorderRadius.circular(HsDimens.radius48),
                               onTap: () {
                                 context
                                     .read<DashboardInteractionCubit>()
                                     .onBottomItemTapped(
-                                        BottomBarItems.application);
-                              }),
+                                        BottomBarItems.addingProperty);
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.all(HsDimens.spacing12),
+                                child: SvgPicture.asset(
+                                  Assets.icons.add,
+                                  width: HsDimens.size24,
+                                  height: HsDimens.size24,
+                                ),
+                              ),
+                            );
+                          }),
                         ),
-                        ValueListenableBuilder<BottomBarItems>(
-                          valueListenable: _selectedIndex,
-                          builder: (context, value, child) => _BottomBarItem(
-                              icon: Assets.icons.profile,
-                              label: HatSpaceStrings.current.profile,
-                              isSelected: value == BottomBarItems.profile,
-                              onTap: () {
-                                context
-                                    .read<DashboardInteractionCubit>()
-                                    .onBottomItemTapped(BottomBarItems.profile);
-                              }),
-                        )
-                      ],
-                    ),
+                      ),
+                      ValueListenableBuilder<BottomBarItems>(
+                        valueListenable: _selectedIndex,
+                        builder: (context, value, child) => _BottomBarItem(
+                            icon: Assets.icons.application,
+                            label: HatSpaceStrings.current.application,
+                            isSelected: value == BottomBarItems.application,
+                            onTap: () {
+                              context
+                                  .read<DashboardInteractionCubit>()
+                                  .onBottomItemTapped(
+                                      BottomBarItems.application);
+                            }),
+                      ),
+                      ValueListenableBuilder<BottomBarItems>(
+                        valueListenable: _selectedIndex,
+                        builder: (context, value, child) => _BottomBarItem(
+                            icon: Assets.icons.profile,
+                            label: HatSpaceStrings.current.profile,
+                            isSelected: value == BottomBarItems.profile,
+                            onTap: () {
+                              context
+                                  .read<DashboardInteractionCubit>()
+                                  .onBottomItemTapped(BottomBarItems.profile);
+                            }),
+                      )
+                    ],
                   ),
                 ))),
       );
@@ -375,29 +373,26 @@ class _BottomBarItem extends StatelessWidget {
   Widget build(BuildContext context) => InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(HsDimens.radius66),
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                icon,
-                width: HsDimens.size24,
-                height: HsDimens.size24,
-                colorFilter: ColorFilter.mode(
-                    isSelected
-                        ? Theme.of(context).colorScheme.primary
-                        : HSColor.neutral6,
-                    BlendMode.srcIn),
-              ),
-              Text(label,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: isSelected ? HSColor.green06 : HSColor.neutral6,
-                      fontSize: FontStyleGuide.fontSize10))
-            ],
-          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              icon,
+              width: HsDimens.size24,
+              height: HsDimens.size24,
+              colorFilter: ColorFilter.mode(
+                  isSelected
+                      ? Theme.of(context).colorScheme.primary
+                      : HSColor.neutral6,
+                  BlendMode.srcIn),
+            ),
+            Text(label,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: isSelected ? HSColor.green06 : HSColor.neutral6,
+                    fontSize: FontStyleGuide.fontSize10))
+          ],
         ),
       );
 }
