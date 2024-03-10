@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -18,7 +20,6 @@ class UpdatePhoneNoBottomSheetView extends StatefulWidget {
 class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
   final ValueNotifier<PhoneNumberErrorType?> _phoneNumberError =
       ValueNotifier(null);
-  late String? _phoneNumber;
 
   @override
   void dispose() {
@@ -28,7 +29,6 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
 
   @override
   void initState() {
-    _phoneNumber = null;
     super.initState();
   }
 
@@ -104,9 +104,9 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                                       child: TextFormField(
                                     key: const Key('phoneNo'),
                                     onChanged: (value) {
-                                      setState(() {
-                                        _phoneNumber = value;
-                                      });
+                                      context
+                                          .read<AddInspectionBookingCubit>()
+                                          .phoneNo = value;
                                     },
                                     style: Theme.of(context)
                                         .textTheme
@@ -185,7 +185,10 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                           builder: (context, value, child) {
                             return PrimaryButton(
                                 label: HatSpaceStrings.current.save,
-                                onPressed: _phoneNumber == null
+                                onPressed: context
+                                            .read<AddInspectionBookingCubit>()
+                                            .phoneNo ==
+                                        null
                                     ? null
                                     : value?.phoneNumberError != null
                                         ? null
@@ -244,8 +247,8 @@ class PhoneNumberInputFormatter extends TextInputFormatter {
 }
 
 enum PhoneNumberErrorType {
-  minLength(),
-  wrongCode();
+  minLength,
+  wrongCode;
 
   const PhoneNumberErrorType();
   String get phoneNumberError {
