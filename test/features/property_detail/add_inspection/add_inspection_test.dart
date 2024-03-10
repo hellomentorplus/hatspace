@@ -402,6 +402,8 @@ void main() async {
           .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => ShowUpdateProfileModal());
+      when(addInspectionBookingCubit.durationTime).thenReturn(15);
+      when(addInspectionBookingCubit.phoneNo).thenReturn(null);
 
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
           providers, const AddInspectionBookingBody(id: 'id')));
@@ -417,12 +419,14 @@ void main() async {
           .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => ShowUpdateProfileModal());
-
+      when(addInspectionBookingCubit.durationTime).thenReturn(15);
+      when(addInspectionBookingCubit.phoneNo).thenReturn(null);
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
           providers, const AddInspectionBookingBody(id: 'id')));
       await widgetTester.pumpAndSettle();
       expect(find.byType(AddInspectionBookingBody), findsOneWidget);
       expect(find.byType(UpdatePhoneNoBottomSheetView), findsOneWidget);
+
       // tap out
       await widgetTester.tapAt(const Offset(1, 2));
       await widgetTester.pumpAndSettle();
@@ -437,6 +441,8 @@ void main() async {
           .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => ShowUpdateProfileModal());
+      when(addInspectionBookingCubit.durationTime).thenReturn(15);
+      when(addInspectionBookingCubit.phoneNo).thenReturn(null);
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
           providers, const AddInspectionBookingBody(id: 'id')));
       await widgetTester.pumpAndSettle();
@@ -454,6 +460,8 @@ void main() async {
           .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => ShowUpdateProfileModal());
+      when(addInspectionBookingCubit.durationTime).thenReturn(15);
+      when(addInspectionBookingCubit.phoneNo).thenReturn(null);
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
           providers, const AddInspectionBookingBody(id: 'id')));
       await widgetTester.pumpAndSettle();
@@ -472,6 +480,8 @@ void main() async {
           .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => ShowUpdateProfileModal());
+      when(addInspectionBookingCubit.durationTime).thenReturn(15);
+      when(addInspectionBookingCubit.phoneNo).thenReturn('0422 444 444');
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
           providers, const AddInspectionBookingBody(id: 'id')));
       await widgetTester.pumpAndSettle();
