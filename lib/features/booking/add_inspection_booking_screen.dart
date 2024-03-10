@@ -95,15 +95,8 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                 context: context,
                 builder: (_) {
                   return BlocProvider.value(
-                      value:
-                          BlocProvider.of<AddInspectionBookingCubit>(context),
-                      child: BlocBuilder<AddInspectionBookingCubit,
-                          AddInspectionBookingState>(
-                        builder: (_, state) {
-                          // TODO Update phone number in cubit logic
-                          return const UpdatePhoneNoBottomSheetView();
-                        },
-                      ));
+                      value: context.read<AddInspectionBookingCubit>(),
+                      child: const UpdatePhoneNoBottomSheetView());
                 }).then((value) {
               if (mounted) {
                 context
