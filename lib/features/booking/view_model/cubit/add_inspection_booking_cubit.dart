@@ -24,7 +24,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
           await storageService.member.getMemberPhoneNumber(user.uid);
       if (userRole.contains(Roles.tenant)) {
         if (phoneNumber == null) {
-          // Alwasy shet phoneNo string == null when open modal
+          // Always set phoneNo string = null when open modal
           phoneNo = null;
           return emit(ShowUpdateProfileModal());
         }
@@ -46,6 +46,18 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   bool isStartTimeSelected = false;
   DateTime? inspectionEndTime;
   String? phoneNo;
+  
+  void addAndValidatePhoneNo(String phoneNumber) {
+    RegExp codeFormat = RegExp('02|03|04|05|07|08');
+    phoneNo = phoneNumber;
+    if (phoneNumber.length < 12 || !phoneNumber.startsWith(codeFormat)) {
+      //error case => Do nothing
+      emit(const EnableSaveButton(false));
+    }
+    if (phoneNumber.length == 12 && phoneNumber.startsWith(codeFormat)) {
+      emit(const EnableSaveButton(true));
+    }
+  }
 
   set inspectionStartTime(DateTime? startTime) {
     _inspecitonStartTime = startTime;

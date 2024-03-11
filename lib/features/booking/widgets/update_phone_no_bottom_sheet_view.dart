@@ -103,10 +103,10 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                                   Expanded(
                                       child: TextFormField(
                                     key: const Key('phoneNo'),
-                                    onChanged: (value) {
+                                    onChanged: (textChange) {
                                       context
                                           .read<AddInspectionBookingCubit>()
-                                          .phoneNo = value;
+                                          .addAndValidatePhoneNo(textChange);
                                     },
                                     style: Theme.of(context)
                                         .textTheme
@@ -180,21 +180,18 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                             top: HsDimens.spacing8,
                             left: HsDimens.spacing16,
                             right: HsDimens.spacing16),
-                        child: ValueListenableBuilder<PhoneNumberErrorType?>(
-                          valueListenable: _phoneNumberError,
-                          builder: (context, value, child) {
+                        child: BlocBuilder<AddInspectionBookingCubit,
+                            AddInspectionBookingState>(
+                          builder: (_, state) {
                             return PrimaryButton(
                                 label: HatSpaceStrings.current.save,
-                                onPressed: context
-                                            .read<AddInspectionBookingCubit>()
-                                            .phoneNo ==
-                                        null
-                                    ? null
-                                    : value?.phoneNumberError != null
-                                        ? null
-                                        : () {
-                                            // TODO: SAVE AND UPLOAD TO DATABASE
-                                          });
+                                onPressed: (state is EnableSaveButton &&
+                                            state.isEnable) ==
+                                        true
+                                    ? () {
+                                        // TODO: SAVE AND UPLOAD TO DATABASE
+                                      }
+                                    : null);
                           },
                         )))
               ],

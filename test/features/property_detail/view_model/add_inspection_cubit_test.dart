@@ -393,4 +393,43 @@ void main() async {
     },
     expect: () => [],
   );
+
+  blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
+    'Given user add invalid phone number'
+    'When validate phone number'
+    'Then expect return EnableSaveButton False',
+    build: () => AddInspectionBookingCubit(),
+    setUp: () {
+      when(authenticationServiceMock.getCurrentUser())
+          .thenAnswer((realInvocation) {
+        return Future.value(UserDetail(uid: 'uid'));
+      });
+      when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) {
+        return Future.value([Roles.tenant, Roles.homeowner]);
+      });
+    },
+    act: (bloc) {
+      bloc.addAndValidatePhoneNo('1234 567');
+    },
+    expect: () => [const EnableSaveButton(false)],
+  );
+  blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
+    'Given user add valid phone number'
+    'When validate phone number'
+    'Then expect return EnableSaveButton TRUE',
+    build: () => AddInspectionBookingCubit(),
+    setUp: () {
+      when(authenticationServiceMock.getCurrentUser())
+          .thenAnswer((realInvocation) {
+        return Future.value(UserDetail(uid: 'uid'));
+      });
+      when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) {
+        return Future.value([Roles.tenant, Roles.homeowner]);
+      });
+    },
+    act: (bloc) {
+      bloc.addAndValidatePhoneNo('0433 111 111');
+    },
+    expect: () => [const EnableSaveButton(true)],
+  );
 }

@@ -32,3 +32,10 @@ class ShowDurationSelection extends AddInspectionBookingState {
 class CloseBottomSheet extends AddInspectionBookingState {}
 
 class ShowUpdateProfileModal extends AddInspectionBookingState {}
+
+class EnableSaveButton extends AddInspectionBookingState {
+  final bool isEnable;
+  const EnableSaveButton(this.isEnable);
+  @override
+  List<Object> get props => [isEnable];
+}
