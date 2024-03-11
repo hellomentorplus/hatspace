@@ -481,9 +481,9 @@ void main() async {
         'When user enter right format with valid code area'
         'Then enable Save button', (widgetTester) async {
       when(addInspectionBookingCubit.stream)
-          .thenAnswer((_) => Stream.value(EnableSaveButton(true)));
+          .thenAnswer((_) => Stream.value(const EnableSaveButton(true)));
       when(addInspectionBookingCubit.state)
-          .thenAnswer((_) => EnableSaveButton(true));
+          .thenAnswer((_) => const EnableSaveButton(true));
       when(addInspectionBookingCubit.durationTime).thenReturn(15);
       when(addInspectionBookingCubit.phoneNo).thenReturn('0422 444 444');
       when(addInspectionBookingCubit.addAndValidatePhoneNo('0422 444 444'))
