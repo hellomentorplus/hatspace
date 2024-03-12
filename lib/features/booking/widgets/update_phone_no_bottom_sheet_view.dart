@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -20,10 +18,11 @@ class UpdatePhoneNoBottomSheetView extends StatefulWidget {
 class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
   final ValueNotifier<PhoneNumberErrorType?> _phoneNumberError =
       ValueNotifier(null);
-
+  final TextEditingController _controller = TextEditingController();
   @override
   void dispose() {
     _phoneNumberError.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -102,12 +101,8 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                                   const SizedBox(width: HsDimens.spacing24),
                                   Expanded(
                                       child: TextFormField(
+                                    controller: _controller,
                                     key: const Key('phoneNo'),
-                                    onChanged: (textChange) {
-                                      context
-                                          .read<AddInspectionBookingCubit>()
-                                          .addAndValidatePhoneNo(textChange);
-                                    },
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium
@@ -180,20 +175,20 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                             top: HsDimens.spacing8,
                             left: HsDimens.spacing16,
                             right: HsDimens.spacing16),
-                        child: BlocBuilder<AddInspectionBookingCubit,
-                            AddInspectionBookingState>(
-                          builder: (_, state) {
-                            return PrimaryButton(
-                                label: HatSpaceStrings.current.save,
-                                onPressed: (state is EnableSaveButton &&
-                                            state.isEnable) ==
-                                        true
-                                    ? () {
-                                        // TODO: SAVE AND UPLOAD TO DATABASE
-                                      }
-                                    : null);
-                          },
-                        )))
+                        child: ValueListenableBuilder(
+                            valueListenable: _phoneNumberError,
+                            builder: (context, errorValue, child) {
+                              return PrimaryButton(
+                                  label: HatSpaceStrings.current.save,
+                                  onPressed: _controller.text.isEmpty
+                                      ? null
+                                      : errorValue == null
+                                          ? () {
+                                              context.pop(
+                                                  result: _controller.text);
+                                            }
+                                          : null);
+                            })))
               ],
             )));
   }

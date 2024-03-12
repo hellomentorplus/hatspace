@@ -46,18 +46,6 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   bool isStartTimeSelected = false;
   DateTime? inspectionEndTime;
   String? phoneNo;
-  
-  void addAndValidatePhoneNo(String phoneNumber) {
-    RegExp codeFormat = RegExp('02|03|04|05|07|08');
-    phoneNo = phoneNumber;
-    if (phoneNumber.length < 12 || !phoneNumber.startsWith(codeFormat)) {
-      //error case => Do nothing
-      emit(const EnableSaveButton(false));
-    }
-    if (phoneNumber.length == 12 && phoneNumber.startsWith(codeFormat)) {
-      emit(const EnableSaveButton(true));
-    }
-  }
 
   set inspectionStartTime(DateTime? startTime) {
     _inspecitonStartTime = startTime;

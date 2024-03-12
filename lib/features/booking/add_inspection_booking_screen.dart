@@ -94,14 +94,17 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                 ),
                 context: context,
                 builder: (_) {
-                  return BlocProvider.value(
-                      value: context.read<AddInspectionBookingCubit>(),
-                      child: const UpdatePhoneNoBottomSheetView());
+                  return const UpdatePhoneNoBottomSheetView();
                 }).then((value) {
               if (mounted) {
-                context
-                    .read<AddInspectionBookingCubit>()
-                    .validateBookingInspectionButton();
+                if (value != null) {
+                  // value return will be a string of number that entered from bottom sheet
+                  // TODO Handle uploading phone number
+                } else {
+                  context
+                      .read<AddInspectionBookingCubit>()
+                      .validateBookingInspectionButton();
+                }
               }
             }); // validate btn when modal dismissed
           }

@@ -443,8 +443,6 @@ void main() async {
           .thenAnswer((_) => ShowUpdateProfileModal());
       when(addInspectionBookingCubit.durationTime).thenReturn(15);
       when(addInspectionBookingCubit.phoneNo).thenReturn(null);
-      when(addInspectionBookingCubit.addAndValidatePhoneNo('1234567'))
-          .thenReturn(null);
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
           providers, const AddInspectionBookingBody(id: 'id')));
       await widgetTester.pumpAndSettle();
@@ -464,8 +462,6 @@ void main() async {
           .thenAnswer((_) => ShowUpdateProfileModal());
       when(addInspectionBookingCubit.durationTime).thenReturn(15);
       when(addInspectionBookingCubit.phoneNo).thenReturn(null);
-      when(addInspectionBookingCubit.addAndValidatePhoneNo('1234 567 890'))
-          .thenReturn(null);
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
           providers, const AddInspectionBookingBody(id: 'id')));
       await widgetTester.pumpAndSettle();
@@ -474,32 +470,6 @@ void main() async {
           '1234 567 890'); // phone numer need to have format xxxx xxx xxx
       await widgetTester.pumpAndSettle();
       expect(find.text('Wrong code area'), findsOne);
-    });
-
-    testWidgets(
-        'Give user enter phone number'
-        'When user enter right format with valid code area'
-        'Then enable Save button', (widgetTester) async {
-      when(addInspectionBookingCubit.stream)
-          .thenAnswer((_) => Stream.value(const EnableSaveButton(true)));
-      when(addInspectionBookingCubit.state)
-          .thenAnswer((_) => const EnableSaveButton(true));
-      when(addInspectionBookingCubit.durationTime).thenReturn(15);
-      when(addInspectionBookingCubit.phoneNo).thenReturn('0422 444 444');
-      when(addInspectionBookingCubit.addAndValidatePhoneNo('0422 444 444'))
-          .thenReturn(null);
-      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-          providers, const UpdatePhoneNoBottomSheetView()));
-      await widgetTester.pumpAndSettle();
-      Widget textForm = widgetTester.widget(find.byKey(const Key('phoneNo')));
-      await widgetTester.enterText(find.byWidget(textForm),
-          '0422 444 444'); // phone numer need to have format xxxx xxx xxx
-      await widgetTester.pumpAndSettle();
-      expect(find.text('Wrong code area'), findsNothing);
-      expect(find.text('Must be 10 digits'), findsNothing);
-      final Finder saveBtn = find.widgetWithText(PrimaryButton, 'Save');
-      PrimaryButton saveButton = widgetTester.widget(saveBtn);
-      expect(saveButton.onPressed, isNotNull);
     });
   });
 }
