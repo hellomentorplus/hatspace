@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hatspace/data/data.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
-import 'package:hatspace/features/booking/view_model/cubit/add_inspection_booking_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -13,8 +10,7 @@ import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:hatspace/theme/widgets/hs_text_field.dart';
 
 class UpdatePhoneNoBottomSheetView extends StatefulWidget {
-  final String propertyId;
-  const UpdatePhoneNoBottomSheetView({required this.propertyId, super.key});
+  const UpdatePhoneNoBottomSheetView({super.key});
   @override
   State<StatefulWidget> createState() => _UpdatePhoneNoBottomSheet();
 }
@@ -22,11 +18,12 @@ class UpdatePhoneNoBottomSheetView extends StatefulWidget {
 class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
   final ValueNotifier<PhoneNumberErrorType?> _phoneNumberError =
       ValueNotifier(null);
-  late String phoneNumber;
+  final TextEditingController _controller = TextEditingController(text: null);
 
   @override
   void dispose() {
     _phoneNumberError.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -37,14 +34,7 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AddInspectionBookingCubit, AddInspectionBookingState>(
-        listener: (context, state) {
-          if (state is UpdatePhoneNumberSuccessState) {
-            context.pushToBookInspectionSuccessScreen(
-                propertyId: widget.propertyId);
-          }
-        },
-        child: FractionallySizedBox(
+    return FractionallySizedBox(
             heightFactor: 0.95,
             child: Padding(
                 padding: const EdgeInsets.only(bottom: HsDimens.spacing40),
@@ -118,11 +108,7 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                                       Expanded(
                                           child: TextFormField(
                                         key: const Key('phoneNo'),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            phoneNumber = value;
-                                          });
-                                        },
+                                        controller: _controller,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium
@@ -197,31 +183,16 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                                 top: HsDimens.spacing8,
                                 left: HsDimens.spacing16,
                                 right: HsDimens.spacing16),
-                            child:
-                                ValueListenableBuilder<PhoneNumberErrorType?>(
-                              valueListenable: _phoneNumberError,
-                              builder: (context, value, child) {
-                                return PrimaryButton(
+                            child:ValueListenableBuilder(valueListenable: _phoneNumberError, builder: (context,value,child){
+                              return PrimaryButton(
                                     label: HatSpaceStrings.current.save,
-                                    onPressed: value?.phoneNumberError != null
-                                        ? null
-                                        : () {
-                                            // TODO: SAVE AND UPLOAD TO DATABASE
-                                            context
-                                                .read<
-                                                    AddInspectionBookingCubit>()
-                                                .updateProfilePhoneNumber(
-                                                    PhoneNumber(
-                                                        countryCode:
-                                                            CountryCallingCode
-                                                                .au,
-                                                        phoneNumber:
-                                                            phoneNumber));
-                                          });
-                              },
-                            )))
+                                    onPressed: _controller.text.isEmpty ? null : value == null ? (){
+                                      context.pop(result: _controller.text);
+                                    }: null);
+                            })
+                              ))
                   ],
-                ))));
+                )));
   }
 }
 

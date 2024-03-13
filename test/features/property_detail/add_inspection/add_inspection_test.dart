@@ -457,10 +457,10 @@ void main() async {
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => UpdatePhoneNumberSuccessState());
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-          providers, const UpdatePhoneNoBottomSheetView(propertyId: 'id')));
+          providers, const  AddInspectionBookingScreen(id: 'id')));
       await widgetTester.pumpAndSettle();
       expect(
-          find.byWidget(const UpdatePhoneNoBottomSheetView(propertyId: 'id')),
+          find.byWidget(const AddInspectionBookingScreen(id: 'id',)),
           findsNothing);
     });
   });

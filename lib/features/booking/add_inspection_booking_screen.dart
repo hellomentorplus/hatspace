@@ -94,21 +94,18 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                     ),
                     context: context,
                     builder: (_) {
-                      return BlocProvider.value(
-                          value: BlocProvider.of<AddInspectionBookingCubit>(
-                              context),
-                          child: BlocBuilder<AddInspectionBookingCubit,
-                              AddInspectionBookingState>(
-                            builder: (_, state) {
-                              // TODO Update phone number in MyProfileCubit
-                              return UpdatePhoneNoBottomSheetView(
-                                  propertyId: widget.id);
-                            },
-                          ));
+                      return const UpdatePhoneNoBottomSheetView();
                     })
-                .then((value) => context
-                    .read<AddInspectionBookingCubit>()
-                    .validateBookingInspectionButton());
+                .then((value) {
+                  if (value != null){
+                    context.read<AddInspectionBookingCubit>().updateProfilePhoneNumber(value);
+                  }else{
+                    context.read<AddInspectionBookingCubit>().validateBookingInspectionButton();
+                  }
+                });
+          }
+          if(state is UpdatePhoneNumberSuccessState){
+            context.pushToBookInspectionSuccessScreen(propertyId: widget.id);
           }
         },
         child: Scaffold(
