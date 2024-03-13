@@ -20,26 +20,4 @@ class MyProfileCubit extends Cubit<MyProfileState> {
       emit(const GetUserInformationFailedState());
     }
   }
-
-// TODO: SAVE AND UPLOAD TO DATABASE
-  // CountryCallingCode? countryCode;
-  // String? _phoneNumber;
-  // String? get phoneNo => _phoneNumber;
-  // set phoneNumber(String? phoneNumber) {
-  //   _phoneNumber = phoneNumber;
-  //   //print('phonenuber $_phoneNumber');
-  // }
-
-  // Future<void> updateProfilePhoneNumber(PhoneNumber number) async {
-  //   // TODO: By default is Australia - Update in choosing country code story
-  //   countryCode ??= CountryCallingCode.au;
-  //   String formattedNumber = number.phoneNumber.trim();
-  //   PhoneNumber(countryCode: number.countryCode, phoneNumber: formattedNumber);
-  //   try {
-  //     UserDetail user = await _authenticationService.getCurrentUser();
-  //   await _storageService.member.savePhoneNumberDetail(user.uid, phoneNumber);
-  //   } on UserNotFoundException catch (_) {
-  //     // TODO: Implement when there is no user
-  //   }
-  // }
 }
