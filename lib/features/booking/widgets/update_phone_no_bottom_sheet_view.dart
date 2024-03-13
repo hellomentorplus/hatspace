@@ -193,7 +193,7 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                               ))
                   ],
                 )));
-  }
+}
 }
 
 class PhoneNumberInputFormatter extends TextInputFormatter {
@@ -241,8 +241,8 @@ class PhoneNumberInputFormatter extends TextInputFormatter {
 }
 
 enum PhoneNumberErrorType {
-  minLength(),
-  wrongCode();
+  minLength,
+  wrongCode;
 
   const PhoneNumberErrorType();
   String get phoneNumberError {

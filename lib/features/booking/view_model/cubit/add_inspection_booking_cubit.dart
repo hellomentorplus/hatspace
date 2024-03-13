@@ -25,6 +25,8 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
           await storageService.member.getMemberPhoneNumber(user.uid);
       if (userRole.contains(Roles.tenant)) {
         if (phoneNumber == null) {
+          // Always set phoneNo string = null when open modal
+          phoneNo = null;
           return emit(ShowUpdateProfileModal());
         }
         inspectionEndTime =
@@ -44,6 +46,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   int? _duration;
   bool isStartTimeSelected = false;
   DateTime? inspectionEndTime;
+  String? phoneNo;
 
   set inspectionStartTime(DateTime? startTime) {
     _inspecitonStartTime = startTime;
@@ -84,8 +87,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     if (!isStartTimeSelected) {
       emit(RequestStartTimeSelection());
     } else {
-      emit(ShowDurationSelection());
-      emit(CloseBottomSheet());
+      emit(const ShowDurationSelection(true));
     }
   }
 
@@ -101,5 +103,13 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     } on UserNotFoundException catch (_) {
       // TODO: Implement when there is no user
     }
+  }
+  void selectStartTime() {
+    emit(ShowStartTimeSelection());
+  }
+
+  void closeBottomModal() {
+    emit(CloseBottomSheet());
+    validateBookingInspectionButton();
   }
 }
