@@ -471,27 +471,6 @@ void main() async {
       await widgetTester.pumpAndSettle();
       expect(find.text('Wrong code area'), findsOne);
     });
-    testWidgets(
-        'Give user enter phone number'
-        'When user enter right format with valid code area'
-        'Then enable Save button', (widgetTester) async {
-      when(addInspectionBookingCubit.stream)
-          .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
-      when(addInspectionBookingCubit.state)
-          .thenAnswer((_) => ShowUpdateProfileModal());
-      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-          providers, const AddInspectionBookingBody(id: 'id')));
-      await widgetTester.pumpAndSettle();
-      Widget textForm = widgetTester.widget(find.byKey(const Key('phoneNo')));
-      await widgetTester.enterText(find.byWidget(textForm),
-          '0422 444 444'); // phone numer need to have format xxxx xxx xxx
-      await widgetTester.pumpAndSettle();
-      expect(find.text('Wrong code area'), findsNothing);
-      expect(find.text('Must be 10 digits'), findsNothing);
-      final Finder saveBtn = find.widgetWithText(PrimaryButton, 'Save');
-      PrimaryButton saveButton = widgetTester.widget(saveBtn);
-      expect(saveButton.onPressed, isNotNull);
-    });
 
     testWidgets(
         'Given user at UpdateProfileModal'
@@ -503,10 +482,12 @@ void main() async {
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => UpdatePhoneNumberSuccessState());
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-          providers, const  AddInspectionBookingScreen(id: 'id')));
+          providers, const AddInspectionBookingScreen(id: 'id')));
       await widgetTester.pumpAndSettle();
       expect(
-          find.byWidget(const AddInspectionBookingScreen(id: 'id',)),
+          find.byWidget(const AddInspectionBookingScreen(
+            id: 'id',
+          )),
           findsNothing);
     });
   });

@@ -360,8 +360,7 @@ void main() async {
               .thenAnswer((realInvocation) => Future.value(null));
         },
         act: (bloc) {
-          bloc.updateProfilePhoneNumber(PhoneNumber(
-              countryCode: CountryCallingCode.au, phoneNumber: '234567890'));
+          bloc.updateProfilePhoneNumber('234567890');
         },
         expect: () => [isA<UpdatePhoneNumberSuccessState>()]);
   });

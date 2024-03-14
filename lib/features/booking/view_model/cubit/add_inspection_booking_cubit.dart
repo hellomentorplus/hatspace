@@ -91,19 +91,19 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     }
   }
 
-  void updateProfilePhoneNumber(String phoneNo, {CountryCallingCode countryCode = CountryCallingCode.au}) async {
+  void updateProfilePhoneNumber(String phoneNo,
+      {CountryCallingCode countryCode = CountryCallingCode.au}) async {
     try {
       UserDetail user = await authenticationService.getCurrentUser();
       final String formatNumber = phoneNo.substring(1); // remove first zero
-      await storageService.member.savePhoneNumberDetail(
-          user.uid,
-          PhoneNumber(
-              countryCode: countryCode, phoneNumber: formatNumber));
+      await storageService.member.savePhoneNumberDetail(user.uid,
+          PhoneNumber(countryCode: countryCode, phoneNumber: formatNumber));
       emit(UpdatePhoneNumberSuccessState());
     } on UserNotFoundException catch (_) {
       // TODO: Implement when there is no user
     }
   }
+
   void selectStartTime() {
     emit(ShowStartTimeSelection());
   }

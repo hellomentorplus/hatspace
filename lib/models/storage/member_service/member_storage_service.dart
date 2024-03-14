@@ -194,8 +194,8 @@ class MemberService {
         phoneNumber: phone['numberKey']);
     return phoneNumber;
   }
-  
-    Future<void> savePhoneNumberDetail(String uid, PhoneNumber number) async {
+
+  Future<void> savePhoneNumberDetail(String uid, PhoneNumber number) async {
     await _firestore
         .collection(memberCollection)
         .doc(uid)
