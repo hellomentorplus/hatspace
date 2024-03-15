@@ -190,7 +190,7 @@ class MemberService {
     }
     Map<String, dynamic> phone = data[phoneNumberKey];
     final PhoneNumber phoneNumber = PhoneNumber(
-        countryCode: CountryCallingCode.fromCodeString(phone['countryCode']),
+        countryCode: PhoneCode.fromCodeString(phone['countryCode']),
         phoneNumber: phone['numberKey']);
     return phoneNumber;
   }

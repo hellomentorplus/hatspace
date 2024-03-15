@@ -91,7 +91,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   }
 
   void updateProfilePhoneNumber(String phoneNo,
-      {CountryCallingCode countryCode = CountryCallingCode.au}) async {
+      {PhoneCode countryCode = PhoneCode.au}) async {
     try {
       UserDetail user = await authenticationService.getCurrentUser();
       final String formatNumber = phoneNo.substring(1); // remove first zero
