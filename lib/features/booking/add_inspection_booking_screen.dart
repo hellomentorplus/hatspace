@@ -97,6 +97,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                   return const UpdatePhoneNoBottomSheetView();
                 }).then((value) {
               if (value != null) {
+                // TODO; add dialCode
                 context
                     .read<AddInspectionBookingCubit>()
                     .updateProfilePhoneNumber(value);
@@ -136,7 +137,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                                   // TODO: implemnt booking logic
                                   context
                                       .read<AddInspectionBookingCubit>()
-                                      .onBookInspection();
+                                      .onBookInspection(widget.id);
                                 }
                               : null);
                     },

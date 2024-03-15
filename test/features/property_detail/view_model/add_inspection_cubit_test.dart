@@ -49,10 +49,10 @@ void main() async {
         });
         when(mockMemberService.getMemberPhoneNumber('uid')).thenAnswer(
             (realInvocation) => Future.value(PhoneNumber(
-                countryCode: CountryCallingCode.au,
+                countryCode: PhoneCode.au,
                 phoneNumber: '0123456789')));
       },
-      act: (bloc) => bloc.onBookInspection(),
+      act: (bloc) => bloc.onBookInspection('propertyId'),
       expect: () => [BookingInspectionSuccess()]);
 
   blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
@@ -100,10 +100,10 @@ void main() async {
         });
         when(mockMemberService.getMemberPhoneNumber('uid')).thenAnswer(
             (realInvocation) => Future.value(PhoneNumber(
-                countryCode: CountryCallingCode.au,
+                countryCode: PhoneCode.au,
                 phoneNumber: '0123456789')));
       },
-      act: (bloc) => bloc.onBookInspection(),
+      act: (bloc) => bloc.onBookInspection('propertyId'),
       expect: () => [BookingInspectionSuccess()]);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -121,7 +121,7 @@ void main() async {
           return Future.value([Roles.homeowner]);
         });
       },
-      act: (bloc) => bloc.onBookInspection(),
+      act: (bloc) => bloc.onBookInspection('propertyId'),
       expect: () => []);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -133,7 +133,7 @@ void main() async {
         when(authenticationServiceMock.getCurrentUser())
             .thenThrow(UserNotFoundException());
       },
-      act: (bloc) => bloc.onBookInspection(),
+      act: (bloc) => bloc.onBookInspection('propertyId'),
       verify: (_) => [isA<UserNotFoundException>()]);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -150,7 +150,7 @@ void main() async {
           return Future.value([Roles.homeowner]);
         });
       },
-      act: (bloc) => bloc.onBookInspection(),
+      act: (bloc) => bloc.onBookInspection('propertyId'),
       verify: (bloc) {
         expect(bloc.state is AddInspectionBookingInitial, true);
         expect((bloc.state as AddInspectionBookingInitial).props, []);
@@ -338,7 +338,7 @@ void main() async {
               .thenAnswer((realInvocation) => Future.value(null));
         },
         act: (bloc) {
-          bloc.onBookInspection();
+          bloc.onBookInspection('proId');
         },
         expect: () => [isA<ShowUpdateProfileModal>()]);
 

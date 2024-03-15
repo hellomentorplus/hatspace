@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/data/inspection.dart';
 
 class MemberService {
   final FirebaseFirestore _firestore;
@@ -190,7 +191,7 @@ class MemberService {
     }
     Map<String, dynamic> phone = data[phoneNumberKey];
     final PhoneNumber phoneNumber = PhoneNumber(
-        countryCode: CountryCallingCode.fromCodeString(phone['countryCode']),
+        countryCode: PhoneCode.fromCodeString(phone['countryCode']),
         phoneNumber: phone['numberKey']);
     return phoneNumber;
   }
@@ -201,5 +202,10 @@ class MemberService {
         .doc(uid)
         .set({phoneNumberKey: number.convertToMap()}, SetOptions(merge: true));
     return;
+  }
+
+  Future<void> addBookedInspection (String inspectionId,String uid)async {
+    await _firestore.collection(memberCollection).doc(uid).update(
+     { 'inspectionList': [inspectionId] });
   }
 }

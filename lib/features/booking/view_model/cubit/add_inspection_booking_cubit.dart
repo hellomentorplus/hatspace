@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/data/property_data.dart';
+import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -17,7 +17,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
             HsSingleton.singleton.get<AuthenticationService>(),
         storageService = HsSingleton.singleton.get<StorageService>(),
         super(AddInspectionBookingInitial());
-  void onBookInspection() async {
+  void onBookInspection(String propertyId) async {
     try {
       UserDetail user = await authenticationService.getCurrentUser();
       List<Roles> userRole = await storageService.member.getUserRoles(user.uid);
@@ -31,7 +31,13 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
         }
         inspectionEndTime =
             _inspecitonStartTime?.add(Duration(minutes: durationTime!));
-        emit(BookingInspectionSuccess());
+        Inspection inspection = Inspection(
+            propertyId: propertyId,
+            startTime: inspectionStartTime!,
+            endTime: inspectionEndTime!,
+            message: description,
+            createdBy: user.uid);
+        saveBookingInspection(inspection, user.uid);
       }
       if (userRole.isEmpty) {
         // TODO: HANDLE when user has no roles
@@ -47,7 +53,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   bool isStartTimeSelected = false;
   DateTime? inspectionEndTime;
   String? phoneNo;
-
+  String _description = '';
   set inspectionStartTime(DateTime? startTime) {
     _inspecitonStartTime = startTime;
     validateBookingInspectionButton();
@@ -91,8 +97,14 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     }
   }
 
+  set description(String description){
+    _description = description;
+  }
+
+  String get description =>  _description;
+
   void updateProfilePhoneNumber(String phoneNo,
-      {CountryCallingCode countryCode = CountryCallingCode.au}) async {
+      {PhoneCode countryCode = PhoneCode.au}) async {
     try {
       UserDetail user = await authenticationService.getCurrentUser();
       final String formatNumber = phoneNo.substring(1); // remove first zero
@@ -111,5 +123,15 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   void closeBottomModal() {
     emit(CloseBottomSheet());
     validateBookingInspectionButton();
+  }
+
+  void saveBookingInspection(Inspection newInspection, String uid) async {
+    try {
+      String inspectionId = await storageService.property.addInspection(newInspection);
+      await storageService.member.addBookedInspection(inspectionId, uid);
+      emit(BookingInspectionSuccess());
+    } catch (e) {
+      emit(BookingInspectionFail());
+    }
   }
 }

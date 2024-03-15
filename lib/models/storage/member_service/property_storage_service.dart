@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/data/property_data.dart';
 
 class PropertyService {
   final FirebaseFirestore _firestore;
   final String propertyCollection = 'properties';
+  final String inspectionCollection ='inspections';
 
   PropertyService(FirebaseFirestore firestore) : _firestore = firestore;
 
@@ -50,5 +52,12 @@ class PropertyService {
     await documentReference.set(property.convertObjectToMap());
 
     return documentReference.id;
+  }
+
+  Future<String> addInspection(Inspection inspection) async{
+    DocumentReference documentReference = _firestore.collection(inspectionCollection).doc();
+    //print('inspection:  ${inspection.convertToMap()}'); 
+    await documentReference.set(inspection.convertToMap());
+    return documentReference.id; 
   }
 }

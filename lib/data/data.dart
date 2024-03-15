@@ -54,16 +54,16 @@ enum Roles {
 }
 
 // TODO: SAVE AND UPLOAD TO DATABASE
-enum CountryCallingCode {
+enum PhoneCode {
   //TODO: add more value for upcomming story
   au('+61'),
   invalid('invalid');
 
-  const CountryCallingCode(this.country);
+  const PhoneCode(this.country);
   final String country;
   String get code => country;
 
-  static CountryCallingCode fromCodeString(String stringCode) =>
+  static PhoneCode fromCodeString(String stringCode) =>
       values.firstWhere((element) => element.country == stringCode,
           orElse: () => invalid);
 }
@@ -71,7 +71,7 @@ enum CountryCallingCode {
 class PhoneNumber {
   final String _countryCodeKey = 'countryCode';
   final String _numberKey = 'numberKey';
-  CountryCallingCode countryCode;
+  PhoneCode countryCode;
   String phoneNumber;
   PhoneNumber({
     required this.countryCode,
