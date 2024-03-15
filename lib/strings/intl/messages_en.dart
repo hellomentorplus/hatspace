@@ -348,6 +348,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
         "wifi": MessageLookupByLibrary.simpleMessage("Wifi"),
+        "wrongCodeAreaErrorMessage":
+            MessageLookupByLibrary.simpleMessage("Wrong code area"),
+        "wrongLenghtPhongNumerErrorMessage":
+            MessageLookupByLibrary.simpleMessage("Must be 10 digits"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "yesLoginNow": MessageLookupByLibrary.simpleMessage("Yes, login now"),
         "yourAddress": MessageLookupByLibrary.simpleMessage("Your address")

@@ -402,6 +402,8 @@ void main() async {
           .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => ShowUpdateProfileModal());
+      when(addInspectionBookingCubit.durationTime).thenReturn(15);
+      when(addInspectionBookingCubit.phoneNo).thenReturn(null);
 
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
           providers, const AddInspectionBookingBody(id: 'id')));
@@ -417,16 +419,57 @@ void main() async {
           .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
       when(addInspectionBookingCubit.state)
           .thenAnswer((_) => ShowUpdateProfileModal());
-
+      when(addInspectionBookingCubit.durationTime).thenReturn(15);
+      when(addInspectionBookingCubit.phoneNo).thenReturn(null);
       await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
           providers, const AddInspectionBookingBody(id: 'id')));
       await widgetTester.pumpAndSettle();
       expect(find.byType(AddInspectionBookingBody), findsOneWidget);
       expect(find.byType(UpdatePhoneNoBottomSheetView), findsOneWidget);
+
       // tap out
       await widgetTester.tapAt(const Offset(1, 2));
       await widgetTester.pumpAndSettle();
       expect(find.byType(UpdatePhoneNoBottomSheetView), findsNothing);
+    });
+
+    testWidgets(
+        'Given when user enter wrong phone format'
+        'When user enter less than 10 digit'
+        'Then display error message', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => ShowUpdateProfileModal());
+      when(addInspectionBookingCubit.durationTime).thenReturn(15);
+      when(addInspectionBookingCubit.phoneNo).thenReturn(null);
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+          providers, const AddInspectionBookingBody(id: 'id')));
+      await widgetTester.pumpAndSettle();
+      Widget textForm = widgetTester.widget(find.byKey(const Key('phoneNo')));
+      await widgetTester.enterText(find.byWidget(textForm), '1234567');
+      await widgetTester.pumpAndSettle();
+      expect(find.text('Must be 10 digits'), findsOne);
+    });
+
+    testWidgets(
+        'Given when user enter wrong phone format'
+        'When user enter wrong code area'
+        'Then display error message', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(ShowUpdateProfileModal()));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => ShowUpdateProfileModal());
+      when(addInspectionBookingCubit.durationTime).thenReturn(15);
+      when(addInspectionBookingCubit.phoneNo).thenReturn(null);
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+          providers, const AddInspectionBookingBody(id: 'id')));
+      await widgetTester.pumpAndSettle();
+      Widget textForm = widgetTester.widget(find.byKey(const Key('phoneNo')));
+      await widgetTester.enterText(find.byWidget(textForm),
+          '1234 567 890'); // phone numer need to have format xxxx xxx xxx
+      await widgetTester.pumpAndSettle();
+      expect(find.text('Wrong code area'), findsOne);
     });
   });
 }

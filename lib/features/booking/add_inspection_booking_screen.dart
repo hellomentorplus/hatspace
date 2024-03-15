@@ -97,9 +97,14 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                   return const UpdatePhoneNoBottomSheetView();
                 }).then((value) {
               if (mounted) {
-                context
-                    .read<AddInspectionBookingCubit>()
-                    .validateBookingInspectionButton();
+                if (value != null) {
+                  // value return will be a string of number that entered from bottom sheet
+                  // TODO Handle uploading phone number
+                } else {
+                  context
+                      .read<AddInspectionBookingCubit>()
+                      .validateBookingInspectionButton();
+                }
               }
             }); // validate btn when modal dismissed
           }
