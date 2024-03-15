@@ -104,7 +104,6 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                 context
                     .read<AddInspectionBookingCubit>()
                     .validateBookingInspectionButton();
-
               }
             });
           }

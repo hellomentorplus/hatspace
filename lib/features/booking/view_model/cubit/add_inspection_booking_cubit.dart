@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
