@@ -18,8 +18,7 @@ class UpdatePhoneNoBottomSheetView extends StatefulWidget {
 class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
   final ValueNotifier<PhoneNumberErrorType?> _phoneNumberError =
       ValueNotifier(null);
-  final TextEditingController _controller = TextEditingController(text: null);
-
+  final TextEditingController _controller = TextEditingController();
   @override
   void dispose() {
     _phoneNumberError.dispose();
@@ -78,80 +77,82 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                                   .bodyMedium
                                   ?.copyWith(color: HSColor.neutral6)),
                           const SizedBox(height: HsDimens.spacing4),
-                          ValueListenableBuilder<PhoneNumberErrorType?>(
-                            valueListenable: _phoneNumberError,
-                            builder: (context, value, child) {
-                              return Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  PrimaryButton(
-                                      label: HatSpaceStrings
-                                          .current.countryCode,
-                                      style: const ButtonStyle(
-                                          alignment: Alignment.centerLeft,
-                                          backgroundColor:
-                                              MaterialStatePropertyAll(
-                                                  HSColor.neutral10),
-                                          textStyle: MaterialStatePropertyAll<
-                                                  TextStyle>(
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              PrimaryButton(
+                                  label: HatSpaceStrings.current.countryCode,
+                                  style: const ButtonStyle(
+                                      alignment: Alignment.centerLeft,
+                                      backgroundColor: MaterialStatePropertyAll(
+                                          HSColor.neutral10),
+                                      textStyle:
+                                          MaterialStatePropertyAll<TextStyle>(
                                               TextStyle(
                                                   fontSize:
                                                       FontStyleGuide.fontSize14,
                                                   fontWeight: FontWeight.w400,
                                                   color: HSColor.neutral9)))),
-                                  const SizedBox(width: HsDimens.spacing24),
-                                  Expanded(
-                                      child: TextFormField(
-                                    key: const Key('phoneNo'),
-                                    controller: _controller,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(height: 1.5),
-                                    decoration: inputTextTheme.copyWith(
-                                      focusedBorder: value?.phoneNumberError !=
-                                              null
-                                          ? const OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: HSColor.red05,
-                                                width: HsDimens.size2,
-                                              ),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(
-                                                      HsDimens.radius8)))
-                                          : null,
-                                      hintText: HatSpaceStrings
-                                          .current.updatePhonePlaceHolder,
-                                      suffixIcon:
-                                          value?.phoneNumberError != null
-                                              ? Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      HsDimens.spacing12),
-                                                  child: SvgPicture.asset(
-                                                    Assets.icons.textFieldError,
-                                                    width: HsDimens.size24,
-                                                    height: HsDimens.size24,
+                              const SizedBox(width: HsDimens.spacing24),
+                              Expanded(
+                                  child: ValueListenableBuilder(
+                                      valueListenable: _phoneNumberError,
+                                      builder: (context, value, child) {
+                                        return TextFormField(
+                                          controller: _controller,
+                                          key: const Key('phoneNo'),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.copyWith(height: 1.5),
+                                          decoration: inputTextTheme.copyWith(
+                                            focusedBorder: value
+                                                        ?.phoneNumberError !=
+                                                    null
+                                                ? const OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: HSColor.red05,
+                                                      width: HsDimens.size2,
+                                                    ),
+                                                    borderRadius: BorderRadius
+                                                        .all(Radius.circular(
+                                                            HsDimens.radius8)))
+                                                : null,
+                                            hintText: HatSpaceStrings
+                                                .current.updatePhonePlaceHolder,
+                                            suffixIcon: value
+                                                        ?.phoneNumberError !=
+                                                    null
+                                                ? Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            HsDimens.spacing12),
+                                                    child: SvgPicture.asset(
+                                                      Assets
+                                                          .icons.textFieldError,
+                                                      width: HsDimens.size24,
+                                                      height: HsDimens.size24,
+                                                    ),
+                                                  )
+                                                : null,
+                                            // when external suffix icon is available, use default constraint
+                                            suffixIconConstraints: value
+                                                        ?.phoneNumberError ==
+                                                    null
+                                                ? null
+                                                : const BoxConstraints(
+                                                    maxHeight: HsDimens.size48,
+                                                    maxWidth: HsDimens.size48,
                                                   ),
-                                                )
-                                              : null,
-                                      // when external suffix icon is available, use default constraint
-                                      suffixIconConstraints:
-                                          value?.phoneNumberError == null
-                                              ? null
-                                              : const BoxConstraints(
-                                                  maxHeight: HsDimens.size48,
-                                                  maxWidth: HsDimens.size48,
-                                                ),
-                                    ),
-                                    inputFormatters: [
-                                      PhoneNumberInputFormatter(
-                                          _phoneNumberError),
-                                    ],
-                                    keyboardType: TextInputType.number,
-                                  ))
-                                ],
-                              );
-                            },
+                                          ),
+                                          inputFormatters: [
+                                            PhoneNumberInputFormatter(
+                                                _phoneNumberError),
+                                          ],
+                                          keyboardType: TextInputType.number,
+                                        );
+                                      }))
+                            ],
                           ),
                           ValueListenableBuilder(
                               valueListenable: _phoneNumberError,
@@ -178,12 +179,13 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                             right: HsDimens.spacing16),
                         child: ValueListenableBuilder(
                             valueListenable: _phoneNumberError,
-                            builder: (context, value, child) {
+                            builder: (context, errorValue, child) {
                               return PrimaryButton(
                                   label: HatSpaceStrings.current.save,
                                   onPressed: _controller.text.isEmpty
                                       ? null
-                                      : value == null
+
+                                      : errorValue == null
                                           ? () {
                                               context.pop(
                                                   result: _controller.text);

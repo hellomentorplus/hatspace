@@ -471,7 +471,6 @@ void main() async {
       await widgetTester.pumpAndSettle();
       expect(find.text('Wrong code area'), findsOne);
     });
-
     testWidgets(
         'Given user at UpdateProfileModal'
         'When user enter valid phone number'
