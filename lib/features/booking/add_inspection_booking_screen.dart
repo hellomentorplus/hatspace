@@ -96,14 +96,16 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                 builder: (_) {
                   return const UpdatePhoneNoBottomSheetView();
                 }).then((value) {
-              if (value != null) {
-                context
-                    .read<AddInspectionBookingCubit>()
-                    .updateProfilePhoneNumber(value);
-              } else {
-                context
-                    .read<AddInspectionBookingCubit>()
-                    .validateBookingInspectionButton();
+              if (mounted) {
+                if (value != null) {
+                  context
+                      .read<AddInspectionBookingCubit>()
+                      .updateProfilePhoneNumber(value);
+                } else {
+                  context
+                      .read<AddInspectionBookingCubit>()
+                      .validateBookingInspectionButton();
+                }
               }
             });
           }
