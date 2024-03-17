@@ -20,7 +20,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     try {
       UserDetail user = await authenticationService.getCurrentUser();
       List<Roles> userRole = await storageService.member.getUserRoles(user.uid);
-      PhoneNumber? phoneNumber =
+      final PhoneNumber? phoneNumber =
           await storageService.member.getMemberPhoneNumber(user.uid);
       if (userRole.contains(Roles.tenant)) {
         if (phoneNumber == null) {
@@ -93,7 +93,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   void updateProfilePhoneNumber(String phoneNo,
       {PhoneCode countryCode = PhoneCode.au}) async {
     try {
-      UserDetail user = await authenticationService.getCurrentUser();
+      final UserDetail user = await authenticationService.getCurrentUser();
       final String formatNumber = phoneNo.substring(1); // remove first zero
       await storageService.member.savePhoneNumberDetail(user.uid,
           PhoneNumber(countryCode: countryCode, phoneNumber: formatNumber));
