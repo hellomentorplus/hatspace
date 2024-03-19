@@ -184,7 +184,6 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                                   label: HatSpaceStrings.current.save,
                                   onPressed: _controller.text.isEmpty
                                       ? null
-
                                       : errorValue == null
                                           ? () {
                                               context.pop(

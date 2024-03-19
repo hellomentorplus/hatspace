@@ -96,20 +96,24 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                 builder: (_) {
                   return const UpdatePhoneNoBottomSheetView();
                 }).then((value) {
-              if (value != null) {
-                // TODO; add dialCode
-                context
-                    .read<AddInspectionBookingCubit>()
-                    .updateProfilePhoneNumber(value);
-              } else {
-                context
-                    .read<AddInspectionBookingCubit>()
-                    .validateBookingInspectionButton();
+              if (mounted) {
+                if (value != null) {
+                  // TODO; add dialCode
+                  context
+                      .read<AddInspectionBookingCubit>()
+                      .updateProfilePhoneNumber(value);
+                } else {
+                  context
+                      .read<AddInspectionBookingCubit>()
+                      .validateBookingInspectionButton();
+                }
               }
             });
           }
           if (state is UpdatePhoneNumberSuccessState) {
-            context.pushToBookInspectionSuccessScreen(propertyId: widget.id);
+            context
+                .read<AddInspectionBookingCubit>()
+                .onBookInspection(widget.id);
           }
         },
         child: Scaffold(
@@ -274,6 +278,8 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                       ),
                       onChanged: (value) {
                         _noteChars.value = value.length;
+                        context.read<AddInspectionBookingCubit>().description =
+                            value;
                       },
                     ),
                   ],

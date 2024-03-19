@@ -35,4 +35,4 @@ class ShowUpdateProfileModal extends AddInspectionBookingState {}
 
 class UpdatePhoneNumberSuccessState extends AddInspectionBookingState {}
 
-class BookingInspectionFail extends AddInspectionBookingState{}
+class BookingInspectionFail extends AddInspectionBookingState {}

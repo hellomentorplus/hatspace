@@ -49,8 +49,7 @@ void main() async {
         });
         when(mockMemberService.getMemberPhoneNumber('uid')).thenAnswer(
             (realInvocation) => Future.value(PhoneNumber(
-                countryCode: PhoneCode.au,
-                phoneNumber: '0123456789')));
+                countryCode: PhoneCode.au, phoneNumber: '0123456789')));
       },
       act: (bloc) => bloc.onBookInspection('propertyId'),
       expect: () => [BookingInspectionSuccess()]);
@@ -100,8 +99,7 @@ void main() async {
         });
         when(mockMemberService.getMemberPhoneNumber('uid')).thenAnswer(
             (realInvocation) => Future.value(PhoneNumber(
-                countryCode: PhoneCode.au,
-                phoneNumber: '0123456789')));
+                countryCode: PhoneCode.au, phoneNumber: '0123456789')));
       },
       act: (bloc) => bloc.onBookInspection('propertyId'),
       expect: () => [BookingInspectionSuccess()]);

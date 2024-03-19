@@ -29,15 +29,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
           phoneNo = null;
           return emit(ShowUpdateProfileModal());
         }
-        inspectionEndTime =
-            _inspecitonStartTime?.add(Duration(minutes: durationTime!));
-        Inspection inspection = Inspection(
-            propertyId: propertyId,
-            startTime: inspectionStartTime!,
-            endTime: inspectionEndTime!,
-            message: description,
-            createdBy: user.uid);
-        saveBookingInspection(inspection, user.uid);
+        saveBookingInspection(user.uid, propertyId);
       }
       if (userRole.isEmpty) {
         // TODO: HANDLE when user has no roles
@@ -51,7 +43,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   DateTime? _inspecitonStartTime;
   int? _duration;
   bool isStartTimeSelected = false;
-  DateTime? inspectionEndTime;
+  DateTime? _inspectionEndTime;
   String? phoneNo;
   String _description = '';
   set inspectionStartTime(DateTime? startTime) {
@@ -77,6 +69,8 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
 
   set duration(int? newDuration) {
     _duration = newDuration;
+    _inspectionEndTime =
+        _inspecitonStartTime?.add(Duration(minutes: durationTime!));
     validateBookingInspectionButton();
   }
 
@@ -97,11 +91,11 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     }
   }
 
-  set description(String description){
+  set description(String description) {
     _description = description;
   }
 
-  String get description =>  _description;
+  String get description => _description;
 
   void updateProfilePhoneNumber(String phoneNo,
       {PhoneCode countryCode = PhoneCode.au}) async {
@@ -125,9 +119,16 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     validateBookingInspectionButton();
   }
 
-  void saveBookingInspection(Inspection newInspection, String uid) async {
+  void saveBookingInspection(String uid, String propertyId) async {
     try {
-      String inspectionId = await storageService.property.addInspection(newInspection);
+      final inspection = Inspection(
+          propertyId: propertyId,
+          startTime: inspectionStartTime!,
+          endTime: _inspectionEndTime!,
+          message: description,
+          createdBy: uid);
+      final String inspectionId =
+          await storageService.property.addInspection(inspection);
       await storageService.member.addBookedInspection(inspectionId, uid);
       emit(BookingInspectionSuccess());
     } catch (e) {

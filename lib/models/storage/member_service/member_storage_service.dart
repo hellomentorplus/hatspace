@@ -204,8 +204,9 @@ class MemberService {
     return;
   }
 
-  Future<void> addBookedInspection (String inspectionId,String uid)async {
-    await _firestore.collection(memberCollection).doc(uid).update(
-     { 'inspectionList': [inspectionId] });
+  Future<void> addBookedInspection(String inspectionId, String uid) async {
+    await _firestore.collection(memberCollection).doc(uid).update({
+      'inspectionList': FieldValue.arrayUnion([inspectionId])
+    });
   }
 }
