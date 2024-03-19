@@ -20,7 +20,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     try {
       UserDetail user = await authenticationService.getCurrentUser();
       List<Roles> userRole = await storageService.member.getUserRoles(user.uid);
-      final String? phoneNumber =
+      final PhoneNumber? phoneNumber =
           await storageService.member.getMemberPhoneNumber(user.uid);
       if (userRole.contains(Roles.tenant)) {
         if (phoneNumber == null) {
@@ -87,6 +87,19 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
       emit(RequestStartTimeSelection());
     } else {
       emit(const ShowDurationSelection(true));
+    }
+  }
+
+  void updateProfilePhoneNumber(String phoneNo,
+      {PhoneCode countryCode = PhoneCode.au}) async {
+    try {
+      final UserDetail user = await authenticationService.getCurrentUser();
+      final String formatNumber = phoneNo.substring(1); // remove first zero
+      await storageService.member.savePhoneNumberDetail(user.uid,
+          PhoneNumber(countryCode: countryCode, phoneNumber: formatNumber));
+      emit(UpdatePhoneNumberSuccessState());
+    } on UserNotFoundException catch (_) {
+      // TODO: Implement when there is no user
     }
   }
 

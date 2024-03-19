@@ -98,15 +98,19 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                 }).then((value) {
               if (mounted) {
                 if (value != null) {
-                  // value return will be a string of number that entered from bottom sheet
-                  // TODO Handle uploading phone number
+                  context
+                      .read<AddInspectionBookingCubit>()
+                      .updateProfilePhoneNumber(value);
                 } else {
                   context
                       .read<AddInspectionBookingCubit>()
                       .validateBookingInspectionButton();
                 }
               }
-            }); // validate btn when modal dismissed
+            });
+          }
+          if (state is UpdatePhoneNumberSuccessState) {
+            context.pushToBookInspectionSuccessScreen(propertyId: widget.id);
           }
         },
         child: Scaffold(
