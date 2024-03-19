@@ -471,5 +471,23 @@ void main() async {
       await widgetTester.pumpAndSettle();
       expect(find.text('Area code: 02, 03, 04, 05, 07, 08'), findsOne);
     });
+    testWidgets(
+        'Given user at UpdateProfileModal'
+        'When user enter valid phone number'
+        'When user hit save button and UpdatePhoneNumberSuccessState appear'
+        'Expect Dismiss UpdatePhoneNoBottomSheetView', (widgetTester) async {
+      when(addInspectionBookingCubit.stream)
+          .thenAnswer((_) => Stream.value(UpdatePhoneNumberSuccessState()));
+      when(addInspectionBookingCubit.state)
+          .thenAnswer((_) => UpdatePhoneNumberSuccessState());
+      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
+          providers, const AddInspectionBookingScreen(id: 'id')));
+      await widgetTester.pumpAndSettle();
+      expect(
+          find.byWidget(const AddInspectionBookingScreen(
+            id: 'id',
+          )),
+          findsNothing);
+    });
   });
 }

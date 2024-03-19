@@ -170,7 +170,7 @@ class MemberService {
     return avatar;
   }
 
-  Future<String?> getMemberPhoneNumber(String uid) async {
+  Future<PhoneNumber?> getMemberPhoneNumber(String uid) async {
     final DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestore
         .collection(memberCollection)
         .doc(uid)
@@ -188,9 +188,18 @@ class MemberService {
     if (data[phoneNumberKey] == null) {
       return null;
     }
-
-    final String phoneNumber = data[phoneNumberKey];
-
+    Map<String, dynamic> phone = data[phoneNumberKey];
+    final PhoneNumber phoneNumber = PhoneNumber(
+        countryCode: PhoneCode.fromCodeString(phone['countryCode']),
+        phoneNumber: phone['numberKey']);
     return phoneNumber;
+  }
+
+  Future<void> savePhoneNumberDetail(String uid, PhoneNumber number) async {
+    await _firestore
+        .collection(memberCollection)
+        .doc(uid)
+        .set({phoneNumberKey: number.convertToMap()}, SetOptions(merge: true));
+    return;
   }
 }
