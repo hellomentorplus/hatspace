@@ -98,7 +98,6 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                 }).then((value) {
               if (mounted) {
                 if (value != null) {
-                  // TODO; add dialCode
                   context
                       .read<AddInspectionBookingCubit>()
                       .updateProfilePhoneNumber(value);

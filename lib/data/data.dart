@@ -71,8 +71,8 @@ enum PhoneCode {
 class PhoneNumber {
   final String _countryCodeKey = 'countryCode';
   final String _numberKey = 'numberKey';
-  PhoneCode countryCode;
-  String phoneNumber;
+  final PhoneCode countryCode;
+  final String phoneNumber;
   PhoneNumber({
     required this.countryCode,
     required this.phoneNumber,
