@@ -36,7 +36,7 @@ void main() {
         myProfileCubit, const MyProfileScreen());
 
     expect(find.text('My Profile'), findsOneWidget);
-    // expect(find.text('Edit'), findsOneWidget);
+    expect(find.text('Edit'), findsOneWidget);
 
     expect(find.text('Display name'), findsOneWidget);
     expect(find.text('Full name'), findsOneWidget);
@@ -44,15 +44,15 @@ void main() {
     expect(find.text('Phone number'), findsOneWidget);
     expect(find.text('Date of Birth'), findsOneWidget);
 
-    // expect(
-    //     find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
-    //         widget, 'assets/images/camera_circle.svg')),
-    //     findsOneWidget);
-
     expect(
         find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
-            widget, 'assets/icons/arrow_calendar_left.svg')),
+            widget, 'assets/images/camera_circle.svg')),
         findsOneWidget);
+
+    // expect(
+    //     find.byWidgetPredicate((widget) => validateSvgPictureWithAssets(
+    //         widget, 'assets/icons/arrow_calendar_left.svg')),
+    //     findsOneWidget);
   });
 
   testWidgets(

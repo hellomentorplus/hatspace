@@ -53,7 +53,6 @@ class HsLabel extends StatelessWidget {
 class HatSpaceInputText extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final FocusNode? focusNode;
-
   final String? label;
   final String? placeholder;
   final ValueChanged<String> onChanged;
@@ -63,7 +62,8 @@ class HatSpaceInputText extends StatelessWidget {
   final String? optional;
   final String? errorText;
   final Widget? suffixIcon;
-
+  final TextInputType? textInputType;
+  final Color? cursorColor;
   const HatSpaceInputText(
       {required this.onChanged,
       super.key,
@@ -75,6 +75,8 @@ class HatSpaceInputText extends StatelessWidget {
       EdgeInsets? padding,
       this.errorText,
       this.inputFormatters,
+      this.textInputType,
+      this.cursorColor,
       this.focusNode,
       this.suffixIcon})
       : _isRequired = isRequired ?? false,
@@ -84,6 +86,7 @@ class HatSpaceInputText extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> textField = [
       TextFormField(
+        cursorColor: cursorColor,
         focusNode: focusNode,
         onChanged: onChanged,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(height: 1.5),
@@ -109,6 +112,7 @@ class HatSpaceInputText extends StatelessWidget {
                   maxWidth: HsDimens.size48,
                 ),
         ),
+        keyboardType: textInputType,
         inputFormatters: inputFormatters,
       )
     ];

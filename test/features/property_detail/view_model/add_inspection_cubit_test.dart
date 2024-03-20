@@ -35,6 +35,7 @@ void main() async {
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
       'Given user is booking an inspection'
       'When user already had tenant role'
+      'When user already had phone number'
       'Then return SuccessBookInspection',
       build: () => AddInspectionBookingCubit(),
       setUp: () {
@@ -46,6 +47,9 @@ void main() async {
             .thenAnswer((realInvocation) {
           return Future.value([Roles.tenant]);
         });
+        when(mockMemberService.getMemberPhoneNumber('uid')).thenAnswer(
+            (realInvocation) => Future.value(PhoneNumber(
+                countryCode: PhoneCode.au, phoneNumber: '0123456789')));
       },
       act: (bloc) => bloc.onBookInspection(),
       expect: () => [BookingInspectionSuccess()]);
@@ -56,6 +60,13 @@ void main() async {
     build: () => PropertyDetailInteractionCubit(),
     setUp: () {
       when(authenticationServiceMock.isUserLoggedIn).thenReturn(true);
+      when(authenticationServiceMock.getCurrentUser())
+          .thenAnswer((realInvocation) {
+        return Future.value(UserDetail(uid: 'uid'));
+      });
+      when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) {
+        return Future.value([Roles.tenant]);
+      });
     },
     act: (bloc) => bloc.navigateToBooingInspectionScreen(),
     expect: () => [NavigateToBooingInspectionScreen()],
@@ -86,6 +97,9 @@ void main() async {
             .thenAnswer((realInvocation) {
           return Future.value([Roles.tenant, Roles.homeowner]);
         });
+        when(mockMemberService.getMemberPhoneNumber('uid')).thenAnswer(
+            (realInvocation) => Future.value(PhoneNumber(
+                countryCode: PhoneCode.au, phoneNumber: '0123456789')));
       },
       act: (bloc) => bloc.onBookInspection(),
       expect: () => [BookingInspectionSuccess()]);
@@ -304,6 +318,50 @@ void main() async {
     },
     expect: () => [isA<RequestStartTimeSelection>()],
   );
+  group('Show Update Profile Modal', () {
+    blocTest(
+        'Given user has no phone number'
+        'expect emit ShowUpdateProfileModal state',
+        build: () => AddInspectionBookingCubit(),
+        setUp: () {
+          when(authenticationServiceMock.getCurrentUser())
+              .thenAnswer((realInvocation) {
+            return Future.value(UserDetail(uid: 'uid'));
+          });
+          when(mockMemberService.getUserRoles('uid'))
+              .thenAnswer((realInvocation) {
+            return Future.value([Roles.tenant, Roles.homeowner]);
+          });
+          when(mockMemberService.getMemberPhoneNumber('uid'))
+              .thenAnswer((realInvocation) => Future.value(null));
+        },
+        act: (bloc) {
+          bloc.onBookInspection();
+        },
+        expect: () => [isA<ShowUpdateProfileModal>()]);
+
+    blocTest(
+        'Given user is in ShowUpdateProfileModal'
+        'When user enter and update phone number successfull'
+        'expect emit UpdatePhoneNumberSuccessState',
+        build: () => AddInspectionBookingCubit(),
+        setUp: () {
+          when(authenticationServiceMock.getCurrentUser())
+              .thenAnswer((realInvocation) {
+            return Future.value(UserDetail(uid: 'uid'));
+          });
+          when(mockMemberService.getUserRoles('uid'))
+              .thenAnswer((realInvocation) {
+            return Future.value([Roles.tenant, Roles.homeowner]);
+          });
+          when(mockMemberService.getMemberPhoneNumber('uid'))
+              .thenAnswer((realInvocation) => Future.value(null));
+        },
+        act: (bloc) {
+          bloc.updateProfilePhoneNumber('234567890');
+        },
+        expect: () => [isA<UpdatePhoneNumberSuccessState>()]);
+  });
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
     'Given duration has not been  selected'
     'When user tap on duration selection'

@@ -52,3 +52,33 @@ enum Roles {
     }
   }
 }
+
+// TODO: SAVE AND UPLOAD TO DATABASE
+enum PhoneCode {
+  //TODO: add more value for upcomming story
+  au('+61'),
+  invalid('invalid');
+
+  const PhoneCode(this.country);
+  final String country;
+  String get code => country;
+
+  static PhoneCode fromCodeString(String stringCode) =>
+      values.firstWhere((element) => element.country == stringCode,
+          orElse: () => invalid);
+}
+
+class PhoneNumber {
+  final String _countryCodeKey = 'countryCode';
+  final String _numberKey = 'numberKey';
+  final PhoneCode countryCode;
+  final String phoneNumber;
+  PhoneNumber({
+    required this.countryCode,
+    required this.phoneNumber,
+  });
+
+  Map<String, dynamic> convertToMap() {
+    return {_countryCodeKey: countryCode.code, _numberKey: phoneNumber};
+  }
+}

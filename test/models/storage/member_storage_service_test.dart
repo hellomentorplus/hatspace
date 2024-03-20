@@ -206,5 +206,48 @@ void main() {
       verifyNever(documentReference
           .set({'displayName': 'displayName', 'avatar': 'avatar'}, any));
     });
+
+    test(
+        'given user want to add property'
+        'When addMemberProperties'
+        'Then add new property to array list of properties', () async {
+      when(documentSnapshot.exists).thenReturn(true);
+      when(documentSnapshot.data()).thenReturn({});
+      StorageService storageService = StorageService();
+      await storageService.member.addMemberProperties('uid', 'propertyId');
+      verify(firestore.collection('members')).called(2);
+    });
+
+    test(
+        'given user want get phone number'
+        'When getMemberPhoneNumber'
+        'verify phoneNumber', () async {
+      when(documentSnapshot.exists).thenReturn(true);
+      when(documentSnapshot.data()).thenReturn({
+        'phone': {'countryCode': '+61', 'numberKey': '1234567890'}
+      });
+      StorageService storageService = StorageService();
+      final result = await storageService.member.getMemberPhoneNumber('uid');
+      verify(firestore.collection('members')).called(1);
+      expect(result!.countryCode, PhoneCode.au);
+      expect(result.phoneNumber, '1234567890');
+    });
+
+    test(
+        'given user save get phone number'
+        'When savePhoneNumber'
+        'verify phoneNumber', () async {
+      when(documentSnapshot.exists).thenReturn(true);
+      when(documentSnapshot.data()).thenReturn({});
+      StorageService storageService = StorageService();
+      await storageService.member.savePhoneNumberDetail('uid',
+          PhoneNumber(countryCode: PhoneCode.au, phoneNumber: '1234567890'));
+      verify(firestore.collection('members')).called(1);
+      verify(collectionReference.doc('uid')).called(1);
+      verify(documentReference.set({
+        'phone': {'countryCode': '+61', 'numberKey': '1234567890'}
+      }, any))
+          .called(1);
+    });
   });
 }

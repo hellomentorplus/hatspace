@@ -9,6 +9,7 @@ class MemberService {
   final String displayNameKey = 'displayName';
   final String propertiesKey = 'properties';
   final String avatarKey = 'avatar';
+  final String phoneNumberKey = 'phone';
 
   MemberService(FirebaseFirestore firestore) : _firestore = firestore;
 
@@ -167,5 +168,38 @@ class MemberService {
     }
 
     return avatar;
+  }
+
+  Future<PhoneNumber?> getMemberPhoneNumber(String uid) async {
+    final DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestore
+        .collection(memberCollection)
+        .doc(uid)
+        .get(const GetOptions(source: Source.serverAndCache));
+    if (!snapshot.exists) {
+      return null;
+    }
+
+    final Map<String, dynamic>? data = snapshot.data();
+
+    if (data == null) {
+      return null;
+    }
+
+    if (data[phoneNumberKey] == null) {
+      return null;
+    }
+    Map<String, dynamic> phone = data[phoneNumberKey];
+    final PhoneNumber phoneNumber = PhoneNumber(
+        countryCode: PhoneCode.fromCodeString(phone['countryCode']),
+        phoneNumber: phone['numberKey']);
+    return phoneNumber;
+  }
+
+  Future<void> savePhoneNumberDetail(String uid, PhoneNumber number) async {
+    await _firestore
+        .collection(memberCollection)
+        .doc(uid)
+        .set({phoneNumberKey: number.convertToMap()}, SetOptions(merge: true));
+    return;
   }
 }
