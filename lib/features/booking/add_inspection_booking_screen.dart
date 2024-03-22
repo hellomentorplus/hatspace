@@ -112,7 +112,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
           if (state is UpdatePhoneNumberSuccessState) {
             context
                 .read<AddInspectionBookingCubit>()
-                .onBookInspection(widget.id);
+                .saveBookingInspection(widget.id);
           }
         },
         child: Scaffold(

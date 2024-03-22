@@ -29,7 +29,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
           phoneNo = null;
           return emit(ShowUpdateProfileModal());
         }
-        saveBookingInspection(user.uid, propertyId);
+        saveBookingInspection(propertyId);
       }
       if (userRole.isEmpty) {
         // TODO: HANDLE when user has no roles
@@ -40,41 +40,47 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   }
 
   // only get day, month, and year at the first time. StartTime need to be updated in UI
-  DateTime? _inspecitonStartTime;
-  int? _duration;
+  DateTime? inspectionStartTime;
+  int? duration;
   bool isStartTimeSelected = false;
-  DateTime? _inspectionEndTime;
+  DateTime? inspectionEndTime;
   String? phoneNo;
-  String _description = '';
-  set inspectionStartTime(DateTime? startTime) {
-    _inspecitonStartTime = startTime;
+  String description = '';
+
+  set startTime(DateTime? startTime) {
+    inspectionStartTime = startTime;
     validateBookingInspectionButton();
   }
 
-  DateTime? get inspectionStartTime => _inspecitonStartTime;
+  DateTime? get startTime => inspectionStartTime;
 
+  set endTime(DateTime? time) {
+    inspectionEndTime = time;
+  }
+
+  DateTime? get endTime => inspectionEndTime;
   void updateInspectionDateOnly(
       {required int day, required int month, required int year}) {
     inspectionStartTime =
-        _inspecitonStartTime?.copyWith(day: day, year: year, month: month);
+        inspectionStartTime?.copyWith(day: day, year: year, month: month);
     validateBookingInspectionButton();
   }
 
   void updateInspectionStartTime(DateTime newDateTime) {
     isStartTimeSelected = true;
-    _inspecitonStartTime = newDateTime;
+    inspectionStartTime = newDateTime;
     emit(CloseStartTimeRequestMessage());
     validateBookingInspectionButton();
   }
 
-  set duration(int? newDuration) {
-    _duration = newDuration;
-    _inspectionEndTime =
-        _inspecitonStartTime?.add(Duration(minutes: durationTime!));
+  set durationTime(int? newDuration) {
+    duration = newDuration;
+    inspectionEndTime =
+        inspectionStartTime?.add(Duration(minutes: durationTime!));
     validateBookingInspectionButton();
   }
 
-  int? get durationTime => _duration;
+  int? get durationTime => duration;
 
   void validateBookingInspectionButton() {
     // TO DO: Add duration to validation
@@ -91,12 +97,11 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     }
   }
 
-
-  set description(String description) {
-    _description = description;
+  set descriptionProperty(String desc) {
+    description = desc;
   }
 
-  String get description => _description;
+  String get descriptionProperty => description;
   void updateProfilePhoneNumber(String phoneNo,
       {PhoneCode countryCode = PhoneCode.au}) async {
     try {
@@ -119,17 +124,21 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     validateBookingInspectionButton();
   }
 
-  void saveBookingInspection(String uid, String propertyId) async {
+  void saveBookingInspection(String propertyId) async {
     try {
+      UserDetail user = await authenticationService.getCurrentUser();
       final inspection = Inspection(
           propertyId: propertyId,
           startTime: inspectionStartTime!,
-          endTime: _inspectionEndTime!,
+          endTime: inspectionEndTime!,
           message: description,
-          createdBy: uid);
+          createdBy: user.uid);
       final String inspectionId =
-          await storageService.property.addInspection(inspection);
-      await storageService.member.addBookedInspection(inspectionId, uid);
+          await storageService.inspection.addInspection(inspection);
+      await storageService.member.addBookedInspection(inspectionId,
+          user.uid); // add inspection to inpection user inspection list
+      await storageService.property.addBookedInspection(inspectionId,
+          propertyId); // add inspection to property inspection list
       emit(BookingInspectionSuccess());
     } catch (e) {
       emit(BookingInspectionFail());
