@@ -61,7 +61,6 @@ enum PhoneCode {
 
   const PhoneCode(this.country);
   final String country;
-  String getStringCode() => country;
 
   static PhoneCode fromCodeString(String stringCode) =>
       values.firstWhere((element) => element.country == stringCode,
@@ -79,9 +78,6 @@ class PhoneNumber {
   });
 
   Map<String, dynamic> convertToMap() {
-    return {
-      _countryCodeKey: countryCode.getStringCode(),
-      _numberKey: phoneNumber
-    };
+    return {_countryCodeKey: countryCode.country, _numberKey: phoneNumber};
   }
 }

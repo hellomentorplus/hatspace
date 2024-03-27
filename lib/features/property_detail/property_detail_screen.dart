@@ -510,9 +510,18 @@ class _PropertyBookingBar extends StatelessWidget {
                       builder: (context, state) {
                         if (state is PropertyDetailLoaded &&
                             state.isOwned == true) {
-                          // TODO: Handle 'Manage Property' in the next story
-                          return const SizedBox();
+                          // Handle 'Manage Property' in the next story
+                          return PrimaryButton(
+                            label: HatSpaceStrings.current.managePropertyButton,
+                            onPressed: () {
+                              //Handle business logic
+                            },
+                            style: const ButtonStyle(
+                                padding: MaterialStatePropertyAll<EdgeInsets>(
+                                    EdgeInsets.all(HsDimens.spacing12))),
+                          );
                         }
+                        // Handle Booking inspection button
                         return PrimaryButton(
                           label: HatSpaceStrings.current.bookInspection,
                           onPressed: () {
