@@ -469,7 +469,7 @@ void main() async {
       await widgetTester.enterText(find.byWidget(textForm),
           '1234 567 890'); // phone numer need to have format xxxx xxx xxx
       await widgetTester.pumpAndSettle();
-      expect(find.text('Wrong code area'), findsOne);
+      expect(find.text('Area code: 02, 03, 04, 05, 07, 08'), findsOne);
     });
     testWidgets(
         'Given user at UpdateProfileModal'
