@@ -335,8 +335,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "updatePhoneLabel": MessageLookupByLibrary.simpleMessage(
             "2 digit area code + 8 digit local phone number"),
         "updatePhonePlaceHolder":
-            MessageLookupByLibrary.simpleMessage("0XXX XXX XXXX"),
-        "updateProfile": MessageLookupByLibrary.simpleMessage("Update Profile"),
+            MessageLookupByLibrary.simpleMessage("0XXX XXX XXX"),
+        "updateProfile": MessageLookupByLibrary.simpleMessage("Update profile"),
         "upload": MessageLookupByLibrary.simpleMessage("Upload"),
         "uploadPhotoCount": m12,
         "userRoleDescription": m13,
@@ -350,8 +350,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatKindOfPlace":
             MessageLookupByLibrary.simpleMessage("What kind of place?"),
         "wifi": MessageLookupByLibrary.simpleMessage("Wifi"),
-        "wrongCodeAreaErrorMessage":
-            MessageLookupByLibrary.simpleMessage("Wrong code area"),
+        "wrongCodeAreaErrorMessage": MessageLookupByLibrary.simpleMessage(
+            "Area code: 02, 03, 04, 05, 07, 08"),
         "wrongLenghtPhongNumerErrorMessage":
             MessageLookupByLibrary.simpleMessage("Must be 10 digits"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
