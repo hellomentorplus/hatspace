@@ -136,16 +136,15 @@ void main() {
     verify(documentReference.set(propertySample.convertObjectToMap()))
         .called(1);
   });
-   test(
-        'verify add inspection to property list', () async {
-   //   when(documentSnapshot.exists).thenReturn(true);
+  test('verify add inspection to property list', () async {
+    //   when(documentSnapshot.exists).thenReturn(true);
     //  when(documentSnapshot.data()).thenReturn({});
-      StorageService storageService = StorageService();
-      await storageService.property.addBookedInspection('id', 'pid');
-      verify(firestore.collection('properties')).called(1);
-      verify(collectionReference.doc('pid')).called(1);
-      verify(documentReference.update({
-        'inspectionList': FieldValue.arrayUnion(['id'])
-      })).called(1);
-    });
+    StorageService storageService = StorageService();
+    await storageService.property.addBookedInspection('id', 'pid');
+    verify(firestore.collection('properties')).called(1);
+    verify(collectionReference.doc('pid')).called(1);
+    verify(documentReference.update({
+      'inspectionList': FieldValue.arrayUnion(['id'])
+    })).called(1);
+  });
 }
