@@ -1988,20 +1988,20 @@ class HatSpaceStrings {
     );
   }
 
-  /// `0XXX XXX XXXX`
+  /// `0XXX XXX XXX`
   String get updatePhonePlaceHolder {
     return Intl.message(
-      '0XXX XXX XXXX',
+      '0XXX XXX XXX',
       name: 'updatePhonePlaceHolder',
       desc: '',
       args: [],
     );
   }
 
-  /// `Update Profile`
+  /// `Update profile`
   String get updateProfile {
     return Intl.message(
-      'Update Profile',
+      'Update profile',
       name: 'updateProfile',
       desc: '',
       args: [],
@@ -2018,10 +2018,10 @@ class HatSpaceStrings {
     );
   }
 
-  /// `Wrong code area`
+  /// `Area code: 02, 03, 04, 05, 07, 08`
   String get wrongCodeAreaErrorMessage {
     return Intl.message(
-      'Wrong code area',
+      'Area code: 02, 03, 04, 05, 07, 08',
       name: 'wrongCodeAreaErrorMessage',
       desc: '',
       args: [],

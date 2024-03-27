@@ -82,8 +82,11 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                             children: [
                               PrimaryButton(
                                   label: HatSpaceStrings.current.countryCode,
+                                  contentAlignment: MainAxisAlignment.start,
                                   style: const ButtonStyle(
-                                      alignment: Alignment.centerLeft,
+                                      foregroundColor:
+                                          MaterialStatePropertyAll<Color>(
+                                              HSColor.black),
                                       backgroundColor: MaterialStatePropertyAll(
                                           HSColor.neutral10),
                                       textStyle:
@@ -92,7 +95,7 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                                                   fontSize:
                                                       FontStyleGuide.fontSize14,
                                                   fontWeight: FontWeight.w400,
-                                                  color: HSColor.neutral9)))),
+                                                  color: HSColor.red05)))),
                               const SizedBox(width: HsDimens.spacing24),
                               Expanded(
                                   child: ValueListenableBuilder(
@@ -120,31 +123,14 @@ class _UpdatePhoneNoBottomSheet extends State<UpdatePhoneNoBottomSheetView> {
                                                 : null,
                                             hintText: HatSpaceStrings
                                                 .current.updatePhonePlaceHolder,
-                                            suffixIcon: value
-                                                        ?.phoneNumberError !=
-                                                    null
-                                                ? Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            HsDimens.spacing12),
-                                                    child: SvgPicture.asset(
-                                                      Assets
-                                                          .icons.textFieldError,
-                                                      width: HsDimens.size24,
-                                                      height: HsDimens.size24,
-                                                    ),
-                                                  )
-                                                : null,
-                                            // when external suffix icon is available, use default constraint
-                                            suffixIconConstraints: value
-                                                        ?.phoneNumberError ==
-                                                    null
-                                                ? null
-                                                : const BoxConstraints(
-                                                    maxHeight: HsDimens.size48,
-                                                    maxWidth: HsDimens.size48,
-                                                  ),
                                           ),
+                                          cursorColor: value
+                                                      ?.phoneNumberError !=
+                                                  null
+                                              ? HSColor.red05
+                                              : _controller.value.text.isEmpty
+                                                  ? HSColor.black
+                                                  : HSColor.primary,
                                           inputFormatters: [
                                             PhoneNumberInputFormatter(
                                                 _phoneNumberError),
@@ -219,13 +205,15 @@ class PhoneNumberInputFormatter extends TextInputFormatter {
     }
 
     // Length VALIDATION
+
     if (newValue.text.isEmpty ||
-        newValue.text.trim().length <
+        newValue.text.replaceAll(' ', '').length <
             PhoneNumberErrorType.minLength.maxPhoneNumber) {
       error.value = PhoneNumberErrorType.minLength;
       return newValue;
     }
-    if (newValue.text.length > PhoneNumberErrorType.minLength.maxPhoneNumber) {
+    if (newValue.text.replaceAll(' ', '').length >
+        PhoneNumberErrorType.minLength.maxPhoneNumber) {
       return oldValue;
     }
 
@@ -254,5 +242,5 @@ enum PhoneNumberErrorType {
     }
   }
 
-  int get maxPhoneNumber => 12;
+  int get maxPhoneNumber => 10;
 }
