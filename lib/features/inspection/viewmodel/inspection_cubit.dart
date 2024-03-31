@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hatspace/data/inspection.dart';
+import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/inspection/viewmodel/display_item.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -98,6 +100,20 @@ class InspectionCubit extends Cubit<InspectionState> {
       }
     } catch (e) {
       emit(GetUserRolesFailed());
+    }
+  }
+
+  void getInspection(String inspectionId) async {
+    try {
+      Inspection? inspection =
+          await _storageService.inspection.getInspectionById(inspectionId);
+      Property? property =
+          await _storageService.property.getProperty(inspection!.propertyId);
+      UserDetail? user =
+          await _storageService.member.getUserDetail(property!.ownerUid);
+      emit(InspectionItem(inspection, property, user!));
+    } catch (e) {
+      emit(NoBookedInspection());
     }
   }
 }

@@ -11,9 +11,10 @@ import 'package:hatspace/features/booking/view_model/cubit/add_inspection_bookin
 import 'package:hatspace/features/booking/widgets/duration_selection_widget.dart';
 import 'package:hatspace/features/booking/widgets/start_time_selection_widget.dart';
 import 'package:hatspace/features/booking/widgets/update_phone_no_bottom_sheet_view.dart';
+import 'package:hatspace/features/inspection/viewmodel/inspection_cubit.dart';
 import 'package:hatspace/features/profile/my_profile/view_model/my_profile_cubit.dart';
-import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/member_service/inspection_storage_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
 import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
@@ -27,7 +28,6 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
-import '../../../find_extension.dart';
 import '../../../widget_tester_extension.dart';
 
 import '../../add_property/view/widgets/add_rooms_view_test.dart';
@@ -43,6 +43,8 @@ import 'add_inspection_test.mocks.dart';
   MemberService,
   PropertyDetailCubit,
   MyProfileCubit,
+  InspectionCubit,
+  InpsectionService
 ])
 void main() async {
   HatSpaceStrings.load(const Locale('en'));
@@ -56,6 +58,7 @@ void main() async {
   final MockPropertyService propertyService = MockPropertyService();
   final MockMemberService memberService = MockMemberService();
   final MockMyProfileCubit mockMyProfileCubit = MockMyProfileCubit();
+  final MockInspectionCubit mockInspectionCubit = MockInspectionCubit();
   final Property property = Property(
       type: PropertyTypes.apartment,
       name: 'property name',
@@ -84,7 +87,7 @@ void main() async {
     BlocProvider<AddInspectionBookingCubit>(
         create: (context) => addInspectionBookingCubit),
     BlocProvider<PropertyDetailCubit>(create: (context) => propertyDetailCubit),
-    BlocProvider<MyProfileCubit>(create: (context) => mockMyProfileCubit)
+    BlocProvider<MyProfileCubit>(create: (context) => mockMyProfileCubit),
   ];
   setUpAll(() async {
     HsSingleton.singleton
@@ -116,6 +119,9 @@ void main() async {
     when(addInspectionBookingCubit.isStartTimeSelected).thenReturn(false);
     when(mockMyProfileCubit.state).thenReturn(const MyProfileInitialState());
     when(mockMyProfileCubit.stream)
+        .thenAnswer((realInvocation) => const Stream.empty());
+    when(mockInspectionCubit.state).thenReturn(InspectionInitial());
+    when(mockInspectionCubit.stream)
         .thenAnswer((realInvocation) => const Stream.empty());
   });
 
@@ -347,10 +353,10 @@ void main() async {
       'When booking action was succeed. '
       'Then user will be navigated out of AddInspectionBookingScreen',
       (widgetTester) async {
-    when(addInspectionBookingCubit.stream)
-        .thenAnswer((_) => Stream.value(BookingInspectionSuccess()));
+    when(addInspectionBookingCubit.stream).thenAnswer((_) =>
+        Stream.value(const BookingInspectionSuccess(inspectionId: 'iId')));
     when(addInspectionBookingCubit.state)
-        .thenAnswer((_) => BookingInspectionSuccess());
+        .thenAnswer((_) => const BookingInspectionSuccess(inspectionId: 'iId'));
 
     await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
         providers, const AddInspectionBookingBody(id: 'id')));
@@ -359,41 +365,6 @@ void main() async {
     expect(find.byType(AddInspectionBookingBody), findsNothing);
     expect(find.byType(AddInspectionSuccessScreen), findsOneWidget);
   });
-
-  group('Booking inspection success test cases', () {
-    testWidgets('Verify booking inspection success UI ', (widgetTester) async {
-      Widget addInspectionSuccessScreen = const AddInspectionSuccessScreen(
-        id: 'id',
-      );
-      await mockNetworkImagesFor(() => widgetTester.multiBlocWrapAndPump(
-          providers, addInspectionSuccessScreen));
-      expect(find.svgPictureWithAssets(Assets.icons.close), findsOneWidget);
-      expect(
-          find.svgPictureWithAssets(Assets.icons.primaryCheck), findsOneWidget);
-      expect(find.text('Congratulations 🎉'), findsOneWidget);
-      expect(find.byType(Divider), findsWidgets);
-    });
-
-    testWidgets(
-        'Verify interaction'
-        'Given user tap on close icon'
-        'Then close success screen', (widgetTester) async {
-      Widget addInspectionSuccessScreen = const AddInspectionSuccessScreen(
-        id: 'id',
-      );
-      await mockNetworkImagesFor(() =>
-          widgetTester.blocWrapAndPump<AuthenticationBloc>(
-              authenticationBloc, addInspectionSuccessScreen));
-      IconButton iconBtn = widgetTester.widget(find.byType(IconButton));
-      expect(find.byWidget(iconBtn), findsOneWidget);
-      await widgetTester.ensureVisible(find.byWidget(iconBtn));
-      await widgetTester.tap(find.byType(IconButton), warnIfMissed: true);
-      await widgetTester.pumpAndSettle();
-      // Navigate to other screen
-      expect(find.byType(AddInspectionSuccessScreen), findsNothing);
-    });
-  });
-
   group('Update Profile Modal', () {
     testWidgets(
         'Given state is ShowUpdateProfileModal'

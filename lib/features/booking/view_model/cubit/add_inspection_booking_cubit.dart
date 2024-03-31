@@ -75,8 +75,6 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
 
   set durationTime(int? newDuration) {
     duration = newDuration;
-    inspectionEndTime =
-        inspectionStartTime?.add(Duration(minutes: durationTime!));
     validateBookingInspectionButton();
   }
 
@@ -127,6 +125,8 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   void saveBookingInspection(String propertyId) async {
     try {
       UserDetail user = await authenticationService.getCurrentUser();
+      inspectionEndTime =
+          inspectionStartTime?.add(Duration(minutes: durationTime!));
       final inspection = Inspection(
           propertyId: propertyId,
           startTime: inspectionStartTime!,
@@ -139,7 +139,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
           user.uid); // add inspection to inpection user inspection list
       await storageService.property.addBookedInspection(inspectionId,
           propertyId); // add inspection to property inspection list
-      emit(BookingInspectionSuccess());
+      emit(BookingInspectionSuccess(inspectionId: inspectionId));
     } catch (e) {
       emit(BookingInspectionFail());
     }

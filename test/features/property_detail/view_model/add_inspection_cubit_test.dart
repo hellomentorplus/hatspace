@@ -72,10 +72,10 @@ void main() async {
       },
       act: (bloc) {
         bloc.inspectionStartTime = DateTime(2011, 1, 1, 1, 1);
-        bloc.inspectionEndTime = DateTime(2011, 1, 1, 1, 1);
+        bloc.durationTime = 15;
         bloc.onBookInspection('uid');
       },
-      expect: () => [BookingInspectionSuccess()]);
+      expect: () => [const BookingInspectionSuccess(inspectionId: 'insId')]);
 
   blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
     'when trigger navigate to booking inspection'
@@ -132,10 +132,10 @@ void main() async {
       },
       act: (bloc) {
         bloc.inspectionStartTime = DateTime(2011, 1, 1, 1, 1);
-        bloc.inspectionEndTime = DateTime(2011, 1, 1, 1, 1);
+        bloc.durationTime = 15;
         bloc.onBookInspection('uid');
       },
-      expect: () => [BookingInspectionSuccess()]);
+      expect: () => [const BookingInspectionSuccess(inspectionId: 'insId')]);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
       'Given user is booking an inspection'

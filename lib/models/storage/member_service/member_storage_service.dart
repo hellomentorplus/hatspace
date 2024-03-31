@@ -208,4 +208,22 @@ class MemberService {
       'inspectionList': FieldValue.arrayUnion([inspectionId])
     });
   }
+
+  Future<UserDetail?> getUserDetail(String userId) async {
+    DocumentSnapshot<Map<String, dynamic>> doc = await _firestore
+        .collection(memberCollection)
+        .doc(userId)
+        .get(const GetOptions(source: Source.server));
+    if (!doc.exists) {
+      return null;
+    }
+    final Map<String, dynamic>? data = doc.data();
+    if (data == null) {
+      return null;
+    }
+    return UserDetail(
+        uid: userId,
+        displayName: data[displayNameKey],
+        avatar: data[avatarKey]);
+  }
 }
