@@ -19,7 +19,8 @@ class Inspection {
       required this.endTime,
       required this.createdBy,
       this.status = InspectionStatus.confirming,
-      this.message = ''});
+      this.message = '',
+      this.inspectionId});
 
   Map<String, dynamic> convertToMap() {
     return {

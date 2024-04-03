@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/inspection.dart';
-import 'package:hatspace/models/storage/member_service/inspection_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
