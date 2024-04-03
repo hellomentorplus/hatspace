@@ -1978,6 +1978,16 @@ class HatSpaceStrings {
     );
   }
 
+  /// `Manage property`
+  String get managePropertyButton {
+    return Intl.message(
+      'Manage property',
+      name: 'managePropertyButton',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `2 digit area code + 8 digit local phone number`
   String get updatePhoneLabel {
     return Intl.message(
