@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/models/storage/member_service/inspection_storage_service.dart';
 
 class MemberService {
   final FirebaseFirestore _firestore;
@@ -10,9 +11,9 @@ class MemberService {
   final String propertiesKey = 'properties';
   final String avatarKey = 'avatar';
   final String phoneNumberKey = 'phone';
+  final String inspectionListKey = 'inspectionList';
 
   MemberService(FirebaseFirestore firestore) : _firestore = firestore;
-
   Future<List<Roles>> getUserRoles(String uid) async {
     DocumentSnapshot<Map<String, dynamic>> rolesRef = await _firestore
         .collection(memberCollection)
@@ -225,5 +226,33 @@ class MemberService {
         uid: userId,
         displayName: data[displayNameKey],
         avatar: data[avatarKey]);
+  }
+
+  Future<List<String>> getInspectionList(String uid) async {
+    DocumentSnapshot<Map<String, dynamic>> rolesRef = await _firestore
+        .collection(memberCollection)
+        .doc(uid)
+        .get(const GetOptions(source: Source.server));
+
+    if (!rolesRef.exists) {
+      return [];
+    }
+
+    final Map<String, dynamic>? data = rolesRef.data();
+    if (data == null) {
+      return [];
+    }
+
+    if (data[inspectionListKey] == null) {
+      return [];
+    }
+
+    try {
+      List<String> inspectionList =
+          (data[inspectionListKey] as List).map((e) => e.toString()).toList();
+      return inspectionList;
+    } catch (e) {
+      return [];
+    }
   }
 }

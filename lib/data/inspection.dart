@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 enum InspectionStatus {
   confirming,
@@ -51,5 +52,10 @@ class Inspection {
         message: data['message'],
         endTime: (data['endTime'] as Timestamp).toDate(),
         createdBy: data['createdBy']);
+  }
+
+  String getRentingTime() {
+    //   '09:00 AM - 10:00 AM - 15 Sep, 2023',
+    return '${DateFormat('hh:mm a').format(startTime)} - ${DateFormat('hh:mm a').format(endTime)} - ${DateFormat('d MMM, yyyy ').format(startTime)}';
   }
 }
