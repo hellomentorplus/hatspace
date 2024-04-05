@@ -212,10 +212,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                           // Todo: only update date. Do not update time
                           context
                               .read<AddInspectionBookingCubit>()
-                              .updateInspectionDateOnly(
-                                  day: value.day,
-                                  month: value.month,
-                                  year: value.year);
+                              .updateInspectionDateOnly(value);
                           _selectedStartTime.value = _selectedStartTime.value
                               ?.copyWith(
                                   day: value.day,

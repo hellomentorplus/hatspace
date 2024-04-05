@@ -19,14 +19,15 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
         super(AddInspectionBookingInitial());
   void onBookInspection(String propertyId) async {
     try {
-      UserDetail user = await authenticationService.getCurrentUser();
-      List<Roles> userRole = await storageService.member.getUserRoles(user.uid);
+      final UserDetail user = await authenticationService.getCurrentUser();
+      final List<Roles> userRole =
+          await storageService.member.getUserRoles(user.uid);
       final PhoneNumber? phoneNumber =
           await storageService.member.getMemberPhoneNumber(user.uid);
       if (userRole.contains(Roles.tenant)) {
         if (phoneNumber == null) {
           // Always set phoneNo string = null when open modal
-          phoneNo = null;
+          //  _phoneNo = null;
           return emit(ShowUpdateProfileModal());
         }
         saveBookingInspection(propertyId);
@@ -40,68 +41,86 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   }
 
   // only get day, month, and year at the first time. StartTime need to be updated in UI
-  DateTime? inspectionStartTime;
-  int? duration;
-  bool isStartTimeSelected = false;
-  DateTime? inspectionEndTime;
-  String? phoneNo;
-  String description = '';
+  DateTime? _inspectionStartTime;
+  int? _duration;
+  bool _isStartTimeSelected = false;
+  DateTime? _inspectionEndTime;
+  // String? _phoneNo;
+  String _description = '';
 
-  set startTime(DateTime? startTime) {
-    inspectionStartTime = startTime;
-    validateBookingInspectionButton();
-  }
-
-  DateTime? get startTime => inspectionStartTime;
-
-  set endTime(DateTime? time) {
-    inspectionEndTime = time;
-  }
-
-  DateTime? get endTime => inspectionEndTime;
-  void updateInspectionDateOnly(
-      {required int day, required int month, required int year}) {
-    inspectionStartTime =
-        inspectionStartTime?.copyWith(day: day, year: year, month: month);
-    validateBookingInspectionButton();
-  }
-
-  void updateInspectionStartTime(DateTime newDateTime) {
-    isStartTimeSelected = true;
-    inspectionStartTime = newDateTime;
+  set inspectionStartTime(DateTime? startTime) {
+    if (_isStartTimeSelected) {
+      _inspectionStartTime = _inspectionStartTime?.copyWith(
+          hour: startTime!.hour,
+          minute: startTime.minute,
+          second: startTime.second,
+          microsecond: startTime.microsecond);
+    } else {
+      _inspectionStartTime = startTime;
+    }
+    _isStartTimeSelected = true;
     emit(CloseStartTimeRequestMessage());
     validateBookingInspectionButton();
   }
 
-  set durationTime(int? newDuration) {
-    duration = newDuration;
-    inspectionEndTime =
-        inspectionStartTime?.add(Duration(minutes: durationTime!));
+  DateTime? get inspectionStartTime => _inspectionStartTime;
+
+  set duration(int? newDuration) {
+    _duration = newDuration;
     validateBookingInspectionButton();
   }
 
-  int? get durationTime => duration;
+  int? get duration => _duration;
+
+  bool get isStartTimeSelected => _isStartTimeSelected;
+
+  DateTime? get inspectionEndTime => _inspectionEndTime;
+
+  //set phoneNo (String? phoneNo) => _phoneNo = phoneNo;
+
+  // void updateInspectionDateOnly(
+  //     {required int day, required int month, required int year}) {
+  //   _inspectionStartTime =
+  //       _inspectionStartTißme?.copyWith(day: day, year: year, month: month);
+  //   validateBookingInspectionButton();
+  // }
+
+  void updateInspectionDateOnly(DateTime dateTime) {
+    if (!_isStartTimeSelected) {
+      _inspectionStartTime = dateTime.copyWith(hour: 9, minute: 0);
+    } else {
+      _inspectionStartTime = _inspectionStartTime?.copyWith(
+          day: dateTime.day, year: dateTime.year, month: dateTime.month);
+    }
+    validateBookingInspectionButton();
+  }
+
+  // void updateInspectionStartTime(DateTime newDateTime) {
+  //   _isStartTimeSelected = true;
+  //   _inspectionStartTime = newDateTime;
+  //   emit(CloseStartTimeRequestMessage());
+  //   validateBookingInspectionButton();
+  // }
 
   void validateBookingInspectionButton() {
     // TO DO: Add duration to validation
-    if (isStartTimeSelected && durationTime != null) {
+    if (_isStartTimeSelected && duration != null) {
       emit(BookInspectionButtonEnable());
     }
   }
 
   void selectDuration() {
-    if (!isStartTimeSelected) {
+    if (!_isStartTimeSelected) {
       emit(RequestStartTimeSelection());
     } else {
       emit(const ShowDurationSelection(true));
     }
   }
 
-  set descriptionProperty(String desc) {
-    description = desc;
+  set description(String desc) {
+    _description = desc;
   }
 
-  String get descriptionProperty => description;
   void updateProfilePhoneNumber(String phoneNo,
       {PhoneCode countryCode = PhoneCode.au}) async {
     try {
@@ -126,12 +145,14 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
 
   void saveBookingInspection(String propertyId) async {
     try {
-      UserDetail user = await authenticationService.getCurrentUser();
+      _inspectionEndTime =
+          _inspectionStartTime?.add(Duration(minutes: _duration!));
+      final UserDetail user = await authenticationService.getCurrentUser();
       final inspection = Inspection(
           propertyId: propertyId,
-          startTime: inspectionStartTime!,
-          endTime: inspectionEndTime!,
-          message: description,
+          startTime: _inspectionStartTime!,
+          endTime: _inspectionEndTime!,
+          message: _description,
           createdBy: user.uid);
       final String inspectionId =
           await storageService.inspection.addInspection(inspection);
