@@ -67,7 +67,7 @@ class DurationSelectionWidget extends StatelessWidget {
             context.read<AddInspectionBookingCubit>().closeBottomModal());
       }
     }, builder: (context, state) {
-      int? durationTime = context.read<AddInspectionBookingCubit>().duration;
+      final int? durationTime = context.read<AddInspectionBookingCubit>().duration;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
