@@ -63,7 +63,6 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     validateBookingInspectionButton();
   }
 
-
   DateTime? get inspectionStartTime => _inspectionStartTime;
 
   set duration(int? newDuration) {

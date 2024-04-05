@@ -78,7 +78,7 @@ void main() async {
       expect: () => [
             CloseStartTimeRequestMessage(),
             BookInspectionButtonEnable(),
-            BookingInspectionSuccess
+            const BookingInspectionSuccess(inspectionId: 'insId')
           ]);
 
   blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
@@ -142,7 +142,7 @@ void main() async {
       expect: () => [
             CloseStartTimeRequestMessage(),
             BookInspectionButtonEnable(),
-            BookingInspectionSuccess
+            const BookingInspectionSuccess(inspectionId: 'insId')
           ]);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
