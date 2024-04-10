@@ -72,10 +72,14 @@ void main() async {
       },
       act: (bloc) {
         bloc.inspectionStartTime = DateTime(2011, 1, 1, 1, 1);
-        bloc.durationTime = 15;
+        bloc.duration = 15;
         bloc.onBookInspection('uid');
       },
-      expect: () => [const BookingInspectionSuccess(inspectionId: 'insId')]);
+      expect: () => [
+            CloseStartTimeRequestMessage(),
+            BookInspectionButtonEnable(),
+            const BookingInspectionSuccess(inspectionId: 'insId')
+          ]);
 
   blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
     'when trigger navigate to booking inspection'
@@ -132,10 +136,14 @@ void main() async {
       },
       act: (bloc) {
         bloc.inspectionStartTime = DateTime(2011, 1, 1, 1, 1);
-        bloc.durationTime = 15;
+        bloc.duration = 15;
         bloc.onBookInspection('uid');
       },
-      expect: () => [const BookingInspectionSuccess(inspectionId: 'insId')]);
+      expect: () => [
+            CloseStartTimeRequestMessage(),
+            BookInspectionButtonEnable(),
+            const BookingInspectionSuccess(inspectionId: 'insId')
+          ]);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
       'Given user is booking an inspection'
@@ -263,7 +271,6 @@ void main() async {
       });
     },
     act: (bloc) {
-      bloc.isStartTimeSelected = false;
       bloc.selectDuration();
     },
     expect: () => [isA<RequestStartTimeSelection>()],
@@ -290,7 +297,7 @@ void main() async {
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
     'Given start time has not been entered'
-    'When run validate startTimeSelection'
+    'When user tab on duration'
     'emit RequestStartTimeSelection',
     build: () => AddInspectionBookingCubit(),
     setUp: () {
@@ -303,10 +310,9 @@ void main() async {
       });
     },
     act: (bloc) {
-      bloc.isStartTimeSelected = false;
-      bloc.updateInspectionStartTime(DateTime(2020, 9, 9, 9, 9));
+      bloc.selectDuration();
     },
-    expect: () => [CloseStartTimeRequestMessage()],
+    expect: () => [RequestStartTimeSelection()],
   );
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -325,11 +331,12 @@ void main() async {
     },
     act: (bloc) {
       // bloc.inspectionStartTime;
-      bloc.isStartTimeSelected = true;
+      bloc.inspectionStartTime = DateTime(2022, 1, 1, 1, 1);
       bloc.duration = 15;
       bloc.validateBookingInspectionButton();
     },
-    expect: () => [isA<BookInspectionButtonEnable>()],
+    expect: () =>
+        [CloseStartTimeRequestMessage(), BookInspectionButtonEnable()],
   );
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -410,10 +417,11 @@ void main() async {
       });
     },
     act: (bloc) {
-      bloc.isStartTimeSelected = true;
+      bloc.inspectionStartTime = DateTime(2022, 1, 1, 1, 1);
       bloc.selectDuration();
     },
-    expect: () => [isA<ShowDurationSelection>()],
+    expect: () =>
+        [CloseStartTimeRequestMessage(), const ShowDurationSelection(true)],
   );
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -434,25 +442,5 @@ void main() async {
       bloc.closeBottomModal();
     },
     expect: () => [isA<CloseBottomSheet>()],
-  );
-
-  blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
-    'Given user select date'
-    'When user on save'
-    'Then expect change start time and update date time only',
-    build: () => AddInspectionBookingCubit(),
-    setUp: () {
-      when(authenticationServiceMock.getCurrentUser())
-          .thenAnswer((realInvocation) {
-        return Future.value(UserDetail(uid: 'uid'));
-      });
-      when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) {
-        return Future.value([Roles.tenant, Roles.homeowner]);
-      });
-    },
-    act: (bloc) {
-      bloc.updateInspectionDateOnly(day: 9, month: 9, year: 2020);
-    },
-    expect: () => [],
   );
 }

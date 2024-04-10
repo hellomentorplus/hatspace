@@ -62,9 +62,10 @@ class StartTimeSelectionWidget extends StatelessWidget {
                       label: HatSpaceStrings.current.save,
                       onPressed: () {
                         context
-                            .read<AddInspectionBookingCubit>()
-                            .updateInspectionStartTime(prevInspection.copyWith(
-                                hour: selectedHour, minute: selectedMin));
+                                .read<AddInspectionBookingCubit>()
+                                .inspectionStartTime =
+                            prevInspection.copyWith(
+                                hour: selectedHour, minute: selectedMin);
                         context.pop();
                       },
                     ))

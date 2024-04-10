@@ -24,7 +24,7 @@ class DurationSelectionWidget extends StatelessWidget {
         context: context,
         builder: (_) {
           int? duration =
-              context.read<AddInspectionBookingCubit>().durationTime ?? 15;
+              context.read<AddInspectionBookingCubit>().duration ?? 15;
           return SafeArea(
               child: SingleChildScrollView(
             child: Column(
@@ -67,8 +67,7 @@ class DurationSelectionWidget extends StatelessWidget {
             context.read<AddInspectionBookingCubit>().closeBottomModal());
       }
     }, builder: (context, state) {
-      int? durationTime =
-          context.read<AddInspectionBookingCubit>().durationTime;
+      int? durationTime = context.read<AddInspectionBookingCubit>().duration;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
