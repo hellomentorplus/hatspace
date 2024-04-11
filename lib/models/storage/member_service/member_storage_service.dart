@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hatspace/data/data.dart';
-import 'package:hatspace/models/storage/member_service/inspection_storage_service.dart';
 
 class MemberService {
   final FirebaseFirestore _firestore;
