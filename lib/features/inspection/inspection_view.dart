@@ -513,6 +513,8 @@ class _InspectionStatus extends StatelessWidget {
         backgroundColor = HSColor.red01;
         break;
       default:
+        titleColor = HSColor.black;
+        backgroundColor = HSColor.black;
     }
     return Container(
         padding: const EdgeInsets.symmetric(

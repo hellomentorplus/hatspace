@@ -46,13 +46,7 @@ class InspectionCubit extends Cubit<InspectionState> {
         //   1,
         // ));
       } else {
-        // tenant
-        /**
-         * TODO: 
-         * - delete comment 
-         * - handle get user booked property list logic here
-         * 
-         */
+        // tenant role only
         // Get inspection list
         Inspection? inspection;
         Property? property;
@@ -63,7 +57,7 @@ class InspectionCubit extends Cubit<InspectionState> {
               await _storageService.inspection.getInspectionById(inspectionId);
           if (inspection != null) {
             property = await _storageService.property
-                .getProperty(inspection!.propertyId);
+                .getProperty(inspection.propertyId);
             userDetail =
                 await _storageService.member.getUserDetail(property!.ownerUid);
           }

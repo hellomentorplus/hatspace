@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/inspection/inspection_view.dart';
 import 'package:hatspace/features/inspection/viewmodel/display_item.dart';
@@ -133,18 +134,18 @@ void main() {
     List<DisplayItem> items = [Header()];
     items.add(NumberOfInspectionItem(1));
     items.add(TenantBookingItem(
-      '1',
-      'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
-      'Green living space in Melbourne',
-      PropertyTypes.apartment,
-      4800,
-      Currency.aud,
-      'pw',
-      AustraliaStates.vic,
-      '09:00 AM - 10:00 AM - 15 Sep, 2023',
-      'Yolo Tim',
-      null,
-    ));
+        '1',
+        'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
+        'Green living space in Melbourne',
+        PropertyTypes.apartment,
+        4800,
+        Currency.aud,
+        'pw',
+        AustraliaStates.vic,
+        '09:00 AM - 10:00 AM - 15 Sep, 2023',
+        'Yolo Tim',
+        InspectionStatus.confirming,
+        'avatar'));
     when(inspectionCubit.state).thenReturn(InspectionLoaded(items));
     when(memberService.getUserRoles('uid'))
         .thenAnswer((_) => Future.value([Roles.tenant]));
@@ -210,6 +211,8 @@ void main() {
 
     when(memberService.getUserRoles('uid'))
         .thenAnswer((_) => Future.value([Roles.homeowner, Roles.tenant]));
+    when(memberService.getInspectionList('uid'))
+        .thenAnswer((_) => Future.value([]));
 
     await mockNetworkImagesFor(() =>
         widgetTester.blocWrapAndPump<InspectionCubit>(

@@ -20,7 +20,9 @@ import 'inspection_cubit_test.mocks.dart';
   AuthenticationService,
   MemberService,
   InpsectionService,
-  PropertyService
+  PropertyService,
+  Inspection,
+  Property
 ])
 @GenerateNiceMocks([MockSpec<UserDetail>()])
 void main() {
@@ -52,21 +54,49 @@ void main() {
       act: (bloc) => bloc.getUserRole(),
       expect: () => [isA<GetUserRolesFailed>()]);
 
-  // TODO: Remove comment when implement business logic of getting booked inspection list
-  // blocTest<InspectionCubit, InspectionState>(
-  //     'given authentication service can get user detail. '
-  //     'when get user role from Authentication service. '
-  //     'then return InspectionLoaded.',
-  //     build: () => InspectionCubit(),
-  //     setUp: () {
-  //       final MockUserDetail mockUser = MockUserDetail();
-  //       when(authenticationService.getCurrentUser())
-  //           .thenAnswer((_) => Future.value(mockUser));
-  //       when(memberService.getUserRoles(mockUser.uid))
-  //           .thenAnswer((_) => Future.value(Roles.values));
-  //     },
-  //     act: (bloc) => bloc.getUserRole(),
-  //     expect: () => [isA<InspectionLoaded>()]);
+  blocTest<InspectionCubit, InspectionState>(
+      'given authentication service can get user detail. '
+      'when get user role from Authentication service. '
+      'when user role is TENANT ONLY'
+      'then return InspectionLoaded.',
+      build: () => InspectionCubit(),
+      setUp: () {
+        final MockUserDetail mockUser = MockUserDetail();
+        when(authenticationService.getCurrentUser())
+            .thenAnswer((_) => Future.value(mockUser));
+        when(memberService.getUserRoles(mockUser.uid))
+            .thenAnswer((_) => Future.value([Roles.tenant]));
+        when(memberService.getInspectionList(mockUser.uid))
+            .thenAnswer((realInvocation) => Future.value(['iId1']));
+        when(inpsectionService.getInspectionById('iId1')).thenAnswer((_) =>
+            Future.value(Inspection(
+                propertyId: 'pId',
+                startTime: DateTime(2011, 1, 1, 1, 1),
+                endTime: DateTime(2011, 1, 2, 3, 4),
+                createdBy: 'uid')));
+        when(propertyService.getProperty('pId')).thenAnswer((_) => Future.value(
+            Property(
+                type: PropertyTypes.house,
+                name: 'mock name',
+                price: Price(currency: Currency.aud, rentPrice: 1000),
+                description: 'mock description',
+                address: const AddressDetail(
+                    streetName: 'streetName',
+                    streetNo: 'streetNo',
+                    postcode: '3172',
+                    suburb: 'suburb',
+                    state: AustraliaStates.act),
+                additionalDetail: const AdditionalDetail(),
+                photos: ['photo1'],
+                minimumRentPeriod: MinimumRentPeriod.eighteenMonths,
+                location: const GeoPoint(90.0, 90.0),
+                availableDate: Timestamp.now(),
+                ownerUid: 'oid')));
+        when(memberService.getUserDetail('oid')).thenAnswer(
+            (realInvocation) => Future.value(UserDetail(uid: 'uid')));
+      },
+      act: (bloc) => bloc.getUserRole(),
+      expect: () => [isA<InspectionLoaded>()]);
 
   blocTest<InspectionCubit, InspectionState>(
       'given authentication service can get user detail. '
@@ -80,6 +110,8 @@ void main() {
             .thenAnswer((_) => Future.value(mockUser));
         when(memberService.getUserRoles(mockUser.uid))
             .thenAnswer((_) => Future.value(Roles.values));
+        when(memberService.getInspectionList(mockUser.uid))
+            .thenAnswer((realInvocation) => Future.value([]));
       },
       act: (bloc) => bloc.getUserRole(),
       expect: () => [isA<NoBookedInspection>()]);
