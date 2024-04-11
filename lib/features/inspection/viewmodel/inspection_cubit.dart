@@ -8,6 +8,7 @@ import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/strings/l10n.dart';
 
 part 'inspection_state.dart';
 
@@ -28,23 +29,26 @@ class InspectionCubit extends Cubit<InspectionState> {
           await _storageService.member.getInspectionList(user.uid);
       List<DisplayItem> items = [Header()];
       if (roles.contains(Roles.homeowner)) {
-        /**
-         * TODO: 
-         * - delete comment 
-         * - handle get user booked property list logic here
-         * 
-         */
-        // items.add(HomeOwnerBookingItem(
-        //   '1',
-        //   'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
-        //   'Green living space in Melbourne',
-        //   PropertyTypes.apartment,
-        //   4800,
-        //   Currency.aud,
-        //   'pw',
-        //   AustraliaStates.vic,
-        //   1,
-        // ));
+        // Homeowner role only
+        // Get homeower properties
+        final List<String> propertyIdList =
+            await _storageService.member.getMemberProperties(user.uid);
+        for (String pId in propertyIdList) {
+          Property? newProperty =
+              await _storageService.property.getProperty(pId);
+          if (newProperty != null) {
+            items.add(HomeOwnerBookingItem(
+                newProperty.id!,
+                newProperty.photos[0],
+                newProperty.name,
+                newProperty.type,
+                newProperty.price.rentPrice,
+                newProperty.price.currency,
+                HatSpaceStrings.current.pw, // TODO: HANDLING
+                newProperty.address.state,
+                newProperty.inspectionList.length));
+          }
+        }
       } else {
         // tenant role only
         // Get inspection list

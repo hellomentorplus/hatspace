@@ -45,7 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m6(count) => "Maximum ${count} characters";
 
   static String m7(number) =>
-      "${Intl.plural(number, one: '1 Booking', other: ' ${number} Bookings')}";
+      "${Intl.plural(number, zero: '0 Booking', one: '1 Booking', other: ' ${number} Bookings')}";
 
   static String m8(number) => "${number} inspection booking";
 

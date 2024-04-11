@@ -1822,10 +1822,11 @@ class HatSpaceStrings {
     );
   }
 
-  /// `{number, plural, one{1 Booking} other { {number} Bookings}}`
+  /// `{number, plural,zero{0 Booking} one{1 Booking} other { {number} Bookings}}`
   String numberOfBooking(num number) {
     return Intl.plural(
       number,
+      zero: '0 Booking',
       one: '1 Booking',
       other: ' $number Bookings',
       name: 'numberOfBooking',

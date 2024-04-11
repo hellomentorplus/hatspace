@@ -211,7 +211,7 @@
   "bookingInspectionSuccessTitle":"🎉 Congratulations!",
   "addToGoolgeCalendar": "Add to Goolge Calendar",
   "numberOfInspectionBooking": "{number} inspection booking",
-  "numberOfBooking": "{number, plural, one{1 Booking} other { {number} Bookings}}",
+  "numberOfBooking": "{number, plural,zero{0 Booking} one{1 Booking} other { {number} Bookings}}",
   "defaultUserDisplayName":"User{datetime}",
   "@defaultUserDisplayName": {
     "placeholders": {
