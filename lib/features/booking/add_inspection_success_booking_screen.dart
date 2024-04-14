@@ -164,7 +164,7 @@ class AddInspectionSuccessBody extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                             color: HSColor.neutral5)),
                     const SizedBox(height: HsDimens.spacing4),
-                    Text(state.inspection.message)
+                    Text(state.inspection.message ?? '')
                   ],
                 ),
               ),

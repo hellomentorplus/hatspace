@@ -75,12 +75,12 @@ void main() async {
       availableDate: Timestamp.fromDate(DateTime(2023, 10, 22)),
       ownerUid: 'ownerUid');
   Inspection inspection = Inspection(
+      inspectionId: 'iId',
       propertyId: 'pId',
       message: '',
       startTime: DateTime(2011, 1, 1, 1, 1),
       endTime: DateTime(2011, 1, 2, 3, 4),
       createdBy: 'uid');
-  inspection.inspectionId = 'iId';
   final UserDetail userDetail =
       UserDetail(uid: 'uId', avatar: '', displayName: '');
   setUpAll(() async {
