@@ -18,6 +18,7 @@ class InspectionCubit extends Cubit<InspectionState> {
       HsSingleton.singleton.get<StorageService>();
   final AuthenticationService _authenticationService =
       HsSingleton.singleton.get<AuthenticationService>();
+  final int thresholdValue = 3;
 
   void getUserRole() async {
     try {
@@ -52,6 +53,7 @@ class InspectionCubit extends Cubit<InspectionState> {
         Property? property;
         UserDetail? userDetail;
         items.add(NumberOfInspectionItem(inspectionIdList.length));
+        int count = 0;
         for (String inspectionId in inspectionIdList) {
           inspection =
               await _storageService.inspection.getInspectionById(inspectionId);
@@ -62,7 +64,7 @@ class InspectionCubit extends Cubit<InspectionState> {
                 await _storageService.member.getUserDetail(property!.ownerUid);
           }
           if (property != null) {
-            items.add(TenantBookingItem(
+            TenantBookingItem bookingItem = TenantBookingItem(
                 inspectionId,
                 property.photos[0],
                 property.name,
@@ -74,7 +76,13 @@ class InspectionCubit extends Cubit<InspectionState> {
                 inspection!.getRentingTime(),
                 userDetail!.displayName,
                 inspection.status,
-                userDetail.avatar));
+                userDetail.avatar);
+            items.add(bookingItem);
+            count++;
+            if (count == thresholdValue) {
+              emit(InspectionLoaded(List.from(items)));
+              count = 0;
+            }
           }
         }
       }
@@ -82,7 +90,7 @@ class InspectionCubit extends Cubit<InspectionState> {
       if (inspectionIdList.isEmpty) {
         emit(NoBookedInspection());
       } else {
-        emit(InspectionLoaded(items));
+        emit(InspectionLoaded(List.from(items)));
       }
     } catch (e) {
       emit(GetUserRolesFailed());
