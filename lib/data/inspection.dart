@@ -14,14 +14,14 @@ enum InspectionStatus {
 }
 
 class Inspection {
-  String? inspectionId;
-  String propertyId;
-  DateTime startTime;
-  DateTime endTime;
-  String message;
-  InspectionStatus status;
-  DateTime createdDate = DateTime.now();
-  String createdBy;
+  final String? inspectionId;
+  final String propertyId;
+  final DateTime startTime;
+  final DateTime endTime;
+  final String? message;
+  final InspectionStatus status;
+  final DateTime createdDate = DateTime.now();
+  final String createdBy;
   Inspection(
       {required this.propertyId,
       required this.startTime,
