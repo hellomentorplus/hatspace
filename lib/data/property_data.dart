@@ -265,6 +265,10 @@ class Property {
   }
 
   static Property convertMapToObject(String id, Map<String, dynamic> map) {
+    List<String> inspectionList = [];
+    if (map[PropKeys.inspectionList] != null) {
+      inspectionList = List<String>.from(map[PropKeys.inspectionList]);
+    }
     return Property(
         id: id,
         type: PropertyTypes.fromName(map[PropKeys.type]),
@@ -282,7 +286,7 @@ class Property {
         createdTime: map[PropKeys.createdAt],
         availableDate: map[PropKeys.availableDate],
         ownerUid: map[PropKeys.owner],
-        inspectionList: map[PropKeys.inspectionList]);
+        inspectionList: inspectionList);
   }
 }
 

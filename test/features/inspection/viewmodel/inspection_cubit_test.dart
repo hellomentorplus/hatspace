@@ -150,4 +150,50 @@ void main() {
       },
       act: (bloc) => bloc.getInspection('iId'),
       expect: () => [isA<InspectionItem>()]);
+
+  blocTest<InspectionCubit, InspectionState>(
+      'given authentication service can get user detail. '
+      'when get user role from Authentication service. '
+      'when user role is HOMEOWNER ONLY'
+      'then return InspectionLoaded.',
+      build: () => InspectionCubit(),
+      setUp: () {
+        final MockUserDetail mockUser = MockUserDetail();
+        when(authenticationService.getCurrentUser())
+            .thenAnswer((_) => Future.value(mockUser));
+        when(memberService.getUserRoles(mockUser.uid))
+            .thenAnswer((_) => Future.value([Roles.homeowner]));
+        when(memberService.getInspectionList(mockUser.uid))
+            .thenAnswer((realInvocation) => Future.value(['iId1']));
+        when(inpsectionService.getInspectionById('iId1')).thenAnswer((_) =>
+            Future.value(Inspection(
+                propertyId: 'pId',
+                startTime: DateTime(2011, 1, 1, 1, 1),
+                endTime: DateTime(2011, 1, 2, 3, 4),
+                createdBy: 'uid')));
+        when(memberService.getMemberProperties(mockUser.uid))
+            .thenAnswer((realInvocation) => Future.value(['pId1']));
+
+        when(propertyService.getProperty('pId1')).thenAnswer((_) =>
+            Future.value(Property(
+                id: 'pId1',
+                type: PropertyTypes.house,
+                name: 'mock name',
+                price: Price(currency: Currency.aud, rentPrice: 1000),
+                description: 'mock description',
+                address: const AddressDetail(
+                    streetName: 'streetName',
+                    streetNo: 'streetNo',
+                    postcode: '3172',
+                    suburb: 'suburb',
+                    state: AustraliaStates.act),
+                additionalDetail: const AdditionalDetail(),
+                photos: ['photo1'],
+                minimumRentPeriod: MinimumRentPeriod.eighteenMonths,
+                location: const GeoPoint(90.0, 90.0),
+                availableDate: Timestamp.now(),
+                ownerUid: 'oid')));
+      },
+      act: (bloc) => bloc.getUserRole(),
+      expect: () => [isA<InspectionLoaded>()]);
 }
