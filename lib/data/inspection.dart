@@ -42,6 +42,7 @@ class Inspection {
       'createdBy': createdBy
     };
   }
+
   Inspection convertToObject(Map<String, dynamic> data) {
     return Inspection(
         propertyId: data['propertyId'],

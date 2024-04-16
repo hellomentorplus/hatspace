@@ -13,6 +13,7 @@ class InpsectionService {
     await documentReference.set(inspection.convertToMap());
     return documentReference.id;
   }
+
   Future<Inspection?> getInspectionById(String inspectionId) async {
     DocumentSnapshot<Map<String, dynamic>> inspectionRef = await _firestore
         .collection(inspectionCollection)
@@ -25,16 +26,15 @@ class InpsectionService {
     // When data is not exits
     if (data == null) {
       return null;
-    } else {
-      Inspection inspection = Inspection(
-          inspectionId: inspectionId,
-          propertyId: data['propertyId'],
-          startTime: (data['startTime'] as Timestamp).toDate(),
-          status: InspectionStatus.fromName(data['inspectionStatus']),
-          message: data['message'],
-          endTime: (data['endTime'] as Timestamp).toDate(),
-          createdBy: data['createdBy']);
-      return inspection;
     }
+    final Inspection inspection = Inspection(
+        inspectionId: inspectionId,
+        propertyId: data['propertyId'],
+        startTime: (data['startTime'] as Timestamp).toDate(),
+        status: InspectionStatus.fromName(data['inspectionStatus']),
+        message: data['message'],
+        endTime: (data['endTime'] as Timestamp).toDate(),
+        createdBy: data['createdBy']);
+    return inspection;
   }
 }
