@@ -7,7 +7,9 @@ import 'package:hatspace/features/property_detail/view_model/property_detail_int
 import 'package:hatspace/features/property_detail/view_model/property_detail_interaction_state.dart';
 import 'package:hatspace/models/authentication/authentication_exception.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/member_service/inspection_storage_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
+import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -17,7 +19,13 @@ import 'package:mockito/mockito.dart';
 
 import 'add_inspection_cubit_test.mocks.dart';
 
-@GenerateMocks([MemberService, AuthenticationService, StorageService])
+@GenerateMocks([
+  MemberService,
+  AuthenticationService,
+  StorageService,
+  InpsectionService,
+  PropertyService
+])
 void main() async {
   HatSpaceStrings.load(const Locale('en'));
   initializeDateFormatting();
@@ -25,18 +33,23 @@ void main() async {
       MockAuthenticationService();
   final MockStorageService storageServiceMock = MockStorageService();
   final MockMemberService mockMemberService = MockMemberService();
+  final MockInpsectionService mockInpsectionService = MockInpsectionService();
+  final MockPropertyService mockPropertyService = MockPropertyService();
+
   setUpAll(() async {
     HsSingleton.singleton
         .registerSingleton<AuthenticationService>(authenticationServiceMock);
     HsSingleton.singleton.registerSingleton<StorageService>(storageServiceMock);
     when(storageServiceMock.member).thenReturn(mockMemberService);
+    when(storageServiceMock.inspection).thenReturn(mockInpsectionService);
+    when(storageServiceMock.property).thenReturn(mockPropertyService);
   });
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
       'Given user is booking an inspection'
       'When user already had tenant role'
       'When user already had phone number'
-      'Then return SuccessBookInspection',
+      'Then expect BookingInspectionSuccess',
       build: () => AddInspectionBookingCubit(),
       setUp: () {
         when(authenticationServiceMock.getCurrentUser())
@@ -50,9 +63,23 @@ void main() async {
         when(mockMemberService.getMemberPhoneNumber('uid')).thenAnswer(
             (realInvocation) => Future.value(PhoneNumber(
                 countryCode: PhoneCode.au, phoneNumber: '0123456789')));
+        when(mockInpsectionService.addInspection(any))
+            .thenAnswer((realInvocation) => Future.value('insId'));
+        when(mockMemberService.addBookedInspection('insId', 'uid'))
+            .thenAnswer((realInvocation) => Future.value());
+        when(mockPropertyService.addBookedInspection('insId', 'id'))
+            .thenAnswer((realInvocation) => Future.value());
       },
-      act: (bloc) => bloc.onBookInspection(),
-      expect: () => [BookingInspectionSuccess()]);
+      act: (bloc) {
+        bloc.inspectionStartTime = DateTime(2011, 1, 1, 1, 1);
+        bloc.duration = 15;
+        bloc.onBookInspection('uid');
+      },
+      expect: () => [
+            CloseStartTimeRequestMessage(),
+            BookInspectionButtonEnable(),
+            BookingInspectionSuccess()
+          ]);
 
   blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
     'when trigger navigate to booking inspection'
@@ -100,9 +127,23 @@ void main() async {
         when(mockMemberService.getMemberPhoneNumber('uid')).thenAnswer(
             (realInvocation) => Future.value(PhoneNumber(
                 countryCode: PhoneCode.au, phoneNumber: '0123456789')));
+        when(mockInpsectionService.addInspection(any))
+            .thenAnswer((realInvocation) => Future.value('insId'));
+        when(mockMemberService.addBookedInspection('insId', 'uid'))
+            .thenAnswer((realInvocation) => Future.value());
+        when(mockPropertyService.addBookedInspection('insId', 'id'))
+            .thenAnswer((realInvocation) => Future.value());
       },
-      act: (bloc) => bloc.onBookInspection(),
-      expect: () => [BookingInspectionSuccess()]);
+      act: (bloc) {
+        bloc.inspectionStartTime = DateTime(2011, 1, 1, 1, 1);
+        bloc.duration = 15;
+        bloc.onBookInspection('uid');
+      },
+      expect: () => [
+            CloseStartTimeRequestMessage(),
+            BookInspectionButtonEnable(),
+            BookingInspectionSuccess()
+          ]);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
       'Given user is booking an inspection'
@@ -119,7 +160,7 @@ void main() async {
           return Future.value([Roles.homeowner]);
         });
       },
-      act: (bloc) => bloc.onBookInspection(),
+      act: (bloc) => bloc.onBookInspection('propertyId'),
       expect: () => []);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -131,7 +172,7 @@ void main() async {
         when(authenticationServiceMock.getCurrentUser())
             .thenThrow(UserNotFoundException());
       },
-      act: (bloc) => bloc.onBookInspection(),
+      act: (bloc) => bloc.onBookInspection('propertyId'),
       verify: (_) => [isA<UserNotFoundException>()]);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -148,7 +189,7 @@ void main() async {
           return Future.value([Roles.homeowner]);
         });
       },
-      act: (bloc) => bloc.onBookInspection(),
+      act: (bloc) => bloc.onBookInspection('propertyId'),
       verify: (bloc) {
         expect(bloc.state is AddInspectionBookingInitial, true);
         expect((bloc.state as AddInspectionBookingInitial).props, []);
@@ -230,7 +271,6 @@ void main() async {
       });
     },
     act: (bloc) {
-      bloc.isStartTimeSelected = false;
       bloc.selectDuration();
     },
     expect: () => [isA<RequestStartTimeSelection>()],
@@ -257,7 +297,7 @@ void main() async {
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
     'Given start time has not been entered'
-    'When run validate startTimeSelection'
+    'When user tab on duration'
     'emit RequestStartTimeSelection',
     build: () => AddInspectionBookingCubit(),
     setUp: () {
@@ -270,10 +310,9 @@ void main() async {
       });
     },
     act: (bloc) {
-      bloc.isStartTimeSelected = false;
-      bloc.updateInspectionStartTime(DateTime(2020, 9, 9, 9, 9));
+      bloc.selectDuration();
     },
-    expect: () => [CloseStartTimeRequestMessage()],
+    expect: () => [RequestStartTimeSelection()],
   );
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -291,12 +330,13 @@ void main() async {
       });
     },
     act: (bloc) {
-      bloc.inspectionStartTime;
-      bloc.isStartTimeSelected = true;
+      // bloc.inspectionStartTime;
+      bloc.inspectionStartTime = DateTime(2022, 1, 1, 1, 1);
       bloc.duration = 15;
       bloc.validateBookingInspectionButton();
     },
-    expect: () => [isA<BookInspectionButtonEnable>()],
+    expect: () =>
+        [CloseStartTimeRequestMessage(), BookInspectionButtonEnable()],
   );
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -336,7 +376,7 @@ void main() async {
               .thenAnswer((realInvocation) => Future.value(null));
         },
         act: (bloc) {
-          bloc.onBookInspection();
+          bloc.onBookInspection('proId');
         },
         expect: () => [isA<ShowUpdateProfileModal>()]);
 
@@ -377,10 +417,11 @@ void main() async {
       });
     },
     act: (bloc) {
-      bloc.isStartTimeSelected = true;
+      bloc.inspectionStartTime = DateTime(2022, 1, 1, 1, 1);
       bloc.selectDuration();
     },
-    expect: () => [isA<ShowDurationSelection>()],
+    expect: () =>
+        [CloseStartTimeRequestMessage(), const ShowDurationSelection(true)],
   );
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
@@ -401,25 +442,5 @@ void main() async {
       bloc.closeBottomModal();
     },
     expect: () => [isA<CloseBottomSheet>()],
-  );
-
-  blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
-    'Given user select date'
-    'When user on save'
-    'Then expect change start time and update date time only',
-    build: () => AddInspectionBookingCubit(),
-    setUp: () {
-      when(authenticationServiceMock.getCurrentUser())
-          .thenAnswer((realInvocation) {
-        return Future.value(UserDetail(uid: 'uid'));
-      });
-      when(mockMemberService.getUserRoles('uid')).thenAnswer((realInvocation) {
-        return Future.value([Roles.tenant, Roles.homeowner]);
-      });
-    },
-    act: (bloc) {
-      bloc.updateInspectionDateOnly(day: 9, month: 9, year: 2020);
-    },
-    expect: () => [],
   );
 }

@@ -110,7 +110,9 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
             });
           }
           if (state is UpdatePhoneNumberSuccessState) {
-            context.pushToBookInspectionSuccessScreen(propertyId: widget.id);
+            context
+                .read<AddInspectionBookingCubit>()
+                .saveBookingInspection(widget.id);
           }
         },
         child: Scaffold(
@@ -138,7 +140,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                                   // TODO: implemnt booking logic
                                   context
                                       .read<AddInspectionBookingCubit>()
-                                      .onBookInspection();
+                                      .onBookInspection(widget.id);
                                 }
                               : null);
                     },
@@ -210,10 +212,7 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                           // Todo: only update date. Do not update time
                           context
                               .read<AddInspectionBookingCubit>()
-                              .updateInspectionDateOnly(
-                                  day: value.day,
-                                  month: value.month,
-                                  year: value.year);
+                              .updateInspectionDateOnly(value);
                           _selectedStartTime.value = _selectedStartTime.value
                               ?.copyWith(
                                   day: value.day,
@@ -275,6 +274,8 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
                       ),
                       onChanged: (value) {
                         _noteChars.value = value.length;
+                        context.read<AddInspectionBookingCubit>().description =
+                            value;
                       },
                     ),
                   ],

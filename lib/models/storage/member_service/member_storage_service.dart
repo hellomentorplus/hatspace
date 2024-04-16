@@ -202,4 +202,10 @@ class MemberService {
         .set({phoneNumberKey: number.convertToMap()}, SetOptions(merge: true));
     return;
   }
+
+  Future<void> addBookedInspection(String inspectionId, String uid) async {
+    await _firestore.collection(memberCollection).doc(uid).update({
+      'inspectionList': FieldValue.arrayUnion([inspectionId])
+    });
+  }
 }

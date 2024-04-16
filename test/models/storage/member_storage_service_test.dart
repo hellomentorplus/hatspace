@@ -249,5 +249,20 @@ void main() {
       }, any))
           .called(1);
     });
+
+    test(
+        'given user add new booked inspection'
+        'when addBookedInspection'
+        'verify update inspection list', () async {
+      when(documentSnapshot.exists).thenReturn(true);
+      when(documentSnapshot.data()).thenReturn({});
+      StorageService storageService = StorageService();
+      await storageService.member.addBookedInspection('id', 'uid');
+      verify(firestore.collection('members')).called(1);
+      verify(collectionReference.doc('uid')).called(1);
+      verify(documentReference.update({
+        'inspectionList': FieldValue.arrayUnion(['id'])
+      })).called(1);
+    });
   });
 }

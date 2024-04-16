@@ -4,6 +4,7 @@ import 'package:hatspace/data/property_data.dart';
 class PropertyService {
   final FirebaseFirestore _firestore;
   final String propertyCollection = 'properties';
+  final String inspectionCollection = 'inspections';
 
   PropertyService(FirebaseFirestore firestore) : _firestore = firestore;
 
@@ -50,5 +51,11 @@ class PropertyService {
     await documentReference.set(property.convertObjectToMap());
 
     return documentReference.id;
+  }
+
+  Future<void> addBookedInspection(String inspectionId, String id) async {
+    await _firestore.collection(propertyCollection).doc(id).update({
+      'inspectionList': FieldValue.arrayUnion([inspectionId])
+    });
   }
 }
