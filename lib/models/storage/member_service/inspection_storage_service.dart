@@ -13,7 +13,6 @@ class InpsectionService {
     await documentReference.set(inspection.convertToMap());
     return documentReference.id;
   }
-
   Future<Inspection?> getInspectionById(String inspectionId) async {
     DocumentSnapshot<Map<String, dynamic>> inspectionRef = await _firestore
         .collection(inspectionCollection)

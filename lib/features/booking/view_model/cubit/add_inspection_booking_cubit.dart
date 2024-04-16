@@ -141,6 +141,7 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
       await storageService.property.addBookedInspection(inspectionId,
           propertyId); // add inspection to property inspection list
       emit(BookingInspectionSuccess(inspectionId: inspectionId));
+
     } catch (e) {
       emit(BookingInspectionFail());
     }

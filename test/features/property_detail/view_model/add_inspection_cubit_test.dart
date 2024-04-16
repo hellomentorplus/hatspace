@@ -79,6 +79,7 @@ void main() async {
             CloseStartTimeRequestMessage(),
             BookInspectionButtonEnable(),
             const BookingInspectionSuccess(inspectionId: 'insId')
+
           ]);
 
   blocTest<PropertyDetailInteractionCubit, PropertyDetailInteractionState>(
@@ -143,6 +144,7 @@ void main() async {
             CloseStartTimeRequestMessage(),
             BookInspectionButtonEnable(),
             const BookingInspectionSuccess(inspectionId: 'insId')
+
           ]);
 
   blocTest<AddInspectionBookingCubit, AddInspectionBookingState>(
