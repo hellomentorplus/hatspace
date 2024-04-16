@@ -1,19 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatspace/features/inspection/viewmodel/inspection_cubit.dart';
 import 'package:hatspace/features/inspection_confirmation_detail/inspection_confirmation_detail_screen.dart';
 import 'package:hatspace/features/inspection_detail/inspection_detail_screen.dart';
 import 'package:hatspace/features/inspection_detail/widgets/inspection_information_view.dart';
+import 'package:hatspace/models/authentication/authentication_service.dart';
+import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
+import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
+import 'package:hatspace/models/storage/storage_service.dart';
+import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_buttons.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 import '../../widget_tester_extension.dart';
+import './inspection_confirmation_detail_screen_test.mocks.dart';
 
+@GenerateMocks([
+  InspectionCubit,
+  StorageService,
+  MemberService,
+  PropertyService,
+  AuthenticationService,
+])
 void main() {
+  final MockAuthenticationService authenticationService =
+      MockAuthenticationService();
+  final MockStorageService storageService = MockStorageService();
+  final MockInspectionCubit inspectionCubit = MockInspectionCubit();
+  final MockMemberService memberService = MockMemberService();
+  final MockPropertyService propertyService = MockPropertyService();
+
   setUpAll(() {
+    HsSingleton.singleton.registerSingleton<StorageService>(storageService);
+    HsSingleton.singleton
+        .registerSingleton<AuthenticationService>(authenticationService);
     HatSpaceStrings.load(const Locale('en'));
     initializeDateFormatting();
+  });
+  setUp(() {
+    when(storageService.member).thenReturn(memberService);
+    when(storageService.property).thenReturn(propertyService);
+    when(inspectionCubit.state).thenReturn(InspectionInitial());
+    when(inspectionCubit.stream).thenAnswer(
+      (realInvocation) => const Stream.empty(),
+    );
+
+    // when(authenticationService.getCurrentUser())
+    //     .thenAnswer((realInvocation) => Future.value(UserDetail(uid: 'uid')));
   });
   testWidgets('Verify UI', (widgetTester) async {
     await mockNetworkImagesFor(() => widgetTester
@@ -46,8 +83,13 @@ void main() {
       'When user tap on BackButton. '
       'Then user will be navigated out of BookingDetailScreen, back to previous screen which is InspectionScreen',
       (widgetTester) async {
-    await mockNetworkImagesFor(() =>
-        widgetTester.wrapAndPump(const InspectionDetailScreen(id: '123')));
+    // await mockNetworkImagesFor(() =>
+    //     widgetTester.wrapAndPump(const InspectionDetailScreen(id: '123')));
+    await mockNetworkImagesFor(() => widgetTester.blocWrapAndPump(
+        InspectionCubit(),
+        const InspectionDetailScreen(
+          id: '123',
+        )));
 
     expect(find.byType(InspectionDetailScreen), findsOneWidget);
 

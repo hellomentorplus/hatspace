@@ -1,13 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:hatspace/data/property_data.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
+import 'package:hatspace/features/inspection/viewmodel/inspection_cubit.dart';
 import 'package:hatspace/features/inspection_detail/widgets/inspection_information_view.dart';
 import 'package:hatspace/strings/l10n.dart';
 import 'package:hatspace/theme/widgets/hs_appbar.dart';
 
 class InspectionDetailScreen extends StatelessWidget {
   final String id;
+
   const InspectionDetailScreen({required this.id, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return BlocProvider<InspectionCubit>(
+      create: (context) => InspectionCubit()..getInspection(id),
+      child: InspectionDetailBody(
+        id: id,
+      ),
+    );
+  }
+}
+
+class InspectionDetailBody extends StatelessWidget {
+  final String id;
+  const InspectionDetailBody({required this.id, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,23 +50,30 @@ class InspectionDetailScreen extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           SingleChildScrollView(
-            child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: HsDimens.spacing16),
-                child: InspectionInformationView(
-                    propertyImageUrl:
-                        'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
-                    propertyTitle: 'Green living space in Melbourne',
-                    propertyPrice: 4800,
-                    propertyState: 'Victoria',
-                    propertySymbol: r'$',
-                    userName: 'Yolo Tim',
-                    type: PropertyTypes.apartment,
-                    startTime: DateTime(2023, 9, 15, 9),
-                    endTime: DateTime(2023, 9, 15, 10),
-                    rentingDuration: HatSpaceStrings.current.pw,
-                    notes: 'My number is 0438825121')),
-          ),
+              child: BlocBuilder<InspectionCubit, InspectionState>(
+            builder: (context, state) {
+              if (state is InspectionItem) {
+                return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: HsDimens.spacing16),
+                    child: InspectionInformationView(
+                        propertyImageUrl: state.property.photos[0],
+                        propertyTitle: state.property.name,
+                        propertyState: state.property.address.state.displayName,
+                        propertyPrice: state.property.price.rentPrice,
+                        propertySymbol: r'$',
+                        type: state.property.type,
+                        userName: state.userDetail.displayName ?? '',
+                        userAvatar: state.userDetail.avatar,
+                        startTime: state.inspection.startTime,
+                        endTime: state.inspection.endTime,
+                        notes: state.inspection.message,
+                        rentingDuration: HatSpaceStrings.current.pw));
+              }
+              // TODO: Handler Widget when emit error state
+              return const SizedBox.shrink();
+            },
+          )),
           // TODO : Enable later when implement edit feature
           // Positioned(
           //     bottom: 0,
