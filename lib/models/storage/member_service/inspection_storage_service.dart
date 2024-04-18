@@ -27,14 +27,7 @@ class InpsectionService {
     if (data == null) {
       return null;
     }
-    final Inspection inspection = Inspection(
-        inspectionId: inspectionId,
-        propertyId: data['propertyId'],
-        startTime: (data['startTime'] as Timestamp).toDate(),
-        status: InspectionStatus.fromName(data['inspectionStatus']),
-        message: data['message'],
-        endTime: (data['endTime'] as Timestamp).toDate(),
-        createdBy: data['createdBy']);
+    final Inspection inspection = Inspection.convertToObject(data);
     return inspection;
   }
 }

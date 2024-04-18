@@ -14,6 +14,13 @@ enum InspectionStatus {
 }
 
 class Inspection {
+  static const inspectionIdKey = 'inspectionIdKey';
+  static const propertyIdKey = 'propertyId';
+  static const startTimeKey = 'startTime';
+  static const inspectionStatusKey = 'inspectionStatus';
+  static const messageKey = 'message';
+  static const endTimeKey = 'endTime';
+  static const createdByKey = 'createdBy';
   final String? inspectionId;
   final String propertyId;
   final DateTime startTime;
@@ -43,13 +50,14 @@ class Inspection {
     };
   }
 
-  Inspection convertToObject(Map<String, dynamic> data) {
+  static Inspection convertToObject(Map<String, dynamic> data) {
     return Inspection(
-        propertyId: data['propertyId'],
-        startTime: (data['startTime'] as Timestamp).toDate(),
-        status: InspectionStatus.fromName(data['inspectionStatus']),
-        message: data['message'],
-        endTime: (data['endTime'] as Timestamp).toDate(),
-        createdBy: data['createdBy']);
+        inspectionId: data[inspectionIdKey],
+        propertyId: data[propertyIdKey],
+        startTime: (data[startTimeKey] as Timestamp).toDate(),
+        status: InspectionStatus.fromName(data[inspectionStatusKey]),
+        message: data[messageKey],
+        endTime: (data[endTimeKey] as Timestamp).toDate(),
+        createdBy: data[createdByKey]);
   }
 }

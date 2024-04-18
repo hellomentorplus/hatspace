@@ -105,7 +105,7 @@ void main() async {
   group('Booking inspection success test cases', () {
     testWidgets('Verify booking inspection success UI ', (widgetTester) async {
       Widget addInspectionSuccessScreen =
-          const AddInspectionSuccessBody(inspecitonId: 'iId');
+          const AddInspectionSuccessBody(inspectionId: 'iId');
       await mockNetworkImagesFor(() =>
           widgetTester.blocWrapAndPump<InspectionCubit>(
               inspectionCubit, addInspectionSuccessScreen));
@@ -121,7 +121,7 @@ void main() async {
         'Given user tap on close icon'
         'Then close success screen', (widgetTester) async {
       Widget addInspectionSuccessScreen = const AddInspectionSuccessBody(
-        inspecitonId: 'iId',
+        inspectionId: 'iId',
       );
       final List<BlocProvider> providers = [
         BlocProvider<PropertyDetailCubit>(
