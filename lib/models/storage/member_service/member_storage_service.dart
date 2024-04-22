@@ -226,7 +226,6 @@ class MemberService {
         displayName: data[displayNameKey],
         avatar: data[avatarKey]);
   }
-
   Future<List<String>> getInspectionList(String uid) async {
     DocumentSnapshot<Map<String, dynamic>> rolesRef = await _firestore
         .collection(memberCollection)
@@ -254,4 +253,5 @@ class MemberService {
       return [];
     }
   }
+
 }

@@ -26,8 +26,6 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
           await storageService.member.getMemberPhoneNumber(user.uid);
       if (userRole.contains(Roles.tenant)) {
         if (phoneNumber == null) {
-          // Always set phoneNo string = null when open modal
-          //  _phoneNo = null;
           return emit(ShowUpdateProfileModal());
         }
         saveBookingInspection(propertyId);
@@ -45,7 +43,6 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
   int? _duration;
   bool _isStartTimeSelected = false;
   DateTime? _inspectionEndTime;
-  // String? _phoneNo;
   String _description = '';
 
   set inspectionStartTime(DateTime? startTime) {
@@ -76,15 +73,6 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
 
   DateTime? get inspectionEndTime => _inspectionEndTime;
 
-  //set phoneNo (String? phoneNo) => _phoneNo = phoneNo;
-
-  // void updateInspectionDateOnly(
-  //     {required int day, required int month, required int year}) {
-  //   _inspectionStartTime =
-  //       _inspectionStartTißme?.copyWith(day: day, year: year, month: month);
-  //   validateBookingInspectionButton();
-  // }
-
   void updateInspectionDateOnly(DateTime dateTime) {
     if (!_isStartTimeSelected) {
       _inspectionStartTime = dateTime.copyWith(hour: 9, minute: 0);
@@ -95,16 +83,9 @@ class AddInspectionBookingCubit extends Cubit<AddInspectionBookingState> {
     validateBookingInspectionButton();
   }
 
-  // void updateInspectionStartTime(DateTime newDateTime) {
-  //   _isStartTimeSelected = true;
-  //   _inspectionStartTime = newDateTime;
-  //   emit(CloseStartTimeRequestMessage());
-  //   validateBookingInspectionButton();
-  // }
 
   void validateBookingInspectionButton() {
-    // TO DO: Add duration to validation
-    if (_isStartTimeSelected && duration != null) {
+    if (_isStartTimeSelected && _duration != null) {
       emit(BookInspectionButtonEnable());
     }
   }

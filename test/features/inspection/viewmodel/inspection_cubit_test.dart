@@ -23,6 +23,7 @@ import 'inspection_cubit_test.mocks.dart';
   PropertyService,
   Inspection,
   Property
+
 ])
 @GenerateNiceMocks([MockSpec<UserDetail>()])
 void main() {
