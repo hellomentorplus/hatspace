@@ -47,4 +47,24 @@ void main() {
     verify(collectionReference.doc()).called(1);
     verify(documentReference.set(mockInspection.convertToMap(), any)).called(1);
   });
+  test('verify when get inspection has data', () async {
+    StorageService storageService = StorageService();
+    when(documentSnapshot.exists).thenAnswer((realInvocation) => true);
+    when(documentSnapshot.data()).thenAnswer((realInvocation) => {
+          'propertyId': 'pId',
+          'startTime': Timestamp(9999, 9999),
+          'inspectionStatus': InspectionStatus.confirming.name,
+          'message': 'mock message',
+          'endTime': Timestamp(9999, 9999),
+          'createdBy': 'uId'
+        });
+
+    final result = await storageService.inspection.getInspectionById('iId');
+    expect(result!.propertyId, 'pId');
+    expect(result.startTime, Timestamp(9999, 9999).toDate());
+    expect(result.status, InspectionStatus.confirming);
+    expect(result.message, 'mock message');
+    expect(result.endTime, Timestamp(9999, 9999).toDate());
+    expect(result.createdBy, 'uId');
+  });
 }

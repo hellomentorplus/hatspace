@@ -83,7 +83,8 @@ class _AddInspectionBookingBody extends State<AddInspectionBookingBody> {
     return BlocListener<AddInspectionBookingCubit, AddInspectionBookingState>(
         listener: (context, state) {
           if (state is BookingInspectionSuccess) {
-            context.pushToBookInspectionSuccessScreen(propertyId: widget.id);
+            context.pushToBookInspectionSuccessScreen(
+                inspectionId: state.inspectionId);
           }
           if (state is ShowUpdateProfileModal) {
             showModalBottomSheet(

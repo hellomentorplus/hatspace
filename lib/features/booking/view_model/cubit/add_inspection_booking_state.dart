@@ -10,8 +10,10 @@ class AddInspectionBookingState extends Equatable {
 class AddInspectionBookingInitial extends AddInspectionBookingState {}
 
 class BookingInspectionSuccess extends AddInspectionBookingState {
+  final String inspectionId;
+  const BookingInspectionSuccess({required this.inspectionId});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [inspectionId];
 }
 
 class ShowStartTimeSelection extends AddInspectionBookingState {}

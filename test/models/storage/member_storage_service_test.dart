@@ -264,5 +264,16 @@ void main() {
         'inspectionList': FieldValue.arrayUnion(['id'])
       })).called(1);
     });
+    test('verify getUserDetailById api', () async {
+      when(documentSnapshot.exists).thenReturn(true);
+      when(documentSnapshot.data()).thenAnswer((realInvocation) => {
+            'displayName': 'mock display name',
+            'avatar': 'mock avatar',
+          });
+      StorageService storageService = StorageService();
+      final result = await storageService.member.getUserDetail('uid');
+      expect(result!.displayName, 'mock display name');
+      expect(result.avatar, 'mock avatar');
+    });
   });
 }
