@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-
 enum InspectionStatus {
   confirming,
   denied,
@@ -52,10 +51,11 @@ class Inspection {
     };
   }
 
-
   String getRentingTime() {
     //   '09:00 AM - 10:00 AM - 15 Sep, 2023',
     return '${DateFormat('hh:mm a').format(startTime)} - ${DateFormat('hh:mm a').format(endTime)} - ${DateFormat('d MMM, yyyy ').format(startTime)}';
+  }
+
   static Inspection convertToObject(Map<String, dynamic> data) {
     return Inspection(
         inspectionId: data[inspectionIdKey],
@@ -65,6 +65,5 @@ class Inspection {
         message: data[messageKey],
         endTime: (data[endTimeKey] as Timestamp).toDate(),
         createdBy: data[createdByKey]);
-
   }
 }
