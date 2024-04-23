@@ -18,12 +18,15 @@ class InspectionCubit extends Cubit<InspectionState> {
       HsSingleton.singleton.get<StorageService>();
   final AuthenticationService _authenticationService =
       HsSingleton.singleton.get<AuthenticationService>();
+  final int thresholdValue = 3;
 
   void getUserRole() async {
     try {
       final UserDetail user = await _authenticationService.getCurrentUser();
       final List<Roles> roles =
           await _storageService.member.getUserRoles(user.uid);
+      final List<String> inspectionIdList =
+          await _storageService.member.getInspectionList(user.uid);
       List<DisplayItem> items = [Header()];
       if (roles.contains(Roles.homeowner)) {
         /**
@@ -44,59 +47,45 @@ class InspectionCubit extends Cubit<InspectionState> {
         //   1,
         // ));
       } else {
-        // tenant
-        /**
-         * TODO: 
-         * - delete comment 
-         * - handle get user booked property list logic here
-         * 
-         */
-        // items.add(NumberOfInspectionItem(3));
-        // items.add(TenantBookingItem(
-        //   '1',
-        //   'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
-        //   'Green living space in Melbourne',
-        //   PropertyTypes.apartment,
-        //   4800,
-        //   Currency.aud,
-        //   'pw',
-        //   AustraliaStates.vic,
-        //   '09:00 AM - 10:00 AM - 15 Sep, 2023',
-        //   'Yolo Tim',
-        //   null,
-        // ));
-        // items.add(TenantBookingItem(
-        //   '2',
-        //   'https://exej2saedb8.exactdn.com/wp-content/uploads/2022/02/Screen-Shot-2022-02-04-at-2.28.40-PM.png?strip=all&lossy=1&ssl=1',
-        //   'Black and white apartment in Sydney',
-        //   PropertyTypes.apartment,
-        //   8500,
-        //   Currency.aud,
-        //   'pw',
-        //   AustraliaStates.nsw,
-        //   '14:00 PM - 15:00 PM - 16 Sep, 2023',
-        //   'Cyber James',
-        //   null,
-        // ));
-        // items.add(TenantBookingItem(
-        //   '3',
-        //   'https://cdn-bnokp.nitrocdn.com/QNoeDwCprhACHQcnEmHgXDhDpbEOlRHH/assets/images/optimized/rev-a642abc/www.decorilla.com/online-decorating/wp-content/uploads/2020/08/Modern-Apartment-Decor-.jpg',
-        //   'Fully-furnished house in Rouse Hill',
-        //   PropertyTypes.house,
-        //   1000,
-        //   Currency.aud,
-        //   'pw',
-        //   AustraliaStates.vic,
-        //   '18:00 PM - 19:00 PM - 18 Sep, 2023',
-        //   'Maggie Bean',
-        //   null,
-        // ));
+        // tenant role only
+        // Get inspection list
+        items.add(NumberOfInspectionItem(inspectionIdList.length));
+        int count = 0;
+        for (String inspectionId in inspectionIdList) {
+          final Inspection? inspection =
+              await _storageService.inspection.getInspectionById(inspectionId);
+          if (inspection != null) {
+            final Property? property = await _storageService.property
+                .getProperty(inspection.propertyId);
+            final UserDetail? userDetail =
+                await _storageService.member.getUserDetail(property!.ownerUid);
+            TenantBookingItem bookingItem = TenantBookingItem(
+                inspectionId,
+                property.photos[0],
+                property.name,
+                property.type,
+                property.price.rentPrice,
+                property.price.currency,
+                'pw',
+                property.address.state,
+                inspection.getRentingTime(),
+                userDetail!.displayName,
+                inspection.status,
+                userDetail.avatar);
+            items.add(bookingItem);
+            count++;
+            if (count == thresholdValue) {
+              emit(InspectionLoaded(List.from(items)));
+              count = 0;
+            }
+          }
+        }
       }
       // Check if items only have header
-      if (items.length == 1) {
+      if (inspectionIdList.isEmpty) {
         emit(NoBookedInspection());
       } else {
-        emit(InspectionLoaded(items));
+        emit(InspectionLoaded(List.from(items)));
       }
     } catch (e) {
       emit(GetUserRolesFailed());

@@ -10,9 +10,9 @@ class MemberService {
   final String propertiesKey = 'properties';
   final String avatarKey = 'avatar';
   final String phoneNumberKey = 'phone';
+  final String inspectionListKey = 'inspectionList';
 
   MemberService(FirebaseFirestore firestore) : _firestore = firestore;
-
   Future<List<Roles>> getUserRoles(String uid) async {
     DocumentSnapshot<Map<String, dynamic>> rolesRef = await _firestore
         .collection(memberCollection)
@@ -225,5 +225,33 @@ class MemberService {
         uid: userId,
         displayName: data[displayNameKey],
         avatar: data[avatarKey]);
+  }
+
+  Future<List<String>> getInspectionList(String uid) async {
+    DocumentSnapshot<Map<String, dynamic>> rolesRef = await _firestore
+        .collection(memberCollection)
+        .doc(uid)
+        .get(const GetOptions(source: Source.server));
+
+    if (!rolesRef.exists) {
+      return [];
+    }
+
+    final Map<String, dynamic>? data = rolesRef.data();
+    if (data == null) {
+      return [];
+    }
+
+    if (data[inspectionListKey] == null) {
+      return [];
+    }
+
+    try {
+      List<String> inspectionList =
+          (data[inspectionListKey] as List).map((e) => e.toString()).toList();
+      return inspectionList;
+    } catch (e) {
+      return [];
+    }
   }
 }
