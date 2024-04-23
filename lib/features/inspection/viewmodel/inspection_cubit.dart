@@ -49,21 +49,16 @@ class InspectionCubit extends Cubit<InspectionState> {
       } else {
         // tenant role only
         // Get inspection list
-        Inspection? inspection;
-        Property? property;
-        UserDetail? userDetail;
         items.add(NumberOfInspectionItem(inspectionIdList.length));
         int count = 0;
         for (String inspectionId in inspectionIdList) {
-          inspection =
+          final Inspection? inspection =
               await _storageService.inspection.getInspectionById(inspectionId);
           if (inspection != null) {
-            property = await _storageService.property
+            final Property? property = await _storageService.property
                 .getProperty(inspection.propertyId);
-            userDetail =
+            final UserDetail? userDetail =
                 await _storageService.member.getUserDetail(property!.ownerUid);
-          }
-          if (property != null) {
             TenantBookingItem bookingItem = TenantBookingItem(
                 inspectionId,
                 property.photos[0],
@@ -73,7 +68,7 @@ class InspectionCubit extends Cubit<InspectionState> {
                 property.price.currency,
                 'pw',
                 property.address.state,
-                inspection!.getRentingTime(),
+                inspection.getRentingTime(),
                 userDetail!.displayName,
                 inspection.status,
                 userDetail.avatar);
