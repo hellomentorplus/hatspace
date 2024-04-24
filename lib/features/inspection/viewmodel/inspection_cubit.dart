@@ -106,11 +106,11 @@ class InspectionCubit extends Cubit<InspectionState> {
 
   void getInspection(String inspectionId) async {
     try {
-      Inspection? inspection =
+      final Inspection? inspection =
           await _storageService.inspection.getInspectionById(inspectionId);
-      Property? property =
+      final Property? property =
           await _storageService.property.getProperty(inspection!.propertyId);
-      UserDetail? user =
+      final UserDetail? user =
           await _storageService.member.getUserDetail(property!.ownerUid);
       emit(InspectionItem(inspection, property, user!));
     } catch (e) {

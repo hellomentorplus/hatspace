@@ -264,7 +264,6 @@ void main() {
         'inspectionList': FieldValue.arrayUnion(['id'])
       })).called(1);
     });
-
     test('verify getUserDetailById api', () async {
       when(documentSnapshot.exists).thenReturn(true);
       when(documentSnapshot.data()).thenAnswer((realInvocation) => {

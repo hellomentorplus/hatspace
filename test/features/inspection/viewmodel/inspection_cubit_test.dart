@@ -150,7 +150,6 @@ void main() {
       },
       act: (bloc) => bloc.getInspection('iId'),
       expect: () => [isA<InspectionItem>()]);
-
   blocTest<InspectionCubit, InspectionState>(
       'given authentication service can get user detail. '
       'when get user role from Authentication service. '

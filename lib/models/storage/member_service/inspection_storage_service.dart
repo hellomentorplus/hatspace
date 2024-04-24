@@ -26,16 +26,8 @@ class InpsectionService {
     // When data is not exits
     if (data == null) {
       return null;
-    } else {
-      Inspection inspection = Inspection(
-          inspectionId: inspectionId,
-          propertyId: data['propertyId'],
-          startTime: (data['startTime'] as Timestamp).toDate(),
-          status: InspectionStatus.fromName(data['inspectionStatus']),
-          message: data['message'],
-          endTime: (data['endTime'] as Timestamp).toDate(),
-          createdBy: data['createdBy']);
-      return inspection;
-    }
+    } 
+    final Inspection inspection = Inspection.convertToObject(data);
+    return inspection;
   }
 }

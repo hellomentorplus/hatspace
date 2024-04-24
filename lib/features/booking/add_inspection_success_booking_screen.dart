@@ -20,14 +20,14 @@ class AddInspectionSuccessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => InspectionCubit()..getInspection(inspectionId),
-      child: AddInspectionSuccessBody(inspecitonId: inspectionId),
+      child: AddInspectionSuccessBody(inspectionId: inspectionId),
     );
   }
 }
 
 class AddInspectionSuccessBody extends StatelessWidget {
-  final String inspecitonId;
-  const AddInspectionSuccessBody({required this.inspecitonId, super.key});
+  final String inspectionId;
+  const AddInspectionSuccessBody({required this.inspectionId, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +164,7 @@ class AddInspectionSuccessBody extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                             color: HSColor.neutral5)),
                     const SizedBox(height: HsDimens.spacing4),
-                    Text(state.inspection.message)
+                    Text(state.inspection.message ?? '')
                   ],
                 ),
               ),
