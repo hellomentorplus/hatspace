@@ -1,3 +1,4 @@
+import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/data/property_data.dart';
 
 abstract class DisplayItem {
@@ -30,6 +31,7 @@ class TenantBookingItem extends DisplayItem {
   final String timeBooking; // todo: need to update after demo
   final String? ownerName;
   final String? ownerAvatar;
+  final InspectionStatus inspectionStatus;
 
   TenantBookingItem(
       this.id,
@@ -42,6 +44,7 @@ class TenantBookingItem extends DisplayItem {
       this.state,
       this.timeBooking,
       this.ownerName,
+      this.inspectionStatus,
       this.ownerAvatar)
       : super(ViewType.tenantBooking.index);
 }

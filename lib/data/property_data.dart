@@ -29,6 +29,7 @@ class PropKeys {
   static const country = 'country';
   static const availableDate = 'availableDate';
   static const owner = 'owner';
+  static const inspectionList = 'inspectionList';
 }
 
 enum PropertyTypes {
@@ -211,6 +212,7 @@ class Property {
   final Timestamp createdTime;
   final Timestamp availableDate;
   final String ownerUid;
+  final List<String> inspectionList;
   Property({
     required this.type,
     required this.name,
@@ -223,11 +225,13 @@ class Property {
     required this.location,
     required this.availableDate,
     required this.ownerUid,
+    List<String>? inspectionList,
     this.id,
     CountryCode? country,
     Timestamp? createdTime,
   })  : country = country ?? CountryCode.au,
-        createdTime = createdTime ?? Timestamp.now();
+        createdTime = createdTime ?? Timestamp.now(),
+        inspectionList = inspectionList ?? const [];
   // convertObjectToMap is used to upload Map type to firestore
   Map<String, dynamic> convertObjectToMap() {
     Map<String, dynamic> mapProp = {
@@ -254,12 +258,17 @@ class Property {
       'filter_by_postcode': address.postcode,
       'filter_by_surbub': address.suburb,
       'filter_by_state': address.state.name,
-      PropKeys.owner: ownerUid
+      PropKeys.owner: ownerUid,
+      PropKeys.inspectionList: inspectionList
     };
     return mapProp;
   }
 
   static Property convertMapToObject(String id, Map<String, dynamic> map) {
+    List<String> inspectionList = [];
+    if (map[PropKeys.inspectionList] != null) {
+      inspectionList = List<String>.from(map[PropKeys.inspectionList]);
+    }
     return Property(
         id: id,
         type: PropertyTypes.fromName(map[PropKeys.type]),
@@ -276,7 +285,8 @@ class Property {
         location: map[PropKeys.location],
         createdTime: map[PropKeys.createdAt],
         availableDate: map[PropKeys.availableDate],
-        ownerUid: map[PropKeys.owner]);
+        ownerUid: map[PropKeys.owner],
+        inspectionList: inspectionList);
   }
 }
 

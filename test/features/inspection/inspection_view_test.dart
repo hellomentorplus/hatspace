@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatspace/data/data.dart';
+import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/data/property_data.dart';
 import 'package:hatspace/features/inspection/inspection_view.dart';
 import 'package:hatspace/features/inspection/viewmodel/display_item.dart';
@@ -8,6 +10,7 @@ import 'package:hatspace/features/inspection/viewmodel/inspection_cubit.dart';
 import 'package:hatspace/gen/assets.gen.dart';
 import 'package:hatspace/models/authentication/authentication_service.dart';
 import 'package:hatspace/models/storage/member_service/member_storage_service.dart';
+import 'package:hatspace/models/storage/member_service/property_storage_service.dart';
 import 'package:hatspace/models/storage/storage_service.dart';
 import 'package:hatspace/singleton/hs_singleton.dart';
 import 'package:hatspace/strings/l10n.dart';
@@ -25,6 +28,7 @@ import 'inspection_view_test.mocks.dart';
   AuthenticationService,
   StorageService,
   MemberService,
+  PropertyService
 ])
 void main() {
   final MockAuthenticationService authenticationService =
@@ -32,7 +36,7 @@ void main() {
   final MockStorageService storageService = MockStorageService();
   final MockInspectionCubit inspectionCubit = MockInspectionCubit();
   final MockMemberService memberService = MockMemberService();
-
+  final MockPropertyService propertyService = MockPropertyService();
   setUpAll(() {
     HsSingleton.singleton.registerSingleton<StorageService>(storageService);
     HsSingleton.singleton
@@ -43,6 +47,7 @@ void main() {
 
   setUp(() {
     when(storageService.member).thenReturn(memberService);
+    when(storageService.property).thenReturn(propertyService);
     when(inspectionCubit.state).thenReturn(InspectionInitial());
     when(inspectionCubit.stream).thenAnswer(
       (realInvocation) => const Stream.empty(),
@@ -100,51 +105,61 @@ void main() {
   //   // skip check dummy data, will update when getting real data
   // });
 
-  // TODO: Remove comment when implement business logic of getting propertyList
-  // testWidgets(
-  //     'given items is HomeOwner, when launching, then show HomeOwnerView',
-  //     (widgetTester) async {
-  //   List<DisplayItem> items = [Header()];
-  //   items.add(HomeOwnerBookingItem(
-  //     '1',
-  //     'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
-  //     'Green living space in Melbourne',
-  //     PropertyTypes.apartment,
-  //     4800,
-  //     Currency.aud,
-  //     'pw',
-  //     AustraliaStates.vic,
-  //     2,
-  //   ));
-  //   when(inspectionCubit.state).thenReturn(InspectionLoaded(items));
-  //   when(memberService.getUserRoles('uid'))
-  //       .thenAnswer((_) => Future.value([Roles.homeowner]));
-  //   await mockNetworkImagesFor(() =>
-  //       widgetTester.blocWrapAndPump<InspectionCubit>(
-  //           inspectionCubit, const InspectionView()));
+  testWidgets(
+      'given items is HomeOwner, when launching, then show HomeOwnerView',
+      (widgetTester) async {
+    when(memberService.getUserRoles('uid'))
+        .thenAnswer((_) => Future.value([Roles.homeowner]));
+    when(memberService.getInspectionList('uid'))
+        .thenAnswer((_) => Future.value(['iId1']));
+    when(memberService.getMemberProperties('uid'))
+        .thenAnswer((_) => Future.value(['pId1']));
+    when(propertyService.getProperty('pId1')).thenAnswer((_) => Future.value(
+        Property(
+            id: 'pId1',
+            type: PropertyTypes.house,
+            name: 'mock name',
+            price: Price(currency: Currency.aud, rentPrice: 1000),
+            description: 'mock description',
+            address: const AddressDetail(
+                streetName: 'streetName',
+                streetNo: 'streetNo',
+                postcode: '3172',
+                suburb: 'suburb',
+                state: AustraliaStates.act),
+            additionalDetail: const AdditionalDetail(),
+            photos: ['photo1'],
+            minimumRentPeriod: MinimumRentPeriod.eighteenMonths,
+            location: const GeoPoint(90.0, 90.0),
+            availableDate: Timestamp.now(),
+            ownerUid: 'oid')));
 
-  //   expect(find.text('Inspection Booking'), findsOneWidget);
-  //   expect(find.byType(TenantBookItemView), findsNothing);
-  //   expect(find.byType(HomeOwnerBookItemView), findsOneWidget);
-  //   // skip check dummy data, will update when getting real data
-  // });
+    await mockNetworkImagesFor(() =>
+        widgetTester.blocWrapAndPump<InspectionCubit>(
+            inspectionCubit, const InspectionView()));
+
+    expect(find.text('Inspection Booking'), findsOneWidget);
+    expect(find.byType(TenantBookItemView), findsNothing);
+    expect(find.byType(HomeOwnerBookItemView), findsOneWidget);
+    // skip check dummy data, will update when getting real data
+  });
 
   testWidgets('verify tenant booking item tap', (widgetTester) async {
     List<DisplayItem> items = [Header()];
     items.add(NumberOfInspectionItem(1));
     items.add(TenantBookingItem(
-      '1',
-      'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
-      'Green living space in Melbourne',
-      PropertyTypes.apartment,
-      4800,
-      Currency.aud,
-      'pw',
-      AustraliaStates.vic,
-      '09:00 AM - 10:00 AM - 15 Sep, 2023',
-      'Yolo Tim',
-      null,
-    ));
+        '1',
+        'https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
+        'Green living space in Melbourne',
+        PropertyTypes.apartment,
+        4800,
+        Currency.aud,
+        'pw',
+        AustraliaStates.vic,
+        '09:00 AM - 10:00 AM - 15 Sep, 2023',
+        'Yolo Tim',
+        InspectionStatus.confirming,
+        'avatar'));
     when(inspectionCubit.state).thenReturn(InspectionLoaded(items));
     when(memberService.getUserRoles('uid'))
         .thenAnswer((_) => Future.value([Roles.tenant]));
@@ -210,6 +225,8 @@ void main() {
 
     when(memberService.getUserRoles('uid'))
         .thenAnswer((_) => Future.value([Roles.homeowner, Roles.tenant]));
+    when(memberService.getInspectionList('uid'))
+        .thenAnswer((_) => Future.value([]));
 
     await mockNetworkImagesFor(() =>
         widgetTester.blocWrapAndPump<InspectionCubit>(

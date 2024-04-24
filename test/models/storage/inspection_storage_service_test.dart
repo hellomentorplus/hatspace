@@ -47,6 +47,7 @@ void main() {
     verify(collectionReference.doc()).called(1);
     verify(documentReference.set(mockInspection.convertToMap(), any)).called(1);
   });
+
   test('verify when get inspection has data', () async {
     StorageService storageService = StorageService();
     when(documentSnapshot.exists).thenAnswer((realInvocation) => true);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hatspace/data/inspection.dart';
 import 'package:hatspace/dimens/hs_dimens.dart';
 import 'package:hatspace/route/router.dart';
 import 'package:hatspace/features/inspection/viewmodel/display_item.dart';
@@ -71,6 +72,7 @@ class InspectionBody extends StatelessWidget {
                           state: item.state,
                           timeBooking: item.timeBooking,
                           ownerName: item.ownerName,
+                          inspectionStatus: item.inspectionStatus,
                           ownerAvatar: item.ownerAvatar,
                         ),
                       );
@@ -137,6 +139,7 @@ class InspectionBody extends StatelessWidget {
 class TenantBookItemView extends StatelessWidget {
   final String propertyImage;
   final String propertyName;
+  final InspectionStatus inspectionStatus;
   final PropertyTypes propertyType;
   final double price;
   final Currency currency;
@@ -155,6 +158,7 @@ class TenantBookItemView extends StatelessWidget {
     required this.timeRenting,
     required this.state,
     required this.timeBooking,
+    required this.inspectionStatus,
     this.ownerName,
     this.ownerAvatar,
     super.key,
@@ -192,14 +196,23 @@ class TenantBookItemView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          propertyType.displayName,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                  color: Theme.of(context).colorScheme.primary),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              propertyType.displayName,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
+                            ),
+                            _InspectionStatus(
+                                inspectionStatus: inspectionStatus)
+                          ],
                         ),
                         const SizedBox(
                           height: HsDimens.spacing5,
@@ -474,5 +487,45 @@ class _NumberOfInspectionView extends StatelessWidget {
         Text(HatSpaceStrings.current.numberOfBooking(number)),
       ],
     );
+  }
+}
+
+class _InspectionStatus extends StatelessWidget {
+  final InspectionStatus inspectionStatus;
+
+  const _InspectionStatus({required this.inspectionStatus});
+
+  @override
+  Widget build(BuildContext context) {
+    final Color titleColor;
+    final Color backgroundColor;
+    switch (inspectionStatus) {
+      case InspectionStatus.confirmed:
+        titleColor = HSColor.primary;
+        backgroundColor = HSColor.green01;
+        break;
+      case InspectionStatus.confirming:
+        titleColor = HSColor.orange05;
+        backgroundColor = HSColor.confirmingStatus;
+        break;
+      case InspectionStatus.denied:
+        titleColor = HSColor.red05;
+        backgroundColor = HSColor.red01;
+        break;
+      default:
+        titleColor = HSColor.black;
+        backgroundColor = HSColor.black;
+    }
+    return Container(
+        padding: const EdgeInsets.symmetric(
+            horizontal: HsDimens.spacing15, vertical: HsDimens.spacing5),
+        decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(HsDimens.radius24)),
+        child: Text(
+          '${inspectionStatus.name[0].toUpperCase()}${inspectionStatus.name.substring(1)}',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontWeight: FontStyleGuide.fwSemibold, color: titleColor),
+        ));
   }
 }
