@@ -26,7 +26,7 @@ class InpsectionService {
     // When data is not exits
     if (data == null) {
       return null;
-    } 
+    }
     final Inspection inspection = Inspection.convertToObject(data);
     return inspection;
   }

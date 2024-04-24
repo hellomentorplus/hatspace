@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-
 enum InspectionStatus {
   confirming,
   denied,
@@ -51,8 +50,6 @@ class Inspection {
       'createdBy': createdBy
     };
   }
-
-
 
   String getRentingTime() {
     //   '09:00 AM - 10:00 AM - 15 Sep, 2023',
